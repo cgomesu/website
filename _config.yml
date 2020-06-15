@@ -94,7 +94,7 @@ analytics:
 # Site Author
 author:
   name             : "Carlos Gomes"
-  avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  avatar           : /assets/img/profile/avatar.gif # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "Scientist, psychologist, math modeller (stochastic processes), mtg player, free knowledge supporter, sbc fanatic, and electronics hobbyist"
   location         : "Brazil"
   email            : "me@cgomesu.com"
