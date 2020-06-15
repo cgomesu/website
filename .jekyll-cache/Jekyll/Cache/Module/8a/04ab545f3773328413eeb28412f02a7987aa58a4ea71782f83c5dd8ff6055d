@@ -1,4 +1,4 @@
-I"V
+I"€
 
 <div class="masthead">
   <div class="masthead__inner-wrap">
@@ -6,8 +6,8 @@
       <nav id="site-nav" class="greedy-nav">
         
         <a class="site-title" href="/website/">
-          The CGomesu website
-          
+          CGomesu website
+          <span class="site-subtitle">Version 1.0</span>
         </a>
         <ul class="visible-links"><li class="masthead__menu-item">
               <a href="/website/">Blog</a>

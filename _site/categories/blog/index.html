@@ -9,29 +9,27 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>First Post - The CGomesu website</title>
-<meta name="description" content="Content here!">
+<!-- begin _includes/seo.html --><title>blog - CGomesu</title>
+<meta name="description" content="A blog and portfolio website powered by Jekyll and hosted on Github">
 
 
   <meta name="author" content="Carlos Gomes">
 
 
-<meta property="og:type" content="article">
+<meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
-<meta property="og:site_name" content="The CGomesu website">
-<meta property="og:title" content="First Post">
-<meta property="og:url" content="http://localhost:4000/website/First-post/">
+<meta property="og:site_name" content="CGomesu">
+<meta property="og:title" content="blog">
+<meta property="og:url" content="http://localhost:4000/website/categories/blog/">
 
 
-  <meta property="og:description" content="Content here!">
-
-
-
+  <meta property="og:description" content="A blog and portfolio website powered by Jekyll and hosted on Github">
 
 
 
 
-  <meta property="article:published_time" content="2020-06-15T00:00:00+00:00">
+
+
 
 
 
@@ -42,7 +40,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/website/First-post/">
+<link rel="canonical" href="http://localhost:4000/website/categories/blog/">
 
 
 
@@ -52,7 +50,7 @@
     "@context": "https://schema.org",
     
       "@type": "Person",
-      "name": "Carlos Gomes",
+      "name": "Carlos FA Gomes",
       "url": "http://localhost:4000/website/"
     
   }
@@ -66,7 +64,7 @@
 <!-- end _includes/seo.html -->
 
 
-<link href="/website/feed.xml" type="application/atom+xml" rel="alternate" title="The CGomesu website Feed">
+<link href="/website/feed.xml" type="application/atom+xml" rel="alternate" title="CGomesu Feed">
 
 <!-- https://t.co/dKP3o1e -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -103,7 +101,7 @@
 
   </head>
 
-  <body class="layout--single">
+  <body class="layout--archive-taxonomy">
     <nav class="skip-links">
   <h2 class="screen-reader-text">Skip links</h2>
   <ul>
@@ -125,8 +123,8 @@
       <nav id="site-nav" class="greedy-nav">
         
         <a class="site-title" href="/website/">
-          The CGomesu website
-          
+          CGomesu website
+          <span class="site-subtitle">Version 1.0</span>
         </a>
         <ul class="visible-links"><li class="masthead__menu-item">
               <a href="/website/">Blog</a>
@@ -174,25 +172,33 @@
     
     
       <div class="author__bio" itemprop="description">
-        <p>Scientist, psychologist, math modeller (stochastic processes), mtg player, free knowledge supporter, sbc fanatic, and electronics hobbyist</p>
+        <p>I’m a scientist, psychologist, math modeller (stochastic processes), programmer, mtg player, free knowledge supporter, sbc fanatic, and electronics hobbyist.</p>
 
       </div>
     
   </div>
 
   <div class="author__urls-wrapper">
-    <button class="btn btn--inverse">Follow</button>
+    <button class="btn btn--inverse">Follow me on</button>
     <ul class="author__urls social-icons">
       
         <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
-          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Brazil</span>
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">South America, Brazil</span>
         </li>
       
 
       
         
           
+            <li><a href="mailto:me@cgomesu.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Main E-mail</span></a></li>
+          
         
+          
+            <li><a href="mailto:cf365@cornell.edu" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Academic E-mail</span></a></li>
+          
+        
+          
+            <li><a href="https://www.cgomesu.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">Website</span></a></li>
           
         
           
@@ -207,13 +213,6 @@
 
       
 
-      
-        <li>
-          <a href="mailto:me@cgomesu.com">
-            <meta itemprop="email" content="me@cgomesu.com" />
-            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span>
-          </a>
-        </li>
       
 
       
@@ -276,19 +275,26 @@
 
 
 
-  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="First Post">
-    <meta itemprop="description" content="Content here!">
-    <meta itemprop="datePublished" content="2020-06-15T00:00:00+00:00">
+  <div class="archive">
     
-
-    <div class="page__inner-wrap">
+      <h1 id="page-title" class="page__title">blog</h1>
+    
+    
       
-        <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">First Post
-</h1>
-          
-            <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/website/blog/Second-post/" rel="permalink">Second post
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
 
 
 
@@ -296,60 +302,43 @@
   less than 1 minute read
 
 </p>
-          
-        </header>
-      
-
-      <section class="page__content" itemprop="text">
-        
-        <p>Content here!</p>
-
-<p><img src="/website/assets/img/posts/nanopim4.jpg" alt="NanoPi M4" /></p>
-
-        
-      </section>
-
-      <footer class="page__meta">
-        
-        
-
-
-        
-  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2020-06-15T00:00:00+00:00">June 15, 2020</time></p>
-
-
-      </footer>
-
-      <section class="page__share">
-  
-    <h4 class="page__share-title">Share on</h4>
-  
-
-  <a href="https://twitter.com/intent/tweet?text=First+Post%20http%3A%2F%2Flocalhost%3A4000%2Fwebsite%2FFirst-post%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
-
-  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fwebsite%2FFirst-post%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
-
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fwebsite%2FFirst-post%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
-</section>
-
-
-      
-    </div>
+    
+    <p class="archive__item-excerpt" itemprop="description">New post here
+</p>
+  </article>
+</div>
 
     
-  </article>
+      
 
-  
-  
-    <div class="page__related">
-      <h4 class="page__related-title">You may also enjoy</h4>
-      <div class="grid__wrapper">
-        
-          
-            
-      </div>
-    </div>
-  
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/website/blog/First-post/" rel="permalink">First Post
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Content here!
+</p>
+  </article>
+</div>
+
+    
+  </div>
 </div>
 
     </div>
@@ -364,7 +353,7 @@
         <div class="page__footer-follow">
   <ul class="social-icons">
     
-      <li><strong>Follow:</strong></li>
+      <li><strong>Follow me on:</strong></li>
     
 
     
@@ -383,13 +372,17 @@
       
         
       
+        
+          <li><a href="https://www.reddit.com/user/cgomesu/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i> Reddit</a></li>
+        
+      
     
 
-    <li><a href="/website/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    <li><a href="/website/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> RSS feed</a></li>
   </ul>
 </div>
 
-<div class="page__footer-copyright">&copy; 2020 Carlos Gomes. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+<div class="page__footer-copyright">&copy; 2020 Carlos FA Gomes. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
 
       </footer>
     </div>

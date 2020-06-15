@@ -1,0 +1,7 @@
+I"�<p>var idx = lunr(function () {
+  this.field(‘title’)
+  this.field(‘excerpt’)
+  this.field(‘categories’)
+  this.field(‘tags’)
+  this.ref(‘id’)</p>
+:ET

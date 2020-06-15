@@ -16,18 +16,18 @@ minimal_mistakes_skin    : "dark" # "default", air", "aqua", "contrast", "dark",
 
 # Site Settings
 locale                   : "en-US"
-title                    : "The CGomesu website"
+title                    : "CGomesu"
 title_separator          : "-"
-subtitle                 : # site tagline that appears below site title in masthead
-name                     : "Carlos Gomes"
-description              : ""
+subtitle                 : "Version 1.0" # site tagline that appears below site title in masthead
+name                     : "Carlos FA Gomes"
+description              : "A blog and portfolio website powered by Jekyll and hosted on Github"
 url                      : # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : /website # the subpath of your site, e.g. "/blog"
-repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
+repository               : "cgomesu/website" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 logo                     : # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
-masthead_title           : # overrides the website title displayed in the masthead, use " " for no title
-# breadcrumbs            : false # true, false (default)
+masthead_title           : "CGomesu website" # overrides the website title displayed in the masthead, use " " for no title
+breadcrumbs              : false # true, false (default)
 words_per_minute         : 200
 comments:
   provider               : # false (default), "disqus", "discourse", "facebook", "staticman", "staticman_v2", "utterances", "custom"
@@ -95,16 +95,19 @@ analytics:
 author:
   name             : "Carlos Gomes"
   avatar           : /assets/img/profile/avatar.gif # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "Scientist, psychologist, math modeller (stochastic processes), mtg player, free knowledge supporter, sbc fanatic, and electronics hobbyist"
-  location         : "Brazil"
-  email            : "me@cgomesu.com"
+  bio              : "I'm a scientist, psychologist, math modeller (stochastic processes), programmer, mtg player, free knowledge supporter, sbc fanatic, and electronics hobbyist."
+  location         : "South America, Brazil"
+  email            : 
   links:
-    - label: "Email"
+    - label: "Main E-mail"
       icon: "fas fa-fw fa-envelope-square"
-      # url: "mailto:your.name@email.com"
+      url: "mailto:me@cgomesu.com"
+    - label: "Academic E-mail"
+      icon: "fas fa-fw fa-envelope-square"
+      url: "mailto:cf365@cornell.edu"
     - label: "Website"
       icon: "fas fa-fw fa-link"
-      # url: "https://your-website.com"
+      url: "https://www.cgomesu.com"
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
       # url: "https://twitter.com/"
@@ -113,7 +116,7 @@ author:
       # url: "https://facebook.com/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      # url: "https://github.com/"
+      # url: "https://github.com/cgomesu/"
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
       # url: "https://instagram.com/"
@@ -139,6 +142,9 @@ footer:
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
       # url:
+    - label: "Reddit"
+      icon: "fab fa-fw fa-reddit"
+      url: "https://www.reddit.com/user/cgomesu/"
 
 
 # Reading Files
@@ -207,9 +213,9 @@ sass:
 
 # Outputting
 permalink: /:categories/:title/
-paginate: 5 # amount of posts to show
+paginate: 10 # amount of posts to show
 paginate_path: /page:num/
-timezone: -0300 # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+timezone: America/Sao_Paulo # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
 
 # Plugins (previously gems:)
@@ -219,6 +225,7 @@ plugins:
   - jekyll-gist
   - jekyll-feed
   - jekyll-include-cache
+  - jekyll-archives
 
 # mimic GitHub Pages with --safe
 whitelist:
@@ -245,18 +252,16 @@ category_archive:
 tag_archive:
   type: liquid
   path: /tags/
-# https://github.com/jekyll/jekyll-archives
-# jekyll-archives:
-#   enabled:
-#     - categories
-#     - tags
-#   layouts:
-#     category: archive-taxonomy
-#     tag: archive-taxonomy
-#   permalinks:
-#     category: /categories/:name/
-#     tag: /tags/:name/
-
+jekyll-archives:
+  enabled:
+    - categories
+    - tags
+  layouts:
+    category: archive-taxonomy
+    tag: archive-taxonomy
+  permalinks:
+    category: /categories/:name/
+    tag: /tags/:name/
 
 # HTML Compression
 # - https://jch.penibelst.de/
@@ -276,6 +281,25 @@ defaults:
       layout: single
       author_profile: true
       read_time: true
-      comments: # true
+      comments: true
       share: true
       related: true
+      categories: blog
+  # _pages
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: single
+  # _categories
+  - scope:
+      path: ""
+      type: category
+    values:
+      author_profile: true
+  # _tags
+  - scope:
+      path: ""
+      type: tag
+    values:
+      author_profile: true
