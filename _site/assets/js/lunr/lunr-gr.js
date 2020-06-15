@@ -13,7 +13,7 @@
 <meta name="description" content="step1list = new Array(); step1list[“ΦΑΓΙΑ”] = “ΦΑ”; step1list[“ΦΑΓΙΟΥ”] = “ΦΑ”; step1list[“ΦΑΓΙΩΝ”] = “ΦΑ”; step1list[“ΣΚΑΓΙΑ”] = “ΣΚΑ”; step1list[“ΣΚΑΓΙΟΥ”] = “ΣΚΑ”; step1list[“ΣΚΑΓΙΩΝ”] = “ΣΚΑ”; step1list[“ΟΛΟΓΙΟΥ”] = “ΟΛΟ”; step1list[“ΟΛΟΓΙΑ”] = “ΟΛΟ”; step1list[“ΟΛΟΓΙΩΝ”] = “ΟΛΟ”; step1list[“ΣΟΓΙΟΥ”] = “ΣΟ”; step1list[“ΣΟΓΙΑ”] = “ΣΟ”; step1list[“ΣΟΓΙΩΝ”] = “ΣΟ”; step1list[“ΤΑΤΟΓΙΑ”] = “ΤΑΤΟ”; step1list[“ΤΑΤΟΓΙΟΥ”] = “ΤΑΤΟ”; step1list[“ΤΑΤΟΓΙΩΝ”] = “ΤΑΤΟ”; step1list[“ΚΡΕΑΣ”] = “ΚΡΕ”; step1list[“ΚΡΕΑΤΟΣ”] = “ΚΡΕ”; step1list[“ΚΡΕΑΤΑ”] = “ΚΡΕ”; step1list[“ΚΡΕΑΤΩΝ”] = “ΚΡΕ”; step1list[“ΠΕΡΑΣ”] = “ΠΕΡ”; step1list[“ΠΕΡΑΤΟΣ”] = “ΠΕΡ”; step1list[“ΠΕΡΑΤΑ”] = “ΠΕΡ”; step1list[“ΠΕΡΑΤΩΝ”] = “ΠΕΡ”; step1list[“ΤΕΡΑΣ”] = “ΤΕΡ”; step1list[“ΤΕΡΑΤΟΣ”] = “ΤΕΡ”; step1list[“ΤΕΡΑΤΑ”] = “ΤΕΡ”; step1list[“ΤΕΡΑΤΩΝ”] = “ΤΕΡ”; step1list[“ΦΩΣ”] = “ΦΩ”; step1list[“ΦΩΤΟΣ”] = “ΦΩ”; step1list[“ΦΩΤΑ”] = “ΦΩ”; step1list[“ΦΩΤΩΝ”] = “ΦΩ”; step1list[“ΚΑΘΕΣΤΩΣ”] = “ΚΑΘΕΣΤ”; step1list[“ΚΑΘΕΣΤΩΤΟΣ”] = “ΚΑΘΕΣΤ”; step1list[“ΚΑΘΕΣΤΩΤΑ”] = “ΚΑΘΕΣΤ”; step1list[“ΚΑΘΕΣΤΩΤΩΝ”] = “ΚΑΘΕΣΤ”; step1list[“ΓΕΓΟΝΟΣ”] = “ΓΕΓΟΝ”; step1list[“ΓΕΓΟΝΟΤΟΣ”] = “ΓΕΓΟΝ”; step1list[“ΓΕΓΟΝΟΤΑ”] = “ΓΕΓΟΝ”; step1list[“ΓΕΓΟΝΟΤΩΝ”] = “ΓΕΓΟΝ”;">
 
 
-  <meta name="author" content="Carlos Gomes">
+  <meta name="author" content="Carlos F. A. Gomes">
 
 
 <meta property="og:type" content="website">

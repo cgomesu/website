@@ -13,7 +13,7 @@
 <meta name="description" content="var idx = lunr(function () {   this.field(‘title’)   this.field(‘excerpt’)   this.field(‘categories’)   this.field(‘tags’)   this.ref(‘id’)">
 
 
-  <meta name="author" content="Carlos Gomes">
+  <meta name="author" content="Carlos F. A. Gomes">
 
 
 <meta property="og:type" content="website">

@@ -93,9 +93,9 @@ analytics:
 
 # Site Author
 author:
-  name             : "Carlos Gomes"
+  name             : "Carlos F. A. Gomes"
   avatar           : /assets/img/profile/avatar.gif # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "I'm a scientist, psychologist, math modeller (stochastic processes), programmer, mtg player, free knowledge supporter, sbc fanatic, and electronics hobbyist."
+  bio              : "I'm a scientist, psychologist, math modeler (stochastic processes), programmer, mtg player, free knowledge supporter, sbc fanatic, and electronics hobbyist."
   location         : "South America, Brazil"
   email            : 
   links:
@@ -247,10 +247,10 @@ whitelist:
 #  - <base_path>/categories/my-awesome-category/index.html ~> path: /categories/
 #  - <base_path>/my-awesome-category/index.html ~> path: /
 category_archive:
-  type: liquid
+  type: jekyll-archives
   path: /categories/
 tag_archive:
-  type: liquid
+  type: jekyll-archives
   path: /tags/
 jekyll-archives:
   enabled:
