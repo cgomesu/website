@@ -18,15 +18,16 @@ minimal_mistakes_skin    : "dark" # "default", air", "aqua", "contrast", "dark",
 locale                   : "en-US"
 title                    : "CGomesu"
 title_separator          : "-"
-subtitle                 : "Version 1.0" # site tagline that appears below site title in masthead
-name                     : "Carlos FA Gomes"
+subtitle                 : # site tagline that appears below site title in masthead
+name                     : ""
 description              : "A blog and portfolio website powered by Jekyll and hosted on Github"
 url                      : # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : /website # the subpath of your site, e.g. "/blog"
 repository               : "cgomesu/website" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
-logo                     : # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
-masthead_title           : "CGomesu website" # overrides the website title displayed in the masthead, use " " for no title
+logo                     : /assets/img/site/logo.png # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
+favicon                  : /assets/img/site/favicon.ico # path to favicon
+masthead_title           : " " # overrides the website title displayed in the masthead, use " " for no title
 breadcrumbs              : false # true, false (default)
 words_per_minute         : 200
 comments:
@@ -93,7 +94,7 @@ analytics:
 
 # Site Author
 author:
-  name             : "Carlos F. A. Gomes"
+  name             : "Carlos Gomes"
   avatar           : /assets/img/profile/avatar.gif # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "I'm a scientist, psychologist, math modeler (stochastic processes), programmer, mtg player, free knowledge supporter, sbc fanatic, and electronics hobbyist."
   location         : "South America, Brazil"
@@ -107,7 +108,7 @@ author:
       url: "mailto:cf365@cornell.edu"
     - label: "Website"
       icon: "fas fa-fw fa-link"
-      url: "https://www.cgomesu.com"
+      # url: "https://www.cgomesu.com"
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
       # url: "https://twitter.com/"
@@ -149,7 +150,7 @@ footer:
 
 # Reading Files
 include:
-  - .htaccess
+  # - .htaccess
   - _pages
 exclude:
   - "*.sublime-project"
@@ -213,7 +214,7 @@ sass:
 
 # Outputting
 permalink: /:categories/:title/
-paginate: 10 # amount of posts to show
+paginate: 5 # amount of posts to show
 paginate_path: /page:num/
 timezone: America/Sao_Paulo # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
@@ -225,7 +226,7 @@ plugins:
   - jekyll-gist
   - jekyll-feed
   - jekyll-include-cache
-  - jekyll-archives
+  # - jekyll-archives
 
 # mimic GitHub Pages with --safe
 whitelist:
@@ -246,22 +247,22 @@ whitelist:
 #  - <base_path>/tags/my-awesome-tag/index.html ~> path: /tags/
 #  - <base_path>/categories/my-awesome-category/index.html ~> path: /categories/
 #  - <base_path>/my-awesome-category/index.html ~> path: /
-category_archive:
-  type: jekyll-archives
-  path: /categories/
-tag_archive:
-  type: jekyll-archives
-  path: /tags/
-jekyll-archives:
-  enabled:
-    - categories
-    - tags
-  layouts:
-    category: archive-taxonomy
-    tag: archive-taxonomy
-  permalinks:
-    category: /categories/:name/
-    tag: /tags/:name/
+# category_archive:
+#   type: jekyll-archives
+#   path: /categories/
+# tag_archive:
+#   type: jekyll-archives
+#   path: /tags/
+# jekyll-archives:
+#   enabled:
+#     - categories
+#     - tags
+#   layouts:
+#     category: archive-taxonomy
+#     tag: archive-taxonomy
+#   permalinks:
+#     category: /categories/:name/
+#     tag: /tags/:name/
 
 # HTML Compression
 # - https://jch.penibelst.de/
@@ -273,6 +274,12 @@ compress_html:
 
 # Defaults
 defaults:
+  # _categories
+  - scope:
+      path: ""
+      type: category
+    values:
+      author_profile: true
   # _posts
   - scope:
       path: ""
@@ -285,18 +292,6 @@ defaults:
       share: true
       related: true
       categories: blog
-  # _pages
-  - scope:
-      path: ""
-      type: pages
-    values:
-      layout: single
-  # _categories
-  - scope:
-      path: ""
-      type: category
-    values:
-      author_profile: true
   # _tags
   - scope:
       path: ""
