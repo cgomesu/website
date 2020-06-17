@@ -1,5 +1,5 @@
 ---
-title: The cgomesu Blog
+title: The CGomesu Blog
 layout: home
 author_profile: true
 permalink: /blog/
@@ -10,10 +10,10 @@ header:
   caption: "by [**Frank Frazetta**](https://en.wikipedia.org/wiki/Frank_Frazetta)"
   actions:
     - label: "Recent"
-      url: "/blog/#recent"
+      url: "/blog/"
     - label: "Archive"
       url: 
     - label: "Tags"
       url: 
-excerpt: "A blog with guides and random things related to my hobbies."
+excerpt: "A collection of posts with guides, tutorials, and random things related to my hobbies."
 ---
