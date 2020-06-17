@@ -7,5 +7,8 @@ header:
   overlay_filter: "0.5"
   overlay_image: /assets/img/site/banner-page-06.jpeg
   caption: "by [**Terese Nielsen**](https://en.wikipedia.org/wiki/Terese_Nielsen)"
+  actions:
+    - label: "Tappedout profile"
+      url: "https://tappedout.net/users/cgomes/"
 excerpt: "My decklists and primers."
 ---

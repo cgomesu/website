@@ -1,0 +1,755 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.19.3 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Securing access to backends with pfsense’s HAproxy package: A guide on how to create user lists and how to protect them with stick-tables using pfsense’s GUI - CGomesu</title>
+<meta name="description" content="Updated on May 1st 2020: This guide still works with pfsense version 2.4.5-RELEASE and the haproxy packaged version 0.60_4.  This is a rough guide on how to create and configure user lists and stick-tables using pfsense&#39;s HAproxy package to protect access to a backend and limit the number of failed login attempts.&nbsp; The guide is divided into two main sections.&nbsp; In the first one, we&#39;ll create a user list and add encrypted (SHA512) passwords for each of them.&nbsp; Then, in the second section, we&#39;ll create and configure stick-tables to limit the number of failed login attempts.  Now, it&#39;s fairly simple to accomplish all those things by manually changing HAproxy&#39;s config file (e.g., https://gist.github.com/Iristyle/5005653,&nbsp;https://www.haproxy.com/blog/introduction-to-haproxy-stick-tables/).&nbsp; However, I found it difficult to find any sort of documentation on how to accomplish the same thing using only pfsense&#39;s graphical user interface (GUI).&nbsp; The GUI makes it very easy to implement and configure the core aspects of HAproxy (e.g., reverse proxy and load balancing) but at the same time, it seems to lack support for other features, such as adding basic authentication requests and using stick-tables to mitigate attempts to brute-force users&#39; credentials.&nbsp; If that&#39;s what you&#39;d like to do, then read on.    The prerequisites are the following:  - you&#39;re running&nbsp;pfsense&nbsp;version&nbsp;2.4.4-RELEASE-p3&nbsp;or similar  - you&#39;ve installed the&nbsp;HAproxy&nbsp;package version&nbsp;0.59_19&nbsp;or similar  - you&#39;ve already added backends and frontends with HAproxy using subdomains (e.g.,&nbsp;https://blog.devita.co/pfsense-to-proxy-traffic-for-websites-using-pfsense/)   Recommended: - configure ACME SSL with HAproxy (e.g.,&nbsp;https://www.youtube.com/watch?v=5Frn96oADOU)  # Basic user authentication (Based on Joerg Hocwald&#39;s guide.) In HAproxy, it&#39;s pretty simple to create a user list with encrypted passwords.&nbsp; There is basically three steps involved: (a) user and password list creation, (b) adding those to the global settings, and (c) creating an access control list (ACL) and action for each backend.  1. Create a .txt file and write the following: userlist UserGroup group is-admin group is-user user example01&nbsp;password sha512-encrypted01&nbsp;groups is-admin user&nbsp;example02&nbsp;password&nbsp;sha512-encrypted02&nbsp;groups&nbsp;is-user  ...    The argument userlist defines the name of your user list, which in this case we&#39;re going to call UserGroup.&nbsp; Next, group defines the group that each user belongs to, which will be either a standard user (is-user) or admin (is-admin).&nbsp; (You don&#39;t need to define groups but it&#39;s a nice way of restricting access to critical services.) Below groups, we have the list of all users, their (SHA-512 encrypted) passwords and the group they belong to.&nbsp;&nbsp;You can add as many users as you want this way.        2. For each user, create a SHA-512 encrypted password.&nbsp; There are many ways of doing that.&nbsp; If you&#39;re running Debian (or any Linux distro), run apt install whois in a terminal window, which has the mkpasswd command that we&#39;re going to user, and then run each of the followin commands, changing&nbsp;sha512-encrypted01&nbsp;and&nbsp;sha512-encrypted02&nbsp;for the actual (insecure) password string of those respective users:  printf &quot;sha512-encrypted01&quot; | mkpasswd --stdin --method=sha-512   printf &quot;sha512-encrypted02&quot; | mkpasswd --stdin --method=sha-512  ...         3. Now copy each encrypted password and paste them over the respective&nbsp;sha512-encryptedXX&nbsp;string in the user list .txt file.     4. Go to pfsense&#39;s GUI and in Services &gt; HAproxy, go to the Settings tab.&nbsp; Now find&nbsp;Global Advanced pass thru and paste the content from your user list .txt file.*&nbsp; When you&#39;re done, hit Save and then Apply Settings.  * If you&#39;ve other things in the global pass thru, make sure to add the user list to the bottom of all other commands.&nbsp; Otherwise, you might get a few errors when trying to apply the settings.     5. Now head to the Backend tab.&nbsp; We&#39;re going to edit one of the backends (e.g., www.domain.com).&nbsp; In Access control lists and actions, create a new ACL, as follows: Name = UserAuth Expression = Custom acl: CS = blank Not = no Value =&nbsp;http_auth_group(UserGroup) is-user  (If you want to restrict access to admin, then you need to change the value from is-user to is-admin.)&nbsp; Then, in Actions, create a new one as follows: Action = http-request auth Parameters = See below Condition acl names = blank Actions = blank realm =&nbsp;realm User unless UserAuth  (As before, if you want to restrict access to admin, then in realm, change User for Admin.) Hit Save&nbsp;and then Apply Settings.     6. Rinse and repeat for each backend you want to protect with basic user authentication.&nbsp; Make sure to test your config before moving on to the next section.  # Stick-table to protect against brute-force In our case, access to each backend is secured by a basic http authentication request.&nbsp; If the client does not provide correct credentials, it will be requested to enter new ones.&nbsp; By default, HAproxy will do that forever, which is not something that sounds desirable to me because it allows clients to brute force their way into my services.&nbsp; On HAproxy&#39;s official blog, you&#39;ll find a very instructive guide on how to protect your servers from bots, including a step-by-step procedure to help you mitigate brute-force attacks.&nbsp; In their case, however, the authentication is associated to a particular /login page, instead of using HAproxy&#39;s own http-request auth feature, and we&#39;d like to use the latter instead.  Fortunately, when a client provides incorrect credentials, the result is an http error code (401) and because 4xx errors should be fairly uncommon in a properly configured server, we can use the rate of such errors (http_err_rate) as a marker of misuse/brute-force.&nbsp; In HAproxy, a stick-table is used to keep track of a client&#39;s IP address and both the http_err_rate and the total number of errors (http_err_cnt).&nbsp; In pfsense&#39;s GUI, however, there&#39;s no point-and-click way of enabling/disabling this, so we&#39;ll need to make use of backend pass thru and write custom access control lists and actions.  1. Edit one of your backends (e.g., www.domain.com) and in Advanced Settings, add the following to Backend pass thru: stick-table type ip size 1m expire 30m store conn_cur,conn_rate(3s),http_req_cnt,http_req_rate(10s),http_err_cnt,http_err_rate(20s)     This will create a stick-table that will capture the IP address of each client (type ip), will store up to 1MB of data (size 1m), will expire after 30min it was last matched/created/refreshed (expire 30m) and for each client (key), it will store the # of connections and their rate over 3s, the # of http requests and their rate over 10s, and the # of http errors and their rate over 20s (store conn_cur,conn_rate(3s),http_req_cnt,http_req_rate(10s),http_err_cnt,http_err_rate(20s)).&nbsp; (We won&#39;t use all those data but I figure you might find useful for other applications.&nbsp; We&#39;ll only use the last two.)  2. Hit Save. 3. Now go the the Frontend tab edit the www.domain.com frontend (or whichever frontend is associated with the backend you just edited).&nbsp; Here, we&#39;ll create a couple of ACLs and actions that will make use of the data from the stick-table. 4. In Default backend, access control lists and actions, create a new ACL as follows: Name = acl-www-err-rate Expression = Custom acl: CS = blank Not = no Value = sc_http_err_rate(0) gt 10  This acl applies to all clients that have more than 10 4xx errors over the last 10s.  5.&nbsp; Now, create a new ACL as follows: Name = acl-www-err-total Expression = Custom acl: CS = blank Not = no Value = sc_http_err_cnt(0) gt 100  This acl applies to all clients that have more than 100 4xx errors stored on the stick-table (so, in the last 30min).       6. In Actions, we will define what HAproxy will do in each of those cases.&nbsp; First, however, we need to instruct HAproxy to track the correct backend stick-table.&nbsp; So, create a new action as follows: Action = Custom Parameters = See below Condition acl names = acl-www (or whichever name you&#39;re using for the Host matches: www.domain.com ACL) customaction =&nbsp;http-request track-sc0 src table www.domain.com_ipvANY  The last sections, customaction, tells HAproxy to use the stick-table from the www.domain.com backend.&nbsp; By default, that table is called {backend-name}_ipvANY, so edit it accordingly.  7. Now, we&#39;re going to deny requests from acl-subdomain-err-total, as follows: Action = http-request deny Parameters = See below Condition acl names = acl-www-err-total denystatus = 403  This will return a Forbidden error to clients that have more than 100 errors  8. Now, we&#39;re going to drop connections from clients that have a high error rate, as follows: Action = Custom Parameters = See below Condition acl names = acl-www-err-rate customaction = http-request silent-drop  This will cause the client to wait for a reply from our server but our server will never send one, so the client will hang in there until it gets a timeout.&nbsp; This alone should be an effective way of dealing with brute-force attacks but I like the idea of completely denying access to persistent offenders.  9.&nbsp; Now move your Use Backend action to the bottom of the list and hit Save.      10.&nbsp; Apply settings and check if it&#39;s working correctly in the Stats tab.        (11. Rinse and repeat for other backends.)  That&#39;s it!&nbsp; Let me remind you that the options described here were tuned to my own case and therefore, you should review them to make sure they&#39;ll work for yours as well.&nbsp; For example, you might want to set a shorter expire for a given stick-table than 30 min., or you may not want to use http-request deny instead of http-request silent-drop.  Stick-tables are great and there are many other things you can do with them.&nbsp; For example, you can use a similar procedure to implement other recommendations mentioned in the official blog.&nbsp; This one has been working very well for me.  If you have any suggestions and advice, please leave a comment bellow.&nbsp; I&#39;ve started using pfsense and haproxy less than a month ago, so I&#39;m pretty sure there&#39;s a lot more that I can learn.  --CG">
+
+
+  <meta name="author" content="Carlos Gomes">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="CGomesu">
+<meta property="og:title" content="Securing access to backends with pfsense’s HAproxy package: A guide on how to create user lists and how to protect them with stick-tables using pfsense’s GUI">
+<meta property="og:url" content="http://localhost:4000/website/blog/Securing-backend-haproxy-pfsense/">
+
+
+  <meta property="og:description" content="Updated on May 1st 2020: This guide still works with pfsense version 2.4.5-RELEASE and the haproxy packaged version 0.60_4.  This is a rough guide on how to create and configure user lists and stick-tables using pfsense&#39;s HAproxy package to protect access to a backend and limit the number of failed login attempts.&nbsp; The guide is divided into two main sections.&nbsp; In the first one, we&#39;ll create a user list and add encrypted (SHA512) passwords for each of them.&nbsp; Then, in the second section, we&#39;ll create and configure stick-tables to limit the number of failed login attempts.  Now, it&#39;s fairly simple to accomplish all those things by manually changing HAproxy&#39;s config file (e.g., https://gist.github.com/Iristyle/5005653,&nbsp;https://www.haproxy.com/blog/introduction-to-haproxy-stick-tables/).&nbsp; However, I found it difficult to find any sort of documentation on how to accomplish the same thing using only pfsense&#39;s graphical user interface (GUI).&nbsp; The GUI makes it very easy to implement and configure the core aspects of HAproxy (e.g., reverse proxy and load balancing) but at the same time, it seems to lack support for other features, such as adding basic authentication requests and using stick-tables to mitigate attempts to brute-force users&#39; credentials.&nbsp; If that&#39;s what you&#39;d like to do, then read on.    The prerequisites are the following:  - you&#39;re running&nbsp;pfsense&nbsp;version&nbsp;2.4.4-RELEASE-p3&nbsp;or similar  - you&#39;ve installed the&nbsp;HAproxy&nbsp;package version&nbsp;0.59_19&nbsp;or similar  - you&#39;ve already added backends and frontends with HAproxy using subdomains (e.g.,&nbsp;https://blog.devita.co/pfsense-to-proxy-traffic-for-websites-using-pfsense/)   Recommended: - configure ACME SSL with HAproxy (e.g.,&nbsp;https://www.youtube.com/watch?v=5Frn96oADOU)  # Basic user authentication (Based on Joerg Hocwald&#39;s guide.) In HAproxy, it&#39;s pretty simple to create a user list with encrypted passwords.&nbsp; There is basically three steps involved: (a) user and password list creation, (b) adding those to the global settings, and (c) creating an access control list (ACL) and action for each backend.  1. Create a .txt file and write the following: userlist UserGroup group is-admin group is-user user example01&nbsp;password sha512-encrypted01&nbsp;groups is-admin user&nbsp;example02&nbsp;password&nbsp;sha512-encrypted02&nbsp;groups&nbsp;is-user  ...    The argument userlist defines the name of your user list, which in this case we&#39;re going to call UserGroup.&nbsp; Next, group defines the group that each user belongs to, which will be either a standard user (is-user) or admin (is-admin).&nbsp; (You don&#39;t need to define groups but it&#39;s a nice way of restricting access to critical services.) Below groups, we have the list of all users, their (SHA-512 encrypted) passwords and the group they belong to.&nbsp;&nbsp;You can add as many users as you want this way.        2. For each user, create a SHA-512 encrypted password.&nbsp; There are many ways of doing that.&nbsp; If you&#39;re running Debian (or any Linux distro), run apt install whois in a terminal window, which has the mkpasswd command that we&#39;re going to user, and then run each of the followin commands, changing&nbsp;sha512-encrypted01&nbsp;and&nbsp;sha512-encrypted02&nbsp;for the actual (insecure) password string of those respective users:  printf &quot;sha512-encrypted01&quot; | mkpasswd --stdin --method=sha-512   printf &quot;sha512-encrypted02&quot; | mkpasswd --stdin --method=sha-512  ...         3. Now copy each encrypted password and paste them over the respective&nbsp;sha512-encryptedXX&nbsp;string in the user list .txt file.     4. Go to pfsense&#39;s GUI and in Services &gt; HAproxy, go to the Settings tab.&nbsp; Now find&nbsp;Global Advanced pass thru and paste the content from your user list .txt file.*&nbsp; When you&#39;re done, hit Save and then Apply Settings.  * If you&#39;ve other things in the global pass thru, make sure to add the user list to the bottom of all other commands.&nbsp; Otherwise, you might get a few errors when trying to apply the settings.     5. Now head to the Backend tab.&nbsp; We&#39;re going to edit one of the backends (e.g., www.domain.com).&nbsp; In Access control lists and actions, create a new ACL, as follows: Name = UserAuth Expression = Custom acl: CS = blank Not = no Value =&nbsp;http_auth_group(UserGroup) is-user  (If you want to restrict access to admin, then you need to change the value from is-user to is-admin.)&nbsp; Then, in Actions, create a new one as follows: Action = http-request auth Parameters = See below Condition acl names = blank Actions = blank realm =&nbsp;realm User unless UserAuth  (As before, if you want to restrict access to admin, then in realm, change User for Admin.) Hit Save&nbsp;and then Apply Settings.     6. Rinse and repeat for each backend you want to protect with basic user authentication.&nbsp; Make sure to test your config before moving on to the next section.  # Stick-table to protect against brute-force In our case, access to each backend is secured by a basic http authentication request.&nbsp; If the client does not provide correct credentials, it will be requested to enter new ones.&nbsp; By default, HAproxy will do that forever, which is not something that sounds desirable to me because it allows clients to brute force their way into my services.&nbsp; On HAproxy&#39;s official blog, you&#39;ll find a very instructive guide on how to protect your servers from bots, including a step-by-step procedure to help you mitigate brute-force attacks.&nbsp; In their case, however, the authentication is associated to a particular /login page, instead of using HAproxy&#39;s own http-request auth feature, and we&#39;d like to use the latter instead.  Fortunately, when a client provides incorrect credentials, the result is an http error code (401) and because 4xx errors should be fairly uncommon in a properly configured server, we can use the rate of such errors (http_err_rate) as a marker of misuse/brute-force.&nbsp; In HAproxy, a stick-table is used to keep track of a client&#39;s IP address and both the http_err_rate and the total number of errors (http_err_cnt).&nbsp; In pfsense&#39;s GUI, however, there&#39;s no point-and-click way of enabling/disabling this, so we&#39;ll need to make use of backend pass thru and write custom access control lists and actions.  1. Edit one of your backends (e.g., www.domain.com) and in Advanced Settings, add the following to Backend pass thru: stick-table type ip size 1m expire 30m store conn_cur,conn_rate(3s),http_req_cnt,http_req_rate(10s),http_err_cnt,http_err_rate(20s)     This will create a stick-table that will capture the IP address of each client (type ip), will store up to 1MB of data (size 1m), will expire after 30min it was last matched/created/refreshed (expire 30m) and for each client (key), it will store the # of connections and their rate over 3s, the # of http requests and their rate over 10s, and the # of http errors and their rate over 20s (store conn_cur,conn_rate(3s),http_req_cnt,http_req_rate(10s),http_err_cnt,http_err_rate(20s)).&nbsp; (We won&#39;t use all those data but I figure you might find useful for other applications.&nbsp; We&#39;ll only use the last two.)  2. Hit Save. 3. Now go the the Frontend tab edit the www.domain.com frontend (or whichever frontend is associated with the backend you just edited).&nbsp; Here, we&#39;ll create a couple of ACLs and actions that will make use of the data from the stick-table. 4. In Default backend, access control lists and actions, create a new ACL as follows: Name = acl-www-err-rate Expression = Custom acl: CS = blank Not = no Value = sc_http_err_rate(0) gt 10  This acl applies to all clients that have more than 10 4xx errors over the last 10s.  5.&nbsp; Now, create a new ACL as follows: Name = acl-www-err-total Expression = Custom acl: CS = blank Not = no Value = sc_http_err_cnt(0) gt 100  This acl applies to all clients that have more than 100 4xx errors stored on the stick-table (so, in the last 30min).       6. In Actions, we will define what HAproxy will do in each of those cases.&nbsp; First, however, we need to instruct HAproxy to track the correct backend stick-table.&nbsp; So, create a new action as follows: Action = Custom Parameters = See below Condition acl names = acl-www (or whichever name you&#39;re using for the Host matches: www.domain.com ACL) customaction =&nbsp;http-request track-sc0 src table www.domain.com_ipvANY  The last sections, customaction, tells HAproxy to use the stick-table from the www.domain.com backend.&nbsp; By default, that table is called {backend-name}_ipvANY, so edit it accordingly.  7. Now, we&#39;re going to deny requests from acl-subdomain-err-total, as follows: Action = http-request deny Parameters = See below Condition acl names = acl-www-err-total denystatus = 403  This will return a Forbidden error to clients that have more than 100 errors  8. Now, we&#39;re going to drop connections from clients that have a high error rate, as follows: Action = Custom Parameters = See below Condition acl names = acl-www-err-rate customaction = http-request silent-drop  This will cause the client to wait for a reply from our server but our server will never send one, so the client will hang in there until it gets a timeout.&nbsp; This alone should be an effective way of dealing with brute-force attacks but I like the idea of completely denying access to persistent offenders.  9.&nbsp; Now move your Use Backend action to the bottom of the list and hit Save.      10.&nbsp; Apply settings and check if it&#39;s working correctly in the Stats tab.        (11. Rinse and repeat for other backends.)  That&#39;s it!&nbsp; Let me remind you that the options described here were tuned to my own case and therefore, you should review them to make sure they&#39;ll work for yours as well.&nbsp; For example, you might want to set a shorter expire for a given stick-table than 30 min., or you may not want to use http-request deny instead of http-request silent-drop.  Stick-tables are great and there are many other things you can do with them.&nbsp; For example, you can use a similar procedure to implement other recommendations mentioned in the official blog.&nbsp; This one has been working very well for me.  If you have any suggestions and advice, please leave a comment bellow.&nbsp; I&#39;ve started using pfsense and haproxy less than a month ago, so I&#39;m pretty sure there&#39;s a lot more that I can learn.  --CG">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2019-07-13T00:00:00-03:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/website/blog/Securing-backend-haproxy-pfsense/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "",
+      "url": "http://localhost:4000/website/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/website/feed.xml" type="application/atom+xml" rel="alternate" title="CGomesu Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/website/assets/css/main.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="icon" href="/website/assets/img/site/favicon.ico" type="image/x-icon">
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/website/"><img src="/website/assets/img/site/logo.png" alt=""></a>
+        
+        <a class="site-title" href="/website/">
+           
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/website/">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/website/blog/">Blog</a>
+            </li><li class="masthead__menu-item">
+              <a href="/website/mtg/">MtG</a>
+            </li><li class="masthead__menu-item">
+              <a href="/website/papers/">Papers</a>
+            </li><li class="masthead__menu-item">
+              <a href="/website/projects/">Projects</a>
+            </li><li class="masthead__menu-item">
+              <a href="/website/resume/">Resume</a>
+            </li><li class="masthead__menu-item">
+              <a href="/website/contact/">Contact</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/website/assets/img/profile/profile-00.jpg" alt="Carlos Gomes" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Carlos Gomes</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>I’m a scientist, psychologist, math modeler, programmer, mtg player, free knowledge supporter, sbc fanatic, and electronics hobbyist.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Brazil</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="mailto:me@cgomesu.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Main E-mail</span></a></li>
+          
+        
+          
+            <li><a href="mailto:cf365@cornell.edu" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Academic E-mail</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Securing access to backends with pfsense’s HAproxy package: A guide on how to create user lists and how to protect them with stick-tables using pfsense’s GUI">
+    <meta itemprop="description" content="Updated on May 1st 2020: This guide still works with pfsense version 2.4.5-RELEASE and the haproxy packaged version 0.60_4.This is a rough guide on how to create and configure user lists and stick-tables using pfsense&#39;s HAproxy package to protect access to a backend and limit the number of failed login attempts.&nbsp; The guide is divided into two main sections.&nbsp; In the first one, we&#39;ll create a user list and add encrypted (SHA512) passwords for each of them.&nbsp; Then, in the second section, we&#39;ll create and configure stick-tables to limit the number of failed login attempts.Now, it&#39;s fairly simple to accomplish all those things by manually changing HAproxy&#39;s config file (e.g., https://gist.github.com/Iristyle/5005653,&nbsp;https://www.haproxy.com/blog/introduction-to-haproxy-stick-tables/).&nbsp; However, I found it difficult to find any sort of documentation on how to accomplish the same thing using only pfsense&#39;s graphical user interface (GUI).&nbsp; The GUI makes it very easy to implement and configure the core aspects of HAproxy (e.g., reverse proxy and load balancing) but at the same time, it seems to lack support for other features, such as adding basic authentication requests and using stick-tables to mitigate attempts to brute-force users&#39; credentials.&nbsp; If that&#39;s what you&#39;d like to do, then read on.The prerequisites are the following:- you&#39;re running&nbsp;pfsense&nbsp;version&nbsp;2.4.4-RELEASE-p3&nbsp;or similar- you&#39;ve installed the&nbsp;HAproxy&nbsp;package version&nbsp;0.59_19&nbsp;or similar- you&#39;ve already added backends and frontends with HAproxy using subdomains (e.g.,&nbsp;https://blog.devita.co/pfsense-to-proxy-traffic-for-websites-using-pfsense/)Recommended:- configure ACME SSL with HAproxy (e.g.,&nbsp;https://www.youtube.com/watch?v=5Frn96oADOU)# Basic user authentication(Based on Joerg Hocwald&#39;s guide.)In HAproxy, it&#39;s pretty simple to create a user list with encrypted passwords.&nbsp; There is basically three steps involved: (a) user and password list creation, (b) adding those to the global settings, and (c) creating an access control list (ACL) and action for each backend.1. Create a .txt file and write the following:userlist UserGroupgroup is-admingroup is-useruser example01&nbsp;password sha512-encrypted01&nbsp;groups is-adminuser&nbsp;example02&nbsp;password&nbsp;sha512-encrypted02&nbsp;groups&nbsp;is-user...The argument userlist defines the name of your user list, which in this case we&#39;re going to call UserGroup.&nbsp; Next, group defines the group that each user belongs to, which will be either a standard user (is-user) or admin (is-admin).&nbsp; (You don&#39;t need to define groups but it&#39;s a nice way of restricting access to critical services.) Below groups, we have the list of all users, their (SHA-512 encrypted) passwords and the group they belong to.&nbsp;&nbsp;You can add as many users as you want this way.2. For each user, create a SHA-512 encrypted password.&nbsp; There are many ways of doing that.&nbsp; If you&#39;re running Debian (or any Linux distro), run apt install whois in a terminal window, which has the mkpasswd command that we&#39;re going to user, and then run each of the followin commands, changing&nbsp;sha512-encrypted01&nbsp;and&nbsp;sha512-encrypted02&nbsp;for the actual (insecure) password string of those respective users:printf &quot;sha512-encrypted01&quot; | mkpasswd --stdin --method=sha-512printf &quot;sha512-encrypted02&quot; | mkpasswd --stdin --method=sha-512...3. Now copy each encrypted password and paste them over the respective&nbsp;sha512-encryptedXX&nbsp;string in the user list .txt file.4. Go to pfsense&#39;s GUI and in Services &gt; HAproxy, go to the Settings tab.&nbsp; Now find&nbsp;Global Advanced pass thru and paste the content from your user list .txt file.*&nbsp; When you&#39;re done, hit Save and then Apply Settings.* If you&#39;ve other things in the global pass thru, make sure to add the user list to the bottom of all other commands.&nbsp; Otherwise, you might get a few errors when trying to apply the settings.5. Now head to the Backend tab.&nbsp; We&#39;re going to edit one of the backends (e.g., www.domain.com).&nbsp; In Access control lists and actions, create a new ACL, as follows:Name = UserAuthExpression = Custom acl:CS = blankNot = noValue =&nbsp;http_auth_group(UserGroup) is-user(If you want to restrict access to admin, then you need to change the value from is-user to is-admin.)&nbsp; Then, in Actions, create a new one as follows:Action = http-request authParameters = See belowCondition acl names = blankActions = blankrealm =&nbsp;realm User unless UserAuth(As before, if you want to restrict access to admin, then in realm, change User for Admin.) Hit Save&nbsp;and then Apply Settings.6. Rinse and repeat for each backend you want to protect with basic user authentication.&nbsp; Make sure to test your config before moving on to the next section.# Stick-table to protect against brute-forceIn our case, access to each backend is secured by a basic http authentication request.&nbsp; If the client does not provide correct credentials, it will be requested to enter new ones.&nbsp; By default, HAproxy will do that forever, which is not something that sounds desirable to me because it allows clients to brute force their way into my services.&nbsp; On HAproxy&#39;s official blog, you&#39;ll find a very instructive guide on how to protect your servers from bots, including a step-by-step procedure to help you mitigate brute-force attacks.&nbsp; In their case, however, the authentication is associated to a particular /login page, instead of using HAproxy&#39;s own http-request auth feature, and we&#39;d like to use the latter instead.Fortunately, when a client provides incorrect credentials, the result is an http error code (401) and because 4xx errors should be fairly uncommon in a properly configured server, we can use the rate of such errors (http_err_rate) as a marker of misuse/brute-force.&nbsp; In HAproxy, a stick-table is used to keep track of a client&#39;s IP address and both the http_err_rate and the total number of errors (http_err_cnt).&nbsp; In pfsense&#39;s GUI, however, there&#39;s no point-and-click way of enabling/disabling this, so we&#39;ll need to make use of backend pass thru and write custom access control lists and actions.1. Edit one of your backends (e.g., www.domain.com) and in Advanced Settings, add the following to Backend pass thru:stick-table type ip size 1m expire 30m store conn_cur,conn_rate(3s),http_req_cnt,http_req_rate(10s),http_err_cnt,http_err_rate(20s)This will create a stick-table that will capture the IP address of each client (type ip), will store up to 1MB of data (size 1m), will expire after 30min it was last matched/created/refreshed (expire 30m) and for each client (key), it will store the # of connections and their rate over 3s, the # of http requests and their rate over 10s, and the # of http errors and their rate over 20s (store conn_cur,conn_rate(3s),http_req_cnt,http_req_rate(10s),http_err_cnt,http_err_rate(20s)).&nbsp; (We won&#39;t use all those data but I figure you might find useful for other applications.&nbsp; We&#39;ll only use the last two.)2. Hit Save.3. Now go the the Frontend tab edit the www.domain.com frontend (or whichever frontend is associated with the backend you just edited).&nbsp; Here, we&#39;ll create a couple of ACLs and actions that will make use of the data from the stick-table.4. In Default backend, access control lists and actions, create a new ACL as follows:Name = acl-www-err-rateExpression = Custom acl:CS = blankNot = noValue = sc_http_err_rate(0) gt 10This acl applies to all clients that have more than 10 4xx errors over the last 10s.5.&nbsp; Now, create a new ACL as follows:Name = acl-www-err-totalExpression = Custom acl:CS = blankNot = noValue = sc_http_err_cnt(0) gt 100This acl applies to all clients that have more than 100 4xx errors stored on the stick-table (so, in the last 30min).6. In Actions, we will define what HAproxy will do in each of those cases.&nbsp; First, however, we need to instruct HAproxy to track the correct backend stick-table.&nbsp; So, create a new action as follows:Action = CustomParameters = See belowCondition acl names = acl-www (or whichever name you&#39;re using for the Host matches: www.domain.com ACL)customaction =&nbsp;http-request track-sc0 src table www.domain.com_ipvANYThe last sections, customaction, tells HAproxy to use the stick-table from the www.domain.com backend.&nbsp; By default, that table is called {backend-name}_ipvANY, so edit it accordingly.7. Now, we&#39;re going to deny requests from acl-subdomain-err-total, as follows:Action = http-request denyParameters = See belowCondition acl names = acl-www-err-totaldenystatus = 403This will return a Forbidden error to clients that have more than 100 errors8. Now, we&#39;re going to drop connections from clients that have a high error rate, as follows:Action = CustomParameters = See belowCondition acl names = acl-www-err-ratecustomaction = http-request silent-dropThis will cause the client to wait for a reply from our server but our server will never send one, so the client will hang in there until it gets a timeout.&nbsp; This alone should be an effective way of dealing with brute-force attacks but I like the idea of completely denying access to persistent offenders.9.&nbsp; Now move your Use Backend action to the bottom of the list and hit Save.10.&nbsp; Apply settings and check if it&#39;s working correctly in the Stats tab.(11. Rinse and repeat for other backends.)That&#39;s it!&nbsp; Let me remind you that the options described here were tuned to my own case and therefore, you should review them to make sure they&#39;ll work for yours as well.&nbsp; For example, you might want to set a shorter expire for a given stick-table than 30 min., or you may not want to use http-request deny instead of http-request silent-drop.Stick-tables are great and there are many other things you can do with them.&nbsp; For example, you can use a similar procedure to implement other recommendations mentioned in the official blog.&nbsp; This one has been working very well for me.If you have any suggestions and advice, please leave a comment bellow.&nbsp; I&#39;ve started using pfsense and haproxy less than a month ago, so I&#39;m pretty sure there&#39;s a lot more that I can learn.--CG">
+    <meta itemprop="datePublished" content="2019-07-13T00:00:00-03:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Securing access to backends with pfsense’s HAproxy package: A guide on how to create user lists and how to protect them with stick-tables using pfsense’s GUI
+</h1>
+          
+            <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  7 minute read
+
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <div>
+<u>Updated on May 1st 2020:</u> This guide still works with pfsense version <b>2.4.5-RELEASE</b> and the haproxy packaged version <b>0.60_4</b>.<br />
+<br />
+This is a rough guide on how to create and configure user lists and stick-tables using pfsense's HAproxy package to protect access to a backend and limit the number of failed login attempts.&nbsp; The guide is divided into two main sections.&nbsp; In the first one, we'll create a user list and add encrypted (SHA512) passwords for each of them.&nbsp; Then, in the second section, we'll create and configure stick-tables to limit the number of failed login attempts.<br />
+<br />
+Now, it's fairly simple to accomplish all those things by manually changing HAproxy's config file (e.g., <a href="https://gist.github.com/Iristyle/5005653">https://gist.github.com/Iristyle/5005653</a>,&nbsp;<a href="https://www.haproxy.com/blog/introduction-to-haproxy-stick-tables/">https://www.haproxy.com/blog/introduction-to-haproxy-stick-tables/</a>).&nbsp; However, I found it difficult to find any sort of documentation on how to accomplish the same thing using only pfsense's graphical user interface (GUI).&nbsp; The GUI makes it very easy to implement and configure the core aspects of HAproxy (e.g., reverse proxy and load balancing) but at the same time, it seems to lack support for other features, such as adding basic authentication requests and using stick-tables to mitigate attempts to brute-force users' credentials.&nbsp; If that's what you'd like to do, then read on.<br />
+<br /></div>
+<div>
+<div>
+The prerequisites are the following:</div>
+<div>
+- you're running&nbsp;<b>pfsense</b>&nbsp;version&nbsp;<b>2.4.4-RELEASE-p3&nbsp;</b>or similar</div>
+<div>
+- you've installed the&nbsp;<b>HAproxy&nbsp;</b>package version&nbsp;<b>0.59_19&nbsp;</b>or similar</div>
+<div>
+- you've already added backends and frontends with HAproxy using subdomains (e.g.,&nbsp;<a href="https://blog.devita.co/pfsense-to-proxy-traffic-for-websites-using-pfsense/">https://blog.devita.co/pfsense-to-proxy-traffic-for-websites-using-pfsense/</a>)</div>
+<div>
+<br />
+Recommended:<br />
+- configure ACME SSL with HAproxy (e.g.,&nbsp;<a href="https://www.youtube.com/watch?v=5Frn96oADOU">https://www.youtube.com/watch?v=5Frn96oADOU</a>)</div>
+<br />
+<span style="font-size: large;"><b># Basic user authentication</b></span><br />
+(<a href="https://hochwald.net/user-authentication-with-haproxy-on-pfsense/">Based on Joerg Hocwald's guide.</a>)<br />
+In HAproxy, it's pretty simple to create a user list with encrypted passwords.&nbsp; There is basically three steps involved: (a) user and password list creation, (b) adding those to the global settings, and (c) creating an access control list (ACL) and action for each backend.<br />
+<br />
+1. Create a .txt file and write the following:<br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">userlist UserGroup</span><br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">group is-admin</span><br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">group is-user</span><br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">user <i>example01</i>&nbsp;password <i>sha512-encrypted01&nbsp;</i>groups <i>is-admin</i></span><br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">user&nbsp;<i>example02</i>&nbsp;password&nbsp;</span><i style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">sha512-</i><i style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">encrypted02&nbsp;</i><span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">groups</span><span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">&nbsp;</span><i style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">is-user</i><br />
+<div>
+...</div>
+<div>
+<br /></div>
+<div>
+The argument <span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">userlist</span><span style="font-family: inherit;"> defines the name of your user list, which in this case we're going to call </span><span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">UserGroup</span><span style="font-family: inherit;">.&nbsp; Next, </span><span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">group</span><span style="font-family: inherit;"> defines the group that each user belongs to, which will be either a standard user (</span><span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">is-user</span><span style="font-family: inherit;">) or admin (</span><span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">is-admin</span><span style="font-family: inherit;">).&nbsp; (You don't need to define groups but it's a nice way of restricting access to critical services.) Below groups, we have the list of all users, their (SHA-512 encrypted) passwords and the group they belong to.&nbsp;&nbsp;</span>You can add as many users as you want this way.</div>
+<div>
+<br /></div>
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://1.bp.blogspot.com/-7ek0zGGy3M0/XStOCTbMYyI/AAAAAAAABJ0/TZuiA3IIkbwVX_m5LWDtY3Ah_E2n8YV4QCLcBGAs/s1600/user-list-txt-file.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="532" data-original-width="647" height="263" src="https://1.bp.blogspot.com/-7ek0zGGy3M0/XStOCTbMYyI/AAAAAAAABJ0/TZuiA3IIkbwVX_m5LWDtY3Ah_E2n8YV4QCLcBGAs/s320/user-list-txt-file.png" width="320" /></a></div>
+<div>
+<br /></div>
+<div>
+2. For each user, create a SHA-512 encrypted password.&nbsp; <a href="https://lmgtfy.com/?q=how%20to%20create%20a%20sha-512%20password&amp;s=g">There are many ways of doing that</a>.&nbsp; If you're running Debian (or any Linux distro), run <span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">apt install whois </span><span style="font-family: inherit;">in a terminal window</span>, which has the <span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">mkpasswd</span> command that we're going to user, and then run each of the followin commands, changing&nbsp;<i style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">sha512-encrypted01</i><span style="font-family: inherit;">&nbsp;and&nbsp;</span><i style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">sha512-encrypted02</i><span style="font-family: inherit;">&nbsp;for the actual (insecure) password string of those respective users</span>:</div>
+<div>
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">printf "</span><i style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">sha512-encrypted01</i><span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">" | mkpasswd --stdin --method=sha-512</span></div>
+<div>
+<div>
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">printf "</span><i style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">sha512-encrypted02</i><span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">" | mkpasswd --stdin --method=sha-512</span></div>
+<div>
+...</div>
+</div>
+<div>
+<br /></div>
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://1.bp.blogspot.com/-siAScvce880/XStNC9kGVYI/AAAAAAAABJs/Bh5BSzuw0yIxzIMaQBJsPstbd5zfC3a9QCLcBGAs/s1600/sha-512_pass.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="57" data-original-width="921" height="19" src="https://1.bp.blogspot.com/-siAScvce880/XStNC9kGVYI/AAAAAAAABJs/Bh5BSzuw0yIxzIMaQBJsPstbd5zfC3a9QCLcBGAs/s320/sha-512_pass.png" width="320" /></a></div>
+<div>
+<br /></div>
+<div>
+3. Now copy each encrypted password and paste them over the respective&nbsp;<i style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">sha512-encryptedXX</i><span style="font-family: inherit;">&nbsp;string in the user list .txt file.</span></div>
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://1.bp.blogspot.com/-HQcjdMIh_jw/XStOjJukTEI/AAAAAAAABJ8/6aMV-ciTtd454w85rR1EtsYZ3deB9RWOQCLcBGAs/s1600/user-list-txt-file2.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="193" data-original-width="1600" height="38" src="https://1.bp.blogspot.com/-HQcjdMIh_jw/XStOjJukTEI/AAAAAAAABJ8/6aMV-ciTtd454w85rR1EtsYZ3deB9RWOQCLcBGAs/s320/user-list-txt-file2.png" width="320" /></a></div>
+<br />
+4. Go to pfsense's GUI and in <b>Services &gt; HAproxy</b>, go to the <b>Settings tab</b>.&nbsp; Now find&nbsp;<b>Global Advanced pass thru</b> and <b>paste the content from your user list .txt file</b>.*&nbsp; When you're done, hit<b> Save </b>and then<b> Apply Settings</b>.<br />
+<br />
+* If you've other things in the global pass thru, make sure to add the user list to the bottom of all other commands.&nbsp; Otherwise, you might get a few errors when trying to apply the settings.<br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://1.bp.blogspot.com/-UrOULw_gdZs/XStP_3yMXkI/AAAAAAAABKI/C7sLhWz1dswTTY6EjQCcBXr-cl1uFiPAgCLcBGAs/s1600/global-pass-thru.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="437" data-original-width="1285" height="108" src="https://1.bp.blogspot.com/-UrOULw_gdZs/XStP_3yMXkI/AAAAAAAABKI/C7sLhWz1dswTTY6EjQCcBXr-cl1uFiPAgCLcBGAs/s320/global-pass-thru.png" width="320" /></a></div>
+<br />
+5. Now head to the <b>Backend tab</b>.&nbsp; We're going to <b>edit one of the backends</b> (e.g., <i><b>www</b></i>.domain.com).&nbsp; In <b>Access control lists and actions</b>, create a new ACL, as follows:<br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">Name = UserAuth</span><br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">Expression = Custom acl:</span><br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">CS = blank</span><br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">Not = no</span><br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">Value =&nbsp;http_auth_group(UserGroup) is-user</span><br />
+<br />
+(If you want to restrict access to admin, then you need to change the value from is-user to is-admin.)&nbsp; Then, <b>in Actions</b>, create a new one as follows:<br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">Action = http-request auth</span><br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">Parameters = See below</span><br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">Condition acl names = blank</span><br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">Actions = blank</span><br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">realm =&nbsp;realm User unless UserAuth</span><br />
+<br />
+(As before, if you want to restrict access to admin, then in realm, change User for Admin.) Hit <b>Save</b>&nbsp;and then <b>Apply Settings</b>.<br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://1.bp.blogspot.com/-qJ5TRN5cwd8/XStTQL_aUMI/AAAAAAAABKk/lkW81nDzG-8LAzniYGH3r9rRMX2EY-RfwCLcBGAs/s1600/backends_basicauth_001.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="498" data-original-width="1282" height="124" src="https://1.bp.blogspot.com/-qJ5TRN5cwd8/XStTQL_aUMI/AAAAAAAABKk/lkW81nDzG-8LAzniYGH3r9rRMX2EY-RfwCLcBGAs/s320/backends_basicauth_001.png" width="320" /></a></div>
+<br />
+6. Rinse and repeat for each backend you want to protect with basic user authentication.&nbsp; Make sure to test your config before moving on to the next section.<br />
+<br />
+<span style="font-size: large;"><b># Stick-table to protect against brute-force</b></span><br />
+In our case, access to each backend is secured by a basic http authentication request.&nbsp; If the client does not provide correct credentials, it will be requested to enter new ones.&nbsp; By default, HAproxy will do that forever, which is not something that sounds desirable to me because it allows clients to brute force their way into my services.&nbsp; On HAproxy's official blog, you'll find a very instructive guide on how to protect your servers from bots, including a <a href="https://www.haproxy.com/blog/bot-protection-with-haproxy/#brute-force-bots">step-by-step procedure to help you mitigate brute-force attacks</a>.&nbsp; In their case, however, the authentication is associated to a particular /login page, instead of using HAproxy's own http-request auth feature, and we'd like to use the latter instead.<br />
+<br />
+Fortunately, when a client provides incorrect credentials, the result is an http error code (401) and because 4xx errors should be fairly uncommon in a properly configured server, we can use the rate of such errors (http_err_rate) as a marker of misuse/brute-force.&nbsp; In HAproxy, a stick-table is used to keep track of a client's IP address and both the http_err_rate and the total number of errors (http_err_cnt).&nbsp; In pfsense's GUI, however, there's no point-and-click way of enabling/disabling this, so we'll need to make use of backend pass thru and write custom access control lists and actions.<br />
+<br />
+1. Edit one of your <b>backends</b> (e.g., <i><b>www</b></i>.domain.com) and in <b>Advanced Settings</b>, add the following to <b>Backend pass thru</b>:<br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">stick-table type ip size 1m expire 30m store conn_cur,conn_rate(3s),http_req_cnt,http_req_rate(10s),http_err_cnt,http_err_rate(20s)</span><br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://1.bp.blogspot.com/-Go_aDeV6gS8/XSp-_jeMw4I/AAAAAAAABIg/V9x-ZUCvABsozI9sRaqHBQoO98giGiCKACLcBGAs/s1600/backends_001.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="251" data-original-width="1308" height="61" src="https://1.bp.blogspot.com/-Go_aDeV6gS8/XSp-_jeMw4I/AAAAAAAABIg/V9x-ZUCvABsozI9sRaqHBQoO98giGiCKACLcBGAs/s320/backends_001.png" width="320" /></a></div>
+<br />
+This will create a stick-table that will capture the IP address of each client (<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">type ip</span>), will store up to 1MB of data (<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">size 1m</span>), will expire after 30min it was last matched/created/refreshed (<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">expire 30m</span>) and for each client (key), it will store the # of connections and their rate over 3s, the # of http requests and their rate over 10s, and the # of http errors and their<span style="font-family: inherit;"> rate over 20s (</span><span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">store conn_cur,conn_rate(3s),http_req_cnt,http_req_rate(10s),http_err_cnt,http_err_rate(20s)</span><span style="font-family: inherit;">).&nbsp; (We won't use all those data but I figure you might find useful for other applications.&nbsp; We'll only use the last two.)</span><br />
+<span style="font-family: inherit;"><br /></span>
+<span style="font-family: inherit;">2. Hit <b>Save</b>.</span><br />
+<span style="font-family: inherit;"><br /></span><span style="font-family: inherit;">3. Now go the the Frontend tab edit the <i>www.</i>domain.com <b>frontend</b> (or whichever frontend is associated with the backend you just edited).&nbsp; Here, we'll create a couple of ACLs and actions that will make use of the data from the stick-table.</span><br />
+<span style="font-family: inherit;"><br /></span><span style="font-family: inherit;">4. In </span><b>Default backend, access control lists and actions, create a new ACL</b> as follows:<br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">Name = acl-<i>www</i>-err-rate</span><br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">Expression = Custom acl:</span><br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">CS = blank</span><br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">Not = no</span><br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">Value = sc_http_err_rate(0) gt 10</span><br />
+<br />
+This acl applies to all clients that have more than 10 4xx errors over the last 10s.<br />
+<br />
+5.&nbsp; Now, <b>create a new ACL</b> as follows:<br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">Name = acl-<i>www</i>-err-total</span><br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">Expression = Custom acl:</span><br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">CS = blank</span><br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">Not = no</span><br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">Value = sc_http_err_cnt(0) gt 100</span><br />
+<br />
+This acl applies to all clients that have more than 100 4xx errors stored on the stick-table (so, in the last 30min).<br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://1.bp.blogspot.com/-NRPdmPdUgqU/XSqCRMcGRgI/AAAAAAAABI8/EgdWCE-74p8QYcLchnbAfZp8nKTh5XDqwCLcBGAs/s1600/frontends_002.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="411" data-original-width="1312" height="100" src="https://1.bp.blogspot.com/-NRPdmPdUgqU/XSqCRMcGRgI/AAAAAAAABI8/EgdWCE-74p8QYcLchnbAfZp8nKTh5XDqwCLcBGAs/s320/frontends_002.png" width="320" /></a></div>
+<div class="separator" style="clear: both; text-align: center;">
+</div>
+<br />
+6. <b>In Actions</b>, we will define what HAproxy will do in each of those cases.&nbsp; First, however, we need to <b>instruct HAproxy to track the correct backend stick-table</b>.&nbsp; So, create a new action as follows:<br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">Action = Custom</span><br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">Parameters = See below</span><br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">Condition acl names = acl-</span><i style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">www </i><span style="font-family: inherit;">(or whichever name you're using for the Host matches: <i>www.</i>domain.com ACL)</span><br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">customaction =&nbsp;http-request track-sc0 src table <i>www</i>.domain.com_ipvANY</span><br />
+<br />
+The last sections, customaction, tells HAproxy to use the stick-table from the <i>www.</i>domain.com backend.&nbsp; By default, that table is called {backend-name}_ipvANY, so edit it accordingly.<br />
+<br />
+7. Now, we're going to deny requests from acl-<i>subdomain</i>-err-total, as follows:<br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">Action = http-request deny</span><br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">Parameters = See below</span><br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">Condition acl names = acl-<i>www</i>-err-total</span><br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">denystatus = 403</span><br />
+<br />
+This will return a Forbidden error to clients that have more than 100 errors<br />
+<br />
+8. Now, we're going to drop connections from clients that have a high error rate, as follows:<br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">Action = Custom</span><br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">Parameters = See below</span><br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">Condition acl names = acl-<i>www</i>-err-rate</span><br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">customaction = http-request silent-drop</span><br />
+<br />
+This will cause the client to wait for a reply from our server but our server will never send one, so the client will hang in there until it gets a timeout.&nbsp; This alone should be an effective way of dealing with brute-force attacks but I like the idea of completely denying access to persistent offenders.<br />
+<br />
+9.&nbsp; Now move your <b>Use Backend</b> action to the bottom of the list and <b>hit Save</b>.<br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://1.bp.blogspot.com/-MfYptUoYzd4/XSqCU2Z5ToI/AAAAAAAABJA/WNrdDjOsabQRpLSga9zGYWh0N9x2IeGmACLcBGAs/s1600/frontends_003.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="452" data-original-width="1320" height="109" src="https://1.bp.blogspot.com/-MfYptUoYzd4/XSqCU2Z5ToI/AAAAAAAABJA/WNrdDjOsabQRpLSga9zGYWh0N9x2IeGmACLcBGAs/s320/frontends_003.png" width="320" /></a></div>
+<div class="separator" style="clear: both; text-align: center;">
+<br /></div>
+10.&nbsp; <b>Apply settings</b> and check if it's working correctly in the <b>Stats tab</b>.<br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://1.bp.blogspot.com/-EqWWzInPZ54/XSqDWx2UTVI/AAAAAAAABJQ/NgpYU5waMuE26V8An42TxA_Me0KDFnuGwCLcBGAs/s1600/stats_001.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="149" data-original-width="1296" height="36" src="https://1.bp.blogspot.com/-EqWWzInPZ54/XSqDWx2UTVI/AAAAAAAABJQ/NgpYU5waMuE26V8An42TxA_Me0KDFnuGwCLcBGAs/s320/stats_001.png" width="320" /></a></div>
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://1.bp.blogspot.com/-I7wHK2t9S2Q/XSqDY8mrTJI/AAAAAAAABJU/yI6WTN42OlEqEpkCEbVEwgKdH6lf1Ix1QCLcBGAs/s1600/stats_002.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="109" data-original-width="1265" height="27" src="https://1.bp.blogspot.com/-I7wHK2t9S2Q/XSqDY8mrTJI/AAAAAAAABJU/yI6WTN42OlEqEpkCEbVEwgKdH6lf1Ix1QCLcBGAs/s320/stats_002.png" width="320" /></a></div>
+<br />
+(11. Rinse and repeat for other backends.)<br />
+<br />
+That's it!&nbsp; Let me remind you that the options described here were tuned to my own case and therefore, you should review them to make sure they'll work for yours as well.&nbsp; For example, you might want to set a shorter expire for a given stick-table than 30 min., or you may not want to use http-request deny instead of http-request silent-drop.<br />
+<br />
+Stick-tables are great and there are many other things you can do with them.&nbsp; For example, you can use a similar procedure to implement <a href="https://www.haproxy.com/blog/bot-protection-with-haproxy">other recommendations mentioned in the official blog</a>.&nbsp; This one has been working very well for me.<br />
+<br />
+If you have any suggestions and advice, please leave a comment bellow.&nbsp; I've started using pfsense and haproxy less than a month ago, so I'm pretty sure there's a lot more that I can learn.<br />
+<br />
+--CG</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2019-07-13T00:00:00-03:00">July 13, 2019</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Securing+access+to+backends+with+pfsense%27s+HAproxy+package%3A+A+guide+on+how+to+create+user+lists+and+how+to+protect+them+with+stick-tables+using+pfsense%27s+GUI%20http%3A%2F%2Flocalhost%3A4000%2Fwebsite%2Fblog%2FSecuring-backend-haproxy-pfsense%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fwebsite%2Fblog%2FSecuring-backend-haproxy-pfsense%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fwebsite%2Fblog%2FSecuring-backend-haproxy-pfsense%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="#" class="pagination--pager disabled">Previous</a>
+    
+    
+      <a href="/website/blog/Probability-warp-world/" class="pagination--pager" title="The probability of Warp World
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You may also enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/website/blog/Youtube-as-IPTV-with-TVH/" rel="permalink">Youtube live-streams as IPTV channels for TVHeadend
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  20 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">- Update tracker -&lt;div&gt;May 19th, 2020 - Added info about TVH m3u re-fetch period and youtube4tvh cronjob for streams that change very often.&lt;/div&gt...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/website/blog/IR-with-odroidc2/" rel="permalink">Using any IR remote with the Odroid C2 IR receiver + LibreElec OS
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  1 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">In case you didn't know, the Odroid C2 (https://www.hardkernel.com/shop/odroid-c2/) comes with an onboard infrared (IR) receiver.&nbsp; Until a few days ago,...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/website/blog/Math-of-bruised-souleater/" rel="permalink">The math of a bruised souleater
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  8 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">(This is a repost of my original reddit post here. I’ve made a few changes to the original version to improve readability.)
+
+This is a post about an interest...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/website/blog/Probability-warp-world/" rel="permalink">The probability of Warp World
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  16 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+
+
+
+
+
+(This is a repost from my original reddit post..)
+
+Introduction
+
+If you’re unfamiliar with Warp World, you are in for a treat. It’s a 5RRR sorcery from...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/cgomesu" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          <li><a href="https://www.reddit.com/user/cgomesu/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i> Reddit</a></li>
+        
+      
+    
+
+    <li><a href="/website/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> RSS feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2020 CGomesu - Hosted on <a href="https://github.com/cgomesu/website">Github Pages</a> - Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> and <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a></div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/website/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+<script src="/website/assets/js/lunr/lunr.min.js"></script>
+<script src="/website/assets/js/lunr/lunr-store.js"></script>
+<script src="/website/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

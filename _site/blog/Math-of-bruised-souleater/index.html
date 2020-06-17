@@ -1,0 +1,777 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.19.3 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>The math of a bruised souleater - CGomesu</title>
+<meta name="description" content="(This is a repost of my original reddit post here. I’ve made a few changes to the original version to improve readability.)  This is a post about an interesting interaction that came up  yesterday, when I was making changes to an EDH deck.  I thought someone  else might find this analysis interesting, so I decided to share it  here. If you spot an error, feel free to point it out. The interaction is about two cards, namely Immolating Souleater and Bruse Tarl, Boorish Herder.     Suppose you have Immolating Souleater on the battlefield and Bruse Tarl, Boorish Herder’s triggered ability give it double-strike  and lifelink. Souleater is a 1/1 creature that costs 2 colorless and let’s you pay one  phyrexian red mana to give it +1/+0 until eot.  Let’s assume you cannot  pay red mana and if you want to activate Souleater’s ability, you need  to pay life.  The souleater is not under summoning sickness, so it can  attack an opponent.  For now, let’s also assume you have 40 life and  your opponents also have 40 life.  You see an opportunity to kill an  opponent, declare attack, the souleater is not blocked, you pay 38 life  to make it a 20/1 creature with double-strike and lifelink, and after  all damage is done, your opponent dies and you gain 40 life back (for a  +2 net life, as you end up with 42 in the end).  This is cool and all but what happens when you cannot pay 38 life  before the first hit?  What if your opponent has more life than you? Life-wise, does it matter how much life you pay before the first hit? How much life can you pay at any given point to either maximize damage  or minimize net life loss?  Let’s think about it.  Souleater’s activated ability is a simple linear function of the  amount of life you pay.  Let x be the amount of life paid, so that  souleater’s power is given by    (To make it simple, we  ignore the fact that phyrexian mana is always 2 life and let x be any  non-negative integer.)  As in the previous example, if you pay 38 life,  f(38) = 20.  The tricky part is how this simple linear function  interacts with Bruse’s ability, that is, the ability to give a creature  double-strike and lifelink (“bruised”).  The intuition with double-strike is to multiply f(x) by 2, which  would be correct if we only paid life before the first hit (x1) and  nothing else before the second hit (x2 = 0) but that does not need to be  the case.  Say we pay 20 life before the first hit (x1 = 20) and an  additional 10 life afterwards (x2 = 10).  How much damage will we deal  to the opponent?  We know that f(20) = 11 and f(10) = 6 but the first  hit should carry over to the second becasue the +1/+0 lasts until eot. At this point, let’s make an equation for the first hit,     and another for the second hit,      Now, we can sum both functions to get the total  amount of damage dealt (d) by a Souleater with double-strike:            (It’s easy to see how one could generalize  this to triple-strike, quadruple-strike, …, but let’s not delve into  it now.)  Therefore, if x1=20 and x2=10, d(20,10) = f1(20)+f2(20,10),  which is 27 damage for 30 life paid.  So, now we have an equation (d) that we can play with. For  example, if an opponent has 60 life, how much life do you need to pay? Because x1 is multiplied by two, if the goal is to deal as much damage  as possible, you should always pay as much life as possible before the  first hit.  The easiest way here is to pay 58 life right away (x1 = 58  and x2 = 0) but what if you only have 40 life.  Our dmg equation shows  that if you have 40 life, you can pay 38 before the first hit (x1=38)  but in order to kill your opp, you’d have to pay 40 before the second  hit (x2=40), which we can already tell that won’t be possible with the  other parameters we set for this scenario.  The question is then how  high can x2 be in order to deal the highest amount of damage without  killing ourselves?  Now we need to figure out how to add lifelink into  the equation.  Lifelink will affect your life total (k) and because a souleater with  double-strike hits twice, let’s define your starting life total (k1),  our life total after the first hit (k2), and our life total after the  second hit (k3).  As before, let’s say that we pay 20 life before the  first hit (x1 = 20) and an additional 10 life afterwards (x2 = 10). Because our life total matters here, let’s also assume that our starting  life total is k1 = 40.  So, if x1 = 20, our remaining life before the  first hit is the difference k1 – x1 = 20 and immediately after the first  hit, the lifelink effect makes it go up by f1(20) = 11 points, which  means that we can define     and similarly,             Now we have a simple way of defining net-life gain/loss (nl) as the  difference between k3 and k1, namely     which funny enough doesn’t include x1 into the equation. The equation  for nl tells us three main things: (a) that we will never net more than 2  life, (b) we’ll net life loss proportional to the amount of life  we pay before the second hit (x2), and (c) net-wise, it doesn’t really  matter how much life you pay before the first hit (x1).  (x1 doesn’t  matter because in our scenario, it always nets 0 life.  Think about it.   You are paying 2 life to increase 1 dmg but with double-strike,  souleater hits twice and in the end, you get your 2 life back with  lifelink.  The only thing that carries over is the base power, which is  why there’s a constant 2 in the equation for k3.)    Good.  Now, what can we do with that?  Well, we can figure out how to  maximize dmg in terms of our life total, so that you deal as much  damage as possible without dying for any given amount of starting life  total (the math equivalent of “just pay as much life as you can before  each hit”).  For k1 &gt; 0, let i1 and i2 be the  amount of life you want to have before the first hit and second hit,  respectively, then     (There’s an additional complication here because of how we use phyrexian  mana but we don’t need to worry too much about it as long as we can  figure out the appropriate i1 and i2 for each value of k1.   For example, if you have 40 life, max(d) = 2.5 + 1.25(40) - .75(2) -  .5(2) = 50.  Because k1 is multiplied by a value greater than one, this  equation tells us that the amount of damage done above your starting  life increases with our starting life.  For example, if you have 40  life, you can deal 10 damage above your starting life to an opponent  (e.g., kill an opponent with 50 life points) but if you have 20 life,  you can only deal 5 damage above your starting life (e.g., kill an  opponent with 25 life points).  It’s easier to see this relationship  when we plot max(d) as a function of the starting life (k1) using the  minimum appropriate values of i1 and i2:    &nbsp;  If we fit a linear equation to it, we get a solution that does  not require knowing the exact values of i1 and i2, namely max(d) ≈  .65 + 1.25k1.  However, because each point is equally likely, as /u/darth_aardvark pointed out, the appropriate intercept should be the mean of all possible combinations of min(i1) and min(i2), which can only take on values {1, 2}.  There is a total of 2^2 combinations of  min(i1) and min(i2), namely    Those equations give us a mean intercept = .625 and a revised and final formula for the maximum amount of damage that a “bruised” souleater can do, specifically      which is equivalent to the more memorable formula     in which k1 is simply your life total before the attack.  The 5/4 coefficient is quite instructive because it connects this approach to /u/darth_aardvark’s.  Specifically, the first maximized damage of a bruised souleater will hit for approximately half our life total (k1/2), while the second hit will hit for half our life total plus half of the life gained from the second hit (k1/2 + k1/4), which gives us a total of 5/4*k1.  Well, this has been fun.  I’m sure there are other things we could  play with here but I’ve had enough for now.  I think there are two main  conclusions about a “bruised” Souleater.  The first and least obvious  one imo is that the more life you have, the more damage you can deal  above your own life total.  This is useful because it gives an intuition  about whether you can kill an opponent or not at any given point (low  life = cannot deal much above my own life; high life = can deal a bit  more than my own life), and whether you should attempt to compute  exacties.  In most cases, however, you won’t be able to deal a whole lot  more than your own life.  The other conclusion is that the amount of  life you pay before the first hit and second hit is net neutral and net  negative, respectively, but I feel most of us would be able to figure  this one out without much effort (lifelink gets only half the amount of  life paid immediately before the second hit, while it gets it all back  for the amount of life paid immediately before the first hit).  Again, if you spot an error, please point it out. If you found a  better way to look at this interaction or thought about a different  scenario, feel free to explain it.">
+
+
+  <meta name="author" content="Carlos Gomes">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="CGomesu">
+<meta property="og:title" content="The math of a bruised souleater">
+<meta property="og:url" content="http://localhost:4000/website/blog/Math-of-bruised-souleater/">
+
+
+  <meta property="og:description" content="(This is a repost of my original reddit post here. I’ve made a few changes to the original version to improve readability.)  This is a post about an interesting interaction that came up  yesterday, when I was making changes to an EDH deck.  I thought someone  else might find this analysis interesting, so I decided to share it  here. If you spot an error, feel free to point it out. The interaction is about two cards, namely Immolating Souleater and Bruse Tarl, Boorish Herder.     Suppose you have Immolating Souleater on the battlefield and Bruse Tarl, Boorish Herder’s triggered ability give it double-strike  and lifelink. Souleater is a 1/1 creature that costs 2 colorless and let’s you pay one  phyrexian red mana to give it +1/+0 until eot.  Let’s assume you cannot  pay red mana and if you want to activate Souleater’s ability, you need  to pay life.  The souleater is not under summoning sickness, so it can  attack an opponent.  For now, let’s also assume you have 40 life and  your opponents also have 40 life.  You see an opportunity to kill an  opponent, declare attack, the souleater is not blocked, you pay 38 life  to make it a 20/1 creature with double-strike and lifelink, and after  all damage is done, your opponent dies and you gain 40 life back (for a  +2 net life, as you end up with 42 in the end).  This is cool and all but what happens when you cannot pay 38 life  before the first hit?  What if your opponent has more life than you? Life-wise, does it matter how much life you pay before the first hit? How much life can you pay at any given point to either maximize damage  or minimize net life loss?  Let’s think about it.  Souleater’s activated ability is a simple linear function of the  amount of life you pay.  Let x be the amount of life paid, so that  souleater’s power is given by    (To make it simple, we  ignore the fact that phyrexian mana is always 2 life and let x be any  non-negative integer.)  As in the previous example, if you pay 38 life,  f(38) = 20.  The tricky part is how this simple linear function  interacts with Bruse’s ability, that is, the ability to give a creature  double-strike and lifelink (“bruised”).  The intuition with double-strike is to multiply f(x) by 2, which  would be correct if we only paid life before the first hit (x1) and  nothing else before the second hit (x2 = 0) but that does not need to be  the case.  Say we pay 20 life before the first hit (x1 = 20) and an  additional 10 life afterwards (x2 = 10).  How much damage will we deal  to the opponent?  We know that f(20) = 11 and f(10) = 6 but the first  hit should carry over to the second becasue the +1/+0 lasts until eot. At this point, let’s make an equation for the first hit,     and another for the second hit,      Now, we can sum both functions to get the total  amount of damage dealt (d) by a Souleater with double-strike:            (It’s easy to see how one could generalize  this to triple-strike, quadruple-strike, …, but let’s not delve into  it now.)  Therefore, if x1=20 and x2=10, d(20,10) = f1(20)+f2(20,10),  which is 27 damage for 30 life paid.  So, now we have an equation (d) that we can play with. For  example, if an opponent has 60 life, how much life do you need to pay? Because x1 is multiplied by two, if the goal is to deal as much damage  as possible, you should always pay as much life as possible before the  first hit.  The easiest way here is to pay 58 life right away (x1 = 58  and x2 = 0) but what if you only have 40 life.  Our dmg equation shows  that if you have 40 life, you can pay 38 before the first hit (x1=38)  but in order to kill your opp, you’d have to pay 40 before the second  hit (x2=40), which we can already tell that won’t be possible with the  other parameters we set for this scenario.  The question is then how  high can x2 be in order to deal the highest amount of damage without  killing ourselves?  Now we need to figure out how to add lifelink into  the equation.  Lifelink will affect your life total (k) and because a souleater with  double-strike hits twice, let’s define your starting life total (k1),  our life total after the first hit (k2), and our life total after the  second hit (k3).  As before, let’s say that we pay 20 life before the  first hit (x1 = 20) and an additional 10 life afterwards (x2 = 10). Because our life total matters here, let’s also assume that our starting  life total is k1 = 40.  So, if x1 = 20, our remaining life before the  first hit is the difference k1 – x1 = 20 and immediately after the first  hit, the lifelink effect makes it go up by f1(20) = 11 points, which  means that we can define     and similarly,             Now we have a simple way of defining net-life gain/loss (nl) as the  difference between k3 and k1, namely     which funny enough doesn’t include x1 into the equation. The equation  for nl tells us three main things: (a) that we will never net more than 2  life, (b) we’ll net life loss proportional to the amount of life  we pay before the second hit (x2), and (c) net-wise, it doesn’t really  matter how much life you pay before the first hit (x1).  (x1 doesn’t  matter because in our scenario, it always nets 0 life.  Think about it.   You are paying 2 life to increase 1 dmg but with double-strike,  souleater hits twice and in the end, you get your 2 life back with  lifelink.  The only thing that carries over is the base power, which is  why there’s a constant 2 in the equation for k3.)    Good.  Now, what can we do with that?  Well, we can figure out how to  maximize dmg in terms of our life total, so that you deal as much  damage as possible without dying for any given amount of starting life  total (the math equivalent of “just pay as much life as you can before  each hit”).  For k1 &gt; 0, let i1 and i2 be the  amount of life you want to have before the first hit and second hit,  respectively, then     (There’s an additional complication here because of how we use phyrexian  mana but we don’t need to worry too much about it as long as we can  figure out the appropriate i1 and i2 for each value of k1.   For example, if you have 40 life, max(d) = 2.5 + 1.25(40) - .75(2) -  .5(2) = 50.  Because k1 is multiplied by a value greater than one, this  equation tells us that the amount of damage done above your starting  life increases with our starting life.  For example, if you have 40  life, you can deal 10 damage above your starting life to an opponent  (e.g., kill an opponent with 50 life points) but if you have 20 life,  you can only deal 5 damage above your starting life (e.g., kill an  opponent with 25 life points).  It’s easier to see this relationship  when we plot max(d) as a function of the starting life (k1) using the  minimum appropriate values of i1 and i2:    &nbsp;  If we fit a linear equation to it, we get a solution that does  not require knowing the exact values of i1 and i2, namely max(d) ≈  .65 + 1.25k1.  However, because each point is equally likely, as /u/darth_aardvark pointed out, the appropriate intercept should be the mean of all possible combinations of min(i1) and min(i2), which can only take on values {1, 2}.  There is a total of 2^2 combinations of  min(i1) and min(i2), namely    Those equations give us a mean intercept = .625 and a revised and final formula for the maximum amount of damage that a “bruised” souleater can do, specifically      which is equivalent to the more memorable formula     in which k1 is simply your life total before the attack.  The 5/4 coefficient is quite instructive because it connects this approach to /u/darth_aardvark’s.  Specifically, the first maximized damage of a bruised souleater will hit for approximately half our life total (k1/2), while the second hit will hit for half our life total plus half of the life gained from the second hit (k1/2 + k1/4), which gives us a total of 5/4*k1.  Well, this has been fun.  I’m sure there are other things we could  play with here but I’ve had enough for now.  I think there are two main  conclusions about a “bruised” Souleater.  The first and least obvious  one imo is that the more life you have, the more damage you can deal  above your own life total.  This is useful because it gives an intuition  about whether you can kill an opponent or not at any given point (low  life = cannot deal much above my own life; high life = can deal a bit  more than my own life), and whether you should attempt to compute  exacties.  In most cases, however, you won’t be able to deal a whole lot  more than your own life.  The other conclusion is that the amount of  life you pay before the first hit and second hit is net neutral and net  negative, respectively, but I feel most of us would be able to figure  this one out without much effort (lifelink gets only half the amount of  life paid immediately before the second hit, while it gets it all back  for the amount of life paid immediately before the first hit).  Again, if you spot an error, please point it out. If you found a  better way to look at this interaction or thought about a different  scenario, feel free to explain it.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2019-07-19T00:00:00-03:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/website/blog/Math-of-bruised-souleater/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "",
+      "url": "http://localhost:4000/website/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/website/feed.xml" type="application/atom+xml" rel="alternate" title="CGomesu Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/website/assets/css/main.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="icon" href="/website/assets/img/site/favicon.ico" type="image/x-icon">
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/website/"><img src="/website/assets/img/site/logo.png" alt=""></a>
+        
+        <a class="site-title" href="/website/">
+           
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/website/">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/website/blog/">Blog</a>
+            </li><li class="masthead__menu-item">
+              <a href="/website/mtg/">MtG</a>
+            </li><li class="masthead__menu-item">
+              <a href="/website/papers/">Papers</a>
+            </li><li class="masthead__menu-item">
+              <a href="/website/projects/">Projects</a>
+            </li><li class="masthead__menu-item">
+              <a href="/website/resume/">Resume</a>
+            </li><li class="masthead__menu-item">
+              <a href="/website/contact/">Contact</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/website/assets/img/profile/profile-00.jpg" alt="Carlos Gomes" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Carlos Gomes</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>I’m a scientist, psychologist, math modeler, programmer, mtg player, free knowledge supporter, sbc fanatic, and electronics hobbyist.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Brazil</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="mailto:me@cgomesu.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Main E-mail</span></a></li>
+          
+        
+          
+            <li><a href="mailto:cf365@cornell.edu" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Academic E-mail</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="The math of a bruised souleater">
+    <meta itemprop="description" content="(This is a repost of my original reddit post here. I’ve made a few changes to the original version to improve readability.)This is a post about an interesting interaction that came up yesterday, when I was making changes to an EDH deck.  I thought someone else might find this analysis interesting, so I decided to share it here. If you spot an error, feel free to point it out. The interaction is about two cards, namely Immolating Souleater and Bruse Tarl, Boorish Herder.Suppose you have Immolating Souleater on the battlefield and Bruse Tarl, Boorish Herder’s triggered ability give it double-strike and lifelink. Souleater is a 1/1 creature that costs 2 colorless and let’s you pay one phyrexian red mana to give it +1/+0 until eot.  Let’s assume you cannot pay red mana and if you want to activate Souleater’s ability, you need to pay life.  The souleater is not under summoning sickness, so it can attack an opponent.  For now, let’s also assume you have 40 life and your opponents also have 40 life.  You see an opportunity to kill an opponent, declare attack, the souleater is not blocked, you pay 38 life to make it a 20/1 creature with double-strike and lifelink, and after all damage is done, your opponent dies and you gain 40 life back (for a +2 net life, as you end up with 42 in the end).This is cool and all but what happens when you cannot pay 38 life before the first hit?  What if your opponent has more life than you?Life-wise, does it matter how much life you pay before the first hit?How much life can you pay at any given point to either maximize damage or minimize net life loss?  Let’s think about it.Souleater’s activated ability is a simple linear function of the amount of life you pay.  Let x be the amount of life paid, so that souleater’s power is given by(To make it simple, we ignore the fact that phyrexian mana is always 2 life and let x be any non-negative integer.)  As in the previous example, if you pay 38 life, f(38) = 20.  The tricky part is how this simple linear function interacts with Bruse’s ability, that is, the ability to give a creature double-strike and lifelink (“bruised”).The intuition with double-strike is to multiply f(x) by 2, which would be correct if we only paid life before the first hit (x1) and nothing else before the second hit (x2 = 0) but that does not need to be the case.  Say we pay 20 life before the first hit (x1 = 20) and an additional 10 life afterwards (x2 = 10).  How much damage will we deal to the opponent?  We know that f(20) = 11 and f(10) = 6 but the first hit should carry over to the second becasue the +1/+0 lasts until eot.At this point, let’s make an equation for the first hit,and another for the second hit, Now, we can sum both functions to get the total amount of damage dealt (d) by a Souleater with double-strike: (It’s easy to see how one could generalize this to triple-strike, quadruple-strike, …, but let’s not delve into it now.)  Therefore, if x1=20 and x2=10, d(20,10) = f1(20)+f2(20,10), which is 27 damage for 30 life paid.So, now we have an equation (d) that we can play with. For example, if an opponent has 60 life, how much life do you need to pay?Because x1 is multiplied by two, if the goal is to deal as much damage as possible, you should always pay as much life as possible before the first hit.  The easiest way here is to pay 58 life right away (x1 = 58 and x2 = 0) but what if you only have 40 life.  Our dmg equation shows that if you have 40 life, you can pay 38 before the first hit (x1=38) but in order to kill your opp, you’d have to pay 40 before the second hit (x2=40), which we can already tell that won’t be possible with the other parameters we set for this scenario.  The question is then how high can x2 be in order to deal the highest amount of damage without killing ourselves?  Now we need to figure out how to add lifelink into the equation.Lifelink will affect your life total (k) and because a souleater with double-strike hits twice, let’s define your starting life total (k1), our life total after the first hit (k2), and our life total after the second hit (k3).  As before, let’s say that we pay 20 life before the first hit (x1 = 20) and an additional 10 life afterwards (x2 = 10).Because our life total matters here, let’s also assume that our starting life total is k1 = 40.  So, if x1 = 20, our remaining life before the first hit is the difference k1 – x1 = 20 and immediately after the first hit, the lifelink effect makes it go up by f1(20) = 11 points, which means that we can defineand similarly,Now we have a simple way of defining net-life gain/loss (nl) as the difference between k3 and k1, namelywhich funny enough doesn’t include x1 into the equation. The equation for nl tells us three main things: (a) that we will never net more than 2 life, (b) we’ll net life loss proportional to the amount of life we pay before the second hit (x2), and (c) net-wise, it doesn’t really matter how much life you pay before the first hit (x1).  (x1 doesn’t matter because in our scenario, it always nets 0 life.  Think about it.  You are paying 2 life to increase 1 dmg but with double-strike, souleater hits twice and in the end, you get your 2 life back with lifelink.  The only thing that carries over is the base power, which is why there’s a constant 2 in the equation for k3.)  Good.  Now, what can we do with that?  Well, we can figure out how to maximize dmg in terms of our life total, so that you deal as much damage as possible without dying for any given amount of starting life total (the math equivalent of “just pay as much life as you can before each hit”).  For k1 &gt; 0, let i1 and i2 be the amount of life you want to have before the first hit and second hit, respectively, then(There’s an additional complication here because of how we use phyrexian mana but we don’t need to worry too much about it as long as we can figure out the appropriate i1 and i2 for each value of k1.  For example, if you have 40 life, max(d) = 2.5 + 1.25(40) - .75(2) - .5(2) = 50.  Because k1 is multiplied by a value greater than one, this equation tells us that the amount of damage done above your starting life increases with our starting life.  For example, if you have 40 life, you can deal 10 damage above your starting life to an opponent (e.g., kill an opponent with 50 life points) but if you have 20 life, you can only deal 5 damage above your starting life (e.g., kill an opponent with 25 life points).  It’s easier to see this relationship when we plot max(d) as a function of the starting life (k1) using the minimum appropriate values of i1 and i2:&nbsp;If we fit a linear equation to it, we get a solution that does not require knowing the exact values of i1 and i2, namely max(d) ≈ .65 + 1.25k1.  However, because each point is equally likely, as /u/darth_aardvark pointed out, the appropriate intercept should be the mean of all possible combinations of min(i1) and min(i2), which can only take on values {1, 2}.  There is a total of 2^2 combinations of  min(i1) and min(i2), namelyThose equations give us a mean intercept = .625 and a revised and final formula for the maximum amount of damage that a “bruised” souleater can do, specifically which is equivalent to the more memorable formulain which k1 is simply your life total before the attack.  The 5/4 coefficient is quite instructive because it connects this approach to /u/darth_aardvark’s.  Specifically, the first maximized damage of a bruised souleater will hit for approximately half our life total (k1/2), while the second hit will hit for half our life total plus half of the life gained from the second hit (k1/2 + k1/4), which gives us a total of 5/4*k1.Well, this has been fun.  I’m sure there are other things we could play with here but I’ve had enough for now.  I think there are two main conclusions about a “bruised” Souleater.  The first and least obvious one imo is that the more life you have, the more damage you can deal above your own life total.  This is useful because it gives an intuition about whether you can kill an opponent or not at any given point (low life = cannot deal much above my own life; high life = can deal a bit more than my own life), and whether you should attempt to compute exacties.  In most cases, however, you won’t be able to deal a whole lot more than your own life.  The other conclusion is that the amount of life you pay before the first hit and second hit is net neutral and net negative, respectively, but I feel most of us would be able to figure this one out without much effort (lifelink gets only half the amount of life paid immediately before the second hit, while it gets it all back for the amount of life paid immediately before the first hit).Again, if you spot an error, please point it out. If you found a better way to look at this interaction or thought about a different scenario, feel free to explain it.">
+    <meta itemprop="datePublished" content="2019-07-19T00:00:00-03:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">The math of a bruised souleater
+</h1>
+          
+            <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  8 minute read
+
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        (<a href="https://www.reddit.com/r/magicTCG/comments/7phqk1/the_math_of_a_bruised_souleater/" target="_blank">This is a repost of my original reddit post here</a>. I've made a few changes to the original version to improve readability.)<br />
+<br />
+This is a post about an interesting interaction that came up 
+yesterday, when I was making changes to an EDH deck.  I thought someone 
+else might find this analysis interesting, so I decided to share it 
+here. If you spot an error, feel free to point it out. The interaction is about two cards, namely <b>Immolating Souleater</b> and <b>Bruse Tarl, Boorish Herder</b>.<br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://1.bp.blogspot.com/-s-SLz9sGOLs/XTHQDNmxMJI/AAAAAAAABO0/YiEh01uLvpE8brJ2jevwByYpDzONxzK_ACLcBGAs/s1600/souleater.jpeg" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="936" data-original-width="672" height="320" src="https://1.bp.blogspot.com/-s-SLz9sGOLs/XTHQDNmxMJI/AAAAAAAABO0/YiEh01uLvpE8brJ2jevwByYpDzONxzK_ACLcBGAs/s320/souleater.jpeg" width="229" /></a><a href="https://1.bp.blogspot.com/-Nyz-HJZx2JE/XTHQDBRvESI/AAAAAAAABOw/NXIJVTlc10gLNO5TtdzqoXDxsQQRbmkzgCLcBGAs/s1600/brusetarl.jpg" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="936" data-original-width="672" height="320" src="https://1.bp.blogspot.com/-Nyz-HJZx2JE/XTHQDBRvESI/AAAAAAAABOw/NXIJVTlc10gLNO5TtdzqoXDxsQQRbmkzgCLcBGAs/s320/brusetarl.jpg" width="229" /></a></div>
+<br />
+Suppose you have Immolating Souleater on the battlefield and Bruse Tarl, Boorish Herder's triggered ability give it double-strike
+ and lifelink. Souleater is a 1/1 creature that costs 2 colorless and let's you pay one 
+phyrexian red mana to give it +1/+0 until eot.&nbsp; Let's assume you cannot 
+pay red mana and if you want to activate Souleater's ability, you need 
+to pay life.  The souleater is not under summoning sickness, so it can 
+attack an opponent.  For now, let's also assume you have 40 life and 
+your opponents also have 40 life.  You see an opportunity to kill an 
+opponent, declare attack, the souleater is not blocked, you pay 38 life 
+to make it a 20/1 creature with double-strike and lifelink, and after 
+all damage is done, your opponent dies and you gain 40 life back (for a 
++2 net life, as you end up with 42 in the end).<br />
+<br />
+This is cool and all but what happens when you cannot pay 38 life 
+before the first hit?  What if your opponent has more life than you?  
+Life-wise, does it matter how much life you pay before the first hit?  
+How much life can you pay at any given point to either maximize damage 
+or minimize net life loss?  Let's think about it.<br />
+<br />
+Souleater's activated ability is a simple linear function of the 
+amount of life you pay.  Let <i>x</i> be the amount of life paid, so that 
+souleater's power is given by<br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://1.bp.blogspot.com/-dhyLVHpLnmA/XTHcIETpmhI/AAAAAAAABQE/1ZexZS3jUU0UcTfjP_hABEKUfXvSVME_QCLcBGAs/s1600/eq1.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="85" data-original-width="252" src="https://1.bp.blogspot.com/-dhyLVHpLnmA/XTHcIETpmhI/AAAAAAAABQE/1ZexZS3jUU0UcTfjP_hABEKUfXvSVME_QCLcBGAs/s1600/eq1.png" /></a></div>
+(To make it simple, we 
+ignore the fact that phyrexian mana is always 2 life and let <i>x</i> be any 
+non-negative integer.)  As in the previous example, if you pay 38 life, 
+f(38) = 20.  The tricky part is how this simple linear function 
+interacts with Bruse's ability, that is, the ability to give a creature 
+double-strike and lifelink ("bruised").<br />
+<br />
+The intuition with double-strike is to multiply <i>f</i>(<i>x</i>) by 2, which 
+would be correct if we only paid life before the first hit (<i>x1</i>) and 
+nothing else before the second hit (<i>x2</i> = 0) but that does not need to be
+ the case.  Say we pay 20 life before the first hit (<i>x1</i> = 20) and an 
+additional 10 life afterwards (<i>x2</i> = 10).  How much damage will we deal 
+to the opponent?  We know that <i>f</i>(20) = 11 and <i>f</i>(10) = 6 but the first 
+hit should carry over to the second becasue the +1/+0 lasts until eot.  
+At this point, let's make an equation for the first hit,<br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://1.bp.blogspot.com/-z1yLtLX24OY/XTHcBOjC2KI/AAAAAAAABQA/HVGKRrMqP78TUTaPL_iU3YKiGIqFaRB9wCLcBGAs/s1600/eq2.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="56" data-original-width="269" src="https://1.bp.blogspot.com/-z1yLtLX24OY/XTHcBOjC2KI/AAAAAAAABQA/HVGKRrMqP78TUTaPL_iU3YKiGIqFaRB9wCLcBGAs/s1600/eq2.png" /></a></div>
+<br />
+and another for the second hit,<br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://1.bp.blogspot.com/--iRYU1Z-mJo/XTHb9Eu15-I/AAAAAAAABP8/hFQYI9dP434sUqBY2b9qymaItdCx4JMfwCLcBGAs/s1600/eq3.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="72" data-original-width="728" height="37" src="https://1.bp.blogspot.com/--iRYU1Z-mJo/XTHb9Eu15-I/AAAAAAAABP8/hFQYI9dP434sUqBY2b9qymaItdCx4JMfwCLcBGAs/s400/eq3.png" width="400" /></a></div>
+<br />
+&nbsp;Now, we can sum both functions to get the total 
+amount of damage dealt (<i>d</i>) by a Souleater with double-strike:<br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+</div>
+<div class="separator" style="clear: both; text-align: center;">
+</div>
+<div class="separator" style="clear: both; text-align: center;">
+</div>
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://1.bp.blogspot.com/-2AlH-sOq3eY/XTHb5lsAczI/AAAAAAAABP0/q7kf9ig5JY4f_qcvpq-UZ8r0AQpn1PSgwCLcBGAs/s1600/eq4.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="77" data-original-width="1051" height="46" src="https://1.bp.blogspot.com/-2AlH-sOq3eY/XTHb5lsAczI/AAAAAAAABP0/q7kf9ig5JY4f_qcvpq-UZ8r0AQpn1PSgwCLcBGAs/s640/eq4.png" width="640" /></a> </div>
+<br />
+(It's easy to see how one could generalize 
+this to triple-strike, quadruple-strike, ..., but let’s not delve into 
+it now.)  Therefore, if <i>x1</i>=20 and <i>x2</i>=10, <i>d</i>(20,10) = <i>f1</i>(20)+<i>f2</i>(20,10), 
+which is 27 damage for 30 life paid.<br />
+<br />
+So, now we have an equation (<i>d</i>) that we can play with. For 
+example, if an opponent has 60 life, how much life do you need to pay?  
+Because <i>x1</i> is multiplied by two, if the goal is to deal as much damage 
+as possible, you should always pay as much life as possible before the 
+first hit.  The easiest way here is to pay 58 life right away (<i>x1</i> = 58 
+and <i>x2</i> = 0) but what if you only have 40 life.  Our dmg equation shows 
+that if you have 40 life, you can pay 38 before the first hit (<i>x1</i>=38) 
+but in order to kill your opp, you’d have to pay 40 before the second 
+hit (<i>x2</i>=40), which we can already tell that won’t be possible with the 
+other parameters we set for this scenario.  The question is then how 
+high can x2 be in order to deal the highest amount of damage without 
+killing ourselves?  Now we need to figure out how to add lifelink into 
+the equation.<br />
+<br />
+Lifelink will affect your life total (<i>k</i>) and because a souleater with
+ double-strike hits twice, let’s define your starting life total (<i>k1</i>), 
+our life total after the first hit (<i>k2</i>), and our life total after the 
+second hit (<i>k3</i>).  As before, let’s say that we pay 20 life before the 
+first hit (<i>x1</i> = 20) and an additional 10 life afterwards (<i>x2</i> = 10).  
+Because our life total matters here, let’s also assume that our starting
+ life total is <i>k1</i> = 40.  So, if <i>x1</i> = 20, our remaining life before the 
+first hit is the difference <i>k1</i> – <i>x1</i> = 20 and immediately after the first
+ hit, the lifelink effect makes it go up by <i>f1</i>(20) = 11 points, which 
+means that we can define<br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://1.bp.blogspot.com/-GsrX01pXEuE/XTHbxWAC-_I/AAAAAAAABPs/mR0TJCRNV64RWjV0XIXfcUySeJnTM4yNQCLcBGAs/s1600/eq5.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="62" data-original-width="515" height="38" src="https://1.bp.blogspot.com/-GsrX01pXEuE/XTHbxWAC-_I/AAAAAAAABPs/mR0TJCRNV64RWjV0XIXfcUySeJnTM4yNQCLcBGAs/s320/eq5.png" width="320" /></a></div>
+<br />
+and similarly,<br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+</div>
+<div class="separator" style="clear: both; text-align: center;">
+</div>
+<div class="separator" style="clear: both; text-align: center;">
+</div>
+<div class="separator" style="clear: both; text-align: center;">
+</div>
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://1.bp.blogspot.com/-utLNlH51tho/XTHbr4Fi5jI/AAAAAAAABPo/-PAxT2mVQiYQ80pN9B3X2f48lw9Wq5dRACLcBGAs/s1600/eq6.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="66" data-original-width="543" height="38" src="https://1.bp.blogspot.com/-utLNlH51tho/XTHbr4Fi5jI/AAAAAAAABPo/-PAxT2mVQiYQ80pN9B3X2f48lw9Wq5dRACLcBGAs/s320/eq6.png" width="320" /></a></div>
+<br />
+Now we have a simple way of defining net-life gain/loss (<i>nl</i>) as the 
+difference between <i>k3</i> and <i>k1</i>, namely<br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://1.bp.blogspot.com/-wB-v9hjyG84/XTHbkZJ-79I/AAAAAAAABPg/GhCI37Sar-8Z5DCqxBakzrdlgYU6KH8NACLcBGAs/s1600/eq7.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="76" data-original-width="373" height="65" src="https://1.bp.blogspot.com/-wB-v9hjyG84/XTHbkZJ-79I/AAAAAAAABPg/GhCI37Sar-8Z5DCqxBakzrdlgYU6KH8NACLcBGAs/s320/eq7.png" width="320" /></a></div>
+<br />
+which funny enough doesn’t include <i>x1</i> into the equation. The equation 
+for nl tells us three main things: (a) that we will never net more than 2
+ life, (b) we’ll net life loss proportional to the amount of life 
+we pay before the second hit (<i>x2</i>), and (c) net-wise, it doesn’t really 
+matter how much life you pay before the first hit (<i>x1</i>).  (<i>x1</i> doesn’t 
+matter because in our scenario, it always nets 0 life.  Think about it. 
+ You are paying 2 life to increase 1 dmg but with double-strike, 
+souleater hits twice and in the end, you get your 2 life back with 
+lifelink.  The only thing that carries over is the base power, which is 
+why there’s a constant 2 in the equation for <i>k3</i>.)<br />
+&nbsp; <br />
+Good.  Now, what can we do with that?  Well, we can figure out how to
+ maximize dmg in terms of our life total, so that you deal as much 
+damage as possible without dying for any given amount of starting life 
+total (the math equivalent of “just pay as much life as you can before 
+each hit”).  For <i>k1</i> &gt; 0, let <i>i1</i> and <i>i2</i> be the
+ amount of life you want to have before the first hit and second hit, 
+respectively, then<br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://1.bp.blogspot.com/-TmQSb93i_k0/XTHbdhU4O1I/AAAAAAAABPc/HlFtRFclXToZBqRfoMAcEp-Zsm1Fg6yMQCLcBGAs/s1600/eq8.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="60" data-original-width="1343" height="27" src="https://1.bp.blogspot.com/-TmQSb93i_k0/XTHbdhU4O1I/AAAAAAAABPc/HlFtRFclXToZBqRfoMAcEp-Zsm1Fg6yMQCLcBGAs/s640/eq8.png" width="640" /></a></div>
+<br />
+(There’s an additional complication here because of how we use phyrexian
+ mana but we don’t need to worry too much about it as long as we can 
+figure out the appropriate <i>i1</i> and <i>i2</i> for each value of <i>k1</i>.
+  For example, if you have 40 life, max(<i>d</i>) = 2.5 + 1.25(40) - .75(2) -
+ .5(2) = 50.  Because <i>k1</i> is multiplied by a value greater than one, this
+ equation tells us that the amount of damage done above your starting 
+life increases with our starting life.  For example, if you have 40 
+life, you can deal 10 damage above your starting life to an opponent 
+(e.g., kill an opponent with 50 life points) but if you have 20 life, 
+you can only deal 5 damage above your starting life (e.g., kill an 
+opponent with 25 life points).  It’s easier to see this relationship 
+when we plot max(<i>d</i>) as a function of the starting life (<i>k1</i>) using the 
+minimum appropriate values of <i>i1</i> and <i>i2</i>:<br />
+<br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+&nbsp;<a href="https://1.bp.blogspot.com/-hhrmKTAKKeM/XTHQzX5EznI/AAAAAAAABPA/hG4vnqzyI4IqoF7_o_K-nwu2dKs87zjpwCLcBGAs/s1600/plot.jpg" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="587" data-original-width="750" height="250" src="https://1.bp.blogspot.com/-hhrmKTAKKeM/XTHQzX5EznI/AAAAAAAABPA/hG4vnqzyI4IqoF7_o_K-nwu2dKs87zjpwCLcBGAs/s320/plot.jpg" width="320" /></a></div>
+<br />
+If we fit a linear equation to it, we get a solution that does
+ not require knowing the exact values of <i>i1</i> and <i>i2</i>, namely max(<i>d</i>) ≈ 
+.65 + 1.25<i>k1</i>.&nbsp; However, because each point is equally likely, as /u/darth_aardvark pointed out, the appropriate intercept should be the mean of all possible combinations of min(<i>i1</i>) and min(<i>i2</i>), which can only take on values {1, 2}.&nbsp; There is a total of 2^2 combinations of&nbsp; min(<i>i1</i>) and min(<i>i2</i>), namely<br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://1.bp.blogspot.com/-c2o6F9bHJ2w/XTIS0C8UVFI/AAAAAAAABQg/G2uYk4TQKbgrS2hxpM9zLhWKJFopuHjKQCLcBGAs/s1600/eq8-2.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="237" data-original-width="736" height="128" src="https://1.bp.blogspot.com/-c2o6F9bHJ2w/XTIS0C8UVFI/AAAAAAAABQg/G2uYk4TQKbgrS2hxpM9zLhWKJFopuHjKQCLcBGAs/s400/eq8-2.png" width="400" /></a></div>
+Those equations give us a mean intercept = .625 and a revised and final formula for the maximum amount of damage that a "bruised" souleater can do, specifically <br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://1.bp.blogspot.com/-ZUFPOQUI09E/XTHa0rg9LFI/AAAAAAAABPU/aYoGCoDLvzUKAyj-rBccRJpd5pUt152UwCLcBGAs/s1600/eq9.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="73" data-original-width="337" height="69" src="https://1.bp.blogspot.com/-ZUFPOQUI09E/XTHa0rg9LFI/AAAAAAAABPU/aYoGCoDLvzUKAyj-rBccRJpd5pUt152UwCLcBGAs/s320/eq9.png" width="320" /></a></div>
+<br />
+which is equivalent to the more memorable formula<br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://1.bp.blogspot.com/-01Bg4iZZAAE/XTIXoYSKvpI/AAAAAAAABQs/b7mIhtenEOMOwqKBzxS02gYHAwOh75pVQCLcBGAs/s1600/eq9-2.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="110" data-original-width="523" height="67" src="https://1.bp.blogspot.com/-01Bg4iZZAAE/XTIXoYSKvpI/AAAAAAAABQs/b7mIhtenEOMOwqKBzxS02gYHAwOh75pVQCLcBGAs/s320/eq9-2.png" width="320" /></a></div>
+<br />
+in which <i>k1</i> is simply your life total before the attack.&nbsp; The 5/4 coefficient is quite instructive because it connects this approach to /u/darth_aardvark's.&nbsp; Specifically, the first maximized damage of a bruised souleater will hit for approximately half our life total (<i>k1</i>/2), while the second hit will hit for half our life total plus half of the life gained from the second hit (<i>k1</i>/2 + <i>k1</i>/4), which gives us a total of 5/4*<i>k1</i>.<br />
+<br />
+Well, this has been fun.  I’m sure there are other things we could 
+play with here but I’ve had enough for now.  I think there are two main 
+conclusions about a “bruised” Souleater.  The first and least obvious 
+one imo is that the more life you have, the more damage you can deal 
+above your own life total.  This is useful because it gives an intuition
+ about whether you can kill an opponent or not at any given point (low 
+life = cannot deal much above my own life; high life = can deal a bit 
+more than my own life), and whether you should attempt to compute 
+exacties.  In most cases, however, you won’t be able to deal a whole lot
+ more than your own life.  The other conclusion is that the amount of 
+life you pay before the first hit and second hit is net neutral and net 
+negative, respectively, but I feel most of us would be able to figure 
+this one out without much effort (lifelink gets only half the amount of 
+life paid immediately before the second hit, while it gets it all back 
+for the amount of life paid immediately before the first hit).<br />
+<br />
+Again, if you spot an error, please point it out. If you found a 
+better way to look at this interaction or thought about a different 
+scenario, feel free to explain it.  
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2019-07-19T00:00:00-03:00">July 19, 2019</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=The+math+of+a+bruised+souleater%20http%3A%2F%2Flocalhost%3A4000%2Fwebsite%2Fblog%2FMath-of-bruised-souleater%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fwebsite%2Fblog%2FMath-of-bruised-souleater%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fwebsite%2Fblog%2FMath-of-bruised-souleater%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/website/blog/Probability-warp-world/" class="pagination--pager" title="The probability of Warp World
+">Previous</a>
+    
+    
+      <a href="/website/blog/IR-with-odroidc2/" class="pagination--pager" title="Using any IR remote with the Odroid C2 IR receiver + LibreElec OS
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You may also enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/website/blog/Youtube-as-IPTV-with-TVH/" rel="permalink">Youtube live-streams as IPTV channels for TVHeadend
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  20 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">- Update tracker -&lt;div&gt;May 19th, 2020 - Added info about TVH m3u re-fetch period and youtube4tvh cronjob for streams that change very often.&lt;/div&gt...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/website/blog/IR-with-odroidc2/" rel="permalink">Using any IR remote with the Odroid C2 IR receiver + LibreElec OS
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  1 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">In case you didn't know, the Odroid C2 (https://www.hardkernel.com/shop/odroid-c2/) comes with an onboard infrared (IR) receiver.&nbsp; Until a few days ago,...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/website/blog/Probability-warp-world/" rel="permalink">The probability of Warp World
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  16 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+
+
+
+
+
+(This is a repost from my original reddit post..)
+
+Introduction
+
+If you’re unfamiliar with Warp World, you are in for a treat. It’s a 5RRR sorcery from...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/website/blog/Securing-backend-haproxy-pfsense/" rel="permalink">Securing access to backends with pfsense’s HAproxy package: A guide on how to create user lists and how to protect them with stick-tables using pfsense’s GUI
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  7 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+Updated on May 1st 2020: This guide still works with pfsense version 2.4.5-RELEASE and the haproxy packaged version 0.60_4.
+
+This is a rough guide on how to...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/cgomesu" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          <li><a href="https://www.reddit.com/user/cgomesu/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i> Reddit</a></li>
+        
+      
+    
+
+    <li><a href="/website/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> RSS feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2020 CGomesu - Hosted on <a href="https://github.com/cgomesu/website">Github Pages</a> - Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> and <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a></div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/website/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+<script src="/website/assets/js/lunr/lunr.min.js"></script>
+<script src="/website/assets/js/lunr/lunr-store.js"></script>
+<script src="/website/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

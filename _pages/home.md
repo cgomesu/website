@@ -7,7 +7,7 @@ header:
   overlay_filter: "0.5"
   overlay_image: /assets/img/site/banner-page-01.jpeg
   caption: "by [**Moebius**](https://en.wikipedia.org/wiki/Jean_Giraud)"
-excerpt: "A place where you can learn about what I have done in the past, the projects I am currently involved with, my hobbies, and more..."
+excerpt: "A place where you can learn about what I have done in the past, the projects I am currently involved with, my hobbies, and more."
 feature_row:
   - image_path: "/assets/img/profile/profile-02.jpg"
     title: "Who am I?"

@@ -1,0 +1,34 @@
+---
+title: "Using any IR remote with the Odroid C2 IR receiver + LibreElec OS"
+date: 2020-02-18
+tags: odroid sbc
+---
+<div>In case you didn't know, the Odroid C2 (<a href="https://www.hardkernel.com/shop/odroid-c2/">https://www.hardkernel.com/shop/odroid-c2/</a>) comes with an onboard infrared (IR) receiver.&nbsp; Until a few days ago, I thought that such a receive was only compatible with their own IR remote controller but it turns out you can use it with <i>any IR controller</i>.&nbsp; We can do that with a package called <i>lirc</i>, which stands for linux infrared remote control (<a href="http://www.lirc.org/html/">http://www.lirc.org/html/</a>).&nbsp; <br /></div><div><br /></div><div class="separator" style="clear: both; text-align: center;"><a href="https://1.bp.blogspot.com/-8FZvCPFMbgQ/XrQpSpxWgWI/AAAAAAAABaw/B_23PiUqm3YiWwv8tZ4bxtRL_zjygHGrQCK4BGAsYHg/odroidc2.jpg" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="396" data-original-width="608" src="https://1.bp.blogspot.com/-8FZvCPFMbgQ/XrQpSpxWgWI/AAAAAAAABaw/B_23PiUqm3YiWwv8tZ4bxtRL_zjygHGrQCK4BGAsYHg/s320/odroidc2.jpg" width="320" /></a></div><div><br /></div><div><br /></div><div>This tutorial is for the LibreElec OS but one can use lirc with any linux distro and the configuration is not completely different than the one shown here.&nbsp; Here's a step by step procedure to get the IR working with lirc:</div>
+<br />
+# Tested with LibreElec Official OS 9.0.2 running Kodi 18.2<br />
+<br />
+# SSH into your Odroid C2<br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">ssh root@IP</span><br />
+<br />
+# Get a list of all available keys that you can map to your IR remote<br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">irrecord --list-namespace</span><br />
+<br />
+# Kill running lircd, if there's any<br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">ps aux | grep lircd<br />kill PID</span><br />
+<br />
+# Turn off all other IR compatible devices before moving forward<br />
+<br />
+# Go to /storage and record IR custom keys: <br />
+# Follow the instructions that will show yup on your screen<br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">cd /storage/<br />irrecord</span><br />
+<br />
+# If succesful, irrecord will genetare a *.conf file on /storage/<br />
+# with the name you provided at the beginnig<br />
+<br />
+# Copy the *.conf file to /storage/.conf/lircd.conf<br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">cp *.conf /storage/.conf/lircd.conf</span><br />
+<br />
+# Reboot your system<br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">reboot now</span><br />
+<br />
+# Test your IR remote<br />

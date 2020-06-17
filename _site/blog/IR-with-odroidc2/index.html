@@ -1,0 +1,609 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.19.3 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Using any IR remote with the Odroid C2 IR receiver + LibreElec OS - CGomesu</title>
+<meta name="description" content="In case you didn&#39;t know, the Odroid C2 (https://www.hardkernel.com/shop/odroid-c2/) comes with an onboard infrared (IR) receiver.&nbsp; Until a few days ago, I thought that such a receive was only compatible with their own IR remote controller but it turns out you can use it with any IR controller.&nbsp; We can do that with a package called lirc, which stands for linux infrared remote control (http://www.lirc.org/html/).&nbsp;      This tutorial is for the LibreElec OS but one can use lirc with any linux distro and the configuration is not completely different than the one shown here.&nbsp; Here&#39;s a step by step procedure to get the IR working with lirc:  Tested with LibreElec Official OS 9.0.2 running Kodi 18.2  SSH into your Odroid C2 ssh root@IP  Get a list of all available keys that you can map to your IR remote irrecord –list-namespace  Kill running lircd, if there’s any ps aux | grep lircdkill PID  Turn off all other IR compatible devices before moving forward  Go to /storage and record IR custom keys:  Follow the instructions that will show yup on your screen cd /storage/irrecord  If succesful, irrecord will genetare a *.conf file on /storage/ with the name you provided at the beginnig  Copy the *.conf file to /storage/.conf/lircd.conf cp *.conf /storage/.conf/lircd.conf  Reboot your system reboot now  Test your IR remote">
+
+
+  <meta name="author" content="Carlos Gomes">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="CGomesu">
+<meta property="og:title" content="Using any IR remote with the Odroid C2 IR receiver + LibreElec OS">
+<meta property="og:url" content="http://localhost:4000/website/blog/IR-with-odroidc2/">
+
+
+  <meta property="og:description" content="In case you didn&#39;t know, the Odroid C2 (https://www.hardkernel.com/shop/odroid-c2/) comes with an onboard infrared (IR) receiver.&nbsp; Until a few days ago, I thought that such a receive was only compatible with their own IR remote controller but it turns out you can use it with any IR controller.&nbsp; We can do that with a package called lirc, which stands for linux infrared remote control (http://www.lirc.org/html/).&nbsp;      This tutorial is for the LibreElec OS but one can use lirc with any linux distro and the configuration is not completely different than the one shown here.&nbsp; Here&#39;s a step by step procedure to get the IR working with lirc:  Tested with LibreElec Official OS 9.0.2 running Kodi 18.2  SSH into your Odroid C2 ssh root@IP  Get a list of all available keys that you can map to your IR remote irrecord –list-namespace  Kill running lircd, if there’s any ps aux | grep lircdkill PID  Turn off all other IR compatible devices before moving forward  Go to /storage and record IR custom keys:  Follow the instructions that will show yup on your screen cd /storage/irrecord  If succesful, irrecord will genetare a *.conf file on /storage/ with the name you provided at the beginnig  Copy the *.conf file to /storage/.conf/lircd.conf cp *.conf /storage/.conf/lircd.conf  Reboot your system reboot now  Test your IR remote">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2020-02-18T00:00:00-03:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/website/blog/IR-with-odroidc2/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "",
+      "url": "http://localhost:4000/website/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/website/feed.xml" type="application/atom+xml" rel="alternate" title="CGomesu Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/website/assets/css/main.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="icon" href="/website/assets/img/site/favicon.ico" type="image/x-icon">
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/website/"><img src="/website/assets/img/site/logo.png" alt=""></a>
+        
+        <a class="site-title" href="/website/">
+           
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/website/">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/website/blog/">Blog</a>
+            </li><li class="masthead__menu-item">
+              <a href="/website/mtg/">MtG</a>
+            </li><li class="masthead__menu-item">
+              <a href="/website/papers/">Papers</a>
+            </li><li class="masthead__menu-item">
+              <a href="/website/projects/">Projects</a>
+            </li><li class="masthead__menu-item">
+              <a href="/website/resume/">Resume</a>
+            </li><li class="masthead__menu-item">
+              <a href="/website/contact/">Contact</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/website/assets/img/profile/profile-00.jpg" alt="Carlos Gomes" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Carlos Gomes</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>I’m a scientist, psychologist, math modeler, programmer, mtg player, free knowledge supporter, sbc fanatic, and electronics hobbyist.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Brazil</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="mailto:me@cgomesu.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Main E-mail</span></a></li>
+          
+        
+          
+            <li><a href="mailto:cf365@cornell.edu" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Academic E-mail</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Using any IR remote with the Odroid C2 IR receiver + LibreElec OS">
+    <meta itemprop="description" content="In case you didn&#39;t know, the Odroid C2 (https://www.hardkernel.com/shop/odroid-c2/) comes with an onboard infrared (IR) receiver.&nbsp; Until a few days ago, I thought that such a receive was only compatible with their own IR remote controller but it turns out you can use it with any IR controller.&nbsp; We can do that with a package called lirc, which stands for linux infrared remote control (http://www.lirc.org/html/).&nbsp; This tutorial is for the LibreElec OS but one can use lirc with any linux distro and the configuration is not completely different than the one shown here.&nbsp; Here&#39;s a step by step procedure to get the IR working with lirc:Tested with LibreElec Official OS 9.0.2 running Kodi 18.2SSH into your Odroid C2ssh root@IPGet a list of all available keys that you can map to your IR remoteirrecord –list-namespaceKill running lircd, if there’s anyps aux | grep lircdkill PIDTurn off all other IR compatible devices before moving forwardGo to /storage and record IR custom keys: Follow the instructions that will show yup on your screencd /storage/irrecordIf succesful, irrecord will genetare a *.conf file on /storage/with the name you provided at the beginnigCopy the *.conf file to /storage/.conf/lircd.confcp *.conf /storage/.conf/lircd.confReboot your systemreboot nowTest your IR remote">
+    <meta itemprop="datePublished" content="2020-02-18T00:00:00-03:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Using any IR remote with the Odroid C2 IR receiver + LibreElec OS
+</h1>
+          
+            <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  1 minute read
+
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <div>In case you didn't know, the Odroid C2 (<a href="https://www.hardkernel.com/shop/odroid-c2/">https://www.hardkernel.com/shop/odroid-c2/</a>) comes with an onboard infrared (IR) receiver.&nbsp; Until a few days ago, I thought that such a receive was only compatible with their own IR remote controller but it turns out you can use it with <i>any IR controller</i>.&nbsp; We can do that with a package called <i>lirc</i>, which stands for linux infrared remote control (<a href="http://www.lirc.org/html/">http://www.lirc.org/html/</a>).&nbsp; <br /></div><div><br /></div><div class="separator" style="clear: both; text-align: center;"><a href="https://1.bp.blogspot.com/-8FZvCPFMbgQ/XrQpSpxWgWI/AAAAAAAABaw/B_23PiUqm3YiWwv8tZ4bxtRL_zjygHGrQCK4BGAsYHg/odroidc2.jpg" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="396" data-original-width="608" src="https://1.bp.blogspot.com/-8FZvCPFMbgQ/XrQpSpxWgWI/AAAAAAAABaw/B_23PiUqm3YiWwv8tZ4bxtRL_zjygHGrQCK4BGAsYHg/s320/odroidc2.jpg" width="320" /></a></div><div><br /></div><div><br /></div><div>This tutorial is for the LibreElec OS but one can use lirc with any linux distro and the configuration is not completely different than the one shown here.&nbsp; Here's a step by step procedure to get the IR working with lirc:</div>
+<br />
+# Tested with LibreElec Official OS 9.0.2 running Kodi 18.2<br />
+<br />
+# SSH into your Odroid C2<br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">ssh root@IP</span><br />
+<br />
+# Get a list of all available keys that you can map to your IR remote<br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">irrecord --list-namespace</span><br />
+<br />
+# Kill running lircd, if there's any<br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">ps aux | grep lircd<br />kill PID</span><br />
+<br />
+# Turn off all other IR compatible devices before moving forward<br />
+<br />
+# Go to /storage and record IR custom keys: <br />
+# Follow the instructions that will show yup on your screen<br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">cd /storage/<br />irrecord</span><br />
+<br />
+# If succesful, irrecord will genetare a *.conf file on /storage/<br />
+# with the name you provided at the beginnig<br />
+<br />
+# Copy the *.conf file to /storage/.conf/lircd.conf<br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">cp *.conf /storage/.conf/lircd.conf</span><br />
+<br />
+# Reboot your system<br />
+<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">reboot now</span><br />
+<br />
+# Test your IR remote<br />
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2020-02-18T00:00:00-03:00">February 18, 2020</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Using+any+IR+remote+with+the+Odroid+C2+IR+receiver+%2B+LibreElec+OS%20http%3A%2F%2Flocalhost%3A4000%2Fwebsite%2Fblog%2FIR-with-odroidc2%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fwebsite%2Fblog%2FIR-with-odroidc2%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fwebsite%2Fblog%2FIR-with-odroidc2%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/website/blog/Math-of-bruised-souleater/" class="pagination--pager" title="The math of a bruised souleater
+">Previous</a>
+    
+    
+      <a href="/website/blog/Youtube-as-IPTV-with-TVH/" class="pagination--pager" title="Youtube live-streams as IPTV channels for TVHeadend
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You may also enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/website/blog/Youtube-as-IPTV-with-TVH/" rel="permalink">Youtube live-streams as IPTV channels for TVHeadend
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  20 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">- Update tracker -&lt;div&gt;May 19th, 2020 - Added info about TVH m3u re-fetch period and youtube4tvh cronjob for streams that change very often.&lt;/div&gt...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/website/blog/Math-of-bruised-souleater/" rel="permalink">The math of a bruised souleater
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  8 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">(This is a repost of my original reddit post here. I’ve made a few changes to the original version to improve readability.)
+
+This is a post about an interest...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/website/blog/Probability-warp-world/" rel="permalink">The probability of Warp World
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  16 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+
+
+
+
+
+(This is a repost from my original reddit post..)
+
+Introduction
+
+If you’re unfamiliar with Warp World, you are in for a treat. It’s a 5RRR sorcery from...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/website/blog/Securing-backend-haproxy-pfsense/" rel="permalink">Securing access to backends with pfsense’s HAproxy package: A guide on how to create user lists and how to protect them with stick-tables using pfsense’s GUI
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  7 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+Updated on May 1st 2020: This guide still works with pfsense version 2.4.5-RELEASE and the haproxy packaged version 0.60_4.
+
+This is a rough guide on how to...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/cgomesu" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          <li><a href="https://www.reddit.com/user/cgomesu/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i> Reddit</a></li>
+        
+      
+    
+
+    <li><a href="/website/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> RSS feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2020 CGomesu - Hosted on <a href="https://github.com/cgomesu/website">Github Pages</a> - Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> and <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a></div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/website/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+<script src="/website/assets/js/lunr/lunr.min.js"></script>
+<script src="/website/assets/js/lunr/lunr-store.js"></script>
+<script src="/website/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>
