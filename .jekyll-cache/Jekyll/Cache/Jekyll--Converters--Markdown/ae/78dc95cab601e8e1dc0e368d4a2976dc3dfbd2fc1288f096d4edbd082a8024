@@ -1,0 +1,72 @@
+I"
+
+<div class="feature__wrapper">
+
+  
+    <div class="feature__item">
+      <div class="archive__item">
+        
+
+        <div class="archive__item-body">
+          
+            <h2 class="archive__item-title">Who am I?</h2>
+          
+
+          
+            <div class="archive__item-excerpt">
+              <p>My name is <strong>Carlos F. A. Gomes</strong>.  I’m a scientist, psychologist (B.S., M.A., and Ph.D.), math modeler (stochastic processes), programmer, free knowledge supporter, single-board computer fanatic, magic the gathering player, and electronics hobbyist.  My beverage of choice is <a href="https://en.wikipedia.org/wiki/Mat%C3%A9_(drink)"><em>chimarrão</em></a> (<a href="https://en.wikipedia.org/wiki/Gaucho"><em>gaúcho</em></a>-style) but you’ll often find me drinking black tea with milk, too.</p>
+
+            </div>
+          
+
+          
+        </div>
+      </div>
+    </div>
+  
+    <div class="feature__item">
+      <div class="archive__item">
+        
+
+        <div class="archive__item-body">
+          
+            <h2 class="archive__item-title">The content</h2>
+          
+
+          
+            <div class="archive__item-excerpt">
+              <p>This is a <strong>blog</strong> and <strong>portfolio</strong> website.  All my guides and tutorials are available in the <a href="blog/"><strong>blog</strong></a> part of the website.  If you are an employer, please go over my <a href="projects/"><strong>projects</strong></a> and <a href="resume/"><strong>resume</strong></a> to learn more about me. Finally, if you are here because of my research, take a look at <a href="papers/"><strong>papers</strong></a> for references and research materials.  To navigate this website, use the <a href="#"><strong>menu at the top</strong></a>.</p>
+
+            </div>
+          
+
+          
+        </div>
+      </div>
+    </div>
+  
+    <div class="feature__item">
+      <div class="archive__item">
+        
+
+        <div class="archive__item-body">
+          
+            <h2 class="archive__item-title">Featured artists</h2>
+          
+
+          
+            <div class="archive__item-excerpt">
+              <p>Each page on this website features a drawing from one of my favorite visual artists–mostly comic book artists–like <a href="https://en.wikipedia.org/wiki/Jean_Giraud"><strong>Jean Giraud</strong></a> and <a href=""><strong>Frank Frazetta</strong></a>.  If you appreciate visual art, take a few minutes to learn more about them.</p>
+
+            </div>
+          
+
+          
+        </div>
+      </div>
+    </div>
+  
+
+</div>
+
+:ET

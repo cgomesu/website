@@ -1,4 +1,4 @@
-I"5
+I"•
 
 <div class="masthead">
   <div class="masthead__inner-wrap">
@@ -15,6 +15,8 @@
               <a href="/website/">Home</a>
             </li><li class="masthead__menu-item">
               <a href="/website/blog/">Blog</a>
+            </li><li class="masthead__menu-item">
+              <a href="/website/mtg/">MtG</a>
             </li><li class="masthead__menu-item">
               <a href="/website/papers/">Papers</a>
             </li><li class="masthead__menu-item">

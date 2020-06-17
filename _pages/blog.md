@@ -9,6 +9,8 @@ header:
   overlay_image: /assets/img/site/banner-page-03.jpeg
   caption: "by [**Frank Frazetta**](https://en.wikipedia.org/wiki/Frank_Frazetta)"
   actions:
+    - label: "Recent"
+      url: "/blog/#recent"
     - label: "Archive"
       url: 
     - label: "Tags"

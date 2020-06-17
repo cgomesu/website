@@ -18,6 +18,9 @@
 <loc>http://localhost:4000/website/</loc>
 </url>
 <url>
+<loc>http://localhost:4000/website/mtg/</loc>
+</url>
+<url>
 <loc>http://localhost:4000/website/papers/</loc>
 </url>
 <url>
