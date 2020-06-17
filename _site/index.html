@@ -132,16 +132,25 @@
           
         </a>
         <ul class="visible-links"><li class="masthead__menu-item">
-              <a href="/website/blog/">Blog</a>
+              <a href="/website/">Home</a>
             </li><li class="masthead__menu-item">
-              <a href="/website/contact/">Contact</a>
+              <a href="/website/blog/">Blog</a>
             </li><li class="masthead__menu-item">
               <a href="/website/papers/">Papers</a>
             </li><li class="masthead__menu-item">
               <a href="/website/projects/">Projects</a>
             </li><li class="masthead__menu-item">
               <a href="/website/resume/">Resume</a>
+            </li><li class="masthead__menu-item">
+              <a href="/website/contact/">Contact</a>
             </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
         
         <button class="greedy-nav__toggle hidden" type="button">
           <span class="visually-hidden">Toggle menu</span>
@@ -201,6 +210,75 @@
 
     <section class="page__content" itemprop="text">
       
+<div class="feature__wrapper">
+
+  
+    <div class="feature__item">
+      <div class="archive__item">
+        
+
+        <div class="archive__item-body">
+          
+            <h2 class="archive__item-title">Who am I?</h2>
+          
+
+          
+            <div class="archive__item-excerpt">
+              <p>My name is <strong>Carlos F. A. Gomes</strong>.  I’m a scientist, psychologist (B.S., M.A., and Ph.D.), math modeler (stochastic processes), programmer, magic the gathering player, free knowledge supporter, single-board computer fanatic, and electronics hobbyist.  My beverage of choice is <a href="https://en.wikipedia.org/wiki/Mat%C3%A9_(drink)"><em>chimarrão</em></a> (<a href="https://en.wikipedia.org/wiki/Gaucho"><em>gaúcho</em></a>-style) but you’ll often find me drinking black tea with milk, too.</p>
+
+            </div>
+          
+
+          
+        </div>
+      </div>
+    </div>
+  
+    <div class="feature__item">
+      <div class="archive__item">
+        
+
+        <div class="archive__item-body">
+          
+            <h2 class="archive__item-title">The content</h2>
+          
+
+          
+            <div class="archive__item-excerpt">
+              <p>This is a <strong>blog</strong> and <strong>portfolio</strong> website.  All my guides and tutorials are available in the <a href="blog/"><strong>Blog</strong></a> part of the website, while everything else is pretty much about me.  Each subpage features a drawing from one of my favorite comic book artists, like Jean Giraud and Frazetta.  To navigate this website, use the <a href="#"><strong>menu at the top</strong></a>.</p>
+
+            </div>
+          
+
+          
+        </div>
+      </div>
+    </div>
+  
+    <div class="feature__item">
+      <div class="archive__item">
+        
+
+        <div class="archive__item-body">
+          
+            <h2 class="archive__item-title">Metrics</h2>
+          
+
+          
+            <div class="archive__item-excerpt">
+              <p>Blog posts<br /> Github<br /> Scholar</p>
+
+            </div>
+          
+
+          
+        </div>
+      </div>
+    </div>
+  
+
+</div>
+
 
     </section>
   </article>
@@ -208,6 +286,17 @@
 
     </div>
 
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
     
 
     <div id="footer" class="page__footer">
@@ -258,6 +347,10 @@
 
 
 
+
+<script src="/website/assets/js/lunr/lunr.min.js"></script>
+<script src="/website/assets/js/lunr/lunr-store.js"></script>
+<script src="/website/assets/js/lunr/lunr-en.js"></script>
 
 
 

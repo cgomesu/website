@@ -1,13 +1,14 @@
 # main links
 main:
+  - title: "Home"
+    url: "/"
   - title: "Blog"
     url: "/blog/"
-  - title: "Contact"
-    url: "/contact/"
   - title: "Papers"
     url: "/papers/"
   - title: "Projects"
     url: "/projects/"
   - title: "Resume"
     url: "/resume/"
-
+  - title: "Contact"
+    url: "/contact/"

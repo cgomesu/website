@@ -1,0 +1,71 @@
+I"N
+<div class="feature__wrapper">
+
+  
+    <div class="feature__item">
+      <div class="archive__item">
+        
+
+        <div class="archive__item-body">
+          
+            <h2 class="archive__item-title">Who am I?</h2>
+          
+
+          
+            <div class="archive__item-excerpt">
+              <p>My name is <strong>Carlos F. A. Gomes</strong>.  I’m a scientist, psychologist (B.S., M.A., and Ph.D.), math modeler (stochastic processes), programmer, statistician, magic the gathering player, free knowledge supporter, single-board computer fanatic, and electronics hobbyist.  My beverage of choice is <a href="https://en.wikipedia.org/wiki/Mat%C3%A9_(drink)"><em>chimarrão</em></a> (<a href="https://en.wikipedia.org/wiki/Gaucho"><em>gaúcho</em></a>-style) but you’ll often find me drinking black tea with milk, too.</p>
+
+            </div>
+          
+
+          
+        </div>
+      </div>
+    </div>
+  
+    <div class="feature__item">
+      <div class="archive__item">
+        
+
+        <div class="archive__item-body">
+          
+            <h2 class="archive__item-title">The content</h2>
+          
+
+          
+            <div class="archive__item-excerpt">
+              <p>This is a <strong>blog</strong> and <strong>portfolio</strong> website.  All my guides and tutorials are available in the <a href="blog/"><strong>Blog</strong></a> part of the website, while everything else is pretty much about me.  Each subpage features a drawing from one of my favorite comic book artists, like Jean Giraud and Frazetta.  To navigate this website, use the <a href="#"><strong>menu at the top</strong></a>.</p>
+
+            </div>
+          
+
+          
+        </div>
+      </div>
+    </div>
+  
+    <div class="feature__item">
+      <div class="archive__item">
+        
+
+        <div class="archive__item-body">
+          
+            <h2 class="archive__item-title">Metrics</h2>
+          
+
+          
+            <div class="archive__item-excerpt">
+              <p>Blog posts<br /> Github<br /> Scholar</p>
+
+            </div>
+          
+
+          
+        </div>
+      </div>
+    </div>
+  
+
+</div>
+
+:ET
