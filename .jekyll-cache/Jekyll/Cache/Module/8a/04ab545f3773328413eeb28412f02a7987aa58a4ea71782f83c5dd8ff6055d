@@ -16,6 +16,8 @@
             </li><li class="masthead__menu-item">
               <a href="/blog/">Blog</a>
             </li><li class="masthead__menu-item">
+              <a href="/contact/">Contact</a>
+            </li><li class="masthead__menu-item">
               <a href="/mtg/">MtG</a>
             </li><li class="masthead__menu-item">
               <a href="/papers/">Papers</a>
@@ -23,8 +25,6 @@
               <a href="/projects/">Projects</a>
             </li><li class="masthead__menu-item">
               <a href="/resume/">Resume</a>
-            </li><li class="masthead__menu-item">
-              <a href="/contact/">Contact</a>
             </li></ul>
         
         <button class="search__toggle" type="button">
