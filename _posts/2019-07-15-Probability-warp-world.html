@@ -2,6 +2,8 @@
 title: The probability of Warp World
 date: 2019-07-15
 tags: mtg math probability model
+header:
+  overlay_image: "https://1.bp.blogspot.com/-BGgrP2pYmI0/XSyE_7qKKvI/AAAAAAAABMA/2MzDihfRpr4eB__iaje-ClV7Etdand_aACLcBGAs/s1600/13%2B-%2BwO76V7P.jpg"
 ---
 <div class="expando" data-pin-condition="function() {return this.style.display != 'none';}" style="clear: left; color: #cccccc; margin: 5px 0px; padding: 0px;">
 <form action="https://www.reddit.com/r/magicTCG/comments/8956af/the_probability_of_warp_world_math/#" class="usertext warn-on-unload" id="form-t3_8956afvtw" style="margin: 0px; padding: 0px;">
@@ -9,9 +11,8 @@ tags: mtg math probability model
 <div class="md" style="background: rgba(0, 0, 0, 0) none repeat scroll 0% 0%; border-radius: 7px; border: 1px solid rgb(102, 102, 102); color: #dddddd; margin: 5px 0px; max-width: 60em; overflow-wrap: break-word; padding: 5px 10px;">
 <div style="line-height: 1.42857em; margin-bottom: 0.357143em; padding: 0px;">
 <div style="font-size: 1em;">
-<span style="font-family: inherit;">(<a href="https://www.reddit.com/r/magicTCG/comments/8956af/the_probability_of_warp_world_math/" target="_blank">This is a repost from my original reddit post.</a>.</span><span style="font-family: inherit; font-size: 1em;">)</span></div>
-<span style="font-family: inherit; font-size: large;"><b><br /></b></span>
-<span style="font-family: inherit; font-size: large;"><b>Introduction</b></span><br />
+<span style="font-family: inherit;">(<a href="https://www.reddit.com/r/magicTCG/comments/8956af/the_probability_of_warp_world_math/" target="_blank">This is a repost from my original reddit post.</a>)</span></div>
+<b>Introduction</b><br />
 <div style="font-size: 1em;">
 <span style="font-family: inherit;">If you’re unfamiliar with <b>Warp World</b>, you are in for a treat. It’s a 5RRR sorcery from Ravnica that reads as follows:</span></div>
 </div>
@@ -29,7 +30,7 @@ tags: mtg math probability model
 <div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
 <br /></div>
 <div style="line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit; font-size: large; font-style: inherit; font-weight: 600; margin: 0px;">The basics</span></div>
+<b>The Basics</b></div>
 <div style="line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
 <span style="font-family: inherit;"><span style="font-size: 1em;">In a game of magic, we play with a deck, Ω, composed of&nbsp;</span><i style="font-size: 1em; font-weight: inherit; margin-left: 0px; margin-right: 0px; margin-top: 0px;">n</i><span style="font-size: 1em;">&nbsp;cards, such that Ω = {</span><i style="font-weight: inherit; margin-left: 0px; margin-right: 0px;"><span style="font-size: 1em;">ω</span><span style="font-size: xx-small;">1</span></i><span style="font-size: 1em;">, …,&nbsp;</span><i style="font-size: 1em; font-weight: inherit; margin-left: 0px; margin-right: 0px;">ω</i><i style="font-weight: inherit; margin-left: 0px; margin-right: 0px;"><span style="font-size: xx-small;">n</span></i><span style="font-size: 1em;">} is our deck. The current types of cards in MtG can be of two sorts, namely permanents (land, creature, artifact, enchantment, and planeswalker) and non-permanents (sorcery and instant). Let Λ be the set of all&nbsp;</span><i style="font-size: 1em; font-weight: inherit; margin-left: 0px; margin-right: 0px;">z</i><span style="font-size: 1em;">&nbsp;permanents that we have in our deck (e.g., Elvish Mystic, forests, mountains, Primeval Titan), such that Λ = {</span><i style="font-size: 1em; font-weight: inherit; margin-left: 0px; margin-right: 0px;">λ</i><i style="font-weight: inherit; margin-left: 0px; margin-right: 0px;"><span style="font-size: xx-small;">1</span></i><span style="font-size: 1em;">, …,&nbsp;</span><i style="font-size: 1em; font-weight: inherit; margin-bottom: 0px; margin-left: 0px; margin-right: 0px;">λ</i><i style="font-weight: inherit; margin-bottom: 0px; margin-left: 0px; margin-right: 0px;"><span style="font-size: xx-small;">z</span></i><span style="font-size: 1em;">} are all the permanents in our deck. Because there’re only permanents and non-permanents in our deck, the set of non-permanents can be defined as the negation of Λ, ¬Λ, such that ¬Λ∪Λ = Ω.</span></span></div>
 <div style="line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
@@ -88,7 +89,7 @@ tags: mtg math probability model
 <span style="font-family: inherit;">This concludes the basics of my approach. In the following sections, I’ll show how to add distinctions between the various types of permanents that we can reveal with Warp World (e.g., lands, creatures, other non-planeswalker permanents) and drop some of the assumptions we’ve made so far (e.g., empty hand and graveyard, no tokens).</span><br />
 <span style="font-family: inherit;"><br /></span></div>
 <div style="line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit; font-size: large; font-style: inherit; font-weight: 600; margin: 0px;">The multivariate Warp World model</span></div>
+<b>The multivariate Warp World model</b></div>
 <div style="line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
 <span style="font-family: inherit;"><span style="font-size: 1em;">One limitation of the previous approach is that we can’t tell what sort of permanent Warp World puts onto the battlefield. In some cases, the binary distinction is just what we need. In others, however, a more detailed distinction is needed, as different types of permanent will have different effects on the board state after Warp World resolves. One distinction that would make sense is the one given by Warp World itself, namely that permanents can be artifacts, creatures, lands, and enchantments. We’ve already defined Λ as the set of all permanents in our deck, so it follows that artifacts, Λ</span><span style="font-size: xx-small;">1</span><span style="font-size: 1em;">, creatures, Λ</span><span style="font-size: xx-small;">2</span><span style="font-size: 1em;">, lands, Λ</span><span style="font-size: xx-small;">3</span><span style="font-size: 1em;">, and enchantments, Λ</span><span style="font-size: xx-small;">4</span><span style="font-size: 1em;">, ought to be subsets of Λ, such that</span></span></div>
 <div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
@@ -155,12 +156,12 @@ tags: mtg math probability model
 <span style="font-family: inherit;">There are many things that can be done moving forward. For instance, we could use Eq. 4-6 to investigate how cards that generate mana or produce more than one permanent can net mana or permanents, then describe the necessary and sufficient conditions to create loops with Warp World. Unfortunately, I don’t have time to talk about them right now, so I’ll let you figure them out on your own.</span><br />
 <span style="font-family: inherit;"><br /></span></div>
 <div style="line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit; font-size: large; font-style: inherit; font-weight: 600; margin: 0px;">Tokens</span></div>
+<b>Tokens</b></div>
 <div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
 <span style="font-family: inherit;">So far, we’ve worked under the assumption that when we cast Warp World, the only sort of permanent we have on the battlefield (and thus the number of cards we will reveal with Warp World) are the ones contained in our deck—that is, Ψ⊆Λ. In some cases, this will be true; in others, however, it won’t, as we might have tokens on the battlefield, which will increase the number of cards revealed with Warp World but it doesn’t mean we’ll shuffle that many cards into our library. Fortunately, taking tokens into account does not require us to make huge changes to the previous equations. Specifically, if Ψ⊆Λ is not true, then by the end of step ‘b’ of Warp World, our new library will have size |Θ| + |Ψ∩Λ|, instead of |Θ∪Ψ|, in which Ψ∩Λ are all permanents on the battlefield that are permanents from our deck (i.e., all non-token permanents). Everything else remains the same in Eq. 1-6.</span><br />
 <span style="font-family: inherit;"><br /></span></div>
 <div style="line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit; font-size: large; font-style: inherit; font-weight: 600; margin: 0px;">Other spells similar to Warp World</span></div>
+<b>Other spells similar to Warp World</b></div>
 <div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
 <span style="font-family: inherit;">There are a few other spells that in one way or another, do something that is quite similar to what Warp World does. One example that comes to mind is <b>The Great Aurora</b>. I have no doubt we can use the Warp World model to compute probabilities for those spells as well. We just need to tweak the model a little bit to make it consistent with the wording used in similar spells (e.g., great aurora also makes we shuffle our hand).</span><br />
 <span style="font-family: inherit;"><br /></span>
@@ -170,12 +171,12 @@ tags: mtg math probability model
 <span style="font-family: inherit;"><br /></span>
 <span style="font-family: inherit;"><br /></span></div>
 <div style="line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit; font-size: large; font-style: inherit; font-weight: 600; margin: 0px;">Other possible approaches</span></div>
+<b>Other possible approaches</b></div>
 <div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
 <span style="font-family: inherit;">We could find probability distributions empirically. Goldfish a Warp World deck, say, a thousand times, take note of the relevant stats prior to and after casting Warp World, and estimate the distributions empirically. I’m not that guy though.</span><br />
 <span style="font-family: inherit;"><br /></span></div>
 <div style="line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit; font-size: large; font-style: inherit; font-weight: 600; margin: 0px;">Final remarks</span></div>
+<b>Final remarks</b></div>
 <div style="font-size: 1em; line-height: 1.42857em; margin-top: 0.357143em; padding: 0px;">
 <span style="font-family: inherit;">We end with a cautionary note. We know that adding more permanents to a Warp World deck usually yields a better outcome—that is, the more permanents we have in the deck, the more permanents we’ll likely reveal with Warp World. However, it would be inappropriate to simply compare mean differences to draw conclusions about different Warp World decks. That is because changing properties of Warp World decks will likely change the variance of their distributions. One possible solution is to use a standardized measure of the compound mean difference—that is, the standardized measure of distance between the means of two&nbsp;<i style="font-weight: inherit; margin: 0px;">p(xi)</i>&nbsp;distributions. I feel like going into this would be beyond the scope of this analysis.</span></div>
 <div style="font-size: 1.07692em;">

@@ -10,7 +10,7 @@
     <meta charset="utf-8">
 
 <!-- begin _includes/seo.html --><title>Using any IR remote with the Odroid C2 IR receiver + LibreElec OS - CGomesu</title>
-<meta name="description" content="In case you didn&#39;t know, the Odroid C2 (https://www.hardkernel.com/shop/odroid-c2/) comes with an onboard infrared (IR) receiver.&nbsp; Until a few days ago, I thought that such a receive was only compatible with their own IR remote controller but it turns out you can use it with any IR controller.&nbsp; We can do that with a package called lirc, which stands for linux infrared remote control (http://www.lirc.org/html/).&nbsp;      This tutorial is for the LibreElec OS but one can use lirc with any linux distro and the configuration is not completely different than the one shown here.&nbsp; Here&#39;s a step by step procedure to get the IR working with lirc:  Tested with LibreElec Official OS 9.0.2 running Kodi 18.2  SSH into your Odroid C2 ssh root@IP  Get a list of all available keys that you can map to your IR remote irrecord –list-namespace  Kill running lircd, if there’s any ps aux | grep lircdkill PID  Turn off all other IR compatible devices before moving forward  Go to /storage and record IR custom keys:  Follow the instructions that will show yup on your screen cd /storage/irrecord  If succesful, irrecord will genetare a *.conf file on /storage/ with the name you provided at the beginnig  Copy the *.conf file to /storage/.conf/lircd.conf cp *.conf /storage/.conf/lircd.conf  Reboot your system reboot now  Test your IR remote">
+<meta name="description" content="A blog and portfolio website built with Jekyll and hosted on Github Pages">
 
 
   <meta name="author" content="Carlos Gomes">
@@ -23,9 +23,11 @@
 <meta property="og:url" content="http://localhost:4000/website/blog/IR-with-odroidc2/">
 
 
-  <meta property="og:description" content="In case you didn&#39;t know, the Odroid C2 (https://www.hardkernel.com/shop/odroid-c2/) comes with an onboard infrared (IR) receiver.&nbsp; Until a few days ago, I thought that such a receive was only compatible with their own IR remote controller but it turns out you can use it with any IR controller.&nbsp; We can do that with a package called lirc, which stands for linux infrared remote control (http://www.lirc.org/html/).&nbsp;      This tutorial is for the LibreElec OS but one can use lirc with any linux distro and the configuration is not completely different than the one shown here.&nbsp; Here&#39;s a step by step procedure to get the IR working with lirc:  Tested with LibreElec Official OS 9.0.2 running Kodi 18.2  SSH into your Odroid C2 ssh root@IP  Get a list of all available keys that you can map to your IR remote irrecord –list-namespace  Kill running lircd, if there’s any ps aux | grep lircdkill PID  Turn off all other IR compatible devices before moving forward  Go to /storage and record IR custom keys:  Follow the instructions that will show yup on your screen cd /storage/irrecord  If succesful, irrecord will genetare a *.conf file on /storage/ with the name you provided at the beginnig  Copy the *.conf file to /storage/.conf/lircd.conf cp *.conf /storage/.conf/lircd.conf  Reboot your system reboot now  Test your IR remote">
+  <meta property="og:description" content="A blog and portfolio website built with Jekyll and hosted on Github Pages">
 
 
+
+  <meta property="og:image" content="https://1.bp.blogspot.com/-8FZvCPFMbgQ/XrQpSpxWgWI/AAAAAAAABaw/B_23PiUqm3YiWwv8tZ4bxtRL_zjygHGrQCK4BGAsYHg/odroidc2.jpg">
 
 
 
@@ -167,6 +169,47 @@
 
     <div class="initial-content">
       
+  
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style="background-color: #000; background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://1.bp.blogspot.com/-8FZvCPFMbgQ/XrQpSpxWgWI/AAAAAAAABaw/B_23PiUqm3YiWwv8tZ4bxtRL_zjygHGrQCK4BGAsYHg/odroidc2.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 id="page-title" class="page__title" itemprop="headline">
+        
+          Using any IR remote with the Odroid C2 IR receiver + LibreElec OS
+
+        
+      </h1>
+      
+        <p class="page__lead">
+</p>
+      
+      
+        <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  1 minute read
+
+</p>
+      
+      
+      
+    </div>
+  
+  
+</div>
+
+
 
 
 
@@ -295,26 +338,11 @@
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
     <meta itemprop="headline" content="Using any IR remote with the Odroid C2 IR receiver + LibreElec OS">
-    <meta itemprop="description" content="In case you didn&#39;t know, the Odroid C2 (https://www.hardkernel.com/shop/odroid-c2/) comes with an onboard infrared (IR) receiver.&nbsp; Until a few days ago, I thought that such a receive was only compatible with their own IR remote controller but it turns out you can use it with any IR controller.&nbsp; We can do that with a package called lirc, which stands for linux infrared remote control (http://www.lirc.org/html/).&nbsp; This tutorial is for the LibreElec OS but one can use lirc with any linux distro and the configuration is not completely different than the one shown here.&nbsp; Here&#39;s a step by step procedure to get the IR working with lirc:Tested with LibreElec Official OS 9.0.2 running Kodi 18.2SSH into your Odroid C2ssh root@IPGet a list of all available keys that you can map to your IR remoteirrecord –list-namespaceKill running lircd, if there’s anyps aux | grep lircdkill PIDTurn off all other IR compatible devices before moving forwardGo to /storage and record IR custom keys: Follow the instructions that will show yup on your screencd /storage/irrecordIf succesful, irrecord will genetare a *.conf file on /storage/with the name you provided at the beginnigCopy the *.conf file to /storage/.conf/lircd.confcp *.conf /storage/.conf/lircd.confReboot your systemreboot nowTest your IR remote">
+    <meta itemprop="description" content="">
     <meta itemprop="datePublished" content="2020-02-18T00:00:00-03:00">
     
 
     <div class="page__inner-wrap">
-      
-        <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">Using any IR remote with the Odroid C2 IR receiver + LibreElec OS
-</h1>
-          
-            <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
-
-
-
-
-  2 minute read
-
-</p>
-          
-        </header>
       
 
       <section class="page__content" itemprop="text">
@@ -417,11 +445,12 @@
 
 
 
-  40 minute read
+  34 minute read
 
 </p>
     
-    <p class="archive__item-excerpt" itemprop="description">- Update tracker -&lt;div&gt;May 19th, 2020 - Added info about TVH m3u re-fetch period and youtube4tvh cronjob for streams that change very often.&lt;/div&gt...</p>
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
   </article>
 </div>
 
@@ -445,13 +474,12 @@
 
 
 
-  16 minute read
+  13 minute read
 
 </p>
     
-    <p class="archive__item-excerpt" itemprop="description">(This is a repost of my original reddit post here. I’ve made a few changes to the original version to improve readability.)
-
-This is a post about an interest...</p>
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
   </article>
 </div>
 
@@ -475,21 +503,12 @@ This is a post about an interest...</p>
 
 
 
-  32 minute read
+  27 minute read
 
 </p>
     
     <p class="archive__item-excerpt" itemprop="description">
-
-
-
-
-
-(This is a repost from my original reddit post..)
-
-Introduction
-
-If you’re unfamiliar with Warp World, you are in for a treat. It’s a 5RRR sorcery from...</p>
+</p>
   </article>
 </div>
 
@@ -503,7 +522,7 @@ If you’re unfamiliar with Warp World, you are in for a treat. It’s a 5RRR so
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/website/blog/Securing-backend-haproxy-pfsense/" rel="permalink">Securing access to backends with pfsense’s HAproxy package: A guide on how to create user lists and how to protect them with stick-tables using pfsense’s GUI
+        <a href="/website/blog/Securing-backend-haproxy-pfsense/" rel="permalink">Securing access to backends with HAproxy’s stick-tables: A guide for pfSense users
 </a>
       
     </h2>
@@ -513,14 +532,12 @@ If you’re unfamiliar with Warp World, you are in for a treat. It’s a 5RRR so
 
 
 
-  15 minute read
+  13 minute read
 
 </p>
     
     <p class="archive__item-excerpt" itemprop="description">
-Updated on May 1st 2020: This guide still works with pfsense version 2.4.5-RELEASE and the haproxy packaged version 0.60_4.
-
-This is a rough guide on how to...</p>
+</p>
   </article>
 </div>
 
@@ -537,9 +554,9 @@ This is a rough guide on how to...</p>
       <div class="search-content">
         <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
     <label class="sr-only" for="search">
-      Enter your search term...
+      Enter your search terms here...
     </label>
-    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search terms here..." />
   </form>
   <div id="results" class="results"></div></div>
 

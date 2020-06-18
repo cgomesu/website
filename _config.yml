@@ -30,7 +30,7 @@ favicon                  : /assets/img/site/favicon.ico # path to favicon
 custom_404               : /assets/img/site/404.png # path to custom 404 error image
 masthead_title           : " " # overrides the website title displayed in the masthead, use " " for no title
 breadcrumbs              : false # true, false (default)
-words_per_minute         : 100
+words_per_minute         : 120
 comments:
   provider               : # false (default), "disqus", "discourse", "facebook", "staticman", "staticman_v2", "utterances", "custom"
   disqus:
@@ -288,12 +288,16 @@ defaults:
     values:
       layout: single
       classes: wide
+      excerpt: ""
       author_profile: true
       read_time: true
       comments: true
       share: true
       related: true
       categories: blog
+      header:
+        overlay_color: "#000"
+        overlay_filter: "0.8"
   # _tags
   - scope:
       path: ""

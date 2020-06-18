@@ -1,6 +1,7 @@
 ---
 title: The CGomesu Blog
 layout: home
+classes: wide
 author_profile: true
 permalink: /blog/
 header:
