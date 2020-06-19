@@ -26,7 +26,7 @@ The prerequisites are the following:</div>
 Recommended:<br />
 - configure ACME SSL with HAproxy (e.g.,&nbsp;<a href="https://www.youtube.com/watch?v=5Frn96oADOU">https://www.youtube.com/watch?v=5Frn96oADOU</a>)</div>
 <br />
-<span style="font-size: large;"><b># Basic user authentication</b></span><br />
+<b># Basic user authentication</b><br />
 (<a href="https://hochwald.net/user-authentication-with-haproxy-on-pfsense/">Based on Joerg Hocwald's guide.</a>)<br />
 In HAproxy, it's pretty simple to create a user list with encrypted passwords.&nbsp; There is basically three steps involved: (a) user and password list creation, (b) adding those to the global settings, and (c) creating an access control list (ACL) and action for each backend.<br />
 <br />
@@ -98,7 +98,7 @@ The argument <span style="font-family: &quot;courier new&quot;, &quot;courier&qu
 <br />
 6. Rinse and repeat for each backend you want to protect with basic user authentication.&nbsp; Make sure to test your config before moving on to the next section.<br />
 <br />
-<span style="font-size: large;"><b># Stick-table to protect against brute-force</b></span><br />
+<b># Stick-table to protect against brute-force</b><br />
 In our case, access to each backend is secured by a basic http authentication request.&nbsp; If the client does not provide correct credentials, it will be requested to enter new ones.&nbsp; By default, HAproxy will do that forever, which is not something that sounds desirable to me because it allows clients to brute force their way into my services.&nbsp; On HAproxy's official blog, you'll find a very instructive guide on how to protect your servers from bots, including a <a href="https://www.haproxy.com/blog/bot-protection-with-haproxy/#brute-force-bots">step-by-step procedure to help you mitigate brute-force attacks</a>.&nbsp; In their case, however, the authentication is associated to a particular /login page, instead of using HAproxy's own http-request auth feature, and we'd like to use the latter instead.<br />
 <br />
 Fortunately, when a client provides incorrect credentials, the result is an http error code (401) and because 4xx errors should be fairly uncommon in a properly configured server, we can use the rate of such errors (http_err_rate) as a marker of misuse/brute-force.&nbsp; In HAproxy, a stick-table is used to keep track of a client's IP address and both the http_err_rate and the total number of errors (http_err_cnt).&nbsp; In pfsense's GUI, however, there's no point-and-click way of enabling/disabling this, so we'll need to make use of backend pass thru and write custom access control lists and actions.<br />
