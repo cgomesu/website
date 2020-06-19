@@ -6,7 +6,7 @@ author_profile: true
 permalink: /blog/
 header:
   overlay_color: "#000"
-  overlay_filter: "0.5"
+  overlay_filter: "0.8"
   overlay_image: /assets/img/site/banner-page-03.jpeg
   caption: "by [**Frank Frazetta**](https://en.wikipedia.org/wiki/Frank_Frazetta)"
   actions:
