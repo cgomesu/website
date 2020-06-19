@@ -20,11 +20,11 @@ toc_icon: "list"
 ***
 # Degrees
 
-|years |degree |university |title |
-|:---:|:---:|:---:|:---:|
-| 2011-2017 | Ph.D. | Cornell | Retrieval processes in healthy aging, mild cognitive impairment, and Alzheimer's disease |
-| 2011-2013	| M.A. | Cornell | On the relation between memory and metamemory in free recall |
-| 2005-2011	| B.S. | PUCRS | - |
+| years | degree | discipline | university | title |
+|:---:|:---:|:---:|:---:|:---:|
+| 2011-2017 | Ph.D. | Human Development | [Cornell](https://www.cornell.edu/) | Retrieval processes in healthy aging, mild cognitive impairment, and Alzheimer's disease |
+| 2011-2013	| M.A. | Human Development | [Cornell](https://www.cornell.edu/) | On the relation between memory and metamemory in free recall |
+| 2005-2011	| B.S. | Psychology | [PUCRS](http://www.pucrs.br/en/) | - |
 
 
 [top](#)
@@ -32,7 +32,7 @@ toc_icon: "list"
 ***
 # Awards, scholarships, and fellowships
 
-|years |type |agency |
+| years | type | agency |
 |:---:|:---:|:---:|
 |2017-2017 | Teaching assintanship | Cornell |
 |2012-2017 | Research assintanship | Cornell |
@@ -48,7 +48,7 @@ toc_icon: "list"
 ***
 # Language skills
 
-|language |listening |speaking |reading |writing |
+| language | listening | speaking | reading | writing |
 |:---:|:---:|:---:|:---:|
 | Portuguese | native | native | native | native |
 | English | high | medium | high | medium |
