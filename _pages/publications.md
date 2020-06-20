@@ -67,8 +67,7 @@ excerpt: "All my published peer-reviewed papers and book chapters, plus a few se
 
 ***
 # Presentations
-
-*See [**Resume**](/resume/) for a complete list*
+Selected presentations.  For a complete list, please see my *Lattes CV* in [**Resume**]({{ site.url}}{{ site.baseurl }}/resume/).
 
 [PDF](/assets/pdf/gomes-scm2-ufjf-2019.pdf) | **Gomes, C.F.A.**. Modelagem multinomial na investigação de processos latentes.  Simposio Cerebro e Mente II, BR, 2019.
 
