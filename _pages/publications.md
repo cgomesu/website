@@ -34,7 +34,7 @@ excerpt: "All my published peer-reviewed papers and book chapters, plus a few se
 
 [DOI](http://dx.doi.org/10.1080/09658211.2014.938084) | Tractenberg, S. G., Viola, T. W., **Gomes, C.F.A.**, Wearick-Silva, L. E., Kristensen, C. H., Stein, L. M., & Grassi-Oliveira, R. (2014). Dual-memory processes in crack cocaine dependents: The effects of childhood neglect on recall. Memory, 23, 1-17.
 
-[DOI](http://dx.doi.org/10.1590/s0102-79722013000200017) | Buratto, L.G., **Gomes, C.F.A.**, Prusokowski, T.S., & Stein, L.M. (2013). Inter-item association norms for the Brazilian version of the emotional Deese/Roediger-McDermott paradigm. Psicologia: Reflexão & Crítica, 26, 367-375.
+[DOI](http://dx.doi.org/10.1590/s0102-79722013000200017) | Buratto, L.G., **Gomes, C.F.A.**, Prusokowski, T.S., & Stein, L.M. (2013). Inter-item association norms for the Brazilian version of the emotional Deese/Roediger-McDermott paradigm. Psicologia: Reflexão & Crítica, 26, 367-375. | [DATA.XLS](/assets/materials/interitem-association-data.xls)
 
 [DOI](http://dx.doi.org/10.1037/a0028578) | **Gomes, C.F.A.**, Brainerd, C.J., & Stein, L.M. (2013). The effects of emotional valence and arousal on recollective and nonrecollective recall. Journal of Experimental Psychology: Learning, Memory, and Cognition, 39, 663-677.
 
@@ -44,13 +44,13 @@ excerpt: "All my published peer-reviewed papers and book chapters, plus a few se
 
 [DOI](http://dx.doi.org/10.1016/j.concog.2011.03.005) | Grassi-Oliveira, R., **Gomes, C.F.A.**, & Stein, L.M. (2011). False recognition in women with a history of childhood emotional neglect and diagnose of recurrent major depression. Consciousness and Cognition, 20, 1127-1143. 
 
-[DOI](http://dx.doi.org/10.1590/S2237-60892011000300003) | Kristensen, C.H., **Gomes, C.F.A.**, Justo, A.R., & Vieira, K. (2011). Brazilian norms for the Affective Norms for English Words. Trends in Psychiatry and Psychotherapy, 33, 135-146.
+[DOI](http://dx.doi.org/10.1590/S2237-60892011000300003) | Kristensen, C.H., **Gomes, C.F.A.**, Justo, A.R., & Vieira, K. (2011). Brazilian norms for the Affective Norms for English Words. Trends in Psychiatry and Psychotherapy, 33, 135-146. | [ANEW-BR.XLS](/assets/materials/anew-br.xls) 
 
 [PDF](https://www.scielo.br/pdf/prc/v24n2/17.pdf) | Busnello, R.H.D., Stein, L.M., Salles, J.F., Machado, L.L., & **Gomes, C.F.A.** (2011). Procedures and materials of a study on the priming effect. Psicologia: Reflexão e Crítica, 24, 1-3.
 
 [DOI](http://dx.doi.org/10.1590/S0102-37722009000300012) | Santos, R.F., Silveira, R.A.T., **Gomes, C.F.A.**, & Stein, L.M. (2009). Emotionality norms for the Brazilian version of the Deese-Roediger-McDermott (DRM) paradigm. Psicologia: Teoria e Pesquisa, 25, 387-394.
 
-[DOI](http://dx.doi.org/10.1590/S0102-37722009000400009) | Stein, L.M., & **Gomes, C.F.A.** (2009). Brazilian norms for word lists: Semantic association, concreteness, word frequency, and emotionality. Psicologia: Teoria e Pesquisa, 25, 537-546.
+[DOI](http://dx.doi.org/10.1590/S0102-37722009000400009) | Stein, L.M., & **Gomes, C.F.A.** (2009). Brazilian norms for word lists: Semantic association, concreteness, word frequency, and emotionality. Psicologia: Teoria e Pesquisa, 25, 537-546. | [DRM-BR.DOC](/assets/materials/drm-br.doc), [DRM-BR.PDF](/assets/materials/drm-br.pdf)
 
 [**top**](#)
 
@@ -77,7 +77,13 @@ Selected presentations.  For a complete list, please see my *Lattes CV* in [**Re
 
 [Abstract](https://bit.ly/2NbM4lx) | Brainerd, C.J., **Gomes, C.F.A.**, Moran, R., & Reyna, V.F. Dual-recollection theory. Psychonomic Society Meeting, US, 2016.
 
+[PDF](/assets/pdf/gomes-psychonomics-2015.pdf) | (Poster) **Gomes, C.F.A.**, & Brainerd, C.J. Bivariate recollecttion in recognition. Psychonomic Society Meeting, US, 2015.
+
+[PDF](/assets/pdf/gomes-psychonomics-2014.pdf) | (Poster) **Gomes, C.F.A.**, & Brainerd, C.J. Dual-retrieval conceptions of free recall. Psychonomic Society Meeting, US, 2014.
+
 [Abstract](https://bit.ly/2YTplQu) | Brainerd, C.J., **Gomes, C.F.A.**, & Reyna, V.F. Individualized measurement of dual-retrieval processes in neurocognitive impairment. Psychonomic Society Meeting, US, 2013.
+
+[PDF](/assets/pdf/gomes-psychonomics-2012.pdf) | (Poster) **Gomes, C.F.A.**, & Brainerd, C.J., & Reyna, V.F. A low-burden tool for measuring memory declines in healthy aging and neurocognitive impairment. Psychonomic Society Meeting, US, 2012.
 
 [Abstract](https://bit.ly/2NaQSYe) | Brainerd, C.J., **Gomes, C.F.A.**, & Reyna, V.F. Dual Processes in Recall. Psychonomic Society Meeting, Minneapolis, US, 2012.
 

@@ -6,9 +6,9 @@ author_profile: true
 permalink: /resume/
 header:
   overlay_color: "#000"
-  overlay_filter: "0.8"
-  overlay_image: /assets/img/site/banner-page-05.jpeg
-  caption: "by [**Kentaro Miura**](https://en.wikipedia.org/wiki/Kentaro_Miura)"
+  overlay_filter: "0.7"
+  overlay_image: /assets/img/site/banner-page-07.jpeg
+  caption: "by [**Rebecca Guay**](https://en.wikipedia.org/wiki/Rebecca_Guay)"
   actions:
     - label: "Lattes CV"
       url: "http://lattes.cnpq.br/5704468004001326"
@@ -29,14 +29,11 @@ toc_icon: "list"
 [top](#)
 
 ***
-# Assistanships, Scholarships, and Fellowships
+# Scholarships and Fellowships
 
 | years | type | agency |
 |:---:|:---:|:---:|
-|2017-2017 | Teaching assintanship | Cornell |
-|2012-2017 | Research assintanship | Cornell |
 |2012-2015 | Fellowship | CAPES Foundation |
-|2011-2012 | Teaching assintanship | Cornell |
 |2010-2011 | Scholarship | CPNq/PIBIC/PUCRS |
 |2008-2010 | Scholarship | CPNq |
 |2006-2007 | Scholarship | BPA-PUCRS |
@@ -116,7 +113,7 @@ A list of various languages that I've used before, listed in order of highest to
 
 ***
 # Application Knowledge
-This is a list of applications that I'm familiar with.  They're order alphabetically and organized by area. 
+This is a non-exhaustive list of applications that I'm familiar with.  (Of course, that's in addition to applications commonly used to edit text, to browse files and the web, to edit images, spreadsheets, and so on.)  They're order alphabetically and organized by area. 
 ## Containers and virtualization
 ### [Docker (CE)](https://www.docker.com/)
 > Docker is a set of platform as a service products that uses OS-level virtualization to deliver software in packages called containers. Containers are isolated from one another and bundle their own software, libraries and configuration files; they can communicate with each other through well-defined channels.
@@ -247,15 +244,48 @@ In addition to the basic configuration, I'm familiar with the following pfSense 
 [top](#)
 
 ***
-# Academic Experience
-## Research projects
+# Academic and Professional Experience
+## Professional jobs
+
+| years | hours/week | position | country | company | job description |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| 2010-2011 | 12h | intern | BR | Instituto Leonardo Murialdo | assisted and monitored people who benefit from social programs for families in extreme poverty or victims of maltreatment |
+| 2009-2010 | 24h | intern | BR | CR Rolla | designed market studies for local and multinational corporations.   developed and managed customer satisfaction studies.  managed databases. |
+
+[top](#)
+
+## Research and education jobs
+
+| years | hours/week | position | country | institution | lab or course |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| 2018-2019 | full time | postdoc | BR | UFJF | Cognição e Linguagem |
+| 2015-2017 | 20h | grad teaching assintant | US | Cornell | Adolescence and Emerging Adulthood; Introduction to Human Development; Developmental Psychopathology | 
+| 2012-2017 | full time | grad research assintant | US |Cornell | Memory and Neuroscience Lab |
+| 2011-2012 | 20h | grad teaching assistant | US |Cornell | Memory and the Law |
+| 2005-2011 | 20h | undergrad research assistant | BR | PUCRS | Grupo de Pesquisa em Processos Cognitivos |
+| 2006-2008 | 16h | undergrad teaching assistant | BR | PUCRS | Processos Psicológicos Básicos II |
+| 2005-2006 | 20h | undergrad research assistant | BR | PUCRS | Grupo de Pesquisa em Neuropsicolinguística |
+
+[top](#)
 
 ## Reviewer
 
+| years | journal or institution |
+|:---:|:---:|
+| 2019-2019 | National Science Centre, Poland |
+| 2018-2018 | Journal of Experimental and Theoretical Artificial Intelligence |
+| 2018-2018 | Psicologia: Teoria e Pesquisa |
+| 2013-2015 | Journal of Experimental Psychology. Learning, Memory, and Cognition |
+| 2013-2014 | Memory |
+| 2013-2014 | Cognition |
+| 2012-2012 | Journal of Memory and Language |
+| 2007-2009 | Interamerican Journal of Psychology |
+| 2008-2008 | Paidéia |
+| 2008-2008 | Psico |
+
+[top](#)
+
 ## Publications
-See [**Publications**]({{ site.url }}{{ site.baseurl }}/publications/) for a complete list.
+See [**Publications**]({{ site.url }}{{ site.baseurl }}/publications/) for an updated list or check my *Lattes CV* at the [**top**](#).
 
-***
-# Professional Experience
-## Internships
-
+[top](#)

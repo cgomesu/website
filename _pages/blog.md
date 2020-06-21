@@ -1,5 +1,5 @@
 ---
-title: The CGomesu Blog
+title: Blog
 layout: home
 classes: wide
 author_profile: true
