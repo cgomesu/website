@@ -113,7 +113,7 @@ A list of various languages that I've used before, listed in order of highest to
 
 ***
 # Application Knowledge
-This is a non-exhaustive list of applications that I'm familiar with.  (Of course, that's in addition to applications commonly used to edit text, to browse files and the web, to edit images, spreadsheets, and so on.)  They're order alphabetically and organized by area. 
+This is a non-exhaustive list of applications that I'm familiar with.  (Of course, that's in addition to applications commonly used to edit text, to browse files and the web, to edit images, spreadsheets, and so on.)  They're ordered alphabetically and organized by area. 
 ## Containers and virtualization
 ### [Docker (CE)](https://www.docker.com/)
 > Docker is a set of platform as a service products that uses OS-level virtualization to deliver software in packages called containers. Containers are isolated from one another and bundle their own software, libraries and configuration files; they can communicate with each other through well-defined channels.
@@ -122,7 +122,7 @@ This is a non-exhaustive list of applications that I'm familiar with.  (Of cours
 > LXC is a userspace interface for the Linux kernel containment features. Through a powerful API and simple tools, it lets Linux users easily create and manage system or application containers.
 
 ### [Portainer](https://www.portainer.io/)
-> Portainer Community Edition is the foundation of the Portainer world. With over 2 billion downloads throughout its history, it’s a powerful, open-source management toolset that allows you to easily build, manage and maintain Docker environments. And it’s completely free.
+> Portainer Community Edition is (...) a powerful, open-source management toolset that allows you to easily build, manage and maintain Docker environments. And it’s completely free.
 
 ### [Proxmox](https://www.proxmox.com/)
 > Proxmox Virtual Environment is an open-source server virtualization environment. It is a Debian-based Linux distribution with a modified Ubuntu LTS kernel and allows deployment and management of virtual machines and containers. Proxmox VE includes a Web console and command-line tools, and provides a REST API for third-party tools.
@@ -146,7 +146,7 @@ A collection of applications for the analysis of multinomial processing tree (MP
 > R is a programming language and free software environment for statistical computing and graphics supported by the R Foundation for Statistical Computing. The R language is widely used among statisticians and data miners for developing statistical software and data analysis.
 
 ### [SPSS](https://www.ibm.com/products/spss-statistics)
-> SPSS Statistics is a software package used for interactive, or batched, statistical analysis. Long produced by SPSS Inc., it was acquired by IBM in 2009. The current versions are named IBM SPSS Statistics.
+> SPSS Statistics is a software package used for interactive, or batched, statistical analysis. 
 
 ### [WinBUGS](https://www.mrc-bsu.cam.ac.uk/software/bugs/the-bugs-project-winbugs/)
 > WinBUGS is statistical software for Bayesian analysis using Markov chain Monte Carlo methods.
@@ -161,24 +161,24 @@ For the record, I deeply regret knowing how to use this program.
 A collection of media management applications: movies (Radarr), series (Sonarr), music (Lidarr), and subtitles (Bazarr).
 
 #### [Tautulli](https://tautulli.com/)
-> Tautulli is a 3rd party application that you can run alongside your Plex Media Server to monitor activity and track various statistics. Most importantly, these statistics include what has been watched, who watched it, when and where they watched it, and how it was watched. The only thing missing is "why they watched it", but who am I to question your 42 plays of Frozen. All statistics are presented in a nice and clean interface with many tables and graphs, which makes it easy to brag about your server to everyone else.
+> Tautulli is a 3rd party application that you can run alongside your Plex Media Server to monitor activity and track various statistics. 
 
 ### Frontend
 #### [Kodi](https://kodi.tv/)
-> Kodi is a free and open-source media player software application developed by the XBMC Foundation, a non-profit technology consortium. Kodi is available for multiple operating systems and hardware platforms, with a software 10-foot user interface for use with televisions and remote controls.
+> Kodi is a free and open-source media player software application developed by the XBMC Foundation.
 
 #### [VLC](https://www.videolan.org/)
-> VideoLAN is a non-profit organization which develops software for playing video and other media formats. It originally developed two programs for media streaming, VideoLAN Client and VideoLAN Server, but most of the features of VLS have been incorporated into VLC, with the result renamed VLC media player.
+> VideoLAN (...) originally developed two programs for media streaming, VideoLAN Client and VideoLAN Server, but most of the features of VLS have been incorporated into VLC, with the result renamed VLC media player.
 
 ### Servers
 #### [Jellyfin](https://jellyfin.org/)
 > Jellyfin is the volunteer-built media solution that puts you in control of your media. Stream to any device from your own server, with no strings attached. 
 
 #### [Plex](https://www.plex.tv/)
-> Plex is a client–server media player system plus an ancillary software suite. The Plex Media Server desktop application runs on Windows, macOS, and Linux. The server desktop application organizes video, audio, and photos from a user's collections and from online services, enabling the players to access and stream the contents.
+> Plex is a client–server media player system plus an ancillary software suite. (...) The server desktop application organizes video, audio, and photos from a user's collections and from online services, enabling the players to access and stream the contents.
 
 #### [TVHeadend](https://tvheadend.org/)
-> TVHeadend, sometimes TVH for short, is a server application that reads video streams from LinuxTV sources and publishes them as internet streams. It supports multiple inputs, a DVB-T USB tuner stick and a Sat>IP tuner for instance, combining them together into a single channel listing. TVH servers are themselves IP signal providers, allowing networks of TVH servers to be combined.
+> TVHeadend (...) is a server application that reads video streams from LinuxTV sources and publishes them as internet streams. It supports multiple inputs, a DVB-T USB tuner stick and a Sat>IP tuner for instance, combining them together into a single channel listing. TVH servers are themselves IP signal providers, allowing networks of TVH servers to be combined.
 
 [top](#)
 
@@ -193,9 +193,9 @@ In addition to the basic configuration, I'm familiar with the following pfSense 
 > HAProxy is free, open source software that provides a high availability load balancer and proxy server for TCP and HTTP-based applications that spreads requests across multiple servers. It is written in C and has a reputation for being fast and efficient.
 
 ##### [Snort IPS/IDS system](https://www.snort.org/)
-> Snort is a free open source network intrusion detection system and intrusion prevention system created in 1998 by Martin Roesch, founder and former CTO of Sourcefire. Snort is now developed by Cisco, which purchased Sourcefire in 2013.
+> Snort is a free open source network intrusion detection system and intrusion prevention system.
 
-##### [pfBlockerNG](https://docs.netgate.com/pfsense/en/latest/packages/pfblocker.html)
+##### [pfBlocker-NG](https://docs.netgate.com/pfsense/en/latest/packages/pfblocker.html)
 > pfBlocker-NG introduces an Enhanced Alias Table Feature to pfSense software.
 > 
 > What it allows:
@@ -229,7 +229,7 @@ In addition to the basic configuration, I'm familiar with the following pfSense 
 
 ### NAS
 #### [Openmediavault](https://www.openmediavault.org/)
-> OpenMediaVault is a free Linux distribution designed for network-attached storage. The project's lead developer is Volker Theile, who instituted it in 2009. OMV is based on the Debian operating system, and is licensed through the GNU General Public License v3.
+> OpenMediaVault is a free Linux distribution designed for network-attached storage. (...) OMV is based on the Debian operating system, and is licensed through the GNU General Public License v3.
 
 ### Sync
 #### [Rsync](https://rsync.samba.org/)
