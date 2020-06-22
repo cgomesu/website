@@ -28,4 +28,10 @@ var store = [{
         "tags": ["github","iptv","kodi","streamlink","tvheadend","youtube"],
         "url": "http://localhost:4000/blog/Youtube-as-IPTV-with-TVH/",
         "teaser": null
+      },{
+        "title": "NanoPi M4 mini-NAS",
+        "excerpt":"This article is about my mini network-attached storage (NAS) project based on FriendlyARM’s NanoPi M4 and its SATA hat. If you’re looking for a cheap, low-profile, low-power NAS solution for your home–or if you just like single-board computers (SBC)–then this article is for you. Here’s a preview of how my...","categories": ["blog"],
+        "tags": ["sbc","arm","homelab","homeserver","storage"],
+        "url": "http://localhost:4000/blog/Nanopi-m4-mini-nas/",
+        "teaser": null
       }]
