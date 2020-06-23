@@ -17,21 +17,15 @@ var store = [{
         "url": "http://localhost:4000/blog/Math-of-bruised-souleater/",
         "teaser": null
       },{
-        "title": "Using any IR remote with the Odroid C2 IR receiver + LibreElec OS",
-        "excerpt":"In case you didn't know, the Odroid C2 (https://www.hardkernel.com/shop/odroid-c2/) comes with an onboard infrared (IR) receiver.&nbsp; Until a few days ago, I thought that such a receive was only compatible with their own IR remote controller but it turns out you can use it with any IR controller.&nbsp; We can...","categories": ["blog"],
+        "title": "Using the Odroid C2 IR receiver with LibreElec OS",
+        "excerpt":"In case you didn’t know, the Odroid C2 comes with an onboard infrared (IR) receiver. Until a few days ago, I thought that such a receive was only compatible with their own IR remote controller but it turns out you can use it with any IR controller. We can do...","categories": ["blog"],
         "tags": ["odroid","sbc"],
         "url": "http://localhost:4000/blog/IR-with-odroidc2/",
         "teaser": null
       },{
         "title": "Youtube live-streams as IPTV channels for TVHeadend",
-        "excerpt":"- Update tracker - May 19th, 2020 - Added info about TVH m3u re-fetch period and youtube4tvh cronjob for streams that change very often. May 14th, 2020 - Added more info about streamlink install and outdated versions; fixed a few typos. Introduction In this guide, we will learn how to...","categories": ["blog"],
+        "excerpt":"Update tracker May 19th, 2020 - Added info about TVH m3u re-fetch period and youtube4tvh cronjob for streams that change very often. May 14th, 2020 - Added more info about streamlink install and outdated versions; fixed a few typos. top Introduction In this guide, we will learn how to feed...","categories": ["blog"],
         "tags": ["github","iptv","kodi","streamlink","tvheadend","youtube"],
         "url": "http://localhost:4000/blog/Youtube-as-IPTV-with-TVH/",
-        "teaser": null
-      },{
-        "title": "NanoPi M4 mini-NAS",
-        "excerpt":"This article is about my mini network-attached storage (NAS) project based on FriendlyARM’s NanoPi M4 and its SATA hat. If you’re looking for a cheap, low-profile, low-power NAS solution for your home–or if you just like single-board computers (SBC)–then this article is for you. Here’s a preview of how my...","categories": ["blog"],
-        "tags": ["sbc","arm","homelab","homeserver","storage"],
-        "url": "http://localhost:4000/blog/Nanopi-m4-mini-nas/",
         "teaser": null
       }]

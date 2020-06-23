@@ -9,7 +9,7 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Using any IR remote with the Odroid C2 IR receiver + LibreElec OS - CGomesu</title>
+<!-- begin _includes/seo.html --><title>Using the Odroid C2 IR receiver with LibreElec OS - CGomesu</title>
 <meta name="description" content="A blog and portfolio website built with Jekyll and hosted on Github Pages">
 
 
@@ -19,7 +19,7 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="CGomesu">
-<meta property="og:title" content="Using any IR remote with the Odroid C2 IR receiver + LibreElec OS">
+<meta property="og:title" content="Using the Odroid C2 IR receiver with LibreElec OS">
 <meta property="og:url" content="http://localhost:4000/blog/IR-with-odroidc2/">
 
 
@@ -184,7 +184,7 @@
     <div class="wrapper">
       <h1 id="page-title" class="page__title" itemprop="headline">
         
-          Using any IR remote with the Odroid C2 IR receiver + LibreElec OS
+          Using the Odroid C2 IR receiver with LibreElec OS
 
         
       </h1>
@@ -198,7 +198,7 @@
 
 
 
-  1 minute read
+  2 minute read
 
 </p>
       
@@ -339,7 +339,7 @@
 
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Using any IR remote with the Odroid C2 IR receiver + LibreElec OS">
+    <meta itemprop="headline" content="Using the Odroid C2 IR receiver with LibreElec OS">
     <meta itemprop="description" content="">
     <meta itemprop="datePublished" content="2020-02-18T00:00:00-03:00">
     
@@ -349,35 +349,45 @@
 
       <section class="page__content" itemprop="text">
         
-        <div>In case you didn't know, the Odroid C2 (<a href="https://www.hardkernel.com/shop/odroid-c2/">https://www.hardkernel.com/shop/odroid-c2/</a>) comes with an onboard infrared (IR) receiver.&nbsp; Until a few days ago, I thought that such a receive was only compatible with their own IR remote controller but it turns out you can use it with <i>any IR controller</i>.&nbsp; We can do that with a package called <i>lirc</i>, which stands for linux infrared remote control (<a href="http://www.lirc.org/html/">http://www.lirc.org/html/</a>).&nbsp; <br /></div><div><br /></div><div class="separator" style="clear: both; text-align: center;"><a href="https://1.bp.blogspot.com/-8FZvCPFMbgQ/XrQpSpxWgWI/AAAAAAAABaw/B_23PiUqm3YiWwv8tZ4bxtRL_zjygHGrQCK4BGAsYHg/odroidc2.jpg" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="396" data-original-width="608" src="https://1.bp.blogspot.com/-8FZvCPFMbgQ/XrQpSpxWgWI/AAAAAAAABaw/B_23PiUqm3YiWwv8tZ4bxtRL_zjygHGrQCK4BGAsYHg/s320/odroidc2.jpg" width="320" /></a></div><div><br /></div><div><br /></div><div>This tutorial is for the LibreElec OS but one can use lirc with any linux distro and the configuration is not completely different than the one shown here.&nbsp; Here's a step by step procedure to get the IR working with lirc:</div>
-<br />
-# Tested with LibreElec Official OS 9.0.2 running Kodi 18.2<br />
-<br />
-# SSH into your Odroid C2<br />
-<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">ssh root@IP</span><br />
-<br />
-# Get a list of all available keys that you can map to your IR remote<br />
-<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">irrecord --list-namespace</span><br />
-<br />
-# Kill running lircd, if there's any<br />
-<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">ps aux | grep lircd<br />kill PID</span><br />
-<br />
-# Turn off all other IR compatible devices before moving forward<br />
-<br />
-# Go to /storage and record IR custom keys: <br />
-# Follow the instructions that will show yup on your screen<br />
-<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">cd /storage/<br />irrecord</span><br />
-<br />
-# If succesful, irrecord will genetare a *.conf file on /storage/<br />
-# with the name you provided at the beginnig<br />
-<br />
-# Copy the *.conf file to /storage/.conf/lircd.conf<br />
-<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">cp *.conf /storage/.conf/lircd.conf</span><br />
-<br />
-# Reboot your system<br />
-<span style="font-family: &quot;courier new&quot;, &quot;courier&quot;, monospace;">reboot now</span><br />
-<br />
-# Test your IR remote<br />
+        <p>In case you didn’t know, the <a href="https://www.hardkernel.com/shop/odroid-c2/">Odroid C2</a> comes with an onboard infrared (IR) receiver.  Until a few days ago, I thought that such a receive was only compatible with their own IR remote controller but it turns out you can use it with any IR controller.  We can do that with a package called <a href="http://www.lirc.org/html/"><strong>lirc</strong></a>, which stands for linux infrared remote control.</p>
+
+<p><a href="https://1.bp.blogspot.com/-8FZvCPFMbgQ/XrQpSpxWgWI/AAAAAAAABaw/B_23PiUqm3YiWwv8tZ4bxtRL_zjygHGrQCK4BGAsYHg/odroidc2.jpg"><img src="https://1.bp.blogspot.com/-8FZvCPFMbgQ/XrQpSpxWgWI/AAAAAAAABaw/B_23PiUqm3YiWwv8tZ4bxtRL_zjygHGrQCK4BGAsYHg/odroidc2.jpg" alt="Odroid C2 board" class="PostImage" /></a></p>
+
+<p>This tutorial is for the LibreElec OS but one can use lirc with any Linux distro and the configuration is not completely different than the one shown here.  (For the sake of completeness, I’ve tested with <strong>LibreElec Official OS 9.0.2</strong> running <strong>Kodi 18.2</strong>) Here’s a step by step procedure to get the IR working with lirc:</p>
+
+<ol>
+  <li>SSH into your Odroid C2
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh root@IP
+</code></pre></div>    </div>
+  </li>
+  <li>Get a list of all available keys that you can map to your IR remote
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>irrecord --list-namespace
+</code></pre></div>    </div>
+  </li>
+  <li>Kill running lircd, if there’s any
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps aux | grep lircd
+kill PID
+</code></pre></div>    </div>
+  </li>
+  <li>Turn off all other IR compatible devices before moving forward</li>
+  <li>Go to <code class="language-plaintext highlighter-rouge">/storage</code>, record IR custom keys and follow the instructions that will show yup on your screen:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd /storage/
+irrecord
+</code></pre></div>    </div>
+  </li>
+  <li>If succesful, irrecord will genetare a .conf file on /storage/ with the name you provided at the beginnig. Copy the .conf file to <code class="language-plaintext highlighter-rouge">/storage/.conf/lircd.conf</code>, as follows:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cp *.conf /storage/.conf/lircd.conf
+</code></pre></div>    </div>
+  </li>
+  <li>Reboot your system
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>reboot now
+</code></pre></div>    </div>
+  </li>
+  <li>Test your IR remote! If some key is missing, you can go back to <code class="language-plaintext highlighter-rouge">irrecord</code> and edit or record new keys.</li>
+</ol>
+
+<p>That’s it.  This is a short tutorial I wrote mostly to remind myself about this feature but hopefully, this tutorial is going to help someone else out there, too.</p>
+
         
       </section>
 
@@ -399,9 +409,9 @@
 
   <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fblog%2FIR-with-odroidc2%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://www.reddit.com/r/all/submit?title=Using any IR remote with the Odroid C2 IR receiver + LibreElec OS&url=http%3A%2F%2Flocalhost%3A4000%2Fblog%2FIR-with-odroidc2%2F" class="btn btn--reddit" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Reddit"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i><span> Reddit</span></a>
+  <a href="https://www.reddit.com/r/all/submit?title=Using the Odroid C2 IR receiver with LibreElec OS&url=http%3A%2F%2Flocalhost%3A4000%2Fblog%2FIR-with-odroidc2%2F" class="btn btn--reddit" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Reddit"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i><span> Reddit</span></a>
 
-  <a href="https://twitter.com/intent/tweet?text=Using+any+IR+remote+with+the+Odroid+C2+IR+receiver+%2B+LibreElec+OS%20http%3A%2F%2Flocalhost%3A4000%2Fblog%2FIR-with-odroidc2%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=Using+the+Odroid+C2+IR+receiver+with+LibreElec+OS%20http%3A%2F%2Flocalhost%3A4000%2Fblog%2FIR-with-odroidc2%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 </section>
 
 
