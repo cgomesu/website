@@ -10,8 +10,9 @@ toc_icon: "list"
 ---
 
 # Update tracker
-* May 19th, 2020 - Added info about TVH m3u re-fetch period and youtube4tvh cronjob for streams that change very often.
-* May 14th, 2020 - Added more info about streamlink install and outdated versions; fixed a few typos. 
+* June 23rd, 2020: Moved content from Blogger to my website and converted to markdown.  Fixed typos I found.
+* May 19th, 2020: Added info about TVH m3u re-fetch period and youtube4tvh cronjob for streams that change very often.
+* May 14th, 2020: Added more info about streamlink install and outdated versions; fixed a few typos. 
 
 [top](#)
 
@@ -109,7 +110,7 @@ You can find instructions on [the official page](https://developers.google.com/y
 
 11. Under 'API restrictions', select Restrict key > Youtube Data API v3 > Save.
 
-That's it! Your key is that long string with random letters and numbers in the column labeled Key (blurred in the figure below). Whenever you see a field to ```YOURKEY```, use that one.  Also, you can repeat this process to generate additional keys.  It's a good idea to do so. 
+That's it! Your key is that long string with random letters and numbers in the column labeled **Key**. Whenever you see a field to ```YOURKEY```, use that one.  Also, you can repeat this process to generate additional keys.  It's a good idea to do so. 
 
 ## Install youtube4tvh
 Open a terminal window and run the following:
