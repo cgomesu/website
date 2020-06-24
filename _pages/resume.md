@@ -26,7 +26,7 @@ toc_icon: "list"
 | 2011-2013	| M.A. | Human Development | [Cornell](https://www.cornell.edu/) | On the relation between memory and metamemory in free recall |
 | 2005-2011	| B.S. | Psychology | [PUCRS](http://www.pucrs.br/en/) | - |
 
-[top](#)
+[top](#){: .btn .btn--light-outline .btn--small}
 
 ***
 # Scholarships and Fellowships
@@ -39,7 +39,7 @@ toc_icon: "list"
 |2006-2007 | Scholarship | BPA-PUCRS |
 |2005-2006 | Scholarship | CPNq |
 
-[top](#)
+[top](#){: .btn .btn--light-outline .btn--small}
 
 ***
 # Language Skills
@@ -50,7 +50,7 @@ toc_icon: "list"
 | English | high | medium | high | medium | lived in the US for seven years |
 | Spanish | medium | low | high | low | - |
 
-[top](#)
+[top](#){: .btn .btn--light-outline .btn--small}
 
 ***
 # Programming Skills
@@ -91,7 +91,7 @@ A list of various languages that I've used before, listed in order of highest to
 | [Jekyll](https://jekyllrb.com/) | A static site generator that I got into when I started learning about Github Pages.  This website was built with Jekyll. |
 
 
-[top](#)
+[top](#){: .btn .btn--light-outline .btn--small}
 
 ***
 # Stats Skills
@@ -109,7 +109,7 @@ A list of various languages that I've used before, listed in order of highest to
 | Plots | Various techniques for visualizing data and estimates. |
 | *anything else* | There's a chance I can help you with any other tests/analyses not listed here.  Feel free to ask. |
 
-[top](#)
+[top](#){: .btn .btn--light-outline .btn--small}
 
 ***
 # Application Knowledge
@@ -130,7 +130,7 @@ This is a non-exhaustive list of applications that I'm familiar with.  (Of cours
 ### [VirtualBox](https://www.virtualbox.org/)
 > Oracle VM VirtualBox is a free and open-source hosted hypervisor for x86 virtualization, developed by Oracle Corporation.
 
-[top](#)
+[top](#){: .btn .btn--light-outline .btn--small}
 
 ## Data analysis
 ### GPT, multiTree, HMMTree
@@ -153,7 +153,7 @@ A collection of applications for the analysis of multinomial processing tree (MP
 
 For the record, I deeply regret knowing how to use this program.
 
-[top](#)
+[top](#){: .btn .btn--light-outline .btn--small}
 
 ## IDE
 ### [PhpStorm](https://www.jetbrains.com/phpstorm/)
@@ -168,7 +168,7 @@ For the record, I deeply regret knowing how to use this program.
 ### [Sublime Text](https://www.sublimetext.com/)
 > Sublime Text is a shareware cross-platform source code editor with a Python application programming interface.
 
-[top](#)
+[top](#){: .btn .btn--light-outline .btn--small}
 
 ## Media
 ### Backend
@@ -195,7 +195,7 @@ A collection of media management applications: movies (Radarr), series (Sonarr),
 #### [TVHeadend](https://tvheadend.org/)
 > TVHeadend (...) is a server application that reads video streams from LinuxTV sources and publishes them as internet streams. It supports multiple inputs, a DVB-T USB tuner stick and a Sat>IP tuner for instance, combining them together into a single channel listing. TVH servers are themselves IP signal providers, allowing networks of TVH servers to be combined.
 
-[top](#)
+[top](#){: .btn .btn--light-outline .btn--small}
 
 ## Network
 ### Firewall
@@ -235,7 +235,7 @@ In addition to the basic configuration, I'm familiar with the following pfSense 
 ### [SQLite](https://sqlite.org/index.html)
 > SQLite is a relational database management system contained in a C library. In contrast to many other database management systems, SQLite is not a client–server database engine. Rather, it is embedded into the end program. SQLite is ACID-compliant and implements most of the SQL standard, generally following PostgreSQL syntax.
 
-[top](#)
+[top](#){: .btn .btn--light-outline .btn--small}
 
 ## Storage
 ### Backup
@@ -256,7 +256,7 @@ In addition to the basic configuration, I'm familiar with the following pfSense 
 #### [Syncthing](https://syncthing.net/)
 > Syncthing is a free, open-source peer-to-peer file synchronization application available for Windows, Mac, Linux, Android, Solaris, Darwin, and BSD. It can sync files between devices on a local network, or between remote devices over the Internet. Data security and data safety are built into the design of the software.
 
-[top](#)
+[top](#){: .btn .btn--light-outline .btn--small}
 
 ***
 # Academic and Professional Experience
@@ -267,7 +267,7 @@ In addition to the basic configuration, I'm familiar with the following pfSense 
 | 2010-2011 | 12h | intern | BR | Instituto Leonardo Murialdo | assisted and monitored people who benefit from social programs for families in extreme poverty or victims of maltreatment |
 | 2009-2010 | 24h | intern | BR | CR Rolla | designed market studies for local and multinational corporations.   developed and managed customer satisfaction studies.  managed databases. |
 
-[top](#)
+[top](#){: .btn .btn--light-outline .btn--small}
 
 ## Research and education jobs
 
@@ -281,7 +281,7 @@ In addition to the basic configuration, I'm familiar with the following pfSense 
 | 2006-2008 | 16h | undergrad teaching assistant | BR | PUCRS | Processos Psicológicos Básicos II |
 | 2005-2006 | 20h | undergrad research assistant | BR | PUCRS | Grupo de Pesquisa em Neuropsicolinguística |
 
-[top](#)
+[top](#){: .btn .btn--light-outline .btn--small}
 
 ## Reviewer
 
@@ -298,9 +298,9 @@ In addition to the basic configuration, I'm familiar with the following pfSense 
 | 2008-2008 | Paidéia |
 | 2008-2008 | Psico |
 
-[top](#)
+[top](#){: .btn .btn--light-outline .btn--small}
 
 ## Publications
 See [**Publications**]({{ site.url }}{{ site.baseurl }}/publications/) for an updated list or check my *Lattes CV* at the [**top**](#).
 
-[top](#)
+[top](#){: .btn .btn--light-outline .btn--small}

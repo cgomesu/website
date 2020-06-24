@@ -197,9 +197,11 @@
       
         <p>
         
-          <a href="/projects/#present" class="btn btn--light-outline btn--large">Present</a>
+          <a href="/projects/#information-technology" class="btn btn--light-outline btn--large">IT</a>
         
-          <a href="/projects/#past" class="btn btn--light-outline btn--large">Past</a>
+          <a href="/projects/#programming" class="btn btn--light-outline btn--large">Programming</a>
+        
+          <a href="/projects/#academic" class="btn btn--light-outline btn--large">Academic</a>
         
       
     </div>
@@ -220,14 +222,225 @@
     
 
     <section class="page__content" itemprop="text">
-      <h1 id="present">Present</h1>
+      <hr />
 
-<p><a href="#">top</a></p>
+<h1 id="information-technology">Information Technology</h1>
 
-<hr />
-<h1 id="past">Past</h1>
+<div class="feature__wrapper">
 
-<p><a href="#">top</a></p>
+  
+    <div class="feature__item">
+      <div class="archive__item">
+        
+          <div class="archive__item-teaser">
+            <img src="/assets/img/projects/thumb-projects-mininas.jpg" alt="" />
+            
+          </div>
+        
+
+        <div class="archive__item-body">
+          
+            <h2 class="archive__item-title">NanoPi M4 mini-NAS</h2>
+          
+
+          
+            <div class="archive__item-excerpt">
+              <p>A cheap, low-power, low-profile NAS solution based on FriendlyArm’s NanoPi M4 SBC. It has a SATA hat that is connected to the board via PCI-e, allowing up to four HDDs to be connected to the NAS via standard SATA III interface.</p>
+
+            </div>
+          
+
+          
+        </div>
+      </div>
+    </div>
+  
+    <div class="feature__item">
+      <div class="archive__item">
+        
+          <div class="archive__item-teaser">
+            <img src="/assets/img/projects/thumb-projects-chacara-microserver.jpg" alt="" />
+            
+          </div>
+        
+
+        <div class="archive__item-body">
+          
+            <h2 class="archive__item-title">A chácara microserver</h2>
+          
+
+          
+            <div class="archive__item-excerpt">
+              <p>The microserver is composed of an HP Proliant Microserver Gen8 running Openmediavault and a Dell Optiplex 3060 micro running Proxmox. Both machines are used mostly for security-related things (surveillance cameras, location tracking) and Plex and Plex-related programs (PMS, Tautulli, Sonarr, Radarr, etc.). Other uses have to do with a universal desktop folder (Syncthing) and data analysis (R server).</p>
+
+            </div>
+          
+
+          
+        </div>
+      </div>
+    </div>
+  
+    <div class="feature__item">
+      <div class="archive__item">
+        
+          <div class="archive__item-teaser">
+            <img src="/assets/img/projects/thumb-projects-pfsense-box.jpg" alt="" />
+            
+          </div>
+        
+
+        <div class="archive__item-body">
+          
+            <h2 class="archive__item-title">pfSense white-box</h2>
+          
+
+          
+            <div class="archive__item-excerpt">
+              <p>A cheap, customizable pfSense box based on the ASRock J3355b-itx mobo. It features an Intel dual-core processor capable of running IPS/IDS software, multiple VPNs, and more. A passively cooled, low-power, and low-profile firewall that fits the demands of most home users.</p>
+
+            </div>
+          
+
+          
+        </div>
+      </div>
+    </div>
+  
+    <div class="feature__item">
+      <div class="archive__item">
+        
+          <div class="archive__item-teaser">
+            <img src="/assets/img/projects/thumb-projects-gpiobuttons.jpg" alt="" />
+            
+          </div>
+        
+
+        <div class="archive__item-body">
+          
+            <h2 class="archive__item-title">Simple RPi GPIO buttons</h2>
+          
+
+          
+            <div class="archive__item-excerpt">
+              <p>Schematic and a simple python script to run customized commands using three push buttons connected to a Raspberry Pi 3B’s general purpose input/output (GPIO) pins. Compatible with RPi 3B+ and any other RPi that has the same GPIO version as the 3B.</p>
+
+            </div>
+          
+
+          
+            <p><a href="https://github.com/cgomesu/rpi-buttons" class="btn btn--info">Github Repo</a></p>
+          
+        </div>
+      </div>
+    </div>
+  
+
+</div>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="programming">Programming</h1>
+
+<div class="feature__wrapper">
+
+  
+    <div class="feature__item">
+      <div class="archive__item">
+        
+          <div class="archive__item-teaser">
+            <img src="/assets/img/projects/thumb-projects-youtube4tvh.jpg" alt="" />
+            
+          </div>
+        
+
+        <div class="archive__item-body">
+          
+            <h2 class="archive__item-title">Youtube4tvh</h2>
+          
+
+          
+            <div class="archive__item-excerpt">
+              <p>Youtube4tvh is a Python CLI program that uses Youtube API to find live-streams and create (or update) m3u playlists for a TVHeadend server. The m3u file follows IPTV conventions that allow a TVH server to automatically create an IPTV network with them, and each stream is piped into TVH via a Streamlink shell script.</p>
+
+            </div>
+          
+
+          
+            <p><a href="https://github.com/cgomesu/youtube4tvh" class="btn btn--info">Github Repo</a></p>
+          
+        </div>
+      </div>
+    </div>
+  
+    <div class="feature__item">
+      <div class="archive__item">
+        
+          <div class="archive__item-teaser">
+            <img src="/assets/img/projects/thumb-projects-multitrial-datacount.jpg" alt="" />
+            
+          </div>
+        
+
+        <div class="archive__item-body">
+          
+            <h2 class="archive__item-title">Multi-trial data count</h2>
+          
+
+          
+            <div class="archive__item-excerpt">
+              <p>A VBA macro for MS Excel that counts patterns of correct responses (C) and errors (E) across multiple trials (e.g., CCC, CCE, CEC, …, EEE). It was initially developed as a tool to help with the data analysis of multi-trial memory experiments in which one or more subjects provide boolean-type responses (yes/no, correct/error) for multiple items across multiple tests. In such designs, each item will generate a pattern of C-E responses across tests. This VBA macro counts all such patterns across subjects and items.</p>
+
+            </div>
+          
+
+          
+            <p><a href="https://github.com/cgomesu/multitrial-datacount" class="btn btn--info">Github Repo</a></p>
+          
+        </div>
+      </div>
+    </div>
+  
+    <div class="feature__item">
+      <div class="archive__item">
+        
+          <div class="archive__item-teaser">
+            <img src="/assets/img/site/thumb-construction.jpg" alt="" />
+            
+          </div>
+        
+
+        <div class="archive__item-body">
+          
+            <h2 class="archive__item-title">Webgrab EPG parser</h2>
+          
+
+          
+            <div class="archive__item-excerpt">
+              <p>A Python CLI program that converts the WebGrab+Plus siteini.pack/ folder data into a SQLite db and runs various tasks that optimize extraction of EPG data from the available sources. (This project’s repo is private and under construction.)</p>
+
+            </div>
+          
+
+          
+        </div>
+      </div>
+    </div>
+  
+
+</div>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="academic">Academic</h1>
+
+<div class="feature__wrapper">
+
+  
+
+</div>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 
     </section>
   </article>

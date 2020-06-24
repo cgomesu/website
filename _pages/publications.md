@@ -52,7 +52,7 @@ excerpt: "All my published peer-reviewed papers and book chapters, plus a few se
 
 [DOI](http://dx.doi.org/10.1590/S0102-37722009000400009) | Stein, L.M., & **Gomes, C.F.A.** (2009). Brazilian norms for word lists: Semantic association, concreteness, word frequency, and emotionality. Psicologia: Teoria e Pesquisa, 25, 537-546. | [DRM-BR.DOC](/assets/materials/drm-br.doc), [DRM-BR.PDF](/assets/materials/drm-br.pdf)
 
-[**top**](#)
+[top](#){: .btn .btn--light-outline .btn--small}
 
 ***
 # Book Chapters
@@ -63,7 +63,7 @@ excerpt: "All my published peer-reviewed papers and book chapters, plus a few se
 
 [BOOK](https://www.amazon.com.br/Falsas-mem%C3%B3rias-Lilian-M-Stein/dp/8536320869) | Rohenkohl, G., **Gomes, C.F.A.**, Silveira, R.A.T., Pinto, L.H., & Santos, R.F. (2010). Emotion and false memories. In: Stein, L.M. Falsas Memórias: Fundamentos científicos, aplicações clínicas e jurídicas (pp. 87-100). Porto Alegre: ARTMED.
 
-[**top**](#)
+[top](#){: .btn .btn--light-outline .btn--small}
 
 ***
 # Presentations
@@ -87,4 +87,4 @@ Selected presentations.  For a complete list, please see my *Lattes CV* in [**Re
 
 [Abstract](https://bit.ly/2NaQSYe) | Brainerd, C.J., **Gomes, C.F.A.**, & Reyna, V.F. Dual Processes in Recall. Psychonomic Society Meeting, Minneapolis, US, 2012.
 
-[**top**](#)
+[top](#){: .btn .btn--light-outline .btn--small}

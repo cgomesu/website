@@ -99,12 +99,12 @@ author:
   location         : "Brazil"
   email            : 
   links:
-    - label: "Main E-mail"
+    - label: "Main e-mail"
       icon: "fas fa-fw fa-envelope-square"
       url: "mailto:me@cgomesu.com"
     - label: "Academic E-mail"
       icon: "fas fa-fw fa-envelope-square"
-      url: "mailto:cf365@cornell.edu"
+      # url: "mailto:cf365@cornell.edu"
     - label: "https://cgomesu.com"
       icon: "fas fa-fw fa-link"
       url: "https://cgomesu.com"
