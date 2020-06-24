@@ -12,8 +12,8 @@ header:
       url: "/projects/#information-technology"
     - label: "Programming"
       url: "/projects/#programming"
-    - label: "Academic"
-      url: "/projects/#academic"
+    - label: "Academic (latest)"
+      url: "/projects/#academic-latest"
 excerpt: "A selected list of past and current projects."
 it:
   - title: "NanoPi M4 mini-NAS"
@@ -59,6 +59,25 @@ programming:
     # url: ""
     btn_label: "Github Repo"
     btn_class: "btn--info"
+academic:
+  - title: "Multinomial modeling"
+    excerpt: "Distribution of educational materials to researchers and students about the use of multinomial modeling in psychological research."
+    image_path: "/assets/img/site/thumb-academic.jpg"
+  - title: "Conjoint-source recognition"
+    excerpt: "A series of experiments using a new theory-driven paradigm that combines the conjoint recognition procedure with a source task, called conjoint-source recognition, in order to extract measures of the two recollective processes posited by the dual-recollection theory, namely target and context recollection."
+    image_path: "/assets/img/site/thumb-academic.jpg"
+  - title: "Episodic over-distribution (EOD) in recall"
+    excerpt: "Secondary analysis of published data and new experiments that incorporate theory-driven manipulations to identify the mechanisms that control EOD in recall."
+    image_path: "/assets/img/site/thumb-academic.jpg"
+  - title: "Memory, Aging, and Cognitive Impairment Study (MACIS)"
+    excerpt: "The MACIS is a longitudinal study conducted by the Memory & Neuroscience research lab at Cornell University. Healthy younger and older adults receive batteries of neuropsychological tests and associative memory tasks that allow us to extract measures of retrieval processes in recall, namely direct access, reconstruction, and familiarity judgment. The purpose of the project is to pinpoint the retrieval processes that are affected/spared by healthy aging and cognitive impairment, and their relation with traditional markers of impairment."
+    image_path: "/assets/img/site/thumb-academic.jpg"
+  - title: "Validity tests of dual-retrieval Markov models of recall"
+    excerpt: "Development and phenomenological validity tests of a family of two-stage, finite Markov chains that are applied to multi-trial recall designs to obtain simple measures of recollective retrieval (direct access) and nonrecollective retrieval (reconstruction and familiarity judgment) in recall. Model-based estimates are compared to traditional methods of estimating dual processes, such as remember/know judgments, confidence ratings, and source judgments."
+    image_path: "/assets/img/site/thumb-academic.jpg"
+  - title: "The ontogenesis of dual processes"
+    excerpt: "Counterintuitive effects of memory development and their implications to the law and dual-process theories."
+    image_path: "/assets/img/site/thumb-academic.jpg"
 ---
 ***
 
@@ -72,7 +91,7 @@ programming:
 {% include feature_row id="programming" %}
 [top](#){: .btn .btn--light-outline .btn--small}
 
-# Academic
+# Academic (latest)
 
 {% include feature_row id="academic" %}
 [top](#){: .btn .btn--light-outline .btn--small}
