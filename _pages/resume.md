@@ -198,6 +198,10 @@ A collection of media management applications: movies (Radarr), series (Sonarr),
 [top](#){: .btn .btn--light-outline .btn--small}
 
 ## Network
+### DNS filtering
+#### [piHole](https://pi-hole.net/)
+> Pi-hole is a Linux network-level advertisement and Internet tracker blocking application which acts as a DNS sinkhole and optionally a DHCP server, intended for use on a private network. It is designed for use on embedded devices with network capability, such as the Raspberry Pi, but it can be used on other machines running Linux and cloud implementations.
+
 ### Firewall
 #### [pfSense](https://www.pfsense.org/)
 > pfSense is an open source firewall/router computer software distribution based on FreeBSD. It is installed on a physical computer or a virtual machine to make a dedicated firewall/router for a network. It can be configured and upgraded through a web-based interface, and requires no knowledge of the underlying FreeBSD system to manage.
