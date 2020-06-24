@@ -155,6 +155,19 @@ For the record, I deeply regret knowing how to use this program.
 
 [top](#)
 
+## IDE
+### [PhpStorm](https://www.jetbrains.com/phpstorm/)
+> PhpStorm is a commercial, cross-platform IDE for PHP, built by the Czech Republic-based company JetBrains. PhpStorm provides an editor for PHP, HTML and JavaScript with on-the-fly code analysis, error prevention and automated refactorings for PHP and JavaScript code
+
+### [PyCharm](https://www.jetbrains.com/pycharm/)
+> PyCharm is an integrated development environment used in computer programming, specifically for the Python language. It is developed by the Czech company JetBrains. It provides code analysis, a graphical debugger, an integrated unit tester, integration with version control systems, and supports web development with Django as well as Data Science with Anaconda.
+
+### [RStudio](https://rstudio.com/)
+> RStudio is an integrated development environment for R, a programming language for statistical computing and graphics.
+
+### [Sublime Text](https://www.sublimetext.com/)
+> Sublime Text is a shareware cross-platform source code editor with a Python application programming interface.
+
 ## Media
 ### Backend
 #### [Radarr](https://radarr.video/), [Sonarr](https://sonarr.tv/), [Lidarr](https://lidarr.audio/), [Bazarr](https://www.bazarr.media/)
