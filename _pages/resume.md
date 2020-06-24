@@ -168,6 +168,8 @@ For the record, I deeply regret knowing how to use this program.
 ### [Sublime Text](https://www.sublimetext.com/)
 > Sublime Text is a shareware cross-platform source code editor with a Python application programming interface.
 
+[top](#)
+
 ## Media
 ### Backend
 #### [Radarr](https://radarr.video/), [Sonarr](https://sonarr.tv/), [Lidarr](https://lidarr.audio/), [Bazarr](https://www.bazarr.media/)
