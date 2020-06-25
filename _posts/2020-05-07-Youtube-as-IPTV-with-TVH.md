@@ -14,7 +14,7 @@ toc_icon: "list"
 * May 19th, 2020: Added info about TVH m3u re-fetch period and youtube4tvh cronjob for streams that change very often.
 * May 14th, 2020: Added more info about streamlink install and outdated versions; fixed a few typos. 
 
-[top](#)
+[top](#){: .btn .btn--light-outline .btn--small}
 
 # Introduction
 In this guide, we will learn how to feed Youtube live-streams into a TVHeadend (TVH) server as IPTV channels.  This is a fairly advanced guide but I'll try my best to make it as digestible as possible to any individual with minimal knowledge about selfhosting.  You will need a **Linux distro** (e.g., Debian, Ubuntu) to follow this guide.  All the software described here is **free and open-source**.
@@ -23,7 +23,7 @@ I'm not an expert in any of the topics mentioned here.  If you have suggestions 
 
 Youtube4tvh is a utility program I wrote just for this guide.  I welcome anyone who wants to improve it or fork into something more abstract.  If that sounds like something you want to do, please head to [my Github repo](https://github.com/cgomesu/youtube4tvh) and hit me up once you've done some coding. 
 
-[top](#)
+[top](#){: .btn .btn--light-outline .btn--small}
 
 # Motivation
 There are multiple reasons to watch Youtube live-streams as if they were IPTV channels.  Here are a reasons few that come to mind right now:
@@ -43,7 +43,7 @@ There are multiple reasons to watch Youtube live-streams as if they were IPTV ch
 
 {% include video id="9FSPf5wISUY" provider="youtube" %}
 
-[top](#)
+[top](#){: .btn .btn--light-outline .btn--small}
 
 # Objectives
 By the end of the guide, you'll have learned how to do the following:
@@ -55,7 +55,7 @@ By the end of the guide, you'll have learned how to do the following:
 * Configure a TVH server to auto-map muxes to channels using bouquets;
 * Create a cronjob to automatically update the Youtube live-stream m3u playlist every day at 6am.
 
-[top](#)
+[top](#){: .btn .btn--light-outline .btn--small}
 
 # Client-server layout
 There are three main components to this setup, namely **TVH**, **Streamlink**, and **youtube4tvh**, which are all open-source and free:
@@ -80,7 +80,7 @@ For this guide, we will assume that such components are related to each other an
 
 However, once you're done with the initial configuration, you can try changing it to accomodate your needs.  For example, you can [multicast a live-stream to a TVH server using VLC](https://tvheadend.org/projects/tvheadend/wiki/VLC_Multicasting).  This will let you use a single connection to Youtube be distributed to multiple clients, instead of creating multiple connections to Youtube--definitely take a look at it if you're serving a large number of clients with your TVH server.  Also, you might want to pipe the Streamlink data to FFMPEG before sending to TVH, which will let you set custom AV codecs.  
 
-[top](#)
+[top](#){: .btn .btn--light-outline .btn--small}
 
 # Youtube4tvh
 This is a utility program that will let us create and manage m3u playlist of Youtube live-streams.  It uses Youtube API, so we'll need to create one (or more) to use it before anything else.  APIs have daily quotas that this program will reach fairly quickly.  Fortunately, those quotas are per project, and you should be able to create multiple projects with a free account.  For more info, checkout [the github page](https://github.com/cgomesu/youtube4tvh).
@@ -201,7 +201,7 @@ If you want to remove a channel, you'll need to manually edit the youtube.m3u fi
 ## Recommendations
 Theoretically, the m3u playlists can contain as many streams as you want.  However, as a general rule of thumb, I find it useful to create one m3u playlist for each type of streaming channel--for example, youtube-webcams.m3u, youtube-news.m3u, youtube-radio.m3u, and etc--and then have a unique API key for each of them.  This way, I can run the youtube4tvh cronjob more often, thus reducing the chance of having broken URLs in the m3u file.
 
-[top](#)
+[top](#){: .btn .btn--light-outline .btn--small}
 
 # Streamlink
 Streamlink is an awesome utility program and if you've never used it before, make sure to check their [documentation](https://streamlink.github.io/).  Here, we will only use it to pipe data from Youtube to a TVH server but Streamlink is able to pipe video streams from many other platforms (Twitch, Dailymotion, etc.). 
@@ -250,7 +250,7 @@ You should see a whole bunch random characters as streamlink outputs the video s
 bash streamlink.sh YOUTUBEURL | vlc -
 ```
 
-[top](#)
+[top](#){: .btn .btn--light-outline .btn--small}
 
 # TVH server
 TVH was a game-changer for me.  It offers a centralized system to manage multiple IPTV networks and TV tuners.  I can fully customize how all channels will show up to all my clients and that's so much better than using multiple (and sometimes shady) applications developed by each IPTV provider.  If a channel is down, I can tell TVH to automatically remove it or remap to another provider.  If the EPG is not working, I can tell TVH to fetch from another source.  If a client does not support a particular type of codec, I can create a profile that uses the codec that works with it.  And all those changes are automatically applied to all clients, without the need to change one by one, because they are all getting data from my TVH server instead of external sources.  (It's the TVH server that should always do that latter.) 
@@ -379,7 +379,7 @@ That's it!  You can repeat this process as many times as you need and play aroun
 ## Re-fetch period and youtube4tvh cronjobs
 If you've a youtube m3u playlist with channels that are likely to change multiple times during the same day, then it's a good idea to create a separate playlist for those channels.  Then, when you create a youtube4tvh cronjob for the new m3u playlist, make it run more frequently (e.g., every 5 mins would be ```*/5 * * * *```) and in the TVH server, add a new IPTV auto network for the new m3u playlist and in its settings, edit the "re-fetch period" to match the cronjob update interval (5); hit save and then restart the TVH server to apply the new settings. If you've done it right, the TVH server will now check the m3u playlist at an interval equal to the re-fetch period and update any new/changed mux on it, which will be automatically mapped to a channel in its bouquet.
 
-[top](#)
+[top](#){: .btn .btn--light-outline .btn--small}
 
 # TVH client
 There are multiple ways to watch the channels on your TVH server, including directly from the webUI itself (EPG tab > Watch TV).  The one I use is [**Kodi**](https://kodi.tv/download) + **TVH client addon** because my Kodi clients also access my Plex server.
@@ -432,11 +432,11 @@ If everything is working as it should, you should now be able to watch the strea
 
 You can make further client-side changes in **Kodi's PVR & Live TV settings menu**, such as mapping channels to specific numbers, behavior of changing channels, etc.
 
-[top](#)
+[top](#){: .btn .btn--light-outline .btn--small}
 
 # Conclusion
 Congratulations for reaching the end of this guide.  As I said before, one of my future projects is to work on a parser for the Webgrab+Plus EPG data and then write a guide on how to implement it using the current setup.
 
 If you found this useful or have suggestions on how to improve this guide, please leave a comment and I'll try to reply asap.
 
-[top](#)
+[top](#){: .btn .btn--light-outline .btn--small}

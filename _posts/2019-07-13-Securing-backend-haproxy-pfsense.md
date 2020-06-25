@@ -14,14 +14,14 @@ toc_icon: "list"
 * June 21st 2020: This guide stills works with **pfsense version 2.4.5-RELEASE-p1**.
 * May 1st 2020: This guide still works with **pfsense version 2.4.5-RELEASE** and the **haproxy packaged version 0.60_4**.
 
-[top](#)
+[top](#){: .btn .btn--light-outline .btn--small}
 
 # Introduction
 This is a rough guide on how to create and configure user lists and stick-tables using pfsense's HAproxy package to protect access to a backend and limit the number of failed login attempts.  The guide is divided into two main sections.  In the first one, we'll create a user list and add encrypted (SHA512) passwords for each of them.  Then, in the second section, we'll create and configure stick-tables to limit the number of failed login attempts.
 
 Now, it's fairly simple to accomplish all those things by manually changing HAproxy's config file (e.g., [https://gist.github.com/Iristyle/5005653](https://gist.github.com/Iristyle/5005653), [https://www.haproxy.com/blog/introduction-to-haproxy-stick-tables/](https://www.haproxy.com/blog/introduction-to-haproxy-stick-tables/)).  However, I found it difficult to find any sort of documentation on how to accomplish the same thing using only pfsense's graphical user interface (GUI).  The GUI makes it very easy to implement and configure the core aspects of HAproxy (e.g., reverse proxy and load balancing) but at the same time, it seems to lack support for other features, such as adding basic authentication requests and using stick-tables to mitigate attempts to brute-force users' credentials.  If that's what you'd like to do, then read on.
 
-[top](#)
+[top](#){: .btn .btn--light-outline .btn--small}
 
 # Pre-requisites
 The pre-requisites are the following:
@@ -34,7 +34,7 @@ Recommended:
 
 {% include video id="5Frn96oADOU" provider="youtube" %}
 
-[top](#)
+[top](#){: .btn .btn--light-outline .btn--small}
 
 # Basic user authentication
 This part of the tutorial is largely based on [Joerg Hocwald's guide](https://hochwald.net/user-authentication-with-haproxy-on-pfsense/). In HAproxy, it's pretty simple to create a user list with encrypted passwords.  There is basically three steps involved: (a) user and password list creation, (b) adding those to the global settings, and (c) creating an access control list (ACL) and action for each backend.
@@ -91,7 +91,7 @@ realm = realm User unless UserAuth
 
 * Rinse and repeat for each backend you want to protect with basic user authentication.  Make sure to test your config before moving on to the next section.
 
-[top](#)
+[top](#){: .btn .btn--light-outline .btn--small}
 
 # Stick-tables to protect against brute-force
 In our case, access to each backend is secured by a basic http authentication request.  If the client does not provide correct credentials, it will be requested to enter new ones.  By default, HAproxy will do that forever, which is not something that sounds desirable to me because it allows clients to brute force their way into my services.  On HAproxy's official blog, you'll find a very instructive guide on how to protect your servers from bots, including a [step-by-step procedure to help you mitigate brute-force attacks](https://www.haproxy.com/blog/bot-protection-with-haproxy/#brute-force-bots).  In their case, however, the authentication is associated to a particular /login page, instead of using HAproxy's own http-request auth feature, and we'd like to use the latter instead.
@@ -172,11 +172,11 @@ customaction = http-request silent-drop
 
 * If you'd like to configure stick-tables for other subdomains, just repeat all the previous steps.
 
-[top](#)
+[top](#){: .btn .btn--light-outline .btn--small}
 
 # Conclusion
 That's it!  Let me remind you that the options described here were tuned to my own case and therefore, you should review them to make sure they'll work for yours as well.  For example, you might want to set a shorter expire for a given stick-table than 30 min., or you may not want to use ```http-request deny``` instead of ```http-request silent-drop```.
 
 Stick-tables are great and there are many other things you can do with them.  For example, you can use a similar procedure to implement other recommendations mentioned in [**the official blog**](https://www.haproxy.com/blog/bot-protection-with-haproxy).  This one has been working very well for me.
 
-[top](#)
+[top](#){: .btn .btn--light-outline .btn--small}

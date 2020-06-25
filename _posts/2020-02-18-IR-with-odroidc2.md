@@ -42,3 +42,5 @@ reboot now
 8. Test your IR remote! If some key is missing, you can go back to ```irrecord``` and edit or record new keys.
 
 That's it.  This is a short tutorial I wrote mostly to remind myself about this feature but hopefully, this tutorial is going to help someone else out there, too.
+
+[top](#){: .btn .btn--small .btn--light-outline}

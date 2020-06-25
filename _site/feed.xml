@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-06-25T16:14:48-03:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">The ASRock J3355b-itx pfSense box</title><link href="http://localhost:4000/blog/Pfsense-white-box/" rel="alternate" type="text/html" title="The ASRock J3355b-itx pfSense box" /><published>2020-06-25T10:31:25-03:00</published><updated>2020-06-25T10:31:25-03:00</updated><id>http://localhost:4000/blog/Pfsense-white-box</id><content type="html" xml:base="http://localhost:4000/blog/Pfsense-white-box/">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-06-25T16:18:36-03:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">The ASRock J3355b-itx pfSense box</title><link href="http://localhost:4000/blog/Pfsense-white-box/" rel="alternate" type="text/html" title="The ASRock J3355b-itx pfSense box" /><published>2020-06-25T10:31:25-03:00</published><updated>2020-06-25T10:31:25-03:00</updated><id>http://localhost:4000/blog/Pfsense-white-box</id><content type="html" xml:base="http://localhost:4000/blog/Pfsense-white-box/">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
 &lt;p&gt;&lt;a href=&quot;https://www.pfsense.org/&quot;&gt;pfSense CE&lt;/a&gt; is a free, &lt;a href=&quot;https://github.com/pfsense/pfsense&quot;&gt;open-source&lt;/a&gt;, and very popular &lt;strong&gt;firewall/router&lt;/strong&gt; that runs on &lt;a href=&quot;https://www.freebsd.org/&quot;&gt;FreeBSD&lt;/a&gt; and is developed by &lt;a href=&quot;https://www.netgate.com/&quot;&gt;Netgate&lt;/a&gt;.  Even though Netgate sells &lt;a href=&quot;https://www.netgate.com/products/appliances/&quot;&gt;official pfSense appliances&lt;/a&gt;, it’s possible to build your own, custom-made pfSense box for (way) less money (at the expense of way less support from Netgate).&lt;/p&gt;
 
 &lt;p&gt;In this article, I talked about &lt;strong&gt;my ASRock mini-ITX pfSense box project&lt;/strong&gt;.  In the first part, I listed all the necessary hardware to build the box, and in the second part, I briefly talked about the software.&lt;/p&gt;
@@ -73,7 +73,7 @@
   &lt;li&gt;May 14th, 2020: Added more info about streamlink install and outdated versions; fixed a few typos.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
 &lt;p&gt;In this guide, we will learn how to feed Youtube live-streams into a TVHeadend (TVH) server as IPTV channels.  This is a fairly advanced guide but I’ll try my best to make it as digestible as possible to any individual with minimal knowledge about selfhosting.  You will need a &lt;strong&gt;Linux distro&lt;/strong&gt; (e.g., Debian, Ubuntu) to follow this guide.  All the software described here is &lt;strong&gt;free and open-source&lt;/strong&gt;.&lt;/p&gt;
@@ -82,7 +82,7 @@
 
 &lt;p&gt;Youtube4tvh is a utility program I wrote just for this guide.  I welcome anyone who wants to improve it or fork into something more abstract.  If that sounds like something you want to do, please head to &lt;a href=&quot;https://github.com/cgomesu/youtube4tvh&quot;&gt;my Github repo&lt;/a&gt; and hit me up once you’ve done some coding.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;motivation&quot;&gt;Motivation&lt;/h1&gt;
 &lt;p&gt;There are multiple reasons to watch Youtube live-streams as if they were IPTV channels.  Here are a reasons few that come to mind right now:&lt;/p&gt;
@@ -112,7 +112,7 @@
 
 &lt;/div&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;objectives&quot;&gt;Objectives&lt;/h1&gt;
 &lt;p&gt;By the end of the guide, you’ll have learned how to do the following:&lt;/p&gt;
@@ -126,7 +126,7 @@
   &lt;li&gt;Create a cronjob to automatically update the Youtube live-stream m3u playlist every day at 6am.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;client-server-layout&quot;&gt;Client-server layout&lt;/h1&gt;
 &lt;p&gt;There are three main components to this setup, namely &lt;strong&gt;TVH&lt;/strong&gt;, &lt;strong&gt;Streamlink&lt;/strong&gt;, and &lt;strong&gt;youtube4tvh&lt;/strong&gt;, which are all open-source and free:&lt;/p&gt;
@@ -157,7 +157,7 @@
 
 &lt;p&gt;However, once you’re done with the initial configuration, you can try changing it to accomodate your needs.  For example, you can &lt;a href=&quot;https://tvheadend.org/projects/tvheadend/wiki/VLC_Multicasting&quot;&gt;multicast a live-stream to a TVH server using VLC&lt;/a&gt;.  This will let you use a single connection to Youtube be distributed to multiple clients, instead of creating multiple connections to Youtube–definitely take a look at it if you’re serving a large number of clients with your TVH server.  Also, you might want to pipe the Streamlink data to FFMPEG before sending to TVH, which will let you set custom AV codecs.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;youtube4tvh&quot;&gt;Youtube4tvh&lt;/h1&gt;
 &lt;p&gt;This is a utility program that will let us create and manage m3u playlist of Youtube live-streams.  It uses Youtube API, so we’ll need to create one (or more) to use it before anything else.  APIs have daily quotas that this program will reach fairly quickly.  Fortunately, those quotas are per project, and you should be able to create multiple projects with a free account.  For more info, checkout &lt;a href=&quot;https://github.com/cgomesu/youtube4tvh&quot;&gt;the github page&lt;/a&gt;.&lt;/p&gt;
@@ -295,7 +295,7 @@ python main.py --apikey=YOURKEY --m3uoutput=youtube.m3u --channelname=&quot;DW N
 &lt;h2 id=&quot;recommendations&quot;&gt;Recommendations&lt;/h2&gt;
 &lt;p&gt;Theoretically, the m3u playlists can contain as many streams as you want.  However, as a general rule of thumb, I find it useful to create one m3u playlist for each type of streaming channel–for example, youtube-webcams.m3u, youtube-news.m3u, youtube-radio.m3u, and etc–and then have a unique API key for each of them.  This way, I can run the youtube4tvh cronjob more often, thus reducing the chance of having broken URLs in the m3u file.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;streamlink&quot;&gt;Streamlink&lt;/h1&gt;
 &lt;p&gt;Streamlink is an awesome utility program and if you’ve never used it before, make sure to check their &lt;a href=&quot;https://streamlink.github.io/&quot;&gt;documentation&lt;/a&gt;.  Here, we will only use it to pipe data from Youtube to a TVH server but Streamlink is able to pipe video streams from many other platforms (Twitch, Dailymotion, etc.).&lt;/p&gt;
@@ -341,7 +341,7 @@ streamlink \
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash streamlink.sh YOUTUBEURL | vlc -
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;tvh-server&quot;&gt;TVH server&lt;/h1&gt;
 &lt;p&gt;TVH was a game-changer for me.  It offers a centralized system to manage multiple IPTV networks and TV tuners.  I can fully customize how all channels will show up to all my clients and that’s so much better than using multiple (and sometimes shady) applications developed by each IPTV provider.  If a channel is down, I can tell TVH to automatically remove it or remap to another provider.  If the EPG is not working, I can tell TVH to fetch from another source.  If a client does not support a particular type of codec, I can create a profile that uses the codec that works with it.  And all those changes are automatically applied to all clients, without the need to change one by one, because they are all getting data from my TVH server instead of external sources.  (It’s the TVH server that should always do that latter.)&lt;/p&gt;
@@ -461,7 +461,7 @@ streamlink \
 &lt;h2 id=&quot;re-fetch-period-and-youtube4tvh-cronjobs&quot;&gt;Re-fetch period and youtube4tvh cronjobs&lt;/h2&gt;
 &lt;p&gt;If you’ve a youtube m3u playlist with channels that are likely to change multiple times during the same day, then it’s a good idea to create a separate playlist for those channels.  Then, when you create a youtube4tvh cronjob for the new m3u playlist, make it run more frequently (e.g., every 5 mins would be &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;*/5 * * * *&lt;/code&gt;) and in the TVH server, add a new IPTV auto network for the new m3u playlist and in its settings, edit the “re-fetch period” to match the cronjob update interval (5); hit save and then restart the TVH server to apply the new settings. If you’ve done it right, the TVH server will now check the m3u playlist at an interval equal to the re-fetch period and update any new/changed mux on it, which will be automatically mapped to a channel in its bouquet.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;tvh-client&quot;&gt;TVH client&lt;/h1&gt;
 &lt;p&gt;There are multiple ways to watch the channels on your TVH server, including directly from the webUI itself (EPG tab &amp;gt; Watch TV).  The one I use is &lt;a href=&quot;https://kodi.tv/download&quot;&gt;&lt;strong&gt;Kodi&lt;/strong&gt;&lt;/a&gt; + &lt;strong&gt;TVH client addon&lt;/strong&gt; because my Kodi clients also access my Plex server.&lt;/p&gt;
@@ -510,14 +510,14 @@ sudo apt install kodi-pvr-hts
 
 &lt;p&gt;You can make further client-side changes in &lt;strong&gt;Kodi’s PVR &amp;amp; Live TV settings menu&lt;/strong&gt;, such as mapping channels to specific numbers, behavior of changing channels, etc.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
 &lt;p&gt;Congratulations for reaching the end of this guide.  As I said before, one of my future projects is to work on a parser for the Webgrab+Plus EPG data and then write a guide on how to implement it using the current setup.&lt;/p&gt;
 
 &lt;p&gt;If you found this useful or have suggestions on how to improve this guide, please leave a comment and I’ll try to reply asap.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="github" /><category term="iptv" /><category term="kodi" /><category term="streamlink" /><category term="tvheadend" /><category term="youtube" /></entry><entry><title type="html">Using the Odroid C2 IR receiver with LibreElec OS</title><link href="http://localhost:4000/blog/IR-with-odroidc2/" rel="alternate" type="text/html" title="Using the Odroid C2 IR receiver with LibreElec OS" /><published>2020-02-18T00:00:00-03:00</published><updated>2020-02-18T00:00:00-03:00</updated><id>http://localhost:4000/blog/IR-with-odroidc2</id><content type="html" xml:base="http://localhost:4000/blog/IR-with-odroidc2/">&lt;p&gt;In case you didn’t know, the &lt;a href=&quot;https://www.hardkernel.com/shop/odroid-c2/&quot;&gt;Odroid C2&lt;/a&gt; comes with an onboard infrared (IR) receiver.  Until a few days ago, I thought that such a receiver was only compatible with their own IR remote controller but it turns out you can use it with &lt;em&gt;any IR controller&lt;/em&gt;.  We can do that with a package called &lt;a href=&quot;http://www.lirc.org/html/&quot;&gt;&lt;strong&gt;lirc&lt;/strong&gt;&lt;/a&gt;, which stands for &lt;strong&gt;linux infrared remote control&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="github" /><category term="iptv" /><category term="kodi" /><category term="streamlink" /><category term="tvheadend" /><category term="youtube" /></entry><entry><title type="html">Using the Odroid C2 IR receiver with LibreElec OS</title><link href="http://localhost:4000/blog/IR-with-odroidc2/" rel="alternate" type="text/html" title="Using the Odroid C2 IR receiver with LibreElec OS" /><published>2020-02-18T00:00:00-03:00</published><updated>2020-02-18T00:00:00-03:00</updated><id>http://localhost:4000/blog/IR-with-odroidc2</id><content type="html" xml:base="http://localhost:4000/blog/IR-with-odroidc2/">&lt;p&gt;In case you didn’t know, the &lt;a href=&quot;https://www.hardkernel.com/shop/odroid-c2/&quot;&gt;Odroid C2&lt;/a&gt; comes with an onboard infrared (IR) receiver.  Until a few days ago, I thought that such a receiver was only compatible with their own IR remote controller but it turns out you can use it with &lt;em&gt;any IR controller&lt;/em&gt;.  We can do that with a package called &lt;a href=&quot;http://www.lirc.org/html/&quot;&gt;&lt;strong&gt;lirc&lt;/strong&gt;&lt;/a&gt;, which stands for &lt;strong&gt;linux infrared remote control&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;/assets/posts/2020-02-18-IR-with-odroidc2/board.png&quot;&gt;&lt;img src=&quot;/assets/posts/2020-02-18-IR-with-odroidc2/board.png&quot; alt=&quot;Odroid C2 board&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
@@ -554,7 +554,9 @@ irrecord
   &lt;li&gt;Test your IR remote! If some key is missing, you can go back to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;irrecord&lt;/code&gt; and edit or record new keys.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;That’s it.  This is a short tutorial I wrote mostly to remind myself about this feature but hopefully, this tutorial is going to help someone else out there, too.&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="odroid" /><category term="sbc" /></entry><entry><title type="html">The math of a bruised souleater</title><link href="http://localhost:4000/blog/Math-of-bruised-souleater/" rel="alternate" type="text/html" title="The math of a bruised souleater" /><published>2019-07-19T00:00:00-03:00</published><updated>2019-07-19T00:00:00-03:00</updated><id>http://localhost:4000/blog/Math-of-bruised-souleater</id><content type="html" xml:base="http://localhost:4000/blog/Math-of-bruised-souleater/">&lt;p class=&quot;notice notice--info&quot;&gt;This is a repost of my &lt;a href=&quot;https://www.reddit.com/r/magicTCG/comments/7phqk1/the_math_of_a_bruised_souleater/&quot;&gt;original reddit post&lt;/a&gt;. I’ve made a few changes to the original version to improve readability.&lt;/p&gt;
+&lt;p&gt;That’s it.  This is a short tutorial I wrote mostly to remind myself about this feature but hopefully, this tutorial is going to help someone else out there, too.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--small btn--light-outline&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="odroid" /><category term="sbc" /></entry><entry><title type="html">The math of a bruised souleater</title><link href="http://localhost:4000/blog/Math-of-bruised-souleater/" rel="alternate" type="text/html" title="The math of a bruised souleater" /><published>2019-07-19T00:00:00-03:00</published><updated>2019-07-19T00:00:00-03:00</updated><id>http://localhost:4000/blog/Math-of-bruised-souleater</id><content type="html" xml:base="http://localhost:4000/blog/Math-of-bruised-souleater/">&lt;p class=&quot;notice notice--info&quot;&gt;This is a repost of my &lt;a href=&quot;https://www.reddit.com/r/magicTCG/comments/7phqk1/the_math_of_a_bruised_souleater/&quot;&gt;original reddit post&lt;/a&gt;. I’ve made a few changes to the original version to improve readability.&lt;/p&gt;
 
 &lt;p&gt;This is a post about an interesting interaction that came up yesterday, when I was making changes to an EDH deck. I thought someone else might find this analysis interesting, so I decided to share it here. If you spot an error, feel free to point it out. The interaction is about two cards, namely &lt;strong&gt;Immolating Souleater&lt;/strong&gt; and &lt;strong&gt;Bruse Tarl, Boorish Herder&lt;/strong&gt;.&lt;/p&gt;
 
@@ -815,14 +817,14 @@ irrecord
   &lt;li&gt;May 1st 2020: This guide still works with &lt;strong&gt;pfsense version 2.4.5-RELEASE&lt;/strong&gt; and the &lt;strong&gt;haproxy packaged version 0.60_4&lt;/strong&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
 &lt;p&gt;This is a rough guide on how to create and configure user lists and stick-tables using pfsense’s HAproxy package to protect access to a backend and limit the number of failed login attempts.  The guide is divided into two main sections.  In the first one, we’ll create a user list and add encrypted (SHA512) passwords for each of them.  Then, in the second section, we’ll create and configure stick-tables to limit the number of failed login attempts.&lt;/p&gt;
 
 &lt;p&gt;Now, it’s fairly simple to accomplish all those things by manually changing HAproxy’s config file (e.g., &lt;a href=&quot;https://gist.github.com/Iristyle/5005653&quot;&gt;https://gist.github.com/Iristyle/5005653&lt;/a&gt;, &lt;a href=&quot;https://www.haproxy.com/blog/introduction-to-haproxy-stick-tables/&quot;&gt;https://www.haproxy.com/blog/introduction-to-haproxy-stick-tables/&lt;/a&gt;).  However, I found it difficult to find any sort of documentation on how to accomplish the same thing using only pfsense’s graphical user interface (GUI).  The GUI makes it very easy to implement and configure the core aspects of HAproxy (e.g., reverse proxy and load balancing) but at the same time, it seems to lack support for other features, such as adding basic authentication requests and using stick-tables to mitigate attempts to brute-force users’ credentials.  If that’s what you’d like to do, then read on.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;pre-requisites&quot;&gt;Pre-requisites&lt;/h1&gt;
 &lt;p&gt;The pre-requisites are the following:&lt;/p&gt;
@@ -844,7 +846,7 @@ irrecord
 
 &lt;/div&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;basic-user-authentication&quot;&gt;Basic user authentication&lt;/h1&gt;
 &lt;p&gt;This part of the tutorial is largely based on &lt;a href=&quot;https://hochwald.net/user-authentication-with-haproxy-on-pfsense/&quot;&gt;Joerg Hocwald’s guide&lt;/a&gt;. In HAproxy, it’s pretty simple to create a user list with encrypted passwords.  There is basically three steps involved: (a) user and password list creation, (b) adding those to the global settings, and (c) creating an access control list (ACL) and action for each backend.&lt;/p&gt;
@@ -912,7 +914,7 @@ realm = realm User unless UserAuth
   &lt;li&gt;Rinse and repeat for each backend you want to protect with basic user authentication.  Make sure to test your config before moving on to the next section.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;stick-tables-to-protect-against-brute-force&quot;&gt;Stick-tables to protect against brute-force&lt;/h1&gt;
 &lt;p&gt;In our case, access to each backend is secured by a basic http authentication request.  If the client does not provide correct credentials, it will be requested to enter new ones.  By default, HAproxy will do that forever, which is not something that sounds desirable to me because it allows clients to brute force their way into my services.  On HAproxy’s official blog, you’ll find a very instructive guide on how to protect your servers from bots, including a &lt;a href=&quot;https://www.haproxy.com/blog/bot-protection-with-haproxy/#brute-force-bots&quot;&gt;step-by-step procedure to help you mitigate brute-force attacks&lt;/a&gt;.  In their case, however, the authentication is associated to a particular /login page, instead of using HAproxy’s own http-request auth feature, and we’d like to use the latter instead.&lt;/p&gt;
@@ -998,11 +1000,11 @@ customaction = http-request silent-drop
   &lt;li&gt;If you’d like to configure stick-tables for other subdomains, just repeat all the previous steps.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
 &lt;p&gt;That’s it!  Let me remind you that the options described here were tuned to my own case and therefore, you should review them to make sure they’ll work for yours as well.  For example, you might want to set a shorter expire for a given stick-table than 30 min., or you may not want to use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http-request deny&lt;/code&gt; instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http-request silent-drop&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;Stick-tables are great and there are many other things you can do with them.  For example, you can use a similar procedure to implement other recommendations mentioned in &lt;a href=&quot;https://www.haproxy.com/blog/bot-protection-with-haproxy&quot;&gt;&lt;strong&gt;the official blog&lt;/strong&gt;&lt;/a&gt;.  This one has been working very well for me.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="haproxy" /><category term="homelab" /><category term="homeserver" /><category term="http" /><category term="pfsense" /></entry></feed>
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="haproxy" /><category term="homelab" /><category term="homeserver" /><category term="http" /><category term="pfsense" /></entry></feed>
