@@ -12,7 +12,7 @@ var store = [{
         "teaser": null
       },{
         "title": "The math of a bruised souleater",
-        "excerpt":"(This is a repost of my original reddit post here. I've made a few changes to the original version to improve readability.) This is a post about an interesting interaction that came up yesterday, when I was making changes to an EDH deck. I thought someone else might find this...","categories": ["blog"],
+        "excerpt":"This is a repost of my original reddit post. I’ve made a few changes to the original version to improve readability. This is a post about an interesting interaction that came up yesterday, when I was making changes to an EDH deck. I thought someone else might find this analysis...","categories": ["blog"],
         "tags": ["mtg","math"],
         "url": "http://localhost:4000/blog/Math-of-bruised-souleater/",
         "teaser": null
