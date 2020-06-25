@@ -1,0 +1,565 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.19.3 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>The ASRock J3355b-itx pfSense box - CGomesu</title>
+<meta name="description" content="A blog and portfolio website built with Jekyll and hosted on Github Pages">
+
+
+  <meta name="author" content="Carlos Gomes">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="CGomesu">
+<meta property="og:title" content="The ASRock J3355b-itx pfSense box">
+<meta property="og:url" content="http://localhost:4000/blog/Pfsense-white-box/">
+
+
+  <meta property="og:description" content="A blog and portfolio website built with Jekyll and hosted on Github Pages">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/posts/2020-06-25-Pfsense-white-box/header.jpg">
+
+
+
+
+
+  <meta property="article:published_time" content="2020-06-25T10:31:25-03:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/blog/Pfsense-white-box/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+  <meta name="google-site-verification" content="FA-B3i_TqYeaLPYwZvxxOsx07Coy_drBKJ0M_4DD0Gw" />
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="CGomesu Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="icon" href="/assets/img/site/favicon.ico" type="image/x-icon">
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/img/site/logo.png" alt=""></a>
+        
+        <a class="site-title" href="/">
+           
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/blog/">Blog</a>
+            </li><li class="masthead__menu-item">
+              <a href="/contact/">Contact</a>
+            </li><li class="masthead__menu-item">
+              <a href="/mtg/">MtG</a>
+            </li><li class="masthead__menu-item">
+              <a href="/publications/">Publications</a>
+            </li><li class="masthead__menu-item">
+              <a href="/projects/">Projects</a>
+            </li><li class="masthead__menu-item">
+              <a href="/resume/">Resume</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style="background-color: #000; background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('/assets/posts/2020-06-25-Pfsense-white-box/header.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 id="page-title" class="page__title" itemprop="headline">
+        
+          The ASRock J3355b-itx pfSense box
+
+        
+      </h1>
+      
+        <p class="page__lead">
+</p>
+      
+      
+        <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  5 minute read
+
+</p>
+      
+      
+      
+    </div>
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/img/profile/profile-00.jpg" alt="Carlos Gomes" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Carlos Gomes</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>I’m a scientist, psychologist, math modeler, programmer, mtg player, free knowledge supporter, sbc fanatic, and electronics hobbyist.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Brazil</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="mailto:me@cgomesu.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Main e-mail</span></a></li>
+          
+        
+          
+        
+          
+            <li><a href="https://cgomesu.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">https://cgomesu.com</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="The ASRock J3355b-itx pfSense box">
+    <meta itemprop="description" content="">
+    <meta itemprop="datePublished" content="2020-06-25T10:31:25-03:00">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-list"></i> Table of Contents</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#hardware">Hardware</a>
+    <ul>
+      <li><a href="#motherboard">Motherboard</a></li>
+      <li><a href="#network-interface-card">Network interface card</a></li>
+      <li><a href="#storage">Storage</a></li>
+      <li><a href="#case">Case</a></li>
+      <li><a href="#power-supply-unit">Power supply unit</a></li>
+    </ul>
+  </li>
+  <li><a href="#software">Software</a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
+        <h1 id="introduction">Introduction</h1>
+<p><a href="https://www.pfsense.org/">pfSense CE</a> is a free, <a href="https://github.com/pfsense/pfsense">open-source</a>, and very popular <strong>firewall/router</strong> that runs on <a href="https://www.freebsd.org/">FreeBSD</a> and is developed by <a href="https://www.netgate.com/">Netgate</a>.  Even though Netgate sells <a href="https://www.netgate.com/products/appliances/">official pfSense appliances</a>, it’s possible to build your own, custom-made pfSense box for (way) less money (at the expense of way less support from Netgate).</p>
+
+<p>In this article, I talked about <strong>my ASRock mini-ITX pfSense box project</strong>.  In the first part, I listed all the necessary hardware to build the box, and in the second part, I briefly talked about the software.</p>
+
+<p><a href="#" class="btn btn--small btn--light-outline">top</a></p>
+
+<h1 id="hardware">Hardware</h1>
+<p>This project has five main hardware components, namely the <strong>motherboard</strong> (mobo), the <strong>network interface card</strong> (NIC), <strong>storage</strong>, <strong>case</strong>, and <strong>power supply unit</strong> (PSU).</p>
+
+<h2 id="motherboard">Motherboard</h2>
+<p>Chances are that if you search for <code class="language-plaintext highlighter-rouge">pfSense white-box</code>, you’ll find someone mentioning the <a href="https://www.asrock.com/mb/Intel/J3355B-ITX/"><strong>ASRock J3355b-itx</strong></a>.  This is definitely <strong>not a top of the line</strong> mobo but it comes with a <strong>passively cooled <a href="https://ark.intel.com/content/www/us/en/ark/products/95597/intel-celeron-processor-j3355-2m-cache-up-to-2-5-ghz.html">Intel dual-core processor</a></strong> (AES-NI enabled), two <strong>SO-DIMM DDR3L</strong> memory slots, a <strong>PCIe 2.0x16</strong> expansion slot, and 2x SATA III ports.  On top of that, this is a <strong><em>mini</em>-ITX mobo</strong>, so we can put it inside a low-profile case.  At the very least, if you’re looking for a more recent mobo, my suggestion is to use the ASRock J3355b-itx as reference.</p>
+
+<p><a href="/assets/posts/2020-06-25-Pfsense-white-box/asrock-mobo.jpg"><img src="/assets/posts/2020-06-25-Pfsense-white-box/asrock-mobo.jpg" alt="ASRock J3355b-itx" class="PostImage" /></a></p>
+
+<h2 id="network-interface-card">Network interface card</h2>
+<p>Even though the ASRock mini-itx comes with a built-in NIC, it’s a single port Realtek NIC that pfSense will likely not recognize out of the box.  Ideally, you’d buy and install an Intel NIC using the PCI-e expansion slot on the ASRock mobo.  The card choice depends on your needs but at the very least, consider a <strong>Gigabit Intel NIC with two ports</strong>, one for WAN and another for LAN.  (It’s possible to use a single port with a VLAN-capable switch but this is a far more complex setup.)  Also, make sure the Intel NIC comes with a <strong>low-profile support</strong> or it won’t fit many min-ITX cases.</p>
+
+<p><a href="/assets/posts/2020-06-25-Pfsense-white-box/intel-nic.jpg"><img src="/assets/posts/2020-06-25-Pfsense-white-box/intel-nic.jpg" alt="Intel NIC with 2 ports" class="PostImage" /></a></p>
+
+<h2 id="storage">Storage</h2>
+<p>pfSense uses very little storage space, so you don’t need TBs of storage here.  The things that matter are read/write speed and reliability.  A simple <strong>120GB solid-state drive (SSD)</strong> will be more than enough, for example.</p>
+
+<p><a href="/assets/posts/2020-06-25-Pfsense-white-box/120gb-ssd.jpg"><img src="/assets/posts/2020-06-25-Pfsense-white-box/120gb-ssd.jpg" alt="SSD" class="PostImage" /></a></p>
+
+<h2 id="case">Case</h2>
+<p>You can use <em>any</em> mini-ITX case <em>as long as</em> it has support for at least <strong>one expansion slot</strong>.  Also, note that some mini-itx cases have an expansion slot parallel to the mobo (it sits above the mobo’s i/o plate), instead of perpendicular (next to the mobo’s i/o plate).  That will usually be okay but you’ll need to buy compatible PCI-e extension cable then.</p>
+
+<p><a href="/assets/posts/2020-06-25-Pfsense-white-box/case-antec-front.jpg"><img src="/assets/posts/2020-06-25-Pfsense-white-box/case-antec-front.jpg" alt="Case" class="PostImage" /></a></p>
+
+<p><a href="/assets/posts/2020-06-25-Pfsense-white-box/case-antec-back.jpg"><img src="/assets/posts/2020-06-25-Pfsense-white-box/case-antec-back.jpg" alt="Case" class="PostImage" /></a></p>
+
+<p><a href="/assets/posts/2020-06-25-Pfsense-white-box/case-kmex-front.jpg"><img src="/assets/posts/2020-06-25-Pfsense-white-box/case-kmex-front.jpg" alt="Case" class="PostImage" /></a></p>
+
+<p><a href="/assets/posts/2020-06-25-Pfsense-white-box/case-kmex-back.jpg"><img src="/assets/posts/2020-06-25-Pfsense-white-box/case-kmex-back.jpg" alt="Case" class="PostImage" /></a></p>
+
+<h2 id="power-supply-unit">Power supply unit</h2>
+<p>If you bought an expensive case with a built-in PSU, go ahead and use it.  However, if you bought a cheap case with a PSU or one that even doesn’t have a built-in PSU, then buy and use a <a href="https://www.amazon.com/s?k=pico+PSU"><strong>pico PSU</strong></a>. My experience is that <strong>cheap PSUs come with bad fans</strong>, so avoid them if your firewall will be next to anyone in the house because it will eventually start making a lot of noise.  A pico PSU is the way to go, and because this box uses very little power, buy a low power PSU (anything between 60W-180W should be okay, for reference).</p>
+
+<p><a href="/assets/posts/2020-06-25-Pfsense-white-box/pico-psu.jpg"><img src="/assets/posts/2020-06-25-Pfsense-white-box/pico-psu.jpg" alt="PicoPSU" class="PostImage" /></a></p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="software">Software</h1>
+<p>Software-wise, there’s not much to say other than</p>
+
+<ol>
+  <li>Download the ISO from the <a href="https://www.pfsense.org/download/">official website</a>;</li>
+  <li>Check the SHA signature of the downloaded file against the one from the official website;</li>
+  <li>Flash the image onto a USB stick;</li>
+  <li>Connect a monitor and keyboard to your pfSense box;</li>
+  <li>Insert the USB stick into your pfSense box, turn it on, and follow the instructions.</li>
+</ol>
+
+<p>Now, if you want a more in-depth look into installation and initial configuration, check <a href="https://docs.netgate.com/pfsense/en/latest/install/installing-pfsense.html"><strong>the official docummentation</strong></a>.  Alternatively, there’s a very easy to follow video tutorial that <a href="https://www.youtube.com/channel/UCHkYOD-3fZbuGhwsADBd9ZQ">Lawrence Systems</a> put together. (It’s a bit old but still valid.)</p>
+
+<!-- Courtesy of embedresponsively.com //-->
+<div class="responsive-video-container">
+
+  <iframe src="https://www.youtube-nocookie.com/embed/9kSZ1oM-4ZM" frameborder="0" allowfullscreen=""></iframe>
+
+</div>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="conclusion">Conclusion</h1>
+<p>This concludes the basics of a cheap, low-profile, and low-power (yet powerful) pfSense white-box.  I’ve never had any issues with this hardware and recommend it to anyone interested in diving into firewalls or just looking for something a bit more advanced than what commercial routers can offer.  If you want to try something different than pfSense, take a look at <a href="https://opnsense.org/">OPNsense</a>–a pfSense fork–for another free and open-source firewall software.</p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2020-06-25T10:31:25-03:00">June 25, 2020</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fblog%2FPfsense-white-box%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.reddit.com/r/all/submit?title=The ASRock J3355b-itx pfSense box&url=http%3A%2F%2Flocalhost%3A4000%2Fblog%2FPfsense-white-box%2F" class="btn btn--reddit" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Reddit"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i><span> Reddit</span></a>
+
+  <a href="https://twitter.com/intent/tweet?text=The+ASRock+J3355b-itx+pfSense+box%20http%3A%2F%2Flocalhost%3A4000%2Fblog%2FPfsense-white-box%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/blog/Youtube-as-IPTV-with-TVH/" class="pagination--pager" title="Youtube live-streams as IPTV channels for TVHeadend
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search terms here...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search terms here..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/cgomesu" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          <li><a href="https://www.reddit.com/user/cgomesu/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i> Reddit</a></li>
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> RSS feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2020 CGomesu - Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> and <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a></div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

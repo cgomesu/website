@@ -31,7 +31,7 @@ it:
   - title: "pfSense white-box"
     excerpt: "A cheap, customizable pfSense box based on the ASRock J3355b-itx mobo. It features an Intel dual-core processor capable of running IPS/IDS software, multiple VPNs, and more. A passively cooled, low-power, and low-profile firewall that fits the demands of most home users."
     image_path: "/assets/img/projects/thumb-projects-pfsense-box.jpg"
-    # url: ""
+    url: "/blog/Pfsense-white-box/"
     btn_label: "Read more"
     btn_class: "btn--info"
   - title: "Simple RPi GPIO buttons"

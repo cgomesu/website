@@ -28,4 +28,10 @@ var store = [{
         "tags": ["github","iptv","kodi","streamlink","tvheadend","youtube"],
         "url": "http://localhost:4000/blog/Youtube-as-IPTV-with-TVH/",
         "teaser": null
+      },{
+        "title": "The ASRock J3355b-itx pfSense box",
+        "excerpt":"Introduction pfSense CE is a free, open-source, and very popular firewall/router that runs on FreeBSD and is developed by Netgate. Even though Netgate sells official pfSense appliances, it’s possible to build your own, custom-made pfSense box for (way) less money (at the expense of way less support from Netgate). In...","categories": ["blog"],
+        "tags": ["homelab","homeserver","firewall","network"],
+        "url": "http://localhost:4000/blog/Pfsense-white-box/",
+        "teaser": null
       }]
