@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-06-26T12:48:24-03:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">The ASRock J3355b-itx pfSense box</title><link href="http://localhost:4000/blog/Pfsense-white-box/" rel="alternate" type="text/html" title="The ASRock J3355b-itx pfSense box" /><published>2020-06-25T10:31:25-03:00</published><updated>2020-06-25T10:31:25-03:00</updated><id>http://localhost:4000/blog/Pfsense-white-box</id><content type="html" xml:base="http://localhost:4000/blog/Pfsense-white-box/">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-06-26T20:20:42-03:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">The ASRock J3355b-itx pfSense box</title><link href="http://localhost:4000/blog/Pfsense-white-box/" rel="alternate" type="text/html" title="The ASRock J3355b-itx pfSense box" /><published>2020-06-25T10:31:25-03:00</published><updated>2020-06-25T10:31:25-03:00</updated><id>http://localhost:4000/blog/Pfsense-white-box</id><content type="html" xml:base="http://localhost:4000/blog/Pfsense-white-box/">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
 &lt;p&gt;&lt;a href=&quot;https://www.pfsense.org/&quot;&gt;pfSense CE&lt;/a&gt; is a free, &lt;a href=&quot;https://github.com/pfsense/pfsense&quot;&gt;open-source&lt;/a&gt;, and very popular &lt;strong&gt;firewall/router&lt;/strong&gt; that runs on &lt;a href=&quot;https://www.freebsd.org/&quot;&gt;FreeBSD&lt;/a&gt; and is developed by &lt;a href=&quot;https://www.netgate.com/&quot;&gt;Netgate&lt;/a&gt;.  Even though Netgate sells &lt;a href=&quot;https://www.netgate.com/products/appliances/&quot;&gt;official pfSense appliances&lt;/a&gt;, it’s possible to build your own, custom-made pfSense box for (way) less money (at the expense of way less support from Netgate).&lt;/p&gt;
 
 &lt;p&gt;In this article, I talked about &lt;strong&gt;my ASRock mini-ITX pfSense box project&lt;/strong&gt;.  In the first part, I listed all the necessary hardware to build the box, and in the second part, I briefly talked about the software.&lt;/p&gt;
@@ -131,23 +131,23 @@
 &lt;h1 id=&quot;client-server-layout&quot;&gt;Client-server layout&lt;/h1&gt;
 &lt;p&gt;There are three main components to this setup, namely &lt;strong&gt;TVH&lt;/strong&gt;, &lt;strong&gt;Streamlink&lt;/strong&gt;, and &lt;strong&gt;youtube4tvh&lt;/strong&gt;, which are all open-source and free:&lt;/p&gt;
 
-&lt;ol&gt;
+&lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://github.com/tvheadend/tvheadend&quot;&gt;&lt;strong&gt;TVHeadend&lt;/strong&gt;&lt;/a&gt;: Tvheadend is a TV streaming server for Linux supporting DVB-S, DVB-S2, DVB-C, DVB-T, ATSC, IPTV, SAT&amp;gt;IP and other formats through the unix pipe as input sources.&lt;/li&gt;
-&lt;/ol&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;&lt;a href=&quot;/assets/posts/2020-05-07-Youtube-as-IPTV-with-TVH/tvh-github.png&quot;&gt;&lt;img src=&quot;/assets/posts/2020-05-07-Youtube-as-IPTV-with-TVH/tvh-github.png&quot; alt=&quot;TVH Github&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;/assets/posts/2020-05-07-Youtube-as-IPTV-with-TVH/tvh-webui.png&quot;&gt;&lt;img src=&quot;/assets/posts/2020-05-07-Youtube-as-IPTV-with-TVH/tvh-webui.png&quot; alt=&quot;TVH WebUI&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;ol&gt;
+&lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://github.com/streamlink/streamlink&quot;&gt;&lt;strong&gt;Streamlink&lt;/strong&gt;&lt;/a&gt;: Streamlink is a CLI utility which pipes video streams from various services into a video player.&lt;/li&gt;
-&lt;/ol&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;&lt;a href=&quot;/assets/posts/2020-05-07-Youtube-as-IPTV-with-TVH/streamlink-github.png&quot;&gt;&lt;img src=&quot;/assets/posts/2020-05-07-Youtube-as-IPTV-with-TVH/streamlink-github.png&quot; alt=&quot;Streamlink Github&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;ol&gt;
+&lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://github.com/cgomesu/youtube4tvh&quot;&gt;&lt;strong&gt;youtube4tvh&lt;/strong&gt;&lt;/a&gt;: Youtube4tvh is a Python CLI program that uses Youtube API to create (or update) m3u playlists of live-streams that are piped into a TVH server via Streamlink.&lt;/li&gt;
-&lt;/ol&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;&lt;a href=&quot;/assets/posts/2020-05-07-Youtube-as-IPTV-with-TVH/youtube4tvh-github.png&quot;&gt;&lt;img src=&quot;/assets/posts/2020-05-07-Youtube-as-IPTV-with-TVH/youtube4tvh-github.png&quot; alt=&quot;youtube4tvh Github&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 

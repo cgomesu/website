@@ -60,17 +60,17 @@ By the end of the guide, you'll have learned how to do the following:
 # Client-server layout
 There are three main components to this setup, namely **TVH**, **Streamlink**, and **youtube4tvh**, which are all open-source and free:
 
-1. [**TVHeadend**](https://github.com/tvheadend/tvheadend): Tvheadend is a TV streaming server for Linux supporting DVB-S, DVB-S2, DVB-C, DVB-T, ATSC, IPTV, SAT>IP and other formats through the unix pipe as input sources.
+* [**TVHeadend**](https://github.com/tvheadend/tvheadend): Tvheadend is a TV streaming server for Linux supporting DVB-S, DVB-S2, DVB-C, DVB-T, ATSC, IPTV, SAT>IP and other formats through the unix pipe as input sources.
 
 [![TVH Github](/assets/posts/2020-05-07-Youtube-as-IPTV-with-TVH/tvh-github.png){:.PostImage}](/assets/posts/2020-05-07-Youtube-as-IPTV-with-TVH/tvh-github.png)
 
 [![TVH WebUI](/assets/posts/2020-05-07-Youtube-as-IPTV-with-TVH/tvh-webui.png){:.PostImage}](/assets/posts/2020-05-07-Youtube-as-IPTV-with-TVH/tvh-webui.png)
 
-2. [**Streamlink**](https://github.com/streamlink/streamlink): Streamlink is a CLI utility which pipes video streams from various services into a video player.
+* [**Streamlink**](https://github.com/streamlink/streamlink): Streamlink is a CLI utility which pipes video streams from various services into a video player.
 
 [![Streamlink Github](/assets/posts/2020-05-07-Youtube-as-IPTV-with-TVH/streamlink-github.png){:.PostImage}](/assets/posts/2020-05-07-Youtube-as-IPTV-with-TVH/streamlink-github.png)
 
-3. [**youtube4tvh**](https://github.com/cgomesu/youtube4tvh): Youtube4tvh is a Python CLI program that uses Youtube API to create (or update) m3u playlists of live-streams that are piped into a TVH server via Streamlink. 
+* [**youtube4tvh**](https://github.com/cgomesu/youtube4tvh): Youtube4tvh is a Python CLI program that uses Youtube API to create (or update) m3u playlists of live-streams that are piped into a TVH server via Streamlink. 
 
 [![youtube4tvh Github](/assets/posts/2020-05-07-Youtube-as-IPTV-with-TVH/youtube4tvh-github.png){:.PostImage}](/assets/posts/2020-05-07-Youtube-as-IPTV-with-TVH/youtube4tvh-github.png)
 
