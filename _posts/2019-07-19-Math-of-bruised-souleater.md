@@ -31,11 +31,11 @@ The intuition with double-strike is to multiply f(x) by 2, which would be correc
 
 and another for the second hit,
 
-[![Eq 03](/assets/posts/2019-07-19-Math-bruised-souleater/eq3.png){: .PostImage}](/assets/posts/2019-07-19-Math-bruised-souleater/eq3.png)
+[![Eq 03](/assets/posts/2019-07-19-Math-bruised-souleater/eq3.png){: .PostImage .PostImage--large}](/assets/posts/2019-07-19-Math-bruised-souleater/eq3.png)
 
 Now, we can sum both functions to get the total amount of damage dealt (d) by a Souleater with double-strike:
 
-[![Eq 04](/assets/posts/2019-07-19-Math-bruised-souleater/eq4.png){: .PostImage}](/assets/posts/2019-07-19-Math-bruised-souleater/eq4.png)
+[![Eq 04](/assets/posts/2019-07-19-Math-bruised-souleater/eq4.png){: .PostImage  .PostImage--large}](/assets/posts/2019-07-19-Math-bruised-souleater/eq4.png)
 
 (It's easy to see how one could generalize this to triple-strike, quadruple-strike, ..., but let’s not delve into it now.) Therefore, if x1=20 and x2=10, d(20,10) = f1(20)+f2(20,10), which is 27 damage for 30 life paid.
 
@@ -57,7 +57,7 @@ which funny enough doesn’t include x1 into the equation. The equation for nl t
  
 Good. Now, what can we do with that? Well, we can figure out how to maximize dmg in terms of our life total, so that you deal as much damage as possible without dying for any given amount of starting life total (the math equivalent of “just pay as much life as you can before each hit”). For k1 > 0, let i1 and i2 be the amount of life you want to have before the first hit and second hit, respectively, then
 
-[![Eq 08](/assets/posts/2019-07-19-Math-bruised-souleater/eq8.png){: .PostImage}](/assets/posts/2019-07-19-Math-bruised-souleater/eq8.png)
+[![Eq 08](/assets/posts/2019-07-19-Math-bruised-souleater/eq8.png){: .PostImage .PostImage--large}](/assets/posts/2019-07-19-Math-bruised-souleater/eq8.png)
 
 (There’s an additional complication here because of how we use phyrexian mana but we don’t need to worry too much about it as long as we can figure out the appropriate i1 and i2 for each value of k1. For example, if you have 40 life, max(d) = 2.5 + 1.25(40) - .75(2) - .5(2) = 50. Because k1 is multiplied by a value greater than one, this equation tells us that the amount of damage done above your starting life increases with our starting life. For example, if you have 40 life, you can deal 10 damage above your starting life to an opponent (e.g., kill an opponent with 50 life points) but if you have 20 life, you can only deal 5 damage above your starting life (e.g., kill an opponent with 25 life points). It’s easier to see this relationship when we plot max(d) as a function of the starting life (k1) using the minimum appropriate values of i1 and i2:
 
@@ -65,7 +65,7 @@ Good. Now, what can we do with that? Well, we can figure out how to maximize dmg
 
 If we fit a linear equation to it, we get a solution that does not require knowing the exact values of i1 and i2, namely max(d) ≈ .65 + 1.25k1.  However, because each point is equally likely, as /u/darth_aardvark pointed out, the appropriate intercept should be the mean of all possible combinations of min(i1) and min(i2), which can only take on values {1, 2}.  There is a total of 2^2 combinations of  min(i1) and min(i2), namely
 
-[![Eq 09](/assets/posts/2019-07-19-Math-bruised-souleater/eq9.png){: .PostImage}](/assets/posts/2019-07-19-Math-bruised-souleater/eq9.png)
+[![Eq 09](/assets/posts/2019-07-19-Math-bruised-souleater/eq9.png){: .PostImage .PostImage--large}](/assets/posts/2019-07-19-Math-bruised-souleater/eq9.png)
 
 Those equations give us a mean intercept = .625 and a revised and final formula for the maximum amount of damage that a "bruised" souleater can do, specifically 
 
