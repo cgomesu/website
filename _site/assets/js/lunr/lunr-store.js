@@ -6,7 +6,7 @@ var store = [{
         "teaser": null
       },{
         "title": "The probability of Warp World",
-        "excerpt":"(This is a repost from my original reddit post.) Introduction If you’re unfamiliar with Warp World, you are in for a treat. It’s a 5RRR sorcery from Ravnica that reads as follows: “Each player shuffles all permanents he or she owns into his or her library, then reveals that many...","categories": ["blog"],
+        "excerpt":"This is a repost from my original reddit post. I’ve made a few changes to it to improve readability as well. Introduction If you’re unfamiliar with Warp World, you are in for a treat. It’s a 5RRR sorcery from Ravnica that reads as follows: Each player shuffles all permanents he...","categories": ["blog"],
         "tags": ["mtg","math","probability","model"],
         "url": "http://localhost:4000/blog/Probability-warp-world/",
         "teaser": null

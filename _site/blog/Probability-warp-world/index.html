@@ -349,187 +349,197 @@
 
       <section class="page__content" itemprop="text">
         
-        <div class="expando" data-pin-condition="function() {return this.style.display != 'none';}" style="clear: left; color: #cccccc; margin: 5px 0px; padding: 0px;">
-<form action="https://www.reddit.com/r/magicTCG/comments/8956af/the_probability_of_warp_world_math/#" class="usertext warn-on-unload" id="form-t3_8956afvtw" style="margin: 0px; padding: 0px;">
-<div class="usertext-body may-blank-within md-container" style="background-color: #373737; margin: 0px; padding: 0px; unicode-bidi: isolate;">
-<div class="md" style="background: rgba(0, 0, 0, 0) none repeat scroll 0% 0%; border-radius: 7px; border: 1px solid rgb(102, 102, 102); color: #dddddd; margin: 5px 0px; max-width: 60em; overflow-wrap: break-word; padding: 5px 10px;">
-<div style="line-height: 1.42857em; margin-bottom: 0.357143em; padding: 0px;">
-<div style="font-size: 1em;">
-<span style="font-family: inherit;">(<a href="https://www.reddit.com/r/magicTCG/comments/8956af/the_probability_of_warp_world_math/" target="_blank">This is a repost from my original reddit post.</a>)</span></div>
-<b>Introduction</b><br />
-<div style="font-size: 1em;">
-<span style="font-family: inherit;">If you’re unfamiliar with <b>Warp World</b>, you are in for a treat. It’s a 5RRR sorcery from Ravnica that reads as follows:</span></div>
-</div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<i style="font-weight: inherit; margin: 0px;"><span style="font-family: inherit;">“Each player shuffles all permanents he or she owns into his or her library, then reveals that many cards from the top of his or her library. Each player puts all artifact, creature, and land cards revealed this way onto the battlefield, then does the same for enchantment cards, then puts all cards revealed this way that weren't put onto the battlefield on the bottom of his or her library.”</span></i><br />
-<i style="font-weight: inherit; margin: 0px;"><span style="font-family: inherit;"><br /></span></i>
-<br />
-<div class="separator" style="clear: both; text-align: center;">
-<a href="https://1.bp.blogspot.com/-dDj9o9kRxD4/XSyCpGBovVI/AAAAAAAABK4/UmCDFCZZxk8dhAnKa_Ltcarv-mVVba61QCLcBGAs/s1600/rav-warp-world.jpg" style="margin-left: 1em; margin-right: 1em;"><span style="font-family: inherit;"><img border="0" data-original-height="936" data-original-width="672" height="320" src="https://1.bp.blogspot.com/-dDj9o9kRxD4/XSyCpGBovVI/AAAAAAAABK4/UmCDFCZZxk8dhAnKa_Ltcarv-mVVba61QCLcBGAs/s320/rav-warp-world.jpg" width="229" /></span></a></div>
-<span style="font-family: inherit;"><br /></span></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit;">There are many different ways to build around such a card. For example, we can play mostly permanents in our deck (i.e., very few instants and sorceries), add creatures with ETB ability (e.g., Eternal Witness), add creatures with landfall ability (Lotus Cobra), and so on. I’m not going to tell you how to play Warp World or advertise any particular deck that takes advantage of it. Instead, I’ll try to formalize what happens when we cast Warp World, and how the outcome of casting it changes as a function of the type of cards we choose to play and when we cast it.</span></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit;">This is not meant to be an exhaustive analysis of the card and all of its possible interactions. There are many other things that I’d like to talk about (e.g., stats for proper comparison of multivariate distributions of Warp World, describe the necessary and sufficient conditions to create an infinite loop in a Warp World deck) but I don’t have enough time to cover them right now. If someone shows interest in this sort of thing, I might release a more comprehensive version of this analysis in the future. Furthermore, I’m far from being smart enough to figure out the best way to deal with this issue. So, if you spot an error or thought about a much simpler way of analyzing Warp World, please feel free to share it in the comments below. Above all, this is meant to be an intellectual exercise (mostly mathematical/statistical). There’s math. There’re walls of text. No shortcuts. No tldr. Deal with it. (Just kidding! I’ll do my best to explain the mathematics with examples that most magic players should be familiar with.)</span></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<br /></div>
-<div style="line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<b>The Basics</b></div>
-<div style="line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit;"><span style="font-size: 1em;">In a game of magic, we play with a deck, Ω, composed of&nbsp;</span><i style="font-size: 1em; font-weight: inherit; margin-left: 0px; margin-right: 0px; margin-top: 0px;">n</i><span style="font-size: 1em;">&nbsp;cards, such that Ω = {</span><i style="font-weight: inherit; margin-left: 0px; margin-right: 0px;"><span style="font-size: 1em;">ω</span><span style="font-size: xx-small;">1</span></i><span style="font-size: 1em;">, …,&nbsp;</span><i style="font-size: 1em; font-weight: inherit; margin-left: 0px; margin-right: 0px;">ω</i><i style="font-weight: inherit; margin-left: 0px; margin-right: 0px;"><span style="font-size: xx-small;">n</span></i><span style="font-size: 1em;">} is our deck. The current types of cards in MtG can be of two sorts, namely permanents (land, creature, artifact, enchantment, and planeswalker) and non-permanents (sorcery and instant). Let Λ be the set of all&nbsp;</span><i style="font-size: 1em; font-weight: inherit; margin-left: 0px; margin-right: 0px;">z</i><span style="font-size: 1em;">&nbsp;permanents that we have in our deck (e.g., Elvish Mystic, forests, mountains, Primeval Titan), such that Λ = {</span><i style="font-size: 1em; font-weight: inherit; margin-left: 0px; margin-right: 0px;">λ</i><i style="font-weight: inherit; margin-left: 0px; margin-right: 0px;"><span style="font-size: xx-small;">1</span></i><span style="font-size: 1em;">, …,&nbsp;</span><i style="font-size: 1em; font-weight: inherit; margin-bottom: 0px; margin-left: 0px; margin-right: 0px;">λ</i><i style="font-weight: inherit; margin-bottom: 0px; margin-left: 0px; margin-right: 0px;"><span style="font-size: xx-small;">z</span></i><span style="font-size: 1em;">} are all the permanents in our deck. Because there’re only permanents and non-permanents in our deck, the set of non-permanents can be defined as the negation of Λ, ¬Λ, such that ¬Λ∪Λ = Ω.</span></span></div>
-<div style="line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit;"><span style="font-size: 1em;">When a game of magic starts, our deck becomes our library. Let’s define our library by the set Θ of&nbsp;</span><i style="font-size: 1em; font-weight: inherit; margin-left: 0px; margin-right: 0px; margin-top: 0px;">k</i><span style="font-size: 1em;">&nbsp;cards, such that Θ = {</span><i style="font-weight: inherit; margin-left: 0px; margin-right: 0px;"><span style="font-size: 1em;">θ</span><span style="font-size: xx-small;">1</span></i><span style="font-size: 1em;">, …,&nbsp;</span><i style="font-size: 1em; font-weight: inherit; margin-left: 0px; margin-right: 0px;">θ</i><i style="font-weight: inherit; margin-left: 0px; margin-right: 0px;"><span style="font-size: xx-small;">k</span></i><span style="font-size: 1em;">} is our library, and the rules tell us that Θ ⊆ Ω, that is, all cards in our library are cards from our deck. In addition, when the game starts, it also creates other three zones that are of particular relevance to us, namely the battlefield, our hand, and the graveyard. Let’s define Ψ as the set of&nbsp;</span><i style="font-size: 1em; font-weight: inherit; margin-left: 0px; margin-right: 0px;">y</i><span style="font-size: 1em;">&nbsp;permanents we have on the battlefield, such that Ψ = {</span><i style="font-size: 1em; font-weight: inherit; margin-left: 0px; margin-right: 0px;">ψ</i><i style="font-weight: inherit; margin-left: 0px; margin-right: 0px;"><span style="font-size: xx-small;">1</span></i><span style="font-size: 1em;">, …,&nbsp;</span><i style="font-size: 1em; font-weight: inherit; margin-left: 0px; margin-right: 0px;">ψ</i><i style="font-weight: inherit; margin-left: 0px; margin-right: 0px;"><span style="font-size: xx-small;">y</span></i><span style="font-size: 1em;">} are the permanents we have on our side of the battlefield. To make matters as simple as possible for now, let’s also assume that Ψ ⊆ Λ, that is, all permanents we have on the battlefield are permanents from our deck, until otherwise specified, and permanents are all but planeswalkers. Then we define Α as the set of&nbsp;</span><i style="font-size: 1em; font-weight: inherit; margin-left: 0px; margin-right: 0px;">a</i><span style="font-size: 1em;">&nbsp;permanents in our hand, such that Α = {</span><i style="font-size: 1em; font-weight: inherit; margin-left: 0px; margin-right: 0px;">α</i><i style="font-weight: inherit; margin-left: 0px; margin-right: 0px;"><span style="font-size: xx-small;">1</span></i><span style="font-size: 1em;">, …,&nbsp;</span><i style="font-size: 1em; font-weight: inherit; margin-left: 0px; margin-right: 0px;">α</i><i style="font-weight: inherit; margin-left: 0px; margin-right: 0px;"><span style="font-size: xx-small;">a</span></i><span style="font-size: 1em;">} are the permanents in our hand, and B is the set of&nbsp;</span><i style="font-size: 1em; font-weight: inherit; margin-left: 0px; margin-right: 0px;">b</i><span style="font-size: 1em;">&nbsp;permanents in our graveyard, B = {</span><i style="font-size: 1em; font-weight: inherit; margin-left: 0px; margin-right: 0px;">β</i><i style="font-weight: inherit; margin-left: 0px; margin-right: 0px;"><span style="font-size: xx-small;">1</span></i><span style="font-size: 1em;">, …,&nbsp;</span><i style="font-size: 1em; font-weight: inherit; margin-bottom: 0px; margin-left: 0px; margin-right: 0px;">β</i><i style="font-weight: inherit; margin-bottom: 0px; margin-left: 0px; margin-right: 0px;"><span style="font-size: xx-small;">b</span></i><span style="font-size: 1em;">}. As before, let’s also assume that A ⊆ Λ and B ⊆ Λ.</span></span></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit;">Now we have a fairly good characterization of our deck and board state, so let’s see what Warp World does. First, it makes us (a) count all permanents we have on the battlefield, (b) shuffle all of them into our library, then (c) reveal as many cards from the top of our library as permanents we counted, and finally, (d) put all revealed artifacts, creatures, lands, and (afterwards) enchantments onto the battlefield. Everything else that was not put onto the battlefield goes to the bottom of the library. (Our opponents do the same thing at the same time, and triggered abilities follow apnap order, as usual.)</span></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit;">Let’s relate what Warp World does to our previous definitions. During step ‘a’, the number of permanents we have on the battlefield will be the cardinality of Ψ, that is, |Ψ| =&nbsp;<i style="font-weight: inherit; margin-left: 0px; margin-right: 0px; margin-top: 0px;">y</i>. During step ‘b’, we put |Ψ∩Λ| cards back into our library, and because we’re assuming that Ψ ⊆ Λ, there are exactly&nbsp;<i style="font-weight: inherit; margin-left: 0px; margin-right: 0px;">y</i>&nbsp;cards from Λ that will be put back into our library. So, by the end of step ‘b’, our library will have exactly |Θ∪Ψ| =&nbsp;<i style="font-weight: inherit; margin-left: 0px; margin-right: 0px;">k</i>&nbsp;+&nbsp;<i style="font-weight: inherit; margin-left: 0px; margin-right: 0px;">y</i>&nbsp;cards, of which |Λ|-|Α∪B| =&nbsp;<i style="font-weight: inherit; margin-left: 0px; margin-right: 0px;">z</i>&nbsp;– (<i style="font-weight: inherit; margin-left: 0px; margin-right: 0px;">a</i>&nbsp;+&nbsp;<i style="font-weight: inherit; margin-bottom: 0px; margin-left: 0px; margin-right: 0px;">b</i>) are permanents. Regarding shuffling, we assume it’s not biased in any particular manner—that is, cards from our library are ordered at random every time it’s required to shuffle.</span></div>
-<div style="line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit;"><span style="font-size: 1em;">Here comes the interesting part, namely steps ‘c’ and ‘d’. During step ‘c’, we’re instructed to reveal&nbsp;</span><i style="font-size: 1em; font-weight: inherit; margin-left: 0px; margin-right: 0px; margin-top: 0px;">y</i><span style="font-size: 1em;">&nbsp;cards from the top of our library and then, during step ‘d’, we put all artifacts, creatures, lands, and enchantments revealed this way onto the battlefield. Let’s define Φ as the set of&nbsp;</span><i style="font-size: 1em; font-weight: inherit; margin-left: 0px; margin-right: 0px;">x</i><span style="font-size: 1em;">&nbsp;revealed artifacts, creatures, lands, and enchantments, such that Φ = {</span><i style="font-weight: inherit; margin-left: 0px; margin-right: 0px;"><span style="font-size: 1em;">φ</span><span style="font-size: xx-small;">1</span></i><span style="font-size: 1em;">, …,&nbsp;</span><i style="font-size: 1em; font-weight: inherit; margin-bottom: 0px; margin-left: 0px; margin-right: 0px;">φ</i><i style="font-weight: inherit; margin-bottom: 0px; margin-left: 0px; margin-right: 0px;"><span style="font-size: xx-small;">x</span></i><span style="font-size: 1em;">} are all the revealed permanents that will be put onto the battlefield. Now, because we don’t know how all the cards in our library were ordered (unbiased shuffling), we can’t tell which cards will be revealed in a deterministic way (e.g., the first will be a land, the second will be a creature, etc.). Fortunately, we’re quite capable of telling which cards will be revealed in a stochastic way (i.e., probabilistically) (e.g., there’s a .90 chance to reveal a land, there’s a .10 chance to reveal a creature, etc.).</span></span></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit;">The act of revealing cards from the top of our library is analogous to sampling objects from a finite population without replacing them, much like picking apples from an apple tree. Of note, we are usually revealing more than one card (<i style="font-weight: inherit; margin: 0px;">y</i>&nbsp;&gt; 1), and for now, the outcomes of interest will fall into two main categories, namely it’s either a permanent that we will put onto the battlefield or not. If each sampling were independent of one another (e.g., after revealing a card, we reshuffle it back into our library before revealing another card), we could classify this action as a Bernoulli trial and compute the probability of revealing permanents according to the binomial distribution. However, in our case, each sampling is not independent of one another, as the probability of a “success” (reveal a permanent) changes as the number of revealed cards also increases. Therefore, we should model such an action of revealing cards from the top of our library with a hypergeometric distribution, which some magic players should be already familiar with, as it is often used to compute the optimal number of lands in a deck, for example, or the chance of drawing a certain card by turn.</span></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit;">When there are two mutually exclusive outcomes (e.g., permanent and non-permanent card), the probability mass function (pmf) of the number of permanents that Warp World will reveal will take the form</span></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<div class="separator" style="clear: both; text-align: center;">
-<a href="https://1.bp.blogspot.com/-P4yQk88v7Vg/XSyEIcnQlwI/AAAAAAAABLE/8TyYMhMAiAME6QMQY4jjmHxFB_323eywACLcBGAs/s1600/10%2B-%2B2VlTkqG.jpg" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="153" data-original-width="702" height="86" src="https://1.bp.blogspot.com/-P4yQk88v7Vg/XSyEIcnQlwI/AAAAAAAABLE/8TyYMhMAiAME6QMQY4jjmHxFB_323eywACLcBGAs/s400/10%2B-%2B2VlTkqG.jpg" width="400" /></a></div>
-<br /></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit;">in which (p¦q) is a binomial coefficient—that is, the number of ways q elements can be chosen from p elements, regardless of order. To make it easier for us, I wrote a table with definitions of the main parameters:</span></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<div class="separator" style="clear: both; text-align: center;">
-<a href="https://1.bp.blogspot.com/-ssSol_jrseE/XSyEOUEUVpI/AAAAAAAABLI/tvZhihAZVoIfk4z4eHwnB_opUACbDhwqgCLcBGAs/s1600/7%2B-%2BMzjJiPk.jpg" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="388" data-original-width="1394" height="111" src="https://1.bp.blogspot.com/-ssSol_jrseE/XSyEOUEUVpI/AAAAAAAABLI/tvZhihAZVoIfk4z4eHwnB_opUACbDhwqgCLcBGAs/s400/7%2B-%2BMzjJiPk.jpg" width="400" /></a></div>
-<span style="font-family: inherit;"><span class="res-freetext-expando" style="display: inline-block; height: 1em; margin-bottom: 0px !important; margin-left: 0px; margin-right: 0px; margin-top: 0px !important; margin: 0px; vertical-align: middle;"><br /></span></span></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit;">When we compute Eq. 1 for all possible number of permanents revealed with Warp World, we get a probability distribution with mean</span></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<div class="separator" style="clear: both; text-align: center;">
-<a href="https://1.bp.blogspot.com/-EjYqtMnxYZ4/XSyEUTqENYI/AAAAAAAABLM/pBSQixBVtZMfBlhkE3ClB27gNNboPB2-ACLcBGAs/s1600/11%2B-%2B1EW19ZL.jpg" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="148" data-original-width="490" height="96" src="https://1.bp.blogspot.com/-EjYqtMnxYZ4/XSyEUTqENYI/AAAAAAAABLM/pBSQixBVtZMfBlhkE3ClB27gNNboPB2-ACLcBGAs/s320/11%2B-%2B1EW19ZL.jpg" width="320" /></a></div>
-<br /></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit;">and variance</span></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<div class="separator" style="clear: both; text-align: center;">
-<a href="https://1.bp.blogspot.com/-T81A8XeCCQc/XSyEZGJ4gaI/AAAAAAAABLQ/wmGCwK2iNnsk78UUJ8O2Cjt8UfQVpwpXwCLcBGAs/s1600/12%2B-%2BK3auR8V.jpg" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="128" data-original-width="1373" height="35" src="https://1.bp.blogspot.com/-T81A8XeCCQc/XSyEZGJ4gaI/AAAAAAAABLQ/wmGCwK2iNnsk78UUJ8O2Cjt8UfQVpwpXwCLcBGAs/s400/12%2B-%2BK3auR8V.jpg" width="400" /></a></div>
-<br /></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit;">To illustrate its application, let’s imagine the following scenario. We’re playing with a 60-card deck that has 56 permanents (let’s think of them as all mountains;&nbsp;<i style="font-weight: inherit; margin-left: 0px; margin-right: 0px; margin-top: 0px;">z</i>&nbsp;= 56) and four copies of Warp World. The game starts. We’re on the play and we mull to two cards, a mountain and a copy of Warp World. During the next seven turns, we only draw mountains, so when we get to turn eight, we have eight mountains on the battlefield (<i style="font-weight: inherit; margin-left: 0px; margin-right: 0px;">y</i>&nbsp;= 8), a single card in hand, which is Warp World, and 51 remaining cards in our library (<i style="font-weight: inherit; margin-left: 0px; margin-right: 0px;">k</i>&nbsp;= 51). If we cast Warp World, what are our chances of putting, say, eight permanents back on the battlefield? What about seven, six, five, …? If we calculate such probabilities with Eq. 1 and plot the results for various numbers of permanents we had before casting Warp World (<i style="font-weight: inherit; margin-bottom: 0px; margin-left: 0px; margin-right: 0px;">y</i>), we get the following probability distributions:</span></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<div class="separator" style="clear: both; text-align: center;">
-<a href="https://1.bp.blogspot.com/-Pec_lTRcEPk/XSyEnZaWdcI/AAAAAAAABLc/IpYd8wF8INo-zz7m8IO3F1m_CQj739bEwCLcBGAs/s1600/1%2B-%2Biqdv66X.jpg" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="755" data-original-width="1206" height="200" src="https://1.bp.blogspot.com/-Pec_lTRcEPk/XSyEnZaWdcI/AAAAAAAABLc/IpYd8wF8INo-zz7m8IO3F1m_CQj739bEwCLcBGAs/s320/1%2B-%2Biqdv66X.jpg" width="320" /></a></div>
-<br /></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit;">In the horizontal axis, we have the number of permanents that we get after resolving Warp World (<i style="font-weight: inherit; margin-left: 0px; margin-right: 0px; margin-top: 0px;">x</i>), while in the vertical axis, we have the probability of each of them. In addition, the multiple distributions represent different numbers of permanents we had before casting Warp World (<i style="font-weight: inherit; margin-left: 0px; margin-right: 0px;">y</i>). (Missing probabilities are all zero.) In our example, if we have 8 permanents on the battlefield when we cast Warp World, we will get a mean of 8 permanents after resolving Warp World—that is, we usually get our eight lands back—but if we have 20 permanents on the battlefield when we cast Warp World, on average, we get 19 permanents back. Notice that even though the variability (<i style="font-weight: inherit; margin-left: 0px; margin-right: 0px;">sd</i>&nbsp;stands for standard deviation) is low in absolute terms (the value of&nbsp;<i style="font-weight: inherit; margin-left: 0px; margin-right: 0px;">x</i>&nbsp;is likely equal or close to the mean), the higher is the value of&nbsp;<i style="font-weight: inherit; margin-bottom: 0px; margin-left: 0px; margin-right: 0px;">y</i>, the higher is the variance. For example, if we have 8 permanents on the battlefield, we will usually get 7 or 8 permanents after resolving Warp World, and rarely anything other than that. However, if we have 20 permanents on the battlefield, we will usually get something between 18 and 20 permanents after resolving Warp World, and rarely anything other than that.</span></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit;">Before we move on, I should point out that each probability in Figure 1 refers to the probability of getting exactly that number of permanents, as Eq. 1 is a pmf. However, if your interest is in answering questions about fewer-than/up-to/at-least a certain number of permanents, all you need to do is sum adjacent values of&nbsp;<i style="font-weight: inherit; margin: 0px;">x</i>&nbsp;in the appropriate direction to get the cumulative probability. For example, if we have 20 permanents on the board before casting Warp World, what would be the probability of getting at least, say, 18 permanents? According to the Y=20 distribution in Figure 1, that probability would be .96.</span></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit;">Despite being a somewhat unrealistic scenario, Figure 1 gives us something that we can use to compare against different situations. For instance, how adding more non-permanents to our deck would affect the previous distributions? Let’s set everything else equal to the previous example, except that now, our deck has 44 mountains (<i style="font-weight: inherit; margin: 0px;">z</i>&nbsp;= 44), four copies of Warp World, and 12 other non-permanents. The results are the following:</span></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<div class="separator" style="clear: both; text-align: center;">
-<a href="https://1.bp.blogspot.com/-MRRNNPpRCes/XSyErJHPEfI/AAAAAAAABLk/g-VXivYY6NAHXAf0Oc9O4BSfe-1K5o77ACLcBGAs/s1600/2%2B-%2BodXdXAg.jpg" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="750" data-original-width="1192" height="201" src="https://1.bp.blogspot.com/-MRRNNPpRCes/XSyErJHPEfI/AAAAAAAABLk/g-VXivYY6NAHXAf0Oc9O4BSfe-1K5o77ACLcBGAs/s320/2%2B-%2BodXdXAg.jpg" width="320" /></a></div>
-<br /></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit;">Inspection of Figure 2 indicates two main differences in comparison to Figure 1. First, adding more non-permanents to a Warp World deck decreases the mean of the probability distribution of the number of permanents you will get after resolving Warp World, regardless of how many permanents you had before casting Warp World. Second, variability increased all over the board, so the chance of getting screwed up by Warp World increased quite a lot. In other words, this is why it’s not a good idea to play non-permanents in a Warp World deck, as you decrease its expected value and increase its variability. You get double screwed.</span></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit;">This concludes the basics of my approach. In the following sections, I’ll show how to add distinctions between the various types of permanents that we can reveal with Warp World (e.g., lands, creatures, other non-planeswalker permanents) and drop some of the assumptions we’ve made so far (e.g., empty hand and graveyard, no tokens).</span><br />
-<span style="font-family: inherit;"><br /></span></div>
-<div style="line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<b>The multivariate Warp World model</b></div>
-<div style="line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit;"><span style="font-size: 1em;">One limitation of the previous approach is that we can’t tell what sort of permanent Warp World puts onto the battlefield. In some cases, the binary distinction is just what we need. In others, however, a more detailed distinction is needed, as different types of permanent will have different effects on the board state after Warp World resolves. One distinction that would make sense is the one given by Warp World itself, namely that permanents can be artifacts, creatures, lands, and enchantments. We’ve already defined Λ as the set of all permanents in our deck, so it follows that artifacts, Λ</span><span style="font-size: xx-small;">1</span><span style="font-size: 1em;">, creatures, Λ</span><span style="font-size: xx-small;">2</span><span style="font-size: 1em;">, lands, Λ</span><span style="font-size: xx-small;">3</span><span style="font-size: 1em;">, and enchantments, Λ</span><span style="font-size: xx-small;">4</span><span style="font-size: 1em;">, ought to be subsets of Λ, such that</span></span></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<div class="separator" style="clear: both; text-align: center;">
-<a href="https://1.bp.blogspot.com/-_onAsPEaQyo/XSyE2y5nO7I/AAAAAAAABLo/3p9yHv_yCfol1GahQn6n28b_wcoslJnOACLcBGAs/s1600/8%2B-%2BcXlFhpJ.jpg" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="84" data-original-width="157" src="https://1.bp.blogspot.com/-_onAsPEaQyo/XSyE2y5nO7I/AAAAAAAABLo/3p9yHv_yCfol1GahQn6n28b_wcoslJnOACLcBGAs/s1600/8%2B-%2BcXlFhpJ.jpg" /></a></div>
-<br /></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit;">because for the sake of simplicity, we will continue to assume that we’re not playing planeswalkers. (Remember that Warp World does not put planeswalkers onto the battlefield, even though they are permanents that can be part of our deck.) Similarly, let’s say that mutually exclusive subsets of Φ, A, and B fall into the same categories as Λi, such that</span></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<div class="separator" style="clear: both; text-align: center;">
-<a href="https://1.bp.blogspot.com/-chUcocZ92k0/XSyE6IvGzjI/AAAAAAAABL4/FOdb_fhO2Ds0ronC_khwAmfzMnBQE5zFgCLcBGAs/s1600/9%2B-%2BYpXMDBW.jpg" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="98" data-original-width="462" height="67" src="https://1.bp.blogspot.com/-chUcocZ92k0/XSyE6IvGzjI/AAAAAAAABL4/FOdb_fhO2Ds0ronC_khwAmfzMnBQE5zFgCLcBGAs/s320/9%2B-%2BYpXMDBW.jpg" width="320" /></a></div>
-<br /></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit;">Now we can extend Eq. 1 to accommodate the additional outcomes of Warp Wold as follows</span></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<div class="separator" style="clear: both; text-align: center;">
-<a href="https://1.bp.blogspot.com/-BGgrP2pYmI0/XSyE_7qKKvI/AAAAAAAABMA/2MzDihfRpr4eB__iaje-ClV7Etdand_aACLcBGAs/s1600/13%2B-%2BwO76V7P.jpg" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="113" data-original-width="889" height="50" src="https://1.bp.blogspot.com/-BGgrP2pYmI0/XSyE_7qKKvI/AAAAAAAABMA/2MzDihfRpr4eB__iaje-ClV7Etdand_aACLcBGAs/s400/13%2B-%2BwO76V7P.jpg" width="400" /></a></div>
-<br /></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit;">which is the pmf of the multivariate Warp World model. Such a distribution has mean</span></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<div class="separator" style="clear: both; text-align: center;">
-<a href="https://1.bp.blogspot.com/-jGF1-TsZEf0/XSyFG2lPCKI/AAAAAAAABMI/bc-mZm2XVyoxr_EPX61X6yKVCUyGVeD7wCLcBGAs/s1600/14%2B-%2BsVAGLTT.jpg" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="106" data-original-width="459" height="73" src="https://1.bp.blogspot.com/-jGF1-TsZEf0/XSyFG2lPCKI/AAAAAAAABMI/bc-mZm2XVyoxr_EPX61X6yKVCUyGVeD7wCLcBGAs/s320/14%2B-%2BsVAGLTT.jpg" width="320" /></a></div>
-<br /></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit;">and variance</span></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<div class="separator" style="clear: both; text-align: center;">
-<a href="https://1.bp.blogspot.com/-4ebUChncfZ0/XSyFMOlwk-I/AAAAAAAABMQ/1LBVb-fFsdcTGH-QvVtEneQV2DdX0P_PACLcBGAs/s1600/15%2B-%2BbCj1DnN.jpg" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="106" data-original-width="1044" height="40" src="https://1.bp.blogspot.com/-4ebUChncfZ0/XSyFMOlwk-I/AAAAAAAABMQ/1LBVb-fFsdcTGH-QvVtEneQV2DdX0P_PACLcBGAs/s400/15%2B-%2BbCj1DnN.jpg" width="400" /></a></div>
-<br /></div>
-<div style="line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit;"><span style="font-size: 1em;">As before, let’s think about a scenario to illustrate how Eq. 4-6 informs us about the probability of Warp World revealing different sorts of permanents as a function of the properties of our deck. Similar to our previous example, imagine we we’re playing with a 60-card deck composed of 24 lands (</span><i style="font-weight: inherit; margin-left: 0px; margin-right: 0px; margin-top: 0px;"><span style="font-size: 1em;">z</span><span style="font-size: xx-small;">3</span></i><span style="font-size: 1em;">&nbsp;= 24), 16 creatures (</span><i style="font-size: 1em; font-weight: inherit; margin-left: 0px; margin-right: 0px;">z</i><i style="font-weight: inherit; margin-left: 0px; margin-right: 0px;"><span style="font-size: xx-small;">2</span></i><span style="font-size: 1em;">&nbsp;= 24), and 20 non-permanents. The game starts. We’re on the play and unfortunately, we have to mull to four cards, specifically two forests and two copies of [[elvish mystic]]. On turn 1, we play a forest and an elvish mystic. On turn 2, we draw a copy of Warp World, then play another forest and cast another elvish mystic. During the next four turns, we draw four mountains, so when we get to turn 6, we cast Warp World with two forests, four mountains, and two elvish mystics on the battlefield (</span><i style="font-size: 1em; font-weight: inherit; margin-left: 0px; margin-right: 0px;">y</i><span style="font-size: 1em;">&nbsp;= 8), no cards in hand or graveyard, and 51 cards left in our library (</span><i style="font-size: 1em; font-weight: inherit; margin-left: 0px; margin-right: 0px;">k</i><span style="font-size: 1em;">&nbsp;= 51). What’s the probability of revealing, say, two creatures and four lands with Warp World? On average, how many creatures and lands would Warp World put back on the battlefield after it resolves? We can answer such questions with Eq. 4-5. When we compute the probabilities in Eq. 4 for all possible values of&nbsp;</span><i style="font-size: 1em; font-weight: inherit; margin-left: 0px; margin-right: 0px;">x</i><i style="font-weight: inherit; margin-left: 0px; margin-right: 0px;"><span style="font-size: xx-small;">2</span></i><span style="font-size: 1em;">&nbsp;(# of creatures that Warp World reveals) and&nbsp;</span><i style="font-size: 1em; font-weight: inherit; margin-left: 0px; margin-right: 0px;">x</i><i style="font-weight: inherit; margin-left: 0px; margin-right: 0px;"><span style="font-size: xx-small;">3</span></i><span style="font-size: 1em;">&nbsp;(# of lands that Warp World reveals) and plot such values, we generate the following three-dimensional representation of the probability distribution of&nbsp;</span><i style="font-size: 1em; font-weight: inherit; margin-left: 0px; margin-right: 0px;">x</i><i style="font-weight: inherit; margin-left: 0px; margin-right: 0px;"><span style="font-size: xx-small;">2</span></i><span style="font-size: 1em;">&nbsp;and&nbsp;</span><i style="font-size: 1em; font-weight: inherit; margin-bottom: 0px; margin-left: 0px; margin-right: 0px;">x</i><i style="font-weight: inherit; margin-bottom: 0px; margin-left: 0px; margin-right: 0px;"><span style="font-size: xx-small;">3</span></i></span></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<div class="separator" style="clear: both; text-align: center;">
-<a href="https://1.bp.blogspot.com/-cqsa5DcGiPw/XSyFSf1_voI/AAAAAAAABMY/Jep2cJqvPoU2eHrUcgtByo8zahWxrUqagCLcBGAs/s1600/3%2B-%2BkJIDkN6.jpg" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="674" data-original-width="1190" height="181" src="https://1.bp.blogspot.com/-cqsa5DcGiPw/XSyFSf1_voI/AAAAAAAABMY/Jep2cJqvPoU2eHrUcgtByo8zahWxrUqagCLcBGAs/s320/3%2B-%2BkJIDkN6.jpg" width="320" /></a></div>
-<br /></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit;">Figure 3 shows that when&nbsp;<i style="font-weight: inherit; margin-left: 0px; margin-right: 0px; margin-top: 0px;">y</i>&nbsp;= 8, the probability of revealing exactly two creatures and four lands from the top of our library is .10. In fact, this is one of the two most likely cases, the second one being two creatures and three lands, as both of them account for roughly 20% of the possible outcomes of a Warp World under this condition. In addition, Eq. 5 and 6 show that on average, Warp World will reveal 2 creatures (<i style="font-weight: inherit; margin-left: 0px; margin-right: 0px;">sd</i>&nbsp;= 1 creature) and 3 lands (<i style="font-weight: inherit; margin-bottom: 0px; margin-left: 0px; margin-right: 0px;">sd</i>&nbsp;= 1 land) in this particular example.</span></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit;">We’ve seen before that playing non-permanents in a Warp World deck is a bad idea. So, let’s run the same simulation as before, except that instead of playing 16 creatures and 24 lands, our deck has 22 creatures and 26 lands. When that’s done, we find the following distribution</span></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<div class="separator" style="clear: both; text-align: center;">
-<a href="https://1.bp.blogspot.com/-BTHrqZJ3b50/XSyFWcNMaII/AAAAAAAABMc/RCtv959dDc8HC3miMN6eJ8AUy4HIVH6WQCLcBGAs/s1600/4%2B-%2B6lFiK9b.jpg" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="721" data-original-width="1215" height="189" src="https://1.bp.blogspot.com/-BTHrqZJ3b50/XSyFWcNMaII/AAAAAAAABMc/RCtv959dDc8HC3miMN6eJ8AUy4HIVH6WQCLcBGAs/s320/4%2B-%2B6lFiK9b.jpg" width="320" /></a></div>
-<br /></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit;">Inspection of Figure 4 indicates a shift of the mean of the probability distribution. Indeed, on average, Warp World would reveal 3 creatures (<i style="font-weight: inherit; margin-left: 0px; margin-right: 0px; margin-top: 0px;">sd</i>&nbsp;= 1 creatures) and 4 lands (<i style="font-weight: inherit; margin-bottom: 0px; margin-left: 0px; margin-right: 0px;">sd</i>&nbsp;= 1 lands) with the latter deck.</span></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit;">How would Figures 3 and 4 change if we increased the number of permanents on the battlefield before casting Warp World to, say, 20 permanents (<i style="font-weight: inherit; margin-left: 0px; margin-right: 0px; margin-top: 0px;">y</i>&nbsp;= 20)? The probability distribution of&nbsp;<i style="font-weight: inherit; margin-bottom: 0px; margin-left: 0px; margin-right: 0px;">xi</i>&nbsp;in Figure 3 would look like this</span></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<div class="separator" style="clear: both; text-align: center;">
-<a href="https://1.bp.blogspot.com/-lpsdIq-EZCs/XSyFaNye1pI/AAAAAAAABMk/mVERuOUrFJsGTlQd-YeJWIf2Sww71NJAQCLcBGAs/s1600/5%2B-%2Bqh4oDDJ.jpg" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="705" data-original-width="1223" height="184" src="https://1.bp.blogspot.com/-lpsdIq-EZCs/XSyFaNye1pI/AAAAAAAABMk/mVERuOUrFJsGTlQd-YeJWIf2Sww71NJAQCLcBGAs/s320/5%2B-%2Bqh4oDDJ.jpg" width="320" /></a></div>
-<br /></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit;">and would have mean 5 creatures (<i style="font-weight: inherit; margin-left: 0px; margin-right: 0px; margin-top: 0px;">sd</i>&nbsp;= 2) and 8 lands (<i style="font-weight: inherit; margin-bottom: 0px; margin-left: 0px; margin-right: 0px;">sd</i>&nbsp;= 2), while the distribution in Figure 4 would look like this</span></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<div class="separator" style="clear: both; text-align: center;">
-<a href="https://1.bp.blogspot.com/-VSGqqoC90sI/XSyFdE3YnSI/AAAAAAAABMs/CCPMGnxuCzowPwYC4DkPtQXDMY5cm30_wCLcBGAs/s1600/6%2B-%2BhuJIvIh.jpg" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="687" data-original-width="1210" height="181" src="https://1.bp.blogspot.com/-VSGqqoC90sI/XSyFdE3YnSI/AAAAAAAABMs/CCPMGnxuCzowPwYC4DkPtQXDMY5cm30_wCLcBGAs/s320/6%2B-%2BhuJIvIh.jpg" width="320" /></a></div>
-<br /></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit;">and have mean 8 creatures (<i style="font-weight: inherit; margin-left: 0px; margin-right: 0px; margin-top: 0px;">sd</i>&nbsp;= 2) and 9 lands (<i style="font-weight: inherit; margin-bottom: 0px; margin-left: 0px; margin-right: 0px;">sd</i>&nbsp;= 2).</span></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit;">Of course, we could calculate probability distributions for decks that have non-zero artifacts and enchantments as well but it would be difficult to visualize them, as we would be using higher dimensions than before. Similarly, the same approach could be used for different, mutually exclusive distinctions (e.g., green creatures vs. red creatures vs. other permanents; ramp permanents vs. gy recursion permanents).</span></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit;">There are many things that can be done moving forward. For instance, we could use Eq. 4-6 to investigate how cards that generate mana or produce more than one permanent can net mana or permanents, then describe the necessary and sufficient conditions to create loops with Warp World. Unfortunately, I don’t have time to talk about them right now, so I’ll let you figure them out on your own.</span><br />
-<span style="font-family: inherit;"><br /></span></div>
-<div style="line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<b>Tokens</b></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit;">So far, we’ve worked under the assumption that when we cast Warp World, the only sort of permanent we have on the battlefield (and thus the number of cards we will reveal with Warp World) are the ones contained in our deck—that is, Ψ⊆Λ. In some cases, this will be true; in others, however, it won’t, as we might have tokens on the battlefield, which will increase the number of cards revealed with Warp World but it doesn’t mean we’ll shuffle that many cards into our library. Fortunately, taking tokens into account does not require us to make huge changes to the previous equations. Specifically, if Ψ⊆Λ is not true, then by the end of step ‘b’ of Warp World, our new library will have size |Θ| + |Ψ∩Λ|, instead of |Θ∪Ψ|, in which Ψ∩Λ are all permanents on the battlefield that are permanents from our deck (i.e., all non-token permanents). Everything else remains the same in Eq. 1-6.</span><br />
-<span style="font-family: inherit;"><br /></span></div>
-<div style="line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<b>Other spells similar to Warp World</b></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit;">There are a few other spells that in one way or another, do something that is quite similar to what Warp World does. One example that comes to mind is <b>The Great Aurora</b>. I have no doubt we can use the Warp World model to compute probabilities for those spells as well. We just need to tweak the model a little bit to make it consistent with the wording used in similar spells (e.g., great aurora also makes we shuffle our hand).</span><br />
-<span style="font-family: inherit;"><br /></span>
-<br />
-<div class="separator" style="clear: both; text-align: center;">
-<a href="https://1.bp.blogspot.com/-1KwhLJ-miLs/XSyGtRht8gI/AAAAAAAABNA/Aqs2jVxGpkcI1fr3NWDuySRmfmSuW43XwCLcBGAs/s1600/ori-179-the-great-aurora.jpg" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="936" data-original-width="672" height="320" src="https://1.bp.blogspot.com/-1KwhLJ-miLs/XSyGtRht8gI/AAAAAAAABNA/Aqs2jVxGpkcI1fr3NWDuySRmfmSuW43XwCLcBGAs/s320/ori-179-the-great-aurora.jpg" width="229" /></a></div>
-<span style="font-family: inherit;"><br /></span>
-<span style="font-family: inherit;"><br /></span></div>
-<div style="line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<b>Other possible approaches</b></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit;">We could find probability distributions empirically. Goldfish a Warp World deck, say, a thousand times, take note of the relevant stats prior to and after casting Warp World, and estimate the distributions empirically. I’m not that guy though.</span><br />
-<span style="font-family: inherit;"><br /></span></div>
-<div style="line-height: 1.42857em; margin-bottom: 0.357143em; margin-top: 0.357143em; padding: 0px;">
-<b>Final remarks</b></div>
-<div style="font-size: 1em; line-height: 1.42857em; margin-top: 0.357143em; padding: 0px;">
-<span style="font-family: inherit;">We end with a cautionary note. We know that adding more permanents to a Warp World deck usually yields a better outcome—that is, the more permanents we have in the deck, the more permanents we’ll likely reveal with Warp World. However, it would be inappropriate to simply compare mean differences to draw conclusions about different Warp World decks. That is because changing properties of Warp World decks will likely change the variance of their distributions. One possible solution is to use a standardized measure of the compound mean difference—that is, the standardized measure of distance between the means of two&nbsp;<i style="font-weight: inherit; margin: 0px;">p(xi)</i>&nbsp;distributions. I feel like going into this would be beyond the scope of this analysis.</span></div>
-<div style="font-size: 1.07692em;">
-<br />
---CG</div>
-</div>
-</div>
-</form>
-</div>
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-list"></i> Table of Contents</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#the-basics">The Basics</a></li>
+  <li><a href="#the-multivariate-warp-world-model">The Multivariate Warp World Model</a></li>
+  <li><a href="#tokens">Tokens</a></li>
+  <li><a href="#other-similar-spells">Other Similar Spells</a></li>
+  <li><a href="#other-approaches">Other Approaches</a></li>
+  <li><a href="#final-remarks">Final Remarks</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
+        <p class="notice notice--info">This is a repost from my <a href="https://www.reddit.com/r/magicTCG/comments/8956af/the_probability_of_warp_world_math/">original reddit post</a>. I’ve made a few changes to it to improve readability as well.</p>
+
+<h1 id="introduction">Introduction</h1>
+<p>If you’re unfamiliar with <strong>Warp World</strong>, you are in for a treat. It’s a 5RRR sorcery from Ravnica that reads as follows:</p>
+
+<blockquote>
+  <p>Each player shuffles all permanents he or she owns into his or her library, then reveals that many cards from the top of his or her library. Each player puts all artifact, creature, and land cards revealed this way onto the battlefield, then does the same for enchantment cards, then puts all cards revealed this way that weren’t put onto the battlefield on the bottom of his or her library.</p>
+</blockquote>
+
+<p><a href="/assets/posts/2019-07-15-Probability-warp-world/warp-world.jpg"><img src="/assets/posts/2019-07-15-Probability-warp-world/warp-world.jpg" alt="Warp world" class="PostImage" /></a></p>
+
+<p>There are many different ways to build around such a card. For example, we can play mostly permanents in our deck (i.e., very few instants and sorceries), add creatures with enter the battlefield (ETB) ability (e.g., Eternal Witness), add creatures with landfall ability (Lotus Cobra), and so on. I’m not going to tell you how to play Warp World or advertise any particular deck that takes advantage of it. Instead, I’ll try to formalize what happens when we cast Warp World, and how the outcome of casting it changes as a function of the type of cards we choose to play and when we cast it.</p>
+
+<p>This is not meant to be an exhaustive analysis of the card and all of its possible interactions. If you spot an error or thought about a much simpler way of analyzing Warp World, please feel free to share it. Above all, this is meant to be a mathematical and statistical exercise.</p>
+
+<p><a href="#" class="btn btn--small btn--light-outline">top</a></p>
+
+<h1 id="the-basics">The Basics</h1>
+<p>In a game of magic, we play with a deck, Ω, composed of <em>n</em> cards, such that Ω = {<em>ω<sub>1</sub></em>, …, <em>ω<sub>n</sub></em>} is our deck. The current types of cards in MtG can be of two sorts, namely permanents (land, creature, artifact, enchantment, and planeswalker) and non-permanents (sorcery and instant). Let Λ be the set of all <em>z</em> permanents that we have in our deck (e.g., Elvish Mystic, forests, mountains, Primeval Titan), such that Λ = {<em>λ<sub>1</sub></em>, …, <em>λ<sub>z</sub></em>} are all the permanents in our deck. Because there’re only permanents and non-permanents in our deck, the set of non-permanents can be defined as the negation of Λ, ¬Λ, such that ¬Λ ∪ Λ = Ω.</p>
+
+<p>When a game of magic starts, our deck becomes our library. Let’s define our library by the set Θ of <em>k</em> cards, such that Θ = {<em>θ<sub>1</sub></em>, …, <em>θ<sub>k</sub></em>} is our library, and the rules tell us that Θ ⊆ Ω, that is, all cards in our library are cards from our deck. In addition, when the game starts, it also creates other three zones that are of particular relevance to us, namely the battlefield, our hand, and the graveyard. Let’s define Ψ as the set of <em>y</em> permanents we have on the battlefield, such that Ψ = {<em>ψ<sub>1</sub></em>, …, <em>ψ<sub>y</sub></em>} are the permanents we have on our side of the battlefield. To make matters as simple as possible for now, let’s also assume that Ψ ⊆ Λ, that is, all permanents we have on the battlefield are permanents from our deck, until otherwise specified, and permanents are all but planeswalkers. Then we define Α as the set of <em>a</em> permanents in our hand, such that Α = {<em>α<sub>1</sub></em>, …, <em>α<sub>a</sub></em>} are the permanents in our hand, and B is the set of <em>b</em> permanents in our graveyard, B = {<em>β<sub>1</sub></em>, …, <em>β<sub>b</sub></em>}. As before, let’s also assume that A ⊆ Λ and B ⊆ Λ.</p>
+
+<p>Now we have a fairly good characterization of our deck and board state, so let’s see what Warp World does. First, it makes us:</p>
+
+<ol>
+  <li>count all permanents we have on the battlefield;</li>
+  <li>shuffle all of them into our library;</li>
+  <li>then reveal as many cards from the top of our library as permanents we counted;</li>
+  <li>and finally, put all revealed artifacts, creatures, lands, and (afterwards) enchantments onto the battlefield. Everything else that was not put onto the battlefield goes to the bottom of the library. (Our opponents do the same thing at the same time, and triggered abilities follow <em>apnap</em> order, as usual.)</li>
+</ol>
+
+<p>Let’s relate what Warp World does to our previous definitions. During the <strong>first</strong> step, the number of permanents we have on the battlefield will be the cardinality of Ψ, that is, |Ψ| = <em>y</em>. During the <strong>second</strong> step, we put |Ψ ∩ Λ| cards back into our library, and because we’re assuming that Ψ ⊆ Λ, there are exactly <em>y</em> cards from Λ that will be put back into our library. So, by the end of the second step, our library will have exactly |Θ ∪ Ψ| = <em>k</em> + <em>y</em> cards, of which |Λ| - |Α ∪ B| = <em>z</em> - (<em>a</em> + <em>b</em>) are permanents. Regarding shuffling, we assume it’s not biased in any particular manner–that is, cards from our library are ordered at random every time it’s required to shuffle.</p>
+
+<p>Here comes the interesting part, namely the <strong>third</strong> and <strong>fourth</strong> steps. During the <strong>third</strong> step, we’re instructed to reveal <em>y</em> cards from the top of our library and then, during the <strong>fourth</strong> step, we put all artifacts, creatures, lands, and enchantments revealed this way onto the battlefield. Let’s define Φ as the set of <em>x</em> revealed artifacts, creatures, lands, and enchantments, such that Φ = {<em>φ<sub>1</sub></em>, …, <em>φ<sub>x</sub></em>} are all the revealed permanents that will be put onto the battlefield. Now, because we don’t know how all the cards in our library were ordered (unbiased shuffling), we can’t tell which cards will be revealed in a deterministic way (e.g., the first will be a land, the second will be a creature, etc.). Fortunately, we’re quite capable of telling which cards will be revealed in a stochastic way (probabilistically).  For example, there’s a .90 chance to reveal a land, or there’s a .10 chance to reveal a creature.</p>
+
+<p>The act of revealing cards from the top of our library is analogous to <strong>sampling objects from a finite population without replacing them</strong>, much like picking apples from an apple tree. Of note, we are usually revealing more than one card (<em>y</em> &gt; 1), and for now, the outcomes of interest will fall into two main categories, namely it’s either a permanent that we will put onto the battlefield or not. If each sampling were independent of one another (e.g., after revealing a card, we reshuffle it back into our library before revealing another card), we could classify this action as a Bernoulli trial and compute the probability of revealing permanents according to the binomial distribution. However, in our case, each sampling is not independent of one another, as the probability of a <code class="language-plaintext highlighter-rouge">success</code> (to reveal a permanent) changes as the number of revealed cards also changes. Therefore, we should model such an action of revealing cards from the top of our library with a <strong>hypergeometric distribution</strong>, which some magic players should be already familiar with, as it is often used to compute the optimal number of lands in a deck, for example, or the chance of drawing a certain card by turn.</p>
+
+<p>When there are two mutually exclusive outcomes (e.g., permanent and non-permanent card), the <strong>probability mass function</strong> (pmf) of the number of permanents that Warp World will reveal will take the form</p>
+
+<p><a href="/assets/posts/2019-07-15-Probability-warp-world/eq1.jpg"><img src="/assets/posts/2019-07-15-Probability-warp-world/eq1.jpg" alt="Eq. 1" title="Equation 1" class="PostImage PostImage--large" /></a></p>
+
+<p>in which (<em>p</em> ¦ <em>q</em>) is a <strong>binomial coefficient</strong>–that is, the number of ways <em>q</em> elements can be chosen from <em>p</em> elements, regardless of order, computed as <em>p</em>! / [<em>q</em>!(<em>p</em> - <em>q</em>)!]. Across <em><strong>four</strong> coin tosses</em> (<em>p</em> = 4), for example, there are <em><strong>six</strong> different ways of arranging</em> <em><strong>two</strong> Tails</em> (<em>q</em> = 2)–namely, TTHH, THTH, THHT, HTTH, HTHT, and HHTT–which can be represented by the binomial coefficient (4 ¦ 2) = 6.</p>
+
+<p>To make it easier for us, I wrote a table with definitions of the main parameters:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">parameter</th>
+      <th style="text-align: center">definition</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><em>a</em></td>
+      <td style="text-align: center">number of permanents in hand</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><em>b</em></td>
+      <td style="text-align: center">number of permanents in the graveyard</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><em>k</em></td>
+      <td style="text-align: center">number of cards in the library</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><em>x</em></td>
+      <td style="text-align: center">number of permanents revealed with Warp World</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><em>y</em></td>
+      <td style="text-align: center">number of cards revealed and number of permanents on the battlefield before resolving Warp World</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><em>z</em></td>
+      <td style="text-align: center">number of permanents in the deck</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>When we compute Eq.1 for all possible number of permanents revealed with Warp World, we get a probability distribution with mean</p>
+
+<p><a href="/assets/posts/2019-07-15-Probability-warp-world/eq2.jpg"><img src="/assets/posts/2019-07-15-Probability-warp-world/eq2.jpg" alt="Eq. 2" title="Equation 2" class="PostImage PostImage--large" /></a></p>
+
+<p>and variance</p>
+
+<p><a href="/assets/posts/2019-07-15-Probability-warp-world/eq3.jpg"><img src="/assets/posts/2019-07-15-Probability-warp-world/eq3.jpg" alt="Eq. 3" title="Equation 3" class="PostImage PostImage--large" /></a></p>
+
+<p>To illustrate its application, let’s imagine the following scenario. We’re playing with a 60-card deck that has 56 permanents (let’s think of them as all mountains; <em>z</em> = 56) and four copies of Warp World. The game starts. We’re on the play and we mull to two cards, a mountain and a copy of Warp World. During the next seven turns, we only draw mountains, so when we get to turn eight, we have eight mountains on the battlefield (<em>y</em> = 8), a single card in hand, which is Warp World, and 51 remaining cards in our library (<em>k</em> = 51). If we cast Warp World, what are our chances of putting, say, eight permanents back on the battlefield? What about seven, six, five, …? If we calculate such probabilities with Eq. 1 and plot the results for various numbers of permanents we had before casting Warp World (<em>y</em>), we get the following probability distributions:</p>
+
+<p><a href="/assets/posts/2019-07-15-Probability-warp-world/figure1.jpg"><img src="/assets/posts/2019-07-15-Probability-warp-world/figure1.jpg" alt="Figure 1" title="Figure 1" class="PostImage PostImage--large" /></a></p>
+
+<p>In the horizontal axis, we have the number of permanents that we get after resolving Warp World (<em>x</em>), while in the vertical axis, we have the probability of each of them. In addition, the multiple distributions represent different numbers of permanents we had before casting Warp World (<em>y</em>). (Missing probabilities are all zero.) In our example, if we have 8 permanents on the battlefield when we cast Warp World, we will get a mean of 8 permanents after resolving Warp World—that is, we usually get our eight lands back—but if we have 20 permanents on the battlefield when we cast Warp World, on average, we get 19 permanents back. Notice that even though the variability (sd stands for standard deviation) is low in absolute terms (the value of <em>x</em> is likely equal or close to the mean), the higher is the value of <em>y</em>, the higher is the variance. For example, if we have 8 permanents on the battlefield, we will usually get 7 or 8 permanents after resolving Warp World, and rarely anything other than that. However, if we have 20 permanents on the battlefield, we will usually get something between 18 and 20 permanents after resolving Warp World, and rarely anything other than that.</p>
+
+<p>Before we move on, I should point out that each probability in Figure 1 refers to the probability of getting exactly that number of permanents, as Eq. 1 is a pmf. However, if your interest is in answering questions about fewer-than/up-to/at-least a certain number of permanents, all you need to do is sum adjacent values of <em>x</em> in the appropriate direction to get the cumulative probability. For example, if we have 20 permanents on the board before casting Warp World, what would be the probability of getting at least, say, 18 permanents? According to the Y=20 distribution in Figure 1, that probability would be .96.</p>
+
+<p>Despite being a somewhat unrealistic scenario, Figure 1 gives us something that we can use to compare against different situations. For instance, how adding more non-permanents to our deck would affect the previous distributions? Let’s set everything else equal to the previous example, except that now, our deck has 44 mountains (<em>z</em> = 44), four copies of Warp World, and 12 other non-permanents. The results are the following:</p>
+
+<p><a href="/assets/posts/2019-07-15-Probability-warp-world/figure2.jpg"><img src="/assets/posts/2019-07-15-Probability-warp-world/figure2.jpg" alt="Figure 2" title="Figure 2" class="PostImage PostImage--large" /></a></p>
+
+<p>Inspection of Figure 2 indicates two main differences in comparison to Figure 1. First, adding more non-permanents to a Warp World deck decreases the mean of the probability distribution of the number of permanents you will get after resolving Warp World, regardless of how many permanents you had before casting Warp World. Second, variability increased all over the board, so the chance of getting screwed up by Warp World increased quite a lot. In other words, this is why it’s not a good idea to play non-permanents in a Warp World deck, as you decrease its expected value and increase its variability. You get double screwed.</p>
+
+<p><a href="#" class="btn btn--small btn--light-outline">top</a></p>
+
+<h1 id="the-multivariate-warp-world-model">The Multivariate Warp World Model</h1>
+
+<p>One limitation of the previous approach is that we can’t tell what sort of permanent Warp World puts onto the battlefield. In some cases, the binary distinction is just what we need. In others, however, a more detailed distinction is needed, as different types of permanent will have different effects on the board state after Warp World resolves. One distinction that would make sense is the one given by Warp World itself, namely that permanents can be artifacts, creatures, lands, and enchantments. We’ve already defined Λ as the set of all permanents in our deck, so it follows that artifacts, Λ<sub>1</sub>, creatures, Λ<sub>2</sub>, lands, Λ<sub>3</sub>, and enchantments, Λ<sub>4</sub>, ought to be subsets of Λ, such that</p>
+
+<p><a href="/assets/posts/2019-07-15-Probability-warp-world/eq4.jpg"><img src="/assets/posts/2019-07-15-Probability-warp-world/eq4.jpg" alt="Eq. 4" title="Equation 4" class="PostImage" /></a></p>
+
+<p>because for the sake of simplicity, we will continue to assume that we’re not playing planeswalkers. (Remember that Warp World does not put planeswalkers onto the battlefield, even though they are permanents that can be part of our deck.) Similarly, let’s say that mutually exclusive subsets of Φ, A, and B fall into the same categories as Λ<sub><em>i</em></sub>, such that</p>
+
+<p><a href="/assets/posts/2019-07-15-Probability-warp-world/eq5.jpg"><img src="/assets/posts/2019-07-15-Probability-warp-world/eq5.jpg" alt="Eq. 5" title="Equation 5" class="PostImage PostImage--large" /></a></p>
+
+<p>Now we can extend Eq. 1 to accommodate the additional outcomes of Warp Wold as follows</p>
+
+<p><a href="/assets/posts/2019-07-15-Probability-warp-world/eq6.jpg"><img src="/assets/posts/2019-07-15-Probability-warp-world/eq6.jpg" alt="Eq. 6" title="Equation 6" class="PostImage PostImage--large" /></a></p>
+
+<p>which is the pmf of the multivariate Warp World model. Such a distribution has mean</p>
+
+<p><a href="/assets/posts/2019-07-15-Probability-warp-world/eq7.jpg"><img src="/assets/posts/2019-07-15-Probability-warp-world/eq7.jpg" alt="Eq. 7" title="Equation 7" class="PostImage PostImage--large" /></a></p>
+
+<p>and variance</p>
+
+<p><a href="/assets/posts/2019-07-15-Probability-warp-world/eq8.jpg"><img src="/assets/posts/2019-07-15-Probability-warp-world/eq8.jpg" alt="Eq. 8" title="Equation 8" class="PostImage PostImage--large" /></a></p>
+
+<p>As before, let’s think about a scenario to illustrate how Eq. 4-6 informs us about the probability of Warp World revealing different sorts of permanents as a function of the properties of our deck. Similar to our previous example, imagine we we’re playing with a 60-card deck composed of 24 lands (<em>z<sub>3</sub></em> = 24), 16 creatures (<em>z<sub>2</sub></em> = 24), and 20 non-permanents. The game starts. We’re on the play and unfortunately, we have to mull to four cards, specifically two forests and two copies of Elvish Mystic. On turn 1, we play a forest and an elvish mystic. On turn 2, we draw a copy of Warp World, then play another forest and cast another elvish mystic. During the next four turns, we draw four mountains, so when we get to turn 6, we cast Warp World with two forests, four mountains, and two elvish mystics on the battlefield (<em>y</em> = 8), no cards in hand or graveyard, and 51 cards left in our library (<em>k</em> = 51). What’s the probability of revealing, say, two creatures and four lands with Warp World? On average, how many creatures and lands would Warp World put back on the battlefield after it resolves? We can answer such questions with Eq. 6-8. When we compute the probabilities in Eq. 6 for all possible values of <em>x<sub>2</sub></em> and <em>x<sub>3</sub></em> and plot such values, we generate the following three-dimensional representation of the probability distribution of <em>x<sub>2</sub></em> and <em>x<sub>3</sub></em></p>
+
+<p><a href="/assets/posts/2019-07-15-Probability-warp-world/figure3.jpg"><img src="/assets/posts/2019-07-15-Probability-warp-world/figure3.jpg" alt="Figure 3" title="Figure 3" class="PostImage PostImage--large" /></a></p>
+
+<p>Figure 3 shows that when <em>y</em> = 8, the probability of revealing exactly two creatures and four lands from the top of our library is .10. In fact, this is one of the two most likely cases, the second one being two creatures and three lands, as both of them account for roughly 20% of the possible outcomes of a Warp World under this condition. In addition, Eq. 7 and 8 show that on average, Warp World will reveal 2 creatures (<em>sd</em> = 1 creature) and 3 lands (<em>sd</em> = 1 land) in this particular example.</p>
+
+<p>We’ve seen before that playing non-permanents in a Warp World deck is a bad idea. So, let’s run the same simulation as before, except that instead of playing 16 creatures and 24 lands, our deck has 22 creatures and 26 lands. When that’s done, we find the following distribution</p>
+
+<p><a href="/assets/posts/2019-07-15-Probability-warp-world/figure4.jpg"><img src="/assets/posts/2019-07-15-Probability-warp-world/figure4.jpg" alt="Figure 4" title="Figure 4" class="PostImage PostImage--large" /></a></p>
+
+<p>Inspection of Figure 4 indicates a shift of the mean of the probability distribution. Indeed, on average, Warp World would reveal 3 creatures (<em>sd</em> = 1 creatures) and 4 lands (<em>sd</em> = 1 lands) with the latter deck.</p>
+
+<p>How would Figures 3 and 4 change if we increased the number of permanents on the battlefield before casting Warp World to, say, 20 permanents (<em>y</em> = 20)? The probability distribution of <em>x<sub>i</sub></em> in Figure 3 would look like this</p>
+
+<p><a href="/assets/posts/2019-07-15-Probability-warp-world/figure5.jpg"><img src="/assets/posts/2019-07-15-Probability-warp-world/figure5.jpg" alt="Figure 5" title="Figure 5" class="PostImage PostImage--large" /></a></p>
+
+<p>and would have mean 5 creatures (<em>sd</em> = 2) and 8 lands (<em>sd</em> = 2), while the distribution in Figure 4 would look like this</p>
+
+<p><a href="/assets/posts/2019-07-15-Probability-warp-world/figure6.jpg"><img src="/assets/posts/2019-07-15-Probability-warp-world/figure6.jpg" alt="Figure 6" title="Figure 6" class="PostImage PostImage--large" /></a></p>
+
+<p>and have mean 8 creatures (<em>sd</em> = 2) and 9 lands (<em>sd</em> = 2).</p>
+
+<p>Of course, we could calculate probability distributions for decks that have non-zero artifacts and enchantments as well but it would be difficult to visualize them, as we would be using higher dimensions than before. Similarly, the same approach could be used for different, mutually exclusive distinctions (e.g., green creatures vs. red creatures vs. other permanents; ramp permanents vs. graveyard recursion permanents).</p>
+
+<p>There are many things that can be done moving forward. For instance, we could use Eq. 6-8 to investigate how cards that generate mana or produce more than one permanent can net mana or permanents, then describe the necessary and sufficient conditions to create loops with Warp World.</p>
+
+<p><a href="#" class="btn btn--small btn--light-outline">top</a></p>
+
+<h1 id="tokens">Tokens</h1>
+<p>So far, we’ve worked under the assumption that when we cast Warp World, the only sort of permanent we have on the battlefield (and thus the number of cards we will reveal with Warp World) are the ones contained in our deck—that is, Ψ ⊆ Λ. In some cases, this will be true; in others, however, it won’t, as we might have tokens on the battlefield, which will increase the number of cards revealed with Warp World but it doesn’t mean we’ll shuffle that many cards into our library. Fortunately, taking tokens into account does not require us to make huge changes to the previous equations. Specifically, if Ψ ⊆ Λ is not true, then by the end of the <strong>second</strong> step of Warp World, our new library will have size |Θ| + |Ψ ∩ Λ|, instead of |Θ ∪ Ψ|, in which Ψ ∩ Λ are all permanents on the battlefield that are permanents from our deck (i.e., all non-token permanents). Everything else remains the same.</p>
+
+<p><a href="#" class="btn btn--small btn--light-outline">top</a></p>
+
+<h1 id="other-similar-spells">Other Similar Spells</h1>
+<p>There are a few other spells that in one way or another, do something that is quite similar to what Warp World does. One example that comes to mind is <strong>The Great Aurora</strong>. I have no doubt we can use the Warp World model to compute probabilities for those spells as well. We just need to tweak the model a little bit to make it consistent with the wording used in similar spells (e.g., great aurora also makes we shuffle our hand).</p>
+
+<p><a href="/assets/posts/2019-07-15-Probability-warp-world/great-aurora.jpg"><img src="/assets/posts/2019-07-15-Probability-warp-world/great-aurora.jpg" alt="The great aurora" class="PostImage" /></a></p>
+
+<p><a href="#" class="btn btn--small btn--light-outline">top</a></p>
+
+<h1 id="other-approaches">Other Approaches</h1>
+<p>We could find probability distributions empirically. Goldfish a Warp World deck, say, a thousand times, take note of the relevant stats prior to and after casting Warp World, and estimate the distributions empirically.</p>
+
+<p><a href="#" class="btn btn--small btn--light-outline">top</a></p>
+
+<h1 id="final-remarks">Final Remarks</h1>
+<p>We end with a cautionary note. We know that adding more permanents to a Warp World deck usually yields a better outcome—that is, <em>the more permanents we have in the deck</em>, <em>the more permanents we’ll likely reveal with Warp World</em>. However, it would be inappropriate to simply compare mean differences to draw conclusions about different Warp World decks. That is because changing properties of Warp World decks will likely change the variance of their distributions. One possible solution is to use a <strong>standardized measure of the compound mean difference</strong>–that is, the standardized measure of distance between the means of two <em>Pr</em>(<em>x<sub>i</sub></em>) distributions.</p>
+
+<p><a href="#" class="btn btn--small btn--light-outline">top</a></p>
 
         
       </section>
