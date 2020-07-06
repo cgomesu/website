@@ -1,0 +1,897 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.19.3 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>NanoPi M4 mini-NAS - CGomesu</title>
+<meta name="description" content="A blog and portfolio website built with Jekyll and hosted on Github Pages">
+
+
+  <meta name="author" content="Carlos Gomes">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="CGomesu">
+<meta property="og:title" content="NanoPi M4 mini-NAS">
+<meta property="og:url" content="http://localhost:4000/blog/Nanopi-m4-mini-nas/">
+
+
+  <meta property="og:description" content="A blog and portfolio website built with Jekyll and hosted on Github Pages">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/posts/2020-06-22-Nanopi-m4-mini-nas/header.jpg">
+
+
+
+
+
+  <meta property="article:published_time" content="2020-06-22T12:00:00-03:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/blog/Nanopi-m4-mini-nas/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+  <meta name="google-site-verification" content="FA-B3i_TqYeaLPYwZvxxOsx07Coy_drBKJ0M_4DD0Gw" />
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="CGomesu Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="icon" href="/assets/img/site/favicon.ico" type="image/x-icon">
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/img/site/logo.png" alt=""></a>
+        
+        <a class="site-title" href="/">
+           
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/blog/">Blog</a>
+            </li><li class="masthead__menu-item">
+              <a href="/contact/">Contact</a>
+            </li><li class="masthead__menu-item">
+              <a href="/mtg/">MtG</a>
+            </li><li class="masthead__menu-item">
+              <a href="/publications/">Publications</a>
+            </li><li class="masthead__menu-item">
+              <a href="/projects/">Projects</a>
+            </li><li class="masthead__menu-item">
+              <a href="/resume/">Resume</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style="background-color: #000; background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('/assets/posts/2020-06-22-Nanopi-m4-mini-nas/header.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 id="page-title" class="page__title" itemprop="headline">
+        
+          NanoPi M4 mini-NAS
+
+        
+      </h1>
+      
+        <p class="page__lead">
+</p>
+      
+      
+        <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  34 minute read
+
+</p>
+      
+      
+      
+    </div>
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/img/profile/profile-00.jpg" alt="Carlos Gomes" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Carlos Gomes</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>I’m a scientist, psychologist, math modeler, programmer, mtg player, free knowledge supporter, sbc fanatic, and electronics hobbyist.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Brazil</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="mailto:me@cgomesu.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Main e-mail</span></a></li>
+          
+        
+          
+        
+          
+            <li><a href="https://cgomesu.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">https://cgomesu.com</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="NanoPi M4 mini-NAS">
+    <meta itemprop="description" content="">
+    <meta itemprop="datePublished" content="2020-06-22T12:00:00-03:00">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-list"></i> Table of Contents</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#hardware">Hardware</a>
+    <ul>
+      <li><a href="#nanopi-m4-v2">NanoPi M4 v2</a></li>
+      <li><a href="#nanopi-m4-heatsink">NanoPi M4 heatsink</a></li>
+      <li><a href="#nanopi-m4-16-32gb-emmc--micro-sd-adapter">NanoPi M4 16-32gb eMMC (+ micro-SD adapter)</a></li>
+      <li><a href="#nanopi-m4-sata-hat--passive-cooler--cables">NanoPi M4 SATA hat (+ passive cooler + cables)</a></li>
+      <li><a href="#12v-8a-power-supply-unit-psu">12v (8A) power supply unit (PSU)</a></li>
+      <li><a href="#25-hard-disk-drive-hdd">2.5” hard disk drive (HDD)</a></li>
+      <li><a href="#kirkdis-3d-printed-case">kirkdis’ 3D printed case</a></li>
+      <li><a href="#fan-50x50x15mm-12v-08a">Fan 50x50x15mm 12v (.08A)</a></li>
+    </ul>
+  </li>
+  <li><a href="#software">Software</a>
+    <ul>
+      <li><a href="#pwm-fan-controller">PWM Fan controller</a></li>
+    </ul>
+  </li>
+  <li><a href="#assembly">Assembly</a>
+    <ul>
+      <li><a href="#my-printed-cases">My printed cases</a>
+        <ul>
+          <li><a href="#my-opinion-about-the-case">My opinion about the case</a></li>
+          <li><a href="#procedure">Procedure</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#final-remarks">Final Remarks</a></li>
+  <li><a href="#bonus-content">Bonus Content</a>
+    <ul>
+      <li><a href="#real-time-clock">Real time clock</a></li>
+    </ul>
+  </li>
+</ul>
+
+            </nav>
+          </aside>
+        
+        <p>This article is about my mini network-attached storage (NAS) project based on FriendlyARM’s <a href="http://wiki.friendlyarm.com/wiki/index.php/NanoPi_M4">NanoPi M4</a> and its <a href="http://wiki.friendlyarm.com/wiki/index.php/NanoPi_M4_SATA_HAT">SATA hat</a>.  If you’re looking for a cheap, low-profile, low-power NAS solution for your home–or if you just like single-board computers (SBC)–then this article is for you.</p>
+
+<p>Here’s a preview of how my NanoPi M4 mini-NAS looks like next to a Raspberry Pi 3B:</p>
+
+<p><a href="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-final-and-rpi.jpg"><img src="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-final-and-rpi.jpg" alt="Final NAS" class="PostImage" /></a></p>
+
+<p>If you like it and want to build something similar, read on.  This article should give you a fairly good idea about the following:</p>
+
+<ul>
+  <li>What to buy;</li>
+  <li>What to install at the operating system (OS) and NAS management level;</li>
+  <li>How to put everything together and get it up and running.</li>
+</ul>
+
+<p>After that, you’re free to do whatever you want for your own use-case (disk partitions, storage systems, file sharing method, applications, etc.).</p>
+
+<h1 id="introduction">Introduction</h1>
+<p>The NanoPi M4 is a SBC made by FriendlyARM (a.k.a. FriendlyElec), a Chinese company based in Guandong.  They have their own <a href="https://www.friendlyarm.com/">online store</a> that you can use to buy a few of the boards and components they develop but chances are you can also buy from pretty much any of the large retail stores out there (e.g., AliExpress, Amazon, Newegg).  [I bought all components from AliExpress, for example, from the folks at <a href="https://embedunion.aliexpress.com/store/113595">RealQvol</a>.]  FriendlyARM also has a fairly good <a href="http://wiki.friendlyarm.com/wiki/index.php/Main_Page">wiki</a> that documents the main aspects of their boards.</p>
+
+<p>For a general review of the board, check these two videos:</p>
+
+<!-- Courtesy of embedresponsively.com //-->
+<div class="responsive-video-container">
+
+  <iframe src="https://www.youtube-nocookie.com/embed/knS854Taz-E" frameborder="0" allowfullscreen=""></iframe>
+
+</div>
+
+<!-- Courtesy of embedresponsively.com //-->
+<div class="responsive-video-container">
+
+  <iframe src="https://www.youtube-nocookie.com/embed/sxND3lLSwB4" frameborder="0" allowfullscreen=""></iframe>
+
+</div>
+
+<p>You can also find a CPU performance comparison between the NanoPi M4 v2 and the Raspberry Pi 4 at <a href="https://www.androidpimp.com/embedded-single-board-computers/raspberry-pi-4-vs-nanopi-m4v2/">this blog post</a>, which suggests that the NanoPi M4 is superior and will be able to run tasks more efficiently than the RPi 4.</p>
+
+<p>In the following sections, I talked about the hardware (board, hat, case, drive choices and power supply), then the software (OS + NAS management interface) and finally, assembly and board/hat testing.  The article ends with a very brief presentation of my current configuration for the mini-NAS.</p>
+
+<p><a href="#" class="btn btn--small btn--light-outline">top</a></p>
+
+<h1 id="hardware">Hardware</h1>
+<p>For this project, I’m using the following hardware:</p>
+<h2 id="nanopi-m4-v2">NanoPi M4 v2</h2>
+<p>I’m using the <strong>2nd version</strong> (v2) of this board but everything should apply to v1.  I think the major differences between the two is that the <strong>v2 has LPDDR4 RAM</strong>, instead of LPDDR3, a power button, the eMMC is connected the opposite way and screwed to the board, and the v2 looks slightly cleaner than the v1.  Other than that, when buying one, you’ll have the option to buy with 2GB or 4GB of RAM.  I’m using the one with <strong>4GB of RAM</strong> and I recommend it if you’re going to use it as a NAS, even if you’re not going to use a RAM intensive filesystem like ZFS.  (For reference, ext4 uses very little RAM and a 2GB version won’t have any issues sharing files at all.  The problem in those cases is when you start adding applications to your NAS.)</p>
+
+<p><a href="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4v2-board.jpg"><img src="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4v2-board.jpg" alt="Nanopi M4 v2 board" class="PostImage PostImage--large" /></a></p>
+
+<h2 id="nanopi-m4-heatsink">NanoPi M4 heatsink</h2>
+<p>This little fella gets pretty hot but fortunately, this massive heatsink does a decent job at keeping it cool.  For even better performance, try adding a fan, use thermal paste instead of a pad, or use a copper heatsink with a large surface area.</p>
+
+<p><a href="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-heatsink.jpg"><img src="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-heatsink.jpg" alt="Nanopi M4 heatsink" class="PostImage" /></a></p>
+
+<h2 id="nanopi-m4-16-32gb-emmc--micro-sd-adapter">NanoPi M4 16-32gb eMMC (+ micro-SD adapter)</h2>
+<p>The adapter makes it easy to flash an OS image directly onto the eMMC, so make sure to buy one.  As far as I know, you don’t need to use an eMMC with the NanoPi M4.  A micro-SD will do the trick but of course, it’s slower than an eMMC.  However, an eMMC is slower than a solid state drive (SSD), so if you know how to run the OS from a SSD, let me know.  Either way, the OS and NAS program we’re going to use is already configured to reduce the amount of writes to the eMMC/micro-SD/SSD (it comes configured to not use a swap partition and to write /tmp to memory instead of disk, for example), which is good news if you’re worried about wearing it out.</p>
+
+<p><a href="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-emmc.jpg"><img src="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-emmc.jpg" alt="Nanopi M4 eMMC" class="PostImage" /></a></p>
+
+<h2 id="nanopi-m4-sata-hat--passive-cooler--cables">NanoPi M4 SATA hat (+ passive cooler + cables)</h2>
+<p>This little hat has a <a href="https://www.marvell.com/content/dam/marvell/en/public-collateral/storage/marvell-storage-88se92xx-product-brief-2012-04.pdf">Marvell 88SE9215</a> Four-Port 6 Gbps SATA I/O Controller.  It usually comes with two SATA interface cables and one SATA power cable able to power two drives.  If you’re going to use more than two drives, like me, make sure to buy additional SATA interface cables and an extension/splitter for the SATA power cable (e.g., <a href="https://www.amazon.com/StarTech-com-Power-Splitter-Adapter-PYO4SATA/dp/B0086OGN9E/ref=sr_1_7?dchild=1&amp;keywords=sata+power+extension+cable&amp;qid=1591723716&amp;sr=8-7">StarTech splitter</a>).</p>
+
+<p><a href="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-sata-hat.jpg"><img src="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-sata-hat.jpg" alt="Nanopi M4 SATA hat" class="PostImage" /></a></p>
+
+<p>If you plan on using the same 3d printed case I’m using (see <a href="#kirkdis-3d-printed-case">kirkdis’ 3D printed case</a>), make sure to buy SATA cables with <strong>straight/horizontal connector on both ends of the cable</strong>.  That case is <em>very</em> tight, so you might want to consider buying at least two shorter than usual SATA cables for the HDDs closer to the base.</p>
+
+<p><a href="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-sata-cables.jpg"><img src="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-sata-cables.jpg" alt="Nanopi M4 SATA hat" class="PostImage" /></a></p>
+
+<h2 id="12v-8a-power-supply-unit-psu">12v (8A) power supply unit (PSU)</h2>
+<p>If you’re using the SATA hat, you only need a single PSU to provide power to everything, and there are even two different options to do that: (a) via the DC 5.5x2.1mm jack on the SATA hat, using an external PSU (e.g., <a href="https://www.amazon.com/ALITOVE-100-240V-Converter-Transformer-5-5x2-1mm/dp/B07MXXXBV8/ref=sr_1_3?dchild=1&amp;keywords=psu+12v+10a+5.5x2.1mm&amp;qid=1591721696&amp;s=electronics&amp;sr=1-3">Alitove</a>); or (b) via the 4-pin 12v connector, also on the SATA hat, using a low power (&lt; 200W) PC PSU.  If you’re going to use four low revolutions per minute (RPM) 2.5” HDDs (e.g., 5400 RPM), or four SSDs, a 12v PSU that is able to deliver up to 3A should be enough.  However, if you’re driving high-RPM 2.5” HDDs (e.g., 7200RPM) or 3.5” HDDs, then do the math before powering the components.  If you want to be safe, just get a 12v PSU that is able to deliver up to 8A.</p>
+
+<p><a href="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-psu-connections.jpg"><img src="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-psu-connections.jpg" alt="NanoPi M4 PSU connections" class="PostImage PostImage--large" /></a></p>
+
+<p>Please note that if you’re planning on using a PC PSU, you’ll need to “hack it” in order to use the PSU without plugging it into a mobo.</p>
+
+<p class="notice--danger">If you’re not 100% sure about tinkering with anything related to electricity, do not attempt to modify any PSU you might have lying around and just buy a 12v (8A) external PSU.  You can die even if the PSU is not connected to an outlet, owing to the presence of massive capacitors inside the PSU.  I cannot emphasize this enough.  Also, don’t go around cutting its cables to just make it look cute.  You might need them later.</p>
+
+<p>Alright, if you really want to use a PC PSU, follow the instructions in this video (but use a proper cable to connect the pins and make sure it’s well secured):</p>
+
+<!-- Courtesy of embedresponsively.com //-->
+<div class="responsive-video-container">
+
+  <iframe src="https://www.youtube-nocookie.com/embed/j4erf6SuqdI" frameborder="0" allowfullscreen=""></iframe>
+
+</div>
+
+<h2 id="25-hard-disk-drive-hdd">2.5” hard disk drive (HDD)</h2>
+<p>You can run 3.5” drives as well but if you plan to keep power consumption at a minimum, I suggest running 2.5” drives instead or better yet, SSDs.  Here, I’m going to use <strong>four 2.5” WD Black HDD</strong> because they are fast (7200rpm as opposed to the traditional 5400rpm for 2.5” drives) and I don’t have a need for a large local storage space.  (Just be careful that the 1TB 2.5” WD Black <a href="https://www.westerndigital.com/products/internal-drives/wd-black-hdd">model WD10SPSX is actually SMR</a>.)  In general, my preference order is the following: SSD &gt; 2.5” CMR HDD &gt; 3.5” NAS HDD &gt; 3.5” other CMR HDD &gt; 2.5” whatever HDD &gt; 3.5” whatever HDD.  Of course, you don’t need to use all four SATA ports if there’s no demand for it.</p>
+
+<p><a href="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/hdd-wb-black-25-500gb.jpg"><img src="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/hdd-wb-black-25-500gb.jpg" alt="2.5&quot; WD Black HDD 500GB" class="PostImage" /></a></p>
+
+<p><a href="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/hdd-wb-black-25-750gb.jpg"><img src="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/hdd-wb-black-25-750gb.jpg" alt="2.5&quot; WD Black HDD 750GB" class="PostImage" /></a></p>
+
+<h2 id="kirkdis-3d-printed-case"><a href="https://www.thingiverse.com/thing:3736661">kirkdis’ 3D printed case</a></h2>
+<p>There are other 3D printed cases out there but I like kirkdis’ take on a minimal case for the NanoPi M4 and 2.5” drives.  Notice that there are 3- and 4-bay versions of the HDD case and mounts.  More specifically, for this project, I printed the following pieces:</p>
+
+<ul>
+  <li>01 x <code class="language-plaintext highlighter-rouge">topcase_all_versions.stl</code></li>
+  <li>01 x <code class="language-plaintext highlighter-rouge">fanmount_all_versions.stl</code></li>
+  <li>04 x <code class="language-plaintext highlighter-rouge">4bay_discmount.stl</code></li>
+  <li>01 x <code class="language-plaintext highlighter-rouge">4bay_hddbase.stl</code></li>
+</ul>
+
+<p>If you don’t have a 3D printer, don’t worry about it!  Just Google <code class="language-plaintext highlighter-rouge">3d printing service</code> and you’ll find plenty of options to choose from.  You shouldn’t have to pay more than $100 for this case, for reference.  Also, remember to <a href="https://www.amazon.com/hard-drive-screws/s?k=hard+drive+screws"><strong>buy screws</strong></a> for your HDDs, if you don’t have a bunch a lying around. You’ll need 08 for the bottom and top HDDs (16) + 04 for each in between (08), for a total of <strong>24 screws</strong> for four drives.</p>
+
+<p><a href="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-kirkdis-case.png"><img src="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-kirkdis-case.png" alt="3D case stl" class="PostImage" /></a></p>
+
+<p>Another option is to buy a <a href="https://www.amazon.co.uk/OImaster-Backplane-Function-Hot-swap-Transmission/dp/B074V52L9D">4-bay enclosure for your drives</a> and use some sort of <a href="https://www.amazon.com/GeeekPi-Raspberry-Cluster-Cooling-Heatsink/dp/B07MW3GM1T/ref=sr_1_1?dchild=1&amp;keywords=stackable+case+rpi&amp;qid=1591726436&amp;sr=8-1">stackable case</a> for your NanoPi M4.  If you go with this solution, remember to buy extra spacers to make room for the SATA hat and cables (and you might need longer cables).  Alternatively, you can always use a standard computer case (or rack mounted) that has support for 4 drives.  Get rid of the mobo and you’re probably all set (see my note on modifying a PC PSU).</p>
+
+<h2 id="fan-50x50x15mm-12v-08a">Fan 50x50x15mm 12v (.08A)</h2>
+<p>(Size for kirkdis’ 3D printed case. You’d want something different if you’re using another case.) You can probably find a .2A fan with the same dimensions, which will move more air but will be louder.  (If you’re going to use the PWM connector, take a look at <a href="#pwm-fan-controller">PWM Fan controller</a> to learn how to use it.)</p>
+
+<p><a href="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/fan.png"><img src="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/fan.png" alt="50x50x15mm Fan" class="PostImage" /></a></p>
+
+<p>Additionally, you might want to buy a filter for the fan. However, notice that <em>there’s no space for the filter inside the 3d printed case</em> but you can glue/attach it to the outside (that’s what I’ve done with the one I bought).</p>
+
+<p><a href="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/fan-filter.png"><img src="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/fan-filter.png" alt="50x50x15mm Fan-filter" class="PostImage" /></a></p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="software">Software</h1>
+<p>For the OS, I’m using the <strong>server edition</strong> of the <strong>Armbian Buster</strong> with <strong>Kernell 5.4</strong>.  You can download the image from the <a href="https://www.armbian.com/nanopi-m4/#kernels-archive-all">official Armbian website</a>.  Don’t skip the integrity check.  On Linux, just open a terminal and run <code class="language-plaintext highlighter-rouge">sha1sum /path/to/file.img.xz</code> and check the output against the SHA file from the Armbian website.  This ensures your downloaded file has the same hash as the true file.  If you’ve ever used Debian or derivatives before (e.g., Ubuntu, Raspbian), Armbian will feel like home.</p>
+
+<p><a href="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-sshwelcome-lscpu.jpg"><img src="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-sshwelcome-lscpu.jpg" alt="SSH welcome and lscpu" class="PostImage PostImage--large" /></a></p>
+
+<p>If you don’t like terminals, don’t worry.  You pretty much don’t need to ever see it again because we’ll be managing everything from <a href="https://www.openmediavault.org">Openmediavault 5 (OMV5)</a>.  I’ve been using OMV since the 3rd edition as my go-to NAS solution and it has never let me down.  It’s not super fancy, like freeNAS and unraid, but it will get the job done for most home-users.  Plus, it’s free and <a href="https://github.com/openmediavault/openmediavault">open-source</a> and this matters to me.  It also comes with a bunch of packages that facilitate file sharing, monitoring resources, manage users, plug-ins, etc., and it has a very clean graphical user interface accessible via web-browser (webUI):</p>
+
+<p><a href="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/omv4-dashboard.png"><img src="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/omv4-dashboard.png" alt="OMV4 dashboard" class="PostImage PostImage--large" /></a></p>
+
+<p>In addition, the folks at OMV put together a guide on their Github repo that tells exactly <a href="https://github.com/OpenMediaVault-Plugin-Developers/docs/blob/master/Adden-A-Installing_OMV5_on_Armbian.pdf">how to install OMV on Armbian</a>.  Download their PDF and follow it step-by-step, with the following exceptions:</p>
+
+<ul>
+  <li>Instead of flashing the OS image onto a micro-SD, plug your eMMC into the micro-SD adapter and then flash the OS image onto the eMMC.</li>
+  <li>Before turning the NanoPi M4 on with the eMMC installed for the first time, remove any drives connected to the SATA hat.  This is more of a cautionary move than anything else.  We want to minimize the risk of corrupting the eMMC at these initial configuration steps and there’s no need for additional drives at this point.  We’ll add them after we’re done installing OMV5.  The same applies to any other device connected to the NanoPi M4, like USB devices.  Keep it simple right now.</li>
+</ul>
+
+<p>As you’ll learn, the OMV installation script will take some time to finish.  We’re talking about more than 10min.  Be patient!  Afterwards, open a web browser and log into OMV’s WebUI and do your thing or read the <a href="https://github.com/OpenMediaVault-Plugin-Developers/docs/blob/master/Getting_Started-OMV5.pdf">Getting Started Guide</a> that the OMV team wrote.</p>
+
+<h2 id="pwm-fan-controller">PWM Fan controller</h2>
+<p>The <strong>2-PIN PH2.0 connector</strong> on the SATA hat is a power width modulated (PWM) connector for a 12v fan.</p>
+
+<p><a href="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-fan-pwm.jpg"><img src="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-fan-pwm.jpg" alt="PWM fan connector" class="PostImage" /></a></p>
+
+<p>However, this connector is not enabled by default and furthermore, the Armbian OS does not come with a service that allows you to control the fan speed according to the CPU temperature.  Fortunately, other users have reported this issue before and a few of them have even written scripts to fix this issue.  To make it easier for me (and everyone else), I’ve made slight changes to <a href="https://forum.armbian.com/topic/11086-pwm-fan-on-nanopi-m4/?tab=comments#comment-95180">mar0ni’s script</a> and created a Github repo (<strong><a href="https://github.com/cgomesu/nanopim4-satahat-fan">cgomesu/nanopim4-satahat-fan</a></strong>) that has two bash scripts and a systemd service file that will run the PWM fan controller as a background service.  To install and run the scripts, read the <a href="https://github.com/cgomesu/nanopim4-satahat-fan/blob/master/README.md">README.md</a> or follow these instructions:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Clone the repo and test the scripts
+
+apt-get update
+apt-get install git
+cd /opt
+git clone https://github.com/cgomesu/nanopim4-satahat-fan.git
+cd nanopim4-satahat-fan
+# Allow the ON and OFF scripts to be executed
+chmod +x pwm-fan-on.sh
+chmod +x pwm-fan-off.sh
+# Test run the ON script
+bash pwm-fan-on.sh
+# Press ctrl+c after a few seconds to send a SIGINT and stop the script
+# Test run the OFF script to disable the fan
+bash pwm-fan-off.sh
+
+# If everything looks good, then run the scripts as a systemd service:
+
+# Copy the pwm-fan.service file to your systemd folder
+cp /opt/nanopim4-satahat-fan/pwm-fan.service /lib/systemd/system/
+# Enable the service and start it
+systemctl enable pwm-fan.service
+systemctl start pwm-fan.service
+# Check the service status to make sure it's running without issues
+systemctl status pwm-fan.service
+# Make sure the OFF script is running corrently when the service is stopped
+systemctl stop pwm-fan.service
+# Then start the service again
+systemctl start pwm-fan.service
+</code></pre></div></div>
+
+<p><strong>Alternatively</strong>, if you don’t want to play around with PWM stuff and are okay with having your fan at 100%, 24/7, then you can just connect it to the board as follows:</p>
+
+<p><a href="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-fan-alternative-alwayson.jpg"><img src="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-fan-alternative-alwayson.jpg" alt="PWM fan alt connector" class="PostImage PostImage--small" /></a></p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="assembly">Assembly</h1>
+<p>If you’re like me, you’ll not receive all parts at the same time and you’ll only print the case after making sure that the board and hat are both working.</p>
+
+<p><a href="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-parts.jpg"><img src="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-parts.jpg" alt="Nanopi M4 parts on table" class="PostImage PostImage--large" /></a></p>
+
+<p>The first thing you’ll want to do is <strong>to flash the OS onto the eMMC</strong>.  That’s because the eMMC will not be as accessible as a micro-SD card and HDDs once the SATA hat is installed–it is screwed to the board itself, above the audio jack (in v2, and above the HDMI in v1).</p>
+
+<p>After that, install the eMMC and the SATA hat.  Your SBC should look something like this right now:</p>
+
+<p><a href="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-assembled-01.jpg"><img src="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-assembled-01.jpg" alt="Nanopi M4 with hat 01" class="PostImage" /></a></p>
+
+<p><a href="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-assembled-02.jpg"><img src="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-assembled-02.jpg" alt="Nanopi M4 with hat 02" class="PostImage" /></a></p>
+
+<p>Now, it’s time to test the board and the SATA hat.  <strong>Connect the board to an Ethernet cable and plug it into your 12v PSU.</strong>  Observe the red and green LEDs as it turns on and starts running the OS for the first time.</p>
+
+<p><a href="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-psu-test01.jpg"><img src="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-psu-test01.jpg" alt="Nanopi M4 connected to PSU" class="PostImage" /></a></p>
+
+<p>Go ahead and <strong>find out which IP address your DHCP server gave to your NanoPi M4</strong> (you might also be able to find it via the hostname nanopim4) and ping it to check it’s up and running.  If it’s replying, then <strong>SSH into it</strong> with <code class="language-plaintext highlighter-rouge">root</code> (default pass is <code class="language-plaintext highlighter-rouge">1234</code>).  When logging in for the first time, Armbian will ask to change password and to create a new sudo user.  Go ahead and do that.  (I’ll assume that from this point on, you’ll still be using <code class="language-plaintext highlighter-rouge">root</code> instead of the sudo user.  If you’re using the latter though, then add a <code class="language-plaintext highlighter-rouge">sudo</code> prefix to each of the commands below.)</p>
+
+<p>Afterwards, run the <a href="https://docs.armbian.com/User-Guide_Armbian-Config/"><strong>armbian configuration utility</strong></a> to make sure your NAS has the correct time, date, UTC offset, apt mirrors, etc., by running the command</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>armbian-config
+</code></pre></div></div>
+<p>(Depending on what you chose to change here, Armbian will need to reboot.  That’s fine.  Just SSH into it again afterwards.)  Now, let’s make sure all packages that came with the OS are up-to-date by running</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt update &amp;&amp; apt upgrade -y
+</code></pre></div></div>
+<p>Go back to your router/firewall and assign a static IP address to your NanoPi M4 and then reboot the NanoPi</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>reboot now
+</code></pre></div></div>
+<p>After reboot, wait a few seconds and try to SSH into the static IP address you gave to the NanoPi and if everything looks good, it’s time to run the <strong>OMV installation script</strong> (see <a href="#software"><strong>software</strong></a>).  Again, this will take some time.  <strong>Be patient!</strong>  When it’s done, open a web-browser and type the static IP address of your NanoPi M4.  At this point, it’s a good idea to do at least the following in <strong>System</strong> (remember to <strong>Apply changed settings</strong> every time it asks you to):</p>
+
+<ol>
+  <li>Change your default admin password in <strong>General Settings</strong>.  This will only affect access to OMV’s webUI.  It has nothing to do with your Linux user credentials;</li>
+  <li>Check <strong>Date/Time</strong> settings to make sure they are right;</li>
+  <li>Enable <strong>System Monitoring</strong>;</li>
+  <li>Enable and configure <strong>Notification</strong>;</li>
+  <li>In <strong>Power Management</strong>, enable Monitoring and select the Shutdown action for the power button;</li>
+  <li><strong>Reboot</strong> via the webUI (arrow at the top right corner / reboot).</li>
+</ol>
+
+<p>After rebooting, check your <strong>Storage</strong> and <strong>Diagnostics</strong> tabs.  In Storage / Disks, there should be a single device for the OS eMMC.  Later on, we will come back to see if the drives plugged into the SATA hat are showing up here.</p>
+
+<p>In Diagnostics / Sys Info, check all tabs to make sure they are displaying things correctly.  Your OMV should be collecting Performance Stats at this point, so there should be graphs available.</p>
+
+<p>(If you’re new to OMV, take your time here and explore it a little bit.  This is a good time to read the Getting Started guide and get yourself familiarized with the webUI.)</p>
+
+<p>If everything is good, <strong>shutdown the NanoPi via the webUI</strong>.  With everything off (none of the LEDs should be red), plug one or more HDDs to the SATA hat, as follows (I’m using an old 500GB Toshiba 2.5” HDD in the pictures below just for testing):</p>
+
+<p><a href="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-hdd-test01.jpg"><img src="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-hdd-test01.jpg" alt="Nanopi M4 hat HDD test" class="PostImage" /></a></p>
+
+<p>Now, <strong>turn on</strong> the board.  You should notice a new LED on the other side of the SATA hat lighting up right away.  (The hat has LEDs for each SATA port.  If it’s not lighting up for a connected drive, you already know there’s a problem, like insufficient power or a bad connection.)  Go to the <strong>OMV webUI</strong> and in <strong>Storage / Disks</strong>, see if the NanoPi was able to detect your HDD connected to the SATA hat correctly.  If not, press the ‘Scan’ button and check again.  You can repeat this process for each SATA interface if you want.</p>
+
+<p><a href="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-satahat-test-toshiba25hdd.jpg"><img src="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-satahat-test-toshiba25hdd.jpg" alt="Storage/Disks OMV webUI" class="PostImage PostImage--large" /></a></p>
+
+<p>At this point, if it looks like the board and SATA hat are working as they should, then <strong>it’s time to put everything inside the case</strong>.</p>
+
+<h2 id="my-printed-cases">My printed cases</h2>
+<p>As I’ve mentioned before, I’m using kirkdis’ 3D printed case. I printed two cases for this project. This is the first one:</p>
+
+<p><a href="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-case01.jpg"><img src="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-case01.jpg" alt="CGomesu case 01" class="PostImage" /></a></p>
+
+<p><a href="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-case02.jpg"><img src="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-case02.jpg" alt="CGomesu case 02" class="PostImage" /></a></p>
+
+<p>And here’s the second (backup) case:</p>
+
+<p><a href="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-backup-case.jpg"><img src="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-backup-case.jpg" alt="CGomesu backup case" class="PostImage" /></a></p>
+
+<p><a href="https://scheisser.net/?p=7781">In kirkdis’ last post</a>, he mentioned</p>
+<blockquote>
+  <p>“… to be careful when you put the upper case over the external ports as this is the most fragile part. Designwise I didn´t found a workaround for this area as result it can happen if you push too much that the connections between the ports break off but with a liztle bit patience you can set iz in place as one piece.”</p>
+</blockquote>
+
+<p>I think I read his comment a bit too late:</p>
+
+<p><a href="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-frankensteins-case-01.jpg"><img src="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-frankensteins-case-01.jpg" alt="CGomesu backup case" class="PostImage" /></a></p>
+
+<p>but I managed to fix it a little bit by the end:</p>
+
+<p><a href="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-frankensteins-case-02.jpg"><img src="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-frankensteins-case-02.jpg" alt="CGomesu backup case" class="PostImage" /></a></p>
+
+<h3 id="my-opinion-about-the-case">My opinion about the case</h3>
+
+<p>The HDD case and disk mounts feel very sturdy in comparison to the board case (a.k.a. upper case). I feel the <strong>board case</strong> could be improved in the following way:</p>
+
+<ol>
+  <li>Add <strong>thicker walls</strong>, especially where the USB ports and the DC jack are;</li>
+  <li>Add a way of <strong>screwing</strong> the board to the case;</li>
+  <li>Make the base of the fan mount thinner, so we can use the screws that come along with the board, instead of having to find longer screws just for that.</li>
+</ol>
+
+<p><a href="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-screws.jpg"><img src="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-screws.jpg" alt="CGomesu backup case" class="PostImage" /></a></p>
+
+<p>Regarding the <strong>whole case</strong>:</p>
+
+<ol>
+  <li>It could be <strong>a bit larger</strong> to make room for the cables and improve air flow.  Right now, it’s an extremelly tight fit if you’re using four HDDs and some cables get bent in ways that are probably not good for them in the long run;</li>
+  <li>Because all printed pieces are so tightly connected to each other, <strong>there’s very little room for error</strong> when printing them. I feel that both the HDD case and board case should be a little looser and rely more on <strong>screws</strong> to secure the printed pieces to the hardware.  Honestly, it was kind of a pain to attach and remove the board to the board case, and similarly, the HDD stack to the HDD case. It felt <em>too</em> tight with both cases I printed.</li>
+</ol>
+
+<p>Honestly, I don’t know shit about 3d printing.  This is just my opinion on how the case could be improved.  If something I said doesn’t make sense, let me know.</p>
+
+<h3 id="procedure">Procedure</h3>
+<p>If you don’t want to figure out how to put all pieces together on your own, take a look at kirkdis’ video and notice how he disassembled his unit:</p>
+
+<!-- Courtesy of embedresponsively.com //-->
+<div class="responsive-video-container">
+
+  <iframe src="https://www.youtube-nocookie.com/embed/zmxovsvsy_I" frameborder="0" allowfullscreen=""></iframe>
+
+</div>
+
+<p>My advice is to do the following:</p>
+
+<ul>
+  <li>Start by attaching the HDDs to the four disk mount pieces, so that you have a nice stack by the end of this step;</li>
+</ul>
+
+<p><a href="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-hdd-stack-01.jpg"><img src="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-hdd-stack-01.jpg" alt="CGomesu backup case" class="PostImage" /></a></p>
+
+<p><a href="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-hdd-stack-02.jpg"><img src="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-hdd-stack-02.jpg" alt="CGomesu backup case" class="PostImage" /></a></p>
+
+<p><a href="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-hdd-stack-03.jpg"><img src="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-hdd-stack-03.jpg" alt="CGomesu backup case" class="PostImage" /></a></p>
+
+<ul>
+  <li>Connect all the SATA data and SATA power cables to the SATA hat;</li>
+</ul>
+
+<p><a href="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-sata-ports.jpg"><img src="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-sata-ports.jpg" alt="CGomesu backup case" class="PostImage" /></a></p>
+
+<ul>
+  <li>
+    <p>Attach the fan to the mount and the mount to the SATA hat and plug it to the board;</p>
+  </li>
+  <li>
+    <p>Put the board with the fan mount inside its case, making sure all the SATA cables are accessible from the other side of the case, where the HDDs will be;</p>
+  </li>
+  <li>
+    <p>Attach the HDD stack to the base of the board case and connect the SATA cables;</p>
+  </li>
+</ul>
+
+<p><a href="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-hdd-stack-04.jpg"><img src="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-hdd-stack-04.jpg" alt="CGomesu backup case" class="PostImage" /></a></p>
+
+<p><a href="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-hdd-stack-05.jpg"><img src="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-hdd-stack-05.jpg" alt="CGomesu backup case" class="PostImage" /></a></p>
+
+<ul>
+  <li>Now, cover the HDD stack with its case and screw the bottom of the case to the last HDD;</li>
+</ul>
+
+<p><a href="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-assembled-04.jpg"><img src="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-assembled-04.jpg" alt="CGomesu backup case" class="PostImage" /></a></p>
+
+<ul>
+  <li>
+    <p>Connect your PSU to the DC power jack on the SATA hat;</p>
+  </li>
+  <li>
+    <p>Turn it on.</p>
+  </li>
+</ul>
+
+<p>Voilà!  Check your OMV webUI to make sure it detected all connected disks and then start mounting them and adding your file sharing configurations, installing applications, adding users, etc.</p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="final-remarks">Final Remarks</h1>
+<p>I’m very happy with this mini-NAS.  It’s arguably not as powerful as my previous HP Proliant Gen8 that I turned into a NAS but it is <strong>more energy efficient</strong>, <strong>smaller</strong>, <strong>quieter</strong> and <strong>cheaper</strong>.</p>
+
+<p>Regarding applications, I strongly suggest you to take a look at <a href="https://www.docker.com/">Docker</a> and <a href="https://www.portainer.io/">Portainer</a>.  You can install both Docker and Portainer from within the OMV webUI (System / OMV-Extras / Docker - Docker Install; Portainer Install).  They make installing and managing applications so much easier.  Just be mindful that you’re running docker within an <strong>ARM architecture</strong>, so any image must have a compatible <strong>arm release</strong> to be able to run with the NanoPi M4.</p>
+
+<p>I don’t use any sort of RAID solution for this NAS.  Instead, I use unionFS/mergerFS to pool multiple drives/folders into individual folders and then have various applications running periodic local backups and overnight remote backups.  (The SATA hat <em>does not support hardware RAID</em> but if you’re into redundancy, then it’s possible to create a software RAID from within the OMV webUI.)</p>
+
+<p>Here’s an overview of how I’m currently organizing my mini-NAS:</p>
+
+<p><a href="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-organization.png"><img src="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-organization.png" alt="mini-NAS drives and folders" class="PostImage PostImage--large" /></a></p>
+
+<p><a href="https://forum.openmediavault.org/index.php?thread/29089-nanonas-nanopi-m4-3-bay-or-4-bay-most-compact-and-low-consumption-raid/">According to kirkdis</a>, a NanoPi M4 mini-NAS with three 2.5” HDDs consumes between <strong>7W</strong> (idle) and <strong>20W</strong> (heavy load). I cannot measure the actual power consumption of my build but I think it’s safe to assume that it consumes a bit more power than kirkdis’, especially under heavy load. I estimate that mine consumes between 9W (idle) and 25W (heavy load), owing to the fact that my HDDs have a higher RPM and I’m using an additional 2.5” HDD.  For comparison, a <a href="https://www.techpowerup.com/review/synology-ds918plus/13.html">Synology Diskstation DS918+ with four 3.5” HDDs</a> consumes between 27W (idle) and 44W (heavy load).</p>
+
+<p>Size-wise, this is a pretty small unit. Here’s how it looks like next to a Raspberry Pi:</p>
+
+<p><a href="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-comparison-rpi.jpg"><img src="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-comparison-rpi.jpg" alt="mini-NAS vs RPi" class="PostImage" /></a></p>
+
+<p>This concludes my NanoPi M4 mini-NAS project. I hope you enjoyed this article and that it will inspire you to create something for your own use-case.  As usual, let me know if you have any questions or suggestions.</p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="bonus-content">Bonus Content</h1>
+<h2 id="real-time-clock">Real time clock</h2>
+<p>The NanoPi M4 comes with a built-in real time clock (RTC) module and to use it, all that you need is a compatible <strong>RTC battery</strong> with a <em>Molex 53398-0271 connector</em>:</p>
+
+<p><a href="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/rtc-battery.jpg"><img src="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/rtc-battery.jpg" alt="RTC battery" class="PostImage" /></a></p>
+
+<p>As the name suggests, its main purpose is to keep track of time, regardless of the board’s power state.  However, it also supports waking up the NanoPi from various power states.  On Linux, you can access and configure all such options with a package called <code class="language-plaintext highlighter-rouge">rtcwake</code>, which comes pre-installed on Armbian (and pretty much any other Linux distro, by the way, because it’s part of the <code class="language-plaintext highlighter-rouge">util-linux</code> core package).  (If the package is not accessible from within your user’s <code class="language-plaintext highlighter-rouge">$PATH</code>, try <code class="language-plaintext highlighter-rouge">whereis rtcwake</code> and type the entire <code class="language-plaintext highlighter-rouge">/path/to/rtcwake</code>.)  You can find info about its usage with the standard <code class="language-plaintext highlighter-rouge">--help</code> argument. For more detailed info, read <code class="language-plaintext highlighter-rouge">man rtcwake</code>. An RTC battery is <em>really</em> cheap (<a href="https://www.amazon.com/Rtc-Battery/s?k=Rtc+Battery">less than $10</a>) and worthy of your attention for such a key component of a home network.  You definitely don’t want your mini-NAS time travelling to 1970…</p>
+
+<p><a href="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-rtc-battery.jpg"><img src="/assets/posts/2020-06-22-Nanopi-m4-mini-nas/nanopim4-cgomesu-rtc-battery.jpg" alt="RTC battery" class="PostImage" /></a></p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Posted on:</strong> <time datetime="2020-06-22T12:00:00-03:00">June 22, 2020</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="mailto:?subject=[cgomesu.com] NanoPi M4 mini-NAS&amp;body=http%3A%2F%2Flocalhost%3A4000%2Fblog%2FNanopi-m4-mini-nas%2F " class="btn btn--inverse" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on E-mail"><i class="fas fa-envelope" aria-hidden="true"></i><span> E-mail</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fblog%2FNanopi-m4-mini-nas%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.reddit.com/submit?title=NanoPi M4 mini-NAS&url=http%3A%2F%2Flocalhost%3A4000%2Fblog%2FNanopi-m4-mini-nas%2F" class="btn btn--reddit" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Reddit"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i><span> Reddit</span></a>
+
+  <a href="https://twitter.com/intent/tweet?text=NanoPi+M4+mini-NAS%20http%3A%2F%2Flocalhost%3A4000%2Fblog%2FNanopi-m4-mini-nas%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/blog/Youtube-as-IPTV-with-TVH/" class="pagination--pager" title="Youtube live-streams as IPTV channels for TVHeadend
+">Previous</a>
+    
+    
+      <a href="/blog/EPG-data-webgrabplus-tvheadend/" class="pagination--pager" title="Free EPG data with WebGrab+Plus and TVHeadend
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search terms here...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search terms here..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/cgomesu" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          <li><a href="https://www.reddit.com/user/cgomesu/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i> Reddit</a></li>
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> RSS feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2020 CGomesu - Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> and <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a></div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>
