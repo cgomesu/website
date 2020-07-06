@@ -51,7 +51,7 @@ This little fella gets pretty hot but fortunately, this massive heatsink does a 
 [![Nanopi M4 heatsink](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-heatsink.jpg){:.PostImage}](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-heatsink.jpg)
 
 ## NanoPi M4 16-32gb eMMC (+ micro-SD adapter)
-The adapter makes it easy to flash an OS image directly onto the eMMC, so make sure to buy one.  As far as I know, you don't need to use an eMMC with the NanoPi M4.  A micro-SD will do the trick but of course, it's slower than an eMMC.  However, an eMMC is slower than a solid state drive (SSD), so if you know how to run the OS from a SSD, let me know.  Either way, the OS and NAS program we're going to use is already configured to reduce the amount of writes to the eMMC/micro-SD/SSD (it comes configured to not use a swap partition and to write /tmp to memory instead of disk, for example), which is good news if you're worried about wearing it out.
+The adapter makes it easy to flash an OS image directly onto the eMMC, so make sure to buy one.  As far as I know, you don't need to use an eMMC with the NanoPi M4.  A micro-SD will do the trick but of course, it's slower than an eMMC.  However, an eMMC is slower than a solid state drive (SSD), so if you know how to run the OS from a SSD, let me know.  Either way, the OS and NAS program we're going to use is already configured to reduce the amount of writes to the eMMC/micro-SD/SSD (it comes configured to not use a swap partition, for example), which is good news if you're worried about wearing it out.
 
 [![Nanopi M4 eMMC](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-emmc.jpg){:.PostImage}](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-emmc.jpg)
 
@@ -60,7 +60,7 @@ This little hat has a [Marvell 88SE9215](https://www.marvell.com/content/dam/mar
 
 [![Nanopi M4 SATA hat](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-sata-hat.jpg){:.PostImage}](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-sata-hat.jpg)
 
-If you plan on using the same 3d printed case I'm using (see [kirkdis' 3D printed case](#kirkdis-3d-printed-case)), make sure to buy SATA cables with **straight/horizontal connector on both ends of the cable**.  That case is *very* tight, so you might want to consider buying at least two shorter than usual SATA cables for the HDDs closer to the base.
+If you plan on using the same 3d printed case I'm using (see [kirkdis' 3D printed case](#kirkdis-3d-printed-case)), make sure to buy SATA cables with **a straight/horizontal connector on both ends of the cable**.  That case is *very* tight, so you might want to consider buying at least two shorter than usual SATA cables for the HDDs closer to the base.
 
 [![Nanopi M4 SATA hat](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-cgomesu-sata-cables.jpg){:.PostImage}](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-cgomesu-sata-cables.jpg)
 
@@ -101,7 +101,7 @@ If you don't have a 3D printer, don't worry about it!  Just Google `3d printing 
 Another option is to buy a [4-bay enclosure for your drives](https://www.amazon.co.uk/OImaster-Backplane-Function-Hot-swap-Transmission/dp/B074V52L9D) and use some sort of [stackable case](https://www.amazon.com/GeeekPi-Raspberry-Cluster-Cooling-Heatsink/dp/B07MW3GM1T/ref=sr_1_1?dchild=1&keywords=stackable+case+rpi&qid=1591726436&sr=8-1) for your NanoPi M4.  If you go with this solution, remember to buy extra spacers to make room for the SATA hat and cables (and you might need longer cables).  Alternatively, you can always use a standard computer case (or rack mounted) that has support for 4 drives.  Get rid of the mobo and you're probably all set (see my note on modifying a PC PSU).
 
 ## Fan 50x50x15mm 12v (.08A)
-(Size for kirkdis' 3D printed case. You'd want something different if you're using another case.) You can probably find a .2A fan with the same dimensions, which will move more air but will be louder.  (If you're going to use the PWM connector, take a look at [PWM Fan controller](#pwm-fan-controller) to learn how to use it.)
+(This fan size is for kirkdis' 3D printed case. You'd want something different if you're using another case.) You can probably find a .2A fan with the same dimensions, which will move more air but will be louder.  (If you're going to use the PWM connector, take a look at [PWM Fan controller](#pwm-fan-controller) to learn how to use it.)
 
 [![50x50x15mm Fan](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/fan.png){:.PostImage}](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/fan.png)
 
