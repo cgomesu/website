@@ -11,9 +11,15 @@ toc_icon: "list"
 
 This article is about my mini network-attached storage (NAS) project based on FriendlyARM's [NanoPi M4](http://wiki.friendlyarm.com/wiki/index.php/NanoPi_M4) and its [SATA hat](http://wiki.friendlyarm.com/wiki/index.php/NanoPi_M4_SATA_HAT).  If you're looking for a cheap, low-profile, low-power NAS solution for your home--or if you just like single-board computers (SBC)--then this article is for you.  
 
-Here's a preview of how my NanoPi M4 mini-NAS looks like next to a Raspberry Pi 3B:
+Here's a preview of how my NanoPi M4 mini-NAS looks like:
 
-[![Final NAS](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-cgomesu-final-and-rpi.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-cgomesu-final-and-rpi.jpg)
+[![Final NAS 02](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-cgomesu-final-01.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-cgomesu-final-01.jpg)
+
+[![Final NAS 01](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-cgomesu-final-02.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-cgomesu-final-02.jpg)
+
+And for comparison, here's the unit next to a Raspberry Pi 3B:
+
+[![Final NAS next to RPi](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-cgomesu-final-and-rpi.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-cgomesu-final-and-rpi.jpg)
 
 This article should give you a fairly good idea about the following:
 
@@ -323,11 +329,7 @@ Here's an overview of how I'm currently organizing my mini-NAS:
 
 [According to kirkdis](https://forum.openmediavault.org/index.php?thread/29089-nanonas-nanopi-m4-3-bay-or-4-bay-most-compact-and-low-consumption-raid/), a NanoPi M4 mini-NAS with three 2.5" HDDs consumes between **7W** (idle) and **20W** (heavy load). I cannot measure the actual power consumption of my build but I think it's safe to assume that it consumes a bit more power than kirkdis', especially under heavy load. I estimate that mine consumes between 9W (idle) and 25W (heavy load), owing to the fact that my HDDs have a higher RPM and I'm using an additional 2.5" HDD.  For comparison, a [Synology Diskstation DS918+ with four 3.5" HDDs](https://www.techpowerup.com/review/synology-ds918plus/13.html) consumes between 27W (idle) and 44W (heavy load).
 
-Size-wise, this is a pretty small unit. Here's how it looks like next to a Raspberry Pi:
-
-[![mini-NAS vs RPi](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-cgomesu-comparison-rpi.jpg){:.PostImage }](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-cgomesu-comparison-rpi.jpg)
-
-This concludes my NanoPi M4 mini-NAS project. I hope you enjoyed this article and that it will inspire you to create something for your own use-case.  As usual, let me know if you have any questions or suggestions.
+Well, this concludes my NanoPi M4 mini-NAS project. I hope you enjoyed this article and that it will inspire you to create something for your own use-case.  As usual, let me know if you have any questions or suggestions.
 
 [top](#){: .btn .btn--light-outline .btn--small}
 
