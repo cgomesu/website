@@ -15,7 +15,7 @@ Here's a preview of how my NanoPi M4 mini-NAS looks like next to a Raspberry Pi 
 
 [![Final NAS](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-cgomesu-final-and-rpi.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-cgomesu-final-and-rpi.jpg)
 
-If you like it and want to build something similar, read on.  This article should give you a fairly good idea about the following:
+This article should give you a fairly good idea about the following:
 
 * What to buy; 
 * What to install at the operating system (OS) and NAS management level;
