@@ -126,7 +126,7 @@ Additionally, you might want to buy a filter for the fan. However, notice that *
 [![50x50x15mm Fan-filter](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/fan-filter.png){:.PostImage}](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/fan-filter.png)
 
 ## Cost estimate
-For reference, here's how much each hardware component cost me in Brazilian Real (BRL$) and US Dollar (USD$), except for the HDDs.  Values were the total for all units, instead of per unit.  When appropriate, values were converted using the exchange rate from **June 8th, 2020**. Shipping costs were not included.  Notice that all values are likely **overestimating the actual cost** because many products include Brazilian taxes and were bought multiple months ago.
+For reference, here's how much each hardware component cost me in Brazilian Real (BRL$) and US Dollar (USD$), except for the HDDs.  Values were the total for all units, instead of per unit.  When appropriate, values were converted using the exchange rate from **July 8th, 2020**. Shipping costs were not included.  Notice that all values are likely **overestimating the actual cost** because many products include Brazilian taxes and were bought multiple months ago.
 
 | component | quantity | BRL$ | USD$ |
 |:---:|:---:|:---:|:---:|
@@ -139,7 +139,7 @@ For reference, here's how much each hardware component cost me in Brazilian Real
 | SATA power Y splitter | 02 | 37.3 | 5.96 |
 | 3d printed case | 01 | 155 | 28.92 |
 | PSU 12v 10A | 01 | 53.9 | 10.06 |
-| 50mm Fan 12v .2A | 01 | 18.8 | 3.51 |
+| 50mm Fan 12v .08A | 01 | 18.8 | 3.51 |
 | 50mm Fan filter | 01 | 19.5 | 3.64 |
 | TOTAL | - | 1153.16 | 214.16 |
 
