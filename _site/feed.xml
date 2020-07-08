@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-07-07T10:31:11-03:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">NanoPi M4 mini-NAS</title><link href="http://localhost:4000/blog/Nanopi-m4-mini-nas/" rel="alternate" type="text/html" title="NanoPi M4 mini-NAS" /><published>2020-07-06T13:42:00-03:00</published><updated>2020-07-06T13:42:00-03:00</updated><id>http://localhost:4000/blog/Nanopi-m4-mini-nas</id><content type="html" xml:base="http://localhost:4000/blog/Nanopi-m4-mini-nas/">&lt;p&gt;This article is about my mini network-attached storage (NAS) project based on FriendlyARM’s &lt;a href=&quot;http://wiki.friendlyarm.com/wiki/index.php/NanoPi_M4&quot;&gt;NanoPi M4&lt;/a&gt; and its &lt;a href=&quot;http://wiki.friendlyarm.com/wiki/index.php/NanoPi_M4_SATA_HAT&quot;&gt;SATA hat&lt;/a&gt;.  If you’re looking for a cheap, low-profile, low-power NAS solution for your home–or if you just like single-board computers (SBC)–then this article is for you.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-07-08T15:12:32-03:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">NanoPi M4 mini-NAS</title><link href="http://localhost:4000/blog/Nanopi-m4-mini-nas/" rel="alternate" type="text/html" title="NanoPi M4 mini-NAS" /><published>2020-07-06T13:42:00-03:00</published><updated>2020-07-06T13:42:00-03:00</updated><id>http://localhost:4000/blog/Nanopi-m4-mini-nas</id><content type="html" xml:base="http://localhost:4000/blog/Nanopi-m4-mini-nas/">&lt;p&gt;This article is about my mini network-attached storage (NAS) project based on FriendlyARM’s &lt;a href=&quot;http://wiki.friendlyarm.com/wiki/index.php/NanoPi_M4&quot;&gt;NanoPi M4&lt;/a&gt; and its &lt;a href=&quot;http://wiki.friendlyarm.com/wiki/index.php/NanoPi_M4_SATA_HAT&quot;&gt;SATA hat&lt;/a&gt;.  If you’re looking for a cheap, low-profile, low-power NAS solution for your home–or if you just like single-board computers (SBC)–then this article is for you.&lt;/p&gt;
 
 &lt;p&gt;Here’s a preview of how my NanoPi M4 mini-NAS looks like:&lt;/p&gt;
 
@@ -19,6 +19,13 @@
 &lt;/ul&gt;
 
 &lt;p&gt;After that, you’re free to do whatever you want for your own use-case (disk partitions, storage systems, file sharing method, applications, etc.).&lt;/p&gt;
+
+&lt;h1 id=&quot;update-tracker&quot;&gt;Update tracker&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;July 8th, 2020&lt;/em&gt;: Added a &lt;a href=&quot;#nanopi-m4-sata-hat--passive-cooler--cables&quot;&gt;cautionary note about SATA power cables&lt;/a&gt;; Added a &lt;a href=&quot;#cost-estimate&quot;&gt;table with the cost of all hardware components of this build&lt;/a&gt;; I also got a hold of a DC jack adapter that will let me measure the actual current draw from my final mini-NAS and will make it available here as soon as I’m done testing it.  If you’ve additional suggestions, please &lt;a href=&quot;/contact&quot;&gt;reach out&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--small btn--light-outline&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
 &lt;p&gt;The NanoPi M4 is a SBC made by FriendlyARM (a.k.a. FriendlyElec), a Chinese company based in Guandong.  They have their own &lt;a href=&quot;https://www.friendlyarm.com/&quot;&gt;online store&lt;/a&gt; that you can use to buy a few of the boards and components they develop but chances are you can also buy from pretty much any of the large retail stores out there (e.g., AliExpress, Amazon, Newegg).  [I bought all components from AliExpress, for example, from the folks at &lt;a href=&quot;https://embedunion.aliexpress.com/store/113595&quot;&gt;RealQvol&lt;/a&gt;.]  FriendlyARM also has a fairly good &lt;a href=&quot;http://wiki.friendlyarm.com/wiki/index.php/Main_Page&quot;&gt;wiki&lt;/a&gt; that documents the main aspects of their boards.&lt;/p&gt;
@@ -66,6 +73,15 @@
 &lt;p&gt;This little hat has a &lt;a href=&quot;https://www.marvell.com/content/dam/marvell/en/public-collateral/storage/marvell-storage-88se92xx-product-brief-2012-04.pdf&quot;&gt;Marvell 88SE9215&lt;/a&gt; Four-Port 6 Gbps SATA I/O Controller.  It usually comes with two SATA interface cables and one SATA power cable able to power two drives.  If you’re going to use more than two drives, like me, make sure to buy additional SATA interface cables and an extension/splitter for the SATA power cable (e.g., &lt;a href=&quot;https://www.amazon.com/StarTech-com-Power-Splitter-Adapter-PYO4SATA/dp/B0086OGN9E/ref=sr_1_7?dchild=1&amp;amp;keywords=sata+power+extension+cable&amp;amp;qid=1591723716&amp;amp;sr=8-7&quot;&gt;StarTech splitter&lt;/a&gt;).&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-sata-hat.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-sata-hat.jpg&quot; alt=&quot;Nanopi M4 SATA hat&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p class=&quot;notice notice--danger&quot;&gt;When buying your SATA power cables, make sure the terminals are &lt;strong&gt;crimped&lt;/strong&gt; (use blade connectors) instead of &lt;strong&gt;molded&lt;/strong&gt;. In brief, molded terminals are not faulty by design but they are error prone, owning to the method that the cables are terminated (molding plastic), and such errors might lead to &lt;a href=&quot;https://duckduckgo.com/?t=ffab&amp;amp;q=sata+power+fire&amp;amp;ia=web&quot;&gt;catastrophic events&lt;/a&gt;. The ones in my original pictures were all molded and &lt;strong&gt;you should not use them&lt;/strong&gt;.  Thanks to &lt;strong&gt;/u/Fuck_Birches&lt;/strong&gt; and &lt;strong&gt;/u/WordBoxLLC&lt;/strong&gt; for pointing that out.  I have changed them for crimped ones now.  Here’s an instructive video about the issue:&lt;/p&gt;
+
+&lt;!-- Courtesy of embedresponsively.com //--&gt;
+&lt;div class=&quot;responsive-video-container&quot;&gt;
+
+  &lt;iframe src=&quot;https://www.youtube-nocookie.com/embed/TataDaUNEFc&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;/div&gt;
 
 &lt;p&gt;If you plan on using the same 3d printed case I’m using (see &lt;a href=&quot;#kirkdis-3d-printed-case&quot;&gt;kirkdis’ 3D printed case&lt;/a&gt;), make sure to buy SATA cables with &lt;strong&gt;a straight/horizontal connector on both ends of the cable&lt;/strong&gt;.  That case is &lt;em&gt;very&lt;/em&gt; tight, so you might want to consider buying at least two shorter than usual SATA cables for the HDDs closer to the base.&lt;/p&gt;
 
@@ -120,6 +136,94 @@
 &lt;p&gt;Additionally, you might want to buy a filter for the fan. However, notice that &lt;em&gt;there’s no space for the filter inside the 3d printed case&lt;/em&gt; but you can glue/attach it to the outside (that’s what I’ve done with the one I bought).&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;/assets/posts/2020-07-06-Nanopi-m4-mini-nas/fan-filter.png&quot;&gt;&lt;img src=&quot;/assets/posts/2020-07-06-Nanopi-m4-mini-nas/fan-filter.png&quot; alt=&quot;50x50x15mm Fan-filter&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;cost-estimate&quot;&gt;Cost estimate&lt;/h2&gt;
+&lt;p&gt;For reference, here’s how much each hardware component cost me in Brazilian Real (BRL$) and US Dollar (USD$), except for the HDDs.  Values were the total for all units, instead of per unit.  When appropriate, values were converted using the exchange rate from &lt;strong&gt;June 8th, 2020&lt;/strong&gt;. Shipping costs were not included.  Notice that all values are likely &lt;strong&gt;overestimating the actual cost&lt;/strong&gt; because many products include Brazilian taxes and were bought multiple months ago.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;component&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;quantity&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;BRL$&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;USD$&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;NanoPi M4 v2 4GB RAM&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;01&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;477.25&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;89.04&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Heatsink&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;01&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;37.41&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;6.98&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;32gb eMMC + mSD adapter&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;01&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;144.61&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;26.98&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;SATA hat&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;01&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;149.97&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;27.98&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;SATA III cable&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;10&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;35.9&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;6.7&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;RTC battery&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;01&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;23.52&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;4.39&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;SATA power Y splitter&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;02&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;37.3&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;5.96&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;3d printed case&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;01&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;155&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;28.92&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;PSU 12v 10A&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;01&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;53.9&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;10.06&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;50mm Fan 12v .2A&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;01&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;18.8&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;3.51&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;50mm Fan filter&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;01&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;19.5&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;3.64&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;TOTAL&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;-&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;1153.16&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;214.16&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 

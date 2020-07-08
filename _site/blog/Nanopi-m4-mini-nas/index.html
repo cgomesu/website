@@ -200,7 +200,7 @@
 
 
 
-  33 minute read
+  36 minute read
 
 </p>
       
@@ -353,6 +353,7 @@
             <nav class="toc">
               <header><h4 class="nav__title"><i class="fas fa-list"></i> Table of Contents</h4></header>
               <ul class="toc__menu">
+  <li><a href="#update-tracker">Update tracker</a></li>
   <li><a href="#introduction">Introduction</a></li>
   <li><a href="#hardware">Hardware</a>
     <ul>
@@ -364,6 +365,7 @@
       <li><a href="#25-hard-disk-drive-hdd">2.5” hard disk drive (HDD)</a></li>
       <li><a href="#kirkdis-3d-printed-case">kirkdis’ 3D printed case</a></li>
       <li><a href="#fan-50x50x15mm-12v-08a">Fan 50x50x15mm 12v (.08A)</a></li>
+      <li><a href="#cost-estimate">Cost estimate</a></li>
     </ul>
   </li>
   <li><a href="#software">Software</a>
@@ -414,6 +416,13 @@
 
 <p>After that, you’re free to do whatever you want for your own use-case (disk partitions, storage systems, file sharing method, applications, etc.).</p>
 
+<h1 id="update-tracker">Update tracker</h1>
+<ul>
+  <li><em>July 8th, 2020</em>: Added a <a href="#nanopi-m4-sata-hat--passive-cooler--cables">cautionary note about SATA power cables</a>; Added a <a href="#cost-estimate">table with the cost of all hardware components of this build</a>; I also got a hold of a DC jack adapter that will let me measure the actual current draw from my final mini-NAS and will make it available here as soon as I’m done testing it.  If you’ve additional suggestions, please <a href="/contact">reach out</a>.</li>
+</ul>
+
+<p><a href="#" class="btn btn--small btn--light-outline">top</a></p>
+
 <h1 id="introduction">Introduction</h1>
 <p>The NanoPi M4 is a SBC made by FriendlyARM (a.k.a. FriendlyElec), a Chinese company based in Guandong.  They have their own <a href="https://www.friendlyarm.com/">online store</a> that you can use to buy a few of the boards and components they develop but chances are you can also buy from pretty much any of the large retail stores out there (e.g., AliExpress, Amazon, Newegg).  [I bought all components from AliExpress, for example, from the folks at <a href="https://embedunion.aliexpress.com/store/113595">RealQvol</a>.]  FriendlyARM also has a fairly good <a href="http://wiki.friendlyarm.com/wiki/index.php/Main_Page">wiki</a> that documents the main aspects of their boards.</p>
 
@@ -460,6 +469,15 @@
 <p>This little hat has a <a href="https://www.marvell.com/content/dam/marvell/en/public-collateral/storage/marvell-storage-88se92xx-product-brief-2012-04.pdf">Marvell 88SE9215</a> Four-Port 6 Gbps SATA I/O Controller.  It usually comes with two SATA interface cables and one SATA power cable able to power two drives.  If you’re going to use more than two drives, like me, make sure to buy additional SATA interface cables and an extension/splitter for the SATA power cable (e.g., <a href="https://www.amazon.com/StarTech-com-Power-Splitter-Adapter-PYO4SATA/dp/B0086OGN9E/ref=sr_1_7?dchild=1&amp;keywords=sata+power+extension+cable&amp;qid=1591723716&amp;sr=8-7">StarTech splitter</a>).</p>
 
 <p><a href="/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-sata-hat.jpg"><img src="/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-sata-hat.jpg" alt="Nanopi M4 SATA hat" class="PostImage" /></a></p>
+
+<p class="notice notice--danger">When buying your SATA power cables, make sure the terminals are <strong>crimped</strong> (use blade connectors) instead of <strong>molded</strong>. In brief, molded terminals are not faulty by design but they are error prone, owning to the method that the cables are terminated (molding plastic), and such errors might lead to <a href="https://duckduckgo.com/?t=ffab&amp;q=sata+power+fire&amp;ia=web">catastrophic events</a>. The ones in my original pictures were all molded and <strong>you should not use them</strong>.  Thanks to <strong>/u/Fuck_Birches</strong> and <strong>/u/WordBoxLLC</strong> for pointing that out.  I have changed them for crimped ones now.  Here’s an instructive video about the issue:</p>
+
+<!-- Courtesy of embedresponsively.com //-->
+<div class="responsive-video-container">
+
+  <iframe src="https://www.youtube-nocookie.com/embed/TataDaUNEFc" frameborder="0" allowfullscreen=""></iframe>
+
+</div>
 
 <p>If you plan on using the same 3d printed case I’m using (see <a href="#kirkdis-3d-printed-case">kirkdis’ 3D printed case</a>), make sure to buy SATA cables with <strong>a straight/horizontal connector on both ends of the cable</strong>.  That case is <em>very</em> tight, so you might want to consider buying at least two shorter than usual SATA cables for the HDDs closer to the base.</p>
 
@@ -514,6 +532,94 @@
 <p>Additionally, you might want to buy a filter for the fan. However, notice that <em>there’s no space for the filter inside the 3d printed case</em> but you can glue/attach it to the outside (that’s what I’ve done with the one I bought).</p>
 
 <p><a href="/assets/posts/2020-07-06-Nanopi-m4-mini-nas/fan-filter.png"><img src="/assets/posts/2020-07-06-Nanopi-m4-mini-nas/fan-filter.png" alt="50x50x15mm Fan-filter" class="PostImage" /></a></p>
+
+<h2 id="cost-estimate">Cost estimate</h2>
+<p>For reference, here’s how much each hardware component cost me in Brazilian Real (BRL$) and US Dollar (USD$), except for the HDDs.  Values were the total for all units, instead of per unit.  When appropriate, values were converted using the exchange rate from <strong>June 8th, 2020</strong>. Shipping costs were not included.  Notice that all values are likely <strong>overestimating the actual cost</strong> because many products include Brazilian taxes and were bought multiple months ago.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">component</th>
+      <th style="text-align: center">quantity</th>
+      <th style="text-align: center">BRL$</th>
+      <th style="text-align: center">USD$</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">NanoPi M4 v2 4GB RAM</td>
+      <td style="text-align: center">01</td>
+      <td style="text-align: center">477.25</td>
+      <td style="text-align: center">89.04</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Heatsink</td>
+      <td style="text-align: center">01</td>
+      <td style="text-align: center">37.41</td>
+      <td style="text-align: center">6.98</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">32gb eMMC + mSD adapter</td>
+      <td style="text-align: center">01</td>
+      <td style="text-align: center">144.61</td>
+      <td style="text-align: center">26.98</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">SATA hat</td>
+      <td style="text-align: center">01</td>
+      <td style="text-align: center">149.97</td>
+      <td style="text-align: center">27.98</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">SATA III cable</td>
+      <td style="text-align: center">10</td>
+      <td style="text-align: center">35.9</td>
+      <td style="text-align: center">6.7</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">RTC battery</td>
+      <td style="text-align: center">01</td>
+      <td style="text-align: center">23.52</td>
+      <td style="text-align: center">4.39</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">SATA power Y splitter</td>
+      <td style="text-align: center">02</td>
+      <td style="text-align: center">37.3</td>
+      <td style="text-align: center">5.96</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">3d printed case</td>
+      <td style="text-align: center">01</td>
+      <td style="text-align: center">155</td>
+      <td style="text-align: center">28.92</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">PSU 12v 10A</td>
+      <td style="text-align: center">01</td>
+      <td style="text-align: center">53.9</td>
+      <td style="text-align: center">10.06</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">50mm Fan 12v .2A</td>
+      <td style="text-align: center">01</td>
+      <td style="text-align: center">18.8</td>
+      <td style="text-align: center">3.51</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">50mm Fan filter</td>
+      <td style="text-align: center">01</td>
+      <td style="text-align: center">19.5</td>
+      <td style="text-align: center">3.64</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">TOTAL</td>
+      <td style="text-align: center">-</td>
+      <td style="text-align: center">1153.16</td>
+      <td style="text-align: center">214.16</td>
+    </tr>
+  </tbody>
+</table>
 
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 

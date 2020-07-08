@@ -29,6 +29,11 @@ This article should give you a fairly good idea about the following:
 
 After that, you're free to do whatever you want for your own use-case (disk partitions, storage systems, file sharing method, applications, etc.). 
 
+# Update tracker
+* *July 8th, 2020*: Added a [cautionary note about SATA power cables](#nanopi-m4-sata-hat--passive-cooler--cables); Added a [table with the cost of all hardware components of this build](#cost-estimate); I also got a hold of a DC jack adapter that will let me measure the actual current draw from my final mini-NAS and will make it available here as soon as I'm done testing it.  If you've additional suggestions, please [reach out](/contact).
+
+[top](#){: .btn .btn--small .btn--light-outline }
+
 # Introduction
 The NanoPi M4 is a SBC made by FriendlyARM (a.k.a. FriendlyElec), a Chinese company based in Guandong.  They have their own [online store](https://www.friendlyarm.com/) that you can use to buy a few of the boards and components they develop but chances are you can also buy from pretty much any of the large retail stores out there (e.g., AliExpress, Amazon, Newegg).  [I bought all components from AliExpress, for example, from the folks at [RealQvol](https://embedunion.aliexpress.com/store/113595).]  FriendlyARM also has a fairly good [wiki](http://wiki.friendlyarm.com/wiki/index.php/Main_Page) that documents the main aspects of their boards.
 
@@ -65,6 +70,11 @@ The adapter makes it easy to flash an OS image directly onto the eMMC, so make s
 This little hat has a [Marvell 88SE9215](https://www.marvell.com/content/dam/marvell/en/public-collateral/storage/marvell-storage-88se92xx-product-brief-2012-04.pdf) Four-Port 6 Gbps SATA I/O Controller.  It usually comes with two SATA interface cables and one SATA power cable able to power two drives.  If you're going to use more than two drives, like me, make sure to buy additional SATA interface cables and an extension/splitter for the SATA power cable (e.g., [StarTech splitter](https://www.amazon.com/StarTech-com-Power-Splitter-Adapter-PYO4SATA/dp/B0086OGN9E/ref=sr_1_7?dchild=1&keywords=sata+power+extension+cable&qid=1591723716&sr=8-7)).
 
 [![Nanopi M4 SATA hat](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-sata-hat.jpg){:.PostImage}](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-sata-hat.jpg)
+
+When buying your SATA power cables, make sure the terminals are **crimped** (use blade connectors) instead of **molded**. In brief, molded terminals are not faulty by design but they are error prone, owning to the method that the cables are terminated (molding plastic), and such errors might lead to [catastrophic events](https://duckduckgo.com/?t=ffab&q=sata+power+fire&ia=web). The ones in my original pictures were all molded and **you should not use them**.  Thanks to **/u/Fuck_Birches** and **/u/WordBoxLLC** for pointing that out.  I have changed them for crimped ones now.  Here's an instructive video about the issue:
+{: .notice .notice--danger }
+
+{% include video id="TataDaUNEFc" provider="youtube" %}
 
 If you plan on using the same 3d printed case I'm using (see [kirkdis' 3D printed case](#kirkdis-3d-printed-case)), make sure to buy SATA cables with **a straight/horizontal connector on both ends of the cable**.  That case is *very* tight, so you might want to consider buying at least two shorter than usual SATA cables for the HDDs closer to the base.
 
@@ -114,6 +124,24 @@ Another option is to buy a [4-bay enclosure for your drives](https://www.amazon.
 Additionally, you might want to buy a filter for the fan. However, notice that *there's no space for the filter inside the 3d printed case* but you can glue/attach it to the outside (that's what I've done with the one I bought).
 
 [![50x50x15mm Fan-filter](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/fan-filter.png){:.PostImage}](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/fan-filter.png)
+
+## Cost estimate
+For reference, here's how much each hardware component cost me in Brazilian Real (BRL$) and US Dollar (USD$), except for the HDDs.  Values were the total for all units, instead of per unit.  When appropriate, values were converted using the exchange rate from **June 8th, 2020**. Shipping costs were not included.  Notice that all values are likely **overestimating the actual cost** because many products include Brazilian taxes and were bought multiple months ago.
+
+| component | quantity | BRL$ | USD$ |
+|:---:|:---:|:---:|:---:|
+| NanoPi M4 v2 4GB RAM | 01 | 477.25 | 89.04 |
+| Heatsink | 01 | 37.41 | 6.98 |
+| 32gb eMMC + mSD adapter | 01 | 144.61 | 26.98 |
+| SATA hat | 01 | 149.97 | 27.98 |
+| SATA III cable | 10 | 35.9 | 6.7 |
+| RTC battery | 01 | 23.52 | 4.39 |
+| SATA power Y splitter | 02 | 37.3 | 5.96 |
+| 3d printed case | 01 | 155 | 28.92 |
+| PSU 12v 10A | 01 | 53.9 | 10.06 |
+| 50mm Fan 12v .2A | 01 | 18.8 | 3.51 |
+| 50mm Fan filter | 01 | 19.5 | 3.64 |
+| TOTAL | - | 1153.16 | 214.16 |
 
 [top](#){: .btn .btn--light-outline .btn--small}
 
