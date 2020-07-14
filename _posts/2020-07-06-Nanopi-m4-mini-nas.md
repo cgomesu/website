@@ -30,6 +30,8 @@ This article should give you a fairly good idea about the following:
 After that, you're free to do whatever you want for your own use-case (disk partitions, storage systems, file sharing method, applications, etc.). 
 
 # Update tracker
+* *July 14th, 2020*: Added [information about CPU tuning to improve system stability](#cpu-tuning).
+
 * *July 8th, 2020*: Added a [cautionary note about SATA power cables](#nanopi-m4-sata-hat--passive-cooler--cables); Added a [table with the cost of all hardware components of this build](#cost-estimate); I also got a hold of a DC jack adapter that will let me measure the actual current draw from my final mini-NAS and will make it available here as soon as I'm done testing it.  If you've additional suggestions, please [reach out](/contact).
 
 [top](#){: .btn .btn--small .btn--light-outline }
@@ -160,6 +162,36 @@ In addition, the folks at OMV put together a guide on their Github repo that tel
 * Before turning the NanoPi M4 on with the eMMC installed for the first time, remove any drives connected to the SATA hat.  This is more of a cautionary move than anything else.  We want to minimize the risk of corrupting the eMMC at these initial configuration steps and there's no need for additional drives at this point.  We'll add them after we're done installing OMV5.  The same applies to any other device connected to the NanoPi M4, like USB devices.  Keep it simple right now.
 
 As you'll learn, the OMV installation script will take some time to finish.  We're talking about more than 10min.  Be patient!  Afterwards, open a web browser and log into OMV's WebUI and do your thing or read the [Getting Started Guide](https://github.com/OpenMediaVault-Plugin-Developers/docs/blob/master/Getting_Started-OMV5.pdf) that the OMV team wrote.
+
+## CPU tuning
+The **Rockchip RK3399** is a fairly new and nichey system on a chip and therefore, its implementation is not widely stable. On Armbian with Kernel 5.4, for example, I've noticed a few CPU-related Kernel panics that cause the board to freeze/reboot. [Upon further investigation](https://forum.armbian.com/topic/11710-nanopi-m4-v2-m4-image-not-working/page/7/?tab=comments#comment-93238), it seems this issue can be fixed by changing the default CPU governor from *ondemand* to ***conservative***, and setting the *minimum CPU frequency to **1.4GhZ*** and the *maximum to **1.8GhZ***. 
+
+Be extra careful when tuning your CPU because things can go wrong if you set the board to operate in a condition that it was not meant to.  Move slowly and keep an eye on related statistics afterwards to make sure you're not going to fry the board. 
+{:. .notice .notice--warning }
+
+There are two ways to change the CPU frequency and governor. The first and recommended one is via the `armbian-config` configuration utility:
+```
+# Run the configuration utility
+armbian-config
+# Navitage to CPU options: System / CPU
+# Set min frequency to 1416000 Hz
+# Set max frequency to 1800000 Hz
+# Set the governor to conservative
+# Confirm 
+# Exit the configuration utility
+# Reboot
+```
+
+The second method is by making direct changes to the `cpufrequtils` file, as follows:
+```
+# Edit the cpufrequtils file
+echo -e 'ENABLE="true"\nGOVERNOR=conservative\nMAX_SPEED=1800000\nMIN_SPEED=1416000' > /etc/default/cpufrequtils
+# Reboot
+```
+
+My board has been running rock solid after making such changes, so I recommend it.  Of course, you can try to use other configurations.  My understanding from what I read about the Kernel panics is that it's likely a power issue caused by the rapid switching of CPU frequencies that the *ondemand* governor makes.  The *conservative* governor also scales the CPU frequency dynamically but much more gradually than the *ondemand* governor.
+By this logic, setting the governor to either *performance* or *powersaving* will likely improve stability as well because those governors do not change the CPU frequency at all.
+
 
 ## PWM Fan controller
 The **2-PIN PH2.0 connector** on the SATA hat is a power width modulated (PWM) connector for a 12v fan.  

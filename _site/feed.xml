@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-07-08T17:46:23-03:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">NanoPi M4 mini-NAS</title><link href="http://localhost:4000/blog/Nanopi-m4-mini-nas/" rel="alternate" type="text/html" title="NanoPi M4 mini-NAS" /><published>2020-07-06T13:42:00-03:00</published><updated>2020-07-06T13:42:00-03:00</updated><id>http://localhost:4000/blog/Nanopi-m4-mini-nas</id><content type="html" xml:base="http://localhost:4000/blog/Nanopi-m4-mini-nas/">&lt;p&gt;This article is about my mini network-attached storage (NAS) project based on FriendlyARM’s &lt;a href=&quot;http://wiki.friendlyarm.com/wiki/index.php/NanoPi_M4&quot;&gt;NanoPi M4&lt;/a&gt; and its &lt;a href=&quot;http://wiki.friendlyarm.com/wiki/index.php/NanoPi_M4_SATA_HAT&quot;&gt;SATA hat&lt;/a&gt;.  If you’re looking for a cheap, low-profile, low-power NAS solution for your home–or if you just like single-board computers (SBC)–then this article is for you.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-07-14T13:46:00-03:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">NanoPi M4 mini-NAS</title><link href="http://localhost:4000/blog/Nanopi-m4-mini-nas/" rel="alternate" type="text/html" title="NanoPi M4 mini-NAS" /><published>2020-07-06T13:42:00-03:00</published><updated>2020-07-06T13:42:00-03:00</updated><id>http://localhost:4000/blog/Nanopi-m4-mini-nas</id><content type="html" xml:base="http://localhost:4000/blog/Nanopi-m4-mini-nas/">&lt;p&gt;This article is about my mini network-attached storage (NAS) project based on FriendlyARM’s &lt;a href=&quot;http://wiki.friendlyarm.com/wiki/index.php/NanoPi_M4&quot;&gt;NanoPi M4&lt;/a&gt; and its &lt;a href=&quot;http://wiki.friendlyarm.com/wiki/index.php/NanoPi_M4_SATA_HAT&quot;&gt;SATA hat&lt;/a&gt;.  If you’re looking for a cheap, low-profile, low-power NAS solution for your home–or if you just like single-board computers (SBC)–then this article is for you.&lt;/p&gt;
 
 &lt;p&gt;Here’s a preview of how my NanoPi M4 mini-NAS looks like:&lt;/p&gt;
 
@@ -22,7 +22,12 @@
 
 &lt;h1 id=&quot;update-tracker&quot;&gt;Update tracker&lt;/h1&gt;
 &lt;ul&gt;
-  &lt;li&gt;&lt;em&gt;July 8th, 2020&lt;/em&gt;: Added a &lt;a href=&quot;#nanopi-m4-sata-hat--passive-cooler--cables&quot;&gt;cautionary note about SATA power cables&lt;/a&gt;; Added a &lt;a href=&quot;#cost-estimate&quot;&gt;table with the cost of all hardware components of this build&lt;/a&gt;; I also got a hold of a DC jack adapter that will let me measure the actual current draw from my final mini-NAS and will make it available here as soon as I’m done testing it.  If you’ve additional suggestions, please &lt;a href=&quot;/contact&quot;&gt;reach out&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;July 14th, 2020&lt;/em&gt;: Added &lt;a href=&quot;#cpu-tuning&quot;&gt;information about CPU tuning to improve system stability&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;July 8th, 2020&lt;/em&gt;: Added a &lt;a href=&quot;#nanopi-m4-sata-hat--passive-cooler--cables&quot;&gt;cautionary note about SATA power cables&lt;/a&gt;; Added a &lt;a href=&quot;#cost-estimate&quot;&gt;table with the cost of all hardware components of this build&lt;/a&gt;; I also got a hold of a DC jack adapter that will let me measure the actual current draw from my final mini-NAS and will make it available here as soon as I’m done testing it.  If you’ve additional suggestions, please &lt;a href=&quot;/contact&quot;&gt;reach out&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--small btn--light-outline&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
@@ -244,6 +249,32 @@
 &lt;/ul&gt;
 
 &lt;p&gt;As you’ll learn, the OMV installation script will take some time to finish.  We’re talking about more than 10min.  Be patient!  Afterwards, open a web browser and log into OMV’s WebUI and do your thing or read the &lt;a href=&quot;https://github.com/OpenMediaVault-Plugin-Developers/docs/blob/master/Getting_Started-OMV5.pdf&quot;&gt;Getting Started Guide&lt;/a&gt; that the OMV team wrote.&lt;/p&gt;
+
+&lt;h2 id=&quot;cpu-tuning&quot;&gt;CPU tuning&lt;/h2&gt;
+&lt;p&gt;The &lt;strong&gt;Rockchip RK3399&lt;/strong&gt; is a fairly new and nichey system on a chip and therefore, its implementation is not widely stable. On Armbian with Kernel 5.4, for example, I’ve noticed a few CPU-related Kernel panics that cause the board to freeze/reboot. &lt;a href=&quot;https://forum.armbian.com/topic/11710-nanopi-m4-v2-m4-image-not-working/page/7/?tab=comments#comment-93238&quot;&gt;Upon further investigation&lt;/a&gt;, it seems this issue can be fixed by changing the default CPU governor from &lt;em&gt;ondemand&lt;/em&gt; to &lt;strong&gt;&lt;em&gt;conservative&lt;/em&gt;&lt;/strong&gt;, and setting the &lt;em&gt;minimum CPU frequency to &lt;strong&gt;1.4GhZ&lt;/strong&gt;&lt;/em&gt; and the &lt;em&gt;maximum to &lt;strong&gt;1.8GhZ&lt;/strong&gt;&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p class=&quot;notice notice--warning&quot;&gt;Be extra careful when tuning your CPU because things can go wrong if you set the board to operate in a condition that it was not meant to.  Move slowly and keep an eye on related statistics afterwards to make sure you’re not going to fry the board.&lt;/p&gt;
+
+&lt;p&gt;There are two ways to change the CPU frequency and governor. The first and recommended one is via the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;armbian-config&lt;/code&gt; configuration utility:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Run the configuration utility
+armbian-config
+# Navitage to CPU options: System / CPU
+# Set min frequency to 1416000 Hz
+# Set max frequency to 1800000 Hz
+# Set the governor to conservative
+# Confirm 
+# Exit the configuration utility
+# Reboot
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The second method is by making direct changes to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cpufrequtils&lt;/code&gt; file, as follows:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Edit the cpufrequtils file
+echo -e 'ENABLE=&quot;true&quot;\nGOVERNOR=conservative\nMAX_SPEED=1800000\nMIN_SPEED=1416000' &amp;gt; /etc/default/cpufrequtils
+# Reboot
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;My board has been running rock solid after making such changes, so I recommend it.  Of course, you can try to use other configurations.  My understanding from what I read about the Kernel panics is that it’s likely a power issue caused by the rapid switching of CPU frequencies that the &lt;em&gt;ondemand&lt;/em&gt; governor makes.  The &lt;em&gt;conservative&lt;/em&gt; governor also scales the CPU frequency dynamically but much more gradually than the &lt;em&gt;ondemand&lt;/em&gt; governor.
+By this logic, setting the governor to either &lt;em&gt;performance&lt;/em&gt; or &lt;em&gt;powersaving&lt;/em&gt; will likely improve stability as well because those governors do not change the CPU frequency at all.&lt;/p&gt;
 
 &lt;h2 id=&quot;pwm-fan-controller&quot;&gt;PWM Fan controller&lt;/h2&gt;
 &lt;p&gt;The &lt;strong&gt;2-PIN PH2.0 connector&lt;/strong&gt; on the SATA hat is a power width modulated (PWM) connector for a 12v fan.&lt;/p&gt;

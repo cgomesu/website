@@ -200,7 +200,7 @@
 
 
 
-  36 minute read
+  39 minute read
 
 </p>
       
@@ -370,6 +370,7 @@
   </li>
   <li><a href="#software">Software</a>
     <ul>
+      <li><a href="#cpu-tuning">CPU tuning</a></li>
       <li><a href="#pwm-fan-controller">PWM Fan controller</a></li>
     </ul>
   </li>
@@ -418,7 +419,12 @@
 
 <h1 id="update-tracker">Update tracker</h1>
 <ul>
-  <li><em>July 8th, 2020</em>: Added a <a href="#nanopi-m4-sata-hat--passive-cooler--cables">cautionary note about SATA power cables</a>; Added a <a href="#cost-estimate">table with the cost of all hardware components of this build</a>; I also got a hold of a DC jack adapter that will let me measure the actual current draw from my final mini-NAS and will make it available here as soon as I’m done testing it.  If you’ve additional suggestions, please <a href="/contact">reach out</a>.</li>
+  <li>
+    <p><em>July 14th, 2020</em>: Added <a href="#cpu-tuning">information about CPU tuning to improve system stability</a>.</p>
+  </li>
+  <li>
+    <p><em>July 8th, 2020</em>: Added a <a href="#nanopi-m4-sata-hat--passive-cooler--cables">cautionary note about SATA power cables</a>; Added a <a href="#cost-estimate">table with the cost of all hardware components of this build</a>; I also got a hold of a DC jack adapter that will let me measure the actual current draw from my final mini-NAS and will make it available here as soon as I’m done testing it.  If you’ve additional suggestions, please <a href="/contact">reach out</a>.</p>
+  </li>
 </ul>
 
 <p><a href="#" class="btn btn--small btn--light-outline">top</a></p>
@@ -640,6 +646,32 @@
 </ul>
 
 <p>As you’ll learn, the OMV installation script will take some time to finish.  We’re talking about more than 10min.  Be patient!  Afterwards, open a web browser and log into OMV’s WebUI and do your thing or read the <a href="https://github.com/OpenMediaVault-Plugin-Developers/docs/blob/master/Getting_Started-OMV5.pdf">Getting Started Guide</a> that the OMV team wrote.</p>
+
+<h2 id="cpu-tuning">CPU tuning</h2>
+<p>The <strong>Rockchip RK3399</strong> is a fairly new and nichey system on a chip and therefore, its implementation is not widely stable. On Armbian with Kernel 5.4, for example, I’ve noticed a few CPU-related Kernel panics that cause the board to freeze/reboot. <a href="https://forum.armbian.com/topic/11710-nanopi-m4-v2-m4-image-not-working/page/7/?tab=comments#comment-93238">Upon further investigation</a>, it seems this issue can be fixed by changing the default CPU governor from <em>ondemand</em> to <strong><em>conservative</em></strong>, and setting the <em>minimum CPU frequency to <strong>1.4GhZ</strong></em> and the <em>maximum to <strong>1.8GhZ</strong></em>.</p>
+
+<p class="notice notice--warning">Be extra careful when tuning your CPU because things can go wrong if you set the board to operate in a condition that it was not meant to.  Move slowly and keep an eye on related statistics afterwards to make sure you’re not going to fry the board.</p>
+
+<p>There are two ways to change the CPU frequency and governor. The first and recommended one is via the <code class="language-plaintext highlighter-rouge">armbian-config</code> configuration utility:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Run the configuration utility
+armbian-config
+# Navitage to CPU options: System / CPU
+# Set min frequency to 1416000 Hz
+# Set max frequency to 1800000 Hz
+# Set the governor to conservative
+# Confirm 
+# Exit the configuration utility
+# Reboot
+</code></pre></div></div>
+
+<p>The second method is by making direct changes to the <code class="language-plaintext highlighter-rouge">cpufrequtils</code> file, as follows:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Edit the cpufrequtils file
+echo -e 'ENABLE="true"\nGOVERNOR=conservative\nMAX_SPEED=1800000\nMIN_SPEED=1416000' &gt; /etc/default/cpufrequtils
+# Reboot
+</code></pre></div></div>
+
+<p>My board has been running rock solid after making such changes, so I recommend it.  Of course, you can try to use other configurations.  My understanding from what I read about the Kernel panics is that it’s likely a power issue caused by the rapid switching of CPU frequencies that the <em>ondemand</em> governor makes.  The <em>conservative</em> governor also scales the CPU frequency dynamically but much more gradually than the <em>ondemand</em> governor.
+By this logic, setting the governor to either <em>performance</em> or <em>powersaving</em> will likely improve stability as well because those governors do not change the CPU frequency at all.</p>
 
 <h2 id="pwm-fan-controller">PWM Fan controller</h2>
 <p>The <strong>2-PIN PH2.0 connector</strong> on the SATA hat is a power width modulated (PWM) connector for a 12v fan.</p>
