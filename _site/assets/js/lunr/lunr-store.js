@@ -24,7 +24,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Youtube live-streams as IPTV channels for TVHeadend",
-        "excerpt":"Update tracker June 23rd, 2020: Moved content from Blogger to my website and converted to markdown. Fixed typos I found. May 19th, 2020: Added info about TVH m3u re-fetch period and youtube4tvh cronjob for streams that change very often. May 14th, 2020: Added more info about streamlink install and outdated...","categories": ["blog"],
+        "excerpt":"Update tracker September 15th, 2020: There’s a new release of the Youtube4TVH program that does not require the use of API keys. The section about how to create an API key has been updated accordingly. June 23rd, 2020: Moved content from Blogger to my website and converted to markdown. Fixed...","categories": ["blog"],
         "tags": ["github","iptv","kodi","streamlink","tvheadend","youtube"],
         "url": "http://localhost:4000/blog/Youtube-as-IPTV-with-TVH/",
         "teaser": null
