@@ -10,6 +10,7 @@ toc_icon: "list"
 ---
 
 # Update tracker
+* September 15th, 2020: There's a [new release of the Youtube4TVH](https://github.com/cgomesu/youtube4tvh/releases/tag/0.1.1) program that does not require the use of API keys. The section about how to create an API key has been updated accordingly.
 * June 23rd, 2020: Moved content from Blogger to my website and converted to markdown.  Fixed typos I found.
 * May 19th, 2020: Added info about TVH m3u re-fetch period and youtube4tvh cronjob for streams that change very often.
 * May 14th, 2020: Added more info about streamlink install and outdated versions; fixed a few typos. 
@@ -83,10 +84,12 @@ However, once you're done with the initial configuration, you can try changing i
 [top](#){: .btn .btn--light-outline .btn--small}
 
 # Youtube4tvh
-This is a utility program that will let us create and manage m3u playlist of Youtube live-streams.  It uses Youtube API, so we'll need to create one (or more) to use it before anything else.  APIs have daily quotas that this program will reach fairly quickly.  Fortunately, those quotas are per project, and you should be able to create multiple projects with a free account.  For more info, checkout [the github page](https://github.com/cgomesu/youtube4tvh).
+This is a utility program that will let us create and manage m3u playlist of Youtube live-streams.  It can extract information directly from Youtube's frontend (default) or from Youtube's API (by using a valid API key).  Be aware that the API keys have daily quotas that this program will reach fairly quickly. For more info, checkout [the github page](https://github.com/cgomesu/youtube4tvh).
 
 ## Create a Youtube API v3
-You can find instructions on [the official page](https://developers.google.com/youtube/v3/getting-started).  (Don't follow that video though. It's outdated as fuck.)  If you don't want to head there, here is a streamlined version:
+*Since the release of [**v0.1.1**](https://github.com/cgomesu/youtube4tvh/releases/tag/0.1.1), youtube4tvh does not require the use of API keys to run. Therefore, **the use of API keys is now optional**. If you choose to skip this step, simply omit the `--apikey` argument when running this utility.*
+
+You can find instructions on [the official page](https://developers.google.com/youtube/v3/getting-started).  If you don't want to head there, here is a streamlined version:
 
 1. Sing up for or Log into your Google account;
 
