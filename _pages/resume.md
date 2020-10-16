@@ -61,11 +61,11 @@ A list of various languages that I've used before, listed in order of highest to
 | language | skills |
 |:---:|:---:|
 | [Python](https://en.wikipedia.org/wiki/Python_%28programming_language%29) | My preferred language for backend development.  I'm very familiar with it and thus feel comfortable writing entire new projects from scratch or working with someone else's code.  I'm particularly familiar with data manipulation packages, such as [pandas](https://pandas.pydata.org/) and [sqlite3](https://docs.python.org/2/library/sqlite3.html), but have worked with requests, regex, itertools, and other multi-purpose packages as well. |
+| [GNU Bash](https://en.wikipedia.org/wiki/Bash_%28Unix_shell%29) | Very familiar with the language and its usage, from standard CLI to more advance, scripted use cases. |
 | [R](https://en.wikipedia.org/wiki/R_(programming_language)) | Used for data processing and statistical analysis. Of note, I'm particularly familiar with the multilevel/hierarchical/mixed-effects package [lme4](https://cran.r-project.org/web/packages/lme4/index.html) and the multinomial modeling packages [MPTinR](https://cran.r-project.org/web/packages/MPTinR/index.html) and [TreeBUGS](https://cran.r-project.org/web/packages/TreeBUGS/index.html). |
 | [SQL](https://en.wikipedia.org/wiki/SQL) | Familiar with the main aspects of the language (e.g., create tables, adding/editing entries, various methods of fetching data, keys) as well as the more advanced and dynamic aspects (e.g., setting up triggers, special constraints, functions). |
 | [SPSS](https://en.wikipedia.org/wiki/SPSS) | Able to read and write customized syntax, particularly anything related to generalized linear models. |
 | [VBA](https://en.wikipedia.org/wiki/Visual_Basic_for_Applications) | My first contact with coding was writing macros for MS Excel back in early 2000s.  From there, I delved a bit deeper into proper VBA but honestly, I have a superficial understanding of it. I can read and write it just fine though. |
-| [Bash](https://en.wikipedia.org/wiki/Bash_%28Unix_shell%29) | Standard CLI stuff.  Nothing too fancy, so I wouldn't say I'm very familiar with it. |
 | [PHP](https://en.wikipedia.org/wiki/PHP) | Only basic knowledge about the syntax and use cases.  I've used before and getting more familiar with it as I learn about Laravel (see [frameworks](#frameworks)). |
 | [MATLAB](https://en.wikipedia.org/wiki/MATLAB) | Helped parsing a few neuroimaging datasets during my Ph.D..  I'm not very familiar with the language but can read it. |
 
