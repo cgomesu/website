@@ -11,7 +11,7 @@ excerpt: "A place where you can learn about what I have done in the past, the pr
 feature_row_1:
   - image_path: "/assets/img/site/thumb-whoami.jpg"
     title: "Who am I?"
-    excerpt: "My name is **Carlos F. A. Gomes**.  I'm a scientist, psychologist (B.S., M.A., and Ph.D.), math modeler (stochastic processes), programmer, free knowledge supporter, single-board computer fanatic, magic the gathering player, and electronics hobbyist.  In addition to academic work, I work as freelance in projects related to **backend development**, **database planning and management**, **IT solutions** for small businesses and home users, **data analysis** and **statistics consultant**.  My beverage of choice is [*chimarrão*](https://en.wikipedia.org/wiki/Mat%C3%A9_(drink)) ([*gaúcho*](https://en.wikipedia.org/wiki/Gaucho)-style) but you'll often find me drinking black tea with milk, too."
+    excerpt: "My name is **Carlos F. A. Gomes**.  I'm a scientist, psychologist (B.S., M.A., and Ph.D.), math modeler (stochastic processes), programmer, free knowledge supporter, single-board computer fanatic, magic the gathering player, and electronics hobbyist.  In addition to academic work, I work as freelance in projects related to **backend development**, **database planning and management**, **IT solutions** for small businesses and home users, **data analysis** and as a **statistics consultant**.  My beverage of choice is [*chimarrão*](https://en.wikipedia.org/wiki/Mat%C3%A9_(drink)) ([*gaúcho*](https://en.wikipedia.org/wiki/Gaucho)-style) but you'll often find me drinking black tea with milk, too."
 feature_row_2:
   - image_path: "/assets/img/site/thumb-content.jpg"
     title: "About the content"

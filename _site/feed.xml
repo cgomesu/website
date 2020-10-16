@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-09-15T11:24:00-03:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">NanoPi M4 mini-NAS</title><link href="http://localhost:4000/blog/Nanopi-m4-mini-nas/" rel="alternate" type="text/html" title="NanoPi M4 mini-NAS" /><published>2020-07-06T13:42:00-03:00</published><updated>2020-07-06T13:42:00-03:00</updated><id>http://localhost:4000/blog/Nanopi-m4-mini-nas</id><content type="html" xml:base="http://localhost:4000/blog/Nanopi-m4-mini-nas/">&lt;p&gt;This article is about my mini network-attached storage (NAS) project based on FriendlyARM’s &lt;a href=&quot;http://wiki.friendlyarm.com/wiki/index.php/NanoPi_M4&quot;&gt;NanoPi M4&lt;/a&gt; and its &lt;a href=&quot;http://wiki.friendlyarm.com/wiki/index.php/NanoPi_M4_SATA_HAT&quot;&gt;SATA hat&lt;/a&gt;.  If you’re looking for a cheap, low-profile, low-power NAS solution for your home–or if you just like single-board computers (SBC)–then this article is for you.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-10-16T10:56:01-03:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">NanoPi M4 mini-NAS</title><link href="http://localhost:4000/blog/Nanopi-m4-mini-nas/" rel="alternate" type="text/html" title="NanoPi M4 mini-NAS" /><published>2020-07-06T13:42:00-03:00</published><updated>2020-07-06T13:42:00-03:00</updated><id>http://localhost:4000/blog/Nanopi-m4-mini-nas</id><content type="html" xml:base="http://localhost:4000/blog/Nanopi-m4-mini-nas/">&lt;p&gt;This article is about my mini network-attached storage (NAS) project based on FriendlyARM’s &lt;a href=&quot;http://wiki.friendlyarm.com/wiki/index.php/NanoPi_M4&quot;&gt;NanoPi M4&lt;/a&gt; and its &lt;a href=&quot;http://wiki.friendlyarm.com/wiki/index.php/NanoPi_M4_SATA_HAT&quot;&gt;SATA hat&lt;/a&gt;.  If you’re looking for a cheap, low-profile, low-power NAS solution for your home–or if you just like single-board computers (SBC)–then this article is for you.&lt;/p&gt;
 
 &lt;p&gt;Here’s a preview of how my NanoPi M4 mini-NAS looks like:&lt;/p&gt;
 
@@ -22,6 +22,12 @@
 
 &lt;h1 id=&quot;update-tracker&quot;&gt;Update tracker&lt;/h1&gt;
 &lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;October 16th, 2020, (update 1)&lt;/em&gt;: I’ve re-written the &lt;a href=&quot;https://github.com/cgomesu/nanopim4-satahat-fan&quot;&gt;pwm-fan script for the NanoPi-M4&lt;/a&gt; and updated &lt;a href=&quot;#pwm-fan-controller&quot;&gt;the section about it&lt;/a&gt; accordingly.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;October 16th, 2020 (update 2)&lt;/em&gt;: Despite the CPU tuning improvements I mentioned in my previous update, I’ve continued to have a few stability issues with Kernel 5.x.  After a while, I’ve decided to reinstall &lt;strong&gt;Armbian Buster&lt;/strong&gt; with &lt;strong&gt;Kernel 4.4.213-rk3399 (legacy)&lt;/strong&gt; and it has been smooth sailing ever since.  I updated the &lt;a href=&quot;#software&quot;&gt;section about OS installation&lt;/a&gt; accordingly.&lt;/p&gt;
+  &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;&lt;em&gt;July 14th, 2020&lt;/em&gt;: Added &lt;a href=&quot;#cpu-tuning&quot;&gt;information about CPU tuning to improve system stability&lt;/a&gt;.&lt;/p&gt;
   &lt;/li&gt;
@@ -233,7 +239,7 @@
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;software&quot;&gt;Software&lt;/h1&gt;
-&lt;p&gt;For the OS, I’m using the &lt;strong&gt;server edition&lt;/strong&gt; of the &lt;strong&gt;Armbian Buster&lt;/strong&gt; with &lt;strong&gt;Kernell 5.4&lt;/strong&gt;.  You can download the image from the &lt;a href=&quot;https://www.armbian.com/nanopi-m4/#kernels-archive-all&quot;&gt;official Armbian website&lt;/a&gt;.  Don’t skip the integrity check.  On Linux, just open a terminal and run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sha1sum /path/to/file.img.xz&lt;/code&gt; and check the output against the SHA file from the Armbian website.  This ensures your downloaded file has the same hash as the true file.  If you’ve ever used Debian or derivatives before (e.g., Ubuntu, Raspbian), Armbian will feel like home.&lt;/p&gt;
+&lt;p&gt;For the OS, I’m using the &lt;strong&gt;server edition&lt;/strong&gt; of the &lt;strong&gt;Armbian Buster&lt;/strong&gt; with &lt;strong&gt;Kernell 4.4 (legacy)&lt;/strong&gt;. &lt;em&gt;(Of note, this section has been updated since the original article. In the previous version of the article, I suggested installing the latest Kernel 5.x instead of the legacy 4.4.x. The reason is that I’ve had multiple stability issues with Kernel 5.x and after switching to legacy, it’s been solid as a rock.  That said, I’ve also read that many users have been running the latest Kernel without any issues, which makes me suspicious that there was somthing corrupted with my previous installation. So, my suggestion is the following: if you can afford testing for a few days, do try the latest Kernel 5.x first, and if you run into issues, reinstall the OS with legacy Kernel; otherwise, if you want it ready and solid right away, go straight to legacy Kernel.)&lt;/em&gt;  You can download the image from the &lt;a href=&quot;https://www.armbian.com/nanopi-m4/#kernels-archive-all&quot;&gt;official Armbian website&lt;/a&gt;.  Don’t skip the integrity check.  On Linux, just open a terminal and run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sha1sum /path/to/file.img.xz&lt;/code&gt; and check the output against the SHA file from the Armbian website.  This ensures your downloaded file has the same hash as the true file.  If you’ve ever used Debian or derivatives before (e.g., Ubuntu, Raspbian), Armbian will feel like home.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-sshwelcome-lscpu.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-sshwelcome-lscpu.jpg&quot; alt=&quot;SSH welcome and lscpu&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
@@ -281,42 +287,51 @@ By this logic, setting the governor to either &lt;em&gt;performance&lt;/em&gt; o
 
 &lt;p&gt;&lt;a href=&quot;/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-cgomesu-fan-pwm.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-cgomesu-fan-pwm.jpg&quot; alt=&quot;PWM fan connector&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;However, this connector is not enabled by default and furthermore, the Armbian OS does not come with a service that allows you to control the fan speed according to the CPU temperature.  Fortunately, other users have reported this issue before and a few of them have even written scripts to fix this issue.  To make it easier for me (and everyone else), I’ve made slight changes to &lt;a href=&quot;https://forum.armbian.com/topic/11086-pwm-fan-on-nanopi-m4/?tab=comments#comment-95180&quot;&gt;mar0ni’s script&lt;/a&gt; and created a Github repo (&lt;strong&gt;&lt;a href=&quot;https://github.com/cgomesu/nanopim4-satahat-fan&quot;&gt;cgomesu/nanopim4-satahat-fan&lt;/a&gt;&lt;/strong&gt;) that has two bash scripts and a systemd service file that will run the PWM fan controller as a background service.  To install and run the scripts, read the &lt;a href=&quot;https://github.com/cgomesu/nanopim4-satahat-fan/blob/master/README.md&quot;&gt;README.md&lt;/a&gt; or follow these instructions:&lt;/p&gt;
+&lt;p&gt;However, this connector is not enabled by default and furthermore, the Armbian OS does not come with a service that allows you to control the fan speed according to the CPU temperature.  Fortunately, other users have reported this issue before and a few of them have even written scripts to fix this issue.  I’ve made several changes to previous scripts (e.g., &lt;a href=&quot;https://forum.armbian.com/topic/11086-pwm-fan-on-nanopi-m4/?tab=comments#comment-95180&quot;&gt;mar0ni’s script&lt;/a&gt;) and wrote a highly configurable fan controller that uses a bounded model to set the fan speed dynamically.  To make it easier for me (and everyone else), I’ve created a Github repo (&lt;strong&gt;&lt;a href=&quot;https://github.com/cgomesu/nanopim4-satahat-fan&quot;&gt;cgomesu/nanopim4-satahat-fan&lt;/a&gt;&lt;/strong&gt;) for the fan controller.  For more detailed and updated info about the controller, please refer to the repo (and if you’ve any issues or suggestions, open an issue there).&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Clone the repo and test the scripts
+&lt;p&gt;Briefly, to install and run the script, read the &lt;a href=&quot;https://github.com/cgomesu/nanopim4-satahat-fan/blob/master/README.md&quot;&gt;README.md&lt;/a&gt; or follow these instructions:&lt;/p&gt;
 
-apt-get update
-apt-get install git
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Install git, clone the repo, and test the script
+
+apt update
+apt install git
 cd /opt
+
+# From now on, if you're not running as root, append 'sudo' if you run into permission issues
 git clone https://github.com/cgomesu/nanopim4-satahat-fan.git
 cd nanopim4-satahat-fan
-# Allow the ON and OFF scripts to be executed
-chmod +x pwm-fan-on.sh
-chmod +x pwm-fan-off.sh
-# Test run the ON script
-bash pwm-fan-on.sh
-# Press ctrl+c after a few seconds to send a SIGINT and stop the script
-# Test run the OFF script to disable the fan
-bash pwm-fan-off.sh
 
-# If everything looks good, then run the scripts as a systemd service:
+# Allow the script to be executed
+chmod +x pwm-fan.sh
 
-# Copy the pwm-fan.service file to your systemd folder
+# Test the script
+./pwm-fan.sh
+
+# Check for any error messages 
+# When done, press Ctrl+C after to send a SIGINT and stop the script
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If everything looks good, then run the fan controller in the background (as a systemd service), as follows:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Copy the pwm-fan.service file to your systemd folder
 cp /opt/nanopim4-satahat-fan/pwm-fan.service /lib/systemd/system/
+
 # Enable the service and start it
 systemctl enable pwm-fan.service
 systemctl start pwm-fan.service
+
 # Check the service status to make sure it's running without issues
 systemctl status pwm-fan.service
-# Make sure the OFF script is running corrently when the service is stopped
-systemctl stop pwm-fan.service
-# Then start the service again
-systemctl start pwm-fan.service
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;strong&gt;Alternatively&lt;/strong&gt;, if you don’t want to play around with PWM stuff and are okay with having your fan at 100%, 24/7, then you can just connect it to the board as follows:&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-cgomesu-fan-alternative-alwayson.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-cgomesu-fan-alternative-alwayson.jpg&quot; alt=&quot;PWM fan alt connector&quot; class=&quot;PostImage PostImage--small&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Of note, you can also do the latter using the fan controller by running the script in &lt;em&gt;full speed mode&lt;/em&gt;, as follows:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./pwm-fan.sh -f
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
