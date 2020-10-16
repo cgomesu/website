@@ -42,7 +42,7 @@ it:
     btn_class: "btn--info"
 programming:
   - title: "Youtube4tvh"
-    excerpt: "Youtube4tvh is a Python CLI program that uses Youtube API to find live-streams and create (or update) m3u playlists for a TVHeadend server. The m3u file follows IPTV conventions that allow a TVH server to automatically create an IPTV network with them, and each stream is piped into TVH via a Streamlink shell script."
+    excerpt: "Youtube4tvh is a Python CLI program for TVHeadend servers that uses either the Youtube API or a custom-built web content parser to find live-streams and create (or update) m3u playlists. The m3u file follows IPTV conventions that allow a TVH server to automatically create an IPTV network with them, and each stream is piped into TVH via a Streamlink shell script."
     image_path: "/assets/img/projects/thumb-projects-youtube4tvh.jpg"
     url: "https://github.com/cgomesu/youtube4tvh"
     btn_label: "Github Repo"
