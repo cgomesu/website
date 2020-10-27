@@ -10,7 +10,7 @@ toc_icon: "list"
 ---
 
 # Update tracker
-* September 15th, 2020: There's a [new release of the Youtube4TVH](https://github.com/cgomesu/youtube4tvh/releases/tag/0.1.1) program that does not require the use of API keys. The section about how to create an API key has been updated accordingly.
+* September 15th, 2020: There's a [new release of the Youtube4TVH](https://github.com/cgomesu/youtube4tvh/releases) program that does not require the use of API keys. The section about how to create an API key has been updated accordingly.
 * June 23rd, 2020: Moved content from Blogger to my website and converted to markdown.  Fixed typos I found.
 * May 19th, 2020: Added info about TVH m3u re-fetch period and youtube4tvh cronjob for streams that change very often.
 * May 14th, 2020: Added more info about streamlink install and outdated versions; fixed a few typos. 
@@ -87,7 +87,7 @@ However, once you're done with the initial configuration, you can try changing i
 This is a utility program that will let us create and manage m3u playlist of Youtube live-streams.  It can extract information directly from Youtube's frontend (default) or from Youtube's API (by using a valid API key).  Be aware that the API keys have daily quotas that this program will reach fairly quickly. For more info, checkout [the github page](https://github.com/cgomesu/youtube4tvh).
 
 ## Create a Youtube API v3
-*Since the release of [**v0.1.1**](https://github.com/cgomesu/youtube4tvh/releases/tag/0.1.1), youtube4tvh does not require the use of API keys to run. Therefore, **the use of API keys is now optional**. If you choose to skip this step, simply omit the* `--apikey` *argument when running this utility.*
+*Since the release of [**v0.1.1**](https://github.com/cgomesu/youtube4tvh/releases), youtube4tvh does not require the use of API keys to run. Therefore, **the use of API keys is now optional**. If you choose to skip this step, simply omit the* `--apikey` *argument when running this utility.*
 
 You can find instructions on [the official page](https://developers.google.com/youtube/v3/getting-started).  If you don't want to head there, here is a streamlined version:
 
