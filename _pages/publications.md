@@ -20,7 +20,7 @@ excerpt: "All my published peer-reviewed papers and book chapters, plus a few se
 
 | status | download | reference | materials |
 |:---:|:---:|:---:|:---:|
-| under-review | - | **Gomes, C. F. A.**, & Buratto, L. G. Multinomial modeling applied to psychological research.| - |
+| published | [DOI](https://doi.org/10.34019/1982-1247.2020.v14.29542) | **Gomes, C. F. A.**, & Buratto, L. G. (2020). Multinomial modeling applied to psychological research. Psicologia em Pesquisa, 14, 44-65. | - |
 | published | [DOI](http://doi.org/10.1037/xlm0000559) | Chen, X. R., **Gomes, C. F. A.**, & Brainerd, C. J. (2018). Explaining recollection without remembering. Journal of Experimental Psychology: Learning, Memory, and Cognition, 44, 1921-1930. | - |
 | published | [DOI](http://doi.org/10.1002/hup.2563) | Guarnieri, R. V., Buratto, L. G., **Gomes, C. F. A.**, Ribeiro, R. L., de Souza, A. A. L., Stein, L. M., ... & Bueno, O. F. (2017). Haloperidol increases false recognition memory of thematically related pictures in healthy volunteers. Human Psychopharmacology: Clinical and Experimental, 32, e2563. | - |
 | published | [DOI](http://dx.doi.org/10.1037/xge0000084) | Brainerd, C.J., **Gomes, C.F.A.**, & Nakamura, K. (2015). Dual recollection in episodic memory. Journal of Experimental Psychology: General, 144, 816-843. | - |
