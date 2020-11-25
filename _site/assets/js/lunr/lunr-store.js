@@ -29,12 +29,6 @@ var store = [{
         "url": "http://localhost:4000/blog/Youtube-as-IPTV-with-TVH/",
         "teaser": null
       },{
-        "title": "Free EPG data with WebGrab+Plus and TVHeadend",
-        "excerpt":"Introduction This is a guide for anyone interested in learning how to grab EPG data from publicly available sources (online TV guides) and feed them to an IPTV server. We will accomplish the former with a free program called WebGrab+Plus (WG++) and the latter, with a free and open-source program...","categories": ["blog"],
-        "tags": ["epg","iptv","tvheadend","github","youtube"],
-        "url": "http://localhost:4000/blog/EPG-data-webgrabplus-tvheadend/",
-        "teaser": null
-      },{
         "title": "The ASRock J3355b-itx pfSense box",
         "excerpt":"Introduction pfSense CE is a free, open-source, and very popular firewall/router that runs on FreeBSD and is developed by Netgate. Even though Netgate sells official pfSense appliances, it’s possible to build your own, custom-made pfSense box for (way) less money (at the expense of way less support from Netgate). In...","categories": ["blog"],
         "tags": ["homelab","homeserver","firewall","network"],
