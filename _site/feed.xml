@@ -1,4 +1,125 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-11-19T09:37:29-03:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">NanoPi M4 mini-NAS</title><link href="http://localhost:4000/blog/Nanopi-m4-mini-nas/" rel="alternate" type="text/html" title="NanoPi M4 mini-NAS" /><published>2020-07-06T13:42:00-03:00</published><updated>2020-07-06T13:42:00-03:00</updated><id>http://localhost:4000/blog/Nanopi-m4-mini-nas</id><content type="html" xml:base="http://localhost:4000/blog/Nanopi-m4-mini-nas/">&lt;p&gt;This article is about my mini network-attached storage (NAS) project based on FriendlyARM’s &lt;a href=&quot;http://wiki.friendlyarm.com/wiki/index.php/NanoPi_M4&quot;&gt;NanoPi M4&lt;/a&gt; and its &lt;a href=&quot;http://wiki.friendlyarm.com/wiki/index.php/NanoPi_M4_SATA_HAT&quot;&gt;SATA hat&lt;/a&gt;.  If you’re looking for a cheap, low-profile, low-power NAS solution for your home–or if you just like single-board computers (SBC)–then this article is for you.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-11-25T11:27:14-03:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">Mesh networking: A guide to using free and open-source software</title><link href="http://localhost:4000/blog/Mesh-networking-openwrt-batman/" rel="alternate" type="text/html" title="Mesh networking: A guide to using free and open-source software" /><published>2020-11-24T14:53:00-03:00</published><updated>2020-11-24T14:53:00-03:00</updated><id>http://localhost:4000/blog/Mesh-networking-openwrt-batman</id><content type="html" xml:base="http://localhost:4000/blog/Mesh-networking-openwrt-batman/">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;In this tutorial, we will learn how to install and configure a &lt;strong&gt;mesh network&lt;/strong&gt; using &lt;a href=&quot;https://openwrt.org/&quot;&gt;&lt;strong&gt;OpenWrt&lt;/strong&gt;&lt;/a&gt; and the &lt;a href=&quot;https://en.wikipedia.org/wiki/Data_link_layer&quot;&gt;layer-2&lt;/a&gt; implementation of the &lt;em&gt;Better Approach to Mobile Adhoc Networking&lt;/em&gt;, called &lt;a href=&quot;https://www.kernel.org/doc/html/v4.15/networking/batman-adv.html&quot;&gt;&lt;strong&gt;batman-adv&lt;/strong&gt;&lt;/a&gt;.  All the software mentioned here is &lt;strong&gt;free&lt;/strong&gt; and &lt;strong&gt;open-source&lt;/strong&gt;, as opposed to commercial alternatives (&lt;a href=&quot;https://unifi-mesh.ui.com&quot;&gt;UniFi Mesh&lt;/a&gt; or &lt;a href=&quot;https://store.google.com/us/product/nest_wifi&quot;&gt;Google’s Nest Wifi&lt;/a&gt;).&lt;/p&gt;
+
+&lt;h1 id=&quot;why-did-i-write-this-guide&quot;&gt;Why did I write this guide?&lt;/h1&gt;
+&lt;p&gt;Even though the concept of mesh networks has been around for quite some time now (&lt;strong&gt;REF&lt;/strong&gt;), the documentation of its implementation is still scarce.  I don’t feel qualified to speculate on why this is so but I find it odd because many of the radio devices found in popular wifi routers (&lt;strong&gt;REF&lt;/strong&gt;) actually support mesh networking–but the original firmware often doesn’t give users the option to use such mode of operation. (You can even run a mesh network with something as cheap and small as an &lt;a href=&quot;https://en.wikipedia.org/wiki/ESP32&quot;&gt;&lt;strong&gt;ESP32&lt;/strong&gt;&lt;/a&gt;.)  My intention with this guide is to help closing the gap between concept and implementation of mesh networking using software that anyone can download and install on cheap, commonly available hardware.&lt;/p&gt;
+
+&lt;p&gt;but while researching recently, I found it strange that aside from the commercial solutions, the documentation about implementing mesh networks is scarce and often outdated.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;write a little about the motivation for this guide:&lt;/em&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Such a presentation could then be used as a template for more advanced implementations of a mesh network. While researching, I found outdated information and the good content is often times spread across multiple forum posts. This motivated me to write a simple guide for anyone who wants to experiment building their own mesh without relying on commercial solutions.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;objectives&quot;&gt;Objectives&lt;/h1&gt;
+&lt;p&gt;This is more of a hands-on, how-to guide to building mesh networks for home users than a review about the concepts related to mesh networkings.&lt;/p&gt;
+
+&lt;h1 id=&quot;outline&quot;&gt;Outline&lt;/h1&gt;
+
+&lt;h1 id=&quot;basic-network-concepts&quot;&gt;Basic network concepts&lt;/h1&gt;
+
+&lt;h1 id=&quot;mesh-networking-concepts&quot;&gt;Mesh networking concepts&lt;/h1&gt;
+&lt;p&gt;&lt;em&gt;write an introduction to this section&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;what-is-a-mesh-network&quot;&gt;What is a mesh network?&lt;/h2&gt;
+
+&lt;!-- Courtesy of embedresponsively.com //--&gt;
+&lt;div class=&quot;responsive-video-container&quot;&gt;
+
+  &lt;iframe src=&quot;https://www.youtube-nocookie.com/embed/tYLU755T6_I&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;/div&gt;
+
+&lt;h2 id=&quot;where-can-i-learn-more-about-it&quot;&gt;Where can I learn more about it?&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Wikipedia articles about &lt;a href=&quot;https://en.wikipedia.org/wiki/Mesh_networking&quot;&gt;mesh networking&lt;/a&gt; and &lt;a href=&quot;https://en.wikipedia.org/wiki/Wireless_mesh_network&quot;&gt;wireless mesh networks&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://scholar.google.com/scholar?q=mesh+networking&quot;&gt;Peer-reviewed papers or books&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;examples-of-mesh-networks&quot;&gt;Examples of mesh networks&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;routing-batman-adv&quot;&gt;Routing: batman-adv&lt;/h1&gt;
+
+&lt;h1 id=&quot;hardware&quot;&gt;Hardware&lt;/h1&gt;
+
+&lt;h1 id=&quot;why-mesh&quot;&gt;Why mesh?&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;Minimal infra-structure&lt;/li&gt;
+  &lt;li&gt;Smart, multi-point connections&lt;/li&gt;
+  &lt;li&gt;Flexible network topologies&lt;/li&gt;
+  &lt;li&gt;Self-discovery&lt;/li&gt;
+  &lt;li&gt;Self-healing&lt;/li&gt;
+  &lt;li&gt;High availability&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;objectives-1&quot;&gt;Objectives&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;Get familiar with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/&lt;/code&gt; files in OpenWrt devices and how to edit them with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vi&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;Learn how to configure OpenWrt devices to play one of three possible roles: (a) dumb mesh node, (b) bridge node, or (c) gateway node.&lt;/li&gt;
+  &lt;li&gt;Install and configure &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt; on an OpenWrt device using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;opkg&lt;/code&gt; package manager.&lt;/li&gt;
+  &lt;li&gt;Learn how to use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batctl&lt;/code&gt; to test, debug, and monitor connectivity within the mesh.&lt;/li&gt;
+  &lt;li&gt;Add encryption to the mesh network with the package &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wpad-mesh-openssl&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;Use VLANs to create a Default, IoT, and Guest networks within the mesh using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;As usual, this is not meant to be an exhaustive presentation of any of the topics covered here. If you spot an error or have a suggestion, feel free to get in touch with me.&lt;/p&gt;
+
+&lt;p&gt;The goal is to cover a few concepts about wireless networking and focus on the implementation of a mesh
+in a couple of network topologies commonly found in homes and small offices.&lt;/p&gt;
+
+&lt;p&gt;Such a presentation could then be used as a template for more advanced implementations of a mesh network. While researching, I found outdated information and the good content is often times spread across multiple forum posts. This motivated me to write a simple guide for anyone who wants to experiment building their own mesh without relying on commercial solutions.&lt;/p&gt;
+
+&lt;p&gt;and configurations for network topologies commonly found in homes and small offices&lt;/p&gt;
+
+&lt;p&gt;to provide a template for more advanced implementations of a mesh network. While researching, I found outdated information and the good content is often times spread across multiple forum posts. This motivated me to write a simple guide for anyone who wants to experiment building their own mesh without relying on commercial solutions.&lt;/p&gt;
+
+&lt;p&gt;If you want to dive deep into the features and configurations, read the actual docs:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://openwrt.org/docs/start&quot;&gt;OpenWRT documentation&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.open-mesh.org/projects/batman-adv/wiki&quot;&gt;B.A.T.M.A.N. documentation&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The goal is to cover a few basic configurations for common network topologies to provide a template for more advanced implementations of a mesh network. While researching, I found outdated information and the good content is often times spread across multiple forum posts. This motivated me to write a simple guide for anyone who wants to experiment building their own mesh without relying on commercial solutions.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/tplink-wr1043nd.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/tplink-wr1043nd.jpg&quot; alt=&quot;TP-Link 1043nd&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Regarding the hardware, all mesh nodes used were the &lt;a href=&quot;https://www.tp-link.com/us/home-networking/wifi-router/tl-wr1043nd/&quot;&gt;&lt;strong&gt;TP-Link WR-1043ND v1.8&lt;/strong&gt;&lt;/a&gt; just to illustrate the various implementations (and because they are very cheap, too) but the general ideas presented here should apply to &lt;em&gt;any radio device&lt;/em&gt; that meets the following criteria:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Compatible with the latest OpenWRT version (&lt;a href=&quot;https://openwrt.org/toh/start&quot;&gt;list of hardware&lt;/a&gt;);&lt;/li&gt;
+  &lt;li&gt;Supports the &lt;em&gt;mesh point&lt;/em&gt; mode of operation. (This point is covered in more detail in &lt;a href=&quot;#&quot;&gt;this part of the tutorial&lt;/a&gt;.)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;If you’re looking for devices to buy and experiment on, my suggestion is to look for dual-band wifi routers to allow a better segmentation of the wifi networks.  Now, if you can afford spending more, look for tri-band devices.  Netgear and Linksys have solid options that are compatible with OpenWrt. That said, most home users will be just fine with a uni-band router.  For a brand reference, TP-Link has good and cheap devices that can be used in a mesh networking project without (too many) issues.&lt;/p&gt;
+
+&lt;p class=&quot;notice notice--info&quot;&gt;Alternatively, you can run OpenWrt with a &lt;a href=&quot;https://openwrt.org/docs/guide-user/virtualization/start&quot;&gt;&lt;strong&gt;virtual machine&lt;/strong&gt;&lt;/a&gt; or as a &lt;a href=&quot;https://github.com/openwrt/docker&quot;&gt;&lt;strong&gt;docker container&lt;/strong&gt;&lt;/a&gt;. For single-board computer fans like me, you can run OpenWrt with most of them and then use a combination of on-board wifi and USB adapter to create a powerful mesh node. (&lt;a href=&quot;https://shop.solid-run.com/product-category/embedded-computers/marvell-family/clearfog-base-pro/&quot;&gt;ClearFog boards&lt;/a&gt; look like good candidates for such a project, for example.) Of course, you can run OpenWrt on baremetal amd64 machines, which will give you a ton of options to put together an impressive mesh device.&lt;/p&gt;
+
+&lt;p&gt;More specifically, by the end of this tutorial you will be able to do the following:&lt;/p&gt;
+
+&lt;h1 id=&quot;todo&quot;&gt;TODO&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Install OpenWrt&lt;/li&gt;
+  &lt;li&gt;Configure packages&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;other-similar-mesh-solutions&quot;&gt;Other similar mesh solutions&lt;/h1&gt;
+&lt;p&gt;If you find this guide a little bit overwhelming but you’re still curious about mesh networking, take a look at these other solutions (alphabetical order):&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.commotionwireless.net&quot;&gt;Commotion Wireless&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://libremesh.org&quot;&gt;LibreMesh&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;They have pre-configured images that will work “out of the box” with compatible devices.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="mesh" /><category term="wifi" /><category term="networking" /><category term="router" /></entry><entry><title type="html">NanoPi M4 mini-NAS</title><link href="http://localhost:4000/blog/Nanopi-m4-mini-nas/" rel="alternate" type="text/html" title="NanoPi M4 mini-NAS" /><published>2020-07-06T13:42:00-03:00</published><updated>2020-07-06T13:42:00-03:00</updated><id>http://localhost:4000/blog/Nanopi-m4-mini-nas</id><content type="html" xml:base="http://localhost:4000/blog/Nanopi-m4-mini-nas/">&lt;p&gt;This article is about my mini network-attached storage (NAS) project based on FriendlyARM’s &lt;a href=&quot;http://wiki.friendlyarm.com/wiki/index.php/NanoPi_M4&quot;&gt;NanoPi M4&lt;/a&gt; and its &lt;a href=&quot;http://wiki.friendlyarm.com/wiki/index.php/NanoPi_M4_SATA_HAT&quot;&gt;SATA hat&lt;/a&gt;.  If you’re looking for a cheap, low-profile, low-power NAS solution for your home–or if you just like single-board computers (SBC)–then this article is for you.&lt;/p&gt;
 
 &lt;p&gt;Here’s a preview of how my NanoPi M4 mini-NAS looks like:&lt;/p&gt;
 
@@ -595,7 +716,173 @@ systemctl status pwm-fan.service
 &lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
 &lt;p&gt;This concludes the basics of a cheap, low-profile, and low-power (yet powerful) pfSense white-box.  I’ve never had any issues with this hardware and recommend it to anyone interested in diving into firewalls or just looking for something a bit more advanced than what commercial routers can offer.  If you want to try something different than pfSense, take a look at &lt;a href=&quot;https://opnsense.org/&quot;&gt;OPNsense&lt;/a&gt;–a pfSense fork–for another free and open-source firewall software.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="homelab" /><category term="homeserver" /><category term="firewall" /><category term="network" /></entry><entry><title type="html">Youtube live-streams as IPTV channels for TVHeadend</title><link href="http://localhost:4000/blog/Youtube-as-IPTV-with-TVH/" rel="alternate" type="text/html" title="Youtube live-streams as IPTV channels for TVHeadend" /><published>2020-05-07T00:00:00-03:00</published><updated>2020-05-07T00:00:00-03:00</updated><id>http://localhost:4000/blog/Youtube-as-IPTV-with-TVH</id><content type="html" xml:base="http://localhost:4000/blog/Youtube-as-IPTV-with-TVH/">&lt;h1 id=&quot;update-tracker&quot;&gt;Update tracker&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="homelab" /><category term="homeserver" /><category term="firewall" /><category term="network" /></entry><entry><title type="html">Free EPG data with WebGrab+Plus and TVHeadend</title><link href="http://localhost:4000/blog/EPG-data-webgrabplus-tvheadend/" rel="alternate" type="text/html" title="Free EPG data with WebGrab+Plus and TVHeadend" /><published>2020-06-23T00:00:00-03:00</published><updated>2020-06-23T00:00:00-03:00</updated><id>http://localhost:4000/blog/EPG-data-webgrabplus-tvheadend</id><content type="html" xml:base="http://localhost:4000/blog/EPG-data-webgrabplus-tvheadend/">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;This is a guide for anyone interested in learning how to grab &lt;strong&gt;EPG data&lt;/strong&gt; from publicly available sources (online TV guides) and feed them to an IPTV server.  We will accomplish the former with a free program called &lt;a href=&quot;http://webgrabplus.com/&quot;&gt;&lt;strong&gt;WebGrab+Plus&lt;/strong&gt;&lt;/a&gt; (WG++) and the latter, with a free and open-source program called &lt;a href=&quot;https://tvheadend.org/&quot;&gt;&lt;strong&gt;TVHeadend&lt;/strong&gt;&lt;/a&gt; (TVH).&lt;/p&gt;
+
+&lt;p&gt;Initially, I wrote this guide as a complementary piece to my previous one on &lt;a href=&quot;https://cgomesu.com/blog/Youtube-as-IPTV-with-TVH/&quot;&gt;how to play Youtube live-streams as if they were IPTV channels&lt;/a&gt;.  For this reason, I won’t go into too much detail about how to install and configure a TVH server.  If you don’t have a TVH server up and running, I recommend you to take a look at my previous guide and &lt;a href=&quot;https://tvheadend.org/projects/tvheadend/wiki&quot;&gt;the official documentation&lt;/a&gt;.  However, if all you want is to learn about EPG data and WG++, then read on and skip the content about interacting with a TVH server or use the &lt;a href=&quot;#&quot;&gt;Table of Contents&lt;/a&gt; to skip directly to the content about WG++ configuration and automation.&lt;/p&gt;
+
+&lt;p&gt;I might make changes to this article after posting it.  If I do, there will be an “update tracker” at the beggining of the article stating what was changed and when.&lt;/p&gt;
+
+&lt;h1 id=&quot;motivation&quot;&gt;Motivation&lt;/h1&gt;
+
+&lt;h1 id=&quot;objectives&quot;&gt;Objectives&lt;/h1&gt;
+
+&lt;h1 id=&quot;server-client-layout&quot;&gt;Server-Client Layout&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;webgrabplus&quot;&gt;WebGrab+Plus&lt;/h1&gt;
+&lt;p&gt;WG++ is a free (but unfortunately, not open source) application that grabs and parses EPG data from multiple public websites that contain TV guides (e.g., &lt;a href=&quot;https://www.tvguide.co.uk/&quot;&gt;https://www.tvguide.co.uk/&lt;/a&gt;).  That is, instead of paying an EPG data provider, you can use this program to collect EPG data from freely available online sources.  Recently, however, the WG++ devs have started implementing user-licenses to mitigate abuse and provide benefits to users who donate.  Last time I checked (May 20th), user-licenses have been disabled by the devs after an initial trial period.  However, if you do run into license issues, check their &lt;a href=&quot;http://webgrabplus.com/forums/usage&quot;&gt;Forums&lt;/a&gt; to find out how to obtain one (a ‘registered user’ license is free and you can obtain one by simply registering an account, as the name implies).  Don’t abuse their application.  If you like it, please &lt;a href=&quot;http://webgrabplus.com/content/support-us&quot;&gt;donate&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;installation-and-notes&quot;&gt;Installation and notes&lt;/h2&gt;
+&lt;p&gt;To install WG++, first &lt;a href=&quot;http://webgrabplus.com/download/&quot;&gt;download the latest version&lt;/a&gt; for your OS.  Then, go to &lt;a href=&quot;http://webgrabplus.com/documentation/installation/linux&quot;&gt;the official guide&lt;/a&gt; and follow the instructions to install on a Linux machine (or &lt;a href=&quot;http://webgrabplus.com/documentation/installation/windows&quot;&gt;Windows&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;If you’re running Linux, you’ll need to install mono in order to run the WG++ executable.  When doing so, I suggest you to install all three &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mono-devel mono-complete ca-certificates-mono&lt;/code&gt; to avoid running onto issues with missing mono packages. Please note that this will take some time (be patient).&lt;/p&gt;
+
+&lt;p&gt;Also, for the remaining part of this guide, I’ll assume you’re running Linux but you should be able to figure out the Windows equivalent of the terminal commands if you’ve used both OSes before.&lt;/p&gt;
+
+&lt;p&gt;After extracting the WG++ file downloaded from the download website, WG++ will create a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.wg++/&lt;/code&gt; folder on whatever folder you chose as destination.  For the sake of simplicity, I suggest you to move it to the /home/ folder of your main user account (e.g., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/home/cgomesu/.wg++/&lt;/code&gt;) if you’ve extracted the compressed file to a different location.  In any case, take note of where the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.wg++/&lt;/code&gt; folder is because we will refer to it multiple times.&lt;/p&gt;
+
+&lt;p&gt;Per their guide, once you’ve downloaded and extracted the compressed file, run the install shell script to create the template configuration files :&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd ~/.wg++
+bash install.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then, test the program by running the run shell scrit, as follows:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash run.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This will execute the run.sh script using the &lt;em&gt;default WebGrab++.config.xml&lt;/em&gt; configuration file that has a single dummy channel.  If it’s working correctly, the run.sh script will output something that looks like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-06-23-EPG-data-webgrabplus-tvheadend/&quot;&gt;&lt;img src=&quot;/assets/posts/2020-06-23-EPG-data-webgrabplus-tvheadend/&quot; alt=&quot;WG+ test run.sh&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;If your output doesn’t look like that one or has noticeable errors, then try to make sense of the error message and review your installation.  There’s no point to continue if your application is broken.  Reinstall the whole thing and give it another try.  Because WG++ is a Windows executable, problems running it on Linux machines are often related to &lt;strong&gt;missing&lt;/strong&gt; or &lt;strong&gt;outdated mono packages&lt;/strong&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mono --version&lt;/code&gt; will tell you the mono version you’ve installed, which should be 6.8+ at this point), so make sure to review those, too.&lt;/p&gt;
+
+&lt;p&gt;If everything looks good, then you’re ready to configure your WG++ application.  Basic config first, then advanced shit.&lt;/p&gt;
+
+&lt;h2 id=&quot;basic-configuration&quot;&gt;Basic configuration&lt;/h2&gt;
+&lt;p&gt;You can find detailed instructions on how to configure your WG++ on &lt;a href=&quot;http://www.webgrabplus.com/documentation/configuration&quot;&gt;the official website&lt;/a&gt;.  Here, however, I’ll cover only those that are necessary to get you started with the program.&lt;/p&gt;
+
+&lt;p&gt;All the main settings are specified in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;WebGrab++.config.xml&lt;/code&gt; file on the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.wg++/&lt;/code&gt; folder.  Open it with your favorite text editor (e.g., nano, pluma) and you should see something like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-06-23-EPG-data-webgrabplus-tvheadend/&quot;&gt;&lt;img src=&quot;/assets/posts/2020-06-23-EPG-data-webgrabplus-tvheadend/&quot; alt=&quot;default WG+ config file&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The way this file is organized should be fairly intuitive.  All the configuration options should be within &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;settings&amp;gt;&amp;lt;/settings&amp;gt;&lt;/code&gt; and the only thing you’ll need to edit are the following:&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;!-- comment --&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Text within &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;!-- --&amp;gt;&lt;/code&gt; are comments used for quick reference in a XML file.  You’ll notice that some options are part of the default file but are commented out (see license, for example).  To enable such options, you can simply remove the comment markers (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;!-- --&amp;gt;&lt;/code&gt;).&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;license&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;As I mentioned before, the WG++ devs have started using licenses recently. If you’re only going to grab data from less than 20 channels from one or two sources, don’t even bother with this.  However, if you need data for more channels, you should look into how to acquire a license.  (Again, licenses were deactivated when I first wrote this guide, so you shouldn’t need one at all.)  If you have a license, uncomment the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;license&amp;gt;&amp;lt;/license&amp;gt;&lt;/code&gt; row and edit it with your credentials (notice that the password is your license password, not your account password).  For example:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;license wg-username=&quot;example&quot; registered-email=&quot;example@example.com&quot; password=&quot;password123&quot; /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;timespan&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This indicates the timespan (in days since today) of the EPG data WG++ will attempt to grab.  The default is 0, meaning only grab EPG data from today.  I usually set this value to 2, which is today and the next 2 days, as follows:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;timespan&amp;gt;2&amp;lt;/timespan&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;update&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;There are five update modes: channel, incremental, light, smart, and force/full.  The default is force (f), which downloads all the data and overwrites whatever you’ve grabbed in the past whenever you run WG++.  If left blank, then it will used the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;update=&quot;&quot;&lt;/code&gt; directive in the channel element (this is useful if you want more fine-grained settings for how WG++ will deal with the EPG data for each channel but will required you to define an update mode for each channel).  I usually set this value to incremental (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt;), which only downloads and writes new/changed data, as follows:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;update&amp;gt;i&amp;lt;/update&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;channel&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This is the settings for grabbing data for each channel, and therefore, it’s one of the most important aspects of your config file.  At its most basic level, this element indicates a source to grab EPG data from (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;site&lt;/code&gt;), the id of the channel for that source (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;site_id&lt;/code&gt;), and the id of the channel for the XMLTV file (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;xmltv_id&lt;/code&gt;) and the name of the channel (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;channel&amp;gt;name&amp;lt;/channel&amp;gt;&lt;/code&gt;).  (Of note, if you’ve customized the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tvg-id&lt;/code&gt; of a mux in a .m3u playlist, setting the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;xmltv_id&lt;/code&gt; to be the same as the .m3u &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tvg-id&lt;/code&gt; will ensure that once TVH has the EPG data, it will automatically map to that channel. Never change the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;source_id&lt;/code&gt; though, as that is for the scrapper to find.)  (For more options, see &lt;a href=&quot;http://www.webgrabplus.com/documentation/configuration/webgrabconfigxml#config_channel&quot;&gt;http://www.webgrabplus.com/documentation/configuration/webgrabconfigxml#config_channel&lt;/a&gt;.)  Also, as we’ll see later, there will be multiple &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;channel&amp;gt;&amp;lt;/channel&amp;gt;&lt;/code&gt; rows in this file because we usually want to grab EPG data for more than one channel.  For instance:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;channel site=&quot;example.com&quot; side_id=&quot;channel-example&quot; xmltv_id=&quot;Channel Example&quot;&amp;gt;Channel Example&amp;lt;/channel&amp;gt;
+&amp;lt;channel site=&quot;example.com&quot; side_id=&quot;channel-example-hd&quot; xmltv_id=&quot;Channel Example HD&quot;&amp;gt;Channel Example HD&amp;lt;/channel&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Right now, you don’t need to bother with adding and editing the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;channel&amp;gt;&amp;lt;/channel&amp;gt;&lt;/code&gt; elements.  Just &lt;strong&gt;delete the dummy channel&lt;/strong&gt; that is there just for testing purposes.&lt;/p&gt;
+
+&lt;p&gt;If you’re done editing the other settings, save the file and let’s see how we can find the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;channel&amp;gt;&amp;lt;/channel&amp;gt;&lt;/code&gt; elements using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;siteini.pack/&lt;/code&gt; folder.&lt;/p&gt;
+
+&lt;h2 id=&quot;updating-the-siteinipack-folder&quot;&gt;Updating the siteini.pack folder&lt;/h2&gt;
+&lt;p&gt;Your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.wg++/&lt;/code&gt; folder should have a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bin/&lt;/code&gt; subfolder that contains the WG++ executable and a file called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SiteIni.Pack.Update.sh&lt;/code&gt;.  The latter file is a shell script that will check the current version of the .ini files you have on your local machine and compare against the latest version available online.  (.ini files stored on the siteini.pack folder are files that instruct the grabber how to parse a TV guide website.)  If your version is outdated, it’ll update all files sotred on your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.wg++/siteini.pack/&lt;/code&gt; folder.  To run it, type the following:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd ~/.wg++/bin
+bash SiteIni.Pack.Update.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;After running that script, your local &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;siteini.pack/&lt;/code&gt; folder should be up-to-date.  This means we can use it to find a good source for our channels’ EPG data.  Now, before we move onto that, let’s go ahead and automate the usage of the update script.  As you might have noticed, the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SiteIni.Pack.Update.sh&lt;/code&gt; script is an interactive script.  That is, if it’s necessary to update the local files, it will &lt;strong&gt;ask you to confirm&lt;/strong&gt; before overwritting any file.  Unfortunately, interactive scripts make it hard to automate their usage.  Fortunately, we can pipe inputs (e.g., “A” for overwrite all) writing a very simple helper script and then create a cronjob to run it every day at 4AM, as follows:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Write a bash script to pipe &quot;All&quot; to SiteIni.Pack.Update.sh
+nano UpdateIni.sh
+
+# Add the following, changing /path/to/ with the appropriate path:
+#!/bin/bash
+/bin/echo &quot;A&quot; | /bin/bash /path/to/.wg++/bin/SiteIni.Pack.Update.sh
+exit 0
+
+# Create a new cronjob
+crontab -e
+
+# Go to the bottom of the file and add the following
+0 4 * * * /bin/bash /path/to/.wg++/bin/UpdateIni.sh
+
+# Save and exit (ctrl+x)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Great! Now we don’t need to bother with manually running the update script anymore.  (However, double check your logs the next day to make sure the update script is running as it should.  Wrong paths and permission issues are the usual culprits if you’re running into errors.)&lt;/p&gt;
+
+&lt;h2 id=&quot;selecting-the-epg-data-source&quot;&gt;Selecting the EPG data source&lt;/h2&gt;
+
+&lt;h2 id=&quot;parsing-siteinipack&quot;&gt;Parsing siteini.pack&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;alternatives-to-wg&quot;&gt;Alternatives to WG++&lt;/h1&gt;
+&lt;p&gt;As I mentioned in my previous post, there are many alternatives to WG++.  By far, the most convenient ones are &lt;a href=&quot;https://lmgtfy.com/?q=epg+provider&quot;&gt;&lt;strong&gt;EPG data providers&lt;/strong&gt;&lt;/a&gt; but those are (almost always) paid services.  Honestly, free alternatives, like WG++ and the XMLTV project, mean that you’re gonna deal with a lot of shit to get the service up and running + maintenance.  But if you’re into selfhosting, you might actually enjoy that because it provides you learning opportunities and give you more control over what is going on.&lt;/p&gt;
+
+&lt;p&gt;A free and open-source alternative is the &lt;a href=&quot;http://wiki.xmltv.org/index.php/Main_Page&quot;&gt;&lt;strong&gt;XMLTV project&lt;/strong&gt;&lt;/a&gt;.  [You can find their Github repo here: &lt;a href=&quot;https://github.com/XMLTV/xmltv&quot;&gt;https://github.com/XMLTV/xmltv&lt;/a&gt;.  There, you’ll also find instructions on how to build it from source, install the required Perl packages, build custom grabbers, etc.]  You can run their grabbers independent of any other program (e.g., clone their git, build from source, configure the grabbers, and run them) or use the built-in grabbers from TVH (they’re called internal XMLTV grabbers).  I’ve tried this before and maybe I’m just an idiot, but it’s a lot of work and the results are inconsistent because the grabbers are not updated very often (websites with TV guides change over time, which means that old parsers might not work afterwards, leading to broken grabbers).  But if you’re feeling adventurous, give it a try.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;tvheadend-epg-configuration&quot;&gt;TVHeadend EPG configuration&lt;/h1&gt;
+
+&lt;h2 id=&quot;epg-grabber-modules&quot;&gt;EPG grabber modules&lt;/h2&gt;
+&lt;p&gt;TVH allows you to feed it with EPG data via UNIX domain sockets.  This option is disabled by default but you can enable it as follows:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Configuration &amp;gt; Channel/EPG &amp;gt; EPG Grabber Modules &amp;gt; External:XMLTV &amp;gt; Parameters
+# Enabled: Checked
+# Path: (Copy this path to a file or take note of it)
+# Hit Save
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;piping-the-guidexml-to-tvh&quot;&gt;Piping the guide.xml to TVH&lt;/h2&gt;
+&lt;p&gt;Via Netcat:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cat /path/to/guide.xml | netcat -U /path/to/xmltv.sock
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Via curl:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cat /path/to/guide.xml | curl
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="epg" /><category term="iptv" /><category term="tvheadend" /><category term="github" /><category term="youtube" /></entry><entry><title type="html">Youtube live-streams as IPTV channels for TVHeadend</title><link href="http://localhost:4000/blog/Youtube-as-IPTV-with-TVH/" rel="alternate" type="text/html" title="Youtube live-streams as IPTV channels for TVHeadend" /><published>2020-05-07T00:00:00-03:00</published><updated>2020-05-07T00:00:00-03:00</updated><id>http://localhost:4000/blog/Youtube-as-IPTV-with-TVH</id><content type="html" xml:base="http://localhost:4000/blog/Youtube-as-IPTV-with-TVH/">&lt;h1 id=&quot;update-tracker&quot;&gt;Update tracker&lt;/h1&gt;
 &lt;ul&gt;
   &lt;li&gt;September 15th, 2020: There’s a &lt;a href=&quot;https://github.com/cgomesu/youtube4tvh/releases&quot;&gt;new release of the Youtube4TVH&lt;/a&gt; program that does not require the use of API keys. The section about how to create an API key has been updated accordingly.&lt;/li&gt;
   &lt;li&gt;June 23rd, 2020: Moved content from Blogger to my website and converted to markdown.  Fixed typos I found.&lt;/li&gt;

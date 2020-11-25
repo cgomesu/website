@@ -29,6 +29,12 @@ var store = [{
         "url": "http://localhost:4000/blog/Youtube-as-IPTV-with-TVH/",
         "teaser": null
       },{
+        "title": "Free EPG data with WebGrab+Plus and TVHeadend",
+        "excerpt":"Introduction This is a guide for anyone interested in learning how to grab EPG data from publicly available sources (online TV guides) and feed them to an IPTV server. We will accomplish the former with a free program called WebGrab+Plus (WG++) and the latter, with a free and open-source program...","categories": ["blog"],
+        "tags": ["epg","iptv","tvheadend","github","youtube"],
+        "url": "http://localhost:4000/blog/EPG-data-webgrabplus-tvheadend/",
+        "teaser": null
+      },{
         "title": "The ASRock J3355b-itx pfSense box",
         "excerpt":"Introduction pfSense CE is a free, open-source, and very popular firewall/router that runs on FreeBSD and is developed by Netgate. Even though Netgate sells official pfSense appliances, it’s possible to build your own, custom-made pfSense box for (way) less money (at the expense of way less support from Netgate). In...","categories": ["blog"],
         "tags": ["homelab","homeserver","firewall","network"],
@@ -39,5 +45,11 @@ var store = [{
         "excerpt":"This article is about my mini network-attached storage (NAS) project based on FriendlyARM’s NanoPi M4 and its SATA hat. If you’re looking for a cheap, low-profile, low-power NAS solution for your home–or if you just like single-board computers (SBC)–then this article is for you. Here’s a preview of how my...","categories": ["blog"],
         "tags": ["sbc","arm","homelab","homeserver","storage"],
         "url": "http://localhost:4000/blog/Nanopi-m4-mini-nas/",
+        "teaser": null
+      },{
+        "title": "Mesh networking: A guide to using free and open-source software",
+        "excerpt":"Introduction In this tutorial, we will learn how to install and configure a mesh network using OpenWrt and the layer-2 implementation of the Better Approach to Mobile Adhoc Networking, called batman-adv. All the software mentioned here is free and open-source, as opposed to commercial alternatives (UniFi Mesh or Google’s Nest...","categories": ["blog"],
+        "tags": ["mesh","wifi","networking","router"],
+        "url": "http://localhost:4000/blog/Mesh-networking-openwrt-batman/",
         "teaser": null
       }]

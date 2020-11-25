@@ -1,0 +1,626 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.19.3 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Mesh networking: A guide to using free and open-source software - CGomesu</title>
+<meta name="description" content="A blog and portfolio website built with Jekyll and hosted on Github Pages">
+
+
+  <meta name="author" content="Carlos Gomes">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="CGomesu">
+<meta property="og:title" content="Mesh networking: A guide to using free and open-source software">
+<meta property="og:url" content="http://localhost:4000/blog/Mesh-networking-openwrt-batman/">
+
+
+  <meta property="og:description" content="A blog and portfolio website built with Jekyll and hosted on Github Pages">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/posts/2020-11-24-mesh-networking-openwrt-batman/header.jpg">
+
+
+
+
+
+  <meta property="article:published_time" content="2020-11-24T14:53:00-03:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/blog/Mesh-networking-openwrt-batman/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+  <meta name="google-site-verification" content="FA-B3i_TqYeaLPYwZvxxOsx07Coy_drBKJ0M_4DD0Gw" />
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="CGomesu Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="icon" href="/assets/img/site/favicon.ico" type="image/x-icon">
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/img/site/logo.png" alt=""></a>
+        
+        <a class="site-title" href="/">
+           
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/blog/">Blog</a>
+            </li><li class="masthead__menu-item">
+              <a href="/contact/">Contact</a>
+            </li><li class="masthead__menu-item">
+              <a href="/mtg/">MtG</a>
+            </li><li class="masthead__menu-item">
+              <a href="/publications/">Publications</a>
+            </li><li class="masthead__menu-item">
+              <a href="/projects/">Projects</a>
+            </li><li class="masthead__menu-item">
+              <a href="/resume/">Resume</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style="background-color: #000; background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), url('/assets/posts/2020-11-24-mesh-networking-openwrt-batman/header.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 id="page-title" class="page__title" itemprop="headline">
+        
+          Mesh networking: A guide to using free and open-source software
+
+        
+      </h1>
+      
+        <p class="page__lead">
+</p>
+      
+      
+        <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  8 minute read
+
+</p>
+      
+      
+      
+    </div>
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/img/profile/profile-00.jpg" alt="Carlos Gomes" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Carlos Gomes</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>I’m a scientist, psychologist, math modeler, programmer, mtg player, free knowledge supporter, sbc fanatic, and electronics hobbyist.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Brazil</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="mailto:me@cgomesu.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Main e-mail</span></a></li>
+          
+        
+          
+        
+          
+            <li><a href="https://cgomesu.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">https://cgomesu.com</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Mesh networking: A guide to using free and open-source software">
+    <meta itemprop="description" content="">
+    <meta itemprop="datePublished" content="2020-11-24T14:53:00-03:00">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-list"></i> Table of Contents</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#why-did-i-write-this-guide">Why did I write this guide?</a></li>
+  <li><a href="#objectives">Objectives</a></li>
+  <li><a href="#outline">Outline</a></li>
+  <li><a href="#basic-network-concepts">Basic network concepts</a></li>
+  <li><a href="#mesh-networking-concepts">Mesh networking concepts</a>
+    <ul>
+      <li><a href="#what-is-a-mesh-network">What is a mesh network?</a></li>
+      <li><a href="#where-can-i-learn-more-about-it">Where can I learn more about it?</a></li>
+      <li><a href="#examples-of-mesh-networks">Examples of mesh networks</a></li>
+    </ul>
+  </li>
+  <li><a href="#routing-batman-adv">Routing: batman-adv</a></li>
+  <li><a href="#hardware">Hardware</a></li>
+  <li><a href="#why-mesh">Why mesh?</a></li>
+  <li><a href="#objectives-1">Objectives</a></li>
+  <li><a href="#todo">TODO</a></li>
+  <li><a href="#other-similar-mesh-solutions">Other similar mesh solutions</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
+        <h1 id="introduction">Introduction</h1>
+<p>In this tutorial, we will learn how to install and configure a <strong>mesh network</strong> using <a href="https://openwrt.org/"><strong>OpenWrt</strong></a> and the <a href="https://en.wikipedia.org/wiki/Data_link_layer">layer-2</a> implementation of the <em>Better Approach to Mobile Adhoc Networking</em>, called <a href="https://www.kernel.org/doc/html/v4.15/networking/batman-adv.html"><strong>batman-adv</strong></a>.  All the software mentioned here is <strong>free</strong> and <strong>open-source</strong>, as opposed to commercial alternatives (<a href="https://unifi-mesh.ui.com">UniFi Mesh</a> or <a href="https://store.google.com/us/product/nest_wifi">Google’s Nest Wifi</a>).</p>
+
+<h1 id="why-did-i-write-this-guide">Why did I write this guide?</h1>
+<p>Even though the concept of mesh networks has been around for quite some time now (<strong>REF</strong>), the documentation of its implementation is still scarce.  I don’t feel qualified to speculate on why this is so but I find it odd because many of the radio devices found in popular wifi routers (<strong>REF</strong>) actually support mesh networking–but the original firmware often doesn’t give users the option to use such mode of operation. (You can even run a mesh network with something as cheap and small as an <a href="https://en.wikipedia.org/wiki/ESP32"><strong>ESP32</strong></a>.)  My intention with this guide is to help closing the gap between concept and implementation of mesh networking using software that anyone can download and install on cheap, commonly available hardware.</p>
+
+<p>but while researching recently, I found it strange that aside from the commercial solutions, the documentation about implementing mesh networks is scarce and often outdated.</p>
+
+<p><em>write a little about the motivation for this guide:</em></p>
+
+<ul>
+  <li>Such a presentation could then be used as a template for more advanced implementations of a mesh network. While researching, I found outdated information and the good content is often times spread across multiple forum posts. This motivated me to write a simple guide for anyone who wants to experiment building their own mesh without relying on commercial solutions.</li>
+</ul>
+
+<h1 id="objectives">Objectives</h1>
+<p>This is more of a hands-on, how-to guide to building mesh networks for home users than a review about the concepts related to mesh networkings.</p>
+
+<h1 id="outline">Outline</h1>
+
+<h1 id="basic-network-concepts">Basic network concepts</h1>
+
+<h1 id="mesh-networking-concepts">Mesh networking concepts</h1>
+<p><em>write an introduction to this section</em></p>
+
+<h2 id="what-is-a-mesh-network">What is a mesh network?</h2>
+
+<!-- Courtesy of embedresponsively.com //-->
+<div class="responsive-video-container">
+
+  <iframe src="https://www.youtube-nocookie.com/embed/tYLU755T6_I" frameborder="0" allowfullscreen=""></iframe>
+
+</div>
+
+<h2 id="where-can-i-learn-more-about-it">Where can I learn more about it?</h2>
+<ul>
+  <li>Wikipedia articles about <a href="https://en.wikipedia.org/wiki/Mesh_networking">mesh networking</a> and <a href="https://en.wikipedia.org/wiki/Wireless_mesh_network">wireless mesh networks</a></li>
+  <li><a href="https://scholar.google.com/scholar?q=mesh+networking">Peer-reviewed papers or books</a></li>
+</ul>
+
+<h2 id="examples-of-mesh-networks">Examples of mesh networks</h2>
+
+<p><a href="#">top</a></p>
+
+<h1 id="routing-batman-adv">Routing: batman-adv</h1>
+
+<h1 id="hardware">Hardware</h1>
+
+<h1 id="why-mesh">Why mesh?</h1>
+<ul>
+  <li>Minimal infra-structure</li>
+  <li>Smart, multi-point connections</li>
+  <li>Flexible network topologies</li>
+  <li>Self-discovery</li>
+  <li>Self-healing</li>
+  <li>High availability</li>
+</ul>
+
+<h1 id="objectives-1">Objectives</h1>
+<ol>
+  <li>Get familiar with <code class="language-plaintext highlighter-rouge">/etc/config/</code> files in OpenWrt devices and how to edit them with <code class="language-plaintext highlighter-rouge">vi</code>.</li>
+  <li>Learn how to configure OpenWrt devices to play one of three possible roles: (a) dumb mesh node, (b) bridge node, or (c) gateway node.</li>
+  <li>Install and configure <code class="language-plaintext highlighter-rouge">batman-adv</code> on an OpenWrt device using the <code class="language-plaintext highlighter-rouge">opkg</code> package manager.</li>
+  <li>Learn how to use <code class="language-plaintext highlighter-rouge">batctl</code> to test, debug, and monitor connectivity within the mesh.</li>
+  <li>Add encryption to the mesh network with the package <code class="language-plaintext highlighter-rouge">wpad-mesh-openssl</code>.</li>
+  <li>Use VLANs to create a Default, IoT, and Guest networks within the mesh using <code class="language-plaintext highlighter-rouge">batman-adv</code>.</li>
+</ol>
+
+<p><a href="#">top</a></p>
+
+<p>As usual, this is not meant to be an exhaustive presentation of any of the topics covered here. If you spot an error or have a suggestion, feel free to get in touch with me.</p>
+
+<p>The goal is to cover a few concepts about wireless networking and focus on the implementation of a mesh
+in a couple of network topologies commonly found in homes and small offices.</p>
+
+<p>Such a presentation could then be used as a template for more advanced implementations of a mesh network. While researching, I found outdated information and the good content is often times spread across multiple forum posts. This motivated me to write a simple guide for anyone who wants to experiment building their own mesh without relying on commercial solutions.</p>
+
+<p>and configurations for network topologies commonly found in homes and small offices</p>
+
+<p>to provide a template for more advanced implementations of a mesh network. While researching, I found outdated information and the good content is often times spread across multiple forum posts. This motivated me to write a simple guide for anyone who wants to experiment building their own mesh without relying on commercial solutions.</p>
+
+<p>If you want to dive deep into the features and configurations, read the actual docs:</p>
+
+<ul>
+  <li><a href="https://openwrt.org/docs/start">OpenWRT documentation</a></li>
+  <li><a href="https://www.open-mesh.org/projects/batman-adv/wiki">B.A.T.M.A.N. documentation</a></li>
+</ul>
+
+<p>The goal is to cover a few basic configurations for common network topologies to provide a template for more advanced implementations of a mesh network. While researching, I found outdated information and the good content is often times spread across multiple forum posts. This motivated me to write a simple guide for anyone who wants to experiment building their own mesh without relying on commercial solutions.</p>
+
+<p><a href="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/tplink-wr1043nd.jpg"><img src="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/tplink-wr1043nd.jpg" alt="TP-Link 1043nd" class="PostImage" /></a></p>
+
+<p>Regarding the hardware, all mesh nodes used were the <a href="https://www.tp-link.com/us/home-networking/wifi-router/tl-wr1043nd/"><strong>TP-Link WR-1043ND v1.8</strong></a> just to illustrate the various implementations (and because they are very cheap, too) but the general ideas presented here should apply to <em>any radio device</em> that meets the following criteria:</p>
+
+<ol>
+  <li>Compatible with the latest OpenWRT version (<a href="https://openwrt.org/toh/start">list of hardware</a>);</li>
+  <li>Supports the <em>mesh point</em> mode of operation. (This point is covered in more detail in <a href="#">this part of the tutorial</a>.)</li>
+</ol>
+
+<p>If you’re looking for devices to buy and experiment on, my suggestion is to look for dual-band wifi routers to allow a better segmentation of the wifi networks.  Now, if you can afford spending more, look for tri-band devices.  Netgear and Linksys have solid options that are compatible with OpenWrt. That said, most home users will be just fine with a uni-band router.  For a brand reference, TP-Link has good and cheap devices that can be used in a mesh networking project without (too many) issues.</p>
+
+<p class="notice notice--info">Alternatively, you can run OpenWrt with a <a href="https://openwrt.org/docs/guide-user/virtualization/start"><strong>virtual machine</strong></a> or as a <a href="https://github.com/openwrt/docker"><strong>docker container</strong></a>. For single-board computer fans like me, you can run OpenWrt with most of them and then use a combination of on-board wifi and USB adapter to create a powerful mesh node. (<a href="https://shop.solid-run.com/product-category/embedded-computers/marvell-family/clearfog-base-pro/">ClearFog boards</a> look like good candidates for such a project, for example.) Of course, you can run OpenWrt on baremetal amd64 machines, which will give you a ton of options to put together an impressive mesh device.</p>
+
+<p>More specifically, by the end of this tutorial you will be able to do the following:</p>
+
+<h1 id="todo">TODO</h1>
+
+<ul>
+  <li>Install OpenWrt</li>
+  <li>Configure packages</li>
+</ul>
+
+<h1 id="other-similar-mesh-solutions">Other similar mesh solutions</h1>
+<p>If you find this guide a little bit overwhelming but you’re still curious about mesh networking, take a look at these other solutions (alphabetical order):</p>
+
+<ul>
+  <li><a href="https://www.commotionwireless.net">Commotion Wireless</a></li>
+  <li><a href="https://libremesh.org">LibreMesh</a></li>
+</ul>
+
+<p>They have pre-configured images that will work “out of the box” with compatible devices.</p>
+
+<p><a href="#">top</a></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Posted on:</strong> <time datetime="2020-11-24T14:53:00-03:00">November 24, 2020</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="mailto:?subject=[cgomesu.com] Mesh networking: A guide to using free and open-source software&amp;body=http%3A%2F%2Flocalhost%3A4000%2Fblog%2FMesh-networking-openwrt-batman%2F " class="btn btn--inverse" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on E-mail"><i class="fas fa-envelope" aria-hidden="true"></i><span> E-mail</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fblog%2FMesh-networking-openwrt-batman%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.reddit.com/submit?title=Mesh networking: A guide to using free and open-source software&url=http%3A%2F%2Flocalhost%3A4000%2Fblog%2FMesh-networking-openwrt-batman%2F" class="btn btn--reddit" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Reddit"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i><span> Reddit</span></a>
+
+  <a href="https://twitter.com/intent/tweet?text=Mesh+networking%3A+A+guide+to+using+free+and+open-source+software%20http%3A%2F%2Flocalhost%3A4000%2Fblog%2FMesh-networking-openwrt-batman%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/blog/Nanopi-m4-mini-nas/" class="pagination--pager" title="NanoPi M4 mini-NAS
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search terms here...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search terms here..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/cgomesu" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          <li><a href="https://www.reddit.com/user/cgomesu/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i> Reddit</a></li>
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> RSS feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2020 CGomesu - Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> and <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a></div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>
