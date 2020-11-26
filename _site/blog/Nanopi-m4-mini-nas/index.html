@@ -353,7 +353,7 @@
             <nav class="toc">
               <header><h4 class="nav__title"><i class="fas fa-list"></i> Table of Contents</h4></header>
               <ul class="toc__menu">
-  <li><a href="#update-tracker">Update tracker</a></li>
+  <li><a href="#changelog">Changelog</a></li>
   <li><a href="#introduction">Introduction</a></li>
   <li><a href="#hardware">Hardware</a>
     <ul>
@@ -417,21 +417,14 @@
 
 <p>After that, you’re free to do whatever you want for your own use-case (disk partitions, storage systems, file sharing method, applications, etc.).</p>
 
-<h1 id="update-tracker">Update tracker</h1>
-<ul>
-  <li>
-    <p><em>October 16th, 2020, (update 1)</em>: I’ve re-written the <a href="https://github.com/cgomesu/nanopim4-satahat-fan">pwm-fan script for the NanoPi-M4</a> and updated <a href="#pwm-fan-controller">the section about it</a> accordingly.</p>
-  </li>
-  <li>
-    <p><em>October 16th, 2020 (update 2)</em>: Despite the CPU tuning improvements I mentioned in my previous update, I’ve continued to have a few stability issues with Kernel 5.x.  After a while, I’ve decided to reinstall <strong>Armbian Buster</strong> with <strong>Kernel 4.4.213-rk3399 (legacy)</strong> and it has been smooth sailing ever since.  I updated the <a href="#software">section about OS installation</a> accordingly.</p>
-  </li>
-  <li>
-    <p><em>July 14th, 2020</em>: Added <a href="#cpu-tuning">information about CPU tuning to improve system stability</a>.</p>
-  </li>
-  <li>
-    <p><em>July 8th, 2020</em>: Added a <a href="#nanopi-m4-sata-hat--passive-cooler--cables">cautionary note about SATA power cables</a>; Added a <a href="#cost-estimate">table with the cost of all hardware components of this build</a>; I also got a hold of a DC jack adapter that will let me measure the actual current draw from my final mini-NAS and will make it available here as soon as I’m done testing it.  If you’ve additional suggestions, please <a href="/contact">reach out</a>.</p>
-  </li>
-</ul>
+<h1 id="changelog">Changelog</h1>
+<p class="notice notice--info"><strong>October 16th, 2020</strong>, (#1 of 2): I’ve re-written the <a href="https://github.com/cgomesu/nanopim4-satahat-fan">pwm-fan script for the NanoPi-M4</a> and updated <a href="#pwm-fan-controller">the section about it</a> accordingly.</p>
+
+<p class="notice notice--warning"><strong>October 16th, 2020</strong>, (#2 of 2): Despite the CPU tuning improvements I mentioned in my previous update, I’ve continued to have a few stability issues with Kernel 5.x.  After a while, I’ve decided to reinstall <strong>Armbian Buster</strong> with <strong>Kernel 4.4.213-rk3399 (legacy)</strong> and it has been smooth sailing ever since.  I updated the <a href="#software">section about OS installation</a> accordingly.</p>
+
+<p class="notice notice--info"><strong>July 14th, 2020</strong>: Added <a href="#cpu-tuning">information about CPU tuning to improve system stability</a>.</p>
+
+<p class="notice notice--info"><strong>July 8th, 2020</strong>: Added a <a href="#nanopi-m4-sata-hat--passive-cooler--cables">cautionary note about SATA power cables</a>; Added a <a href="#cost-estimate">table with the cost of all hardware components of this build</a>; I also got a hold of a DC jack adapter that will let me measure the actual current draw from my final mini-NAS and will make it available here as soon as I’m done testing it.  If you’ve additional suggestions, please <a href="/contact">reach out</a>.</p>
 
 <p><a href="#" class="btn btn--small btn--light-outline">top</a></p>
 
@@ -962,7 +955,7 @@ systemctl status pwm-fan.service
 ">Previous</a>
     
     
-      <a href="/blog/Mesh-networking-openwrt-batman/" class="pagination--pager" title="Mesh networking: A guide to using free and open-source software
+      <a href="/blog/Mesh-networking-openwrt-batman/" class="pagination--pager" title="Mesh networking: A guide to using free and open-source software with common hardware
 ">Next</a>
     
   </nav>

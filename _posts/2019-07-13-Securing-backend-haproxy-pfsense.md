@@ -8,11 +8,15 @@ toc: true
 toc_label: "Table of Contents"
 toc_icon: "list"
 ---
+# Changelog
+**June 23rd, 2020**: Moved this guide from Blogger to my website and converted to markdown.  Fixed typos I found.
+{: .notice .notice--info }
 
-# Update tracker
-* June 23rd 2020: Moved this guide from Blogger to my website and converted to markdown.  Fixed typos I found.
-* June 21st 2020: This guide stills works with **pfsense version 2.4.5-RELEASE-p1**.
-* May 1st 2020: This guide still works with **pfsense version 2.4.5-RELEASE** and the **haproxy packaged version 0.60_4**.
+**June 21st, 2020**: This guide stills works with **pfsense version 2.4.5-RELEASE-p1**.
+{: .notice .notice--info }
+
+**May 1st, 2020**: This guide still works with **pfsense version 2.4.5-RELEASE** and the **haproxy packaged version 0.60_4**.
+{: .notice .notice--info }
 
 [top](#){: .btn .btn--light-outline .btn--small}
 

@@ -1,6 +1,6 @@
 var store = [{
         "title": "Securing access to backends with HAproxy's stick-tables: A guide for pfSense users",
-        "excerpt":"Update tracker June 23rd 2020: Moved this guide from Blogger to my website and converted to markdown. Fixed typos I found. June 21st 2020: This guide stills works with pfsense version 2.4.5-RELEASE-p1. May 1st 2020: This guide still works with pfsense version 2.4.5-RELEASE and the haproxy packaged version 0.60_4. top...","categories": ["blog"],
+        "excerpt":"Changelog June 23rd, 2020: Moved this guide from Blogger to my website and converted to markdown. Fixed typos I found. June 21st, 2020: This guide stills works with pfsense version 2.4.5-RELEASE-p1. May 1st, 2020: This guide still works with pfsense version 2.4.5-RELEASE and the haproxy packaged version 0.60_4. top Introduction...","categories": ["blog"],
         "tags": ["haproxy","homelab","homeserver","http","pfsense"],
         "url": "http://localhost:4000/blog/Securing-backend-haproxy-pfsense/",
         "teaser": null
@@ -24,7 +24,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Youtube live-streams as IPTV channels for TVHeadend",
-        "excerpt":"Update tracker September 15th, 2020: There’s a new release of the Youtube4TVH program that does not require the use of API keys. The section about how to create an API key has been updated accordingly. June 23rd, 2020: Moved content from Blogger to my website and converted to markdown. Fixed...","categories": ["blog"],
+        "excerpt":"Changelog September 15th, 2020: There’s a new release of the Youtube4TVH program that does not require the use of API keys. The section about how to create an API key has been updated accordingly. June 23rd, 2020: Moved content from Blogger to my website and converted to markdown. Fixed typos...","categories": ["blog"],
         "tags": ["github","iptv","kodi","streamlink","tvheadend","youtube"],
         "url": "http://localhost:4000/blog/Youtube-as-IPTV-with-TVH/",
         "teaser": null
@@ -41,9 +41,9 @@ var store = [{
         "url": "http://localhost:4000/blog/Nanopi-m4-mini-nas/",
         "teaser": null
       },{
-        "title": "Mesh networking: A guide to using free and open-source software",
-        "excerpt":"Introduction In this tutorial, we will learn how to install and configure a mesh network using OpenWrt and the layer-2 implementation of the Better Approach to Mobile Adhoc Networking, called batman-adv. All the software mentioned here is free and open-source, as opposed to commercial alternatives (UniFi Mesh or Google’s Nest...","categories": ["blog"],
-        "tags": ["mesh","wifi","networking","router"],
+        "title": "Mesh networking: A guide to using free and open-source software with common hardware",
+        "excerpt":"Changelog Nov 25th, 2020: Publication of the original version Introduction In this tutorial, we will learn how to create a mesh network using OpenWrt and the layer-2 implementation of the Better Approach to Mobile Adhoc Networking, called batman-adv. All the software mentioned here is free and open-source, as opposed to...","categories": ["blog"],
+        "tags": ["mesh","wifi","wireless","network","router","openwrt","batman"],
         "url": "http://localhost:4000/blog/Mesh-networking-openwrt-batman/",
         "teaser": null
       }]

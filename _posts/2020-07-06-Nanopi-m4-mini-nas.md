@@ -29,14 +29,18 @@ This article should give you a fairly good idea about the following:
 
 After that, you're free to do whatever you want for your own use-case (disk partitions, storage systems, file sharing method, applications, etc.). 
 
-# Update tracker
-* *October 16th, 2020, (update 1)*: I've re-written the [pwm-fan script for the NanoPi-M4](https://github.com/cgomesu/nanopim4-satahat-fan) and updated [the section about it](#pwm-fan-controller) accordingly.
+# Changelog
+**October 16th, 2020**, (#1 of 2): I've re-written the [pwm-fan script for the NanoPi-M4](https://github.com/cgomesu/nanopim4-satahat-fan) and updated [the section about it](#pwm-fan-controller) accordingly.
+{: .notice .notice--info }
 
-* *October 16th, 2020 (update 2)*: Despite the CPU tuning improvements I mentioned in my previous update, I've continued to have a few stability issues with Kernel 5.x.  After a while, I've decided to reinstall **Armbian Buster** with **Kernel 4.4.213-rk3399 (legacy)** and it has been smooth sailing ever since.  I updated the [section about OS installation](#software) accordingly.
+**October 16th, 2020**, (#2 of 2): Despite the CPU tuning improvements I mentioned in my previous update, I've continued to have a few stability issues with Kernel 5.x.  After a while, I've decided to reinstall **Armbian Buster** with **Kernel 4.4.213-rk3399 (legacy)** and it has been smooth sailing ever since.  I updated the [section about OS installation](#software) accordingly.
+{: .notice .notice--warning }
 
-* *July 14th, 2020*: Added [information about CPU tuning to improve system stability](#cpu-tuning).
+**July 14th, 2020**: Added [information about CPU tuning to improve system stability](#cpu-tuning).
+{: .notice .notice--info }
 
-* *July 8th, 2020*: Added a [cautionary note about SATA power cables](#nanopi-m4-sata-hat--passive-cooler--cables); Added a [table with the cost of all hardware components of this build](#cost-estimate); I also got a hold of a DC jack adapter that will let me measure the actual current draw from my final mini-NAS and will make it available here as soon as I'm done testing it.  If you've additional suggestions, please [reach out](/contact).
+**July 8th, 2020**: Added a [cautionary note about SATA power cables](#nanopi-m4-sata-hat--passive-cooler--cables); Added a [table with the cost of all hardware components of this build](#cost-estimate); I also got a hold of a DC jack adapter that will let me measure the actual current draw from my final mini-NAS and will make it available here as soon as I'm done testing it.  If you've additional suggestions, please [reach out](/contact).
+{: .notice .notice--info }
 
 [top](#){: .btn .btn--small .btn--light-outline }
 

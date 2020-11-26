@@ -1,28 +1,55 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-11-25T11:29:13-03:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">Mesh networking: A guide to using free and open-source software</title><link href="http://localhost:4000/blog/Mesh-networking-openwrt-batman/" rel="alternate" type="text/html" title="Mesh networking: A guide to using free and open-source software" /><published>2020-11-24T14:53:00-03:00</published><updated>2020-11-24T14:53:00-03:00</updated><id>http://localhost:4000/blog/Mesh-networking-openwrt-batman</id><content type="html" xml:base="http://localhost:4000/blog/Mesh-networking-openwrt-batman/">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
-&lt;p&gt;In this tutorial, we will learn how to install and configure a &lt;strong&gt;mesh network&lt;/strong&gt; using &lt;a href=&quot;https://openwrt.org/&quot;&gt;&lt;strong&gt;OpenWrt&lt;/strong&gt;&lt;/a&gt; and the &lt;a href=&quot;https://en.wikipedia.org/wiki/Data_link_layer&quot;&gt;layer-2&lt;/a&gt; implementation of the &lt;em&gt;Better Approach to Mobile Adhoc Networking&lt;/em&gt;, called &lt;a href=&quot;https://www.kernel.org/doc/html/v4.15/networking/batman-adv.html&quot;&gt;&lt;strong&gt;batman-adv&lt;/strong&gt;&lt;/a&gt;.  All the software mentioned here is &lt;strong&gt;free&lt;/strong&gt; and &lt;strong&gt;open-source&lt;/strong&gt;, as opposed to commercial alternatives (&lt;a href=&quot;https://unifi-mesh.ui.com&quot;&gt;UniFi Mesh&lt;/a&gt; or &lt;a href=&quot;https://store.google.com/us/product/nest_wifi&quot;&gt;Google’s Nest Wifi&lt;/a&gt;).&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-11-26T09:33:37-03:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">Mesh networking: A guide to using free and open-source software with common hardware</title><link href="http://localhost:4000/blog/Mesh-networking-openwrt-batman/" rel="alternate" type="text/html" title="Mesh networking: A guide to using free and open-source software with common hardware" /><published>2020-11-24T14:53:00-03:00</published><updated>2020-11-24T14:53:00-03:00</updated><id>http://localhost:4000/blog/Mesh-networking-openwrt-batman</id><content type="html" xml:base="http://localhost:4000/blog/Mesh-networking-openwrt-batman/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+&lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;Nov 25th, 2020&lt;/strong&gt;: Publication of the original version&lt;/p&gt;
 
-&lt;h1 id=&quot;why-did-i-write-this-guide&quot;&gt;Why did I write this guide?&lt;/h1&gt;
-&lt;p&gt;Even though the concept of mesh networks has been around for quite some time now (&lt;strong&gt;REF&lt;/strong&gt;), the documentation of its implementation is still scarce.  I don’t feel qualified to speculate on why this is so but I find it odd because many of the radio devices found in popular wifi routers (&lt;strong&gt;REF&lt;/strong&gt;) actually support mesh networking–but the original firmware often doesn’t give users the option to use such mode of operation. (You can even run a mesh network with something as cheap and small as an &lt;a href=&quot;https://en.wikipedia.org/wiki/ESP32&quot;&gt;&lt;strong&gt;ESP32&lt;/strong&gt;&lt;/a&gt;.)  My intention with this guide is to help closing the gap between concept and implementation of mesh networking using software that anyone can download and install on cheap, commonly available hardware.&lt;/p&gt;
+&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;In this tutorial, we will learn how to create a &lt;a href=&quot;https://en.wikipedia.org/wiki/Wireless_mesh_network&quot;&gt;&lt;strong&gt;mesh network&lt;/strong&gt;&lt;/a&gt; using &lt;a href=&quot;https://openwrt.org/&quot;&gt;&lt;strong&gt;OpenWrt&lt;/strong&gt;&lt;/a&gt; and the &lt;a href=&quot;https://en.wikipedia.org/wiki/Data_link_layer&quot;&gt;layer-2&lt;/a&gt; implementation of the &lt;em&gt;Better Approach to Mobile Adhoc Networking&lt;/em&gt;, called &lt;a href=&quot;https://www.kernel.org/doc/html/v4.15/networking/batman-adv.html&quot;&gt;&lt;strong&gt;batman-adv&lt;/strong&gt;&lt;/a&gt;.  All the software mentioned here is &lt;strong&gt;free&lt;/strong&gt; and &lt;strong&gt;open-source&lt;/strong&gt;, as opposed to commercial alternatives (&lt;a href=&quot;https://unifi-mesh.ui.com&quot;&gt;UniFi Mesh&lt;/a&gt; or &lt;a href=&quot;https://store.google.com/us/product/nest_wifi&quot;&gt;Google’s Nest Wifi&lt;/a&gt;).&lt;/p&gt;
 
-&lt;p&gt;but while researching recently, I found it strange that aside from the commercial solutions, the documentation about implementing mesh networks is scarce and often outdated.&lt;/p&gt;
+&lt;p&gt;Of course, this is not meant to be an exhaustive presentation of any of the topics covered here. If you have suggestions on how to improve this guide, feel free to &lt;a href=&quot;/contact/&quot;&gt;get in touch with me&lt;/a&gt;. I’m always eager to learn new things.  Also, don’t hesitate to contact me if you just want to share your own mesh projects or bounce a few ideas.  Different perspectives give an opportunity to learn, grow, and create.&lt;/p&gt;
 
-&lt;p&gt;&lt;em&gt;write a little about the motivation for this guide:&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;why-am-i-writing-this-guide&quot;&gt;Why am I writing this guide?&lt;/h1&gt;
+&lt;p&gt;Even though the concept of mesh networking has been around for quite some time now (&lt;strong&gt;REF&lt;/strong&gt;), the documentation of its implementation is still scarce/nichey, proprietary, or outdated.  I don’t feel qualified to speculate on why this is so but I find it odd because many of the radio devices found in popular wireless routers (&lt;strong&gt;REF&lt;/strong&gt;) actually support mesh networking–but the original firmware rarely supports it.&lt;/p&gt;
+
+&lt;p&gt;My intention with this tutorial is to help closing the gap between concept and implementation of mesh networking using up-to-date software that anyone can download and install on cheap, commonly available hardware.  The content is partially based on my own experience and builds upon the work of other, much more talented individuals who shared their knowledge on the web.  More specifically, the content is influenced by the following:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;Such a presentation could then be used as a template for more advanced implementations of a mesh network. While researching, I found outdated information and the good content is often times spread across multiple forum posts. This motivated me to write a simple guide for anyone who wants to experiment building their own mesh without relying on commercial solutions.&lt;/li&gt;
+  &lt;li&gt;Brian Innes workshop about using Raspberry Pis to create a mesh network for sharing sensor data wirelessly (&lt;a href=&quot;https://github.com/binnes/WiFiMeshRaspberryPi&quot;&gt;Github repo&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;Maintaners of the &lt;a href=&quot;https://openwrt.org/docs/start&quot;&gt;OpenWRT documentation&lt;/a&gt; and the &lt;a href=&quot;https://www.open-mesh.org/projects/batman-adv/wiki&quot;&gt;B.A.T.M.A.N. wiki&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Multiple users from the OpenWrt forum who shared their opinions over the years. To name a few,  the users &lt;a href=&quot;https://forum.openwrt.org/u/slh&quot;&gt;slh&lt;/a&gt;, &lt;a href=&quot;https://forum.openwrt.org/u/jeff&quot;&gt;jeff&lt;/a&gt;, &lt;a href=&quot;https://forum.openwrt.org/u/mcarni&quot;&gt;mcarni&lt;/a&gt;, &lt;a href=&quot;https://forum.openwrt.org/u/oavaldezi&quot;&gt;oavaldezi&lt;/a&gt;, and many others. Thanks for keeping the posts public.&lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
 &lt;h1 id=&quot;objectives&quot;&gt;Objectives&lt;/h1&gt;
-&lt;p&gt;This is more of a hands-on, how-to guide to building mesh networks for home users than a review about the concepts related to mesh networkings.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Get familiar with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/&lt;/code&gt; files in OpenWrt devices (namely, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wireless&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;network&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dhcp&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;firewall&lt;/code&gt;) and how to edit them directly from the terminal using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vi&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;Learn how to configure OpenWrt devices to play one of three possible roles in the network: (a) mesh node, (b) mesh + bridge node, or (c) mesh + gateway node.&lt;/li&gt;
+  &lt;li&gt;Install and configure &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt; on an OpenWrt device using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;opkg&lt;/code&gt; package manager.&lt;/li&gt;
+  &lt;li&gt;Learn how to use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batctl&lt;/code&gt; to test, debug, and monitor connectivity within the mesh.&lt;/li&gt;
+  &lt;li&gt;Add encryption to the mesh network with the package &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wpad-mesh-openssl&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;Use VLANs to create &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iot&lt;/code&gt;, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;guest&lt;/code&gt; networks within the mesh using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;outline&quot;&gt;Outline&lt;/h1&gt;
+&lt;p&gt;From this point forward, the article is divided into three main parts:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#concepts&quot;&gt;Concepts&lt;/a&gt;: Brief introduction to just enough network concepts (e.g., bridges, gateways) to allow the implementation of simple mesh networks.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#hardware&quot;&gt;Hardware&lt;/a&gt;: &lt;em&gt;Optional&lt;/em&gt;. A few notes about the hardware used in the examples and recommendations for those who are planning on buying new/used devices for their mesh project.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#implementation&quot;&gt;Implementation&lt;/a&gt;: Step-by-step procedure to configure mesh nodes, bridges, and gateways.  It goes from flashing OpenWrt to configuring VLANs with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt;. You probably came here for this part.&lt;/li&gt;
+&lt;/ol&gt;
 
-&lt;h1 id=&quot;basic-network-concepts&quot;&gt;Basic network concepts&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
-&lt;h1 id=&quot;mesh-networking-concepts&quot;&gt;Mesh networking concepts&lt;/h1&gt;
-&lt;p&gt;&lt;em&gt;write an introduction to this section&lt;/em&gt;&lt;/p&gt;
+&lt;h1 id=&quot;concepts&quot;&gt;Concepts&lt;/h1&gt;
 
-&lt;h2 id=&quot;what-is-a-mesh-network&quot;&gt;What is a mesh network?&lt;/h2&gt;
+&lt;h2 id=&quot;common-network-topologies&quot;&gt;Common network topologies&lt;/h2&gt;
+
+&lt;h2 id=&quot;mesh-networks&quot;&gt;Mesh networks&lt;/h2&gt;
+
+&lt;h3 id=&quot;what-is-it&quot;&gt;What is it?&lt;/h3&gt;
 
 &lt;!-- Courtesy of embedresponsively.com //--&gt;
 &lt;div class=&quot;responsive-video-container&quot;&gt;
@@ -31,41 +58,95 @@
 
 &lt;/div&gt;
 
-&lt;h2 id=&quot;where-can-i-learn-more-about-it&quot;&gt;Where can I learn more about it?&lt;/h2&gt;
+&lt;h3 id=&quot;where-can-i-learn-more-about-it&quot;&gt;Where can I learn more about it?&lt;/h3&gt;
 &lt;ul&gt;
   &lt;li&gt;Wikipedia articles about &lt;a href=&quot;https://en.wikipedia.org/wiki/Mesh_networking&quot;&gt;mesh networking&lt;/a&gt; and &lt;a href=&quot;https://en.wikipedia.org/wiki/Wireless_mesh_network&quot;&gt;wireless mesh networks&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://scholar.google.com/scholar?q=mesh+networking&quot;&gt;Peer-reviewed papers or books&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;examples-of-mesh-networks&quot;&gt;Examples of mesh networks&lt;/h2&gt;
+&lt;h3 id=&quot;examples-of-mesh-networks&quot;&gt;Examples of mesh networks&lt;/h3&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;routing-protocols&quot;&gt;Routing protocols&lt;/h2&gt;
 
-&lt;h1 id=&quot;routing-batman-adv&quot;&gt;Routing: batman-adv&lt;/h1&gt;
+&lt;h3 id=&quot;batman-adv&quot;&gt;batman-adv&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;hardware&quot;&gt;Hardware&lt;/h1&gt;
+&lt;p&gt;Unless otherwise specified, all mesh nodes used in the various implementations had the following hardware and OS versions:&lt;/p&gt;
 
-&lt;h1 id=&quot;why-mesh&quot;&gt;Why mesh?&lt;/h1&gt;
 &lt;ul&gt;
-  &lt;li&gt;Minimal infra-structure&lt;/li&gt;
-  &lt;li&gt;Smart, multi-point connections&lt;/li&gt;
-  &lt;li&gt;Flexible network topologies&lt;/li&gt;
-  &lt;li&gt;Self-discovery&lt;/li&gt;
-  &lt;li&gt;Self-healing&lt;/li&gt;
-  &lt;li&gt;High availability&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Device&lt;/strong&gt;: &lt;a href=&quot;https://www.tp-link.com/us/home-networking/wifi-router/tl-wr1043nd/&quot;&gt;TP-Link WR-1043ND&lt;/a&gt; v1.8&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Architecture&lt;/strong&gt;: Atheros AR9132 rev 2&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Firmware version&lt;/strong&gt;: OpenWrt 19.07.4 r11208-ce6496d796&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Kernel version&lt;/strong&gt;: 4.14.195&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h1 id=&quot;objectives-1&quot;&gt;Objectives&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/tplink-wr1043nd.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/tplink-wr1043nd.jpg&quot; alt=&quot;TP-Link 1043nd&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;This was mainly a matter of convenience–I had a few lying around and they are very, very cheap–and because the examples in the OpenWrt documentation often refer to them as well, so the community support is good.&lt;/p&gt;
+
+&lt;p&gt;However, the general ideas presented here should apply to &lt;strong&gt;any wireless device&lt;/strong&gt; that meets the following criteria:&lt;/p&gt;
+
 &lt;ol&gt;
-  &lt;li&gt;Get familiar with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/&lt;/code&gt; files in OpenWrt devices and how to edit them with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vi&lt;/code&gt;.&lt;/li&gt;
-  &lt;li&gt;Learn how to configure OpenWrt devices to play one of three possible roles: (a) dumb mesh node, (b) bridge node, or (c) gateway node.&lt;/li&gt;
-  &lt;li&gt;Install and configure &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt; on an OpenWrt device using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;opkg&lt;/code&gt; package manager.&lt;/li&gt;
-  &lt;li&gt;Learn how to use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batctl&lt;/code&gt; to test, debug, and monitor connectivity within the mesh.&lt;/li&gt;
-  &lt;li&gt;Add encryption to the mesh network with the package &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wpad-mesh-openssl&lt;/code&gt;.&lt;/li&gt;
-  &lt;li&gt;Use VLANs to create a Default, IoT, and Guest networks within the mesh using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;Compatible with the latest OpenWRT version. Refer to their &lt;a href=&quot;https://openwrt.org/toh/start&quot;&gt;&lt;strong&gt;Hardware List&lt;/strong&gt;&lt;/a&gt;;&lt;/li&gt;
+  &lt;li&gt;Supports the &lt;strong&gt;mesh point&lt;/strong&gt; mode of operation. If you already have OpenWrt installed on a wireless device, you can type &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iw list&lt;/code&gt; and search for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mesh point&lt;/code&gt; under &lt;strong&gt;Supported interface modes&lt;/strong&gt;, or simply check if the following command outputs something:&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;iw list | grep mesh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now, if you’re looking for devices to buy and experiment on, my suggestion is to look for dual-band wireless routers to allow a better segmentation of the wireless networks.  If you can afford spending more for a mesh node, look for tri-band devices.  Netgear and Linksys have solid options that are compatible with OpenWrt. For example, the Linksys WRT1900AC (v1/v2) dual-band wireless router would make for a good mesh node:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/linksys-wrt1900ac.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/linksys-wrt1900ac.jpg&quot; alt=&quot;Linksys WRT1900AC&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Alternatively, you can run OpenWrt with a &lt;a href=&quot;https://openwrt.org/docs/guide-user/virtualization/start&quot;&gt;virtual machine&lt;/a&gt; or as a &lt;a href=&quot;https://github.com/openwrt/docker&quot;&gt;docker container&lt;/a&gt;. For single-board computer fans like me, you can run OpenWrt with most of them and then use a combination of on-board wireless and USB adapter to create a powerful mesh node. &lt;a href=&quot;https://shop.solid-run.com/product-category/embedded-computers/marvell-family/clearfog-base-pro/&quot;&gt;ClearFog boards&lt;/a&gt; with one or two mini PCIe wireless cards would make very good candidates for such a project, for example:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/clearfog-pro.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/clearfog-pro.jpg&quot; alt=&quot;ClearFog Pro&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Of course, you can install OpenWrt on bare metal x86-64 machines (e.g., standard PC or server running Intel/AMD), which will give you lots of options to put together an impressive mesh device. However, if you just want your work/home laptops/PCs to &lt;em&gt;be part of the mesh&lt;/em&gt; (i.e., become a mesh node), there are better alternatives than installing OpenWrt as its OS.  Check the section about &lt;a href=&quot;#nodes-with-other-linux-distros&quot;&gt;&lt;strong&gt;nodes with other Linux distros&lt;/strong&gt;&lt;/a&gt;, and for solutions based on virtualization, check the &lt;a href=&quot;https://openwrt.org/docs/guide-user/virtualization/start&quot;&gt;OpenWrt documentation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;All that said&lt;/strong&gt;, most home users will be &lt;strong&gt;just fine with a cheapo, used, old, single-band router&lt;/strong&gt;.  For a brand reference, TP-Link has good and affordable devices that can be used in a mesh networking project without issues.  If you’re new to this, start from here (small, simple) and think about efficiency over power.  You don’t need to drive a Lamborghini to get a snack at the grocery store.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;implementation&quot;&gt;Implementation&lt;/h1&gt;
+
+&lt;h2 id=&quot;planning&quot;&gt;Planning&lt;/h2&gt;
+
+&lt;h2 id=&quot;install-openwrt-and-configure-it&quot;&gt;Install OpenWrt and configure it&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Ref to installation notes&lt;/li&gt;
+  &lt;li&gt;Hardening SSH access with key-based authentication: https://openwrt.org/docs/guide-user/security/dropbear.public-key.auth&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;nodes-with-other-linux-distros&quot;&gt;Nodes with other Linux distros&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;general configuration for other devices running different linux distros to be able to join the mesh directly, isntead of depending on a bridged WAP access.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;final-remarks&quot;&gt;Final remarks&lt;/h1&gt;
+
+&lt;h2 id=&quot;other-similar-mesh-solutions&quot;&gt;Other similar mesh solutions&lt;/h2&gt;
+&lt;p&gt;If you found this guide overwhelming but you’re still curious about mesh networking, take a look at the following alternatives (in alphabetical order):&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.commotionwireless.net&quot;&gt;Commotion Wireless&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://libremesh.org&quot;&gt;LibreMesh&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;They have pre-configured images that will work “out of the box” with compatible devices.  You might find instructive to start playing around with their software first and once comfortable, build your own configuration from a default (or customized from the source) OpenWrt image.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h1 id=&quot;eof&quot;&gt;EOF&lt;/h1&gt;
+
+&lt;p&gt;(For reference, you can run a mesh network with something as cheap and small as an &lt;a href=&quot;https://en.wikipedia.org/wiki/ESP32&quot;&gt;&lt;strong&gt;ESP32&lt;/strong&gt;&lt;/a&gt;. So, access to mesh-capable hardware is not the issue.)&lt;/p&gt;
 
 &lt;p&gt;As usual, this is not meant to be an exhaustive presentation of any of the topics covered here. If you spot an error or have a suggestion, feel free to get in touch with me.&lt;/p&gt;
 
@@ -80,46 +161,7 @@ in a couple of network topologies commonly found in homes and small offices.&lt;
 
 &lt;p&gt;If you want to dive deep into the features and configurations, read the actual docs:&lt;/p&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://openwrt.org/docs/start&quot;&gt;OpenWRT documentation&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.open-mesh.org/projects/batman-adv/wiki&quot;&gt;B.A.T.M.A.N. documentation&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The goal is to cover a few basic configurations for common network topologies to provide a template for more advanced implementations of a mesh network. While researching, I found outdated information and the good content is often times spread across multiple forum posts. This motivated me to write a simple guide for anyone who wants to experiment building their own mesh without relying on commercial solutions.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/tplink-wr1043nd.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/tplink-wr1043nd.jpg&quot; alt=&quot;TP-Link 1043nd&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Regarding the hardware, all mesh nodes used were the &lt;a href=&quot;https://www.tp-link.com/us/home-networking/wifi-router/tl-wr1043nd/&quot;&gt;&lt;strong&gt;TP-Link WR-1043ND v1.8&lt;/strong&gt;&lt;/a&gt; just to illustrate the various implementations (and because they are very cheap, too) but the general ideas presented here should apply to &lt;em&gt;any radio device&lt;/em&gt; that meets the following criteria:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Compatible with the latest OpenWRT version (&lt;a href=&quot;https://openwrt.org/toh/start&quot;&gt;list of hardware&lt;/a&gt;);&lt;/li&gt;
-  &lt;li&gt;Supports the &lt;em&gt;mesh point&lt;/em&gt; mode of operation. (This point is covered in more detail in &lt;a href=&quot;#&quot;&gt;this part of the tutorial&lt;/a&gt;.)&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;If you’re looking for devices to buy and experiment on, my suggestion is to look for dual-band wifi routers to allow a better segmentation of the wifi networks.  Now, if you can afford spending more, look for tri-band devices.  Netgear and Linksys have solid options that are compatible with OpenWrt. That said, most home users will be just fine with a uni-band router.  For a brand reference, TP-Link has good and cheap devices that can be used in a mesh networking project without (too many) issues.&lt;/p&gt;
-
-&lt;p class=&quot;notice notice--info&quot;&gt;Alternatively, you can run OpenWrt with a &lt;a href=&quot;https://openwrt.org/docs/guide-user/virtualization/start&quot;&gt;&lt;strong&gt;virtual machine&lt;/strong&gt;&lt;/a&gt; or as a &lt;a href=&quot;https://github.com/openwrt/docker&quot;&gt;&lt;strong&gt;docker container&lt;/strong&gt;&lt;/a&gt;. For single-board computer fans like me, you can run OpenWrt with most of them and then use a combination of on-board wifi and USB adapter to create a powerful mesh node. (&lt;a href=&quot;https://shop.solid-run.com/product-category/embedded-computers/marvell-family/clearfog-base-pro/&quot;&gt;ClearFog boards&lt;/a&gt; look like good candidates for such a project, for example.) Of course, you can run OpenWrt on baremetal amd64 machines, which will give you a ton of options to put together an impressive mesh device.&lt;/p&gt;
-
-&lt;p&gt;More specifically, by the end of this tutorial you will be able to do the following:&lt;/p&gt;
-
-&lt;h1 id=&quot;todo&quot;&gt;TODO&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Install OpenWrt&lt;/li&gt;
-  &lt;li&gt;Configure packages&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;other-similar-mesh-solutions&quot;&gt;Other similar mesh solutions&lt;/h1&gt;
-&lt;p&gt;If you find this guide a little bit overwhelming but you’re still curious about mesh networking, take a look at these other solutions (alphabetical order):&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.commotionwireless.net&quot;&gt;Commotion Wireless&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://libremesh.org&quot;&gt;LibreMesh&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;They have pre-configured images that will work “out of the box” with compatible devices.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;#&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="mesh" /><category term="wifi" /><category term="networking" /><category term="router" /></entry><entry><title type="html">NanoPi M4 mini-NAS</title><link href="http://localhost:4000/blog/Nanopi-m4-mini-nas/" rel="alternate" type="text/html" title="NanoPi M4 mini-NAS" /><published>2020-07-06T13:42:00-03:00</published><updated>2020-07-06T13:42:00-03:00</updated><id>http://localhost:4000/blog/Nanopi-m4-mini-nas</id><content type="html" xml:base="http://localhost:4000/blog/Nanopi-m4-mini-nas/">&lt;p&gt;This article is about my mini network-attached storage (NAS) project based on FriendlyARM’s &lt;a href=&quot;http://wiki.friendlyarm.com/wiki/index.php/NanoPi_M4&quot;&gt;NanoPi M4&lt;/a&gt; and its &lt;a href=&quot;http://wiki.friendlyarm.com/wiki/index.php/NanoPi_M4_SATA_HAT&quot;&gt;SATA hat&lt;/a&gt;.  If you’re looking for a cheap, low-profile, low-power NAS solution for your home–or if you just like single-board computers (SBC)–then this article is for you.&lt;/p&gt;
+&lt;p&gt;The goal is to cover a few basic configurations for common network topologies to provide a template for more advanced implementations of a mesh network. While researching, I found outdated information and the good content is often times spread across multiple forum posts. This motivated me to write a simple guide for anyone who wants to experiment building their own mesh without relying on commercial solutions.&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="mesh" /><category term="wifi" /><category term="wireless" /><category term="network" /><category term="router" /><category term="openwrt" /><category term="batman" /></entry><entry><title type="html">NanoPi M4 mini-NAS</title><link href="http://localhost:4000/blog/Nanopi-m4-mini-nas/" rel="alternate" type="text/html" title="NanoPi M4 mini-NAS" /><published>2020-07-06T13:42:00-03:00</published><updated>2020-07-06T13:42:00-03:00</updated><id>http://localhost:4000/blog/Nanopi-m4-mini-nas</id><content type="html" xml:base="http://localhost:4000/blog/Nanopi-m4-mini-nas/">&lt;p&gt;This article is about my mini network-attached storage (NAS) project based on FriendlyARM’s &lt;a href=&quot;http://wiki.friendlyarm.com/wiki/index.php/NanoPi_M4&quot;&gt;NanoPi M4&lt;/a&gt; and its &lt;a href=&quot;http://wiki.friendlyarm.com/wiki/index.php/NanoPi_M4_SATA_HAT&quot;&gt;SATA hat&lt;/a&gt;.  If you’re looking for a cheap, low-profile, low-power NAS solution for your home–or if you just like single-board computers (SBC)–then this article is for you.&lt;/p&gt;
 
 &lt;p&gt;Here’s a preview of how my NanoPi M4 mini-NAS looks like:&lt;/p&gt;
 
@@ -141,21 +183,14 @@ in a couple of network topologies commonly found in homes and small offices.&lt;
 
 &lt;p&gt;After that, you’re free to do whatever you want for your own use-case (disk partitions, storage systems, file sharing method, applications, etc.).&lt;/p&gt;
 
-&lt;h1 id=&quot;update-tracker&quot;&gt;Update tracker&lt;/h1&gt;
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;em&gt;October 16th, 2020, (update 1)&lt;/em&gt;: I’ve re-written the &lt;a href=&quot;https://github.com/cgomesu/nanopim4-satahat-fan&quot;&gt;pwm-fan script for the NanoPi-M4&lt;/a&gt; and updated &lt;a href=&quot;#pwm-fan-controller&quot;&gt;the section about it&lt;/a&gt; accordingly.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;em&gt;October 16th, 2020 (update 2)&lt;/em&gt;: Despite the CPU tuning improvements I mentioned in my previous update, I’ve continued to have a few stability issues with Kernel 5.x.  After a while, I’ve decided to reinstall &lt;strong&gt;Armbian Buster&lt;/strong&gt; with &lt;strong&gt;Kernel 4.4.213-rk3399 (legacy)&lt;/strong&gt; and it has been smooth sailing ever since.  I updated the &lt;a href=&quot;#software&quot;&gt;section about OS installation&lt;/a&gt; accordingly.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;em&gt;July 14th, 2020&lt;/em&gt;: Added &lt;a href=&quot;#cpu-tuning&quot;&gt;information about CPU tuning to improve system stability&lt;/a&gt;.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;em&gt;July 8th, 2020&lt;/em&gt;: Added a &lt;a href=&quot;#nanopi-m4-sata-hat--passive-cooler--cables&quot;&gt;cautionary note about SATA power cables&lt;/a&gt;; Added a &lt;a href=&quot;#cost-estimate&quot;&gt;table with the cost of all hardware components of this build&lt;/a&gt;; I also got a hold of a DC jack adapter that will let me measure the actual current draw from my final mini-NAS and will make it available here as soon as I’m done testing it.  If you’ve additional suggestions, please &lt;a href=&quot;/contact&quot;&gt;reach out&lt;/a&gt;.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
+&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+&lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;October 16th, 2020&lt;/strong&gt;, (#1 of 2): I’ve re-written the &lt;a href=&quot;https://github.com/cgomesu/nanopim4-satahat-fan&quot;&gt;pwm-fan script for the NanoPi-M4&lt;/a&gt; and updated &lt;a href=&quot;#pwm-fan-controller&quot;&gt;the section about it&lt;/a&gt; accordingly.&lt;/p&gt;
+
+&lt;p class=&quot;notice notice--warning&quot;&gt;&lt;strong&gt;October 16th, 2020&lt;/strong&gt;, (#2 of 2): Despite the CPU tuning improvements I mentioned in my previous update, I’ve continued to have a few stability issues with Kernel 5.x.  After a while, I’ve decided to reinstall &lt;strong&gt;Armbian Buster&lt;/strong&gt; with &lt;strong&gt;Kernel 4.4.213-rk3399 (legacy)&lt;/strong&gt; and it has been smooth sailing ever since.  I updated the &lt;a href=&quot;#software&quot;&gt;section about OS installation&lt;/a&gt; accordingly.&lt;/p&gt;
+
+&lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;July 14th, 2020&lt;/strong&gt;: Added &lt;a href=&quot;#cpu-tuning&quot;&gt;information about CPU tuning to improve system stability&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;July 8th, 2020&lt;/strong&gt;: Added a &lt;a href=&quot;#nanopi-m4-sata-hat--passive-cooler--cables&quot;&gt;cautionary note about SATA power cables&lt;/a&gt;; Added a &lt;a href=&quot;#cost-estimate&quot;&gt;table with the cost of all hardware components of this build&lt;/a&gt;; I also got a hold of a DC jack adapter that will let me measure the actual current draw from my final mini-NAS and will make it available here as soon as I’m done testing it.  If you’ve additional suggestions, please &lt;a href=&quot;/contact&quot;&gt;reach out&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--small btn--light-outline&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
@@ -716,13 +751,14 @@ systemctl status pwm-fan.service
 &lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
 &lt;p&gt;This concludes the basics of a cheap, low-profile, and low-power (yet powerful) pfSense white-box.  I’ve never had any issues with this hardware and recommend it to anyone interested in diving into firewalls or just looking for something a bit more advanced than what commercial routers can offer.  If you want to try something different than pfSense, take a look at &lt;a href=&quot;https://opnsense.org/&quot;&gt;OPNsense&lt;/a&gt;–a pfSense fork–for another free and open-source firewall software.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="homelab" /><category term="homeserver" /><category term="firewall" /><category term="network" /></entry><entry><title type="html">Youtube live-streams as IPTV channels for TVHeadend</title><link href="http://localhost:4000/blog/Youtube-as-IPTV-with-TVH/" rel="alternate" type="text/html" title="Youtube live-streams as IPTV channels for TVHeadend" /><published>2020-05-07T00:00:00-03:00</published><updated>2020-05-07T00:00:00-03:00</updated><id>http://localhost:4000/blog/Youtube-as-IPTV-with-TVH</id><content type="html" xml:base="http://localhost:4000/blog/Youtube-as-IPTV-with-TVH/">&lt;h1 id=&quot;update-tracker&quot;&gt;Update tracker&lt;/h1&gt;
-&lt;ul&gt;
-  &lt;li&gt;September 15th, 2020: There’s a &lt;a href=&quot;https://github.com/cgomesu/youtube4tvh/releases&quot;&gt;new release of the Youtube4TVH&lt;/a&gt; program that does not require the use of API keys. The section about how to create an API key has been updated accordingly.&lt;/li&gt;
-  &lt;li&gt;June 23rd, 2020: Moved content from Blogger to my website and converted to markdown.  Fixed typos I found.&lt;/li&gt;
-  &lt;li&gt;May 19th, 2020: Added info about TVH m3u re-fetch period and youtube4tvh cronjob for streams that change very often.&lt;/li&gt;
-  &lt;li&gt;May 14th, 2020: Added more info about streamlink install and outdated versions; fixed a few typos.&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="homelab" /><category term="homeserver" /><category term="firewall" /><category term="network" /></entry><entry><title type="html">Youtube live-streams as IPTV channels for TVHeadend</title><link href="http://localhost:4000/blog/Youtube-as-IPTV-with-TVH/" rel="alternate" type="text/html" title="Youtube live-streams as IPTV channels for TVHeadend" /><published>2020-05-07T00:00:00-03:00</published><updated>2020-05-07T00:00:00-03:00</updated><id>http://localhost:4000/blog/Youtube-as-IPTV-with-TVH</id><content type="html" xml:base="http://localhost:4000/blog/Youtube-as-IPTV-with-TVH/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+&lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;September 15th, 2020&lt;/strong&gt;: There’s a &lt;a href=&quot;https://github.com/cgomesu/youtube4tvh/releases&quot;&gt;new release of the Youtube4TVH&lt;/a&gt; program that does not require the use of API keys. The section about how to create an API key has been updated accordingly.&lt;/p&gt;
+
+&lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;June 23rd, 2020&lt;/strong&gt;: Moved content from Blogger to my website and converted to markdown.  Fixed typos I found.&lt;/p&gt;
+
+&lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;May 19th, 2020&lt;/strong&gt;: Added info about TVH m3u re-fetch period and youtube4tvh cronjob for streams that change very often.&lt;/p&gt;
+
+&lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;May 14th, 2020&lt;/strong&gt;: Added more info about streamlink install and outdated versions; fixed a few typos.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
@@ -1457,12 +1493,12 @@ irrecord
 &lt;h1 id=&quot;final-remarks&quot;&gt;Final Remarks&lt;/h1&gt;
 &lt;p&gt;We end with a cautionary note. We know that adding more permanents to a Warp World deck usually yields a better outcome—that is, &lt;em&gt;the more permanents we have in the deck&lt;/em&gt;, &lt;em&gt;the more permanents we’ll likely reveal with Warp World&lt;/em&gt;. However, it would be inappropriate to simply compare mean differences to draw conclusions about different Warp World decks. That is because changing properties of Warp World decks will likely change the variance of their distributions. One possible solution is to use a &lt;strong&gt;standardized measure of the compound mean difference&lt;/strong&gt;–that is, the standardized measure of distance between the means of two &lt;em&gt;Pr&lt;/em&gt;(&lt;em&gt;x&lt;sub&gt;i&lt;/sub&gt;&lt;/em&gt;) distributions.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--small btn--light-outline&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="mtg" /><category term="math" /><category term="probability" /><category term="model" /></entry><entry><title type="html">Securing access to backends with HAproxy’s stick-tables: A guide for pfSense users</title><link href="http://localhost:4000/blog/Securing-backend-haproxy-pfsense/" rel="alternate" type="text/html" title="Securing access to backends with HAproxy’s stick-tables: A guide for pfSense users" /><published>2019-07-13T00:00:00-03:00</published><updated>2019-07-13T00:00:00-03:00</updated><id>http://localhost:4000/blog/Securing-backend-haproxy-pfsense</id><content type="html" xml:base="http://localhost:4000/blog/Securing-backend-haproxy-pfsense/">&lt;h1 id=&quot;update-tracker&quot;&gt;Update tracker&lt;/h1&gt;
-&lt;ul&gt;
-  &lt;li&gt;June 23rd 2020: Moved this guide from Blogger to my website and converted to markdown.  Fixed typos I found.&lt;/li&gt;
-  &lt;li&gt;June 21st 2020: This guide stills works with &lt;strong&gt;pfsense version 2.4.5-RELEASE-p1&lt;/strong&gt;.&lt;/li&gt;
-  &lt;li&gt;May 1st 2020: This guide still works with &lt;strong&gt;pfsense version 2.4.5-RELEASE&lt;/strong&gt; and the &lt;strong&gt;haproxy packaged version 0.60_4&lt;/strong&gt;.&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--small btn--light-outline&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="mtg" /><category term="math" /><category term="probability" /><category term="model" /></entry><entry><title type="html">Securing access to backends with HAproxy’s stick-tables: A guide for pfSense users</title><link href="http://localhost:4000/blog/Securing-backend-haproxy-pfsense/" rel="alternate" type="text/html" title="Securing access to backends with HAproxy’s stick-tables: A guide for pfSense users" /><published>2019-07-13T00:00:00-03:00</published><updated>2019-07-13T00:00:00-03:00</updated><id>http://localhost:4000/blog/Securing-backend-haproxy-pfsense</id><content type="html" xml:base="http://localhost:4000/blog/Securing-backend-haproxy-pfsense/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+&lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;June 23rd, 2020&lt;/strong&gt;: Moved this guide from Blogger to my website and converted to markdown.  Fixed typos I found.&lt;/p&gt;
+
+&lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;June 21st, 2020&lt;/strong&gt;: This guide stills works with &lt;strong&gt;pfsense version 2.4.5-RELEASE-p1&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;May 1st, 2020&lt;/strong&gt;: This guide still works with &lt;strong&gt;pfsense version 2.4.5-RELEASE&lt;/strong&gt; and the &lt;strong&gt;haproxy packaged version 0.60_4&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 

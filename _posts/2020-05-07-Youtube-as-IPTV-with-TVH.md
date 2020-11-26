@@ -9,11 +9,18 @@ toc_label: "Table of Contents"
 toc_icon: "list"
 ---
 
-# Update tracker
-* September 15th, 2020: There's a [new release of the Youtube4TVH](https://github.com/cgomesu/youtube4tvh/releases) program that does not require the use of API keys. The section about how to create an API key has been updated accordingly.
-* June 23rd, 2020: Moved content from Blogger to my website and converted to markdown.  Fixed typos I found.
-* May 19th, 2020: Added info about TVH m3u re-fetch period and youtube4tvh cronjob for streams that change very often.
-* May 14th, 2020: Added more info about streamlink install and outdated versions; fixed a few typos. 
+# Changelog
+**September 15th, 2020**: There's a [new release of the Youtube4TVH](https://github.com/cgomesu/youtube4tvh/releases) program that does not require the use of API keys. The section about how to create an API key has been updated accordingly.
+{: .notice .notice--info }
+
+**June 23rd, 2020**: Moved content from Blogger to my website and converted to markdown.  Fixed typos I found.
+{: .notice .notice--info }
+
+**May 19th, 2020**: Added info about TVH m3u re-fetch period and youtube4tvh cronjob for streams that change very often.
+{: .notice .notice--info }
+
+**May 14th, 2020**: Added more info about streamlink install and outdated versions; fixed a few typos. 
+{: .notice .notice--info }
 
 [top](#){: .btn .btn--light-outline .btn--small}
 
