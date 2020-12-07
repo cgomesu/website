@@ -1,0 +1,1716 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.19.3 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Mesh networking: A guide to using free and open-source software with common hardware - CGomesu</title>
+<meta name="description" content="A blog and portfolio website built with Jekyll and hosted on Github Pages">
+
+
+  <meta name="author" content="Carlos Gomes">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="CGomesu">
+<meta property="og:title" content="Mesh networking: A guide to using free and open-source software with common hardware">
+<meta property="og:url" content="http://localhost:4000/blog/Mesh-networking-openwrt-batman/">
+
+
+  <meta property="og:description" content="A blog and portfolio website built with Jekyll and hosted on Github Pages">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/posts/2020-11-24-mesh-networking-openwrt-batman/header.jpg">
+
+
+
+
+
+  <meta property="article:published_time" content="2020-12-07T12:10:00-03:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/blog/Mesh-networking-openwrt-batman/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+  <meta name="google-site-verification" content="FA-B3i_TqYeaLPYwZvxxOsx07Coy_drBKJ0M_4DD0Gw" />
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="CGomesu Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="icon" href="/assets/img/site/favicon.ico" type="image/x-icon">
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/img/site/logo.png" alt=""></a>
+        
+        <a class="site-title" href="/">
+           
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/blog/">Blog</a>
+            </li><li class="masthead__menu-item">
+              <a href="/contact/">Contact</a>
+            </li><li class="masthead__menu-item">
+              <a href="/mtg/">MtG</a>
+            </li><li class="masthead__menu-item">
+              <a href="/publications/">Publications</a>
+            </li><li class="masthead__menu-item">
+              <a href="/projects/">Projects</a>
+            </li><li class="masthead__menu-item">
+              <a href="/resume/">Resume</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style="background-color: #000; background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), url('/assets/posts/2020-11-24-mesh-networking-openwrt-batman/header.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 id="page-title" class="page__title" itemprop="headline">
+        
+          Mesh networking: A guide to using free and open-source software with common hardware
+
+        
+      </h1>
+      
+        <p class="page__lead">
+</p>
+      
+      
+        <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  88 minute read
+
+</p>
+      
+      
+      
+    </div>
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/img/profile/profile-00.jpg" alt="Carlos Gomes" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Carlos Gomes</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>I’m a scientist, psychologist, math modeler, programmer, mtg player, free knowledge supporter, sbc fanatic, and electronics hobbyist.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Brazil</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="mailto:me@cgomesu.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Main e-mail</span></a></li>
+          
+        
+          
+        
+          
+            <li><a href="https://cgomesu.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">https://cgomesu.com</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Mesh networking: A guide to using free and open-source software with common hardware">
+    <meta itemprop="description" content="">
+    <meta itemprop="datePublished" content="2020-12-07T12:10:00-03:00">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-list"></i> Table of Contents</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#changelog">Changelog</a></li>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#why-am-i-writing-this-guide">Why am I writing this guide?</a></li>
+  <li><a href="#objectives">Objectives</a></li>
+  <li><a href="#outline">Outline</a></li>
+  <li><a href="#concepts-and-documentation">Concepts and documentation</a>
+    <ul>
+      <li><a href="#main-network-definitions">Main network definitions</a></li>
+      <li><a href="#network-topologies">Network topologies</a></li>
+      <li><a href="#mesh-networks">Mesh networks</a>
+        <ul>
+          <li><a href="#what-are-mesh-networks">What are mesh networks?</a></li>
+          <li><a href="#where-can-i-learn-more-about-mesh-networking">Where can I learn more about mesh networking?</a></li>
+          <li><a href="#routing-protocols">Routing protocols</a>
+            <ul>
+              <li><a href="#batman-adv">batman-adv</a></li>
+              <li><a href="#batctl">batctl</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#hardware">Hardware</a></li>
+  <li><a href="#software">Software</a>
+    <ul>
+      <li><a href="#vi-text-editor">VI text editor</a></li>
+      <li><a href="#alternatives-to-vi">Alternatives to VI</a></li>
+    </ul>
+  </li>
+  <li><a href="#implementation">Implementation</a>
+    <ul>
+      <li><a href="#planning">Planning</a></li>
+      <li><a href="#openwrt-installation-and-initial-configuration">OpenWrt installation and initial configuration</a>
+        <ul>
+          <li><a href="#initial-configuration">Initial configuration</a></li>
+          <li><a href="#default-config-for-the-hardware">Default config for the hardware</a></li>
+          <li><a href="#updating-and-installing-packages">Updating and installing packages</a></li>
+        </ul>
+      </li>
+      <li><a href="#mesh-node-basic-config">Mesh node basic config</a></li>
+      <li><a href="#troubleshooting-mesh-issues">Troubleshooting mesh issues</a></li>
+      <li><a href="#configuring-common-mesh-networks">Configuring common mesh networks</a>
+        <ul>
+          <li><a href="#gateway-bridge">Gateway-Bridge</a>
+            <ul>
+              <li><a href="#mesh-gateway-configuration">Mesh gateway configuration</a></li>
+              <li><a href="#mesh-bridge-configuration">Mesh bridge configuration</a></li>
+            </ul>
+          </li>
+          <li><a href="#bridge-bridge">Bridge-Bridge</a></li>
+          <li><a href="#gateway-gateway">Gateway-Gateway</a></li>
+        </ul>
+      </li>
+      <li><a href="#mesh-vlans">Mesh VLANs</a>
+        <ul>
+          <li><a href="#mesh-gateway-with-vlan-configuration">Mesh gateway with VLAN configuration</a></li>
+          <li><a href="#mesh-bridge-with-vlan-configuration">Mesh bridge with VLAN configuration</a></li>
+        </ul>
+      </li>
+      <li><a href="#getting-started-with-batman-adv-on-any-linux-device">Getting started with batman-adv on any Linux device</a></li>
+    </ul>
+  </li>
+  <li><a href="#bonus-content-physical-computing">Bonus content: Physical computing</a></li>
+  <li><a href="#final-remarks">Final remarks</a>
+    <ul>
+      <li><a href="#other-similar-mesh-solutions">Other similar mesh solutions</a></li>
+    </ul>
+  </li>
+</ul>
+
+            </nav>
+          </aside>
+        
+        <h1 id="changelog">Changelog</h1>
+<p class="notice notice--info"><strong>Dec 7th, 2020</strong>: Publication of the original guide</p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="introduction">Introduction</h1>
+<p>In this tutorial, we will learn how to create <a href="https://en.wikipedia.org/wiki/Wireless_mesh_network"><strong>mesh networks</strong></a> (<a href="https://en.wikipedia.org/wiki/IEEE_802.11s"><strong>IEEE 802.11s</strong></a>) using <a href="https://openwrt.org/"><strong>OpenWrt</strong></a> and the <a href="https://en.wikipedia.org/wiki/Data_link_layer">layer-2</a> implementation of the <em>Better Approach to Mobile Adhoc Networking</em>, called <a href="https://www.kernel.org/doc/html/v4.15/networking/batman-adv.html"><strong>batman-adv</strong></a>.  All the software mentioned here is <strong>free</strong> and <strong>open-source</strong>, as opposed to commercial alternatives (<a href="https://unifi-mesh.ui.com">UniFi Mesh</a> or <a href="https://store.google.com/us/product/nest_wifi">Google’s Nest Wifi</a>).</p>
+
+<p>This is not meant to be an exhaustive presentation of any of the covered topics. If you have suggestions on how to improve this guide, feel free to <a href="/contact/">get in touch with me</a>. I’m always eager to learn new things and share them. Also, I plan on updating this article every once in a while to best reflect my knowledge about the topics covered here and to add information provided by the readers. Check the <a href="#changelog">changelog</a> for updates.</p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="why-am-i-writing-this-guide">Why am I writing this guide?</h1>
+<p>Even though the concept of mesh networking has been around for quite some time now, the documentation of its implementation is still scarce/nichey, proprietary, or outdated.  I don’t feel qualified to speculate on why this is so but I find it odd because many of the radio devices found in popular wireless routers actually support mesh networking–but the original firmware rarely supports it.</p>
+
+<p>My intention with this tutorial is to help closing the gap between concept and implementation of mesh networking using up-to-date software that anyone can download and install on cheap, commonly available hardware–primarily consumer wireless routers (from old to new, single- or multi-band) but the principles should be extendable to any cellphones, laptops, PCs or servers running <strong>Linux</strong>.  The content is partially based on my own experience and builds upon the work of other, much more talented individuals who shared their knowledge on the Web.  More specifically, the content is notably influenced by the following:</p>
+
+<ul>
+  <li>Brian Innes workshop about using Raspberry Pis to create a mesh network for sharing sensor data wirelessly (<a href="https://github.com/binnes/WiFiMeshRaspberryPi">Github repo</a>)</li>
+  <li>Andreas Spiess <a href="https://www.youtube.com/watch?v=TY6m6fS8bxU">LoRa mesh project</a></li>
+  <li>Maintaners of the <a href="https://openwrt.org/docs/start">OpenWRT documentation</a> and the <a href="https://www.open-mesh.org/projects/batman-adv/wiki">B.A.T.M.A.N. wiki</a></li>
+  <li>Multiple users from the OpenWrt forum who shared their opinions over the years. To name a few,  the users <a href="https://forum.openwrt.org/u/jeff">jeff</a>, <a href="https://forum.openwrt.org/u/mcarni">mcarni</a>, <a href="https://forum.openwrt.org/u/oavaldezi">oavaldezi</a>, <a href="https://forum.openwrt.org/u/slh">slh</a>, and many others. Thanks for keeping the posts public.</li>
+</ul>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="objectives">Objectives</h1>
+<ol>
+  <li>Get familiar with <code class="language-plaintext highlighter-rouge">/etc/config/</code> files in OpenWrt devices (namely, <code class="language-plaintext highlighter-rouge">wireless</code>, <code class="language-plaintext highlighter-rouge">network</code>, <code class="language-plaintext highlighter-rouge">dhcp</code>, <code class="language-plaintext highlighter-rouge">firewall</code>) to quickly and permanently configure mesh nodes.</li>
+  <li>Edit files directly from the terminal using the default text editor <code class="language-plaintext highlighter-rouge">vi</code>.</li>
+  <li>Configure OpenWrt devices to play one of three possible roles in the network: (a) mesh node, (b) mesh + bridge node, or (c) mesh + gateway node.</li>
+  <li>Install and configure the Kernel module <code class="language-plaintext highlighter-rouge">batman-adv</code> on an OpenWrt device using the <code class="language-plaintext highlighter-rouge">opkg</code> package manager.</li>
+  <li>Use <code class="language-plaintext highlighter-rouge">batctl</code> to test, debug, and monitor connectivity within the mesh.</li>
+  <li>Add encryption to the mesh network with the package <code class="language-plaintext highlighter-rouge">wpad-mesh-openssl</code>.</li>
+  <li>Use VLANs to create <code class="language-plaintext highlighter-rouge">default</code>, <code class="language-plaintext highlighter-rouge">iot</code>, and <code class="language-plaintext highlighter-rouge">guest</code> networks within the mesh using <code class="language-plaintext highlighter-rouge">batman-adv</code>.</li>
+</ol>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="outline">Outline</h1>
+<p>From this point forward, the article is divided into four main parts:</p>
+<ol>
+  <li><a href="#concepts-and-documentation">Concepts and documentation</a>: <em>Optional for advanced users.</em> Brief introduction to just enough network concepts to allow the implementation of simple mesh networks. When appropriate, a link to the relevant OpenWrt documentation was also provided.</li>
+  <li><a href="#hardware">Hardware</a>: <em>Optional for everyone</em>. A few notes about the hardware used in the examples and recommendations for those who are planning on buying new/used devices for their mesh project.</li>
+  <li><a href="#software">Software</a>: <em>Optional for everyone</em>. A few notes about the software used in the examples.</li>
+  <li><a href="#implementation">Implementation</a>: <em>Required</em>. Step-by-step procedure to configure mesh nodes, bridges, and gateways.  It goes from flashing OpenWrt to configuring VLANs with <code class="language-plaintext highlighter-rouge">batman-adv</code>. You probably came here for this part.</li>
+</ol>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="concepts-and-documentation">Concepts and documentation</h1>
+
+<h2 id="main-network-definitions">Main network definitions</h2>
+<ul>
+  <li>Mesh <a href="https://en.wikipedia.org/wiki/Node_(networking)">node</a>: Any network device that is connected to the mesh network and that helps routing data to (and from) mesh clients.  Here, however, if a mesh node acts as a bridge or gateway, it will always be referred by the latter role, even though by definition, mesh bridges and mesh gateways are also mesh nodes.<br />
+In addition, even though it’s possible to route mesh traffic via cable, in this tutorial, <em>all mesh nodes are also wireless devices</em>, meaning that they have access to a radio with <a href="https://en.wikipedia.org/wiki/IEEE_802.11s"><strong>mesh point</strong> (802.11s)</a> capabilities.
+    <ul>
+      <li><a href="https://openwrt.org/docs/guide-user/network/wifi/basic">Learn about the OpenWrt wireless config <strong>/etc/config/wireless</strong></a></li>
+    </ul>
+  </li>
+  <li>
+    <p><a href="https://en.wikipedia.org/wiki/Bridging_(networking)">Bridge</a>: A network device that joins any two or more network interfaces (e.g., LAN ethernet and wireless) into a single network.  Here, when a device is referred to as a bridge, it means that in addition to being a mesh node, the only other thing it does is bridge interfaces.  But of course, a gateway <em>device</em>, such as a router with a built-in modem, or a firewall appliance, may also work as a bridge for multiple interfaces. The distinction in the examples is just used to highlight its main role in the network.  Therefore, a mesh bridge in this tutorial is a mesh node that simply bridges the mesh network with a WiFi access point  for non-mesh clients, for example, or its LAN ports.</p>
+  </li>
+  <li><a href="https://en.wikipedia.org/wiki/Gateway_(telecommunications)">Gateway</a>: A network device that translates traffic from one network (LAN) to another (WAN) and here, acts as both a <strong>firewall</strong> and <strong>DHCP server</strong>.  (If there’s more than one DHCP server in the same network, they assign IPs to different ranges, such as <code class="language-plaintext highlighter-rouge">.1-100</code>, <code class="language-plaintext highlighter-rouge">.101-200</code>, and so on.)
+    <ul>
+      <li><a href="https://openwrt.org/docs/guide-user/base-system/basic-networking">Learn about the OpenWrt network config <strong>/etc/config/network</strong></a></li>
+    </ul>
+  </li>
+  <li>
+    <p><a href="https://en.wikipedia.org/wiki/Domain_Name_System">DNS</a>: In brief, a system for translating domain names (e.g., <code class="language-plaintext highlighter-rouge">cgomesu.com</code>) into IP addresses (<code class="language-plaintext highlighter-rouge">185.199.108.153</code>, <code class="language-plaintext highlighter-rouge">185.199.109.153</code>, <code class="language-plaintext highlighter-rouge">185.199.110.153</code>, <code class="language-plaintext highlighter-rouge">185.199.111.153</code>). DNS filtering systems, such as <a href="https://pi-hole.net/">PiHole</a>, work by catching such requests–usually sent through port <code class="language-plaintext highlighter-rouge">53</code>–and checking if the domain is blacklisted or not.  In this tutorial, we will always use an external DNS server, such as <code class="language-plaintext highlighter-rouge">1.1.1.1</code> (Cloudflare) or <code class="language-plaintext highlighter-rouge">8.8.8.8</code> (Google), but if you have your own DNS resolver, feel free to use it instead when configuring your mesh network but then make sure the mesh network/VLAN has access to its address.</p>
+  </li>
+  <li><a href="https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol">DHCP</a>: An IP management system that dynamically assigns layer-3 addresses for devices connected to a network. For instance, it might dynamically assign IPs between <code class="language-plaintext highlighter-rouge">192.168.1.0</code> and <code class="language-plaintext highlighter-rouge">192.168.1.255</code> (i.e., <code class="language-plaintext highlighter-rouge">192.168.1.0/24</code>) to any devices connected to LAN. Of note, because this is a network layer protocol, it uses IP addresses, whereas <code class="language-plaintext highlighter-rouge">batman-adv</code> uses MAC addresses because it works at the data link layer (and therefore, <code class="language-plaintext highlighter-rouge">batman-adv</code> actually doesn’t need DHCP and IPs to discover and manage mesh clients but we’re going to use them to make it more intuitive and easier to integrate mesh with non-mesh clients).
+    <ul>
+      <li><a href="https://openwrt.org/docs/guide-user/base-system/dhcp">Learn about the OpenWrt DNS and DHCP config <strong>/etc/config/dhcp</strong></a></li>
+    </ul>
+  </li>
+  <li><a href="https://en.wikipedia.org/wiki/Firewall_(computing)">Firewall</a>: A network system that monitors and controls network traffic, such as specifying rules for incoming WAN traffic (e.g., <code class="language-plaintext highlighter-rouge">deny all</code>), outgoing LAN traffic (<code class="language-plaintext highlighter-rouge">accept all</code>), geoblocking and IP filtering systems, intrusion prevention/detection systems (<a href="https://suricata-ids.org/">Suricata</a>), and so on.  <a href="https://opnsense.org/">OpenSense</a> and <a href="https://www.pfsense.org/">pfSense</a> are examples of dedicated firewall software. If a mesh node is acting as a mesh gateway, it’s imperative to configure the firewall or your mesh network will likely end up without access to external networks (e.g., WAN) and their services (e.g., DNS servers).
+    <ul>
+      <li><a href="https://openwrt.org/docs/guide-user/firewall/firewall_configuration">Learn about the OpenWrt firewall config <strong>/etc/config/firewall</strong></a></li>
+    </ul>
+  </li>
+  <li><a href="https://en.wikipedia.org/wiki/Virtual_LAN">VLAN</a>: A <em>virtual</em> LAN that is partitioned and isolated in a network at the layer-2 level.  They are often followed by an integer to differentiate each other (e.g., VLAN 1, VLAN 50) and used to better manage network clients that belong to different groups (e.g., administrators, IoT devices, security cameras, guests).</li>
+</ul>
+
+<h2 id="network-topologies">Network topologies</h2>
+
+<!-- Courtesy of embedresponsively.com //-->
+<div class="responsive-video-container">
+
+  <iframe src="https://www.youtube-nocookie.com/embed/zbqrNg4C98U" frameborder="0" allowfullscreen=""></iframe>
+
+</div>
+
+<h2 id="mesh-networks">Mesh networks</h2>
+
+<h3 id="what-are-mesh-networks">What are mesh networks?</h3>
+
+<!-- Courtesy of embedresponsively.com //-->
+<div class="responsive-video-container">
+
+  <iframe src="https://www.youtube-nocookie.com/embed/tYLU755T6_I" frameborder="0" allowfullscreen=""></iframe>
+
+</div>
+
+<h3 id="where-can-i-learn-more-about-mesh-networking">Where can I learn more about mesh networking?</h3>
+<ul>
+  <li>Wikipedia articles about <a href="https://en.wikipedia.org/wiki/Mesh_networking">mesh networking</a> and <a href="https://en.wikipedia.org/wiki/Wireless_mesh_network">wireless mesh networks</a></li>
+  <li><a href="https://scholar.google.com/scholar?q=mesh+networking">Peer-reviewed papers or books</a></li>
+</ul>
+
+<h3 id="routing-protocols">Routing protocols</h3>
+<p>There are <a href="https://en.wikipedia.org/wiki/Wireless_mesh_network#Protocols">dozens of algorithms</a> for routing packets in a mesh network.  A few notable ones are the Optimized Link State Routing (OLSR) and the Hybrid Wireless Mesh Protocol (HWMP).</p>
+
+<p>In this tutorial, however, we will cover only one of them, called <a href="https://en.wikipedia.org/wiki/B.A.T.M.A.N."><em>Better Approach to Mobile Adhoc Networking</em></a> (<strong>B.A.T.M.A.N.</strong>), because <a href="https://www.kernel.org/doc/html/latest/networking/batman-adv.html">it has long been incorporated into the Linux Kernel</a> and is thus easily enabled on Linux devices.  It is also a <a href="https://www.open-mesh.org/projects/batman-adv/wiki">fairly well-documented</a> algorithm that <a href="https://www.open-mesh.org/projects/open-mesh/activity">has been continuously improved</a> over the years.  Another noteworthy feature of <code class="language-plaintext highlighter-rouge">batman-adv</code> is its lack of reliance on layer-3 protocols for managing mesh clients because it works at the layer-2 and its ability to create VLANs.  Think of it as if it were a big, smart, virtual switch, in which its VLANs are port-based segmentations.  If you want an interface to use a particular mesh VLAN, just “plug it” into the approriate port of the <code class="language-plaintext highlighter-rouge">batX</code> switch (e.g., bridge <code class="language-plaintext highlighter-rouge">if-guest</code> and <code class="language-plaintext highlighter-rouge">bat0.2</code> to give the guest network access to the <code class="language-plaintext highlighter-rouge">bat0</code> VLAN 2).</p>
+
+<h4 id="batman-adv">batman-adv</h4>
+<p>As mentioned before, B.A.T.M.A.N. has gone through multiple changes over the years, which means that there are actually <em>multiple versions of the algorithm</em>. I’ve had a good experience with <a href="https://www.open-mesh.org/projects/batman-adv/wiki/BATMAN_IV"><strong>B.A.T.M.A.N. IV</strong></a> and therefore, the examples here make use of it.  However, you are free to try whatever version you want and even run them in parallel to each other, by assigning a different <code class="language-plaintext highlighter-rouge">batX</code> interface to each version of the algorithm (versions are chosen with <code class="language-plaintext highlighter-rouge">option routing_algo</code> in the <code class="language-plaintext highlighter-rouge">/etc/config/network</code> config file for each enabled <code class="language-plaintext highlighter-rouge">batX</code> interface).</p>
+
+<p>Config-wise, there’s very little to do because the default settings should work very well in most environments.  One exception is when you have multiple gateways in the network to provide high availability, for example, and you might want to let each mesh node know about them and their speeds to better route the mesh traffic.  This requires setting <code class="language-plaintext highlighter-rouge">option gw_mode</code> to <code class="language-plaintext highlighter-rouge">server</code> or <code class="language-plaintext highlighter-rouge">client</code>, for example.  Many other tweaks that are not covered here are <a href="https://www.open-mesh.org/projects/batman-adv/wiki/Doc-overview#Protocol-Documentation">described in their wiki</a>.</p>
+
+<h4 id="batctl">batctl</h4>
+<p>Another very cool feature of B.A.T.M.A.N. is the ability to test, debug, monitor, and set settings with the package <a href="https://downloads.open-mesh.org/batman/manpages/batctl.8.html"><code class="language-plaintext highlighter-rouge">batctl</code></a>.  A few noteworthy options:</p>
+
+<ul>
+  <li>Ping mesh node/client with its MAC address <code class="language-plaintext highlighter-rouge">f0:f0:00:00:00:00</code>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>batctl p f0:f0:00:00:00:00
+</code></pre></div>    </div>
+  </li>
+  <li><a href="https://linux.die.net/man/8/tcpdump"><code class="language-plaintext highlighter-rouge">tcpdump</code></a> for all mesh traffic in the <code class="language-plaintext highlighter-rouge">bat0</code> interface
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>batctl td bat0
+</code></pre></div>    </div>
+  </li>
+  <li>Prints useful stats for all mesh traffic, such as sent and received bytes
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>batctl s
+</code></pre></div>    </div>
+  </li>
+  <li>Shows the neighboring mesh nodes
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>batctl n
+</code></pre></div>    </div>
+  </li>
+  <li>Displays the gateway servers (<code class="language-plaintext highlighter-rouge">option gw_mode 'server'</code>) in the mesh network
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>batctl gwl
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>It goes without saying that if you want to dive deep into <code class="language-plaintext highlighter-rouge">batman-adv</code>, you should take a good look at <code class="language-plaintext highlighter-rouge">batctl</code>, too.</p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="hardware">Hardware</h1>
+<p>Unless otherwise specified, all mesh nodes used in the various implementations had the following hardware:</p>
+
+<ul>
+  <li><strong>Device</strong>: <a href="https://www.tp-link.com/us/home-networking/wifi-router/tl-wr1043nd/">TP-Link WR-1043ND</a> v1.8</li>
+  <li><strong>Architecture</strong>: Atheros AR9132 rev 2</li>
+</ul>
+
+<p><a href="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/tplink-wr1043nd.jpg"><img src="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/tplink-wr1043nd.jpg" alt="TP-Link 1043nd" class="PostImage" /></a></p>
+
+<p>This was mainly a matter of convenience–I had a few lying around and they are very, very cheap–and because the examples in the OpenWrt documentation often refer to them as well, so the community support is good.</p>
+
+<p>However, the general ideas presented here should apply to <strong>any wireless device</strong> that meets the following criteria:</p>
+
+<ol>
+  <li>Compatible with the latest OpenWRT version. Refer to their <a href="https://openwrt.org/toh/start"><strong>Hardware List</strong></a>;</li>
+  <li>
+    <p>Has access to a radio that supports the <strong>mesh point</strong> (<strong>802.11s</strong>) mode of operation. If you already have OpenWrt installed on a wireless device, you can type <code class="language-plaintext highlighter-rouge">iw list</code> and search for <code class="language-plaintext highlighter-rouge">mesh point</code> under <strong>Supported interface modes</strong>, or simply check if the following command outputs <code class="language-plaintext highlighter-rouge">* mesh point</code> below the name of a detected radio (e.g., <code class="language-plaintext highlighter-rouge">phy0</code>, <code class="language-plaintext highlighter-rouge">phy1</code>):</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iw list | grep -ix "^wiphy.*\|^.*mesh point$"
+</code></pre></div>    </div>
+
+    <p>If it does, then the associated radio can be configured as a mesh point.</p>
+  </li>
+</ol>
+
+<p>Now, if you’re looking for devices to buy and experiment on, my suggestion is to look for dual-band wireless routers to allow a better segmentation of the wireless networks.  If you can afford spending more for a mesh node, look for tri-band devices.  Netgear and Linksys have solid options that are compatible with OpenWrt. For example, the Linksys WRT1900AC (v1/v2) dual-band wireless router would make for a good mesh node:</p>
+
+<p><a href="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/linksys-wrt1900ac.jpg"><img src="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/linksys-wrt1900ac.jpg" alt="Linksys WRT1900AC" class="PostImage PostImage--large" /></a></p>
+
+<p>For single-board computer (SBC) fans like me, you can run OpenWrt with most of them and then use a combination of on-board wireless and USB adapter to create a powerful mesh node. <a href="https://shop.solid-run.com/product-category/embedded-computers/marvell-family/clearfog-base-pro/">ClearFog boards</a> with one or two mini PCIe wireless cards would make very good candidates for such a project, for example:</p>
+
+<p><a href="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/clearfog-pro.jpg"><img src="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/clearfog-pro.jpg" alt="ClearFog Pro" class="PostImage PostImage--large" /></a></p>
+
+<p>Of course, you can install OpenWrt on bare metal x86-64 machines (e.g., standard PC or server running Intel/AMD), which will give you lots of options to put together an impressive mesh device. However, if you just want your work/home laptops/PCs to <em>be part of the mesh</em> (i.e., become a mesh node), there are better alternatives than installing OpenWrt as its OS.  For example, you can run OpenWrt with a <a href="https://openwrt.org/docs/guide-user/virtualization/start">virtual machine</a> or as a <a href="https://github.com/openwrt/docker">docker container</a>.  Naturally, it’s also possible to configure <code class="language-plaintext highlighter-rouge">batman-adv</code> on Linux distributions other than OpenWrt, such as Arch, Debian, and Ubuntu.  See <a href="#getting-started-with-batman-adv-on-any-linux-device">Getting started with <code class="language-plaintext highlighter-rouge">batman-adv</code> on any Linux device</a>.</p>
+
+<p>As mentioned before, even if the existing/on-board radio of your SBC/laptop/PC/server does not support the mesh point mode of operation, you can always buy a compatible PCIe card or USB adapter to turn your device into a mesh node and then use the other radio for another purpose.  For example, many <a href="https://www.alfa.com.tw/">Alfa Network</a> adapters can operate in mesh point mode, like the cheap AWUS036NH:</p>
+
+<p><a href="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/AWUS036NH.jpg"><img src="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/AWUS036NH.jpg" alt="Alfa AWUS036NH" class="PostImage" /></a></p>
+
+<p><strong>All that said</strong>, most home users will be <strong>just fine with a cheapo, used, old, single-band router</strong>.  For a brand reference, TP-Link has good and affordable devices that can be used in a mesh networking project without issues.  If you’re new to this, start from here (small, simple) and think about efficiency over power.  You don’t need to drive a Lamborghini to get a snack at the grocery store.</p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="software">Software</h1>
+<p>Unless otherwise specified, all mesh nodes were running the following software:</p>
+
+<p><a href="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/openwrt-ssh-welcome.jpg"><img src="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/openwrt-ssh-welcome.jpg" alt="OpenWrt default SSH welcome" class="PostImage PostImage--large" /></a></p>
+
+<ul>
+  <li><strong>Operating System</strong>:
+    <ul>
+      <li><strong>Firmware</strong>: OpenWrt 19.07.4 r11208-ce6496d796</li>
+      <li><strong>Linux kernel</strong>: 4.14.195</li>
+    </ul>
+  </li>
+  <li><strong>Packages mentioned in the tutorial</strong>:
+    <ul>
+      <li><a href="https://openwrt.org/packages/pkgdata/batctl-default"><code class="language-plaintext highlighter-rouge">batctl-default</code></a>: 2019.2-7</li>
+      <li><a href="https://openwrt.org/packages/pkgdata/kmod-batman-adv"><code class="language-plaintext highlighter-rouge">kmod-batman-adv</code></a>: 4.14.195+2019.2-9</li>
+      <li><a href="https://openwrt.org/packages/pkgdata/wpad-mesh-openssl"><code class="language-plaintext highlighter-rouge">wpad-mesh-openssl</code></a>: 2019-08-08-ca8c2bd2-4</li>
+    </ul>
+  </li>
+</ul>
+
+<p>To find out the version of all installed packages, type</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>opkg list-installed
+</code></pre></div></div>
+
+<p>or if you prefer to filter the output, use grep.  For example, the following will show the version of all installed packages containing <code class="language-plaintext highlighter-rouge">bat</code> (e.g., <code class="language-plaintext highlighter-rouge">batctl</code>, <code class="language-plaintext highlighter-rouge">kmod-batman-adv</code>):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>opkg list-installed | grep bat
+</code></pre></div></div>
+
+<p>Huge differences in firmware, kernel, or package versions <em>might</em> make the implementation of a mesh network a little bit different than the way it was explained here.  Of note, devices running the <code class="language-plaintext highlighter-rouge">batman-adv</code> <strong>version 2019.0-2 and older</strong> are certainly incompatible with the instructions found in this tutorial, the reason being that the module was modified after then to better integrate with the <a href="https://openwrt.org/docs/techref/netifd">network interface daemon</a>.  Fortunately, the implementation using old modules is just a simple as with the latest one. <a href="https://www.open-mesh.org/projects/batman-adv/wiki/Batman-adv-openwrt-config#Batman-adv-20190-2-and-older">Check what the B.A.T.M.A.N. wiki has to say about it</a>.  However, it’s worth mentioning that with old batman modules, changes to <code class="language-plaintext highlighter-rouge">/etc/config/network</code> will likely require a reboot instead of simply reloading <code class="language-plaintext highlighter-rouge">/etc/init.d/network</code>.</p>
+
+<p>Also, I’ve noticed that when installing <code class="language-plaintext highlighter-rouge">kmod-batman-adv</code>, the package manager will install a minimal version of <code class="language-plaintext highlighter-rouge">batctl</code>, called <code class="language-plaintext highlighter-rouge">batctl-tiny</code>, that lacks some of the options mentioned here (e.g., <code class="language-plaintext highlighter-rouge">batctl n</code> and <code class="language-plaintext highlighter-rouge">batnctl o</code>).  However, if you install <code class="language-plaintext highlighter-rouge">batctl</code> first and then <code class="language-plaintext highlighter-rouge">kmod-batman-adv</code>, the package manager will preserve <code class="language-plaintext highlighter-rouge">batctl-default</code>, which is the package used in this tutorial and that has all the options referred to in the <a href="https://downloads.open-mesh.org/batman/manpages/batctl.8.html">batctl man page</a>.</p>
+
+<p>Finally, the installation of <code class="language-plaintext highlighter-rouge">wpad-mesh-openssl</code> will conflict with the already installed <code class="language-plaintext highlighter-rouge">wpad-basic</code> package.  This means <strong>you have to remove the latter before installing the former</strong>.  To remove the <code class="language-plaintext highlighter-rouge">wpad-basic</code> package, simply type</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>opkg remove wpad-basic
+</code></pre></div></div>
+
+<h2 id="vi-text-editor">VI text editor</h2>
+<p>The default text editor in a standard OpenWrt image is <a href="https://en.wikipedia.org/wiki/Vi"><strong>vi</strong></a>, which is an old, screen oriented editor that most modern users will find counterintuitive to use.  Fortunately, once you get the hang of it, <code class="language-plaintext highlighter-rouge">vi</code> becomes very easy to use and it becomes a very convenient way of editing config files.  Here’s all that you need to know about using <code class="language-plaintext highlighter-rouge">vi</code> in a terminal:</p>
+
+<p>You can open a file by adding the filename as an argument to <code class="language-plaintext highlighter-rouge">vi</code>, as follows</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi /etc/config/network
+</code></pre></div></div>
+
+<p>and if the file does not exist, <code class="language-plaintext highlighter-rouge">vi</code> will create one with that name.</p>
+
+<p>By default, <code class="language-plaintext highlighter-rouge">vi</code> will start in <strong>command mode</strong>.  Such a mode let’s you navigate the file with the arrow keys and use the <em>delete button</em> to delete characters.  (Also, in command mode, you can type <code class="language-plaintext highlighter-rouge">dd</code> to delete entire lines, which is very useful if you need to delete lots of things quickly.)</p>
+
+<p>However, if you need to type characters and have more flexibility to edit the file, you need to tell <code class="language-plaintext highlighter-rouge">vi</code> to enter <strong>insert mode</strong>.  To enter insert mode, type (no need to hit return/enter afterwards)</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>i
+</code></pre></div></div>
+
+<p>and at the bottom of the screen, you will see that it now shows a <code class="language-plaintext highlighter-rouge">I</code> to indicate that <code class="language-plaintext highlighter-rouge">vi</code> is in insert mode.  You can now type freely and even paste multiple things at once in insert mode.</p>
+
+<p>When you’re done, press the button <strong>Esc</strong> to go back into command mode.  Notice that at the bottom of the screen, now there’s a <code class="language-plaintext highlighter-rouge">-</code> where the <code class="language-plaintext highlighter-rouge">I</code> was, which tells you you’re in command mode once again.</p>
+
+<p>In command mode, you can then <strong>write changes to the file</strong> by typing (followed by return/enter)</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:w
+</code></pre></div></div>
+
+<p>Now you’ve saved the file. To quit, type</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:q
+</code></pre></div></div>
+
+<p>Alternatively, you can <em>write and quit</em> by simply typing <code class="language-plaintext highlighter-rouge">:wq</code>.</p>
+
+<p><code class="language-plaintext highlighter-rouge">vi</code> has other commands as well but honestly, that’s pretty much all that you need to know about <code class="language-plaintext highlighter-rouge">vi</code> in order to use in the examples covered here.  Give it a try!</p>
+
+<h2 id="alternatives-to-vi">Alternatives to VI</h2>
+<p>Now, if you still don’t like to use <code class="language-plaintext highlighter-rouge">vi</code>, you can always transfer files from your laptop/PC to OpenWrt via sftp, for example, or utilities like <a href="https://en.wikipedia.org/wiki/Secure_copy_protocol"><code class="language-plaintext highlighter-rouge">scp</code></a>.</p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="implementation">Implementation</h1>
+<p>In this section, we will see how to configure <strong>four mesh nodes</strong> in <strong>three different network topologies</strong>. More specifically:</p>
+
+<ul>
+  <li><strong>Gateway-Bridge</strong>: A mesh network in which one node plays the role of a mesh gateway and another, of a bridge, while the remaining are just mesh nodes.  This is a very typical scenario for a home or small office, for example.</li>
+</ul>
+
+<p><a href="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-gateway-bridge.jpg"><img src="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-gateway-bridge.jpg" alt="Topology - Gateway-Bridge" class="PostImage PostImage--large" /></a></p>
+
+<ul>
+  <li><strong>Bridge-Bridge</strong>: Two nodes play the role of a bridge, therefore making the mesh network transparent to the external (non-mesh) networks.</li>
+</ul>
+
+<p><a href="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-bridge-bridge.jpg"><img src="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-bridge-bridge.jpg" alt="Topology - Bridge-Bridge" class="PostImage PostImage--large" /></a></p>
+
+<ul>
+  <li><strong>Gateway-Gateway</strong>: Two nodes play the role of a gateway to provide high-availability to mesh clients/nodes.</li>
+</ul>
+
+<p><a href="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-gateway-gateway.jpg"><img src="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-gateway-gateway.jpg" alt="Topology - Gateway-Gateway" class="PostImage PostImage--large" /></a></p>
+
+<p>First, however, we will start with the aspects that are common to all topologies, such as planning the mesh network, and the installation and basic configuration of OpenWrt mesh nodes.  Then, we will move to the specifics of each of the aforementioned mesh network topologies.  Finally, we end the section with a slightly more complex scenario to illustrate how to create <strong>mesh VLANs</strong> with <code class="language-plaintext highlighter-rouge">batman-adv</code> and a very brief introduction to using <code class="language-plaintext highlighter-rouge">batman-adv</code> on other Linux distros.</p>
+
+<p><a href="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-mesh-vlans.jpg"><img src="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-mesh-vlans.jpg" alt="Topology - Mesh VLANs" class="PostImage PostImage--large" /></a></p>
+
+<p>Even though the examples show static nodes, <strong>none of the mesh nodes need to be static</strong>. The mesh network and its components can be partially or totally mobile. For example, if some of your nodes are mobile units (e.g., vehicles, drones, robots, cellphones, laptops), they can leave and join the mesh, recreate the mesh elsewhere, join a completely different mesh, and so on.  The routing algorithm (<code class="language-plaintext highlighter-rouge">batman-adv</code>) will automatically (and  seamlessly) take care of changes to the network topology. (But of course, if there’s a single gateway and it does not reach any node, the network is bound to stop working as intended without proper configuration to handle such scenarios.)</p>
+
+<p><a href="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-moving-nodes.gif"><img src="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-moving-nodes.gif" alt="Topology - Moving nodes" class="PostImage PostImage--large" /></a></p>
+
+<h2 id="planning">Planning</h2>
+<p>Just like any other type of network, deploying a mesh network–especially over large areas, with dozens of nodes–requires a fair deal of planning; Otherwise, you are bound to experience, for instance, bottlenecks, uneven access point signal quality, and unstable WAN connectivity across the mesh.  Also, features like <strong>high availability</strong> go well beyond the configuration and topology of a mesh network (e.g., power source, whre your WAN connections are coming from, and the hardware you are using all play important roles when it comes to high availability).  Mesh networks are very, very easy to scale but planning is key.</p>
+
+<p><em>Eli the Computer Guy</em> has an old video about mesh networks that goes into things like high availability and bottlenecks.  If that matters to you, take a look. The relevant content <strong>starts at <code class="language-plaintext highlighter-rouge">03:30</code></strong> and <strong>ends at <code class="language-plaintext highlighter-rouge">17:30</code></strong>, approximately.</p>
+
+<!-- Courtesy of embedresponsively.com //-->
+<div class="responsive-video-container">
+
+  <iframe src="https://www.youtube-nocookie.com/embed/T7fJwAyALss" frameborder="0" allowfullscreen=""></iframe>
+
+</div>
+
+<p>The examples in this tutorial are simple <em>by design</em>–they were created to illustrate different scenarios in a way that makes it easy to understand what is going on. The idea is to use the examples as templates for more complex implementations.</p>
+
+<h2 id="openwrt-installation-and-initial-configuration">OpenWrt installation and initial configuration</h2>
+<p>Now that you have the hardware, the first thing to do is to install OpenWrt.  Flashing a default OpenWrt image onto a <strong><em>compatible device</em> is a very easy and safe procedure</strong> because it’s been tested multiple times.  (For extra safety precautions, you might want to search the Web for your device + OpenWrt to see if there’s any indexed forum post or comment regarding installation issues and bugs, for example.)</p>
+
+<p>If you’re new to this, the folks at OpenWrt were kind enough to provide a plethora of instructions on <a href="https://openwrt.org/docs/guide-user/installation/start">how to install and uninstall OpenWrt</a> and even put together an <a href="https://openwrt.org/docs/guide-user/installation/generic.flashing#installation_checklist"><strong>installation checklist</strong></a>.  At the very least, do the following:</p>
+
+<ol>
+  <li>Look for your device’s <strong>model and version</strong> in the <a href="https://openwrt.org/toh/start"><strong>Table of Hardware</strong></a> and open its <strong>Device Page</strong> (e.g., <a href="https://openwrt.org/toh/tp-link/tl-wr1043nd">TP-Link TL-WR1043ND</a>);</li>
+  <li>Double check that the <strong>model and version</strong> match your device’s <strong>model and version</strong> in the <strong>Supported Versions</strong> table;</li>
+  <li>In the <strong>Installation</strong> table, you will find a column called <em>Firmware OpenWrt Install URL</em> and another one called <em>Firmware OpenWrt Upgrade URL</em>. If your device is <strong>still running the original firmware</strong>, then download the binary from the <em>Firmware OpenWrt <strong>Install</strong> URL</em> column; otherwise, download the binary from the <em>Firmware OpenWrt <strong>Upgrade</strong> URL</em> column.  Both files should have a <code class="language-plaintext highlighter-rouge">.bin</code> extension;</li>
+  <li>Regardless of the binary file downloaded, <a href="https://openwrt.org/docs/guide-quick-start/verify_firmware_checksum"><strong>verify its checksum</strong></a> afterwards;</li>
+  <li>Disconnect your laptop/PC from any access point or switch, and connect your laptop/PC directly to the device’s ethernet port.</li>
+  <li>Open your device’s web UI, go to its Settings and/or find the <strong>Firmware Upgrade</strong> option. Then, select the downloaded OpenWrt binary, and let it do its thing. Once it’s done, the device will reboot with OpenWrt installed. (You should be able to reach it at <code class="language-plaintext highlighter-rouge">192.168.1.1</code> if connected to a LAN port.)</li>
+</ol>
+
+<p>If you can reach the OpenWrt web UI, then you’ve successfully installed OpenWrt and it’s now time to configure it.</p>
+
+<h3 id="initial-configuration">Initial configuration</h3>
+<p>As mentioned before, we <strong>will not use the web UI</strong> in this tutorial, even if the OpenWrt image you’re using has LuCI installed by default.  Instead, we will access our device and configure it using only <strong>SSH</strong>.  So, open a terminal and <code class="language-plaintext highlighter-rouge">ssh</code> into your OpenWrt device, as follows</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh root@192.168.1.1
+</code></pre></div></div>
+
+<p>in which <code class="language-plaintext highlighter-rouge">192.168.1.1</code> is your OpenWrt device’s IP address (that’s usually the case after a fresh install but if it’s different, use the proper IP then). Because this is the first time using the system, you’ll need to set a password for the <code class="language-plaintext highlighter-rouge">root</code> user.  You can do that by typing</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>passwd
+</code></pre></div></div>
+
+<p>and following the instructions.  At this point, it’s good practice to label this device (e.g., <code class="language-plaintext highlighter-rouge">node01</code>) and take note of its <strong>MAC address</strong>.  To find out the latter, type</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ip link
+</code></pre></div></div>
+
+<p>and keep a record of the device’s name and its MAC address–if there are multiple different addresses, take note of all of them and their interface.</p>
+
+<p>(<em>Optional</em>: <a href="https://openwrt.org/docs/guide-user/security/dropbear.public-key.auth">Configure key-based authentication</a> and <a href="https://openwrt.org/docs/guide-user/base-system/dropbear">disable password login</a>. Reboot and check that <code class="language-plaintext highlighter-rouge">ssh</code> access methods are correctly configured.)</p>
+
+<p class="notice notice--warning">From this point forward, we will start editing files using <code class="language-plaintext highlighter-rouge">vi</code>.  If you’ve not read the <a href="#vi-text-editor">section about how to use <code class="language-plaintext highlighter-rouge">vi</code></a> yet, this is a good time to do so.</p>
+
+<h3 id="default-config-for-the-hardware">Default config for the hardware</h3>
+<p>Regardless of the hardware, <strong>before doing anything related to the mesh network</strong>, always take your time and <strong>study the default configuration</strong> found in <code class="language-plaintext highlighter-rouge">/etc/config/</code>.  For reference, I usually go over the following:</p>
+
+<ul>
+  <li>How many ethernet ports?</li>
+  <li>Are they labeled either LAN or WAN or there’s both?</li>
+  <li>In <code class="language-plaintext highlighter-rouge">/etc/config/network</code>, how is the router handling multiple ethernet ports? If there’s both LAN and WAN, how is the router separating LAN from WAN?</li>
+  <li>If there is both LAN and WAN, how is the firewall handling them in <code class="language-plaintext highlighter-rouge">/etc/config/firewall</code>? (Probably two zones, LAN and WAN, with LAN-&gt;WAN accept all but WAN-&gt;LAN deny all?)</li>
+  <li>In <code class="language-plaintext highlighter-rouge">/etc/config/dhcp</code>, how is the device handling IP addresses?  (Is there a DHCP server for LAN?)</li>
+</ul>
+
+<p>And finally, look at the wireless settings (<code class="language-plaintext highlighter-rouge">/etc/config/wireless</code>):</p>
+
+<ul>
+  <li>How many radio devices and their names? (e.g., <code class="language-plaintext highlighter-rouge">radio0</code>)</li>
+  <li>Configuration-wise, what is the device using by default vs. what is it capable of? (<code class="language-plaintext highlighter-rouge">iw list</code>)</li>
+  <li>Is the radio enabled or disabled? (Keep/add <code class="language-plaintext highlighter-rouge">option disabled 1</code> to disable it before configuration; to re-enable, simply comment this line out or set the value to <code class="language-plaintext highlighter-rouge">0</code>.)</li>
+  <li>Are there pre-configured wireless access points being broadcast?  If yes, which <code class="language-plaintext highlighter-rouge">option network</code> is it using by default? (Likely <code class="language-plaintext highlighter-rouge">lan</code> or whatever the LAN interface is being called in <code class="language-plaintext highlighter-rouge">/etc/config/network</code>.)</li>
+</ul>
+
+<p>For example, many wireless routers, including the TP-Link WR1043ND, have LAN and WAN ports which are handled by a <code class="language-plaintext highlighter-rouge">switch</code> configuration with VLANs enabled to separate LAN from WAN.  Take note of it;  understand what is going on in the config files;  play with them;  then, continue.  Also, take this opportunity to go over the <strong>Device Page</strong> to check if there’s any warnings or special configuration notes (e.g., <a href="https://openwrt.org/toh/tp-link/tl-wr1043nd#warningsgotchas">warnings and gotchas with the 1043ND</a>).</p>
+
+<p>This understanding is instrumental to the way the device will be configured to play different roles in the mesh network and a good grasp of the device’s default settings will greatly reward you later on.</p>
+
+<h3 id="updating-and-installing-packages">Updating and installing packages</h3>
+<p>(<em>Only experienced users</em>: If you used a default image, this is a good opportunity to remove unnecessary packages. See the OpenWrt FAQ for a reference of <a href="https://openwrt.org/faq/which_packages_can_i_safely_remove_to_save_space">safe to remove packages</a>, for example. If this is your first time playing with mesh, leave any unmentioned pkg alone until you get everything working as intended.)</p>
+
+<p>In order to update and install packages, you need to give your device <strong>temporary access to the Internet</strong>.  More often than not, if you have an existing network with access to the Internet on-site, then just connect the device to a router/switch via cable.  If that doesn’t work, go ahead and configure your device to act like a <a href="https://openwrt.org/docs/guide-user/network/wifi/dumbap"><strong>dumb access point</strong></a> first.  You can check that the device has access to the Internet by <code class="language-plaintext highlighter-rouge">ping</code>ing <code class="language-plaintext highlighter-rouge">google.com</code> or <code class="language-plaintext highlighter-rouge">8.8.8.8</code>, as follows</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ping google.com
+</code></pre></div></div>
+
+<p>If it all looks good, it’s time to <strong>update the package list</strong>, as follows</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>opkg update
+</code></pre></div></div>
+
+<p>(<em>Optional</em>: Upgrade all installed packages. Type <code class="language-plaintext highlighter-rouge">opkg list-upgradable</code> to find which packages can be upgraded and then <code class="language-plaintext highlighter-rouge">opkg upgrade PKG</code>, in which <code class="language-plaintext highlighter-rouge">PKG</code> is the package name.  If <code class="language-plaintext highlighter-rouge">opkg list-upgradable</code> run into memory issues, try commenting out a few lines in <code class="language-plaintext highlighter-rouge">/etc/opkg/distfeeds.conf</code> and try again.)</p>
+
+<p>Now, let’s install the mesh-related packages and remove conflicting packages.  First, remove <code class="language-plaintext highlighter-rouge">wpad-basic</code> with</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>opkg remove wpad-basic
+</code></pre></div></div>
+
+<p>then install <code class="language-plaintext highlighter-rouge">batctl</code>, <code class="language-plaintext highlighter-rouge">batman-adv</code>, and <code class="language-plaintext highlighter-rouge">wpad-mesh-openssl</code> with</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>opkg install batctl kmod-batman-adv wpad-mesh-openssl
+</code></pre></div></div>
+
+<p>Make sure there are no error messages and if there are, troubleshoot them before proceeding.</p>
+
+<p>Remove the connection that gave your device temporary access to the Internet.  Then, <strong>reboot</strong> (type <code class="language-plaintext highlighter-rouge">reboot</code> in the terminal) and restart the SSH session with your laptop/PC still connected to the device via cable.</p>
+
+<p class="notice notice--warning">If you’re using the <strong>TP-Link WR1043ND v1.x</strong> in your mesh project, you’ll need to enable the <code class="language-plaintext highlighter-rouge">nohwcrypt</code> parameter of the <code class="language-plaintext highlighter-rouge">ath9k</code> module to use the mesh with encryption.  To enable <code class="language-plaintext highlighter-rouge">nohwcrypt</code>, edit <code class="language-plaintext highlighter-rouge">/etc/modules.d/ath9k</code> and add <code class="language-plaintext highlighter-rouge">nohwcrypt=1</code> to it (if there’s already something in the file, use whitespaces to separate parameters), save the file, and <strong>reboot</strong>. Then, check if <code class="language-plaintext highlighter-rouge">nohwcrypt</code> is now enabled with <code class="language-plaintext highlighter-rouge">cat /sys/module/ath9k/parameters/nohwcrypt</code>. If it is enabled, the output will be <code class="language-plaintext highlighter-rouge">1</code>; otherwise, it will be <code class="language-plaintext highlighter-rouge">0</code>. (If your device also has <strong><code class="language-plaintext highlighter-rouge">ath9k</code></strong> and you experience connectivity issues when using encryption with the mesh network, then you might want to try this solution as well.)</p>
+
+<h2 id="mesh-node-basic-config">Mesh node basic config</h2>
+<p>It is time to configure the basics of our mesh network and nodes.  To do so, we will edit multiple files in <code class="language-plaintext highlighter-rouge">/etc/config/</code> but first, let’s find out the capabilities of the detected radios in our wireless device, as follows</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iw list
+</code></pre></div></div>
+
+<p>which will output something like this</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Wiphy phy0
+	max # scan SSIDs: 4
+	max scan IEs length: 2257 bytes
+	max # sched scan SSIDs: 0
+	max # match sets: 0
+	max # scan plans: 1
+	max scan plan interval: -1
+	max scan plan iterations: 0
+	Retry short limit: 7
+	Retry long limit: 4
+	Coverage class: 0 (up to 0m)
+	Device supports AP-side u-APSD.
+	Device supports T-DLS.
+	Available Antennas: TX 0x7 RX 0x7
+	Configured Antennas: TX 0x7 RX 0x7
+	Supported interface modes:
+		 * IBSS
+		 * managed
+		 * AP
+		 * AP/VLAN
+		 * monitor
+		 * mesh point
+		 * P2P-client
+		 * P2P-GO
+		 * outside context of a BSS
+	Band 1:
+		Capabilities: 0x104e
+			HT20/HT40
+			SM Power Save disabled
+			RX HT40 SGI
+			No RX STBC
+			Max AMSDU length: 3839 bytes
+			DSSS/CCK HT40
+		Maximum RX AMPDU length 65535 bytes (exponent: 0x003)
+		Minimum RX AMPDU time spacing: 8 usec (0x06)
+		HT TX/RX MCS rate indexes supported: 0-15
+		Frequencies:
+			* 2412 MHz [1] (20.0 dBm)
+			* 2417 MHz [2] (20.0 dBm)
+			* 2422 MHz [3] (20.0 dBm)
+			* 2427 MHz [4] (20.0 dBm)
+			* 2432 MHz [5] (20.0 dBm)
+			* 2437 MHz [6] (20.0 dBm)
+			* 2442 MHz [7] (20.0 dBm)
+			* 2447 MHz [8] (20.0 dBm)
+			* 2452 MHz [9] (20.0 dBm)
+			* 2457 MHz [10] (20.0 dBm)
+			* 2462 MHz [11] (20.0 dBm)
+			* 2467 MHz [12] (20.0 dBm)
+			* 2472 MHz [13] (20.0 dBm)
+			* 2484 MHz [14] (disabled)
+	valid interface combinations:
+		 * #{ managed } &lt;= 2048, #{ AP, mesh point } &lt;= 8, #{ P2P-client, P2P-GO } &lt;= 1, #{ IBSS } &lt;= 1,
+		   total &lt;= 2048, #channels &lt;= 1, STA/AP BI must match, radar detect widths: { 20 MHz (no HT), 20 MHz, 40 MHz }
+	HT Capability overrides:
+		 * MCS: ff ff ff ff ff ff ff ff ff ff
+		 * maximum A-MSDU length
+		 * supported channel width
+		 * short GI for 40 MHz
+		 * max A-MPDU length exponent
+		 * min MPDU start spacing
+	Supported extended features:
+		* [ RRM ]: RRM
+		* [ CQM_RSSI_LIST ]: multiple CQM_RSSI_THOLD records
+		* [ CONTROL_PORT_OVER_NL80211 ]: control port over nl80211
+		* [ TXQS ]: FQ-CoDel-enabled intermediate TXQs
+</code></pre></div></div>
+
+<p>Here, we are particularly interested in</p>
+
+<ul>
+  <li>the <strong>supported modes of operation</strong>, and more specifically, that the device is indeed able to operate in <strong>mesh point</strong> mode (it is), as shown under <code class="language-plaintext highlighter-rouge">Supported interface modes:</code>;</li>
+  <li>the <strong>total number of bands</strong> (only one band, <code class="language-plaintext highlighter-rouge">Band 1</code>);</li>
+  <li>then for each band
+    <ul>
+      <li>the possible <a href="https://openwrt.org/docs/guide-user/network/wifi/basic#htmodethe_wi-fi_channel_width"><strong><code class="language-plaintext highlighter-rouge">htmode</code></strong></a> (supports <code class="language-plaintext highlighter-rouge">htmode 'HT20'</code> and <code class="language-plaintext highlighter-rouge">htmode 'HT40'</code>), as shown in <code class="language-plaintext highlighter-rouge">HT20/HT40</code>, under <code class="language-plaintext highlighter-rouge">Capabilities:</code>;</li>
+      <li>the <strong>acceptable channels</strong> (from <code class="language-plaintext highlighter-rouge">channel '1'</code> to <code class="language-plaintext highlighter-rouge">channel '13'</code>), as shown under <code class="language-plaintext highlighter-rouge">Frequencies:</code>.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>With such information, we can now configure our radio devices in <a href="https://openwrt.org/docs/guide-user/network/wifi/basic"><code class="language-plaintext highlighter-rouge">/etc/config/wireless</code></a>, as follows</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi /etc/config/wireless
+</code></pre></div></div>
+
+<p>and then edit each <code class="language-plaintext highlighter-rouge">config wifi-device</code> accordingly.  In the 1043ND, there’s only one <code class="language-plaintext highlighter-rouge">wifi-device</code> and my config looks like the following</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config wifi-device 'radio0'
+        option type 'mac80211'
+        option channel 3
+        option hwmode '11g'
+        option path 'platform/ahb/180c0000.wmac'
+        option htmode 'HT20'
+        option country 'BR'
+</code></pre></div></div>
+
+<p>If this radio device will be used for the mesh traffic, make sure all mesh nodes <strong>use the same channel</strong>.  However, if the radio will be used as an access point for non-mesh clients, <strong>use a different channel than the mesh channel</strong>.  In addition, for <code class="language-plaintext highlighter-rouge">HT20/HT40</code> devices, stick to <code class="language-plaintext highlighter-rouge">HT20</code> if you are deploying the mesh in a crowded area, such as an apartment building; otherwise, the interference might make <code class="language-plaintext highlighter-rouge">HT40</code> actually slower than <code class="language-plaintext highlighter-rouge">HT20</code>.  Finally, remember to edit the <strong>country code</strong> before enabling the radio.</p>
+
+<p>Comment out any <code class="language-plaintext highlighter-rouge">config wifi-iface</code> automatically generated after a fresh install by adding a <code class="language-plaintext highlighter-rouge">#</code> at the beginning of each line, as follows</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#config wifi-iface 'default_radio0'
+#        option device 'radio0'
+#        option network 'lan'
+#        option mode 'ap'
+#        option ssid 'OpenWrt'
+#        option encryption 'none'
+</code></pre></div></div>
+
+<p>Then, at the end of the file, let’s add a <code class="language-plaintext highlighter-rouge">wifi-iface</code> for the wireless mesh, called <code class="language-plaintext highlighter-rouge">wmesh</code>, as follows</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config wifi-iface 'wmesh'
+        option device 'radio0'	#must match the name of a wifi-device
+        option ifname 'if-mesh'	#name for this iface
+        option network 'mesh'	#mesh stanza in /etc/config/network
+        option mode 'mesh'		#use 802.11s mode
+        option mesh_id 'MeshCloud'	#like an ssid of the wireless mesh
+        option encryption 'sae'	#https://openwrt.org/docs/guide-user/network/wifi/basic#wpa_modes
+        option key 'MeshPassword123'	#mesh password if encryption is enabled
+        option mesh_fwding 0	#let batman-adv handle routing
+        option mesh_ttl 1		#time to live in the mesh
+        option mcast_rate 24000	#routes with a lower throughput rate than the mcast_rate will not be visible to batman-adv
+#       option disabled 1		#uncomment to disable
+</code></pre></div></div>
+
+<p class="notice notice--info">The comments are just for educational purpose. Feel free to remove them in your device’s config file.</p>
+
+<p>Because all mesh nodes must operate on the same channel, use the same authentication, etc., multiple config options are often dictated by the “lowest common denominator” across all mesh nodes–that is, the best possible config that will work with <strong>all nodes</strong>, not just the ones with the best hardware and software available.  For example, not all devices will necessarily be able to use SAE because it’s very new and therefore, won’t be able to connect to mesh networks that use it. Instead, you might want to set encryption to something like <code class="language-plaintext highlighter-rouge">psk2+aes</code>, which should be good enough for most devices out there. So, keep that in mind when configuring your mesh nodes.</p>
+
+<p><strong>Save the file</strong> and exit it.</p>
+
+<p>Now we need to configure <a href="https://openwrt.org/docs/guide-user/base-system/basic-networking"><code class="language-plaintext highlighter-rouge">/etc/config/network</code></a> to allow <code class="language-plaintext highlighter-rouge">wmesh</code> to use <code class="language-plaintext highlighter-rouge">batman-adv</code>.  To do so, edit the <code class="language-plaintext highlighter-rouge">network</code> file, as follows</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi /etc/config/network
+</code></pre></div></div>
+
+<p>and let’s add an <code class="language-plaintext highlighter-rouge">interface</code> called <code class="language-plaintext highlighter-rouge">bat0</code> at the bottom of the file, as follows</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config interface 'bat0'
+        option proto 'batadv'
+        option routing_algo 'BATMAN_IV'
+        option aggregated_ogms 1
+        option ap_isolation 0
+        option bonding 0
+        option bridge_loop_avoidance 1
+        option distributed_arp_table 1
+        option fragmentation 1
+        option gw_mode 'off'
+        option hop_penalty 30
+        option isolation_mark '0x00000000/0x00000000'
+        option log_level 0
+        option multicast_mode 1
+        option multicast_fanout 16
+        option network_coding 0
+        option orig_interval 1000
+</code></pre></div></div>
+
+<p>which has options with (mostly) default values to facilitate fine-tuning later on.  (For more details, refer to the <a href="https://www.open-mesh.org/projects/batman-adv/wiki#Protocol-Documentation"><strong>Protocol Documentation</strong></a> and more specifically, the <a href="https://www.open-mesh.org/projects/batman-adv/wiki/Tweaking"><strong>Tweaking</strong></a> section.)  Then, at the bottom of the same file, let’s add an actual <strong>network</strong> interface to transport <code class="language-plaintext highlighter-rouge">batman-adv</code> packets, which in our case will be the network used by <code class="language-plaintext highlighter-rouge">wmesh</code> in the <code class="language-plaintext highlighter-rouge">/etc/config/wireless</code> config file, namely <code class="language-plaintext highlighter-rouge">mesh</code>, as follows</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config interface 'mesh'
+        option proto 'batadv_hardif'
+        option master 'bat0'
+        option mtu 2304
+        option throughput_override 0
+</code></pre></div></div>
+
+<p><strong>Save the file</strong> and exit.</p>
+
+<p>Next, let’s <strong>reboot</strong> the device (type <code class="language-plaintext highlighter-rouge">reboot</code> in the terminal) and once it comes back online, <code class="language-plaintext highlighter-rouge">ssh</code> into it once again because we want to check that our <code class="language-plaintext highlighter-rouge">batman-adv</code> interfaces are up.  To do so, type</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ip link | grep bat0
+</code></pre></div></div>
+<p>and if the config is right, you should now see <code class="language-plaintext highlighter-rouge">bat0</code> and <code class="language-plaintext highlighter-rouge">if-mesh</code> in the output. Similarly, we can use <code class="language-plaintext highlighter-rouge">batctl</code> to show us all active interfaces, as follows</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>batctl if
+</code></pre></div></div>
+
+<p>If all looks good, exit the <code class="language-plaintext highlighter-rouge">ssh</code> session, disconnect your laptop/PC from the wireless device (but keep it running nearby), and <strong>go ahead and configure at least one other node</strong>.</p>
+
+<p class="notice notice--warning">Because we’re starting SSH sessions with <em>different machines</em> using the <em>same IP addr</em> (<code class="language-plaintext highlighter-rouge">192.168.1.1</code>), it’s quite possible that your SSH client will complaint about the authenticity of the host at <code class="language-plaintext highlighter-rouge">192.168.1.1</code>.  To get rid of this message, simply remove the relevant entry in your user’s <code class="language-plaintext highlighter-rouge">known_hosts</code> file or delete it altogether.  On Linux distros, such file can be found at <code class="language-plaintext highlighter-rouge">~/.ssh/known_hosts</code>–that is, the <code class="language-plaintext highlighter-rouge">ssh</code> folder for your current user.</p>
+
+<p>Afterwards, <code class="language-plaintext highlighter-rouge">ssh</code> into one of the configured mesh nodes and type</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>batctl n
+</code></pre></div></div>
+
+<p>which will show a table with the interfaces (<code class="language-plaintext highlighter-rouge">if-mesh</code>), MAC address of the neighboring mesh nodes, and when each of them was last seen.  Copy the MAC address (e.g., <code class="language-plaintext highlighter-rouge">f0:f0:00:00:00:01</code>) from each neighboring mesh node and ping them through the mesh (using <code class="language-plaintext highlighter-rouge">batctl p</code>) to see if they are all replying, as follows (press Ctrl+C to stop)</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>batctl p f0:f0:00:00:00:01
+</code></pre></div></div>
+
+<p>which should output something like the following if everything is working fine</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PING f0:f0:00:00:00:01 (f0:f0:00:00:00:01) 20(48) bytes of data
+20 bytes from f0:f0:00:00:00:01 icmp_seq=1 ttl=50 time=3.01 ms
+20 bytes from f0:f0:00:00:00:01 icmp_seq=2 ttl=50 time=1.71 ms
+20 bytes from f0:f0:00:00:00:01 icmp_seq=3 ttl=50 time=1.10 ms
+--- f0:f0:00:00:00:01 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss
+rtt min/avg/max/mdev = 1.103/1.942/3.008/0.794 ms
+</code></pre></div></div>
+
+<p>Pat yourself on the back because you have successfully configured multiple mesh nodes!</p>
+
+<p><strong>Go ahead and configure all your mesh nodes the same way as before</strong> and only then move on to bridges, gateways, and VLAN configs, as described next.</p>
+
+<p>(<em>Optional</em>: This is a good time to <a href="https://www.open-mesh.org/projects/batman-adv/wiki/Tweaking">tweak the mesh configuration</a> as well.)</p>
+
+<h2 id="troubleshooting-mesh-issues">Troubleshooting mesh issues</h2>
+<p>These are a few tips in case you run into issues when configuring gateways and bridges.</p>
+
+<p>To test node to node connectivity, connect to a mesh node and use</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>batctl p MAC
+</code></pre></div></div>
+
+<p>in which <code class="language-plaintext highlighter-rouge">MAC</code> is another node’s MAC address.  If the node does not reply, there’s an issue with <code class="language-plaintext highlighter-rouge">batman-adv</code> or its configuration.  Try rebooting both nodes before doing anything else.</p>
+
+<p>A more powerful tool to see what is going on in the mesh network is the <code class="language-plaintext highlighter-rouge">tcpdump</code> utility for <code class="language-plaintext highlighter-rouge">batman-adv</code>.  To use it, connect to a mesh node and type</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>batctl td batX
+</code></pre></div></div>
+
+<p>in which <code class="language-plaintext highlighter-rouge">batX</code> is a <code class="language-plaintext highlighter-rouge">batman-adv</code> interface (usually <code class="language-plaintext highlighter-rouge">bat0</code> but if you have more than one, then <code class="language-plaintext highlighter-rouge">bat1</code>, etc.).  This is quite useful when configuring VLANs because it will show the VLAN ID of each client as well.  Depending on the scale of your mesh network, you might need to filter the output because things can get wild with <code class="language-plaintext highlighter-rouge">tcpdump</code> really fast.</p>
+
+<p>For more details, see the <a href="https://downloads.open-mesh.org/batman/manpages/batctl.8.html"><strong>batctl man page</strong></a>.</p>
+
+<p>Finally, if you’ve been following my suggestion to name and take note of each device’s MAC address, you can create a file called <code class="language-plaintext highlighter-rouge">bat-hosts</code> in <code class="language-plaintext highlighter-rouge">/etc/</code> that contains pairs of <code class="language-plaintext highlighter-rouge">MAC address</code> and <code class="language-plaintext highlighter-rouge">name</code>, as follows</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>f0:f0:00:00:00:00 node01
+f0:f1:00:00:00:00 node02
+f0:f2:00:00:00:00 node03
+f0:f3:00:00:00:00 node04
+</code></pre></div></div>
+
+<p>which makes it much easier to identify the mesh nodes when issuing a command like <code class="language-plaintext highlighter-rouge">batctl n</code> and other debug tables.  As far as I’m aware, however, you have to create and update such file in each node because such information will just be available to nodes that have a <code class="language-plaintext highlighter-rouge">bat-hosts</code> file.</p>
+
+<h2 id="configuring-common-mesh-networks">Configuring common mesh networks</h2>
+<p>Here, we will see how to turn one or two of our configured mesh nodes into either a mesh <strong>bridge</strong> or a mesh <strong>gateway</strong>.  To avoid repetition, the configuration of bridges and gateways is described in more detail in the <a href="#gateway-bridge">first example</a>, and only a few small differences and observations are highlighted afterwards.  In addition, only IPv4 addresses and configurations were used but nothing prohibits the use of IPv6 in a mesh network.</p>
+
+<h3 id="gateway-bridge">Gateway-Bridge</h3>
+<p>This first example applies to the following topology:</p>
+
+<p><a href="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-gateway-bridge.jpg"><img src="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-gateway-bridge.jpg" alt="Topology - Gateway-Bridge" class="PostImage PostImage--large" /></a></p>
+
+<p>More specifically, the mesh has access to the WAN (<strong>Network A</strong>) via a <em>gateway device</em> and has a single, private network defined in the <code class="language-plaintext highlighter-rouge">192.168.10.0/24</code> IP range, which is used by both the <strong>mesh network</strong> devices and the <strong>Network B</strong>, non-mesh devices. The latter is enabled by a <em>bridge device</em> that works as an access point for non-mesh clients.</p>
+
+<p>First, let’s configure our <strong>mesh gateway</strong>.</p>
+
+<h4 id="mesh-gateway-configuration">Mesh gateway configuration</h4>
+
+<p>Get one of the <a href="#mesh-node-basic-config">pre-configured mesh nodes</a> that has at the very least two ethernet ports, a LAN port and a WAN port.  (This, of course, is not required for a gateway device because <a href="https://openwrt.org/docs/guide-user/network/wan/internet.connection">there are multiple ways to connect to WAN</a> but having separate physical ports makes the explanation much simpler to follow.  If that is not your case, just adapt to whatever interfaces you have configured that play the role of default <code class="language-plaintext highlighter-rouge">lan</code> and <code class="language-plaintext highlighter-rouge">wan</code>.)</p>
+
+<p class="notice notice--warning">If you’ve configured this node as a <a href="https://openwrt.org/docs/guide-user/network/wifi/dumbap">dumb access point</a> to temporarily give it access to the Internet while updating and installing packages, undo the configuration before proceeding because we will use both the <code class="language-plaintext highlighter-rouge">firewall</code> and <code class="language-plaintext highlighter-rouge">dhcp</code> config files in the gateway configuration.</p>
+
+<p>Connect your laptop/PC to the mesh node via cable using the LAN port–this way, the mesh node’s IP address should still be <code class="language-plaintext highlighter-rouge">192.168.1.1</code>.  Then, <code class="language-plaintext highlighter-rouge">ssh</code> into the mesh node and let’s take a look at the <code class="language-plaintext highlighter-rouge">/etc/config/network</code>, as follows</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi /etc/config/network
+</code></pre></div></div>
+
+<p>At the beginning of the file, there should a bunch of <code class="language-plaintext highlighter-rouge">config interface</code> for <code class="language-plaintext highlighter-rouge">loopback</code>, <code class="language-plaintext highlighter-rouge">lan</code>, and <code class="language-plaintext highlighter-rouge">wan</code>, for example, and at the end, there should be the mesh interfaces we previously created for the mesh node, namely <code class="language-plaintext highlighter-rouge">bat0</code> and <code class="language-plaintext highlighter-rouge">mesh</code>.  There are at least two options at this point:</p>
+
+<ol>
+  <li>Create an entirely new <code class="language-plaintext highlighter-rouge">lan</code> interface for <code class="language-plaintext highlighter-rouge">bat0</code> (e.g., <code class="language-plaintext highlighter-rouge">lan_bat0</code>), at the expense of additional <code class="language-plaintext highlighter-rouge">dhcp</code> and <code class="language-plaintext highlighter-rouge">firewall</code> configuration;</li>
+  <li>Or use the existing, default <code class="language-plaintext highlighter-rouge">lan</code> interface by simply bridging <code class="language-plaintext highlighter-rouge">lan</code> and <code class="language-plaintext highlighter-rouge">bat0</code>.</li>
+</ol>
+
+<p>While the latter option is much easier than the former, we will choose the first here (i.e., create a new <code class="language-plaintext highlighter-rouge">lan</code> from the ground up) because it makes this tutorial compatible with multiple devices (switched or switchless) and it allows us to keep the default <code class="language-plaintext highlighter-rouge">lan</code> (<code class="language-plaintext highlighter-rouge">192.168.1.0/24</code>) as a management/debugging network.  (Later on, we will see how to bridge the default <code class="language-plaintext highlighter-rouge">lan</code> with any <code class="language-plaintext highlighter-rouge">bat0</code> VLAN, for example, so the default <code class="language-plaintext highlighter-rouge">lan</code> becomes accessible to the mesh as well.  For now, keep it simple.)</p>
+
+<p>At the bottom of the <code class="language-plaintext highlighter-rouge">/etc/config/network</code> file, let’s add the following <code class="language-plaintext highlighter-rouge">lan_bat0</code> configuration</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config interface 'lan_bat0'
+#        option type 'bridge'	#uncomment if bridging in ifname as well
+        option ifname 'bat0'
+        option proto 'static'
+        option ipaddr '192.168.10.1'	#static addr for this gateway on the 192.168.10.0/24 net
+        option netmask '255.255.255.0'
+#        list dns '1.1.1.1'	#uncomment to enable cloudflare dns server instead
+        list dns '8.8.8.8'	#google dns server
+</code></pre></div></div>
+
+<p><strong>Save the file</strong> and exit it.</p>
+
+<p>Next, let’s edit the <a href="https://openwrt.org/docs/guide-user/base-system/dhcp"><code class="language-plaintext highlighter-rouge">/etc/config/dhcp</code></a> config to run a DHCP server on the new interface, as follows</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi /etc/config/dhcp
+</code></pre></div></div>
+
+<p>and at the end of the file, add the following</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config dhcp 'lan_bat0'
+        option interface 'lan_bat0'
+        option start 50		#start leasing at addr 192.168.10.50
+        option limit 100		#max leases, so for 100, leased addr goes from .50 to .149
+        option leasetime '3h'
+        option ra 'server'
+</code></pre></div></div>
+
+<p><strong>Save the file</strong> and exit it.</p>
+
+<p>Finally, let’s edit the <a href="https://openwrt.org/docs/guide-user/firewall/firewall_configuration"><code class="language-plaintext highlighter-rouge">/etc/config/firewall</code></a> config.  Many things that can be done at the firewall level and for this reason, it’s often the most overwhelming part of the configuration.  Fortunately, in our case, all that we need to do here is simply <strong>copy</strong> the default <code class="language-plaintext highlighter-rouge">lan</code> config for the new <code class="language-plaintext highlighter-rouge">lan_bat0</code>.  That is, anything that has <code class="language-plaintext highlighter-rouge">lan</code> we will</p>
+
+<ol>
+  <li>copy the related config;</li>
+  <li>paste it immediately below the equivalent default <code class="language-plaintext highlighter-rouge">lan</code> config;</li>
+  <li>and then change <code class="language-plaintext highlighter-rouge">lan</code> for <code class="language-plaintext highlighter-rouge">lan_bat0</code> in the new config.</li>
+</ol>
+
+<p>Start by editing the <code class="language-plaintext highlighter-rouge">firewall</code> config file with <code class="language-plaintext highlighter-rouge">vi</code>, as follows</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi /etc/config/firewall
+</code></pre></div></div>
+
+<p>then the first set of configs we will add (immediately below the equivalent <code class="language-plaintext highlighter-rouge">lan</code> config) is the <strong>zone</strong> settings, namely</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config zone
+        option name     lan_bat0
+        list network    'lan_bat0'
+        option input    ACCEPT
+        option output   ACCEPT
+        option forward  ACCEPT
+</code></pre></div></div>
+
+<p>the second set of configs will be for the <strong>forwarding</strong> settings, namely</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config forwarding
+        option src   lan_bat0
+        option dest  wan
+</code></pre></div></div>
+
+<p>and <strong>that is it!</strong></p>
+
+<p>(<em>Optional</em>: At the end of the <code class="language-plaintext highlighter-rouge">firewall</code> config file, there’s a bunch of examples that you could use as template for more avdanced usage of this device’s firewall.  Feel free to play around with them <strong>once you get everything up and running</strong>.)</p>
+
+<p><strong>Save the file</strong> and exit it.</p>
+
+<p>(<em>Optional</em>: Because we’re not going to use IPv6, I suggest disabling <code class="language-plaintext highlighter-rouge">odhcpd</code>, as follows</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/init.d/odhcpd stop &amp;&amp; /etc/init.d/odhcpd disable
+</code></pre></div></div>
+
+<p>and you could also comment out any related config in the files we just edited.)</p>
+
+<p><strong>Reboot</strong> the device and connect the <strong>WAN</strong> cable to the device’s <strong>WAN ethernet port</strong>.</p>
+
+<p>Once the device comes back online, <code class="language-plaintext highlighter-rouge">ssh</code> into it. Then, let’s check the new configuration.  First, type</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ip a | grep bat0
+</code></pre></div></div>
+
+<p>and as before, there should be <code class="language-plaintext highlighter-rouge">bat0</code> and <code class="language-plaintext highlighter-rouge">if-mesh</code> interfaces, but now, your gateway device should have the static IP <code class="language-plaintext highlighter-rouge">192.168.10.1</code> in the new <code class="language-plaintext highlighter-rouge">192.168.10.0/24</code> network under the <code class="language-plaintext highlighter-rouge">bat0</code> interface.  (Of note, if you enabled the <code class="language-plaintext highlighter-rouge">option type 'bridge'</code> in the <code class="language-plaintext highlighter-rouge">lan_bat0</code> stanza, then there should be an additional <code class="language-plaintext highlighter-rouge">br-lan_bat0</code>interface now because OpenWrt adds a <code class="language-plaintext highlighter-rouge">br-</code> prefix to bridges, and your device’s static IP should be associated to it instead of the <code class="language-plaintext highlighter-rouge">bat0</code> interface.)</p>
+
+<p>In addition, because we preserved the default <code class="language-plaintext highlighter-rouge">lan</code> configuration, the device will continue to have the static IP <code class="language-plaintext highlighter-rouge">192.168.1.1</code> and should always be reachable there with an ethernet cable directly connected to one of its LAN ethernet ports.</p>
+
+<p>If you <strong>don’t see the static IP on the new network</strong>, then review the files we have just configured because there’s likely a misconfiguration.  Don’t expect to get things working until you fix this issue.</p>
+
+<h4 id="mesh-bridge-configuration">Mesh bridge configuration</h4>
+<p>The configuration of a mesh bridge is much simpler than of a mesh gateway because contrary to the gateway config, our mesh bridge doesn’t require the use of a DHCP server and firewall.  In fact, both services will be disabled in a mesh bridge and instead, the ony thing we will do is join interfaces to make them look like a single one to any connected device.</p>
+
+<p>As before, get one of the other <a href="#mesh-node-basic-config">pre-configured mesh nodes</a> and to start things off, we will configure it as a <a href="https://openwrt.org/docs/guide-user/network/wifi/dumbap">dumb access point</a>.  Follow the instructions in the OpenWrt documentation, except for the following when configuring the default <code class="language-plaintext highlighter-rouge">lan</code> interface</p>
+
+<ul>
+  <li>add <code class="language-plaintext highlighter-rouge">bat0</code> to the list of <code class="language-plaintext highlighter-rouge">ifname</code>;</li>
+  <li>set a static IP for the device on the <code class="language-plaintext highlighter-rouge">192.168.10.0/24</code> network, such as <code class="language-plaintext highlighter-rouge">192.168.10.10</code>, pointing to our gateway at <code class="language-plaintext highlighter-rouge">192.168.10.1</code>;</li>
+  <li>the configuration of the default <code class="language-plaintext highlighter-rouge">lan</code> should then look something like this
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config interface lan
+      option type 'bridge'
+      option ifname 'eth0.1 eth1 bat0'	#ethX might be different for your device
+      option proto 'static'
+      option ipaddr '192.168.10.10'
+      option netmask '255.255.255.0'
+      option gateway '192.168.10.1'
+      option dns '192.168.10.1'
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>After applying this configuration, it will let any <strong>non-mesh client</strong> to join the mesh <strong>via ethernet cable</strong>–that is, by connecting a cable to one of the LAN/WAN ports of the mesh bridge device.  As long as the gateway is reachable, everything should work like a standard network, you could use the device’s own switch or connect the device to a switch and manage things there, and so on.</p>
+
+<p><strong>Save the file</strong> and exit it.</p>
+
+<p>Similarly, you can create a <strong>wireless access point</strong> (WAP) for non-mesh clients, and the instructions in the <a href="https://openwrt.org/docs/guide-user/network/wifi/dumbap"><strong>dumb access point</strong> documentation</a> will work just fine because it uses a network that is bridged with our mesh–namely, the default <code class="language-plaintext highlighter-rouge">lan</code>.  To avoid confusion, make sure to use <strong>a different SSID</strong> for the WAP(s) than the <code class="language-plaintext highlighter-rouge">mesh_id</code> used for the mesh.  In addition, if at all possible, use <strong>a different radio or band</strong> for the WAP(s) and set it to operate on <strong>a different channel</strong> than the mesh channel (<code class="language-plaintext highlighter-rouge">channel 3</code>, unless you changed yours).  If that is not possible, that is probably okay for most home users but keep in mind that node hoping will start affecting performance quite noticeably.</p>
+
+<p>Finally, in the terminal, make sure to disable <code class="language-plaintext highlighter-rouge">dnsmasq</code>, <code class="language-plaintext highlighter-rouge">odhcpd</code>, and the <code class="language-plaintext highlighter-rouge">firewall</code>, as follows</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/init.d/dnsmasq stop &amp;&amp; /etc/init.d/dnsmasq disable 
+/etc/init.d/odhcpd stop &amp;&amp; /etc/init.d/odhcpd disable
+/etc/init.d/firewall stop &amp;&amp; /etc/init.d/firewall disable
+</code></pre></div></div>
+
+<p><strong>Reboot</strong> your device and on your laptop/PC, <strong>disable networking</strong> altogether (this will force it to get a new IP from the bridge when it comes back)–alternatively, just disconnect the ethernet cable.</p>
+
+<p>Once the bridge is back online (wait at least a minute or two to give it enough time to connect to the mesh first), <strong>re-enable networking</strong> on your laptop/PC (or reconnect the ethernet cable) and it should receive an IP addr from our mesh gateway in the <code class="language-plaintext highlighter-rouge">192.168.10.0/24</code> network (on a Linux distro, type <code class="language-plaintext highlighter-rouge">ip a</code> or <code class="language-plaintext highlighter-rouge">ip addr</code> or <code class="language-plaintext highlighter-rouge">ifconfig</code>), the bridge node should now be reachable at <code class="language-plaintext highlighter-rouge">192.168.10.10</code>, and you should be able to access the Internet from your laptop/PC through the mesh (try <code class="language-plaintext highlighter-rouge">ping google.com</code>, for example).  If something doesn’t work, review the config files mentioned here and then go over the ones for the gateway, reboot all mesh nodes (gateway first, then nodes, then bridge) and test again.</p>
+
+<h3 id="bridge-bridge">Bridge-Bridge</h3>
+<p>This second example applies to the following topology:</p>
+
+<p><a href="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-bridge-bridge.jpg"><img src="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-bridge-bridge.jpg" alt="Topology - Bridge-Bridge" class="PostImage PostImage--large" /></a></p>
+
+<p>Contrary to the first example, there’s no mesh gateway device and as such, this topology could be used to extend an already existing private network (Networks A and B) over the wireless mesh (all defined in the <code class="language-plaintext highlighter-rouge">192.168.10.0/24</code> IP range).  However, to make matters simple, we will assume that <strong>the existing network has a gateway/firewall</strong> in either Network A or B that can be found at the IP addr <code class="language-plaintext highlighter-rouge">192.168.10.1</code>, and <strong>there’s a DHCP server being advertised on the network</strong>.  (If your existing Networks A and B are not defined in the <code class="language-plaintext highlighter-rouge">192.168.10.0/24</code> IP range, just edit your previous config files accordingly and the mesh network will follow your existing network instead.)</p>
+
+<p>Config-wise, the mesh bridges in this topology are configured exactly <a href="#mesh-bridge-configuration">as in the first example</a>, except for the following differences in the configuration of the <code class="language-plaintext highlighter-rouge">/etc/config/network</code> config file:</p>
+
+<ul>
+  <li>
+    <p><strong>Each mesh bridge</strong> should have a different static IP address in the <code class="language-plaintext highlighter-rouge">lan</code> interface, as indicated by <code class="language-plaintext highlighter-rouge">option ipaddr</code>.  For example, the first mesh bridge will have <code class="language-plaintext highlighter-rouge">option ipaddr '192.168.10.10'</code>, while the second mesh bridge will have <code class="language-plaintext highlighter-rouge">option ipaddr '192.168.10.11'</code>;</p>
+  </li>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">option gateway '192.168.10.1'</code> in the default <code class="language-plaintext highlighter-rouge">lan</code> stanza must match an existing gateway on either Network A or B, and similarly, <code class="language-plaintext highlighter-rouge">option dns '192.168.10.1'</code> must point to a valid DNS resolver;</p>
+  </li>
+  <li>
+    <p>As mentioned before, if your existing Networks A and B are not defined in the <code class="language-plaintext highlighter-rouge">192.168.10.0/24</code> IP range, then just edit the config file accordingly.</p>
+  </li>
+</ul>
+
+<h3 id="gateway-gateway">Gateway-Gateway</h3>
+<p>The third and final example applies to the following topology:</p>
+
+<p><a href="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-gateway-gateway.jpg"><img src="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-gateway-gateway.jpg" alt="Topology - Gateway-Gateway" class="PostImage PostImage--large" /></a></p>
+
+<p>Specifically, there’s only one private network (mesh, defined in the <code class="language-plaintext highlighter-rouge">192.168.10.0/24</code> IP range) and notably, <strong>two</strong> mesh gateways.  This provides “high availability” of the Internet connection to mesh nodes and surprisingly enough, the configuration of each mesh gateway is <a href="#mesh-gateway-configuration">just like in the first example</a>, with the following exceptions</p>
+
+<ul>
+  <li>
+    <p>Like in the <a href="#bridge-bridge">bridge-bridge example</a>, we must assign different static IP addresses to <strong>each</strong> mesh gateway.  This is done by editing the <code class="language-plaintext highlighter-rouge">/etc/config/network</code> config file, and in the <code class="language-plaintext highlighter-rouge">lan</code> interface configuration, add a different IP addr next to the <code class="language-plaintext highlighter-rouge">option ipaddr</code> option.  For example, the first mesh gateway will have <code class="language-plaintext highlighter-rouge">option ipaddr '192.168.10.1'</code>, while the second mesh gateway will have <code class="language-plaintext highlighter-rouge">option ipaddr '192.168.10.2'</code>.</p>
+  </li>
+  <li>
+    <p>Because we will now run <strong>two</strong> DHCP servers on <strong>the same network</strong>, we need to find a way of avoiding conflicts when assigning an IP address to new clients.  The easiest way of doing that is by assigning <strong>different intervals</strong> to each DHCP server running on the same network.  In OpenWrt, this is done by editing the <code class="language-plaintext highlighter-rouge">/etc/config/dhcp</code> config file, and in the <code class="language-plaintext highlighter-rouge">lan_bat0</code> DHCP configuration, we add a different starting point next to the <code class="language-plaintext highlighter-rouge">option start</code> option.  For example, while the DHCP server running on the first gateway will have <code class="language-plaintext highlighter-rouge">option start '50'</code>, the DHCP server running on the second gateway will have <code class="language-plaintext highlighter-rouge">option start '150'</code> instead.  This way, the first DHCP server leases addresses from <code class="language-plaintext highlighter-rouge">192.168.10.50</code> to <code class="language-plaintext highlighter-rouge">.149</code>, whereas the second leases addresses from <code class="language-plaintext highlighter-rouge">192.168.10.150</code> to <code class="language-plaintext highlighter-rouge">.249</code>.</p>
+  </li>
+  <li>
+    <p><em>Optional</em>: In the <code class="language-plaintext highlighter-rouge">bat0</code> interface config of the <code class="language-plaintext highlighter-rouge">/etc/config/network</code> config file, we can now enable the <code class="language-plaintext highlighter-rouge">option gw_mode 'server'</code> and specify the WAN connection speed with <code class="language-plaintext highlighter-rouge">option gw_bandwidth '10000/2000'</code> (i.e., 10000kbps download and 2000kbps upload).  Then, in each other <strong>mesh node</strong>, we set the <code class="language-plaintext highlighter-rouge">option gw_mode</code> to <code class="language-plaintext highlighter-rouge">'client'</code> instead of <code class="language-plaintext highlighter-rouge">'off'</code>.  This way, we can make each mesh node aware of the two gateways on the network (and their speeds) to better route mesh traffic.</p>
+  </li>
+</ul>
+
+<h2 id="mesh-vlans">Mesh VLANs</h2>
+<p>You don’t need to configure VLANs in order to use <code class="language-plaintext highlighter-rouge">batman-adv</code> but it is one of its best features.  In brief, this is a way of using <strong>our already configured</strong> wireless mesh network to route traffic <strong>to/from multiple and all networks</strong> in a secure, isolated way (as far as VLANs go).  No need for additional hardware–the combination of OpenWrt and <code class="language-plaintext highlighter-rouge">batman-adv</code> turns even cheap wireless hardware into powerful virtual switches.  It’s just a matter of tagging the additional (and virtual) networks instead of using the untagged <code class="language-plaintext highlighter-rouge">bat0</code> (or similarly, in a port-based analogy, “plugging” standard interfaces into different ports of our <code class="language-plaintext highlighter-rouge">bat0</code> switch).  This is a fairly advanced topic but surprisingly easy to incorporate to our existing <code class="language-plaintext highlighter-rouge">batman-adv</code> configuration.</p>
+
+<p>Consider, for example, the following network</p>
+
+<p><a href="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-mesh-vlans.jpg"><img src="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-mesh-vlans.jpg" alt="Topology - Mesh VLANs" class="PostImage PostImage--large" /></a></p>
+
+<p>There’s a single gateway device that provides WAN access to the mesh and Networks B, C, and D, which are all private networks defined in different IP ranges. In addition, all the Networks B, C, and D traffic should go via <strong>any</strong> mesh node in the mesh network while keeping them <strong>isolated from each other</strong>.  To make it easier to remember and distinguish each private network, let’s call</p>
+
+<ul>
+  <li>Network <strong>B</strong> by <code class="language-plaintext highlighter-rouge">iot</code> network (<code class="language-plaintext highlighter-rouge">192.168.20.0/24</code>);</li>
+  <li>Network <strong>C</strong> by <code class="language-plaintext highlighter-rouge">guest</code> network (<code class="language-plaintext highlighter-rouge">192.168.50.0/24</code>);</li>
+  <li>and Network <strong>D</strong> by <code class="language-plaintext highlighter-rouge">default</code> network (<code class="language-plaintext highlighter-rouge">192.168.10.0/24</code>).</li>
+</ul>
+
+<p>To implement such a mesh network with VLANs, we’re going to follow very similar steps to <a href="#gateway-bridge">the first example of a gateway-bridge mesh network</a>, except for the following:</p>
+
+<ul>
+  <li>We will have two additional bridges in the network–that is, one for each mesh VLAN, for a total of three bridges. This is not a necessity but a matter of convenience to keep the example simple. The same bridge device can definitely bridge more than one mesh VLAN;</li>
+  <li>In the gateway device, we will create VLAN IDs for the <code class="language-plaintext highlighter-rouge">iot</code> (<strong>2</strong>), <code class="language-plaintext highlighter-rouge">guest</code> (<strong>5</strong>), and <code class="language-plaintext highlighter-rouge">default</code> (<strong>1</strong>) networks, each with a separate set of DHCP server and firewall rules;</li>
+  <li>In each bridge device, we will join the default <code class="language-plaintext highlighter-rouge">lan</code> with the <strong>VLAN ID</strong> of the mesh VLAN (<code class="language-plaintext highlighter-rouge">bat0.1</code>, <code class="language-plaintext highlighter-rouge">bat0.2</code>, <code class="language-plaintext highlighter-rouge">bat0.5</code>), instead of <code class="language-plaintext highlighter-rouge">bat0</code>.</li>
+</ul>
+
+<p>Surprisingly enough, we don’t need to do a thing about the <strong>mesh nodes</strong> that are not <strong>gateways</strong> or <strong>bridges</strong>–that is, the <a href="#mesh-node-basic-config">mesh node basic config</a> is both necessary and sufficient for simple mesh nodes, even when using VLANs.  The only exception is if one of your mesh nodes is, for example, a laptop and you want it to use a particular mesh VLAN instead of the untagged <code class="language-plaintext highlighter-rouge">bat0</code>.  In our case, however, the pre-configured mesh nodes are ready to route traffic of any VLAN that belongs to <code class="language-plaintext highlighter-rouge">bat0</code>.</p>
+
+<p>As before, let’s start with the <strong>gateway</strong> configuration.</p>
+
+<h3 id="mesh-gateway-with-vlan-configuration">Mesh gateway with VLAN configuration</h3>
+<p>First, configure the gateway <strong>the same way</strong> <a href="#mesh-gateway-configuration">as in the gateway-bridge example</a>.</p>
+
+<p>Now, instead of <code class="language-plaintext highlighter-rouge">lan_bat0</code>, we’re going to change it to <code class="language-plaintext highlighter-rouge">default</code> in the config files, then do the same for <code class="language-plaintext highlighter-rouge">iot</code> and <code class="language-plaintext highlighter-rouge">guest</code>.  So, if you’re ready, <code class="language-plaintext highlighter-rouge">ssh</code> back into it and let’s start by editing the <code class="language-plaintext highlighter-rouge">/etc/config/network</code> config file, as follows</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi /etc/config/network
+</code></pre></div></div>
+
+<p>and at the end, comment out the <code class="language-plaintext highlighter-rouge">lan_bat0</code> config, as follows</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#config interface 'lan_bat0'
+#        option type 'bridge'		#uncomment if adding other interfaces to ifname
+#        option ifname 'bat0'
+#        option proto 'static'
+#        option ipaddr '192.168.10.1'	#static addr for this gateway on the 192.168.10.0/24 net
+#        option netmask '255.255.255.0'
+#        list dns '1.1.1.1'			#cloudflare dns server
+#        list dns '8.8.8.8'			#google dns server
+</code></pre></div></div>
+
+<p>then below it, let’s add a new interface for <code class="language-plaintext highlighter-rouge">default</code>, as follows</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config interface 'lan_bat0_1'
+#        option type 'bridge'	#uncomment if adding other interfaces to ifname
+        option ifname 'bat0.1'
+        option proto 'static'
+        option ipaddr '192.168.10.1'
+        option netmask '255.255.255.0'
+        list dns '1.1.1.1'
+#        list dns '8.8.8.8'	#make it use cloudflare
+</code></pre></div></div>
+
+<p>then another one for <code class="language-plaintext highlighter-rouge">iot</code></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config interface 'lan_bat0_2'
+#        option type 'bridge'	#uncomment if adding other interfaces to ifname
+        option ifname 'bat0.2'
+        option proto 'static'
+        option ipaddr '192.168.20.1'
+        option netmask '255.255.255.0'
+#        list dns '1.1.1.1'	#make it use google
+        list dns '8.8.8.8'
+</code></pre></div></div>
+
+<p>and another one for <code class="language-plaintext highlighter-rouge">guest</code></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config interface 'lan_bat0_5'
+#        option type 'bridge'	#uncomment if adding other interfaces to ifname
+        option ifname 'bat0.5'
+        option proto 'static'
+        option ipaddr '192.168.50.1'
+        option netmask '255.255.255.0'
+#        list dns '1.1.1.1'	#make it use google
+        list dns '8.8.8.8'
+</code></pre></div></div>
+
+<p><strong>Save the file</strong> and exit it.</p>
+
+<p>Now, let’s edit the <code class="language-plaintext highlighter-rouge">/etc/config/dhcp</code> config file, as follows</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi /etc/config/dhcp
+</code></pre></div></div>
+
+<p>and once again, comment out all <code class="language-plaintext highlighter-rouge">lan_bat0</code> config, as follows</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#config dhcp 'lan_bat0'
+#        option interface 'lan_bat0'
+#        option start 50		#start leasing at addr 192.168.10.50
+#        option limit 100		#max leases, so for 100, leased addr goes from .50 to .149
+#        option leasetime '3h'
+#        option ra 'server'
+</code></pre></div></div>
+
+<p>then add a DHCP server config for the <code class="language-plaintext highlighter-rouge">default</code> interface below it</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config dhcp 'lan_bat0_1'
+        option interface 'lan_bat0_1'
+        option start 50
+        option limit 100
+        option leasetime '12h'
+        option ra 'server'
+</code></pre></div></div>
+
+<p>and like before, we will add another one for the <code class="language-plaintext highlighter-rouge">iot</code> interface</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config dhcp 'lan_bat0_2'
+        option interface 'lan_bat0_2'
+        option start 50
+        option limit 100
+        option leasetime '6h'
+        option ra 'server'
+</code></pre></div></div>
+
+<p>and another one for the <code class="language-plaintext highlighter-rouge">guest</code> interface</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config dhcp 'lan_bat0_5'
+        option interface 'lan_bat0_5'
+        option start 50
+        option limit 100
+        option leasetime '1h'
+        option ra 'server'
+</code></pre></div></div>
+
+<p><strong>Save the file</strong> and exit it.</p>
+
+<p>Finally, let’s edit the <code class="language-plaintext highlighter-rouge">/etc/config/firewall</code> config file, as follows</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi /etc/config/firewall
+</code></pre></div></div>
+
+<p>and once again, comment out the <code class="language-plaintext highlighter-rouge">lan_bat0</code> configs, as follows</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#config zone
+#        option name     lan_bat0
+#        list network    'lan_bat0'
+#        option input    ACCEPT
+#        option output   ACCEPT
+#        option forward  ACCEPT
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#config forwarding
+#        option src   lan_bat0
+#        option dest  wan
+</code></pre></div></div>
+
+<p>and below each one of them, add one for the <code class="language-plaintext highlighter-rouge">default</code> interface</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config zone
+        option name     lan_bat0_1
+        list network    'lan_bat0_1'
+        option input    ACCEPT
+        option output   ACCEPT
+        option forward  ACCEPT
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config forwarding
+        option src   lan_bat0_1
+        option dest  wan
+</code></pre></div></div>
+
+<p>then another one for the <code class="language-plaintext highlighter-rouge">iot</code> interface</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config zone
+        option name     lan_bat0_2
+        list network    'lan_bat0_2'
+        option input    ACCEPT
+        option output   ACCEPT
+        option forward  ACCEPT
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config forwarding
+        option src   lan_bat0_2
+        option dest  wan
+</code></pre></div></div>
+
+<p>and another one for the <code class="language-plaintext highlighter-rouge">guest</code> interface</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config zone
+        option name     lan_bat0_5
+        list network    'lan_bat0_5'
+        option input    ACCEPT
+        option output   ACCEPT
+        option forward  ACCEPT
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config forwarding
+        option src   lan_bat0_5
+        option dest  wan
+</code></pre></div></div>
+
+<p><strong>Save the file</strong> and exit.</p>
+
+<p><strong>Reboot</strong> the device.</p>
+
+<p>Once the gateway device is back online–by the way, it should still be at <code class="language-plaintext highlighter-rouge">192.168.1.1</code> because the gateway’s default <code class="language-plaintext highlighter-rouge">lan</code> is intact, so even if we fuck something up, we should be able to find the gateway via a direct cable connection–<code class="language-plaintext highlighter-rouge">ssh</code> into it once again and type</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ip a
+</code></pre></div></div>
+
+<p>which now should show the new interfaces we created (e.g, <code class="language-plaintext highlighter-rouge">bat0.1@bat0</code>) and the static IP addr of your device in each one of them (<code class="language-plaintext highlighter-rouge">192.168.10.1</code>).  (As mentioned before, if the <code class="language-plaintext highlighter-rouge">option type 'bridge'</code> was enabled in the <code class="language-plaintext highlighter-rouge">/etc/config/network</code> config stanza, then there will be an additional interface with the <code class="language-plaintext highlighter-rouge">br-</code> prefix attached to it and the static IP addr of your device will be associated with it.)</p>
+
+<p>If everything looks good, we’re done with the gateway configuration!  We’re now ready to tell our bridges which VLAN ID to join with their standard interfaces.</p>
+
+<p class="notice notice--danger">You don’t need to use <strong>interface names</strong> such as <code class="language-plaintext highlighter-rouge">lan_bat0_1</code>; they can be whatever you find intuitive.  However, whatever you choose, <strong>keep them short</strong>–that is, less than 14 characters long–or you’ll start experiencing config issues.</p>
+
+<h3 id="mesh-bridge-with-vlan-configuration">Mesh bridge with VLAN configuration</h3>
+<p>Here, we’ll also configure the bridges <strong>the same way</strong> as in the gateway-bridge example. However, each bridge device will bridge <strong>a different VLAN ID</strong>–namely, either <code class="language-plaintext highlighter-rouge">bat0.1</code> or <code class="language-plaintext highlighter-rouge">bat0.2</code> or <code class="language-plaintext highlighter-rouge">bat0.5</code>–with its default <code class="language-plaintext highlighter-rouge">lan</code>, instead of bridging <code class="language-plaintext highlighter-rouge">bat0</code> with its default <code class="language-plaintext highlighter-rouge">lan</code>.</p>
+
+<p>Let’s start with the Network B (<strong>IoT</strong>) bridge.</p>
+
+<p>Configure one of the mesh nodes <a href="#mesh-bridge-configuration">as in the gateway-bridge example</a>, except that in the default <code class="language-plaintext highlighter-rouge">lan</code> interface stanza of the <code class="language-plaintext highlighter-rouge">/etc/config/network</code> file, let’s do the following:</p>
+
+<ul>
+  <li>In <code class="language-plaintext highlighter-rouge">option ifname</code>, change <code class="language-plaintext highlighter-rouge">bat0</code> for <code class="language-plaintext highlighter-rouge">bat0.2</code>;</li>
+  <li>In <code class="language-plaintext highlighter-rouge">option ipaddr</code>, change <code class="language-plaintext highlighter-rouge">192.168.10.</code> for <code class="language-plaintext highlighter-rouge">192.168.20.</code>;</li>
+  <li>In both <code class="language-plaintext highlighter-rouge">option gateway</code> and <code class="language-plaintext highlighter-rouge">option dns</code>, change <code class="language-plaintext highlighter-rouge">192.168.10.1</code> for <code class="language-plaintext highlighter-rouge">192.168.20.1</code>;</li>
+  <li>Then, the default <code class="language-plaintext highlighter-rouge">lan</code> stanza should look something like this
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config interface lan
+      option type 'bridge'
+      option ifname 'eth0.1 eth1 bat0.2'	#ethX might be different for your device
+      option proto 'static'
+      option ipaddr '192.168.20.10'
+      option netmask '255.255.255.0'
+      option gateway '192.168.20.1'
+      option dns '192.168.20.1'
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p><strong>Save the file</strong> and exit it.</p>
+
+<p><strong>Reboot</strong> your device.</p>
+
+<p>Once it comes back on, your laptop/PC will receive an IP addr from our mesh gateway in the <code class="language-plaintext highlighter-rouge">192.168.20.0/24</code> network, the bridge node should be reachable at <code class="language-plaintext highlighter-rouge">192.168.20.10</code>, and you should be able to access the Internet via the <strong>IoT</strong> network (try <code class="language-plaintext highlighter-rouge">ping google.com</code>, for example).</p>
+
+<p><strong>If something doesn’t work</strong>, review the config files from your gateway and then from the bridge, then reboot the gateway and the bridge, and test again.</p>
+
+<p>If this config is working, <strong>repeat the same steps</strong> in the config of the other two bridges, with the following exceptions</p>
+
+<ul>
+  <li>
+    <p>In the Network C bridge (<strong>Guest</strong>), use <code class="language-plaintext highlighter-rouge">bat0.5</code> instead of <code class="language-plaintext highlighter-rouge">bat0.2</code>, and similarly, use the <code class="language-plaintext highlighter-rouge">192.168.50.</code> IP addr instead of <code class="language-plaintext highlighter-rouge">192.168.20.</code>;</p>
+  </li>
+  <li>
+    <p>In the Network D bridge (<strong>Default</strong>), use <code class="language-plaintext highlighter-rouge">bat0.1</code> instead of <code class="language-plaintext highlighter-rouge">bat0.2</code>, and similarly, use the <code class="language-plaintext highlighter-rouge">192.168.10.</code> IP addr instead of <code class="language-plaintext highlighter-rouge">192.168.20.</code>;</p>
+  </li>
+</ul>
+
+<p><em>Optional</em>: When configuring a <strong>Guest</strong> WAP, for example, you can add <code class="language-plaintext highlighter-rouge">option isolate 1</code> to the relevant stanza in the <code class="language-plaintext highlighter-rouge">/etc/config/wireless</code> config file to deny client-to-client connectivity without the need of re-enabling the firewall in the bridge device.  If that’s not enough, re-enable the firewall and configure it according to your needs–at the bottom of the <code class="language-plaintext highlighter-rouge">/etc/config/firewall</code> file, there are examples you can use as template.</p>
+
+<h2 id="getting-started-with-batman-adv-on-any-linux-device">Getting started with batman-adv on any Linux device</h2>
+<p>OpenWrt makes using <code class="language-plaintext highlighter-rouge">batman-adv</code> a nearly trivial thing but you certainly don’t need OpenWrt to implement a mesh network or even to use <code class="language-plaintext highlighter-rouge">batman-adv</code> in your mesh.  As mentioned before, <code class="language-plaintext highlighter-rouge">batman-adv</code> has long been added to the Linux Kernel and therefore, you should be able to configure it on pretty much <em>any</em> device running Linux.</p>
+
+<p>Even though the specifics of configuring network interfaces and managing connections might be different across Linux distributions, the initial steps always consist of the following:</p>
+
+<ol>
+  <li>Installing (in popular distros, this is <em>not needed</em>) and loading (<em>always</em> needed) the <code class="language-plaintext highlighter-rouge">batman-adv</code> Kernel module.
+  <code class="language-plaintext highlighter-rouge">lsmod</code> will show a list of active modules, so we can <code class="language-plaintext highlighter-rouge">grep</code> it to check if the <code class="language-plaintext highlighter-rouge">batman-adv</code> module has already been loaded, as follows
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lsmod | grep batman
+</code></pre></div>    </div>
+    <p>then if it isn’t loaded, we add the <code class="language-plaintext highlighter-rouge">batman-adv</code> kmod to <code class="language-plaintext highlighter-rouge">/etc/modules</code> and load it with <code class="language-plaintext highlighter-rouge">modprobe</code>, as follows</p>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># append batman-adv to /etc/modules
+echo 'batman-adv' | sudo tee -a /etc/modules &gt; /dev/null
+# load the batman-adv module
+sudo modprobe batman-adv
+# check that the batman-adv module is now loaded
+lsmod | grep batman
+</code></pre></div>    </div>
+    <p>Afterwards, you can check the <a href="https://en.wikipedia.org/wiki/Sysfs"><strong>sysfs</strong></a> of each network device in <code class="language-plaintext highlighter-rouge">/sys/class/net/</code> and there should be a <code class="language-plaintext highlighter-rouge">batman_adv</code> folder.  When the <code class="language-plaintext highlighter-rouge">batman-adv</code> module gets configured to use a particular network device, the files <code class="language-plaintext highlighter-rouge">batman_adv/iface_status</code> and <code class="language-plaintext highlighter-rouge">batman_adv/mesh_iface</code> will change their contents to reflect that. In addition, once enabled, <code class="language-plaintext highlighter-rouge">bat0</code> will show up as a new network device in <code class="language-plaintext highlighter-rouge">/sys/class/net/</code> and its options (e.g., <code class="language-plaintext highlighter-rouge">gw_mode</code>) can be modified by <code class="language-plaintext highlighter-rouge">echo</code>ing new values to their corresponding file in <code class="language-plaintext highlighter-rouge">/sys/class/net/bat0/mesh/</code>  (<code class="language-plaintext highlighter-rouge">echo 'client' &gt; /sys/class/net/bat0/mesh/gw_mode</code>).</p>
+  </li>
+  <li>Installing the <code class="language-plaintext highlighter-rouge">batctl</code> package. On apt-based distros like Debian, you should be able to install it with the following
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt install batctl
+</code></pre></div>    </div>
+  </li>
+  <li>Using a combination of <code class="language-plaintext highlighter-rouge">iw</code> and <code class="language-plaintext highlighter-rouge">ip</code> to configure the network interfaces, as illustrated in the <a href="https://www.open-mesh.org/projects/batman-adv/wiki/Quick-start-guide">B.A.T.M.A.N. quick start guide</a>.  In our case, however, the wireless mode of operation (as in the specification of <code class="language-plaintext highlighter-rouge">type</code> in the <code class="language-plaintext highlighter-rouge">iw</code> interface creation command) is <code class="language-plaintext highlighter-rouge">mesh</code> (or <code class="language-plaintext highlighter-rouge">mp</code>), instead of <code class="language-plaintext highlighter-rouge">adhoc</code> (or <code class="language-plaintext highlighter-rouge">ibss</code>).</li>
+  <li>Using something like <a href="https://en.wikipedia.org/wiki/Wpa_supplicant">wpa_supplicant</a> to manage connections.</li>
+</ol>
+
+<p>If you know of a program that has a GUI and is able to handle such configurations on popular Linux distros, let me know about it. As far as I know, there’s currently nothing like that and it would be so very useful.</p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="bonus-content-physical-computing">Bonus content: Physical computing</h1>
+<p>If your device has unused <strong>general purpose I/O</strong> pins, it’s possible to do all sorts of things with them.  Check the <a href="https://openwrt.org/docs/techref/hardware/port.gpio">GPIO documentation</a> for examples of how to install new LEDs and buttons, for instance.  (<a href="https://openwrt.org/toh/tp-link/tl-wr1043nd#gpios">Your device’s OpenWrt page can be very useful as well</a>.)</p>
+
+<p>Also, if you want to change the functionality of a few of the existing LEDs on your wireless device, check the <a href="https://openwrt.org/docs/guide-user/base-system/led_configuration">LED configuration documentation</a>.  Now that you have new mesh interfaces, you can use the LEDs to blink depending on the status of neighboring nodes, mesh gateways, or WAN connectivity through the mesh, to mention a few examples. (As mentioned before, <a href="https://openwrt.org/toh/tp-link/tl-wr1043nd#leds">your device’s OpenWrt page can be very useful here</a>.)</p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="final-remarks">Final remarks</h1>
+
+<p><img src="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/futurama.jpg" alt="Futurama Hubert Farnsworth" class="PostImage" /></p>
+
+<p>Good news, everyone! You’ve reached the end of this tutorial, which means it’s time to start planning your own mesh networking project.  I love to hear about different takes on the projects I post on my blog, so don’t hesitate to <a href="/contact/">contact me</a> if you just want to share or bounce a few ideas.  Different perspectives give an opportunity to learn, grow, and innovate.</p>
+
+<h2 id="other-similar-mesh-solutions">Other similar mesh solutions</h2>
+<p>If you find this guide overwhelming but you’re still curious about mesh networking, take a look at the following alternatives (in alphabetical order):</p>
+
+<ul>
+  <li><a href="https://www.commotionwireless.net">Commotion Wireless</a></li>
+  <li><a href="https://libremesh.org">LibreMesh</a></li>
+</ul>
+
+<p>They have pre-configured images that will work “out of the box” with compatible devices.  You might find instructive to start playing around with their software first and once comfortable, build your own configuration from a default (or customized from the source) OpenWrt image.</p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Posted on:</strong> <time datetime="2020-12-07T12:10:00-03:00">December 7, 2020</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="mailto:?subject=[cgomesu.com] Mesh networking: A guide to using free and open-source software with common hardware&amp;body=http%3A%2F%2Flocalhost%3A4000%2Fblog%2FMesh-networking-openwrt-batman%2F " class="btn btn--inverse" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on E-mail"><i class="fas fa-envelope" aria-hidden="true"></i><span> E-mail</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fblog%2FMesh-networking-openwrt-batman%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.reddit.com/submit?title=Mesh networking: A guide to using free and open-source software with common hardware&url=http%3A%2F%2Flocalhost%3A4000%2Fblog%2FMesh-networking-openwrt-batman%2F" class="btn btn--reddit" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Reddit"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i><span> Reddit</span></a>
+
+  <a href="https://twitter.com/intent/tweet?text=Mesh+networking%3A+A+guide+to+using+free+and+open-source+software+with+common+hardware%20http%3A%2F%2Flocalhost%3A4000%2Fblog%2FMesh-networking-openwrt-batman%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/blog/Nanopi-m4-mini-nas/" class="pagination--pager" title="NanoPi M4 mini-NAS
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search terms here...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search terms here..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/cgomesu" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          <li><a href="https://www.reddit.com/user/cgomesu/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i> Reddit</a></li>
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> RSS feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2020 CGomesu - Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> and <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a></div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

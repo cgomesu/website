@@ -40,4 +40,10 @@ var store = [{
         "tags": ["sbc","arm","homelab","homeserver","storage"],
         "url": "http://localhost:4000/blog/Nanopi-m4-mini-nas/",
         "teaser": null
+      },{
+        "title": "Mesh networking: A guide to using free and open-source software with common hardware",
+        "excerpt":"Changelog Dec 7th, 2020: Publication of the original guide top Introduction In this tutorial, we will learn how to create mesh networks (IEEE 802.11s) using OpenWrt and the layer-2 implementation of the Better Approach to Mobile Adhoc Networking, called batman-adv. All the software mentioned here is free and open-source, as...","categories": ["blog"],
+        "tags": ["mesh","adhoc","ieee","wifi","wireless","radio","network","router","openwrt","batman"],
+        "url": "http://localhost:4000/blog/Mesh-networking-openwrt-batman/",
+        "teaser": null
       }]

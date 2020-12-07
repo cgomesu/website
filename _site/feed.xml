@@ -1,4 +1,1164 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-11-26T09:34:31-03:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">NanoPi M4 mini-NAS</title><link href="http://localhost:4000/blog/Nanopi-m4-mini-nas/" rel="alternate" type="text/html" title="NanoPi M4 mini-NAS" /><published>2020-07-06T13:42:00-03:00</published><updated>2020-07-06T13:42:00-03:00</updated><id>http://localhost:4000/blog/Nanopi-m4-mini-nas</id><content type="html" xml:base="http://localhost:4000/blog/Nanopi-m4-mini-nas/">&lt;p&gt;This article is about my mini network-attached storage (NAS) project based on FriendlyARM’s &lt;a href=&quot;http://wiki.friendlyarm.com/wiki/index.php/NanoPi_M4&quot;&gt;NanoPi M4&lt;/a&gt; and its &lt;a href=&quot;http://wiki.friendlyarm.com/wiki/index.php/NanoPi_M4_SATA_HAT&quot;&gt;SATA hat&lt;/a&gt;.  If you’re looking for a cheap, low-profile, low-power NAS solution for your home–or if you just like single-board computers (SBC)–then this article is for you.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-12-07T12:12:22-03:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">Mesh networking: A guide to using free and open-source software with common hardware</title><link href="http://localhost:4000/blog/Mesh-networking-openwrt-batman/" rel="alternate" type="text/html" title="Mesh networking: A guide to using free and open-source software with common hardware" /><published>2020-12-07T12:10:00-03:00</published><updated>2020-12-07T12:10:00-03:00</updated><id>http://localhost:4000/blog/Mesh-networking-openwrt-batman</id><content type="html" xml:base="http://localhost:4000/blog/Mesh-networking-openwrt-batman/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+&lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;Dec 7th, 2020&lt;/strong&gt;: Publication of the original guide&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;In this tutorial, we will learn how to create &lt;a href=&quot;https://en.wikipedia.org/wiki/Wireless_mesh_network&quot;&gt;&lt;strong&gt;mesh networks&lt;/strong&gt;&lt;/a&gt; (&lt;a href=&quot;https://en.wikipedia.org/wiki/IEEE_802.11s&quot;&gt;&lt;strong&gt;IEEE 802.11s&lt;/strong&gt;&lt;/a&gt;) using &lt;a href=&quot;https://openwrt.org/&quot;&gt;&lt;strong&gt;OpenWrt&lt;/strong&gt;&lt;/a&gt; and the &lt;a href=&quot;https://en.wikipedia.org/wiki/Data_link_layer&quot;&gt;layer-2&lt;/a&gt; implementation of the &lt;em&gt;Better Approach to Mobile Adhoc Networking&lt;/em&gt;, called &lt;a href=&quot;https://www.kernel.org/doc/html/v4.15/networking/batman-adv.html&quot;&gt;&lt;strong&gt;batman-adv&lt;/strong&gt;&lt;/a&gt;.  All the software mentioned here is &lt;strong&gt;free&lt;/strong&gt; and &lt;strong&gt;open-source&lt;/strong&gt;, as opposed to commercial alternatives (&lt;a href=&quot;https://unifi-mesh.ui.com&quot;&gt;UniFi Mesh&lt;/a&gt; or &lt;a href=&quot;https://store.google.com/us/product/nest_wifi&quot;&gt;Google’s Nest Wifi&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;This is not meant to be an exhaustive presentation of any of the covered topics. If you have suggestions on how to improve this guide, feel free to &lt;a href=&quot;/contact/&quot;&gt;get in touch with me&lt;/a&gt;. I’m always eager to learn new things and share them. Also, I plan on updating this article every once in a while to best reflect my knowledge about the topics covered here and to add information provided by the readers. Check the &lt;a href=&quot;#changelog&quot;&gt;changelog&lt;/a&gt; for updates.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;why-am-i-writing-this-guide&quot;&gt;Why am I writing this guide?&lt;/h1&gt;
+&lt;p&gt;Even though the concept of mesh networking has been around for quite some time now, the documentation of its implementation is still scarce/nichey, proprietary, or outdated.  I don’t feel qualified to speculate on why this is so but I find it odd because many of the radio devices found in popular wireless routers actually support mesh networking–but the original firmware rarely supports it.&lt;/p&gt;
+
+&lt;p&gt;My intention with this tutorial is to help closing the gap between concept and implementation of mesh networking using up-to-date software that anyone can download and install on cheap, commonly available hardware–primarily consumer wireless routers (from old to new, single- or multi-band) but the principles should be extendable to any cellphones, laptops, PCs or servers running &lt;strong&gt;Linux&lt;/strong&gt;.  The content is partially based on my own experience and builds upon the work of other, much more talented individuals who shared their knowledge on the Web.  More specifically, the content is notably influenced by the following:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Brian Innes workshop about using Raspberry Pis to create a mesh network for sharing sensor data wirelessly (&lt;a href=&quot;https://github.com/binnes/WiFiMeshRaspberryPi&quot;&gt;Github repo&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;Andreas Spiess &lt;a href=&quot;https://www.youtube.com/watch?v=TY6m6fS8bxU&quot;&gt;LoRa mesh project&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Maintaners of the &lt;a href=&quot;https://openwrt.org/docs/start&quot;&gt;OpenWRT documentation&lt;/a&gt; and the &lt;a href=&quot;https://www.open-mesh.org/projects/batman-adv/wiki&quot;&gt;B.A.T.M.A.N. wiki&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Multiple users from the OpenWrt forum who shared their opinions over the years. To name a few,  the users &lt;a href=&quot;https://forum.openwrt.org/u/jeff&quot;&gt;jeff&lt;/a&gt;, &lt;a href=&quot;https://forum.openwrt.org/u/mcarni&quot;&gt;mcarni&lt;/a&gt;, &lt;a href=&quot;https://forum.openwrt.org/u/oavaldezi&quot;&gt;oavaldezi&lt;/a&gt;, &lt;a href=&quot;https://forum.openwrt.org/u/slh&quot;&gt;slh&lt;/a&gt;, and many others. Thanks for keeping the posts public.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;objectives&quot;&gt;Objectives&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;Get familiar with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/&lt;/code&gt; files in OpenWrt devices (namely, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wireless&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;network&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dhcp&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;firewall&lt;/code&gt;) to quickly and permanently configure mesh nodes.&lt;/li&gt;
+  &lt;li&gt;Edit files directly from the terminal using the default text editor &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vi&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;Configure OpenWrt devices to play one of three possible roles in the network: (a) mesh node, (b) mesh + bridge node, or (c) mesh + gateway node.&lt;/li&gt;
+  &lt;li&gt;Install and configure the Kernel module &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt; on an OpenWrt device using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;opkg&lt;/code&gt; package manager.&lt;/li&gt;
+  &lt;li&gt;Use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batctl&lt;/code&gt; to test, debug, and monitor connectivity within the mesh.&lt;/li&gt;
+  &lt;li&gt;Add encryption to the mesh network with the package &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wpad-mesh-openssl&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;Use VLANs to create &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iot&lt;/code&gt;, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;guest&lt;/code&gt; networks within the mesh using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;outline&quot;&gt;Outline&lt;/h1&gt;
+&lt;p&gt;From this point forward, the article is divided into four main parts:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#concepts-and-documentation&quot;&gt;Concepts and documentation&lt;/a&gt;: &lt;em&gt;Optional for advanced users.&lt;/em&gt; Brief introduction to just enough network concepts to allow the implementation of simple mesh networks. When appropriate, a link to the relevant OpenWrt documentation was also provided.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#hardware&quot;&gt;Hardware&lt;/a&gt;: &lt;em&gt;Optional for everyone&lt;/em&gt;. A few notes about the hardware used in the examples and recommendations for those who are planning on buying new/used devices for their mesh project.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#software&quot;&gt;Software&lt;/a&gt;: &lt;em&gt;Optional for everyone&lt;/em&gt;. A few notes about the software used in the examples.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#implementation&quot;&gt;Implementation&lt;/a&gt;: &lt;em&gt;Required&lt;/em&gt;. Step-by-step procedure to configure mesh nodes, bridges, and gateways.  It goes from flashing OpenWrt to configuring VLANs with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt;. You probably came here for this part.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;concepts-and-documentation&quot;&gt;Concepts and documentation&lt;/h1&gt;
+
+&lt;h2 id=&quot;main-network-definitions&quot;&gt;Main network definitions&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Mesh &lt;a href=&quot;https://en.wikipedia.org/wiki/Node_(networking)&quot;&gt;node&lt;/a&gt;: Any network device that is connected to the mesh network and that helps routing data to (and from) mesh clients.  Here, however, if a mesh node acts as a bridge or gateway, it will always be referred by the latter role, even though by definition, mesh bridges and mesh gateways are also mesh nodes.&lt;br /&gt;
+In addition, even though it’s possible to route mesh traffic via cable, in this tutorial, &lt;em&gt;all mesh nodes are also wireless devices&lt;/em&gt;, meaning that they have access to a radio with &lt;a href=&quot;https://en.wikipedia.org/wiki/IEEE_802.11s&quot;&gt;&lt;strong&gt;mesh point&lt;/strong&gt; (802.11s)&lt;/a&gt; capabilities.
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://openwrt.org/docs/guide-user/network/wifi/basic&quot;&gt;Learn about the OpenWrt wireless config &lt;strong&gt;/etc/config/wireless&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Bridging_(networking)&quot;&gt;Bridge&lt;/a&gt;: A network device that joins any two or more network interfaces (e.g., LAN ethernet and wireless) into a single network.  Here, when a device is referred to as a bridge, it means that in addition to being a mesh node, the only other thing it does is bridge interfaces.  But of course, a gateway &lt;em&gt;device&lt;/em&gt;, such as a router with a built-in modem, or a firewall appliance, may also work as a bridge for multiple interfaces. The distinction in the examples is just used to highlight its main role in the network.  Therefore, a mesh bridge in this tutorial is a mesh node that simply bridges the mesh network with a WiFi access point  for non-mesh clients, for example, or its LAN ports.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Gateway_(telecommunications)&quot;&gt;Gateway&lt;/a&gt;: A network device that translates traffic from one network (LAN) to another (WAN) and here, acts as both a &lt;strong&gt;firewall&lt;/strong&gt; and &lt;strong&gt;DHCP server&lt;/strong&gt;.  (If there’s more than one DHCP server in the same network, they assign IPs to different ranges, such as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.1-100&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.101-200&lt;/code&gt;, and so on.)
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://openwrt.org/docs/guide-user/base-system/basic-networking&quot;&gt;Learn about the OpenWrt network config &lt;strong&gt;/etc/config/network&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Domain_Name_System&quot;&gt;DNS&lt;/a&gt;: In brief, a system for translating domain names (e.g., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cgomesu.com&lt;/code&gt;) into IP addresses (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;185.199.108.153&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;185.199.109.153&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;185.199.110.153&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;185.199.111.153&lt;/code&gt;). DNS filtering systems, such as &lt;a href=&quot;https://pi-hole.net/&quot;&gt;PiHole&lt;/a&gt;, work by catching such requests–usually sent through port &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;53&lt;/code&gt;–and checking if the domain is blacklisted or not.  In this tutorial, we will always use an external DNS server, such as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1.1.1.1&lt;/code&gt; (Cloudflare) or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;8.8.8.8&lt;/code&gt; (Google), but if you have your own DNS resolver, feel free to use it instead when configuring your mesh network but then make sure the mesh network/VLAN has access to its address.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol&quot;&gt;DHCP&lt;/a&gt;: An IP management system that dynamically assigns layer-3 addresses for devices connected to a network. For instance, it might dynamically assign IPs between &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.1.0&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.1.255&lt;/code&gt; (i.e., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.1.0/24&lt;/code&gt;) to any devices connected to LAN. Of note, because this is a network layer protocol, it uses IP addresses, whereas &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt; uses MAC addresses because it works at the data link layer (and therefore, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt; actually doesn’t need DHCP and IPs to discover and manage mesh clients but we’re going to use them to make it more intuitive and easier to integrate mesh with non-mesh clients).
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://openwrt.org/docs/guide-user/base-system/dhcp&quot;&gt;Learn about the OpenWrt DNS and DHCP config &lt;strong&gt;/etc/config/dhcp&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Firewall_(computing)&quot;&gt;Firewall&lt;/a&gt;: A network system that monitors and controls network traffic, such as specifying rules for incoming WAN traffic (e.g., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;deny all&lt;/code&gt;), outgoing LAN traffic (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;accept all&lt;/code&gt;), geoblocking and IP filtering systems, intrusion prevention/detection systems (&lt;a href=&quot;https://suricata-ids.org/&quot;&gt;Suricata&lt;/a&gt;), and so on.  &lt;a href=&quot;https://opnsense.org/&quot;&gt;OpenSense&lt;/a&gt; and &lt;a href=&quot;https://www.pfsense.org/&quot;&gt;pfSense&lt;/a&gt; are examples of dedicated firewall software. If a mesh node is acting as a mesh gateway, it’s imperative to configure the firewall or your mesh network will likely end up without access to external networks (e.g., WAN) and their services (e.g., DNS servers).
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://openwrt.org/docs/guide-user/firewall/firewall_configuration&quot;&gt;Learn about the OpenWrt firewall config &lt;strong&gt;/etc/config/firewall&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Virtual_LAN&quot;&gt;VLAN&lt;/a&gt;: A &lt;em&gt;virtual&lt;/em&gt; LAN that is partitioned and isolated in a network at the layer-2 level.  They are often followed by an integer to differentiate each other (e.g., VLAN 1, VLAN 50) and used to better manage network clients that belong to different groups (e.g., administrators, IoT devices, security cameras, guests).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;network-topologies&quot;&gt;Network topologies&lt;/h2&gt;
+
+&lt;!-- Courtesy of embedresponsively.com //--&gt;
+&lt;div class=&quot;responsive-video-container&quot;&gt;
+
+  &lt;iframe src=&quot;https://www.youtube-nocookie.com/embed/zbqrNg4C98U&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;/div&gt;
+
+&lt;h2 id=&quot;mesh-networks&quot;&gt;Mesh networks&lt;/h2&gt;
+
+&lt;h3 id=&quot;what-are-mesh-networks&quot;&gt;What are mesh networks?&lt;/h3&gt;
+
+&lt;!-- Courtesy of embedresponsively.com //--&gt;
+&lt;div class=&quot;responsive-video-container&quot;&gt;
+
+  &lt;iframe src=&quot;https://www.youtube-nocookie.com/embed/tYLU755T6_I&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;/div&gt;
+
+&lt;h3 id=&quot;where-can-i-learn-more-about-mesh-networking&quot;&gt;Where can I learn more about mesh networking?&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Wikipedia articles about &lt;a href=&quot;https://en.wikipedia.org/wiki/Mesh_networking&quot;&gt;mesh networking&lt;/a&gt; and &lt;a href=&quot;https://en.wikipedia.org/wiki/Wireless_mesh_network&quot;&gt;wireless mesh networks&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://scholar.google.com/scholar?q=mesh+networking&quot;&gt;Peer-reviewed papers or books&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;routing-protocols&quot;&gt;Routing protocols&lt;/h3&gt;
+&lt;p&gt;There are &lt;a href=&quot;https://en.wikipedia.org/wiki/Wireless_mesh_network#Protocols&quot;&gt;dozens of algorithms&lt;/a&gt; for routing packets in a mesh network.  A few notable ones are the Optimized Link State Routing (OLSR) and the Hybrid Wireless Mesh Protocol (HWMP).&lt;/p&gt;
+
+&lt;p&gt;In this tutorial, however, we will cover only one of them, called &lt;a href=&quot;https://en.wikipedia.org/wiki/B.A.T.M.A.N.&quot;&gt;&lt;em&gt;Better Approach to Mobile Adhoc Networking&lt;/em&gt;&lt;/a&gt; (&lt;strong&gt;B.A.T.M.A.N.&lt;/strong&gt;), because &lt;a href=&quot;https://www.kernel.org/doc/html/latest/networking/batman-adv.html&quot;&gt;it has long been incorporated into the Linux Kernel&lt;/a&gt; and is thus easily enabled on Linux devices.  It is also a &lt;a href=&quot;https://www.open-mesh.org/projects/batman-adv/wiki&quot;&gt;fairly well-documented&lt;/a&gt; algorithm that &lt;a href=&quot;https://www.open-mesh.org/projects/open-mesh/activity&quot;&gt;has been continuously improved&lt;/a&gt; over the years.  Another noteworthy feature of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt; is its lack of reliance on layer-3 protocols for managing mesh clients because it works at the layer-2 and its ability to create VLANs.  Think of it as if it were a big, smart, virtual switch, in which its VLANs are port-based segmentations.  If you want an interface to use a particular mesh VLAN, just “plug it” into the approriate port of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batX&lt;/code&gt; switch (e.g., bridge &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;if-guest&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0.2&lt;/code&gt; to give the guest network access to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt; VLAN 2).&lt;/p&gt;
+
+&lt;h4 id=&quot;batman-adv&quot;&gt;batman-adv&lt;/h4&gt;
+&lt;p&gt;As mentioned before, B.A.T.M.A.N. has gone through multiple changes over the years, which means that there are actually &lt;em&gt;multiple versions of the algorithm&lt;/em&gt;. I’ve had a good experience with &lt;a href=&quot;https://www.open-mesh.org/projects/batman-adv/wiki/BATMAN_IV&quot;&gt;&lt;strong&gt;B.A.T.M.A.N. IV&lt;/strong&gt;&lt;/a&gt; and therefore, the examples here make use of it.  However, you are free to try whatever version you want and even run them in parallel to each other, by assigning a different &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batX&lt;/code&gt; interface to each version of the algorithm (versions are chosen with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option routing_algo&lt;/code&gt; in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/network&lt;/code&gt; config file for each enabled &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batX&lt;/code&gt; interface).&lt;/p&gt;
+
+&lt;p&gt;Config-wise, there’s very little to do because the default settings should work very well in most environments.  One exception is when you have multiple gateways in the network to provide high availability, for example, and you might want to let each mesh node know about them and their speeds to better route the mesh traffic.  This requires setting &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option gw_mode&lt;/code&gt; to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;server&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;client&lt;/code&gt;, for example.  Many other tweaks that are not covered here are &lt;a href=&quot;https://www.open-mesh.org/projects/batman-adv/wiki/Doc-overview#Protocol-Documentation&quot;&gt;described in their wiki&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;batctl&quot;&gt;batctl&lt;/h4&gt;
+&lt;p&gt;Another very cool feature of B.A.T.M.A.N. is the ability to test, debug, monitor, and set settings with the package &lt;a href=&quot;https://downloads.open-mesh.org/batman/manpages/batctl.8.html&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batctl&lt;/code&gt;&lt;/a&gt;.  A few noteworthy options:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Ping mesh node/client with its MAC address &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;f0:f0:00:00:00:00&lt;/code&gt;
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;batctl p f0:f0:00:00:00:00
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://linux.die.net/man/8/tcpdump&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tcpdump&lt;/code&gt;&lt;/a&gt; for all mesh traffic in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt; interface
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;batctl td bat0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Prints useful stats for all mesh traffic, such as sent and received bytes
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;batctl s
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Shows the neighboring mesh nodes
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;batctl n
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Displays the gateway servers (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option gw_mode 'server'&lt;/code&gt;) in the mesh network
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;batctl gwl
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;It goes without saying that if you want to dive deep into &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt;, you should take a good look at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batctl&lt;/code&gt;, too.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;hardware&quot;&gt;Hardware&lt;/h1&gt;
+&lt;p&gt;Unless otherwise specified, all mesh nodes used in the various implementations had the following hardware:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Device&lt;/strong&gt;: &lt;a href=&quot;https://www.tp-link.com/us/home-networking/wifi-router/tl-wr1043nd/&quot;&gt;TP-Link WR-1043ND&lt;/a&gt; v1.8&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Architecture&lt;/strong&gt;: Atheros AR9132 rev 2&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/tplink-wr1043nd.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/tplink-wr1043nd.jpg&quot; alt=&quot;TP-Link 1043nd&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;This was mainly a matter of convenience–I had a few lying around and they are very, very cheap–and because the examples in the OpenWrt documentation often refer to them as well, so the community support is good.&lt;/p&gt;
+
+&lt;p&gt;However, the general ideas presented here should apply to &lt;strong&gt;any wireless device&lt;/strong&gt; that meets the following criteria:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Compatible with the latest OpenWRT version. Refer to their &lt;a href=&quot;https://openwrt.org/toh/start&quot;&gt;&lt;strong&gt;Hardware List&lt;/strong&gt;&lt;/a&gt;;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Has access to a radio that supports the &lt;strong&gt;mesh point&lt;/strong&gt; (&lt;strong&gt;802.11s&lt;/strong&gt;) mode of operation. If you already have OpenWrt installed on a wireless device, you can type &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iw list&lt;/code&gt; and search for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mesh point&lt;/code&gt; under &lt;strong&gt;Supported interface modes&lt;/strong&gt;, or simply check if the following command outputs &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;* mesh point&lt;/code&gt; below the name of a detected radio (e.g., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;phy0&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;phy1&lt;/code&gt;):&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;iw list | grep -ix &quot;^wiphy.*\|^.*mesh point$&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;If it does, then the associated radio can be configured as a mesh point.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Now, if you’re looking for devices to buy and experiment on, my suggestion is to look for dual-band wireless routers to allow a better segmentation of the wireless networks.  If you can afford spending more for a mesh node, look for tri-band devices.  Netgear and Linksys have solid options that are compatible with OpenWrt. For example, the Linksys WRT1900AC (v1/v2) dual-band wireless router would make for a good mesh node:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/linksys-wrt1900ac.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/linksys-wrt1900ac.jpg&quot; alt=&quot;Linksys WRT1900AC&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;For single-board computer (SBC) fans like me, you can run OpenWrt with most of them and then use a combination of on-board wireless and USB adapter to create a powerful mesh node. &lt;a href=&quot;https://shop.solid-run.com/product-category/embedded-computers/marvell-family/clearfog-base-pro/&quot;&gt;ClearFog boards&lt;/a&gt; with one or two mini PCIe wireless cards would make very good candidates for such a project, for example:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/clearfog-pro.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/clearfog-pro.jpg&quot; alt=&quot;ClearFog Pro&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Of course, you can install OpenWrt on bare metal x86-64 machines (e.g., standard PC or server running Intel/AMD), which will give you lots of options to put together an impressive mesh device. However, if you just want your work/home laptops/PCs to &lt;em&gt;be part of the mesh&lt;/em&gt; (i.e., become a mesh node), there are better alternatives than installing OpenWrt as its OS.  For example, you can run OpenWrt with a &lt;a href=&quot;https://openwrt.org/docs/guide-user/virtualization/start&quot;&gt;virtual machine&lt;/a&gt; or as a &lt;a href=&quot;https://github.com/openwrt/docker&quot;&gt;docker container&lt;/a&gt;.  Naturally, it’s also possible to configure &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt; on Linux distributions other than OpenWrt, such as Arch, Debian, and Ubuntu.  See &lt;a href=&quot;#getting-started-with-batman-adv-on-any-linux-device&quot;&gt;Getting started with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt; on any Linux device&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;As mentioned before, even if the existing/on-board radio of your SBC/laptop/PC/server does not support the mesh point mode of operation, you can always buy a compatible PCIe card or USB adapter to turn your device into a mesh node and then use the other radio for another purpose.  For example, many &lt;a href=&quot;https://www.alfa.com.tw/&quot;&gt;Alfa Network&lt;/a&gt; adapters can operate in mesh point mode, like the cheap AWUS036NH:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/AWUS036NH.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/AWUS036NH.jpg&quot; alt=&quot;Alfa AWUS036NH&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;All that said&lt;/strong&gt;, most home users will be &lt;strong&gt;just fine with a cheapo, used, old, single-band router&lt;/strong&gt;.  For a brand reference, TP-Link has good and affordable devices that can be used in a mesh networking project without issues.  If you’re new to this, start from here (small, simple) and think about efficiency over power.  You don’t need to drive a Lamborghini to get a snack at the grocery store.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;software&quot;&gt;Software&lt;/h1&gt;
+&lt;p&gt;Unless otherwise specified, all mesh nodes were running the following software:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/openwrt-ssh-welcome.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/openwrt-ssh-welcome.jpg&quot; alt=&quot;OpenWrt default SSH welcome&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Operating System&lt;/strong&gt;:
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;Firmware&lt;/strong&gt;: OpenWrt 19.07.4 r11208-ce6496d796&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Linux kernel&lt;/strong&gt;: 4.14.195&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Packages mentioned in the tutorial&lt;/strong&gt;:
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://openwrt.org/packages/pkgdata/batctl-default&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batctl-default&lt;/code&gt;&lt;/a&gt;: 2019.2-7&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://openwrt.org/packages/pkgdata/kmod-batman-adv&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kmod-batman-adv&lt;/code&gt;&lt;/a&gt;: 4.14.195+2019.2-9&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://openwrt.org/packages/pkgdata/wpad-mesh-openssl&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wpad-mesh-openssl&lt;/code&gt;&lt;/a&gt;: 2019-08-08-ca8c2bd2-4&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;To find out the version of all installed packages, type&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;opkg list-installed
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;or if you prefer to filter the output, use grep.  For example, the following will show the version of all installed packages containing &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat&lt;/code&gt; (e.g., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batctl&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kmod-batman-adv&lt;/code&gt;):&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;opkg list-installed | grep bat
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Huge differences in firmware, kernel, or package versions &lt;em&gt;might&lt;/em&gt; make the implementation of a mesh network a little bit different than the way it was explained here.  Of note, devices running the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt; &lt;strong&gt;version 2019.0-2 and older&lt;/strong&gt; are certainly incompatible with the instructions found in this tutorial, the reason being that the module was modified after then to better integrate with the &lt;a href=&quot;https://openwrt.org/docs/techref/netifd&quot;&gt;network interface daemon&lt;/a&gt;.  Fortunately, the implementation using old modules is just a simple as with the latest one. &lt;a href=&quot;https://www.open-mesh.org/projects/batman-adv/wiki/Batman-adv-openwrt-config#Batman-adv-20190-2-and-older&quot;&gt;Check what the B.A.T.M.A.N. wiki has to say about it&lt;/a&gt;.  However, it’s worth mentioning that with old batman modules, changes to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/network&lt;/code&gt; will likely require a reboot instead of simply reloading &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/init.d/network&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Also, I’ve noticed that when installing &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kmod-batman-adv&lt;/code&gt;, the package manager will install a minimal version of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batctl&lt;/code&gt;, called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batctl-tiny&lt;/code&gt;, that lacks some of the options mentioned here (e.g., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batctl n&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batnctl o&lt;/code&gt;).  However, if you install &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batctl&lt;/code&gt; first and then &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kmod-batman-adv&lt;/code&gt;, the package manager will preserve &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batctl-default&lt;/code&gt;, which is the package used in this tutorial and that has all the options referred to in the &lt;a href=&quot;https://downloads.open-mesh.org/batman/manpages/batctl.8.html&quot;&gt;batctl man page&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Finally, the installation of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wpad-mesh-openssl&lt;/code&gt; will conflict with the already installed &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wpad-basic&lt;/code&gt; package.  This means &lt;strong&gt;you have to remove the latter before installing the former&lt;/strong&gt;.  To remove the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wpad-basic&lt;/code&gt; package, simply type&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;opkg remove wpad-basic
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;vi-text-editor&quot;&gt;VI text editor&lt;/h2&gt;
+&lt;p&gt;The default text editor in a standard OpenWrt image is &lt;a href=&quot;https://en.wikipedia.org/wiki/Vi&quot;&gt;&lt;strong&gt;vi&lt;/strong&gt;&lt;/a&gt;, which is an old, screen oriented editor that most modern users will find counterintuitive to use.  Fortunately, once you get the hang of it, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vi&lt;/code&gt; becomes very easy to use and it becomes a very convenient way of editing config files.  Here’s all that you need to know about using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vi&lt;/code&gt; in a terminal:&lt;/p&gt;
+
+&lt;p&gt;You can open a file by adding the filename as an argument to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vi&lt;/code&gt;, as follows&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;vi /etc/config/network
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;and if the file does not exist, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vi&lt;/code&gt; will create one with that name.&lt;/p&gt;
+
+&lt;p&gt;By default, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vi&lt;/code&gt; will start in &lt;strong&gt;command mode&lt;/strong&gt;.  Such a mode let’s you navigate the file with the arrow keys and use the &lt;em&gt;delete button&lt;/em&gt; to delete characters.  (Also, in command mode, you can type &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dd&lt;/code&gt; to delete entire lines, which is very useful if you need to delete lots of things quickly.)&lt;/p&gt;
+
+&lt;p&gt;However, if you need to type characters and have more flexibility to edit the file, you need to tell &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vi&lt;/code&gt; to enter &lt;strong&gt;insert mode&lt;/strong&gt;.  To enter insert mode, type (no need to hit return/enter afterwards)&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;i
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;and at the bottom of the screen, you will see that it now shows a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;I&lt;/code&gt; to indicate that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vi&lt;/code&gt; is in insert mode.  You can now type freely and even paste multiple things at once in insert mode.&lt;/p&gt;
+
+&lt;p&gt;When you’re done, press the button &lt;strong&gt;Esc&lt;/strong&gt; to go back into command mode.  Notice that at the bottom of the screen, now there’s a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-&lt;/code&gt; where the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;I&lt;/code&gt; was, which tells you you’re in command mode once again.&lt;/p&gt;
+
+&lt;p&gt;In command mode, you can then &lt;strong&gt;write changes to the file&lt;/strong&gt; by typing (followed by return/enter)&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;:w
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now you’ve saved the file. To quit, type&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;:q
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Alternatively, you can &lt;em&gt;write and quit&lt;/em&gt; by simply typing &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:wq&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vi&lt;/code&gt; has other commands as well but honestly, that’s pretty much all that you need to know about &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vi&lt;/code&gt; in order to use in the examples covered here.  Give it a try!&lt;/p&gt;
+
+&lt;h2 id=&quot;alternatives-to-vi&quot;&gt;Alternatives to VI&lt;/h2&gt;
+&lt;p&gt;Now, if you still don’t like to use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vi&lt;/code&gt;, you can always transfer files from your laptop/PC to OpenWrt via sftp, for example, or utilities like &lt;a href=&quot;https://en.wikipedia.org/wiki/Secure_copy_protocol&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scp&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;implementation&quot;&gt;Implementation&lt;/h1&gt;
+&lt;p&gt;In this section, we will see how to configure &lt;strong&gt;four mesh nodes&lt;/strong&gt; in &lt;strong&gt;three different network topologies&lt;/strong&gt;. More specifically:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Gateway-Bridge&lt;/strong&gt;: A mesh network in which one node plays the role of a mesh gateway and another, of a bridge, while the remaining are just mesh nodes.  This is a very typical scenario for a home or small office, for example.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-gateway-bridge.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-gateway-bridge.jpg&quot; alt=&quot;Topology - Gateway-Bridge&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Bridge-Bridge&lt;/strong&gt;: Two nodes play the role of a bridge, therefore making the mesh network transparent to the external (non-mesh) networks.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-bridge-bridge.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-bridge-bridge.jpg&quot; alt=&quot;Topology - Bridge-Bridge&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Gateway-Gateway&lt;/strong&gt;: Two nodes play the role of a gateway to provide high-availability to mesh clients/nodes.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-gateway-gateway.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-gateway-gateway.jpg&quot; alt=&quot;Topology - Gateway-Gateway&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;First, however, we will start with the aspects that are common to all topologies, such as planning the mesh network, and the installation and basic configuration of OpenWrt mesh nodes.  Then, we will move to the specifics of each of the aforementioned mesh network topologies.  Finally, we end the section with a slightly more complex scenario to illustrate how to create &lt;strong&gt;mesh VLANs&lt;/strong&gt; with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt; and a very brief introduction to using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt; on other Linux distros.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-mesh-vlans.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-mesh-vlans.jpg&quot; alt=&quot;Topology - Mesh VLANs&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Even though the examples show static nodes, &lt;strong&gt;none of the mesh nodes need to be static&lt;/strong&gt;. The mesh network and its components can be partially or totally mobile. For example, if some of your nodes are mobile units (e.g., vehicles, drones, robots, cellphones, laptops), they can leave and join the mesh, recreate the mesh elsewhere, join a completely different mesh, and so on.  The routing algorithm (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt;) will automatically (and  seamlessly) take care of changes to the network topology. (But of course, if there’s a single gateway and it does not reach any node, the network is bound to stop working as intended without proper configuration to handle such scenarios.)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-moving-nodes.gif&quot;&gt;&lt;img src=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-moving-nodes.gif&quot; alt=&quot;Topology - Moving nodes&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;planning&quot;&gt;Planning&lt;/h2&gt;
+&lt;p&gt;Just like any other type of network, deploying a mesh network–especially over large areas, with dozens of nodes–requires a fair deal of planning; Otherwise, you are bound to experience, for instance, bottlenecks, uneven access point signal quality, and unstable WAN connectivity across the mesh.  Also, features like &lt;strong&gt;high availability&lt;/strong&gt; go well beyond the configuration and topology of a mesh network (e.g., power source, whre your WAN connections are coming from, and the hardware you are using all play important roles when it comes to high availability).  Mesh networks are very, very easy to scale but planning is key.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Eli the Computer Guy&lt;/em&gt; has an old video about mesh networks that goes into things like high availability and bottlenecks.  If that matters to you, take a look. The relevant content &lt;strong&gt;starts at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;03:30&lt;/code&gt;&lt;/strong&gt; and &lt;strong&gt;ends at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;17:30&lt;/code&gt;&lt;/strong&gt;, approximately.&lt;/p&gt;
+
+&lt;!-- Courtesy of embedresponsively.com //--&gt;
+&lt;div class=&quot;responsive-video-container&quot;&gt;
+
+  &lt;iframe src=&quot;https://www.youtube-nocookie.com/embed/T7fJwAyALss&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;The examples in this tutorial are simple &lt;em&gt;by design&lt;/em&gt;–they were created to illustrate different scenarios in a way that makes it easy to understand what is going on. The idea is to use the examples as templates for more complex implementations.&lt;/p&gt;
+
+&lt;h2 id=&quot;openwrt-installation-and-initial-configuration&quot;&gt;OpenWrt installation and initial configuration&lt;/h2&gt;
+&lt;p&gt;Now that you have the hardware, the first thing to do is to install OpenWrt.  Flashing a default OpenWrt image onto a &lt;strong&gt;&lt;em&gt;compatible device&lt;/em&gt; is a very easy and safe procedure&lt;/strong&gt; because it’s been tested multiple times.  (For extra safety precautions, you might want to search the Web for your device + OpenWrt to see if there’s any indexed forum post or comment regarding installation issues and bugs, for example.)&lt;/p&gt;
+
+&lt;p&gt;If you’re new to this, the folks at OpenWrt were kind enough to provide a plethora of instructions on &lt;a href=&quot;https://openwrt.org/docs/guide-user/installation/start&quot;&gt;how to install and uninstall OpenWrt&lt;/a&gt; and even put together an &lt;a href=&quot;https://openwrt.org/docs/guide-user/installation/generic.flashing#installation_checklist&quot;&gt;&lt;strong&gt;installation checklist&lt;/strong&gt;&lt;/a&gt;.  At the very least, do the following:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Look for your device’s &lt;strong&gt;model and version&lt;/strong&gt; in the &lt;a href=&quot;https://openwrt.org/toh/start&quot;&gt;&lt;strong&gt;Table of Hardware&lt;/strong&gt;&lt;/a&gt; and open its &lt;strong&gt;Device Page&lt;/strong&gt; (e.g., &lt;a href=&quot;https://openwrt.org/toh/tp-link/tl-wr1043nd&quot;&gt;TP-Link TL-WR1043ND&lt;/a&gt;);&lt;/li&gt;
+  &lt;li&gt;Double check that the &lt;strong&gt;model and version&lt;/strong&gt; match your device’s &lt;strong&gt;model and version&lt;/strong&gt; in the &lt;strong&gt;Supported Versions&lt;/strong&gt; table;&lt;/li&gt;
+  &lt;li&gt;In the &lt;strong&gt;Installation&lt;/strong&gt; table, you will find a column called &lt;em&gt;Firmware OpenWrt Install URL&lt;/em&gt; and another one called &lt;em&gt;Firmware OpenWrt Upgrade URL&lt;/em&gt;. If your device is &lt;strong&gt;still running the original firmware&lt;/strong&gt;, then download the binary from the &lt;em&gt;Firmware OpenWrt &lt;strong&gt;Install&lt;/strong&gt; URL&lt;/em&gt; column; otherwise, download the binary from the &lt;em&gt;Firmware OpenWrt &lt;strong&gt;Upgrade&lt;/strong&gt; URL&lt;/em&gt; column.  Both files should have a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.bin&lt;/code&gt; extension;&lt;/li&gt;
+  &lt;li&gt;Regardless of the binary file downloaded, &lt;a href=&quot;https://openwrt.org/docs/guide-quick-start/verify_firmware_checksum&quot;&gt;&lt;strong&gt;verify its checksum&lt;/strong&gt;&lt;/a&gt; afterwards;&lt;/li&gt;
+  &lt;li&gt;Disconnect your laptop/PC from any access point or switch, and connect your laptop/PC directly to the device’s ethernet port.&lt;/li&gt;
+  &lt;li&gt;Open your device’s web UI, go to its Settings and/or find the &lt;strong&gt;Firmware Upgrade&lt;/strong&gt; option. Then, select the downloaded OpenWrt binary, and let it do its thing. Once it’s done, the device will reboot with OpenWrt installed. (You should be able to reach it at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.1.1&lt;/code&gt; if connected to a LAN port.)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;If you can reach the OpenWrt web UI, then you’ve successfully installed OpenWrt and it’s now time to configure it.&lt;/p&gt;
+
+&lt;h3 id=&quot;initial-configuration&quot;&gt;Initial configuration&lt;/h3&gt;
+&lt;p&gt;As mentioned before, we &lt;strong&gt;will not use the web UI&lt;/strong&gt; in this tutorial, even if the OpenWrt image you’re using has LuCI installed by default.  Instead, we will access our device and configure it using only &lt;strong&gt;SSH&lt;/strong&gt;.  So, open a terminal and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ssh&lt;/code&gt; into your OpenWrt device, as follows&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssh root@192.168.1.1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;in which &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.1.1&lt;/code&gt; is your OpenWrt device’s IP address (that’s usually the case after a fresh install but if it’s different, use the proper IP then). Because this is the first time using the system, you’ll need to set a password for the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;root&lt;/code&gt; user.  You can do that by typing&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;passwd
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;and following the instructions.  At this point, it’s good practice to label this device (e.g., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;node01&lt;/code&gt;) and take note of its &lt;strong&gt;MAC address&lt;/strong&gt;.  To find out the latter, type&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ip link
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;and keep a record of the device’s name and its MAC address–if there are multiple different addresses, take note of all of them and their interface.&lt;/p&gt;
+
+&lt;p&gt;(&lt;em&gt;Optional&lt;/em&gt;: &lt;a href=&quot;https://openwrt.org/docs/guide-user/security/dropbear.public-key.auth&quot;&gt;Configure key-based authentication&lt;/a&gt; and &lt;a href=&quot;https://openwrt.org/docs/guide-user/base-system/dropbear&quot;&gt;disable password login&lt;/a&gt;. Reboot and check that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ssh&lt;/code&gt; access methods are correctly configured.)&lt;/p&gt;
+
+&lt;p class=&quot;notice notice--warning&quot;&gt;From this point forward, we will start editing files using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vi&lt;/code&gt;.  If you’ve not read the &lt;a href=&quot;#vi-text-editor&quot;&gt;section about how to use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vi&lt;/code&gt;&lt;/a&gt; yet, this is a good time to do so.&lt;/p&gt;
+
+&lt;h3 id=&quot;default-config-for-the-hardware&quot;&gt;Default config for the hardware&lt;/h3&gt;
+&lt;p&gt;Regardless of the hardware, &lt;strong&gt;before doing anything related to the mesh network&lt;/strong&gt;, always take your time and &lt;strong&gt;study the default configuration&lt;/strong&gt; found in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/&lt;/code&gt;.  For reference, I usually go over the following:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;How many ethernet ports?&lt;/li&gt;
+  &lt;li&gt;Are they labeled either LAN or WAN or there’s both?&lt;/li&gt;
+  &lt;li&gt;In &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/network&lt;/code&gt;, how is the router handling multiple ethernet ports? If there’s both LAN and WAN, how is the router separating LAN from WAN?&lt;/li&gt;
+  &lt;li&gt;If there is both LAN and WAN, how is the firewall handling them in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/firewall&lt;/code&gt;? (Probably two zones, LAN and WAN, with LAN-&amp;gt;WAN accept all but WAN-&amp;gt;LAN deny all?)&lt;/li&gt;
+  &lt;li&gt;In &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/dhcp&lt;/code&gt;, how is the device handling IP addresses?  (Is there a DHCP server for LAN?)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;And finally, look at the wireless settings (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/wireless&lt;/code&gt;):&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;How many radio devices and their names? (e.g., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;radio0&lt;/code&gt;)&lt;/li&gt;
+  &lt;li&gt;Configuration-wise, what is the device using by default vs. what is it capable of? (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iw list&lt;/code&gt;)&lt;/li&gt;
+  &lt;li&gt;Is the radio enabled or disabled? (Keep/add &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option disabled 1&lt;/code&gt; to disable it before configuration; to re-enable, simply comment this line out or set the value to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0&lt;/code&gt;.)&lt;/li&gt;
+  &lt;li&gt;Are there pre-configured wireless access points being broadcast?  If yes, which &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option network&lt;/code&gt; is it using by default? (Likely &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt; or whatever the LAN interface is being called in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/network&lt;/code&gt;.)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For example, many wireless routers, including the TP-Link WR1043ND, have LAN and WAN ports which are handled by a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;switch&lt;/code&gt; configuration with VLANs enabled to separate LAN from WAN.  Take note of it;  understand what is going on in the config files;  play with them;  then, continue.  Also, take this opportunity to go over the &lt;strong&gt;Device Page&lt;/strong&gt; to check if there’s any warnings or special configuration notes (e.g., &lt;a href=&quot;https://openwrt.org/toh/tp-link/tl-wr1043nd#warningsgotchas&quot;&gt;warnings and gotchas with the 1043ND&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;This understanding is instrumental to the way the device will be configured to play different roles in the mesh network and a good grasp of the device’s default settings will greatly reward you later on.&lt;/p&gt;
+
+&lt;h3 id=&quot;updating-and-installing-packages&quot;&gt;Updating and installing packages&lt;/h3&gt;
+&lt;p&gt;(&lt;em&gt;Only experienced users&lt;/em&gt;: If you used a default image, this is a good opportunity to remove unnecessary packages. See the OpenWrt FAQ for a reference of &lt;a href=&quot;https://openwrt.org/faq/which_packages_can_i_safely_remove_to_save_space&quot;&gt;safe to remove packages&lt;/a&gt;, for example. If this is your first time playing with mesh, leave any unmentioned pkg alone until you get everything working as intended.)&lt;/p&gt;
+
+&lt;p&gt;In order to update and install packages, you need to give your device &lt;strong&gt;temporary access to the Internet&lt;/strong&gt;.  More often than not, if you have an existing network with access to the Internet on-site, then just connect the device to a router/switch via cable.  If that doesn’t work, go ahead and configure your device to act like a &lt;a href=&quot;https://openwrt.org/docs/guide-user/network/wifi/dumbap&quot;&gt;&lt;strong&gt;dumb access point&lt;/strong&gt;&lt;/a&gt; first.  You can check that the device has access to the Internet by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ping&lt;/code&gt;ing &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;google.com&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;8.8.8.8&lt;/code&gt;, as follows&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ping google.com
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If it all looks good, it’s time to &lt;strong&gt;update the package list&lt;/strong&gt;, as follows&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;opkg update
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;(&lt;em&gt;Optional&lt;/em&gt;: Upgrade all installed packages. Type &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;opkg list-upgradable&lt;/code&gt; to find which packages can be upgraded and then &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;opkg upgrade PKG&lt;/code&gt;, in which &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PKG&lt;/code&gt; is the package name.  If &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;opkg list-upgradable&lt;/code&gt; run into memory issues, try commenting out a few lines in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/opkg/distfeeds.conf&lt;/code&gt; and try again.)&lt;/p&gt;
+
+&lt;p&gt;Now, let’s install the mesh-related packages and remove conflicting packages.  First, remove &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wpad-basic&lt;/code&gt; with&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;opkg remove wpad-basic
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;then install &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batctl&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt;, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wpad-mesh-openssl&lt;/code&gt; with&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;opkg install batctl kmod-batman-adv wpad-mesh-openssl
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Make sure there are no error messages and if there are, troubleshoot them before proceeding.&lt;/p&gt;
+
+&lt;p&gt;Remove the connection that gave your device temporary access to the Internet.  Then, &lt;strong&gt;reboot&lt;/strong&gt; (type &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;reboot&lt;/code&gt; in the terminal) and restart the SSH session with your laptop/PC still connected to the device via cable.&lt;/p&gt;
+
+&lt;p class=&quot;notice notice--warning&quot;&gt;If you’re using the &lt;strong&gt;TP-Link WR1043ND v1.x&lt;/strong&gt; in your mesh project, you’ll need to enable the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nohwcrypt&lt;/code&gt; parameter of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ath9k&lt;/code&gt; module to use the mesh with encryption.  To enable &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nohwcrypt&lt;/code&gt;, edit &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/modules.d/ath9k&lt;/code&gt; and add &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nohwcrypt=1&lt;/code&gt; to it (if there’s already something in the file, use whitespaces to separate parameters), save the file, and &lt;strong&gt;reboot&lt;/strong&gt;. Then, check if &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nohwcrypt&lt;/code&gt; is now enabled with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cat /sys/module/ath9k/parameters/nohwcrypt&lt;/code&gt;. If it is enabled, the output will be &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1&lt;/code&gt;; otherwise, it will be &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0&lt;/code&gt;. (If your device also has &lt;strong&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ath9k&lt;/code&gt;&lt;/strong&gt; and you experience connectivity issues when using encryption with the mesh network, then you might want to try this solution as well.)&lt;/p&gt;
+
+&lt;h2 id=&quot;mesh-node-basic-config&quot;&gt;Mesh node basic config&lt;/h2&gt;
+&lt;p&gt;It is time to configure the basics of our mesh network and nodes.  To do so, we will edit multiple files in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/&lt;/code&gt; but first, let’s find out the capabilities of the detected radios in our wireless device, as follows&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;iw list
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;which will output something like this&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Wiphy phy0
+	max # scan SSIDs: 4
+	max scan IEs length: 2257 bytes
+	max # sched scan SSIDs: 0
+	max # match sets: 0
+	max # scan plans: 1
+	max scan plan interval: -1
+	max scan plan iterations: 0
+	Retry short limit: 7
+	Retry long limit: 4
+	Coverage class: 0 (up to 0m)
+	Device supports AP-side u-APSD.
+	Device supports T-DLS.
+	Available Antennas: TX 0x7 RX 0x7
+	Configured Antennas: TX 0x7 RX 0x7
+	Supported interface modes:
+		 * IBSS
+		 * managed
+		 * AP
+		 * AP/VLAN
+		 * monitor
+		 * mesh point
+		 * P2P-client
+		 * P2P-GO
+		 * outside context of a BSS
+	Band 1:
+		Capabilities: 0x104e
+			HT20/HT40
+			SM Power Save disabled
+			RX HT40 SGI
+			No RX STBC
+			Max AMSDU length: 3839 bytes
+			DSSS/CCK HT40
+		Maximum RX AMPDU length 65535 bytes (exponent: 0x003)
+		Minimum RX AMPDU time spacing: 8 usec (0x06)
+		HT TX/RX MCS rate indexes supported: 0-15
+		Frequencies:
+			* 2412 MHz [1] (20.0 dBm)
+			* 2417 MHz [2] (20.0 dBm)
+			* 2422 MHz [3] (20.0 dBm)
+			* 2427 MHz [4] (20.0 dBm)
+			* 2432 MHz [5] (20.0 dBm)
+			* 2437 MHz [6] (20.0 dBm)
+			* 2442 MHz [7] (20.0 dBm)
+			* 2447 MHz [8] (20.0 dBm)
+			* 2452 MHz [9] (20.0 dBm)
+			* 2457 MHz [10] (20.0 dBm)
+			* 2462 MHz [11] (20.0 dBm)
+			* 2467 MHz [12] (20.0 dBm)
+			* 2472 MHz [13] (20.0 dBm)
+			* 2484 MHz [14] (disabled)
+	valid interface combinations:
+		 * #{ managed } &amp;lt;= 2048, #{ AP, mesh point } &amp;lt;= 8, #{ P2P-client, P2P-GO } &amp;lt;= 1, #{ IBSS } &amp;lt;= 1,
+		   total &amp;lt;= 2048, #channels &amp;lt;= 1, STA/AP BI must match, radar detect widths: { 20 MHz (no HT), 20 MHz, 40 MHz }
+	HT Capability overrides:
+		 * MCS: ff ff ff ff ff ff ff ff ff ff
+		 * maximum A-MSDU length
+		 * supported channel width
+		 * short GI for 40 MHz
+		 * max A-MPDU length exponent
+		 * min MPDU start spacing
+	Supported extended features:
+		* [ RRM ]: RRM
+		* [ CQM_RSSI_LIST ]: multiple CQM_RSSI_THOLD records
+		* [ CONTROL_PORT_OVER_NL80211 ]: control port over nl80211
+		* [ TXQS ]: FQ-CoDel-enabled intermediate TXQs
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Here, we are particularly interested in&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;the &lt;strong&gt;supported modes of operation&lt;/strong&gt;, and more specifically, that the device is indeed able to operate in &lt;strong&gt;mesh point&lt;/strong&gt; mode (it is), as shown under &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Supported interface modes:&lt;/code&gt;;&lt;/li&gt;
+  &lt;li&gt;the &lt;strong&gt;total number of bands&lt;/strong&gt; (only one band, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Band 1&lt;/code&gt;);&lt;/li&gt;
+  &lt;li&gt;then for each band
+    &lt;ul&gt;
+      &lt;li&gt;the possible &lt;a href=&quot;https://openwrt.org/docs/guide-user/network/wifi/basic#htmodethe_wi-fi_channel_width&quot;&gt;&lt;strong&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;htmode&lt;/code&gt;&lt;/strong&gt;&lt;/a&gt; (supports &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;htmode 'HT20'&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;htmode 'HT40'&lt;/code&gt;), as shown in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;HT20/HT40&lt;/code&gt;, under &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Capabilities:&lt;/code&gt;;&lt;/li&gt;
+      &lt;li&gt;the &lt;strong&gt;acceptable channels&lt;/strong&gt; (from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;channel '1'&lt;/code&gt; to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;channel '13'&lt;/code&gt;), as shown under &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Frequencies:&lt;/code&gt;.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;With such information, we can now configure our radio devices in &lt;a href=&quot;https://openwrt.org/docs/guide-user/network/wifi/basic&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/wireless&lt;/code&gt;&lt;/a&gt;, as follows&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;vi /etc/config/wireless
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;and then edit each &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config wifi-device&lt;/code&gt; accordingly.  In the 1043ND, there’s only one &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wifi-device&lt;/code&gt; and my config looks like the following&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config wifi-device 'radio0'
+        option type 'mac80211'
+        option channel 3
+        option hwmode '11g'
+        option path 'platform/ahb/180c0000.wmac'
+        option htmode 'HT20'
+        option country 'BR'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If this radio device will be used for the mesh traffic, make sure all mesh nodes &lt;strong&gt;use the same channel&lt;/strong&gt;.  However, if the radio will be used as an access point for non-mesh clients, &lt;strong&gt;use a different channel than the mesh channel&lt;/strong&gt;.  In addition, for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;HT20/HT40&lt;/code&gt; devices, stick to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;HT20&lt;/code&gt; if you are deploying the mesh in a crowded area, such as an apartment building; otherwise, the interference might make &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;HT40&lt;/code&gt; actually slower than &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;HT20&lt;/code&gt;.  Finally, remember to edit the &lt;strong&gt;country code&lt;/strong&gt; before enabling the radio.&lt;/p&gt;
+
+&lt;p&gt;Comment out any &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config wifi-iface&lt;/code&gt; automatically generated after a fresh install by adding a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;#&lt;/code&gt; at the beginning of each line, as follows&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#config wifi-iface 'default_radio0'
+#        option device 'radio0'
+#        option network 'lan'
+#        option mode 'ap'
+#        option ssid 'OpenWrt'
+#        option encryption 'none'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then, at the end of the file, let’s add a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wifi-iface&lt;/code&gt; for the wireless mesh, called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wmesh&lt;/code&gt;, as follows&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config wifi-iface 'wmesh'
+        option device 'radio0'	#must match the name of a wifi-device
+        option ifname 'if-mesh'	#name for this iface
+        option network 'mesh'	#mesh stanza in /etc/config/network
+        option mode 'mesh'		#use 802.11s mode
+        option mesh_id 'MeshCloud'	#like an ssid of the wireless mesh
+        option encryption 'sae'	#https://openwrt.org/docs/guide-user/network/wifi/basic#wpa_modes
+        option key 'MeshPassword123'	#mesh password if encryption is enabled
+        option mesh_fwding 0	#let batman-adv handle routing
+        option mesh_ttl 1		#time to live in the mesh
+        option mcast_rate 24000	#routes with a lower throughput rate than the mcast_rate will not be visible to batman-adv
+#       option disabled 1		#uncomment to disable
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p class=&quot;notice notice--info&quot;&gt;The comments are just for educational purpose. Feel free to remove them in your device’s config file.&lt;/p&gt;
+
+&lt;p&gt;Because all mesh nodes must operate on the same channel, use the same authentication, etc., multiple config options are often dictated by the “lowest common denominator” across all mesh nodes–that is, the best possible config that will work with &lt;strong&gt;all nodes&lt;/strong&gt;, not just the ones with the best hardware and software available.  For example, not all devices will necessarily be able to use SAE because it’s very new and therefore, won’t be able to connect to mesh networks that use it. Instead, you might want to set encryption to something like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;psk2+aes&lt;/code&gt;, which should be good enough for most devices out there. So, keep that in mind when configuring your mesh nodes.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Save the file&lt;/strong&gt; and exit it.&lt;/p&gt;
+
+&lt;p&gt;Now we need to configure &lt;a href=&quot;https://openwrt.org/docs/guide-user/base-system/basic-networking&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/network&lt;/code&gt;&lt;/a&gt; to allow &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wmesh&lt;/code&gt; to use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt;.  To do so, edit the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;network&lt;/code&gt; file, as follows&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;vi /etc/config/network
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;and let’s add an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;interface&lt;/code&gt; called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt; at the bottom of the file, as follows&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config interface 'bat0'
+        option proto 'batadv'
+        option routing_algo 'BATMAN_IV'
+        option aggregated_ogms 1
+        option ap_isolation 0
+        option bonding 0
+        option bridge_loop_avoidance 1
+        option distributed_arp_table 1
+        option fragmentation 1
+        option gw_mode 'off'
+        option hop_penalty 30
+        option isolation_mark '0x00000000/0x00000000'
+        option log_level 0
+        option multicast_mode 1
+        option multicast_fanout 16
+        option network_coding 0
+        option orig_interval 1000
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;which has options with (mostly) default values to facilitate fine-tuning later on.  (For more details, refer to the &lt;a href=&quot;https://www.open-mesh.org/projects/batman-adv/wiki#Protocol-Documentation&quot;&gt;&lt;strong&gt;Protocol Documentation&lt;/strong&gt;&lt;/a&gt; and more specifically, the &lt;a href=&quot;https://www.open-mesh.org/projects/batman-adv/wiki/Tweaking&quot;&gt;&lt;strong&gt;Tweaking&lt;/strong&gt;&lt;/a&gt; section.)  Then, at the bottom of the same file, let’s add an actual &lt;strong&gt;network&lt;/strong&gt; interface to transport &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt; packets, which in our case will be the network used by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wmesh&lt;/code&gt; in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/wireless&lt;/code&gt; config file, namely &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mesh&lt;/code&gt;, as follows&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config interface 'mesh'
+        option proto 'batadv_hardif'
+        option master 'bat0'
+        option mtu 2304
+        option throughput_override 0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Save the file&lt;/strong&gt; and exit.&lt;/p&gt;
+
+&lt;p&gt;Next, let’s &lt;strong&gt;reboot&lt;/strong&gt; the device (type &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;reboot&lt;/code&gt; in the terminal) and once it comes back online, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ssh&lt;/code&gt; into it once again because we want to check that our &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt; interfaces are up.  To do so, type&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ip link | grep bat0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;and if the config is right, you should now see &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;if-mesh&lt;/code&gt; in the output. Similarly, we can use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batctl&lt;/code&gt; to show us all active interfaces, as follows&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;batctl if
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If all looks good, exit the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ssh&lt;/code&gt; session, disconnect your laptop/PC from the wireless device (but keep it running nearby), and &lt;strong&gt;go ahead and configure at least one other node&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p class=&quot;notice notice--warning&quot;&gt;Because we’re starting SSH sessions with &lt;em&gt;different machines&lt;/em&gt; using the &lt;em&gt;same IP addr&lt;/em&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.1.1&lt;/code&gt;), it’s quite possible that your SSH client will complaint about the authenticity of the host at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.1.1&lt;/code&gt;.  To get rid of this message, simply remove the relevant entry in your user’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;known_hosts&lt;/code&gt; file or delete it altogether.  On Linux distros, such file can be found at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.ssh/known_hosts&lt;/code&gt;–that is, the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ssh&lt;/code&gt; folder for your current user.&lt;/p&gt;
+
+&lt;p&gt;Afterwards, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ssh&lt;/code&gt; into one of the configured mesh nodes and type&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;batctl n
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;which will show a table with the interfaces (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;if-mesh&lt;/code&gt;), MAC address of the neighboring mesh nodes, and when each of them was last seen.  Copy the MAC address (e.g., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;f0:f0:00:00:00:01&lt;/code&gt;) from each neighboring mesh node and ping them through the mesh (using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batctl p&lt;/code&gt;) to see if they are all replying, as follows (press Ctrl+C to stop)&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;batctl p f0:f0:00:00:00:01
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;which should output something like the following if everything is working fine&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;PING f0:f0:00:00:00:01 (f0:f0:00:00:00:01) 20(48) bytes of data
+20 bytes from f0:f0:00:00:00:01 icmp_seq=1 ttl=50 time=3.01 ms
+20 bytes from f0:f0:00:00:00:01 icmp_seq=2 ttl=50 time=1.71 ms
+20 bytes from f0:f0:00:00:00:01 icmp_seq=3 ttl=50 time=1.10 ms
+--- f0:f0:00:00:00:01 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss
+rtt min/avg/max/mdev = 1.103/1.942/3.008/0.794 ms
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Pat yourself on the back because you have successfully configured multiple mesh nodes!&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Go ahead and configure all your mesh nodes the same way as before&lt;/strong&gt; and only then move on to bridges, gateways, and VLAN configs, as described next.&lt;/p&gt;
+
+&lt;p&gt;(&lt;em&gt;Optional&lt;/em&gt;: This is a good time to &lt;a href=&quot;https://www.open-mesh.org/projects/batman-adv/wiki/Tweaking&quot;&gt;tweak the mesh configuration&lt;/a&gt; as well.)&lt;/p&gt;
+
+&lt;h2 id=&quot;troubleshooting-mesh-issues&quot;&gt;Troubleshooting mesh issues&lt;/h2&gt;
+&lt;p&gt;These are a few tips in case you run into issues when configuring gateways and bridges.&lt;/p&gt;
+
+&lt;p&gt;To test node to node connectivity, connect to a mesh node and use&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;batctl p MAC
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;in which &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MAC&lt;/code&gt; is another node’s MAC address.  If the node does not reply, there’s an issue with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt; or its configuration.  Try rebooting both nodes before doing anything else.&lt;/p&gt;
+
+&lt;p&gt;A more powerful tool to see what is going on in the mesh network is the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tcpdump&lt;/code&gt; utility for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt;.  To use it, connect to a mesh node and type&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;batctl td batX
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;in which &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batX&lt;/code&gt; is a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt; interface (usually &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt; but if you have more than one, then &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat1&lt;/code&gt;, etc.).  This is quite useful when configuring VLANs because it will show the VLAN ID of each client as well.  Depending on the scale of your mesh network, you might need to filter the output because things can get wild with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tcpdump&lt;/code&gt; really fast.&lt;/p&gt;
+
+&lt;p&gt;For more details, see the &lt;a href=&quot;https://downloads.open-mesh.org/batman/manpages/batctl.8.html&quot;&gt;&lt;strong&gt;batctl man page&lt;/strong&gt;&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Finally, if you’ve been following my suggestion to name and take note of each device’s MAC address, you can create a file called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat-hosts&lt;/code&gt; in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/&lt;/code&gt; that contains pairs of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MAC address&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;name&lt;/code&gt;, as follows&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;f0:f0:00:00:00:00 node01
+f0:f1:00:00:00:00 node02
+f0:f2:00:00:00:00 node03
+f0:f3:00:00:00:00 node04
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;which makes it much easier to identify the mesh nodes when issuing a command like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batctl n&lt;/code&gt; and other debug tables.  As far as I’m aware, however, you have to create and update such file in each node because such information will just be available to nodes that have a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat-hosts&lt;/code&gt; file.&lt;/p&gt;
+
+&lt;h2 id=&quot;configuring-common-mesh-networks&quot;&gt;Configuring common mesh networks&lt;/h2&gt;
+&lt;p&gt;Here, we will see how to turn one or two of our configured mesh nodes into either a mesh &lt;strong&gt;bridge&lt;/strong&gt; or a mesh &lt;strong&gt;gateway&lt;/strong&gt;.  To avoid repetition, the configuration of bridges and gateways is described in more detail in the &lt;a href=&quot;#gateway-bridge&quot;&gt;first example&lt;/a&gt;, and only a few small differences and observations are highlighted afterwards.  In addition, only IPv4 addresses and configurations were used but nothing prohibits the use of IPv6 in a mesh network.&lt;/p&gt;
+
+&lt;h3 id=&quot;gateway-bridge&quot;&gt;Gateway-Bridge&lt;/h3&gt;
+&lt;p&gt;This first example applies to the following topology:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-gateway-bridge.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-gateway-bridge.jpg&quot; alt=&quot;Topology - Gateway-Bridge&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;More specifically, the mesh has access to the WAN (&lt;strong&gt;Network A&lt;/strong&gt;) via a &lt;em&gt;gateway device&lt;/em&gt; and has a single, private network defined in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.10.0/24&lt;/code&gt; IP range, which is used by both the &lt;strong&gt;mesh network&lt;/strong&gt; devices and the &lt;strong&gt;Network B&lt;/strong&gt;, non-mesh devices. The latter is enabled by a &lt;em&gt;bridge device&lt;/em&gt; that works as an access point for non-mesh clients.&lt;/p&gt;
+
+&lt;p&gt;First, let’s configure our &lt;strong&gt;mesh gateway&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;mesh-gateway-configuration&quot;&gt;Mesh gateway configuration&lt;/h4&gt;
+
+&lt;p&gt;Get one of the &lt;a href=&quot;#mesh-node-basic-config&quot;&gt;pre-configured mesh nodes&lt;/a&gt; that has at the very least two ethernet ports, a LAN port and a WAN port.  (This, of course, is not required for a gateway device because &lt;a href=&quot;https://openwrt.org/docs/guide-user/network/wan/internet.connection&quot;&gt;there are multiple ways to connect to WAN&lt;/a&gt; but having separate physical ports makes the explanation much simpler to follow.  If that is not your case, just adapt to whatever interfaces you have configured that play the role of default &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wan&lt;/code&gt;.)&lt;/p&gt;
+
+&lt;p class=&quot;notice notice--warning&quot;&gt;If you’ve configured this node as a &lt;a href=&quot;https://openwrt.org/docs/guide-user/network/wifi/dumbap&quot;&gt;dumb access point&lt;/a&gt; to temporarily give it access to the Internet while updating and installing packages, undo the configuration before proceeding because we will use both the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;firewall&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dhcp&lt;/code&gt; config files in the gateway configuration.&lt;/p&gt;
+
+&lt;p&gt;Connect your laptop/PC to the mesh node via cable using the LAN port–this way, the mesh node’s IP address should still be &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.1.1&lt;/code&gt;.  Then, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ssh&lt;/code&gt; into the mesh node and let’s take a look at the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/network&lt;/code&gt;, as follows&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;vi /etc/config/network
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;At the beginning of the file, there should a bunch of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config interface&lt;/code&gt; for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;loopback&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt;, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wan&lt;/code&gt;, for example, and at the end, there should be the mesh interfaces we previously created for the mesh node, namely &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mesh&lt;/code&gt;.  There are at least two options at this point:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Create an entirely new &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt; interface for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt; (e.g., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan_bat0&lt;/code&gt;), at the expense of additional &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dhcp&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;firewall&lt;/code&gt; configuration;&lt;/li&gt;
+  &lt;li&gt;Or use the existing, default &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt; interface by simply bridging &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;While the latter option is much easier than the former, we will choose the first here (i.e., create a new &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt; from the ground up) because it makes this tutorial compatible with multiple devices (switched or switchless) and it allows us to keep the default &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.1.0/24&lt;/code&gt;) as a management/debugging network.  (Later on, we will see how to bridge the default &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt; with any &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt; VLAN, for example, so the default &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt; becomes accessible to the mesh as well.  For now, keep it simple.)&lt;/p&gt;
+
+&lt;p&gt;At the bottom of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/network&lt;/code&gt; file, let’s add the following &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan_bat0&lt;/code&gt; configuration&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config interface 'lan_bat0'
+#        option type 'bridge'	#uncomment if bridging in ifname as well
+        option ifname 'bat0'
+        option proto 'static'
+        option ipaddr '192.168.10.1'	#static addr for this gateway on the 192.168.10.0/24 net
+        option netmask '255.255.255.0'
+#        list dns '1.1.1.1'	#uncomment to enable cloudflare dns server instead
+        list dns '8.8.8.8'	#google dns server
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Save the file&lt;/strong&gt; and exit it.&lt;/p&gt;
+
+&lt;p&gt;Next, let’s edit the &lt;a href=&quot;https://openwrt.org/docs/guide-user/base-system/dhcp&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/dhcp&lt;/code&gt;&lt;/a&gt; config to run a DHCP server on the new interface, as follows&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;vi /etc/config/dhcp
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;and at the end of the file, add the following&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config dhcp 'lan_bat0'
+        option interface 'lan_bat0'
+        option start 50		#start leasing at addr 192.168.10.50
+        option limit 100		#max leases, so for 100, leased addr goes from .50 to .149
+        option leasetime '3h'
+        option ra 'server'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Save the file&lt;/strong&gt; and exit it.&lt;/p&gt;
+
+&lt;p&gt;Finally, let’s edit the &lt;a href=&quot;https://openwrt.org/docs/guide-user/firewall/firewall_configuration&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/firewall&lt;/code&gt;&lt;/a&gt; config.  Many things that can be done at the firewall level and for this reason, it’s often the most overwhelming part of the configuration.  Fortunately, in our case, all that we need to do here is simply &lt;strong&gt;copy&lt;/strong&gt; the default &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt; config for the new &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan_bat0&lt;/code&gt;.  That is, anything that has &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt; we will&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;copy the related config;&lt;/li&gt;
+  &lt;li&gt;paste it immediately below the equivalent default &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt; config;&lt;/li&gt;
+  &lt;li&gt;and then change &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt; for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan_bat0&lt;/code&gt; in the new config.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Start by editing the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;firewall&lt;/code&gt; config file with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vi&lt;/code&gt;, as follows&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;vi /etc/config/firewall
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;then the first set of configs we will add (immediately below the equivalent &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt; config) is the &lt;strong&gt;zone&lt;/strong&gt; settings, namely&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config zone
+        option name     lan_bat0
+        list network    'lan_bat0'
+        option input    ACCEPT
+        option output   ACCEPT
+        option forward  ACCEPT
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;the second set of configs will be for the &lt;strong&gt;forwarding&lt;/strong&gt; settings, namely&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config forwarding
+        option src   lan_bat0
+        option dest  wan
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;and &lt;strong&gt;that is it!&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;(&lt;em&gt;Optional&lt;/em&gt;: At the end of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;firewall&lt;/code&gt; config file, there’s a bunch of examples that you could use as template for more avdanced usage of this device’s firewall.  Feel free to play around with them &lt;strong&gt;once you get everything up and running&lt;/strong&gt;.)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Save the file&lt;/strong&gt; and exit it.&lt;/p&gt;
+
+&lt;p&gt;(&lt;em&gt;Optional&lt;/em&gt;: Because we’re not going to use IPv6, I suggest disabling &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;odhcpd&lt;/code&gt;, as follows&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/etc/init.d/odhcpd stop &amp;amp;&amp;amp; /etc/init.d/odhcpd disable
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;and you could also comment out any related config in the files we just edited.)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Reboot&lt;/strong&gt; the device and connect the &lt;strong&gt;WAN&lt;/strong&gt; cable to the device’s &lt;strong&gt;WAN ethernet port&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Once the device comes back online, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ssh&lt;/code&gt; into it. Then, let’s check the new configuration.  First, type&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ip a | grep bat0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;and as before, there should be &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;if-mesh&lt;/code&gt; interfaces, but now, your gateway device should have the static IP &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.10.1&lt;/code&gt; in the new &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.10.0/24&lt;/code&gt; network under the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt; interface.  (Of note, if you enabled the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option type 'bridge'&lt;/code&gt; in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan_bat0&lt;/code&gt; stanza, then there should be an additional &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;br-lan_bat0&lt;/code&gt;interface now because OpenWrt adds a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;br-&lt;/code&gt; prefix to bridges, and your device’s static IP should be associated to it instead of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt; interface.)&lt;/p&gt;
+
+&lt;p&gt;In addition, because we preserved the default &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt; configuration, the device will continue to have the static IP &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.1.1&lt;/code&gt; and should always be reachable there with an ethernet cable directly connected to one of its LAN ethernet ports.&lt;/p&gt;
+
+&lt;p&gt;If you &lt;strong&gt;don’t see the static IP on the new network&lt;/strong&gt;, then review the files we have just configured because there’s likely a misconfiguration.  Don’t expect to get things working until you fix this issue.&lt;/p&gt;
+
+&lt;h4 id=&quot;mesh-bridge-configuration&quot;&gt;Mesh bridge configuration&lt;/h4&gt;
+&lt;p&gt;The configuration of a mesh bridge is much simpler than of a mesh gateway because contrary to the gateway config, our mesh bridge doesn’t require the use of a DHCP server and firewall.  In fact, both services will be disabled in a mesh bridge and instead, the ony thing we will do is join interfaces to make them look like a single one to any connected device.&lt;/p&gt;
+
+&lt;p&gt;As before, get one of the other &lt;a href=&quot;#mesh-node-basic-config&quot;&gt;pre-configured mesh nodes&lt;/a&gt; and to start things off, we will configure it as a &lt;a href=&quot;https://openwrt.org/docs/guide-user/network/wifi/dumbap&quot;&gt;dumb access point&lt;/a&gt;.  Follow the instructions in the OpenWrt documentation, except for the following when configuring the default &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt; interface&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;add &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt; to the list of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ifname&lt;/code&gt;;&lt;/li&gt;
+  &lt;li&gt;set a static IP for the device on the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.10.0/24&lt;/code&gt; network, such as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.10.10&lt;/code&gt;, pointing to our gateway at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.10.1&lt;/code&gt;;&lt;/li&gt;
+  &lt;li&gt;the configuration of the default &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt; should then look something like this
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config interface lan
+      option type 'bridge'
+      option ifname 'eth0.1 eth1 bat0'	#ethX might be different for your device
+      option proto 'static'
+      option ipaddr '192.168.10.10'
+      option netmask '255.255.255.0'
+      option gateway '192.168.10.1'
+      option dns '192.168.10.1'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;After applying this configuration, it will let any &lt;strong&gt;non-mesh client&lt;/strong&gt; to join the mesh &lt;strong&gt;via ethernet cable&lt;/strong&gt;–that is, by connecting a cable to one of the LAN/WAN ports of the mesh bridge device.  As long as the gateway is reachable, everything should work like a standard network, you could use the device’s own switch or connect the device to a switch and manage things there, and so on.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Save the file&lt;/strong&gt; and exit it.&lt;/p&gt;
+
+&lt;p&gt;Similarly, you can create a &lt;strong&gt;wireless access point&lt;/strong&gt; (WAP) for non-mesh clients, and the instructions in the &lt;a href=&quot;https://openwrt.org/docs/guide-user/network/wifi/dumbap&quot;&gt;&lt;strong&gt;dumb access point&lt;/strong&gt; documentation&lt;/a&gt; will work just fine because it uses a network that is bridged with our mesh–namely, the default &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt;.  To avoid confusion, make sure to use &lt;strong&gt;a different SSID&lt;/strong&gt; for the WAP(s) than the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mesh_id&lt;/code&gt; used for the mesh.  In addition, if at all possible, use &lt;strong&gt;a different radio or band&lt;/strong&gt; for the WAP(s) and set it to operate on &lt;strong&gt;a different channel&lt;/strong&gt; than the mesh channel (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;channel 3&lt;/code&gt;, unless you changed yours).  If that is not possible, that is probably okay for most home users but keep in mind that node hoping will start affecting performance quite noticeably.&lt;/p&gt;
+
+&lt;p&gt;Finally, in the terminal, make sure to disable &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dnsmasq&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;odhcpd&lt;/code&gt;, and the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;firewall&lt;/code&gt;, as follows&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/etc/init.d/dnsmasq stop &amp;amp;&amp;amp; /etc/init.d/dnsmasq disable 
+/etc/init.d/odhcpd stop &amp;amp;&amp;amp; /etc/init.d/odhcpd disable
+/etc/init.d/firewall stop &amp;amp;&amp;amp; /etc/init.d/firewall disable
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Reboot&lt;/strong&gt; your device and on your laptop/PC, &lt;strong&gt;disable networking&lt;/strong&gt; altogether (this will force it to get a new IP from the bridge when it comes back)–alternatively, just disconnect the ethernet cable.&lt;/p&gt;
+
+&lt;p&gt;Once the bridge is back online (wait at least a minute or two to give it enough time to connect to the mesh first), &lt;strong&gt;re-enable networking&lt;/strong&gt; on your laptop/PC (or reconnect the ethernet cable) and it should receive an IP addr from our mesh gateway in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.10.0/24&lt;/code&gt; network (on a Linux distro, type &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ip a&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ip addr&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ifconfig&lt;/code&gt;), the bridge node should now be reachable at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.10.10&lt;/code&gt;, and you should be able to access the Internet from your laptop/PC through the mesh (try &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ping google.com&lt;/code&gt;, for example).  If something doesn’t work, review the config files mentioned here and then go over the ones for the gateway, reboot all mesh nodes (gateway first, then nodes, then bridge) and test again.&lt;/p&gt;
+
+&lt;h3 id=&quot;bridge-bridge&quot;&gt;Bridge-Bridge&lt;/h3&gt;
+&lt;p&gt;This second example applies to the following topology:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-bridge-bridge.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-bridge-bridge.jpg&quot; alt=&quot;Topology - Bridge-Bridge&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Contrary to the first example, there’s no mesh gateway device and as such, this topology could be used to extend an already existing private network (Networks A and B) over the wireless mesh (all defined in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.10.0/24&lt;/code&gt; IP range).  However, to make matters simple, we will assume that &lt;strong&gt;the existing network has a gateway/firewall&lt;/strong&gt; in either Network A or B that can be found at the IP addr &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.10.1&lt;/code&gt;, and &lt;strong&gt;there’s a DHCP server being advertised on the network&lt;/strong&gt;.  (If your existing Networks A and B are not defined in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.10.0/24&lt;/code&gt; IP range, just edit your previous config files accordingly and the mesh network will follow your existing network instead.)&lt;/p&gt;
+
+&lt;p&gt;Config-wise, the mesh bridges in this topology are configured exactly &lt;a href=&quot;#mesh-bridge-configuration&quot;&gt;as in the first example&lt;/a&gt;, except for the following differences in the configuration of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/network&lt;/code&gt; config file:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Each mesh bridge&lt;/strong&gt; should have a different static IP address in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt; interface, as indicated by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option ipaddr&lt;/code&gt;.  For example, the first mesh bridge will have &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option ipaddr '192.168.10.10'&lt;/code&gt;, while the second mesh bridge will have &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option ipaddr '192.168.10.11'&lt;/code&gt;;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option gateway '192.168.10.1'&lt;/code&gt; in the default &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt; stanza must match an existing gateway on either Network A or B, and similarly, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option dns '192.168.10.1'&lt;/code&gt; must point to a valid DNS resolver;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;As mentioned before, if your existing Networks A and B are not defined in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.10.0/24&lt;/code&gt; IP range, then just edit the config file accordingly.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;gateway-gateway&quot;&gt;Gateway-Gateway&lt;/h3&gt;
+&lt;p&gt;The third and final example applies to the following topology:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-gateway-gateway.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-gateway-gateway.jpg&quot; alt=&quot;Topology - Gateway-Gateway&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Specifically, there’s only one private network (mesh, defined in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.10.0/24&lt;/code&gt; IP range) and notably, &lt;strong&gt;two&lt;/strong&gt; mesh gateways.  This provides “high availability” of the Internet connection to mesh nodes and surprisingly enough, the configuration of each mesh gateway is &lt;a href=&quot;#mesh-gateway-configuration&quot;&gt;just like in the first example&lt;/a&gt;, with the following exceptions&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Like in the &lt;a href=&quot;#bridge-bridge&quot;&gt;bridge-bridge example&lt;/a&gt;, we must assign different static IP addresses to &lt;strong&gt;each&lt;/strong&gt; mesh gateway.  This is done by editing the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/network&lt;/code&gt; config file, and in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt; interface configuration, add a different IP addr next to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option ipaddr&lt;/code&gt; option.  For example, the first mesh gateway will have &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option ipaddr '192.168.10.1'&lt;/code&gt;, while the second mesh gateway will have &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option ipaddr '192.168.10.2'&lt;/code&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Because we will now run &lt;strong&gt;two&lt;/strong&gt; DHCP servers on &lt;strong&gt;the same network&lt;/strong&gt;, we need to find a way of avoiding conflicts when assigning an IP address to new clients.  The easiest way of doing that is by assigning &lt;strong&gt;different intervals&lt;/strong&gt; to each DHCP server running on the same network.  In OpenWrt, this is done by editing the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/dhcp&lt;/code&gt; config file, and in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan_bat0&lt;/code&gt; DHCP configuration, we add a different starting point next to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option start&lt;/code&gt; option.  For example, while the DHCP server running on the first gateway will have &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option start '50'&lt;/code&gt;, the DHCP server running on the second gateway will have &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option start '150'&lt;/code&gt; instead.  This way, the first DHCP server leases addresses from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.10.50&lt;/code&gt; to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.149&lt;/code&gt;, whereas the second leases addresses from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.10.150&lt;/code&gt; to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.249&lt;/code&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;Optional&lt;/em&gt;: In the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt; interface config of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/network&lt;/code&gt; config file, we can now enable the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option gw_mode 'server'&lt;/code&gt; and specify the WAN connection speed with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option gw_bandwidth '10000/2000'&lt;/code&gt; (i.e., 10000kbps download and 2000kbps upload).  Then, in each other &lt;strong&gt;mesh node&lt;/strong&gt;, we set the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option gw_mode&lt;/code&gt; to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;'client'&lt;/code&gt; instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;'off'&lt;/code&gt;.  This way, we can make each mesh node aware of the two gateways on the network (and their speeds) to better route mesh traffic.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;mesh-vlans&quot;&gt;Mesh VLANs&lt;/h2&gt;
+&lt;p&gt;You don’t need to configure VLANs in order to use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt; but it is one of its best features.  In brief, this is a way of using &lt;strong&gt;our already configured&lt;/strong&gt; wireless mesh network to route traffic &lt;strong&gt;to/from multiple and all networks&lt;/strong&gt; in a secure, isolated way (as far as VLANs go).  No need for additional hardware–the combination of OpenWrt and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt; turns even cheap wireless hardware into powerful virtual switches.  It’s just a matter of tagging the additional (and virtual) networks instead of using the untagged &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt; (or similarly, in a port-based analogy, “plugging” standard interfaces into different ports of our &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt; switch).  This is a fairly advanced topic but surprisingly easy to incorporate to our existing &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt; configuration.&lt;/p&gt;
+
+&lt;p&gt;Consider, for example, the following network&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-mesh-vlans.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-mesh-vlans.jpg&quot; alt=&quot;Topology - Mesh VLANs&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;There’s a single gateway device that provides WAN access to the mesh and Networks B, C, and D, which are all private networks defined in different IP ranges. In addition, all the Networks B, C, and D traffic should go via &lt;strong&gt;any&lt;/strong&gt; mesh node in the mesh network while keeping them &lt;strong&gt;isolated from each other&lt;/strong&gt;.  To make it easier to remember and distinguish each private network, let’s call&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Network &lt;strong&gt;B&lt;/strong&gt; by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iot&lt;/code&gt; network (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.20.0/24&lt;/code&gt;);&lt;/li&gt;
+  &lt;li&gt;Network &lt;strong&gt;C&lt;/strong&gt; by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;guest&lt;/code&gt; network (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.50.0/24&lt;/code&gt;);&lt;/li&gt;
+  &lt;li&gt;and Network &lt;strong&gt;D&lt;/strong&gt; by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default&lt;/code&gt; network (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.10.0/24&lt;/code&gt;).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;To implement such a mesh network with VLANs, we’re going to follow very similar steps to &lt;a href=&quot;#gateway-bridge&quot;&gt;the first example of a gateway-bridge mesh network&lt;/a&gt;, except for the following:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;We will have two additional bridges in the network–that is, one for each mesh VLAN, for a total of three bridges. This is not a necessity but a matter of convenience to keep the example simple. The same bridge device can definitely bridge more than one mesh VLAN;&lt;/li&gt;
+  &lt;li&gt;In the gateway device, we will create VLAN IDs for the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iot&lt;/code&gt; (&lt;strong&gt;2&lt;/strong&gt;), &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;guest&lt;/code&gt; (&lt;strong&gt;5&lt;/strong&gt;), and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default&lt;/code&gt; (&lt;strong&gt;1&lt;/strong&gt;) networks, each with a separate set of DHCP server and firewall rules;&lt;/li&gt;
+  &lt;li&gt;In each bridge device, we will join the default &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt; with the &lt;strong&gt;VLAN ID&lt;/strong&gt; of the mesh VLAN (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0.1&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0.2&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0.5&lt;/code&gt;), instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Surprisingly enough, we don’t need to do a thing about the &lt;strong&gt;mesh nodes&lt;/strong&gt; that are not &lt;strong&gt;gateways&lt;/strong&gt; or &lt;strong&gt;bridges&lt;/strong&gt;–that is, the &lt;a href=&quot;#mesh-node-basic-config&quot;&gt;mesh node basic config&lt;/a&gt; is both necessary and sufficient for simple mesh nodes, even when using VLANs.  The only exception is if one of your mesh nodes is, for example, a laptop and you want it to use a particular mesh VLAN instead of the untagged &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt;.  In our case, however, the pre-configured mesh nodes are ready to route traffic of any VLAN that belongs to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;As before, let’s start with the &lt;strong&gt;gateway&lt;/strong&gt; configuration.&lt;/p&gt;
+
+&lt;h3 id=&quot;mesh-gateway-with-vlan-configuration&quot;&gt;Mesh gateway with VLAN configuration&lt;/h3&gt;
+&lt;p&gt;First, configure the gateway &lt;strong&gt;the same way&lt;/strong&gt; &lt;a href=&quot;#mesh-gateway-configuration&quot;&gt;as in the gateway-bridge example&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Now, instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan_bat0&lt;/code&gt;, we’re going to change it to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default&lt;/code&gt; in the config files, then do the same for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iot&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;guest&lt;/code&gt;.  So, if you’re ready, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ssh&lt;/code&gt; back into it and let’s start by editing the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/network&lt;/code&gt; config file, as follows&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;vi /etc/config/network
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;and at the end, comment out the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan_bat0&lt;/code&gt; config, as follows&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#config interface 'lan_bat0'
+#        option type 'bridge'		#uncomment if adding other interfaces to ifname
+#        option ifname 'bat0'
+#        option proto 'static'
+#        option ipaddr '192.168.10.1'	#static addr for this gateway on the 192.168.10.0/24 net
+#        option netmask '255.255.255.0'
+#        list dns '1.1.1.1'			#cloudflare dns server
+#        list dns '8.8.8.8'			#google dns server
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;then below it, let’s add a new interface for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default&lt;/code&gt;, as follows&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config interface 'lan_bat0_1'
+#        option type 'bridge'	#uncomment if adding other interfaces to ifname
+        option ifname 'bat0.1'
+        option proto 'static'
+        option ipaddr '192.168.10.1'
+        option netmask '255.255.255.0'
+        list dns '1.1.1.1'
+#        list dns '8.8.8.8'	#make it use cloudflare
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;then another one for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iot&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config interface 'lan_bat0_2'
+#        option type 'bridge'	#uncomment if adding other interfaces to ifname
+        option ifname 'bat0.2'
+        option proto 'static'
+        option ipaddr '192.168.20.1'
+        option netmask '255.255.255.0'
+#        list dns '1.1.1.1'	#make it use google
+        list dns '8.8.8.8'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;and another one for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;guest&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config interface 'lan_bat0_5'
+#        option type 'bridge'	#uncomment if adding other interfaces to ifname
+        option ifname 'bat0.5'
+        option proto 'static'
+        option ipaddr '192.168.50.1'
+        option netmask '255.255.255.0'
+#        list dns '1.1.1.1'	#make it use google
+        list dns '8.8.8.8'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Save the file&lt;/strong&gt; and exit it.&lt;/p&gt;
+
+&lt;p&gt;Now, let’s edit the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/dhcp&lt;/code&gt; config file, as follows&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;vi /etc/config/dhcp
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;and once again, comment out all &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan_bat0&lt;/code&gt; config, as follows&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#config dhcp 'lan_bat0'
+#        option interface 'lan_bat0'
+#        option start 50		#start leasing at addr 192.168.10.50
+#        option limit 100		#max leases, so for 100, leased addr goes from .50 to .149
+#        option leasetime '3h'
+#        option ra 'server'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;then add a DHCP server config for the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default&lt;/code&gt; interface below it&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config dhcp 'lan_bat0_1'
+        option interface 'lan_bat0_1'
+        option start 50
+        option limit 100
+        option leasetime '12h'
+        option ra 'server'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;and like before, we will add another one for the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iot&lt;/code&gt; interface&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config dhcp 'lan_bat0_2'
+        option interface 'lan_bat0_2'
+        option start 50
+        option limit 100
+        option leasetime '6h'
+        option ra 'server'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;and another one for the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;guest&lt;/code&gt; interface&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config dhcp 'lan_bat0_5'
+        option interface 'lan_bat0_5'
+        option start 50
+        option limit 100
+        option leasetime '1h'
+        option ra 'server'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Save the file&lt;/strong&gt; and exit it.&lt;/p&gt;
+
+&lt;p&gt;Finally, let’s edit the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/firewall&lt;/code&gt; config file, as follows&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;vi /etc/config/firewall
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;and once again, comment out the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan_bat0&lt;/code&gt; configs, as follows&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#config zone
+#        option name     lan_bat0
+#        list network    'lan_bat0'
+#        option input    ACCEPT
+#        option output   ACCEPT
+#        option forward  ACCEPT
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#config forwarding
+#        option src   lan_bat0
+#        option dest  wan
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;and below each one of them, add one for the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default&lt;/code&gt; interface&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config zone
+        option name     lan_bat0_1
+        list network    'lan_bat0_1'
+        option input    ACCEPT
+        option output   ACCEPT
+        option forward  ACCEPT
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config forwarding
+        option src   lan_bat0_1
+        option dest  wan
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;then another one for the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iot&lt;/code&gt; interface&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config zone
+        option name     lan_bat0_2
+        list network    'lan_bat0_2'
+        option input    ACCEPT
+        option output   ACCEPT
+        option forward  ACCEPT
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config forwarding
+        option src   lan_bat0_2
+        option dest  wan
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;and another one for the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;guest&lt;/code&gt; interface&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config zone
+        option name     lan_bat0_5
+        list network    'lan_bat0_5'
+        option input    ACCEPT
+        option output   ACCEPT
+        option forward  ACCEPT
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config forwarding
+        option src   lan_bat0_5
+        option dest  wan
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Save the file&lt;/strong&gt; and exit.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Reboot&lt;/strong&gt; the device.&lt;/p&gt;
+
+&lt;p&gt;Once the gateway device is back online–by the way, it should still be at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.1.1&lt;/code&gt; because the gateway’s default &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt; is intact, so even if we fuck something up, we should be able to find the gateway via a direct cable connection–&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ssh&lt;/code&gt; into it once again and type&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ip a
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;which now should show the new interfaces we created (e.g, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0.1@bat0&lt;/code&gt;) and the static IP addr of your device in each one of them (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.10.1&lt;/code&gt;).  (As mentioned before, if the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option type 'bridge'&lt;/code&gt; was enabled in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/network&lt;/code&gt; config stanza, then there will be an additional interface with the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;br-&lt;/code&gt; prefix attached to it and the static IP addr of your device will be associated with it.)&lt;/p&gt;
+
+&lt;p&gt;If everything looks good, we’re done with the gateway configuration!  We’re now ready to tell our bridges which VLAN ID to join with their standard interfaces.&lt;/p&gt;
+
+&lt;p class=&quot;notice notice--danger&quot;&gt;You don’t need to use &lt;strong&gt;interface names&lt;/strong&gt; such as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan_bat0_1&lt;/code&gt;; they can be whatever you find intuitive.  However, whatever you choose, &lt;strong&gt;keep them short&lt;/strong&gt;–that is, less than 14 characters long–or you’ll start experiencing config issues.&lt;/p&gt;
+
+&lt;h3 id=&quot;mesh-bridge-with-vlan-configuration&quot;&gt;Mesh bridge with VLAN configuration&lt;/h3&gt;
+&lt;p&gt;Here, we’ll also configure the bridges &lt;strong&gt;the same way&lt;/strong&gt; as in the gateway-bridge example. However, each bridge device will bridge &lt;strong&gt;a different VLAN ID&lt;/strong&gt;–namely, either &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0.1&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0.2&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0.5&lt;/code&gt;–with its default &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt;, instead of bridging &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt; with its default &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Let’s start with the Network B (&lt;strong&gt;IoT&lt;/strong&gt;) bridge.&lt;/p&gt;
+
+&lt;p&gt;Configure one of the mesh nodes &lt;a href=&quot;#mesh-bridge-configuration&quot;&gt;as in the gateway-bridge example&lt;/a&gt;, except that in the default &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt; interface stanza of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/network&lt;/code&gt; file, let’s do the following:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;In &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option ifname&lt;/code&gt;, change &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt; for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0.2&lt;/code&gt;;&lt;/li&gt;
+  &lt;li&gt;In &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option ipaddr&lt;/code&gt;, change &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.10.&lt;/code&gt; for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.20.&lt;/code&gt;;&lt;/li&gt;
+  &lt;li&gt;In both &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option gateway&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option dns&lt;/code&gt;, change &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.10.1&lt;/code&gt; for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.20.1&lt;/code&gt;;&lt;/li&gt;
+  &lt;li&gt;Then, the default &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt; stanza should look something like this
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config interface lan
+      option type 'bridge'
+      option ifname 'eth0.1 eth1 bat0.2'	#ethX might be different for your device
+      option proto 'static'
+      option ipaddr '192.168.20.10'
+      option netmask '255.255.255.0'
+      option gateway '192.168.20.1'
+      option dns '192.168.20.1'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Save the file&lt;/strong&gt; and exit it.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Reboot&lt;/strong&gt; your device.&lt;/p&gt;
+
+&lt;p&gt;Once it comes back on, your laptop/PC will receive an IP addr from our mesh gateway in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.20.0/24&lt;/code&gt; network, the bridge node should be reachable at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.20.10&lt;/code&gt;, and you should be able to access the Internet via the &lt;strong&gt;IoT&lt;/strong&gt; network (try &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ping google.com&lt;/code&gt;, for example).&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;If something doesn’t work&lt;/strong&gt;, review the config files from your gateway and then from the bridge, then reboot the gateway and the bridge, and test again.&lt;/p&gt;
+
+&lt;p&gt;If this config is working, &lt;strong&gt;repeat the same steps&lt;/strong&gt; in the config of the other two bridges, with the following exceptions&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;In the Network C bridge (&lt;strong&gt;Guest&lt;/strong&gt;), use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0.5&lt;/code&gt; instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0.2&lt;/code&gt;, and similarly, use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.50.&lt;/code&gt; IP addr instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.20.&lt;/code&gt;;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In the Network D bridge (&lt;strong&gt;Default&lt;/strong&gt;), use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0.1&lt;/code&gt; instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0.2&lt;/code&gt;, and similarly, use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.10.&lt;/code&gt; IP addr instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.20.&lt;/code&gt;;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;em&gt;Optional&lt;/em&gt;: When configuring a &lt;strong&gt;Guest&lt;/strong&gt; WAP, for example, you can add &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option isolate 1&lt;/code&gt; to the relevant stanza in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/wireless&lt;/code&gt; config file to deny client-to-client connectivity without the need of re-enabling the firewall in the bridge device.  If that’s not enough, re-enable the firewall and configure it according to your needs–at the bottom of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/firewall&lt;/code&gt; file, there are examples you can use as template.&lt;/p&gt;
+
+&lt;h2 id=&quot;getting-started-with-batman-adv-on-any-linux-device&quot;&gt;Getting started with batman-adv on any Linux device&lt;/h2&gt;
+&lt;p&gt;OpenWrt makes using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt; a nearly trivial thing but you certainly don’t need OpenWrt to implement a mesh network or even to use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt; in your mesh.  As mentioned before, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt; has long been added to the Linux Kernel and therefore, you should be able to configure it on pretty much &lt;em&gt;any&lt;/em&gt; device running Linux.&lt;/p&gt;
+
+&lt;p&gt;Even though the specifics of configuring network interfaces and managing connections might be different across Linux distributions, the initial steps always consist of the following:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Installing (in popular distros, this is &lt;em&gt;not needed&lt;/em&gt;) and loading (&lt;em&gt;always&lt;/em&gt; needed) the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt; Kernel module.
+  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lsmod&lt;/code&gt; will show a list of active modules, so we can &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grep&lt;/code&gt; it to check if the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt; module has already been loaded, as follows
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;lsmod | grep batman
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;then if it isn’t loaded, we add the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt; kmod to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/modules&lt;/code&gt; and load it with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;modprobe&lt;/code&gt;, as follows&lt;/p&gt;
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# append batman-adv to /etc/modules
+echo 'batman-adv' | sudo tee -a /etc/modules &amp;gt; /dev/null
+# load the batman-adv module
+sudo modprobe batman-adv
+# check that the batman-adv module is now loaded
+lsmod | grep batman
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;Afterwards, you can check the &lt;a href=&quot;https://en.wikipedia.org/wiki/Sysfs&quot;&gt;&lt;strong&gt;sysfs&lt;/strong&gt;&lt;/a&gt; of each network device in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/sys/class/net/&lt;/code&gt; and there should be a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman_adv&lt;/code&gt; folder.  When the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt; module gets configured to use a particular network device, the files &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman_adv/iface_status&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman_adv/mesh_iface&lt;/code&gt; will change their contents to reflect that. In addition, once enabled, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt; will show up as a new network device in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/sys/class/net/&lt;/code&gt; and its options (e.g., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gw_mode&lt;/code&gt;) can be modified by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;echo&lt;/code&gt;ing new values to their corresponding file in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/sys/class/net/bat0/mesh/&lt;/code&gt;  (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;echo 'client' &amp;gt; /sys/class/net/bat0/mesh/gw_mode&lt;/code&gt;).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Installing the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batctl&lt;/code&gt; package. On apt-based distros like Debian, you should be able to install it with the following
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt install batctl
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Using a combination of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iw&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ip&lt;/code&gt; to configure the network interfaces, as illustrated in the &lt;a href=&quot;https://www.open-mesh.org/projects/batman-adv/wiki/Quick-start-guide&quot;&gt;B.A.T.M.A.N. quick start guide&lt;/a&gt;.  In our case, however, the wireless mode of operation (as in the specification of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;type&lt;/code&gt; in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iw&lt;/code&gt; interface creation command) is &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mesh&lt;/code&gt; (or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mp&lt;/code&gt;), instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;adhoc&lt;/code&gt; (or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ibss&lt;/code&gt;).&lt;/li&gt;
+  &lt;li&gt;Using something like &lt;a href=&quot;https://en.wikipedia.org/wiki/Wpa_supplicant&quot;&gt;wpa_supplicant&lt;/a&gt; to manage connections.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;If you know of a program that has a GUI and is able to handle such configurations on popular Linux distros, let me know about it. As far as I know, there’s currently nothing like that and it would be so very useful.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;bonus-content-physical-computing&quot;&gt;Bonus content: Physical computing&lt;/h1&gt;
+&lt;p&gt;If your device has unused &lt;strong&gt;general purpose I/O&lt;/strong&gt; pins, it’s possible to do all sorts of things with them.  Check the &lt;a href=&quot;https://openwrt.org/docs/techref/hardware/port.gpio&quot;&gt;GPIO documentation&lt;/a&gt; for examples of how to install new LEDs and buttons, for instance.  (&lt;a href=&quot;https://openwrt.org/toh/tp-link/tl-wr1043nd#gpios&quot;&gt;Your device’s OpenWrt page can be very useful as well&lt;/a&gt;.)&lt;/p&gt;
+
+&lt;p&gt;Also, if you want to change the functionality of a few of the existing LEDs on your wireless device, check the &lt;a href=&quot;https://openwrt.org/docs/guide-user/base-system/led_configuration&quot;&gt;LED configuration documentation&lt;/a&gt;.  Now that you have new mesh interfaces, you can use the LEDs to blink depending on the status of neighboring nodes, mesh gateways, or WAN connectivity through the mesh, to mention a few examples. (As mentioned before, &lt;a href=&quot;https://openwrt.org/toh/tp-link/tl-wr1043nd#leds&quot;&gt;your device’s OpenWrt page can be very useful here&lt;/a&gt;.)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;final-remarks&quot;&gt;Final remarks&lt;/h1&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/futurama.jpg&quot; alt=&quot;Futurama Hubert Farnsworth&quot; class=&quot;PostImage&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Good news, everyone! You’ve reached the end of this tutorial, which means it’s time to start planning your own mesh networking project.  I love to hear about different takes on the projects I post on my blog, so don’t hesitate to &lt;a href=&quot;/contact/&quot;&gt;contact me&lt;/a&gt; if you just want to share or bounce a few ideas.  Different perspectives give an opportunity to learn, grow, and innovate.&lt;/p&gt;
+
+&lt;h2 id=&quot;other-similar-mesh-solutions&quot;&gt;Other similar mesh solutions&lt;/h2&gt;
+&lt;p&gt;If you find this guide overwhelming but you’re still curious about mesh networking, take a look at the following alternatives (in alphabetical order):&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.commotionwireless.net&quot;&gt;Commotion Wireless&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://libremesh.org&quot;&gt;LibreMesh&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;They have pre-configured images that will work “out of the box” with compatible devices.  You might find instructive to start playing around with their software first and once comfortable, build your own configuration from a default (or customized from the source) OpenWrt image.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="mesh" /><category term="adhoc" /><category term="ieee" /><category term="wifi" /><category term="wireless" /><category term="radio" /><category term="network" /><category term="router" /><category term="openwrt" /><category term="batman" /></entry><entry><title type="html">NanoPi M4 mini-NAS</title><link href="http://localhost:4000/blog/Nanopi-m4-mini-nas/" rel="alternate" type="text/html" title="NanoPi M4 mini-NAS" /><published>2020-07-06T13:42:00-03:00</published><updated>2020-07-06T13:42:00-03:00</updated><id>http://localhost:4000/blog/Nanopi-m4-mini-nas</id><content type="html" xml:base="http://localhost:4000/blog/Nanopi-m4-mini-nas/">&lt;p&gt;This article is about my mini network-attached storage (NAS) project based on FriendlyARM’s &lt;a href=&quot;http://wiki.friendlyarm.com/wiki/index.php/NanoPi_M4&quot;&gt;NanoPi M4&lt;/a&gt; and its &lt;a href=&quot;http://wiki.friendlyarm.com/wiki/index.php/NanoPi_M4_SATA_HAT&quot;&gt;SATA hat&lt;/a&gt;.  If you’re looking for a cheap, low-profile, low-power NAS solution for your home–or if you just like single-board computers (SBC)–then this article is for you.&lt;/p&gt;
 
 &lt;p&gt;Here’s a preview of how my NanoPi M4 mini-NAS looks like:&lt;/p&gt;
 
