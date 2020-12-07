@@ -16,6 +16,12 @@ header:
       url: "/projects/#academic-latest"
 excerpt: "A selected list of past and current projects."
 it:
+  - title: "Mesh networking"
+    excerpt: "Mesh networks using free and open-source software (FOSS) and common hardware.  The project is based on OpenWrt and uses the layer-2 implementation of the Better Approach to Mobile Adhoc Networking (B.A.T.M.A.N.), called batman-adv, to route packets over multiple mesh topologies."
+    image_path: "/assets/img/projects/thumb-projects-mesh.jpg"
+    url: "/blog/Mesh-networking-openwrt-batman/"
+    btn_label: "Read more"
+    btn_class: "btn--info"
   - title: "NanoPi M4 mini-NAS"
     excerpt: "A cheap, low-power, low-profile NAS solution based on FriendlyArm's NanoPi M4 SBC. It has a SATA hat that is connected to the board via PCI-e, allowing up to four HDDs to be connected to the NAS via standard SATA III interface."
     image_path: "/assets/img/projects/thumb-projects-mininas.jpg"
