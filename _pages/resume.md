@@ -9,9 +9,6 @@ header:
   overlay_filter: "0.7"
   overlay_image: /assets/img/site/banner-page-07.jpeg
   caption: "by [**Rebecca Guay**](https://en.wikipedia.org/wiki/Rebecca_Guay)"
-  actions:
-    - label: "Lattes CV"
-      url: "http://lattes.cnpq.br/5704468004001326"
 excerpt: "Everything I know and have ever done academically and professionally."
 toc: true
 toc_label: "Table of Contents"
@@ -305,6 +302,6 @@ In addition to the basic configuration, I'm familiar with the following pfSense 
 [top](#){: .btn .btn--light-outline .btn--small}
 
 ## Publications
-See [**Publications**]({{ site.url }}{{ site.baseurl }}/publications/) for an updated list or check my *Lattes CV* at the [**top**](#).
+See [**Publications**]({{ site.url }}{{ site.baseurl }}/publications/) for an updated list.
 
 [top](#){: .btn .btn--light-outline .btn--small}
