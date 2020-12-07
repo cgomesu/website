@@ -53,7 +53,7 @@ excerpt: "All my published peer-reviewed papers and book chapters, plus a few se
 
 ***
 # Presentations
-Selected presentations.  For a complete list, please see my *Lattes CV* in [**Resume**]({{ site.url}}{{ site.baseurl }}/resume/).
+Only a few selected presentations.
 
 | type | download | reference |
 |:---:|:---:|:---:|
