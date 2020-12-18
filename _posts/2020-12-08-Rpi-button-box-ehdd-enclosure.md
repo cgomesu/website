@@ -1,5 +1,5 @@
 ---
-title: "Repurposing external HDD enclosures into button boxes for the Raspbery Pi"
+title: "Repurposing external HDD enclosures into button boxes for the Raspberry Pi"
 date: 2020-12-18 12:08:00 -0300
 tags: DIY raspberrypi rpi hdd enclosure button box
 header:
