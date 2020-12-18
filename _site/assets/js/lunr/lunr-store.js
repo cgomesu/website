@@ -47,7 +47,7 @@ var store = [{
         "url": "http://localhost:4000/blog/Mesh-networking-openwrt-batman/",
         "teaser": null
       },{
-        "title": "Repurposing external HDD enclosures into button boxes for the Raspbery Pi",
+        "title": "Repurposing external HDD enclosures into button boxes for the Raspberry Pi",
         "excerpt":"Changelog Dec 18th, 2020: Publication of the original guide top Introduction Hard disk drives (HDDs) are often sold in an external enclosure with easy-to-use interfaces as a detachable, semi-mobile data storage solution. Every so often, however, their price goes below the market price for an equivalent internal HDD and when...","categories": ["blog"],
         "tags": ["DIY","raspberrypi","rpi","hdd","enclosure","button","box"],
         "url": "http://localhost:4000/blog/Rpi-button-box-ehdd-enclosure/",
