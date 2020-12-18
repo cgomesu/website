@@ -1,0 +1,1133 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.19.3 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Repurposing external HDD enclosures into button boxes for the Raspbery Pi - CGomesu</title>
+<meta name="description" content="A blog and portfolio website built with Jekyll and hosted on Github Pages">
+
+
+  <meta name="author" content="Carlos Gomes">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="CGomesu">
+<meta property="og:title" content="Repurposing external HDD enclosures into button boxes for the Raspbery Pi">
+<meta property="og:url" content="http://localhost:4000/blog/Rpi-button-box-ehdd-enclosure/">
+
+
+  <meta property="og:description" content="A blog and portfolio website built with Jekyll and hosted on Github Pages">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/header.jpg">
+
+
+
+
+
+  <meta property="article:published_time" content="2020-12-18T12:08:00-03:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/blog/Rpi-button-box-ehdd-enclosure/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+  <meta name="google-site-verification" content="FA-B3i_TqYeaLPYwZvxxOsx07Coy_drBKJ0M_4DD0Gw" />
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="CGomesu Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="icon" href="/assets/img/site/favicon.ico" type="image/x-icon">
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/img/site/logo.png" alt=""></a>
+        
+        <a class="site-title" href="/">
+           
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/blog/">Blog</a>
+            </li><li class="masthead__menu-item">
+              <a href="/contact/">Contact</a>
+            </li><li class="masthead__menu-item">
+              <a href="/mtg/">MtG</a>
+            </li><li class="masthead__menu-item">
+              <a href="/publications/">Publications</a>
+            </li><li class="masthead__menu-item">
+              <a href="/projects/">Projects</a>
+            </li><li class="masthead__menu-item">
+              <a href="/resume/">Resume</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style="background-color: #000; background-image: linear-gradient(rgba(0, 0, 0, 0.80), rgba(0, 0, 0, 0.80)), url('/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/header.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 id="page-title" class="page__title" itemprop="headline">
+        
+          Repurposing external HDD enclosures into button boxes for the Raspbery Pi
+
+        
+      </h1>
+      
+        <p class="page__lead">
+</p>
+      
+      
+        <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  28 minute read
+
+</p>
+      
+      
+      
+    </div>
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/img/profile/profile-00.jpg" alt="Carlos Gomes" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Carlos Gomes</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>I’m a scientist, psychologist, math modeler, programmer, mtg player, free knowledge supporter, sbc fanatic, and electronics hobbyist.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Brazil</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="mailto:me@cgomesu.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Main e-mail</span></a></li>
+          
+        
+          
+        
+          
+            <li><a href="https://cgomesu.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">https://cgomesu.com</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Repurposing external HDD enclosures into button boxes for the Raspbery Pi">
+    <meta itemprop="description" content="">
+    <meta itemprop="datePublished" content="2020-12-18T12:08:00-03:00">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-list"></i> Table of Contents</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#changelog">Changelog</a></li>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#assessment">Assessment</a></li>
+  <li><a href="#hardware">Hardware</a></li>
+  <li><a href="#software">Software</a>
+    <ul>
+      <li><a href="#rpi-button-box-controller">rpi-button-box controller</a></li>
+    </ul>
+  </li>
+  <li><a href="#assembly">Assembly</a>
+    <ul>
+      <li><a href="#installing-the-software">Installing the software</a>
+        <ul>
+          <li><a href="#raspberry-pi-os">Raspberry Pi OS</a></li>
+          <li><a href="#python3-rpi-button-box-and-installing-the-requirements">Python3, rpi-button-box, and installing the requirements</a></li>
+          <li><a href="#configure-logrotate">Configure logrotate</a></li>
+        </ul>
+      </li>
+      <li><a href="#building-the-button-box">Building the button box</a></li>
+      <li><a href="#using-the-button-box-controller">Using the button box controller</a>
+        <ul>
+          <li><a href="#usage">Usage</a></li>
+          <li><a href="#examples">Examples</a></li>
+          <li><a href="#run-the-controller-as-a-service">Run the controller as a service</a></li>
+          <li><a href="#bash-script-template">Bash script template</a></li>
+        </ul>
+      </li>
+      <li><a href="#alternatives-to-python">Alternatives to Python</a></li>
+    </ul>
+  </li>
+  <li><a href="#conclusion">Conclusion</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
+        <h1 id="changelog">Changelog</h1>
+<p class="notice notice--info"><strong>Dec 18th, 2020</strong>: Publication of the original guide</p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="introduction">Introduction</h1>
+<p>Hard disk drives (HDDs) are often sold in an external enclosure with easy-to-use interfaces as a detachable, semi-mobile data storage solution. Every so often, however, their price goes below the market price for an equivalent internal HDD and when that happens, many of us will buy them only to remove the HDD from its external enclosure and use it as a regular HDD in our PCs and servers–a practice called <strong>shucking</strong>.</p>
+
+<p><a href="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/amazon-seagate-4tb-ehdd.jpg"><img src="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/amazon-seagate-4tb-ehdd.jpg" alt="Amazon ad Seagate expansion 4tb" class="PostImage" /></a></p>
+
+<p>But what do you do with the external enclosure afterwards? Do you throw it away?  Well, you could do that but here I’ll show that such enclosures can be repurposed into nice looking <strong>button boxes</strong> for most single board computers (SBCs).  More specifically, I’ll transform an old, shucked <a href="https://www.newegg.com/seagate-expansion-4tb/p/N82E16822178354"><strong>Seagate Expansion 4TB USB3.0 HDD</strong> (STBV4000100)</a> into a button box for the <a href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/"><strong>Raspberry Pi</strong> (RPi)</a>. Here’s a preview of how it looks like:</p>
+
+<p><a href="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/preview-rpi-and-buttons.jpg"><img src="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/preview-rpi-and-buttons.jpg" alt="RPi and buttons" class="PostImage PostImage--large" /></a></p>
+
+<p><a href="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/preview-rpi-and-buttons-closed.jpg"><img src="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/preview-rpi-and-buttons-closed.jpg" alt="RPi and buttons - Closed 01" class="PostImage PostImage--large" /></a></p>
+
+<p><a href="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/preview-rpi-and-buttons-closed-2.jpg"><img src="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/preview-rpi-and-buttons-closed-2.jpg" alt="RPi and buttons - Closed 02" class="PostImage PostImage--large" /></a></p>
+
+<p>In the first section of this tutorial, I described a few general points to consider when <a href="#assessment">planning your button box</a>, such as whether the SBC fits, if it already has holes, and so on.  Then, I go into the specifics of my own case, such as the <a href="#hardware">hardware components</a> of it (e.g., buttons, switches), the <a href="#software">software</a> used (Pi OS and a Python button box controller), and finally, the <a href="#assembly">assembly</a> of hardware and software into a functional button box.  If that sounds good, let’s get started.</p>
+
+<p class="notice notice--danger"><strong>ATTENTION</strong>. I do not recommend to use an external HDD enclosure as a button box to control <strong>mains power</strong>.  None of those enclosures was designed to have 110-220V AC running inside of it and things might melt and catch fire, and of course, you don’t want someone to get electrocuted because of a loose mains cable.  Even though some of the buttons and switches might be rated 110-220V AC at 10A, for instance, to be safe, stick to <strong>low voltage DC</strong> inside the button box.</p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="assessment">Assessment</h1>
+<ul>
+  <li>
+    <p>Does the enclosure have a <strong>flat surface</strong> to attach the buttons?</p>
+  </li>
+  <li>
+    <p>Will the SBC <strong>fit</strong> inside of the enclosure?</p>
+
+    <p>Height-wise, make sure there’s a little bit of room for the jumper cables that will be connected to the GPIO pins–<em>at least</em> 5cm (roughly 2 inches) of space above the GPIO pins.</p>
+  </li>
+  <li>
+    <p>Will the buttons fit inside the enclosure?</p>
+
+    <p>Some buttons have fairly long terminals that could hit the bottom of the enclosure once the lid is closed.  You also need to take into consideration that jumper cables will be soldered to the button’s terminal and might need additional room.</p>
+  </li>
+  <li>
+    <p>If the SBC will go inside of the enclosure, does it have holes to <strong>remove hot air from inside</strong>?</p>
+
+    <p>Depending on the SBC and usage, you might need to plan a small fan to remove the hot air generated by the board. However, this is likely not necessary for external HDD enclosures because heat will also harm HDDs and manufacturers will design their external cases with that in mind.</p>
+  </li>
+  <li>
+    <p>Can you repurpose some of the <strong>existing holes</strong>?</p>
+
+    <p>It’s much easier to use existing holes than making new ones and they usually look better because the case was designed with them in mind, as opposed to the new ones.</p>
+  </li>
+  <li>
+    <p>Is it <strong>safe to drill</strong> holes in the enclosure?</p>
+
+    <p>Some materials can crack/break easily and a few can be harmful to you if you do not take the necessary precautions.</p>
+  </li>
+</ul>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="hardware">Hardware</h1>
+
+<ul>
+  <li>SBC:
+    <ul>
+      <li>
+        <p><a href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/">Raspberry Pi 3B</a></p>
+
+        <p><a href="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/rpi-model-3b.jpg"><img src="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/rpi-model-3b.jpg" alt="RPi model 3B" class="PostImage" /></a></p>
+      </li>
+    </ul>
+  </li>
+  <li>External HDD enclosure:
+    <ul>
+      <li>
+        <p><a href="https://www.newegg.com/seagate-expansion-4tb/p/N82E16822178354">Seagate Expansion 4TB USB3.0 HDD (STBV4000100)</a></p>
+
+        <p><a href="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/seagate-external-enclosure.jpg"><img src="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/seagate-external-enclosure.jpg" alt="Seagate HDD enclosure" class="PostImage" /></a></p>
+      </li>
+    </ul>
+  </li>
+  <li><a href="https://www.amazon.com/s?k=push+button">Push buttons</a>:
+    <ul>
+      <li>02x Red push button</li>
+      <li>02x Black push button</li>
+      <li>
+        <p>02x Green push button</p>
+
+        <p><a href="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/push-button.jpg"><img src="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/push-button.jpg" alt="Push Button" class="PostImage" /></a></p>
+      </li>
+    </ul>
+  </li>
+  <li><a href="https://www.amazon.com/s?k=toggle+switch">Toggle switches</a>:
+    <ul>
+      <li>03x OFF/on toggle switch</li>
+      <li>02x Red safety cover for the toggle switch</li>
+      <li>
+        <p>01x “ON/OFF” label for the toggle switch</p>
+
+        <p><a href="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/toggle-switch.jpg"><img src="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/toggle-switch.jpg" alt="Toggle Switch" class="PostImage" /></a></p>
+      </li>
+    </ul>
+  </li>
+  <li><a href="(https://www.amazon.com/s?k=active+buzzer)">Buzzer</a>
+    <ul>
+      <li>01x Active buzzer</li>
+    </ul>
+
+    <p><a href="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/buzzer.jpg"><img src="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/buzzer.jpg" alt="Buzzer" class="PostImage" /></a></p>
+  </li>
+  <li>Cover:
+    <ul>
+      <li>
+        <p><a href="https://www.amazon.com/s?k=carbon+fiber+vinyl+wrap">Textured vynil/PVC film</a></p>
+
+        <p>The size depends on the surface area you want to cover with it.  My suggestion is to use a <strong>thin</strong> film instead of a thick layer because it is flexible and therefore, easy to attach to the enclosure.  By the way, these things are actually super useful to have around if you are into DIY projets.</p>
+
+        <p><a href="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/textured-vynil-film.jpg"><img src="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/textured-vynil-film.jpg" alt="Vynil Film" class="PostImage" /></a></p>
+      </li>
+    </ul>
+  </li>
+  <li>Cables and related materials:
+    <ul>
+      <li>
+        <p>18x <a href="https://www.amazon.com/s?k=dupont+wires">Female-X Dupont/jumper wires</a></p>
+
+        <p>The female side connects to GPIO pins and the other side can be whatever because is soldered to terminals or otherwise attached to them.</p>
+
+        <p><a href="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/jumper-cables.jpg"><img src="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/jumper-cables.jpg" alt="Jumper Cables" class="PostImage" /></a></p>
+      </li>
+      <li>
+        <p>06x <a href="https://www.amazon.com/s?k=heat+shrink+tube">Heat shrink tube</a></p>
+
+        <p>Cut them in half to protect both terminals of each push button</p>
+
+        <p><a href="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/heat-shrink-tube.jpg"><img src="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/heat-shrink-tube.jpg" alt="Heat Shrink Tube" class="PostImage" /></a></p>
+      </li>
+      <li>
+        <p>01x <a href="https://www.amazon.com/s?k=electrical+tape">Electrical tape</a></p>
+
+        <p><a href="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/electrical-tape.jpg"><img src="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/electrical-tape.jpg" alt="Electrical Tape" class="PostImage" /></a></p>
+      </li>
+    </ul>
+  </li>
+  <li>Other tools
+    <ul>
+      <li>
+        <p><a href="https://www.amazon.com/s?k=soldering+kit">Basic soldering kit</a></p>
+
+        <p><a href="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/soldering-kit.jpg"><img src="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/soldering-kit.jpg" alt="Soldering Kit" class="PostImage" /></a></p>
+      </li>
+      <li>
+        <p>Any low power drill or even a manual <a href="https://www.amazon.com/s?k=hand+drill">hand drill</a>: An electric drill will save you a lot of time.  For better results, use a step drill bit after making the center hole.</p>
+
+        <p><a href="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/step-drill-bit.jpg"><img src="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/step-drill-bit.jpg" alt="Step Drill Bit" class="PostImage" /></a></p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="software">Software</h1>
+
+<ul>
+  <li>Operating System (OS):
+    <ul>
+      <li><a href="https://www.raspberrypi.org/software/operating-systems/">Raspberry Pi OS Lite</a>: <code class="language-plaintext highlighter-rouge">Raspbian GNU/Linux 10 (buster)</code>, <code class="language-plaintext highlighter-rouge">lite edition</code>
+        <ul>
+          <li>Kernel: <code class="language-plaintext highlighter-rouge">5.4</code></li>
+          <li>Release date: <code class="language-plaintext highlighter-rouge">December 2nd 2020</code></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Button box controller:
+    <ul>
+      <li><a href="https://github.com/cgomesu/rpi-button-box"><code class="language-plaintext highlighter-rouge">rpi-button-box</code></a>: <code class="language-plaintext highlighter-rouge">1.0</code>
+        <ul>
+          <li>A custom-made controller written in Python</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Controller requirements:
+    <ul>
+      <li><a href="https://www.python.org">Python</a>: <code class="language-plaintext highlighter-rouge">3.7.3</code>
+        <ul>
+          <li><a href="https://gpiozero.readthedocs.io/en/stable/"><code class="language-plaintext highlighter-rouge">gpiozero</code></a>: An interface to GPIO devices</li>
+          <li><a href="https://docs.python.org/3/library/argparse.html"><code class="language-plaintext highlighter-rouge">argparse</code></a>, <a href="https://docs.python.org/3/library/logging.html"><code class="language-plaintext highlighter-rouge">logging</code></a>, <a href="https://docs.python.org/3/library/signal.html"><code class="language-plaintext highlighter-rouge">signal</code></a>, <a href="https://docs.python.org/3/library/subprocess.html"><code class="language-plaintext highlighter-rouge">subprocess</code></a>: Standard, built-in libraries</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Optional:
+    <ul>
+      <li><a href="https://linux.die.net/man/8/logrotate">Logrotate</a>: <code class="language-plaintext highlighter-rouge">3.14.0</code>
+        <ul>
+          <li>Manage the <code class="language-plaintext highlighter-rouge">button-box.log</code> log files generated by the controller</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h2 id="rpi-button-box-controller"><code class="language-plaintext highlighter-rouge">rpi-button-box</code> controller</h2>
+<blockquote>
+  <p>Core program for a Raspberry Pi button box controller that uses the <code class="language-plaintext highlighter-rouge">gpiozero</code> Python library.</p>
+</blockquote>
+
+<p>I wrote this program with the current project in mind–that is, a 40-pins Raspberry Pi with six push buttons and three switches, one of them being a power on/off for the box–but hopefully, my comments and documentation will be enough to allow adapting the program to multiple types of button boxes.  In this section, I’ll explain the program’s main logic and its functionalities.  The installation procedure and usage examples are described in <a href="#assembly">assembly</a>.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">gpiozero</code> library is at the core of the button box controller.  The library makes it very easy to enable GPIO devices with just a few lines of code because it leaves much of the device configuration and cleanup procedures to the background.  All that we need to do is create objects for the GPIO devices of the appropriate class, which in our case is the <a href="https://gpiozero.readthedocs.io/en/stable/api_input.html#button"><code class="language-plaintext highlighter-rouge">Button</code></a> class and <a href="https://gpiozero.readthedocs.io/en/stable/api_output.html#buzzer"><code class="language-plaintext highlighter-rouge">Buzzer</code></a> class.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">rpi-button-box</code> controller’s main logic is explained next.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+  <span class="k">try</span><span class="p">:</span>
+    <span class="n">logging</span><span class="p">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s">'/opt/rpi-button-box/button-box.log'</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="p">.</span><span class="n">INFO</span><span class="p">,</span>
+      <span class="nb">format</span><span class="o">=</span><span class="s">'%(asctime)s.%(msecs)03d %(levelname)s %(module)s : %(message)s'</span><span class="p">,</span>
+      <span class="n">datefmt</span><span class="o">=</span><span class="s">'%Y-%m-%d %H:%M:%S'</span><span class="p">)</span>
+    <span class="n">logging</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s">'Started the button box controller'</span><span class="p">)</span>
+    <span class="n">buttons</span> <span class="o">=</span> <span class="n">config_buttons</span><span class="p">()</span>
+</code></pre></div></div>
+<ul>
+  <li>The program starts by configuring and initializing the logging of controller-related events, such as whether button <code class="language-plaintext highlighter-rouge">G1</code> was pressed, which <code class="language-plaintext highlighter-rouge">GPIO</code> pins are being used, and so on. Then, it asks <code class="language-plaintext highlighter-rouge">config_buttons</code> for a list of <code class="language-plaintext highlighter-rouge">buttons</code> to be used by the controller, as follows:</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">config_buttons</span><span class="p">():</span>
+  <span class="n">logging</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s">'Loading buttons...'</span><span class="p">)</span>
+  <span class="n">Button</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="n">Button</span><span class="p">.</span><span class="nb">type</span><span class="p">,</span> <span class="n">Button</span><span class="p">.</span><span class="n">cmdheld</span><span class="p">,</span> <span class="n">Button</span><span class="p">.</span><span class="n">cmdpressed</span><span class="p">,</span> <span class="n">Button</span><span class="p">.</span><span class="n">cmdreleased</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">False</span>
+  <span class="n">g1</span><span class="p">,</span> <span class="n">g1</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="n">g1</span><span class="p">.</span><span class="nb">type</span><span class="p">,</span> <span class="n">g1</span><span class="p">.</span><span class="n">cmdpressed</span><span class="p">,</span> <span class="n">g1</span><span class="p">.</span><span class="n">cmdreleased</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="mi">26</span><span class="p">),</span> <span class="s">'green #1'</span><span class="p">,</span> <span class="s">'push'</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="s">'g1_pressed'</span><span class="p">],</span> <span class="n">args</span><span class="p">[</span><span class="s">'g1_released'</span><span class="p">]</span>
+  <span class="n">b1</span><span class="p">,</span> <span class="n">b1</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="n">b1</span><span class="p">.</span><span class="nb">type</span><span class="p">,</span> <span class="n">b1</span><span class="p">.</span><span class="n">cmdpressed</span><span class="p">,</span> <span class="n">b1</span><span class="p">.</span><span class="n">cmdreleased</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="mi">19</span><span class="p">),</span> <span class="s">'black #1'</span><span class="p">,</span> <span class="s">'push'</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="s">'b1_pressed'</span><span class="p">],</span> <span class="n">args</span><span class="p">[</span><span class="s">'b1_released'</span><span class="p">]</span>
+  <span class="n">r1</span><span class="p">,</span> <span class="n">r1</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="n">r1</span><span class="p">.</span><span class="nb">type</span><span class="p">,</span> <span class="n">r1</span><span class="p">.</span><span class="n">cmdpressed</span><span class="p">,</span> <span class="n">r1</span><span class="p">.</span><span class="n">cmdreleased</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="mi">13</span><span class="p">),</span> <span class="s">'red #1'</span><span class="p">,</span> <span class="s">'push'</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="s">'r1_pressed'</span><span class="p">],</span> <span class="n">args</span><span class="p">[</span><span class="s">'r1_released'</span><span class="p">]</span>
+  <span class="n">g2</span><span class="p">,</span> <span class="n">g2</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="n">g2</span><span class="p">.</span><span class="nb">type</span><span class="p">,</span> <span class="n">g2</span><span class="p">.</span><span class="n">cmdpressed</span><span class="p">,</span> <span class="n">g2</span><span class="p">.</span><span class="n">cmdreleased</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="mi">6</span><span class="p">),</span> <span class="s">'green #2'</span><span class="p">,</span> <span class="s">'push'</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="s">'g2_pressed'</span><span class="p">],</span> <span class="n">args</span><span class="p">[</span><span class="s">'g2_released'</span><span class="p">]</span>
+  <span class="n">b2</span><span class="p">,</span> <span class="n">b2</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="n">b2</span><span class="p">.</span><span class="nb">type</span><span class="p">,</span> <span class="n">b2</span><span class="p">.</span><span class="n">cmdpressed</span><span class="p">,</span> <span class="n">b2</span><span class="p">.</span><span class="n">cmdreleased</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span> <span class="s">'black #2'</span><span class="p">,</span> <span class="s">'push'</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="s">'b2_pressed'</span><span class="p">],</span> <span class="n">args</span><span class="p">[</span><span class="s">'b2_released'</span><span class="p">]</span>
+  <span class="n">r2</span><span class="p">,</span> <span class="n">r2</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="n">r2</span><span class="p">.</span><span class="nb">type</span><span class="p">,</span> <span class="n">r2</span><span class="p">.</span><span class="n">cmdpressed</span><span class="p">,</span> <span class="n">r2</span><span class="p">.</span><span class="n">cmdreleased</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="mi">12</span><span class="p">),</span> <span class="s">'red #2'</span><span class="p">,</span> <span class="s">'push'</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="s">'r2_pressed'</span><span class="p">],</span> <span class="n">args</span><span class="p">[</span><span class="s">'r2_released'</span><span class="p">]</span>
+  <span class="n">s1</span><span class="p">,</span> <span class="n">s1</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="n">s1</span><span class="p">.</span><span class="nb">type</span><span class="p">,</span> <span class="n">s1</span><span class="p">.</span><span class="n">cmdheld</span><span class="p">,</span> <span class="n">s1</span><span class="p">.</span><span class="n">cmdreleased</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="n">hold_time</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="s">'power'</span><span class="p">,</span> <span class="s">'switch'</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="s">'s1_held'</span><span class="p">],</span> <span class="n">args</span><span class="p">[</span><span class="s">'s1_released'</span><span class="p">]</span>
+  <span class="n">s2</span><span class="p">,</span> <span class="n">s2</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="n">s2</span><span class="p">.</span><span class="nb">type</span><span class="p">,</span> <span class="n">s2</span><span class="p">.</span><span class="n">cmdheld</span><span class="p">,</span> <span class="n">s2</span><span class="p">.</span><span class="n">cmdreleased</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="n">hold_time</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="s">'middle S2'</span><span class="p">,</span> <span class="s">'switch'</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="s">'s2_held'</span><span class="p">],</span> <span class="n">args</span><span class="p">[</span><span class="s">'s2_released'</span><span class="p">]</span>
+  <span class="n">s3</span><span class="p">,</span> <span class="n">s3</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="n">s3</span><span class="p">.</span><span class="nb">type</span><span class="p">,</span> <span class="n">s3</span><span class="p">.</span><span class="n">cmdheld</span><span class="p">,</span> <span class="n">s3</span><span class="p">.</span><span class="n">cmdreleased</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="mi">21</span><span class="p">,</span> <span class="n">hold_time</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="s">'right S3'</span><span class="p">,</span> <span class="s">'switch'</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="s">'s3_held'</span><span class="p">],</span> <span class="n">args</span><span class="p">[</span><span class="s">'s3_released'</span><span class="p">]</span>
+  <span class="n">logging</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s">'Buttons loaded'</span><span class="p">)</span>
+  <span class="k">return</span> <span class="p">[</span><span class="n">g1</span><span class="p">,</span> <span class="n">b1</span><span class="p">,</span> <span class="n">r1</span><span class="p">,</span> <span class="n">g2</span><span class="p">,</span> <span class="n">b2</span><span class="p">,</span> <span class="n">r2</span><span class="p">,</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s3</span><span class="p">]</span>
+
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>Notice that it starts by creating <em>new</em> attributes for the <code class="language-plaintext highlighter-rouge">Button</code> class, which are called <code class="language-plaintext highlighter-rouge">label</code>, <code class="language-plaintext highlighter-rouge">type</code>, and <code class="language-plaintext highlighter-rouge">cmd*</code>. I found this to be useful when working with multiple buttons because it allows me to define events on a <em>per button basis</em>.  For example, one might want to set different triggers for <strong>switches</strong> and <strong>push buttons</strong>, and the <code class="language-plaintext highlighter-rouge">type</code> attribute will help differentiate those.  Similarly, one might want to execute a different command for a button labeled <code class="language-plaintext highlighter-rouge">power</code> than a button labeled <code class="language-plaintext highlighter-rouge">reboot</code>.  It goes without saying that if your box does not follow the same layout as mine, you have to edit this part of the code.</p>
+  </li>
+  <li>
+    <p>Going back to <code class="language-plaintext highlighter-rouge">main</code>:</p>
+  </li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">logging</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s">'Trying to find a power switch...'</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">button</span> <span class="ow">in</span> <span class="n">buttons</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">button</span><span class="p">.</span><span class="n">label</span> <span class="o">==</span> <span class="s">'power'</span><span class="p">:</span>
+        <span class="n">logging</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s">'Power switch found at {}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">button</span><span class="p">.</span><span class="n">pin</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">button</span><span class="p">.</span><span class="n">is_active</span><span class="p">:</span>
+          <span class="k">print</span><span class="p">(</span><span class="s">'Waiting for the power button ({}) to be turned ON...'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">button</span><span class="p">.</span><span class="n">pin</span><span class="p">))</span>
+          <span class="n">button</span><span class="p">.</span><span class="n">wait_for_active</span><span class="p">()</span>
+          <span class="n">logging</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s">'Power switch was turned ON by user'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">button</span><span class="p">.</span><span class="n">pin</span><span class="p">))</span>
+          <span class="n">sleep</span><span class="p">(</span><span class="n">button</span><span class="p">.</span><span class="n">hold_time</span><span class="p">)</span>  <span class="c1"># wait for the power button to enter is_held state
+</span>        <span class="k">break</span>
+</code></pre></div></div>
+
+<ul>
+  <li>In my original design for the button box, I had a toggle, on/off <code class="language-plaintext highlighter-rouge">switch</code> labeled <code class="language-plaintext highlighter-rouge">power</code> that I wanted to use to <strong>enable</strong> and <strong>disable</strong> the button box controller.  The code above handles the activation of the button box depending on the state of a button labeled <code class="language-plaintext highlighter-rouge">power</code>.</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">push_buttons</span><span class="p">,</span> <span class="n">switches</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">button</span> <span class="ow">in</span> <span class="n">buttons</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">button</span><span class="p">.</span><span class="nb">type</span> <span class="o">==</span> <span class="s">'switch'</span><span class="p">:</span>
+        <span class="n">switches</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">button</span><span class="p">)</span>
+        <span class="n">button</span><span class="p">.</span><span class="n">when_held</span><span class="p">,</span> <span class="n">button</span><span class="p">.</span><span class="n">when_released</span> <span class="o">=</span> <span class="n">event_held</span><span class="p">,</span> <span class="n">event_released</span>
+        <span class="n">logging</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s">'Configured the switch button ({0}) at {1}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">button</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="n">button</span><span class="p">.</span><span class="n">pin</span><span class="p">))</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">push_buttons</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">button</span><span class="p">)</span>
+        <span class="n">button</span><span class="p">.</span><span class="n">when_pressed</span><span class="p">,</span> <span class="n">button</span><span class="p">.</span><span class="n">when_released</span> <span class="o">=</span> <span class="n">event_pressed</span><span class="p">,</span> <span class="n">event_released</span>
+        <span class="n">logging</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s">'Configured the push button ({0}) at {1}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">button</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="n">button</span><span class="p">.</span><span class="n">pin</span><span class="p">))</span>
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>Here, the program learns what triggers each button.  As mentioend before, the <code class="language-plaintext highlighter-rouge">type</code> attr is used to set different triggers for <code class="language-plaintext highlighter-rouge">switch</code> and <code class="language-plaintext highlighter-rouge">push</code> buttons.</p>
+  </li>
+  <li>
+    <p>Of note, <code class="language-plaintext highlighter-rouge">when_*</code> properties will pass the device that activated it to a function that takes a single parameter (<code class="language-plaintext highlighter-rouge">btn</code>), and because there are multiple new attributes for each button object, it is possible to use a single function to control all buttons by reading the <code class="language-plaintext highlighter-rouge">btn</code> attributes.  For example, take a look at the <code class="language-plaintext highlighter-rouge">event_held</code>, in which we have code for invoking an external command/script using the <code class="language-plaintext highlighter-rouge">btn.cmdheld</code> attribute:</p>
+  </li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">event_held</span><span class="p">(</span><span class="n">btn</span><span class="p">):</span>
+  <span class="n">logging</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s">'The button labeled </span><span class="se">\'</span><span class="s">{0}</span><span class="se">\'</span><span class="s"> at {1} was held'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">btn</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="n">btn</span><span class="p">.</span><span class="n">pin</span><span class="p">))</span>
+  <span class="k">if</span> <span class="n">args</span><span class="p">[</span><span class="s">'debug'</span><span class="p">]:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'Detected a HELD event by {0} : {1} button : {2}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">btn</span><span class="p">.</span><span class="n">pin</span><span class="p">,</span> <span class="n">btn</span><span class="p">.</span><span class="nb">type</span><span class="p">,</span> <span class="n">btn</span><span class="p">.</span><span class="n">label</span><span class="p">))</span>
+  <span class="k">if</span> <span class="n">btn</span><span class="p">.</span><span class="n">cmdheld</span><span class="p">:</span>
+    <span class="n">logging</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s">'Started running the following command: </span><span class="se">\'</span><span class="s">{}</span><span class="se">\'</span><span class="s">'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">btn</span><span class="p">.</span><span class="n">cmdheld</span><span class="p">))</span>
+    <span class="n">Popen</span><span class="p">(</span><span class="n">btn</span><span class="p">.</span><span class="n">cmdheld</span><span class="p">)</span> <span class="k">if</span> <span class="n">args</span><span class="p">[</span><span class="s">'cmd'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'Popen'</span> <span class="k">else</span> <span class="n">run</span><span class="p">(</span><span class="n">btn</span><span class="p">.</span><span class="n">cmdheld</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">args</span><span class="p">[</span><span class="s">'debug'</span><span class="p">]:</span>
+      <span class="k">print</span><span class="p">(</span><span class="s">'Finished invoking the script at </span><span class="se">\'</span><span class="s">{}</span><span class="se">\'</span><span class="s">'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">btn</span><span class="p">.</span><span class="n">cmdheld</span><span class="p">))</span>
+    <span class="n">logging</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s">'Finished waiting for the following command: </span><span class="se">\'</span><span class="s">{}</span><span class="se">\'</span><span class="s">'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">btn</span><span class="p">.</span><span class="n">cmdheld</span><span class="p">))</span>
+
+</code></pre></div></div>
+
+<ul>
+  <li>Going back to <code class="language-plaintext highlighter-rouge">main</code>:</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">if</span> <span class="n">args</span><span class="p">[</span><span class="s">'buzzer'</span><span class="p">]:</span>
+      <span class="n">buzzer</span><span class="p">,</span> <span class="n">buzzer</span><span class="p">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">Buzzer</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="s">'buzzer'</span><span class="p">]),</span> <span class="n">any_values</span><span class="p">(</span><span class="o">*</span><span class="n">push_buttons</span><span class="p">)</span>
+      <span class="n">logging</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s">'Configured a buzzer at {}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">buzzer</span><span class="p">.</span><span class="n">pin</span><span class="p">))</span>
+</code></pre></div></div>
+
+<ul>
+  <li>This configures the <code class="language-plaintext highlighter-rouge">Buzzer</code> object to be activated whenever a <code class="language-plaintext highlighter-rouge">push</code> button is pressed.</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">print</span><span class="p">(</span><span class="s">'The button box is now turned ON. To close it, release the power button or press Ctrl+C.'</span><span class="p">)</span>
+    <span class="n">logging</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s">'The button box is ON and waiting for user input'</span><span class="p">)</span>
+    <span class="n">pause</span><span class="p">()</span>
+  <span class="k">except</span> <span class="nb">KeyboardInterrupt</span><span class="p">:</span>
+    <span class="n">end</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="s">'Received a signal to stop.'</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+  <span class="k">except</span> <span class="n">GPIOZeroError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+    <span class="n">end</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="s">'GPIOZero error: {}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">err</span><span class="p">),</span> <span class="n">status</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<ul>
+  <li>And finally, at the end of our main logic, the program is <code class="language-plaintext highlighter-rouge">pause</code>d to wait for a user input to trigger an event (<code class="language-plaintext highlighter-rouge">when_pressed</code>, <code class="language-plaintext highlighter-rouge">when_held</code>, <code class="language-plaintext highlighter-rouge">when_released</code>). This is a better alternative to using an infinite loop (<code class="language-plaintext highlighter-rouge">while True</code>).</li>
+</ul>
+
+<p>There’s a little bit more to the code than that but this covers the most important aspects of it. <a href="https://github.com/cgomesu/rpi-button-box">Check the repo for updates</a>, <a href="https://github.com/cgomesu/rpi-button-box/discussions">start a discussion</a> if you had an idea, or <a href="https://github.com/cgomesu/rpi-button-box/issues">open an issue</a> if you’re having trouble with the program.</p>
+
+<h1 id="assembly">Assembly</h1>
+
+<h2 id="installing-the-software">Installing the software</h2>
+
+<h3 id="raspberry-pi-os">Raspberry Pi OS</h3>
+<p>Follow <a href="https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up">the official instructions to install the Raspberry Pi OS</a>. If you don’t feel like it, here’s a brief summary:</p>
+
+<ol>
+  <li>Download the image file from the official repository.</li>
+  <li>Verify checksum.  On Linux distros, run the following, changing <code class="language-plaintext highlighter-rouge">img.zip</code> for the filename of the downloaded OS zipped image:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sha256sum img.zip
+</code></pre></div>    </div>
+  </li>
+  <li>Flash onto a microSD card with <a href="https://www.balena.io/etcher/">balenaEtcher</a> or similar application.</li>
+  <li>For headless access, add an empty <code class="language-plaintext highlighter-rouge">ssh</code> file to the root of the <code class="language-plaintext highlighter-rouge">boot</code> drive.</li>
+  <li>Insert the microSD card into the RPi and boot it up.</li>
+  <li>Find the RPi IP and <code class="language-plaintext highlighter-rouge">ssh</code> into it (<code class="language-plaintext highlighter-rouge">ssh pi@IP</code> and the default passwd is <code class="language-plaintext highlighter-rouge">raspberry</code>).</li>
+  <li>Config the RPi with <code class="language-plaintext highlighter-rouge">sudo raspi-config</code> (locale, time, wireless, etc.) then <strong>reboot it</strong>.</li>
+  <li>Reconnect to the RPi and update the package list &amp;&amp; upgrade all eligible pkgs, as follows:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt update &amp;&amp; sudo apt upgrade -y
+</code></pre></div>    </div>
+  </li>
+  <li>Reboot the device once again and you’re done!</li>
+</ol>
+
+<h3 id="python3-rpi-button-box-and-installing-the-requirements">Python3, <code class="language-plaintext highlighter-rouge">rpi-button-box</code>, and installing the requirements</h3>
+<p>The button box controller was developed for the Lite version of the <a href="https://www.raspberrypi.org/software/">Raspberry Pi OS</a> but it should work with other similar systems for single board computers (e.g., <a href="https://www.armbian.com/">Armbian</a>).</p>
+
+<p>The following instructions assume you’re logged in with the <code class="language-plaintext highlighter-rouge">pi</code> user with <code class="language-plaintext highlighter-rouge">sudo</code> permission. (This is not a requirement but if different, make sure to change file permissions accordingly.  This applies to <code class="language-plaintext highlighter-rouge">systemd</code> service file and <code class="language-plaintext highlighter-rouge">logrotate/button-box</code> config as well.)</p>
+
+<ol>
+  <li>Use <code class="language-plaintext highlighter-rouge">apt</code> to install required programs
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt update
+sudo apt install git python3 python3-pip
+</code></pre></div>    </div>
+  </li>
+  <li>Clone the <code class="language-plaintext highlighter-rouge">rpi-button-box</code> repo in <code class="language-plaintext highlighter-rouge">/opt</code>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd /opt
+sudo git clone https://github.com/cgomesu/rpi-button-box.git
+sudo chown -R pi rpi-button-box
+</code></pre></div>    </div>
+  </li>
+  <li>Install Python libraries from <code class="language-plaintext highlighter-rouge">requirements.txt</code>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip3 install -r /opt/rpi-button-box/requirements.txt
+</code></pre></div>    </div>
+    <ul>
+      <li>If you get a warning that <code class="language-plaintext highlighter-rouge">.local/bin</code> is not in your user’s <code class="language-plaintext highlighter-rouge">$PATH</code>, then add it to your existing <code class="language-plaintext highlighter-rouge">$PATH</code> as follows:
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export PATH=/home/pi/.local/bin:$PATH
+</code></pre></div>        </div>
+        <p>and then append it to your user’s <code class="language-plaintext highlighter-rouge">.bashrc</code>:</p>
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo "export PATH=/home/pi/.local/bin:$PATH" | tee -a /home/pi/.bashrc &gt; /dev/null
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li>Test <code class="language-plaintext highlighter-rouge">button-box.py</code> and read its usage
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd /opt/rpi-button-box
+./button-box.py -h
+</code></pre></div>    </div>
+    <p>If you wish to skip to a more detailed description of the button box controller, go to <a href="#using-the-button-box-controller">Using the button box controller</a> section in this tutorial.</p>
+  </li>
+</ol>
+
+<h3 id="configure-logrotate">Configure logrotate</h3>
+<p>(Optional.) The <code class="language-plaintext highlighter-rouge">rpi-button-box</code> controller generates a <code class="language-plaintext highlighter-rouge">button-box.log</code> file upon execution where it stores a couple of controller-related messages, such as initialization configs and button presses, releases, and so on.  Over time, this file will grow forever unless you manually rotate it.  Obviously, you don’t need to do that.  The easiest way to rotate log files in a GNU/Linux system is to configure <a href="#">logrotate</a> to manage your log files.  I’ve already written such a config file for the button box controller (see <code class="language-plaintext highlighter-rouge">logrotate.d/button-box</code>).  To enable it, just copy the config to your <code class="language-plaintext highlighter-rouge">/etc/logrotate.d/</code> directory, as follows</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo cp /opt/rpi-button-box/logrotate.d/button-box /etc/logrotate.d/
+</code></pre></div></div>
+<p>If you want, you can edit the rotation settings in <code class="language-plaintext highlighter-rouge">button-box</code>.  The default should be good enough though.</p>
+
+<h2 id="building-the-button-box">Building the button box</h2>
+<p class="notice notice--danger"><strong>ATTENTION.</strong>  If you have never used a drill before, take a few minutes to learn about best practices first.  When drilling holes into the case, make sure to secure the case very well before you begin.  When soldering cables to terminals, use a fan to move the fumes away from you and anyone else.  Wash your hands very well afterwards.</p>
+
+<p class="notice notice--warning"><strong>REMINDER.</strong>  Inside the button box, stick to <strong>low voltage DC</strong>.  External HDD enclosures were not made to house mains power and unless you have taken the time to learn how to handle it, do not tinker with it.</p>
+
+<p>After the <a href="#assessment">assessment</a>, it’s DIY time.</p>
+
+<ul>
+  <li>Start by drawing the location of each button on the box.  Use a ruler and pencil.</li>
+</ul>
+
+<p><a href="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/diy-drawing.jpg"><img src="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/diy-drawing.jpg" alt="Drawing" class="PostImage PostImage--large" /></a></p>
+
+<ul>
+  <li>
+    <p>Then, drill the holes and check that the buttons fit them.</p>
+  </li>
+  <li>
+    <p>Cut the vynil film and attach it to the surface of your button box.</p>
+  </li>
+  <li>
+    <p>Find the holes by gently pressing the surface of the vynil film.  Then, get a scissors or other cutting tool and either cut a circle where the hole is or cut an X where the hole is and fold the vynil film inwards.</p>
+  </li>
+  <li>
+    <p>Attach the buttons to the enclosure.  It should look like this now:</p>
+  </li>
+</ul>
+
+<p><a href="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/diy-buttons.jpg"><img src="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/diy-buttons.jpg" alt="Buttons" class="PostImage PostImage--large" /></a></p>
+
+<ul>
+  <li>
+    <p>Flip the case and it’s time to solder the jumper cables to each button terminal.</p>
+  </li>
+  <li>
+    <p>Tricks for working with dupont cables:</p>
+  </li>
+</ul>
+
+<!-- Courtesy of embedresponsively.com //-->
+<div class="responsive-video-container">
+
+  <iframe src="https://www.youtube-nocookie.com/embed/eI3fxTH6f6I" frameborder="0" allowfullscreen=""></iframe>
+
+</div>
+
+<ul>
+  <li>Because the buttons use a common ground, you <em>could</em> solder them together (terminal to terminal or splicing). However, if you want to reuse the buttons for another project in the future, or simply replace one of them, this will make it much harder to do that.  I wanted to make each button detachable without any desoldering, so I used the following idea for a custom-made header:</li>
+</ul>
+
+<!-- Courtesy of embedresponsively.com //-->
+<div class="responsive-video-container">
+
+  <iframe src="https://www.youtube-nocookie.com/embed/OC3aAuhU3og" frameborder="0" allowfullscreen=""></iframe>
+
+</div>
+
+<ul>
+  <li>
+    <p>If your heat shrinking tubes are pretty long, cut them.  Also, remember to insert the tubes into the cable before soldering.  (For a hobbyist like me, it’s very easy to forget that. Ugh!)</p>
+  </li>
+  <li>
+    <p>If at all possible, use different colors for ground (black, grey) and live/vcc (any thing else).</p>
+  </li>
+  <li>
+    <p>After it’s all done, it should look like this:</p>
+  </li>
+</ul>
+
+<p><a href="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/diy-soldering.jpg"><img src="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/diy-soldering.jpg" alt="Soldered Cables" class="PostImage PostImage--large" /></a></p>
+
+<p><a href="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/diy-soldering-2.jpg"><img src="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/diy-soldering-2.jpg" alt="Soldered Cables 2" class="PostImage PostImage--large" /></a></p>
+
+<ul>
+  <li>
+    <p>If you have a <a href="https://www.amazon.com/s?k=multimeter">multimeter</a>, <strong>test all your connections</strong>.</p>
+  </li>
+  <li>
+    <p>Connect the dupont cables to the RPi GPIO pins according to the following wiring schema:</p>
+  </li>
+</ul>
+
+<p><a href="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/button-box-wiring.jpg"><img src="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/button-box-wiring.jpg" alt="Wiring" class="PostImage PostImage--large" /></a></p>
+
+<p class="notice notice--info">This uses the <strong>internal pull-up resistor</strong> to simplify the wiring (<a href="https://gpiozero.readthedocs.io/en/stable/_modules/gpiozero/input_devices.html">enabled by default in the <code class="language-plaintext highlighter-rouge">Button</code> class of the <code class="language-plaintext highlighter-rouge">gpiozero</code> Python library</a>). Otherwise, check the wiring on my <a href="https://github.com/cgomesu/rpi-buttons"><code class="language-plaintext highlighter-rouge">rpi-buttons</code></a> repo for an example of how to wire <strong>current-limiting</strong> (1k ohms) resistors and <strong>pull-down</strong> (10k ohms) resistors.  However, if you choose the latter alternative, you’ll have to change the <code class="language-plaintext highlighter-rouge">gpiozero</code> deafult settings for the <code class="language-plaintext highlighter-rouge">Button</code> class.</p>
+
+<ul>
+  <li>Secure the cables as much as possible:</li>
+</ul>
+
+<p><a href="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/diy-secure.jpg"><img src="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/diy-secure.jpg" alt="Securing the Cables" class="PostImage PostImage--large" /></a></p>
+
+<ul>
+  <li><strong>Before closing the box</strong>, <a href="#using-the-button-box-controller">test your button box controller</a>.  Remember that once closed, these cases are not meant to be (easily) opened.  If there’s anything that needs to be connected to the Raspberry Pi, this is the time to do so.  For example, I wanted to make extra GPIO pins available to an LCD and added power and ethernet cable extensions:</li>
+</ul>
+
+<p><a href="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/diy-extra-cables.jpg"><img src="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/diy-extra-cables.jpg" alt="Extra Cables" class="PostImage PostImage--large" /></a></p>
+
+<ul>
+  <li><strong>Once you got everything working as intended</strong>, close the box.  Try to leave the area where the cpu heatsink is as clear as possible.  Be gentle when closing the box and guide the cables where they should be while closing the box (use a pen or something).</li>
+</ul>
+
+<p><a href="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/preview-rpi-and-buttons-closed.jpg"><img src="/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/preview-rpi-and-buttons-closed.jpg" alt="RPi and buttons - Closed 01" class="PostImage PostImage--large" /></a></p>
+
+<ul>
+  <li>Go play with it!</li>
+</ul>
+
+<h2 id="using-the-button-box-controller">Using the button box controller</h2>
+
+<h3 id="usage">Usage</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./button-box.py -h
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>usage: button-box.py [-h] [--buzzer BUZZER] [--cmd {Popen,run}]
+                     [--g1_pressed G1_PRESSED] [--g1_released G1_RELEASED]
+                     [--s1_held S1_HELD] [--s1_released S1_RELEASED] [-i] [-d]
+
+RPi button box controller. Repo: https://github.com/cgomesu/rpi-button-box
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --buzzer BUZZER       If installed, the buzzer's GPIO number.
+  --cmd {Popen,run}     Popen: run external scripts in a NON-BLOCKING fashion.
+                        run: run external scripts in a BLOCKING fashion.
+                        Default=run
+  --g1_pressed G1_PRESSED
+                        /path/to/script to run when G1 is pressed. The
+                        --btn_pressed arg is available to other PUSH buttons
+                        as well.
+  --g1_released G1_RELEASED
+                        /path/to/script to run when G1 is released. The
+                        --btn_released arg is available to other PUSH buttons
+                        as well.
+  --s1_held S1_HELD     /path/to/script to run when S1 is held. The
+                        --btn_held arg is available to other SWITCHES as well.
+  --s1_released S1_RELEASED
+                        /path/to/script to run when S1 is released. The
+                        --btn_released arg is available to other SWITCHES as
+                        well.
+  -i, --info            Show the board information.
+  -d, --debug           Print additional messages to the terminal.
+</code></pre></div></div>
+
+<p>As mentioned, there are <strong>hidden arguments</strong> for passing external scripts to be executed upon a button event, such as pressing <code class="language-plaintext highlighter-rouge">G2</code>, or releasing <code class="language-plaintext highlighter-rouge">S3</code>.  More specifically, in addition to <code class="language-plaintext highlighter-rouge">--g1_*</code> and <code class="language-plaintext highlighter-rouge">--s1_*</code> args shown in the help output, the program accepts args for any of the other seven buttons, as follows:</p>
+
+<ul>
+  <li>script for <code class="language-plaintext highlighter-rouge">pressed</code> and <code class="language-plaintext highlighter-rouge">released</code> events: the <strong>push buttons</strong> <code class="language-plaintext highlighter-rouge">--g1_*</code>, <code class="language-plaintext highlighter-rouge">--b1_*</code>, <code class="language-plaintext highlighter-rouge">--r1_*</code>, <code class="language-plaintext highlighter-rouge">--g2_*</code>, <code class="language-plaintext highlighter-rouge">--b2_*</code>, and <code class="language-plaintext highlighter-rouge">--r2_*</code>,</li>
+  <li>script for <code class="language-plaintext highlighter-rouge">held</code> and <code class="language-plaintext highlighter-rouge">released</code> events: the <strong>switches</strong> <code class="language-plaintext highlighter-rouge">--s1_*</code>, <code class="language-plaintext highlighter-rouge">--s2_*</code>, and <code class="language-plaintext highlighter-rouge">--s3_*</code>.</li>
+</ul>
+
+<p>The script generates a <code class="language-plaintext highlighter-rouge">button-box.log</code> log file to keep track of controller-related events.</p>
+
+<h3 id="examples">Examples</h3>
+<ul>
+  <li>Output info about the board
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./button-box.py -i
+</code></pre></div>    </div>
+  </li>
+  <li>Run the controller in debug mode (prints more messages to the terminal) and enable the buzzer (<code class="language-plaintext highlighter-rouge">GPIO4</code>)
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./button-box.py -d --buzzer 4
+</code></pre></div>    </div>
+  </li>
+  <li>Run the controller with a buzzer and execute <code class="language-plaintext highlighter-rouge">/opt/rpi-button-box/scripts/template.sh</code> whenever the push button <code class="language-plaintext highlighter-rouge">R2</code> is <strong>pressed</strong>:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./button-box.py --buzzer 4 \
+--r2_pressed '/opt/rpi-button-box/scripts/template.sh'
+</code></pre></div>    </div>
+  </li>
+  <li>Same as before, but don’t wait for the external script to finish running (<strong>non-blocking</strong> command execution):
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./button-box.py --buzzer 4 --cmd Popen \
+--r2_pressed '/opt/rpi-button-box/scripts/template.sh'
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="run-the-controller-as-a-service">Run the controller as a service</h3>
+<p>If you’re using options different than the default values, first edit the <code class="language-plaintext highlighter-rouge">systemd/button-box.service</code> file to include those options into the <code class="language-plaintext highlighter-rouge">ExecStart=</code> command execution.  (Reminder: If you’ve installed Python3 libraries with a user different than <code class="language-plaintext highlighter-rouge">pi</code> and the <code class="language-plaintext highlighter-rouge">rpi-button-box</code> dir is owned by another user, you’ll have to edit the <code class="language-plaintext highlighter-rouge">systemd/button-box.service</code> file to reflect such changes. Otherwise, you will run into errors related to permission.) Then, run <code class="language-plaintext highlighter-rouge">button-box.py</code> as a service, as follows:</p>
+
+<ol>
+  <li>Copy the <code class="language-plaintext highlighter-rouge">systemd/button-box.service</code> file to your systemd directory
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo cp /opt/rpi-button-box/systemd/button-box.service /lib/systemd/system/
+</code></pre></div>    </div>
+  </li>
+  <li>Enable the service and start it
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo systemctl enable button-box.service
+sudo systemctl start button-box.service
+</code></pre></div>    </div>
+  </li>
+  <li>Check the service status to make sure it’s running without issues
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl status button-box.service
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h3 id="bash-script-template">Bash script template</h3>
+<p>I’ve included a template for bash scripts on <code class="language-plaintext highlighter-rouge">scripts/template.sh</code> that anyone can use to create their customized set of commands to run upon a button event.  Just copy the template, rename it, edit it according to your needs, and when running the <code class="language-plaintext highlighter-rouge">button-box.py</code> controller, add the full path to the new script to one (or more) of the <code class="language-plaintext highlighter-rouge">--btn_*</code> arguments.  For example:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./button-box.py --buzzer 4 \
+--g1_pressed '/opt/rpi-button-box/scripts/notification.sh' \
+--b1_pressed '/opt/rpi-button-box/scripts/switch_cameras.sh' \
+--r1_pressed '/opt/rpi-button-box/scripts/lights_toggle.sh' \
+--g2_pressed '/opt/rpi-button-box/scripts/test_connectivity.sh' \
+--b2_pressed '/opt/rpi-button-box/scripts/shutdown.sh' \
+--r2_pressed '/opt/rpi-button-box/scripts/reboot.sh' \
+--s2_held '/opt/rpi-button-box/scripts/alarm_on.sh' \
+--s2_released '/opt/rpi-button-box/scripts/alarm_off.sh' \
+--s3_held '/opt/rpi-button-box/scripts/emergency.sh'
+</code></pre></div></div>
+
+<h2 id="alternatives-to-python">Alternatives to Python</h2>
+<p>There are many other languages you can use to make your own button box controller. <a href="https://nodered.org/"><strong>Node-RED</strong></a>, for example, is a nice alternative to users unfamiliarized with programming languages.  It uses flow-based programming and has built-in input nodes for the RPi GPIO pins, which makes programming a button box a matter of connecting a line between two nodes.  Also, it makes very easy to create a web dashboard for your button-box that you can access from anywhere.  Check it out.</p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="conclusion">Conclusion</h1>
+<p>This conlcudes the tutorial on how to repurpose an old external HDD enclosure into a button box for the Raspberry Pi (or any other SBC).  Check the <a href="#changelog">changelog</a> for updates.  If you have any questions, feel free to <a href="/contact/">get in touch with me</a>.  For anything related to the controller, please visit the <a href="https://github.com/cgomesu/rpi-button-box">rpi-button-box repo</a>.</p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Posted on:</strong> <time datetime="2020-12-18T12:08:00-03:00">December 18, 2020</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="mailto:?subject=[cgomesu.com] Repurposing external HDD enclosures into button boxes for the Raspbery Pi&amp;body=http%3A%2F%2Flocalhost%3A4000%2Fblog%2FRpi-button-box-ehdd-enclosure%2F " class="btn btn--inverse" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on E-mail"><i class="fas fa-envelope" aria-hidden="true"></i><span> E-mail</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fblog%2FRpi-button-box-ehdd-enclosure%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.reddit.com/submit?title=Repurposing external HDD enclosures into button boxes for the Raspbery Pi&url=http%3A%2F%2Flocalhost%3A4000%2Fblog%2FRpi-button-box-ehdd-enclosure%2F" class="btn btn--reddit" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Reddit"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i><span> Reddit</span></a>
+
+  <a href="https://twitter.com/intent/tweet?text=Repurposing+external+HDD+enclosures+into+button+boxes+for+the+Raspbery+Pi%20http%3A%2F%2Flocalhost%3A4000%2Fblog%2FRpi-button-box-ehdd-enclosure%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/blog/Mesh-networking-openwrt-batman/" class="pagination--pager" title="Mesh networking: A guide to using free and open-source software with common hardware
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search terms here...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search terms here..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/cgomesu" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          <li><a href="https://www.reddit.com/user/cgomesu/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i> Reddit</a></li>
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> RSS feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2020 CGomesu - Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> and <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a></div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

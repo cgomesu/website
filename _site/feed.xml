@@ -1,4 +1,619 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-12-07T15:48:43-03:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">Mesh networking: A guide to using free and open-source software with common hardware</title><link href="http://localhost:4000/blog/Mesh-networking-openwrt-batman/" rel="alternate" type="text/html" title="Mesh networking: A guide to using free and open-source software with common hardware" /><published>2020-12-07T12:10:00-03:00</published><updated>2020-12-07T12:10:00-03:00</updated><id>http://localhost:4000/blog/Mesh-networking-openwrt-batman</id><content type="html" xml:base="http://localhost:4000/blog/Mesh-networking-openwrt-batman/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://cgomesu.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://cgomesu.com/" rel="alternate" type="text/html" /><updated>2020-12-18T12:09:14-03:00</updated><id>http://cgomesu.com/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">Repurposing external HDD enclosures into button boxes for the Raspbery Pi</title><link href="http://cgomesu.com/blog/Rpi-button-box-ehdd-enclosure/" rel="alternate" type="text/html" title="Repurposing external HDD enclosures into button boxes for the Raspbery Pi" /><published>2020-12-18T12:08:00-03:00</published><updated>2020-12-18T12:08:00-03:00</updated><id>http://cgomesu.com/blog/Rpi-button-box-ehdd-enclosure</id><content type="html" xml:base="http://cgomesu.com/blog/Rpi-button-box-ehdd-enclosure/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+&lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;Dec 18th, 2020&lt;/strong&gt;: Publication of the original guide&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;Hard disk drives (HDDs) are often sold in an external enclosure with easy-to-use interfaces as a detachable, semi-mobile data storage solution. Every so often, however, their price goes below the market price for an equivalent internal HDD and when that happens, many of us will buy them only to remove the HDD from its external enclosure and use it as a regular HDD in our PCs and servers–a practice called &lt;strong&gt;shucking&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/amazon-seagate-4tb-ehdd.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/amazon-seagate-4tb-ehdd.jpg&quot; alt=&quot;Amazon ad Seagate expansion 4tb&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;But what do you do with the external enclosure afterwards? Do you throw it away?  Well, you could do that but here I’ll show that such enclosures can be repurposed into nice looking &lt;strong&gt;button boxes&lt;/strong&gt; for most single board computers (SBCs).  More specifically, I’ll transform an old, shucked &lt;a href=&quot;https://www.newegg.com/seagate-expansion-4tb/p/N82E16822178354&quot;&gt;&lt;strong&gt;Seagate Expansion 4TB USB3.0 HDD&lt;/strong&gt; (STBV4000100)&lt;/a&gt; into a button box for the &lt;a href=&quot;https://www.raspberrypi.org/products/raspberry-pi-3-model-b/&quot;&gt;&lt;strong&gt;Raspberry Pi&lt;/strong&gt; (RPi)&lt;/a&gt;. Here’s a preview of how it looks like:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/preview-rpi-and-buttons.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/preview-rpi-and-buttons.jpg&quot; alt=&quot;RPi and buttons&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/preview-rpi-and-buttons-closed.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/preview-rpi-and-buttons-closed.jpg&quot; alt=&quot;RPi and buttons - Closed 01&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/preview-rpi-and-buttons-closed-2.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/preview-rpi-and-buttons-closed-2.jpg&quot; alt=&quot;RPi and buttons - Closed 02&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;In the first section of this tutorial, I described a few general points to consider when &lt;a href=&quot;#assessment&quot;&gt;planning your button box&lt;/a&gt;, such as whether the SBC fits, if it already has holes, and so on.  Then, I go into the specifics of my own case, such as the &lt;a href=&quot;#hardware&quot;&gt;hardware components&lt;/a&gt; of it (e.g., buttons, switches), the &lt;a href=&quot;#software&quot;&gt;software&lt;/a&gt; used (Pi OS and a Python button box controller), and finally, the &lt;a href=&quot;#assembly&quot;&gt;assembly&lt;/a&gt; of hardware and software into a functional button box.  If that sounds good, let’s get started.&lt;/p&gt;
+
+&lt;p class=&quot;notice notice--danger&quot;&gt;&lt;strong&gt;ATTENTION&lt;/strong&gt;. I do not recommend to use an external HDD enclosure as a button box to control &lt;strong&gt;mains power&lt;/strong&gt;.  None of those enclosures was designed to have 110-220V AC running inside of it and things might melt and catch fire, and of course, you don’t want someone to get electrocuted because of a loose mains cable.  Even though some of the buttons and switches might be rated 110-220V AC at 10A, for instance, to be safe, stick to &lt;strong&gt;low voltage DC&lt;/strong&gt; inside the button box.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;assessment&quot;&gt;Assessment&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Does the enclosure have a &lt;strong&gt;flat surface&lt;/strong&gt; to attach the buttons?&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Will the SBC &lt;strong&gt;fit&lt;/strong&gt; inside of the enclosure?&lt;/p&gt;
+
+    &lt;p&gt;Height-wise, make sure there’s a little bit of room for the jumper cables that will be connected to the GPIO pins–&lt;em&gt;at least&lt;/em&gt; 5cm (roughly 2 inches) of space above the GPIO pins.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Will the buttons fit inside the enclosure?&lt;/p&gt;
+
+    &lt;p&gt;Some buttons have fairly long terminals that could hit the bottom of the enclosure once the lid is closed.  You also need to take into consideration that jumper cables will be soldered to the button’s terminal and might need additional room.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If the SBC will go inside of the enclosure, does it have holes to &lt;strong&gt;remove hot air from inside&lt;/strong&gt;?&lt;/p&gt;
+
+    &lt;p&gt;Depending on the SBC and usage, you might need to plan a small fan to remove the hot air generated by the board. However, this is likely not necessary for external HDD enclosures because heat will also harm HDDs and manufacturers will design their external cases with that in mind.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Can you repurpose some of the &lt;strong&gt;existing holes&lt;/strong&gt;?&lt;/p&gt;
+
+    &lt;p&gt;It’s much easier to use existing holes than making new ones and they usually look better because the case was designed with them in mind, as opposed to the new ones.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Is it &lt;strong&gt;safe to drill&lt;/strong&gt; holes in the enclosure?&lt;/p&gt;
+
+    &lt;p&gt;Some materials can crack/break easily and a few can be harmful to you if you do not take the necessary precautions.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;hardware&quot;&gt;Hardware&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;SBC:
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;a href=&quot;https://www.raspberrypi.org/products/raspberry-pi-3-model-b/&quot;&gt;Raspberry Pi 3B&lt;/a&gt;&lt;/p&gt;
+
+        &lt;p&gt;&lt;a href=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/rpi-model-3b.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/rpi-model-3b.jpg&quot; alt=&quot;RPi model 3B&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;External HDD enclosure:
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;a href=&quot;https://www.newegg.com/seagate-expansion-4tb/p/N82E16822178354&quot;&gt;Seagate Expansion 4TB USB3.0 HDD (STBV4000100)&lt;/a&gt;&lt;/p&gt;
+
+        &lt;p&gt;&lt;a href=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/seagate-external-enclosure.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/seagate-external-enclosure.jpg&quot; alt=&quot;Seagate HDD enclosure&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.amazon.com/s?k=push+button&quot;&gt;Push buttons&lt;/a&gt;:
+    &lt;ul&gt;
+      &lt;li&gt;02x Red push button&lt;/li&gt;
+      &lt;li&gt;02x Black push button&lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;02x Green push button&lt;/p&gt;
+
+        &lt;p&gt;&lt;a href=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/push-button.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/push-button.jpg&quot; alt=&quot;Push Button&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.amazon.com/s?k=toggle+switch&quot;&gt;Toggle switches&lt;/a&gt;:
+    &lt;ul&gt;
+      &lt;li&gt;03x OFF/on toggle switch&lt;/li&gt;
+      &lt;li&gt;02x Red safety cover for the toggle switch&lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;01x “ON/OFF” label for the toggle switch&lt;/p&gt;
+
+        &lt;p&gt;&lt;a href=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/toggle-switch.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/toggle-switch.jpg&quot; alt=&quot;Toggle Switch&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;(https://www.amazon.com/s?k=active+buzzer)&quot;&gt;Buzzer&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;01x Active buzzer&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/buzzer.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/buzzer.jpg&quot; alt=&quot;Buzzer&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Cover:
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;a href=&quot;https://www.amazon.com/s?k=carbon+fiber+vinyl+wrap&quot;&gt;Textured vynil/PVC film&lt;/a&gt;&lt;/p&gt;
+
+        &lt;p&gt;The size depends on the surface area you want to cover with it.  My suggestion is to use a &lt;strong&gt;thin&lt;/strong&gt; film instead of a thick layer because it is flexible and therefore, easy to attach to the enclosure.  By the way, these things are actually super useful to have around if you are into DIY projets.&lt;/p&gt;
+
+        &lt;p&gt;&lt;a href=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/textured-vynil-film.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/textured-vynil-film.jpg&quot; alt=&quot;Vynil Film&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Cables and related materials:
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;18x &lt;a href=&quot;https://www.amazon.com/s?k=dupont+wires&quot;&gt;Female-X Dupont/jumper wires&lt;/a&gt;&lt;/p&gt;
+
+        &lt;p&gt;The female side connects to GPIO pins and the other side can be whatever because is soldered to terminals or otherwise attached to them.&lt;/p&gt;
+
+        &lt;p&gt;&lt;a href=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/jumper-cables.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/jumper-cables.jpg&quot; alt=&quot;Jumper Cables&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;06x &lt;a href=&quot;https://www.amazon.com/s?k=heat+shrink+tube&quot;&gt;Heat shrink tube&lt;/a&gt;&lt;/p&gt;
+
+        &lt;p&gt;Cut them in half to protect both terminals of each push button&lt;/p&gt;
+
+        &lt;p&gt;&lt;a href=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/heat-shrink-tube.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/heat-shrink-tube.jpg&quot; alt=&quot;Heat Shrink Tube&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;01x &lt;a href=&quot;https://www.amazon.com/s?k=electrical+tape&quot;&gt;Electrical tape&lt;/a&gt;&lt;/p&gt;
+
+        &lt;p&gt;&lt;a href=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/electrical-tape.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/electrical-tape.jpg&quot; alt=&quot;Electrical Tape&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Other tools
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;a href=&quot;https://www.amazon.com/s?k=soldering+kit&quot;&gt;Basic soldering kit&lt;/a&gt;&lt;/p&gt;
+
+        &lt;p&gt;&lt;a href=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/soldering-kit.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/soldering-kit.jpg&quot; alt=&quot;Soldering Kit&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Any low power drill or even a manual &lt;a href=&quot;https://www.amazon.com/s?k=hand+drill&quot;&gt;hand drill&lt;/a&gt;: An electric drill will save you a lot of time.  For better results, use a step drill bit after making the center hole.&lt;/p&gt;
+
+        &lt;p&gt;&lt;a href=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/step-drill-bit.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/step-drill-bit.jpg&quot; alt=&quot;Step Drill Bit&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;software&quot;&gt;Software&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Operating System (OS):
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://www.raspberrypi.org/software/operating-systems/&quot;&gt;Raspberry Pi OS Lite&lt;/a&gt;: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Raspbian GNU/Linux 10 (buster)&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lite edition&lt;/code&gt;
+        &lt;ul&gt;
+          &lt;li&gt;Kernel: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;5.4&lt;/code&gt;&lt;/li&gt;
+          &lt;li&gt;Release date: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;December 2nd 2020&lt;/code&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Button box controller:
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://github.com/cgomesu/rpi-button-box&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rpi-button-box&lt;/code&gt;&lt;/a&gt;: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1.0&lt;/code&gt;
+        &lt;ul&gt;
+          &lt;li&gt;A custom-made controller written in Python&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Controller requirements:
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://www.python.org&quot;&gt;Python&lt;/a&gt;: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;3.7.3&lt;/code&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;https://gpiozero.readthedocs.io/en/stable/&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gpiozero&lt;/code&gt;&lt;/a&gt;: An interface to GPIO devices&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;https://docs.python.org/3/library/argparse.html&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;argparse&lt;/code&gt;&lt;/a&gt;, &lt;a href=&quot;https://docs.python.org/3/library/logging.html&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;logging&lt;/code&gt;&lt;/a&gt;, &lt;a href=&quot;https://docs.python.org/3/library/signal.html&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;signal&lt;/code&gt;&lt;/a&gt;, &lt;a href=&quot;https://docs.python.org/3/library/subprocess.html&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;subprocess&lt;/code&gt;&lt;/a&gt;: Standard, built-in libraries&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Optional:
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://linux.die.net/man/8/logrotate&quot;&gt;Logrotate&lt;/a&gt;: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;3.14.0&lt;/code&gt;
+        &lt;ul&gt;
+          &lt;li&gt;Manage the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;button-box.log&lt;/code&gt; log files generated by the controller&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;rpi-button-box-controller&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rpi-button-box&lt;/code&gt; controller&lt;/h2&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;Core program for a Raspberry Pi button box controller that uses the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gpiozero&lt;/code&gt; Python library.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;I wrote this program with the current project in mind–that is, a 40-pins Raspberry Pi with six push buttons and three switches, one of them being a power on/off for the box–but hopefully, my comments and documentation will be enough to allow adapting the program to multiple types of button boxes.  In this section, I’ll explain the program’s main logic and its functionalities.  The installation procedure and usage examples are described in &lt;a href=&quot;#assembly&quot;&gt;assembly&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gpiozero&lt;/code&gt; library is at the core of the button box controller.  The library makes it very easy to enable GPIO devices with just a few lines of code because it leaves much of the device configuration and cleanup procedures to the background.  All that we need to do is create objects for the GPIO devices of the appropriate class, which in our case is the &lt;a href=&quot;https://gpiozero.readthedocs.io/en/stable/api_input.html#button&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Button&lt;/code&gt;&lt;/a&gt; class and &lt;a href=&quot;https://gpiozero.readthedocs.io/en/stable/api_output.html#buzzer&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Buzzer&lt;/code&gt;&lt;/a&gt; class.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rpi-button-box&lt;/code&gt; controller’s main logic is explained next.&lt;/p&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;basicConfig&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'/opt/rpi-button-box/button-box.log'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;level&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;INFO&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'%(asctime)s.%(msecs)03d %(levelname)s %(module)s : %(message)s'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;datefmt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'%Y-%m-%d %H:%M:%S'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Started the button box controller'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;buttons&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;config_buttons&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;The program starts by configuring and initializing the logging of controller-related events, such as whether button &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;G1&lt;/code&gt; was pressed, which &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;GPIO&lt;/code&gt; pins are being used, and so on. Then, it asks &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config_buttons&lt;/code&gt; for a list of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;buttons&lt;/code&gt; to be used by the controller, as follows:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;config_buttons&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Loading buttons...'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;Button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmdheld&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmdpressed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmdreleased&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;g1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;g1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;g1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;g1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmdpressed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;g1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmdreleased&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;26&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'green #1'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'push'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'g1_pressed'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'g1_released'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;b1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmdpressed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmdreleased&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;19&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'black #1'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'push'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'b1_pressed'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'b1_released'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmdpressed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmdreleased&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;13&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'red #1'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'push'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'r1_pressed'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'r1_released'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;g2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;g2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;g2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;g2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmdpressed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;g2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmdreleased&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'green #2'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'push'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'g2_pressed'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'g2_released'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;b2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmdpressed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmdreleased&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'black #2'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'push'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'b2_pressed'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'b2_released'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;r2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmdpressed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmdreleased&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'red #2'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'push'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'r2_pressed'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'r2_released'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmdheld&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmdreleased&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hold_time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'power'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'switch'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'s1_held'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'s1_released'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;s2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmdheld&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmdreleased&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hold_time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'middle S2'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'switch'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'s2_held'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'s2_released'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;s3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmdheld&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmdreleased&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;21&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hold_time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'right S3'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'switch'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'s3_held'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'s3_released'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Buttons loaded'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;g1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;g2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Notice that it starts by creating &lt;em&gt;new&lt;/em&gt; attributes for the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Button&lt;/code&gt; class, which are called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;label&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;type&lt;/code&gt;, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cmd*&lt;/code&gt;. I found this to be useful when working with multiple buttons because it allows me to define events on a &lt;em&gt;per button basis&lt;/em&gt;.  For example, one might want to set different triggers for &lt;strong&gt;switches&lt;/strong&gt; and &lt;strong&gt;push buttons&lt;/strong&gt;, and the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;type&lt;/code&gt; attribute will help differentiate those.  Similarly, one might want to execute a different command for a button labeled &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;power&lt;/code&gt; than a button labeled &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;reboot&lt;/code&gt;.  It goes without saying that if your box does not follow the same layout as mine, you have to edit this part of the code.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Going back to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main&lt;/code&gt;:&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Trying to find a power switch...'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;button&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;buttons&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;label&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'power'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Power switch found at {}'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;is_active&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Waiting for the power button ({}) to be turned ON...'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;wait_for_active&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Power switch was turned ON by user'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hold_time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# wait for the power button to enter is_held state
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;In my original design for the button box, I had a toggle, on/off &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;switch&lt;/code&gt; labeled &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;power&lt;/code&gt; that I wanted to use to &lt;strong&gt;enable&lt;/strong&gt; and &lt;strong&gt;disable&lt;/strong&gt; the button box controller.  The code above handles the activation of the button box depending on the state of a button labeled &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;power&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;n&quot;&gt;push_buttons&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;switches&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;button&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;buttons&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'switch'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;switches&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;when_held&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;when_released&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;event_held&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;event_released&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Configured the switch button ({0}) at {1}'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;push_buttons&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;when_pressed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;when_released&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;event_pressed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;event_released&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Configured the push button ({0}) at {1}'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Here, the program learns what triggers each button.  As mentioend before, the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;type&lt;/code&gt; attr is used to set different triggers for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;switch&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;push&lt;/code&gt; buttons.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Of note, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;when_*&lt;/code&gt; properties will pass the device that activated it to a function that takes a single parameter (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;btn&lt;/code&gt;), and because there are multiple new attributes for each button object, it is possible to use a single function to control all buttons by reading the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;btn&lt;/code&gt; attributes.  For example, take a look at the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;event_held&lt;/code&gt;, in which we have code for invoking an external command/script using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;btn.cmdheld&lt;/code&gt; attribute:&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;event_held&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;btn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'The button labeled &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{0}&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; at {1} was held'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;btn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;btn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'debug'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Detected a HELD event by {0} : {1} button : {2}'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;btn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;btn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;btn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;btn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmdheld&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Started running the following command: &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{}&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;btn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmdheld&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Popen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;btn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmdheld&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'cmd'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Popen'&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;btn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmdheld&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'debug'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Finished invoking the script at &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{}&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;btn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmdheld&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Finished waiting for the following command: &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;{}&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;btn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmdheld&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Going back to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main&lt;/code&gt;:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'buzzer'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;buzzer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;buzzer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;source&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Buzzer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'buzzer'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;any_values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push_buttons&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Configured a buzzer at {}'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;buzzer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;This configures the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Buzzer&lt;/code&gt; object to be activated whenever a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;push&lt;/code&gt; button is pressed.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'The button box is now turned ON. To close it, release the power button or press Ctrl+C.'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'The button box is ON and waiting for user input'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;pause&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;except&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;KeyboardInterrupt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Received a signal to stop.'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;except&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GPIOZeroError&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'GPIOZero error: {}'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;And finally, at the end of our main logic, the program is &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pause&lt;/code&gt;d to wait for a user input to trigger an event (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;when_pressed&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;when_held&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;when_released&lt;/code&gt;). This is a better alternative to using an infinite loop (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;while True&lt;/code&gt;).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;There’s a little bit more to the code than that but this covers the most important aspects of it. &lt;a href=&quot;https://github.com/cgomesu/rpi-button-box&quot;&gt;Check the repo for updates&lt;/a&gt;, &lt;a href=&quot;https://github.com/cgomesu/rpi-button-box/discussions&quot;&gt;start a discussion&lt;/a&gt; if you had an idea, or &lt;a href=&quot;https://github.com/cgomesu/rpi-button-box/issues&quot;&gt;open an issue&lt;/a&gt; if you’re having trouble with the program.&lt;/p&gt;
+
+&lt;h1 id=&quot;assembly&quot;&gt;Assembly&lt;/h1&gt;
+
+&lt;h2 id=&quot;installing-the-software&quot;&gt;Installing the software&lt;/h2&gt;
+
+&lt;h3 id=&quot;raspberry-pi-os&quot;&gt;Raspberry Pi OS&lt;/h3&gt;
+&lt;p&gt;Follow &lt;a href=&quot;https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up&quot;&gt;the official instructions to install the Raspberry Pi OS&lt;/a&gt;. If you don’t feel like it, here’s a brief summary:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Download the image file from the official repository.&lt;/li&gt;
+  &lt;li&gt;Verify checksum.  On Linux distros, run the following, changing &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;img.zip&lt;/code&gt; for the filename of the downloaded OS zipped image:
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sha256sum img.zip
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Flash onto a microSD card with &lt;a href=&quot;https://www.balena.io/etcher/&quot;&gt;balenaEtcher&lt;/a&gt; or similar application.&lt;/li&gt;
+  &lt;li&gt;For headless access, add an empty &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ssh&lt;/code&gt; file to the root of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;boot&lt;/code&gt; drive.&lt;/li&gt;
+  &lt;li&gt;Insert the microSD card into the RPi and boot it up.&lt;/li&gt;
+  &lt;li&gt;Find the RPi IP and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ssh&lt;/code&gt; into it (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ssh pi@IP&lt;/code&gt; and the default passwd is &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;raspberry&lt;/code&gt;).&lt;/li&gt;
+  &lt;li&gt;Config the RPi with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sudo raspi-config&lt;/code&gt; (locale, time, wireless, etc.) then &lt;strong&gt;reboot it&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;Reconnect to the RPi and update the package list &amp;amp;&amp;amp; upgrade all eligible pkgs, as follows:
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt update &amp;amp;&amp;amp; sudo apt upgrade -y
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Reboot the device once again and you’re done!&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;python3-rpi-button-box-and-installing-the-requirements&quot;&gt;Python3, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rpi-button-box&lt;/code&gt;, and installing the requirements&lt;/h3&gt;
+&lt;p&gt;The button box controller was developed for the Lite version of the &lt;a href=&quot;https://www.raspberrypi.org/software/&quot;&gt;Raspberry Pi OS&lt;/a&gt; but it should work with other similar systems for single board computers (e.g., &lt;a href=&quot;https://www.armbian.com/&quot;&gt;Armbian&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;The following instructions assume you’re logged in with the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pi&lt;/code&gt; user with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sudo&lt;/code&gt; permission. (This is not a requirement but if different, make sure to change file permissions accordingly.  This applies to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;systemd&lt;/code&gt; service file and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;logrotate/button-box&lt;/code&gt; config as well.)&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;apt&lt;/code&gt; to install required programs
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt update
+sudo apt install git python3 python3-pip
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Clone the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rpi-button-box&lt;/code&gt; repo in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/opt&lt;/code&gt;
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd /opt
+sudo git clone https://github.com/cgomesu/rpi-button-box.git
+sudo chown -R pi rpi-button-box
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Install Python libraries from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;requirements.txt&lt;/code&gt;
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pip3 install -r /opt/rpi-button-box/requirements.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;ul&gt;
+      &lt;li&gt;If you get a warning that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.local/bin&lt;/code&gt; is not in your user’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$PATH&lt;/code&gt;, then add it to your existing &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$PATH&lt;/code&gt; as follows:
+        &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;export PATH=/home/pi/.local/bin:$PATH
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
+        &lt;p&gt;and then append it to your user’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.bashrc&lt;/code&gt;:&lt;/p&gt;
+        &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;echo &quot;export PATH=/home/pi/.local/bin:$PATH&quot; | tee -a /home/pi/.bashrc &amp;gt; /dev/null
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Test &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;button-box.py&lt;/code&gt; and read its usage
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd /opt/rpi-button-box
+./button-box.py -h
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;If you wish to skip to a more detailed description of the button box controller, go to &lt;a href=&quot;#using-the-button-box-controller&quot;&gt;Using the button box controller&lt;/a&gt; section in this tutorial.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;configure-logrotate&quot;&gt;Configure logrotate&lt;/h3&gt;
+&lt;p&gt;(Optional.) The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rpi-button-box&lt;/code&gt; controller generates a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;button-box.log&lt;/code&gt; file upon execution where it stores a couple of controller-related messages, such as initialization configs and button presses, releases, and so on.  Over time, this file will grow forever unless you manually rotate it.  Obviously, you don’t need to do that.  The easiest way to rotate log files in a GNU/Linux system is to configure &lt;a href=&quot;#&quot;&gt;logrotate&lt;/a&gt; to manage your log files.  I’ve already written such a config file for the button box controller (see &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;logrotate.d/button-box&lt;/code&gt;).  To enable it, just copy the config to your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/logrotate.d/&lt;/code&gt; directory, as follows&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo cp /opt/rpi-button-box/logrotate.d/button-box /etc/logrotate.d/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;If you want, you can edit the rotation settings in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;button-box&lt;/code&gt;.  The default should be good enough though.&lt;/p&gt;
+
+&lt;h2 id=&quot;building-the-button-box&quot;&gt;Building the button box&lt;/h2&gt;
+&lt;p class=&quot;notice notice--danger&quot;&gt;&lt;strong&gt;ATTENTION.&lt;/strong&gt;  If you have never used a drill before, take a few minutes to learn about best practices first.  When drilling holes into the case, make sure to secure the case very well before you begin.  When soldering cables to terminals, use a fan to move the fumes away from you and anyone else.  Wash your hands very well afterwards.&lt;/p&gt;
+
+&lt;p class=&quot;notice notice--warning&quot;&gt;&lt;strong&gt;REMINDER.&lt;/strong&gt;  Inside the button box, stick to &lt;strong&gt;low voltage DC&lt;/strong&gt;.  External HDD enclosures were not made to house mains power and unless you have taken the time to learn how to handle it, do not tinker with it.&lt;/p&gt;
+
+&lt;p&gt;After the &lt;a href=&quot;#assessment&quot;&gt;assessment&lt;/a&gt;, it’s DIY time.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Start by drawing the location of each button on the box.  Use a ruler and pencil.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/diy-drawing.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/diy-drawing.jpg&quot; alt=&quot;Drawing&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Then, drill the holes and check that the buttons fit them.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Cut the vynil film and attach it to the surface of your button box.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Find the holes by gently pressing the surface of the vynil film.  Then, get a scissors or other cutting tool and either cut a circle where the hole is or cut an X where the hole is and fold the vynil film inwards.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Attach the buttons to the enclosure.  It should look like this now:&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/diy-buttons.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/diy-buttons.jpg&quot; alt=&quot;Buttons&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Flip the case and it’s time to solder the jumper cables to each button terminal.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Tricks for working with dupont cables:&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- Courtesy of embedresponsively.com //--&gt;
+&lt;div class=&quot;responsive-video-container&quot;&gt;
+
+  &lt;iframe src=&quot;https://www.youtube-nocookie.com/embed/eI3fxTH6f6I&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Because the buttons use a common ground, you &lt;em&gt;could&lt;/em&gt; solder them together (terminal to terminal or splicing). However, if you want to reuse the buttons for another project in the future, or simply replace one of them, this will make it much harder to do that.  I wanted to make each button detachable without any desoldering, so I used the following idea for a custom-made header:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- Courtesy of embedresponsively.com //--&gt;
+&lt;div class=&quot;responsive-video-container&quot;&gt;
+
+  &lt;iframe src=&quot;https://www.youtube-nocookie.com/embed/OC3aAuhU3og&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;If your heat shrinking tubes are pretty long, cut them.  Also, remember to insert the tubes into the cable before soldering.  (For a hobbyist like me, it’s very easy to forget that. Ugh!)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If at all possible, use different colors for ground (black, grey) and live/vcc (any thing else).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;After it’s all done, it should look like this:&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/diy-soldering.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/diy-soldering.jpg&quot; alt=&quot;Soldered Cables&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/diy-soldering-2.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/diy-soldering-2.jpg&quot; alt=&quot;Soldered Cables 2&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;If you have a &lt;a href=&quot;https://www.amazon.com/s?k=multimeter&quot;&gt;multimeter&lt;/a&gt;, &lt;strong&gt;test all your connections&lt;/strong&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Connect the dupont cables to the RPi GPIO pins according to the following wiring schema:&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/button-box-wiring.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/button-box-wiring.jpg&quot; alt=&quot;Wiring&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p class=&quot;notice notice--info&quot;&gt;This uses the &lt;strong&gt;internal pull-up resistor&lt;/strong&gt; to simplify the wiring (&lt;a href=&quot;https://gpiozero.readthedocs.io/en/stable/_modules/gpiozero/input_devices.html&quot;&gt;enabled by default in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Button&lt;/code&gt; class of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gpiozero&lt;/code&gt; Python library&lt;/a&gt;). Otherwise, check the wiring on my &lt;a href=&quot;https://github.com/cgomesu/rpi-buttons&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rpi-buttons&lt;/code&gt;&lt;/a&gt; repo for an example of how to wire &lt;strong&gt;current-limiting&lt;/strong&gt; (1k ohms) resistors and &lt;strong&gt;pull-down&lt;/strong&gt; (10k ohms) resistors.  However, if you choose the latter alternative, you’ll have to change the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gpiozero&lt;/code&gt; deafult settings for the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Button&lt;/code&gt; class.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Secure the cables as much as possible:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/diy-secure.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/diy-secure.jpg&quot; alt=&quot;Securing the Cables&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Before closing the box&lt;/strong&gt;, &lt;a href=&quot;#using-the-button-box-controller&quot;&gt;test your button box controller&lt;/a&gt;.  Remember that once closed, these cases are not meant to be (easily) opened.  If there’s anything that needs to be connected to the Raspberry Pi, this is the time to do so.  For example, I wanted to make extra GPIO pins available to an LCD and added power and ethernet cable extensions:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/diy-extra-cables.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/diy-extra-cables.jpg&quot; alt=&quot;Extra Cables&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Once you got everything working as intended&lt;/strong&gt;, close the box.  Try to leave the area where the cpu heatsink is as clear as possible.  Be gentle when closing the box and guide the cables where they should be while closing the box (use a pen or something).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/preview-rpi-and-buttons-closed.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-12-08-Rpi-button-box-ehdd-enclosure/preview-rpi-and-buttons-closed.jpg&quot; alt=&quot;RPi and buttons - Closed 01&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Go play with it!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;using-the-button-box-controller&quot;&gt;Using the button box controller&lt;/h2&gt;
+
+&lt;h3 id=&quot;usage&quot;&gt;Usage&lt;/h3&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./button-box.py -h
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;usage: button-box.py [-h] [--buzzer BUZZER] [--cmd {Popen,run}]
+                     [--g1_pressed G1_PRESSED] [--g1_released G1_RELEASED]
+                     [--s1_held S1_HELD] [--s1_released S1_RELEASED] [-i] [-d]
+
+RPi button box controller. Repo: https://github.com/cgomesu/rpi-button-box
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --buzzer BUZZER       If installed, the buzzer's GPIO number.
+  --cmd {Popen,run}     Popen: run external scripts in a NON-BLOCKING fashion.
+                        run: run external scripts in a BLOCKING fashion.
+                        Default=run
+  --g1_pressed G1_PRESSED
+                        /path/to/script to run when G1 is pressed. The
+                        --btn_pressed arg is available to other PUSH buttons
+                        as well.
+  --g1_released G1_RELEASED
+                        /path/to/script to run when G1 is released. The
+                        --btn_released arg is available to other PUSH buttons
+                        as well.
+  --s1_held S1_HELD     /path/to/script to run when S1 is held. The
+                        --btn_held arg is available to other SWITCHES as well.
+  --s1_released S1_RELEASED
+                        /path/to/script to run when S1 is released. The
+                        --btn_released arg is available to other SWITCHES as
+                        well.
+  -i, --info            Show the board information.
+  -d, --debug           Print additional messages to the terminal.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;As mentioned, there are &lt;strong&gt;hidden arguments&lt;/strong&gt; for passing external scripts to be executed upon a button event, such as pressing &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;G2&lt;/code&gt;, or releasing &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;S3&lt;/code&gt;.  More specifically, in addition to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--g1_*&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--s1_*&lt;/code&gt; args shown in the help output, the program accepts args for any of the other seven buttons, as follows:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;script for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pressed&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;released&lt;/code&gt; events: the &lt;strong&gt;push buttons&lt;/strong&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--g1_*&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--b1_*&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--r1_*&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--g2_*&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--b2_*&lt;/code&gt;, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--r2_*&lt;/code&gt;,&lt;/li&gt;
+  &lt;li&gt;script for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;held&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;released&lt;/code&gt; events: the &lt;strong&gt;switches&lt;/strong&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--s1_*&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--s2_*&lt;/code&gt;, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--s3_*&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The script generates a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;button-box.log&lt;/code&gt; log file to keep track of controller-related events.&lt;/p&gt;
+
+&lt;h3 id=&quot;examples&quot;&gt;Examples&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Output info about the board
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./button-box.py -i
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Run the controller in debug mode (prints more messages to the terminal) and enable the buzzer (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;GPIO4&lt;/code&gt;)
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./button-box.py -d --buzzer 4
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Run the controller with a buzzer and execute &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/opt/rpi-button-box/scripts/template.sh&lt;/code&gt; whenever the push button &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;R2&lt;/code&gt; is &lt;strong&gt;pressed&lt;/strong&gt;:
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./button-box.py --buzzer 4 \
+--r2_pressed '/opt/rpi-button-box/scripts/template.sh'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Same as before, but don’t wait for the external script to finish running (&lt;strong&gt;non-blocking&lt;/strong&gt; command execution):
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./button-box.py --buzzer 4 --cmd Popen \
+--r2_pressed '/opt/rpi-button-box/scripts/template.sh'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;run-the-controller-as-a-service&quot;&gt;Run the controller as a service&lt;/h3&gt;
+&lt;p&gt;If you’re using options different than the default values, first edit the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;systemd/button-box.service&lt;/code&gt; file to include those options into the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ExecStart=&lt;/code&gt; command execution.  (Reminder: If you’ve installed Python3 libraries with a user different than &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pi&lt;/code&gt; and the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rpi-button-box&lt;/code&gt; dir is owned by another user, you’ll have to edit the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;systemd/button-box.service&lt;/code&gt; file to reflect such changes. Otherwise, you will run into errors related to permission.) Then, run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;button-box.py&lt;/code&gt; as a service, as follows:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Copy the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;systemd/button-box.service&lt;/code&gt; file to your systemd directory
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo cp /opt/rpi-button-box/systemd/button-box.service /lib/systemd/system/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Enable the service and start it
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo systemctl enable button-box.service
+sudo systemctl start button-box.service
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Check the service status to make sure it’s running without issues
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;systemctl status button-box.service
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;bash-script-template&quot;&gt;Bash script template&lt;/h3&gt;
+&lt;p&gt;I’ve included a template for bash scripts on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scripts/template.sh&lt;/code&gt; that anyone can use to create their customized set of commands to run upon a button event.  Just copy the template, rename it, edit it according to your needs, and when running the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;button-box.py&lt;/code&gt; controller, add the full path to the new script to one (or more) of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--btn_*&lt;/code&gt; arguments.  For example:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./button-box.py --buzzer 4 \
+--g1_pressed '/opt/rpi-button-box/scripts/notification.sh' \
+--b1_pressed '/opt/rpi-button-box/scripts/switch_cameras.sh' \
+--r1_pressed '/opt/rpi-button-box/scripts/lights_toggle.sh' \
+--g2_pressed '/opt/rpi-button-box/scripts/test_connectivity.sh' \
+--b2_pressed '/opt/rpi-button-box/scripts/shutdown.sh' \
+--r2_pressed '/opt/rpi-button-box/scripts/reboot.sh' \
+--s2_held '/opt/rpi-button-box/scripts/alarm_on.sh' \
+--s2_released '/opt/rpi-button-box/scripts/alarm_off.sh' \
+--s3_held '/opt/rpi-button-box/scripts/emergency.sh'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;alternatives-to-python&quot;&gt;Alternatives to Python&lt;/h2&gt;
+&lt;p&gt;There are many other languages you can use to make your own button box controller. &lt;a href=&quot;https://nodered.org/&quot;&gt;&lt;strong&gt;Node-RED&lt;/strong&gt;&lt;/a&gt;, for example, is a nice alternative to users unfamiliarized with programming languages.  It uses flow-based programming and has built-in input nodes for the RPi GPIO pins, which makes programming a button box a matter of connecting a line between two nodes.  Also, it makes very easy to create a web dashboard for your button-box that you can access from anywhere.  Check it out.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;This conlcudes the tutorial on how to repurpose an old external HDD enclosure into a button box for the Raspberry Pi (or any other SBC).  Check the &lt;a href=&quot;#changelog&quot;&gt;changelog&lt;/a&gt; for updates.  If you have any questions, feel free to &lt;a href=&quot;/contact/&quot;&gt;get in touch with me&lt;/a&gt;.  For anything related to the controller, please visit the &lt;a href=&quot;https://github.com/cgomesu/rpi-button-box&quot;&gt;rpi-button-box repo&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="DIY" /><category term="raspberrypi" /><category term="rpi" /><category term="hdd" /><category term="enclosure" /><category term="button" /><category term="box" /></entry><entry><title type="html">Mesh networking: A guide to using free and open-source software with common hardware</title><link href="http://cgomesu.com/blog/Mesh-networking-openwrt-batman/" rel="alternate" type="text/html" title="Mesh networking: A guide to using free and open-source software with common hardware" /><published>2020-12-07T12:10:00-03:00</published><updated>2020-12-07T12:10:00-03:00</updated><id>http://cgomesu.com/blog/Mesh-networking-openwrt-batman</id><content type="html" xml:base="http://cgomesu.com/blog/Mesh-networking-openwrt-batman/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;Dec 7th, 2020&lt;/strong&gt;: Publication of the original guide&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
@@ -1158,7 +1773,7 @@ lsmod | grep batman
 
 &lt;p&gt;They have pre-configured images that will work “out of the box” with compatible devices.  You might find instructive to start playing around with their software first and once comfortable, build your own configuration from a default (or customized from the source) OpenWrt image.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="mesh" /><category term="adhoc" /><category term="ieee" /><category term="wifi" /><category term="wireless" /><category term="radio" /><category term="network" /><category term="router" /><category term="openwrt" /><category term="batman" /></entry><entry><title type="html">NanoPi M4 mini-NAS</title><link href="http://localhost:4000/blog/Nanopi-m4-mini-nas/" rel="alternate" type="text/html" title="NanoPi M4 mini-NAS" /><published>2020-07-06T13:42:00-03:00</published><updated>2020-07-06T13:42:00-03:00</updated><id>http://localhost:4000/blog/Nanopi-m4-mini-nas</id><content type="html" xml:base="http://localhost:4000/blog/Nanopi-m4-mini-nas/">&lt;p&gt;This article is about my mini network-attached storage (NAS) project based on FriendlyARM’s &lt;a href=&quot;http://wiki.friendlyarm.com/wiki/index.php/NanoPi_M4&quot;&gt;NanoPi M4&lt;/a&gt; and its &lt;a href=&quot;http://wiki.friendlyarm.com/wiki/index.php/NanoPi_M4_SATA_HAT&quot;&gt;SATA hat&lt;/a&gt;.  If you’re looking for a cheap, low-profile, low-power NAS solution for your home–or if you just like single-board computers (SBC)–then this article is for you.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="mesh" /><category term="adhoc" /><category term="ieee" /><category term="wifi" /><category term="wireless" /><category term="radio" /><category term="network" /><category term="router" /><category term="openwrt" /><category term="batman" /></entry><entry><title type="html">NanoPi M4 mini-NAS</title><link href="http://cgomesu.com/blog/Nanopi-m4-mini-nas/" rel="alternate" type="text/html" title="NanoPi M4 mini-NAS" /><published>2020-07-06T13:42:00-03:00</published><updated>2020-07-06T13:42:00-03:00</updated><id>http://cgomesu.com/blog/Nanopi-m4-mini-nas</id><content type="html" xml:base="http://cgomesu.com/blog/Nanopi-m4-mini-nas/">&lt;p&gt;This article is about my mini network-attached storage (NAS) project based on FriendlyARM’s &lt;a href=&quot;http://wiki.friendlyarm.com/wiki/index.php/NanoPi_M4&quot;&gt;NanoPi M4&lt;/a&gt; and its &lt;a href=&quot;http://wiki.friendlyarm.com/wiki/index.php/NanoPi_M4_SATA_HAT&quot;&gt;SATA hat&lt;/a&gt;.  If you’re looking for a cheap, low-profile, low-power NAS solution for your home–or if you just like single-board computers (SBC)–then this article is for you.&lt;/p&gt;
 
 &lt;p&gt;Here’s a preview of how my NanoPi M4 mini-NAS looks like:&lt;/p&gt;
 
@@ -1680,7 +2295,7 @@ systemctl status pwm-fan.service
 
 &lt;p&gt;&lt;a href=&quot;/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-cgomesu-rtc-battery.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-cgomesu-rtc-battery.jpg&quot; alt=&quot;RTC battery&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="sbc" /><category term="arm" /><category term="homelab" /><category term="homeserver" /><category term="storage" /></entry><entry><title type="html">The ASRock J3355b-itx pfSense box</title><link href="http://localhost:4000/blog/Pfsense-white-box/" rel="alternate" type="text/html" title="The ASRock J3355b-itx pfSense box" /><published>2020-06-25T10:31:25-03:00</published><updated>2020-06-25T10:31:25-03:00</updated><id>http://localhost:4000/blog/Pfsense-white-box</id><content type="html" xml:base="http://localhost:4000/blog/Pfsense-white-box/">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="sbc" /><category term="arm" /><category term="homelab" /><category term="homeserver" /><category term="storage" /></entry><entry><title type="html">The ASRock J3355b-itx pfSense box</title><link href="http://cgomesu.com/blog/Pfsense-white-box/" rel="alternate" type="text/html" title="The ASRock J3355b-itx pfSense box" /><published>2020-06-25T10:31:25-03:00</published><updated>2020-06-25T10:31:25-03:00</updated><id>http://cgomesu.com/blog/Pfsense-white-box</id><content type="html" xml:base="http://cgomesu.com/blog/Pfsense-white-box/">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
 &lt;p&gt;&lt;a href=&quot;https://www.pfsense.org/&quot;&gt;pfSense CE&lt;/a&gt; is a free, &lt;a href=&quot;https://github.com/pfsense/pfsense&quot;&gt;open-source&lt;/a&gt;, and very popular &lt;strong&gt;firewall/router&lt;/strong&gt; that runs on &lt;a href=&quot;https://www.freebsd.org/&quot;&gt;FreeBSD&lt;/a&gt; and is developed by &lt;a href=&quot;https://www.netgate.com/&quot;&gt;Netgate&lt;/a&gt;.  Even though Netgate sells &lt;a href=&quot;https://www.netgate.com/products/appliances/&quot;&gt;official pfSense appliances&lt;/a&gt;, it’s possible to build your own, custom-made pfSense box for (way) less money (at the expense of way less support from Netgate).&lt;/p&gt;
 
 &lt;p&gt;In this article, I talked about &lt;strong&gt;my ASRock mini-ITX pfSense box project&lt;/strong&gt;.  In the first part, I listed all the necessary hardware to build the box, and in the second part, I briefly talked about the software.&lt;/p&gt;
@@ -1748,7 +2363,7 @@ systemctl status pwm-fan.service
 &lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
 &lt;p&gt;This concludes the basics of a cheap, low-profile, and low-power (yet powerful) pfSense white-box.  I’ve never had any issues with this hardware and recommend it to anyone interested in diving into firewalls or just looking for something a bit more advanced than what commercial routers can offer.  If you want to try something different than pfSense, take a look at &lt;a href=&quot;https://opnsense.org/&quot;&gt;OPNsense&lt;/a&gt;–a pfSense fork–for another free and open-source firewall software.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="homelab" /><category term="homeserver" /><category term="firewall" /><category term="network" /></entry><entry><title type="html">Youtube live-streams as IPTV channels for TVHeadend</title><link href="http://localhost:4000/blog/Youtube-as-IPTV-with-TVH/" rel="alternate" type="text/html" title="Youtube live-streams as IPTV channels for TVHeadend" /><published>2020-05-07T00:00:00-03:00</published><updated>2020-05-07T00:00:00-03:00</updated><id>http://localhost:4000/blog/Youtube-as-IPTV-with-TVH</id><content type="html" xml:base="http://localhost:4000/blog/Youtube-as-IPTV-with-TVH/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="homelab" /><category term="homeserver" /><category term="firewall" /><category term="network" /></entry><entry><title type="html">Youtube live-streams as IPTV channels for TVHeadend</title><link href="http://cgomesu.com/blog/Youtube-as-IPTV-with-TVH/" rel="alternate" type="text/html" title="Youtube live-streams as IPTV channels for TVHeadend" /><published>2020-05-07T00:00:00-03:00</published><updated>2020-05-07T00:00:00-03:00</updated><id>http://cgomesu.com/blog/Youtube-as-IPTV-with-TVH</id><content type="html" xml:base="http://cgomesu.com/blog/Youtube-as-IPTV-with-TVH/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;September 15th, 2020&lt;/strong&gt;: There’s a &lt;a href=&quot;https://github.com/cgomesu/youtube4tvh/releases&quot;&gt;new release of the Youtube4TVH&lt;/a&gt; program that does not require the use of API keys. The section about how to create an API key has been updated accordingly.&lt;/p&gt;
 
 &lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;June 23rd, 2020&lt;/strong&gt;: Moved content from Blogger to my website and converted to markdown.  Fixed typos I found.&lt;/p&gt;
@@ -2203,7 +2818,7 @@ sudo apt install kodi-pvr-hts
 
 &lt;p&gt;If you found this useful or have suggestions on how to improve this guide, please leave a comment and I’ll try to reply asap.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="github" /><category term="iptv" /><category term="kodi" /><category term="streamlink" /><category term="tvheadend" /><category term="youtube" /></entry><entry><title type="html">Using the Odroid C2 IR receiver with LibreElec OS</title><link href="http://localhost:4000/blog/IR-with-odroidc2/" rel="alternate" type="text/html" title="Using the Odroid C2 IR receiver with LibreElec OS" /><published>2020-02-18T00:00:00-03:00</published><updated>2020-02-18T00:00:00-03:00</updated><id>http://localhost:4000/blog/IR-with-odroidc2</id><content type="html" xml:base="http://localhost:4000/blog/IR-with-odroidc2/">&lt;p&gt;In case you didn’t know, the &lt;a href=&quot;https://www.hardkernel.com/shop/odroid-c2/&quot;&gt;Odroid C2&lt;/a&gt; comes with an onboard infrared (IR) receiver.  Until a few days ago, I thought that such a receiver was only compatible with their own IR remote controller but it turns out you can use it with &lt;em&gt;any IR controller&lt;/em&gt;.  We can do that with a package called &lt;a href=&quot;http://www.lirc.org/html/&quot;&gt;&lt;strong&gt;lirc&lt;/strong&gt;&lt;/a&gt;, which stands for &lt;strong&gt;linux infrared remote control&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="github" /><category term="iptv" /><category term="kodi" /><category term="streamlink" /><category term="tvheadend" /><category term="youtube" /></entry><entry><title type="html">Using the Odroid C2 IR receiver with LibreElec OS</title><link href="http://cgomesu.com/blog/IR-with-odroidc2/" rel="alternate" type="text/html" title="Using the Odroid C2 IR receiver with LibreElec OS" /><published>2020-02-18T00:00:00-03:00</published><updated>2020-02-18T00:00:00-03:00</updated><id>http://cgomesu.com/blog/IR-with-odroidc2</id><content type="html" xml:base="http://cgomesu.com/blog/IR-with-odroidc2/">&lt;p&gt;In case you didn’t know, the &lt;a href=&quot;https://www.hardkernel.com/shop/odroid-c2/&quot;&gt;Odroid C2&lt;/a&gt; comes with an onboard infrared (IR) receiver.  Until a few days ago, I thought that such a receiver was only compatible with their own IR remote controller but it turns out you can use it with &lt;em&gt;any IR controller&lt;/em&gt;.  We can do that with a package called &lt;a href=&quot;http://www.lirc.org/html/&quot;&gt;&lt;strong&gt;lirc&lt;/strong&gt;&lt;/a&gt;, which stands for &lt;strong&gt;linux infrared remote control&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;/assets/posts/2020-02-18-IR-with-odroidc2/board.png&quot;&gt;&lt;img src=&quot;/assets/posts/2020-02-18-IR-with-odroidc2/board.png&quot; alt=&quot;Odroid C2 board&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
@@ -2242,7 +2857,7 @@ irrecord
 
 &lt;p&gt;That’s it.  This is a short tutorial I wrote mostly to remind myself about this feature but hopefully, this tutorial is going to help someone else out there, too.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--small btn--light-outline&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="odroid" /><category term="sbc" /></entry><entry><title type="html">The math of a bruised souleater</title><link href="http://localhost:4000/blog/Math-of-bruised-souleater/" rel="alternate" type="text/html" title="The math of a bruised souleater" /><published>2019-07-19T00:00:00-03:00</published><updated>2019-07-19T00:00:00-03:00</updated><id>http://localhost:4000/blog/Math-of-bruised-souleater</id><content type="html" xml:base="http://localhost:4000/blog/Math-of-bruised-souleater/">&lt;p class=&quot;notice notice--info&quot;&gt;This is a repost of my &lt;a href=&quot;https://www.reddit.com/r/magicTCG/comments/7phqk1/the_math_of_a_bruised_souleater/&quot;&gt;original reddit post&lt;/a&gt;. I’ve made a few changes to the original version to improve readability.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--small btn--light-outline&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="odroid" /><category term="sbc" /></entry><entry><title type="html">The math of a bruised souleater</title><link href="http://cgomesu.com/blog/Math-of-bruised-souleater/" rel="alternate" type="text/html" title="The math of a bruised souleater" /><published>2019-07-19T00:00:00-03:00</published><updated>2019-07-19T00:00:00-03:00</updated><id>http://cgomesu.com/blog/Math-of-bruised-souleater</id><content type="html" xml:base="http://cgomesu.com/blog/Math-of-bruised-souleater/">&lt;p class=&quot;notice notice--info&quot;&gt;This is a repost of my &lt;a href=&quot;https://www.reddit.com/r/magicTCG/comments/7phqk1/the_math_of_a_bruised_souleater/&quot;&gt;original reddit post&lt;/a&gt;. I’ve made a few changes to the original version to improve readability.&lt;/p&gt;
 
 &lt;p&gt;This is a post about an interesting interaction that came up yesterday, when I was making changes to an EDH deck. I thought someone else might find this analysis interesting, so I decided to share it here. If you spot an error, feel free to point it out. The interaction is about two cards, namely &lt;strong&gt;Immolating Souleater&lt;/strong&gt; and &lt;strong&gt;Bruse Tarl, Boorish Herder&lt;/strong&gt;.&lt;/p&gt;
 
@@ -2316,7 +2931,7 @@ irrecord
 
 &lt;p&gt;Again, if you spot an error, please point it out. If you found a better way to look at this interaction or thought about a different scenario, feel free to explain it.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--small btn--light-outline&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="mtg" /><category term="math" /></entry><entry><title type="html">The probability of Warp World</title><link href="http://localhost:4000/blog/Probability-warp-world/" rel="alternate" type="text/html" title="The probability of Warp World" /><published>2019-07-15T00:00:00-03:00</published><updated>2019-07-15T00:00:00-03:00</updated><id>http://localhost:4000/blog/Probability-warp-world</id><content type="html" xml:base="http://localhost:4000/blog/Probability-warp-world/">&lt;p class=&quot;notice notice--info&quot;&gt;This is a repost from my &lt;a href=&quot;https://www.reddit.com/r/magicTCG/comments/8956af/the_probability_of_warp_world_math/&quot;&gt;original reddit post&lt;/a&gt;. I’ve made a few changes to it to improve readability as well.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--small btn--light-outline&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="mtg" /><category term="math" /></entry><entry><title type="html">The probability of Warp World</title><link href="http://cgomesu.com/blog/Probability-warp-world/" rel="alternate" type="text/html" title="The probability of Warp World" /><published>2019-07-15T00:00:00-03:00</published><updated>2019-07-15T00:00:00-03:00</updated><id>http://cgomesu.com/blog/Probability-warp-world</id><content type="html" xml:base="http://cgomesu.com/blog/Probability-warp-world/">&lt;p class=&quot;notice notice--info&quot;&gt;This is a repost from my &lt;a href=&quot;https://www.reddit.com/r/magicTCG/comments/8956af/the_probability_of_warp_world_math/&quot;&gt;original reddit post&lt;/a&gt;. I’ve made a few changes to it to improve readability as well.&lt;/p&gt;
 
 &lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
 &lt;p&gt;If you’re unfamiliar with &lt;strong&gt;Warp World&lt;/strong&gt;, you are in for a treat. It’s a 5RRR sorcery from Ravnica that reads as follows:&lt;/p&gt;
@@ -2490,7 +3105,7 @@ irrecord
 &lt;h1 id=&quot;final-remarks&quot;&gt;Final Remarks&lt;/h1&gt;
 &lt;p&gt;We end with a cautionary note. We know that adding more permanents to a Warp World deck usually yields a better outcome—that is, &lt;em&gt;the more permanents we have in the deck&lt;/em&gt;, &lt;em&gt;the more permanents we’ll likely reveal with Warp World&lt;/em&gt;. However, it would be inappropriate to simply compare mean differences to draw conclusions about different Warp World decks. That is because changing properties of Warp World decks will likely change the variance of their distributions. One possible solution is to use a &lt;strong&gt;standardized measure of the compound mean difference&lt;/strong&gt;–that is, the standardized measure of distance between the means of two &lt;em&gt;Pr&lt;/em&gt;(&lt;em&gt;x&lt;sub&gt;i&lt;/sub&gt;&lt;/em&gt;) distributions.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--small btn--light-outline&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="mtg" /><category term="math" /><category term="probability" /><category term="model" /></entry><entry><title type="html">Securing access to backends with HAproxy’s stick-tables: A guide for pfSense users</title><link href="http://localhost:4000/blog/Securing-backend-haproxy-pfsense/" rel="alternate" type="text/html" title="Securing access to backends with HAproxy’s stick-tables: A guide for pfSense users" /><published>2019-07-13T00:00:00-03:00</published><updated>2019-07-13T00:00:00-03:00</updated><id>http://localhost:4000/blog/Securing-backend-haproxy-pfsense</id><content type="html" xml:base="http://localhost:4000/blog/Securing-backend-haproxy-pfsense/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--small btn--light-outline&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="mtg" /><category term="math" /><category term="probability" /><category term="model" /></entry><entry><title type="html">Securing access to backends with HAproxy’s stick-tables: A guide for pfSense users</title><link href="http://cgomesu.com/blog/Securing-backend-haproxy-pfsense/" rel="alternate" type="text/html" title="Securing access to backends with HAproxy’s stick-tables: A guide for pfSense users" /><published>2019-07-13T00:00:00-03:00</published><updated>2019-07-13T00:00:00-03:00</updated><id>http://cgomesu.com/blog/Securing-backend-haproxy-pfsense</id><content type="html" xml:base="http://cgomesu.com/blog/Securing-backend-haproxy-pfsense/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;June 23rd, 2020&lt;/strong&gt;: Moved this guide from Blogger to my website and converted to markdown.  Fixed typos I found.&lt;/p&gt;
 
 &lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;June 21st, 2020&lt;/strong&gt;: This guide stills works with &lt;strong&gt;pfsense version 2.4.5-RELEASE-p1&lt;/strong&gt;.&lt;/p&gt;
