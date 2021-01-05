@@ -59,6 +59,12 @@ programming:
     url: "https://github.com/cgomesu/youtube4tvh"
     btn_label: "Github Repo"
     btn_class: "btn--info"
+  - title: "NetMonitor LCD"
+    excerpt: "Python script for a 16x2 LCD that uses ping and netcat to monitor the network status of hosts and services, respectively."
+    image_path: "/assets/img/projects/thumb-projects-netmonitor.gif"
+    url: "https://github.com/the-raspberry-pi-guy/lcd#netmonitor"
+    btn_label: "Github Repo"
+    btn_class: "btn--info"
   - title: "PWM fan controller"
     excerpt: "A fan controller written in bash for the 12v fan connector of the NanoPi M4 SATA hat. By default, the script uses a bounded logistic model with a moving mid-point (based on the distance between the average temperature over time and a critical temperature threshold) to set the fan speed dynamically."
     image_path: "/assets/img/projects/thumb-projects-logistic-pwm-fan.jpg"
@@ -87,9 +93,15 @@ academic:
   - title: "Multinomial modeling"
     excerpt: "Distribution of educational materials to researchers and students about the use of multinomial modeling in psychological research."
     image_path: "/assets/img/site/thumb-academic.jpg"
+    url: "https://doi.org/10.34019/1982-1247.2020.v14.29542"
+    btn_label: "Paper (pt-br)"
+    btn_class: "btn--info"
   - title: "Bivariate recollection"
     excerpt: "A psychological theory that assumes that memory probes can provoke conscious awareness of either target items (target recollection) or their context (context recollection) or both."
     image_path: "/assets/img/site/thumb-academic.jpg"
+    url: "http://dx.doi.org/10.1037/a0037668"
+    btn_label: "Paper (en)"
+    btn_class: "btn--info"
 ---
 ***
 

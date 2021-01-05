@@ -30,6 +30,7 @@ toc_icon: "list"
 
 | years | type | agency |
 |:---:|:---:|:---:|
+|2018-2019 | Fellowship | PNPD/CAPES |
 |2012-2015 | Fellowship | CAPES Foundation |
 |2010-2011 | Scholarship | CPNq/PIBIC/PUCRS |
 |2008-2010 | Scholarship | CPNq |
@@ -43,8 +44,8 @@ toc_icon: "list"
 
 | language | listening | speaking | reading | writing | note |
 |:---:|:---:|:---:|:---:|:---:|:---:|
-| Portuguese | high | high | high | high | born and raised in Brazil |
-| English | high | medium | high | medium | lived in the US for seven years |
+| Portuguese | high | high | high | high | born in Brazil |
+| English | high | medium | high | medium | lived in the US for 07 years |
 | Spanish | medium | low | high | low | - |
 
 [top](#){: .btn .btn--light-outline .btn--small}
@@ -57,35 +58,35 @@ A list of various languages that I've used before, listed in order of highest to
 
 | language | skills |
 |:---:|:---:|
-| [Python](https://en.wikipedia.org/wiki/Python_%28programming_language%29) | My preferred language for backend development.  I'm very familiar with it and thus feel comfortable writing entire new projects from scratch or working with someone else's code.  I'm particularly familiar with data manipulation packages, such as [pandas](https://pandas.pydata.org/) and [sqlite3](https://docs.python.org/2/library/sqlite3.html), but have worked with requests, regex, itertools, and other multi-purpose packages as well. |
-| [GNU Bash](https://en.wikipedia.org/wiki/Bash_%28Unix_shell%29) | Very familiar with the language and its usage, from standard CLI to more advance, scripted use cases. |
-| [R](https://en.wikipedia.org/wiki/R_(programming_language)) | Used for data processing and statistical analysis. Of note, I'm particularly familiar with the multilevel/hierarchical/mixed-effects package [lme4](https://cran.r-project.org/web/packages/lme4/index.html) and the multinomial modeling packages [MPTinR](https://cran.r-project.org/web/packages/MPTinR/index.html) and [TreeBUGS](https://cran.r-project.org/web/packages/TreeBUGS/index.html). |
-| [SQL](https://en.wikipedia.org/wiki/SQL) | Familiar with the main aspects of the language (e.g., create tables, adding/editing entries, various methods of fetching data, keys) as well as the more advanced and dynamic aspects (e.g., setting up triggers, special constraints, functions). |
+| [Python](https://en.wikipedia.org/wiki/Python_%28programming_language%29) | My preferred language for backend development.  Particularly familiar with data manipulation packages, such as [pandas](https://pandas.pydata.org/) and [sqlite3](https://docs.python.org/2/library/sqlite3.html), but have worked with requests, regex, itertools, and many other multi-purpose packages. |
+| [GNU Bash](https://en.wikipedia.org/wiki/Bash_%28Unix_shell%29) | Preferred language for simple tasks and automation scripts. |
+| [R](https://en.wikipedia.org/wiki/R_(programming_language)) | Preferred language for data processing and statistical analysis. Particularly familiar with the multilevel/hierarchical/mixed-effects package [lme4](https://cran.r-project.org/web/packages/lme4/index.html) and the multinomial modeling packages [MPTinR](https://cran.r-project.org/web/packages/MPTinR/index.html) and [TreeBUGS](https://cran.r-project.org/web/packages/TreeBUGS/index.html). |
+| [SQL](https://en.wikipedia.org/wiki/SQL) | Preferred language for relational databases.  Familiar with the main aspects of the language (e.g., create tables, adding/editing entries, various methods of fetching data, keys) as well as the more advanced and dynamic aspects (e.g., setting up triggers, special constraints, functions). |
 | [SPSS](https://en.wikipedia.org/wiki/SPSS) | Able to read and write customized syntax, particularly anything related to generalized linear models. |
-| [VBA](https://en.wikipedia.org/wiki/Visual_Basic_for_Applications) | My first contact with coding was writing macros for MS Excel back in early 2000s.  From there, I delved a bit deeper into proper VBA but honestly, I have a superficial understanding of it. I can read and write it just fine though. |
-| [PHP](https://en.wikipedia.org/wiki/PHP) | Only basic knowledge about the syntax and use cases.  I've used before and getting more familiar with it as I learn about Laravel (see [frameworks](#frameworks)). |
-| [MATLAB](https://en.wikipedia.org/wiki/MATLAB) | Helped parsing a few neuroimaging datasets during my Ph.D..  I'm not very familiar with the language but can read it. |
+| [VBA](https://en.wikipedia.org/wiki/Visual_Basic_for_Applications) | Used to automate data manipulation procedures when working with large and static scientific databases (MS Excel). |
+| [PHP](https://en.wikipedia.org/wiki/PHP) | Basic knowledge about the syntax and use cases. |
+| [MATLAB](https://en.wikipedia.org/wiki/MATLAB) | Helped parsing neuroimaging datasets and used to run matrix operations of a Markov chain. |
 
 ## Frontend languages
 
 | language | skills |
 |:---:|:---:|
-| [HTML](https://en.wikipedia.org/wiki/HTML) | Very familiar with it.  Used to design (very crude) websites when I was a teenager and started getting back into web development in the more recent years. |
-| [CSS](https://en.wikipedia.org/wiki/Cascading_Style_Sheets) | Very familiar with it but have never done anything too fancy. |
-| [MD](https://en.wikipedia.org/wiki/Markdown) | Got into it when I started using Github and has become one of my favorite ways of writing rich text nowadays. |
-| [JS](https://en.wikipedia.org/wiki/JavaScript) | Only basic knowledge about the syntax for frontend use cases. |
+| [HTML](https://en.wikipedia.org/wiki/HTML) | Used to develop mulitple static websites. |
+| [CSS](https://en.wikipedia.org/wiki/Cascading_Style_Sheets) | Used to develop mulitple static websites. |
+| [MD](https://en.wikipedia.org/wiki/Markdown) | Preferred way of writing rich text. |
+| [JS](https://en.wikipedia.org/wiki/JavaScript) | Basic knowledge about the syntax and use cases. |
 
 ## Frameworks
 
 | framework | skills |
 |:---:|:---:|
-| [Laravel](https://laravel.com/) | A PHP framework that I started learning when I decided to learn more about PHP. I've very little experience with it. |
+| [Laravel](https://laravel.com/) | Basic knowledge about the framework.  Never used outside self-learning exercises. |
 
 ## Static website generators
 
 | generator | skills |
 |:---:|:---:|
-| [Jekyll](https://jekyllrb.com/) | A static site generator that I got into when I started learning about Github Pages.  This website was built with Jekyll. |
+| [Jekyll](https://jekyllrb.com/) | This website was built with Jekyll. |
 
 
 [top](#){: .btn .btn--light-outline .btn--small}
@@ -104,13 +105,13 @@ A list of various languages that I've used before, listed in order of highest to
 | [Factor ](https://en.wikipedia.org/wiki/Factor_analysis) | - |
 | [Cluster ](https://en.wikipedia.org/wiki/Cluster_analysis) | - |
 | Plots | Various techniques for visualizing data and estimates. |
-| *anything else* | There's a chance I can help you with any other tests/analyses not listed here.  Feel free to ask. |
+| Other | Feel free to ask. |
 
 [top](#){: .btn .btn--light-outline .btn--small}
 
 ***
 # Application Knowledge
-This is a non-exhaustive list of applications that I'm familiar with.  (Of course, that's in addition to applications commonly used to edit text, to browse files and the web, to edit images, spreadsheets, and so on.)  They're ordered alphabetically and organized by area. 
+This is a non-exhaustive list of systems and applications that I'm particularly familiar with.  (Applications commonly used to edit text, to browse files and the web, to edit images, spreadsheets, and so on were not listed because they are common knowledge at this point.)  The items are ordered alphabetically and loosely organized by area. 
 ## Containers and virtualization
 ### [Docker (CE)](https://www.docker.com/)
 > Docker is a set of platform as a service products that uses OS-level virtualization to deliver software in packages called containers. Containers are isolated from one another and bundle their own software, libraries and configuration files; they can communicate with each other through well-defined channels.
@@ -148,7 +149,6 @@ A collection of applications for the analysis of multinomial processing tree (MP
 ### [WinBUGS](https://www.mrc-bsu.cam.ac.uk/software/bugs/the-bugs-project-winbugs/)
 > WinBUGS is statistical software for Bayesian analysis using Markov chain Monte Carlo methods.
 
-For the record, I deeply regret knowing how to use this program.
 
 [top](#){: .btn .btn--light-outline .btn--small}
 
@@ -220,6 +220,10 @@ In addition to the basic configuration, I'm familiar with the following pfSense 
 >    Replacement of both Countryblock and IPblocklist by providing the same functionality, and more, in one package.
 >    Uses native functions of pfSense software instead of file hacks and table manipulation.
 
+### Mesh networking
+#### [Batman-adv](https://www.open-mesh.org/projects/batman-adv/wiki)
+> Better Aapproach to Mobile Adhoc Network advanced (often referenced as batman-adv) is an implementation of the B.A.T.M.A.N. routing protocol in form of a linux kernel module operating on layer 2.
+
 ### SD-WAN
 #### [ZeroTier](https://www.zerotier.com/)
 > ZeroTier provides open-source software, SDKs and commercial products and services to create and manage virtual software defined networks.
@@ -235,6 +239,38 @@ In addition to the basic configuration, I'm familiar with the following pfSense 
 ## RDBMS
 ### [SQLite](https://sqlite.org/index.html)
 > SQLite is a relational database management system contained in a C library. In contrast to many other database management systems, SQLite is not a client–server database engine. Rather, it is embedded into the end program. SQLite is ACID-compliant and implements most of the SQL standard, generally following PostgreSQL syntax.
+
+[top](#){: .btn .btn--light-outline .btn--small}
+
+## Operating System
+### GNU/Linux
+#### [Armbian](https://www.armbian.com/)
+> Armbian is a Debian and Ubuntu based computer operating system for ARM development boards.
+
+#### [Debian](https://www.debian.org/)
+> Debian, also known as Debian GNU/Linux, is a Linux distribution composed of free and open-source software, developed by the community-supported Debian Project.
+
+#### [Kali Linux](https://www.kali.org/)
+> Kali Linux is a Debian-derived Linux distribution designed for digital forensics and penetration testing.
+
+#### [LibreElec](https://libreelec.tv/)
+> LibreELEC is a non-profit fork of OpenELEC as an open source software appliance, a just enough Linux distro for Kodi. 
+
+#### [OpenWrt](https://openwrt.org/)
+> OpenWrt is an open-source project for embedded operating systems based on Linux, primarily used on embedded devices to route network traffic.
+
+#### [Parrot OS](https://www.parrotsec.org/)
+> Parrot OS is a GNU/Linux distribution based on Debian with a focus on security, privacy, and development.
+
+#### [Raspberry Pi OS](https://www.raspberrypi.org/software/)
+> Raspberry Pi OS is a Debian-based operating system for Raspberry Pi.
+
+#### [Ubuntu](https://ubuntu.com/)
+> Ubuntu is a Linux distribution based on Debian and mostly composed of free and open-source software.
+
+### Other
+#### Microsoft Windows
+> Microsoft Windows is a group of several proprietary graphical operating system families, all of which are developed and marketed by Microsoft.
 
 [top](#){: .btn .btn--light-outline .btn--small}
 
