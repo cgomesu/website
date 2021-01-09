@@ -42,7 +42,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Mesh networking: A guide to using free and open-source software with common hardware",
-        "excerpt":"Changelog Dec 7th, 2020: Publication of the original guide top Introduction In this tutorial, we will learn how to create mesh networks (IEEE 802.11s) using OpenWrt and the layer-2 implementation of the Better Approach to Mobile Adhoc Networking, called batman-adv. All the software mentioned here is free and open-source, as...","categories": ["blog"],
+        "excerpt":"Changelog Jan 9th, 2021, Update #2: Added instructions on how to automatically upgrade all installed packages with a single command. This information is in Updating and installing packages. Jan 9th, 2021, Update #1: Added a new section about hardware-specific configurations that are sometimes required for enabling the mesh point mode...","categories": ["blog"],
         "tags": ["mesh","adhoc","ieee","wifi","wireless","radio","network","router","openwrt","batman"],
         "url": "http://localhost:4000/blog/Mesh-networking-openwrt-batman/",
         "teaser": null

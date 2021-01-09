@@ -10,6 +10,10 @@ toc_label: "Table of Contents"
 toc_icon: "list"
 ---
 # Changelog
+**Jan 9th, 2021**, Update #2: Added instructions on how to automatically upgrade all installed packages with a single command.  This information is in [Updating and installing packages](#updating-and-installing-packages).
+{: .notice .notice--info }
+**Jan 9th, 2021**, Update #1: Added a new section about [hardware-specific configurations](#hardware-specific-configurations) that are sometimes required for enabling the `mesh point` mode of operation.
+{: .notice .notice--info }
 **Dec 7th, 2020**: Publication of the original guide
 {: .notice .notice--info }
 
@@ -166,6 +170,46 @@ As mentioned before, even if the existing/on-board radio of your SBC/laptop/PC/s
 [![Alfa AWUS036NH](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/AWUS036NH.jpg){:.PostImage}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/AWUS036NH.jpg) 
 
 **All that said**, most home users will be **just fine with a cheapo, used, old, single-band router**.  For a brand reference, TP-Link has good and affordable devices that can be used in a mesh networking project without issues.  If you're new to this, start from here (small, simple) and think about efficiency over power.  You don't need to drive a Lamborghini to get a snack at the grocery store.
+
+## Hardware-specific configurations
+Every once in a while, I run into hardware that is capable of operating in `mesh point` mode but the default OpenWrt firmware uses a module for the wireless adapter that is loaded with incompatible parameters.  Here is a list of a few of the known ones and their solution.
+
+### ath9k modules
+If your device uses the `ath9k` module, there's a chance that you'll need to enable the `nohwcrypt` parameter of the module to use the mesh *with encryption*.  First, however, try without changing the default module parameters.  After rulling out possible typos in the network and wireless configuration files, try the following:
+1. Edit the `/etc/modules.d/ath9k` file and add `nohwcrypt=1` to it.  If there's something in the file, use a whitespace to separate parameters.
+2. Save the file, and **reboot** your device. 
+3. Once the device comes back, check if `nohwcrypt` is now enabled by typing 
+   ```
+   cat /sys/module/ath9k/parameters/nohwcrypt
+   ```
+   If `nohwcrypt` is enabled, the output will be `1`; otherwise, it will be `0`.
+4. Check your mesh configuration once again and add encryption to your wireless mesh stanza.
+
+* Known affected devices:
+
+  | brand | model | version |
+  |:---:|:---:|:---:|
+  | TP-Link | WR-1043-ND | 1.8 |
+
+### ath10k modules
+I've noticed that radio devices that use the `ath10k` module and more specifically, the ones using `ath10k-firmware-qca988x-ct`, are not able to operate in `mesh point` mode by default.  If you check the syslog, you'll notice that there will be a few messages stating that the `ath10k` module must be loaded with `rawmode=1` to allow mesh.  However, I've tried that before without much success.  Instead, my current recommendation to get `mesh point` working with the **QCA988x** is the following (**Internet connection required** to download packages via `opkg`):
+1. Remove the **Candela Tech** (`*-ct`) modules as follows:
+   ```
+   opkg remove ath10k-firmware-qca988x-ct kmod-ath10k-ct
+   ```
+2. Install the non-ct modules:
+   ```
+   opkg update && opkg install ath10k-firmware-qca988x kmod-ath10k
+   ```
+3. Reboot your device and then check the status of your mesh network.
+
+* Known affected devices:
+
+  | brand | model | version |
+  |:---:|:---:|:---:|
+  | TP-Link | Archer C7 | 2.0 |
+  | TP-Link | Archer C7 (US) | 2.0 |
+
 
 [top](#){: .btn .btn--light-outline .btn--small}
 
@@ -357,7 +401,11 @@ If it all looks good, it's time to **update the package list**, as follows
 opkg update
 ```
 
-(*Optional*: Upgrade all installed packages. Type `opkg list-upgradable` to find which packages can be upgraded and then `opkg upgrade PKG`, in which `PKG` is the package name.  If `opkg list-upgradable` run into memory issues, try commenting out a few lines in `/etc/opkg/distfeeds.conf` and try again.)
+*Optional*. Upgrade all installed packages. Type `opkg list-upgradable` to find which packages can be upgraded and then `opkg upgrade PKG`, in which `PKG` is the package name.  If `opkg list-upgradable` run into memory issues, try commenting out a few lines in `/etc/opkg/distfeeds.conf` and try again. Alternatively, it's possible to use the following command to automatically upgrade all packages at once, per the [opkg openwrt wiki examples](https://openwrt.org/docs/guide-user/additional-software/opkg#examples):
+```
+opkg list-upgradable | cut -f 1 -d ' ' | xargs opkg upgrade
+```
+**Be careful with mass upgrades though**, especially if you're running a device with limited memory.  You might end up even bricking your device.
 
 Now, let's install the mesh-related packages and remove conflicting packages.  First, remove `wpad-basic` with
 
@@ -375,7 +423,7 @@ Make sure there are no error messages and if there are, troubleshoot them before
 
 Remove the connection that gave your device temporary access to the Internet.  Then, **reboot** (type `reboot` in the terminal) and restart the SSH session with your laptop/PC still connected to the device via cable.
 
-If you're using the **TP-Link WR1043ND v1.x** in your mesh project, you'll need to enable the `nohwcrypt` parameter of the `ath9k` module to use the mesh with encryption.  To enable `nohwcrypt`, edit `/etc/modules.d/ath9k` and add `nohwcrypt=1` to it (if there's already something in the file, use whitespaces to separate parameters), save the file, and **reboot**. Then, check if `nohwcrypt` is now enabled with `cat /sys/module/ath9k/parameters/nohwcrypt`. If it is enabled, the output will be `1`; otherwise, it will be `0`. (If your device also has **`ath9k`** and you experience connectivity issues when using encryption with the mesh network, then you might want to try this solution as well.)
+If you're using the **TP-Link WR1043ND v1.x** in your mesh project, take a look at my previous note about the [ath9k module](#ath9k-modules) in the [hardware section](#hardware).  In brief, if you have issues running the mesh with encryption, then you have to enable the `nohwcrypt` parameter of the `ath9k` module.
 {: .notice .notice--warning }
 
 ## Mesh node basic config
