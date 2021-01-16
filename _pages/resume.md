@@ -153,6 +153,9 @@ A collection of applications for the analysis of multinomial processing tree (MP
 [top](#){: .btn .btn--light-outline .btn--small}
 
 ## IDE
+### [Arudino IDE](https://www.arduino.cc/en/Main.Software)
+> The Arduino Integrated Development Environment is a cross-platform application that is written in functions from C and C++. It is used to write and upload programs to Arduino compatible boards, but also, with the help of third-party cores, other vendor development boards.
+
 ### [PhpStorm](https://www.jetbrains.com/phpstorm/)
 > PhpStorm is a commercial, cross-platform IDE for PHP, built by the Czech Republic-based company JetBrains. PhpStorm provides an editor for PHP, HTML and JavaScript with on-the-fly code analysis, error prevention and automated refactorings for PHP and JavaScript code
 
@@ -271,6 +274,9 @@ In addition to the basic configuration, I'm familiar with the following pfSense 
 ### Other
 #### Microsoft Windows
 > Microsoft Windows is a group of several proprietary graphical operating system families, all of which are developed and marketed by Microsoft.
+
+### Tasmota
+> Tasmota is an open source firmware for ESP8266 based devices created and maintained by Theo Arends. 
 
 [top](#){: .btn .btn--light-outline .btn--small}
 
