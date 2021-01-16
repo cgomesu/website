@@ -16,6 +16,12 @@ header:
       url: "/projects/#academic-latest"
 excerpt: "A selected list of past and current projects."
 it:
+  - title: "ESP32-cam"
+    excerpt: "The ESP32 is a low-cost and low-power microcontroller developed by Espressif. This project describes how to flash the Tasmota32 webcam server (beta) firmware onto the ESP32-cam module with onboard Wi-Fi. The Tasmota32 firmware can be used as an alternative to the Espressif CamWebServer Arduino sketch for users looking for more options to monitor and control an ESP32-cam remotely or to integrate into an existing home automation server via HTTP requests or MQTT."
+    image_path: "/assets/img/projects/thumb-projects-esp32cam-tasmota.jpg"
+    url: "/blog/Esp32cam-tasmota-webcam-server/"
+    btn_label: "Read more"
+    btn_class: "btn--info"
   - title: "RPi button box"
     excerpt: "The project describes how to repurpose external HDD enclosures into button boxes for the Raspberry Pi and similar single board computers.  It includes the development of a button box controller, wiring schematics, how-tos, and list of hardware and software components."
     image_path: "/assets/img/projects/thumb-projects-button-box.jpg"

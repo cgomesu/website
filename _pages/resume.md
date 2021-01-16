@@ -275,7 +275,7 @@ In addition to the basic configuration, I'm familiar with the following pfSense 
 #### Microsoft Windows
 > Microsoft Windows is a group of several proprietary graphical operating system families, all of which are developed and marketed by Microsoft.
 
-### Tasmota
+#### Tasmota
 > Tasmota is an open source firmware for ESP8266 based devices created and maintained by Theo Arends. 
 
 [top](#){: .btn .btn--light-outline .btn--small}
