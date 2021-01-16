@@ -1,0 +1,912 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.19.3 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Tasmota webcam server for the ESP32-cam - CGomesu</title>
+<meta name="description" content="A blog and portfolio website built with Jekyll and hosted on Github Pages">
+
+
+  <meta name="author" content="Carlos Gomes">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="CGomesu">
+<meta property="og:title" content="Tasmota webcam server for the ESP32-cam">
+<meta property="og:url" content="http://localhost:4000/blog/Esp32cam-tasmota-webcam-server/">
+
+
+  <meta property="og:description" content="A blog and portfolio website built with Jekyll and hosted on Github Pages">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/header.jpg">
+
+
+
+
+
+  <meta property="article:published_time" content="2021-01-15T09:00:00-03:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/blog/Esp32cam-tasmota-webcam-server/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+  <meta name="google-site-verification" content="FA-B3i_TqYeaLPYwZvxxOsx07Coy_drBKJ0M_4DD0Gw" />
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="CGomesu Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="icon" href="/assets/img/site/favicon.ico" type="image/x-icon">
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/img/site/logo.png" alt=""></a>
+        
+        <a class="site-title" href="/">
+           
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/blog/">Blog</a>
+            </li><li class="masthead__menu-item">
+              <a href="/contact/">Contact</a>
+            </li><li class="masthead__menu-item">
+              <a href="/mtg/">MtG</a>
+            </li><li class="masthead__menu-item">
+              <a href="/publications/">Publications</a>
+            </li><li class="masthead__menu-item">
+              <a href="/projects/">Projects</a>
+            </li><li class="masthead__menu-item">
+              <a href="/resume/">Resume</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style="background-color: #000; background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), url('/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/header.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 id="page-title" class="page__title" itemprop="headline">
+        
+          Tasmota webcam server for the ESP32-cam
+
+        
+      </h1>
+      
+        <p class="page__lead">
+</p>
+      
+      
+        <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  20 minute read
+
+</p>
+      
+      
+      
+    </div>
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/img/profile/profile-00.jpg" alt="Carlos Gomes" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Carlos Gomes</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>I’m a scientist, psychologist, math modeler, programmer, mtg player, free knowledge supporter, sbc fanatic, and electronics hobbyist.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Brazil</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="mailto:me@cgomesu.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Main e-mail</span></a></li>
+          
+        
+          
+        
+          
+            <li><a href="https://cgomesu.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">https://cgomesu.com</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Tasmota webcam server for the ESP32-cam">
+    <meta itemprop="description" content="">
+    <meta itemprop="datePublished" content="2021-01-15T09:00:00-03:00">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-list"></i> Table of Contents</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#changelog">Changelog</a></li>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#overview">Overview</a></li>
+  <li><a href="#why-tasmota">Why Tasmota?</a></li>
+  <li><a href="#hardware">Hardware</a></li>
+  <li><a href="#installation">Installation</a>
+    <ul>
+      <li><a href="#required-packages-and-user-permissions">Required packages and user permissions</a></li>
+      <li><a href="#flashing-tasmota32-webcam-server">Flashing Tasmota32 webcam server</a></li>
+    </ul>
+  </li>
+  <li><a href="#configuration">Configuration</a>
+    <ul>
+      <li><a href="#updating-the-template">Updating the template</a></li>
+      <li><a href="#auto-enabling-the-webcam-server-at-boot">Auto-enabling the webcam server at boot</a></li>
+      <li><a href="#webcam-server-additional-configurations">Webcam server additional configurations</a></li>
+      <li><a href="#fixing-the-timezone">Fixing the timezone</a></li>
+    </ul>
+  </li>
+  <li><a href="#basic-usage">Basic usage</a>
+    <ul>
+      <li><a href="#standalone-wiring">Standalone wiring</a></li>
+    </ul>
+  </li>
+  <li><a href="#conclusion">Conclusion</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
+        <h1 id="changelog">Changelog</h1>
+<p class="notice notice--info"><strong>Jan 16th, 2021</strong>: Publication of the original article</p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="introduction">Introduction</h1>
+<p>The ESP32 is a cheap and low-power microcontroller developed by <a href="https://www.espressif.com">Espressif</a>.  In addition to its low-cost, the ESP3 is known for its tiny and robust design, the versatility of its applications, and for having onboard Wi-Fi and Bluetooth.  It is sold world-wide (e.g., <a href="https://www.amazon.com/s?k=esp32">Amazon</a>, <a href="https://aliexpress.com/wholesale?SearchText=esp32">Aliexpress</a>, <a href="https://lista.mercadolivre.com.br/esp32">Mercado Livre</a>) in a variety of boards (e.g., NodeMCU, TTGO, Lolin32).</p>
+
+<p>In this tutorial, I will talk about one type of ESP32 board that has an <strong>integrated camera module</strong>, called the <strong>ESP32-cam</strong>, which can be found for <a href="https://www.amazon.com/s?k=esp32+cam&amp;s=price-asc-rank&amp;ref=sr_st_price-asc-rank">less than US$10</a>.  The goal is to build a cheap alternative to commercial wireless cameras using an open-source firmware that can be easily controlled via HTTP or MQTT and integrated to an existing camera surveillance server (e.g., <a href="https://github.com/ccrisan/motioneye/">MotionEye</a>, <a href="https://shinobi.video/">Shinobi</a>, <a href="https://www.zoneminder.com/">ZoneMinder</a>, <a href="https://www.ispyconnect.com/">iSpy</a>) or multi-purpose automation server (e.g., <a href="https://www.home-assistant.io/">HomeAssistant</a>, <a href="https://www.openhab.org/">OpenHAB</a>, <a href="https://nodered.org/">NodeRed</a>) by capturing its live stream from a simple MJPEG URL.  All that can be accomplished with <strong><a href="https://tasmota.github.io/">Tasmota</a></strong> and its (beta) <strong><a href="https://github.com/arendst/Tasmota/tree/firmware/firmware/tasmota32">webcam server firmware for the ESP32-cam</a></strong>.</p>
+
+<hr />
+
+<p>If you’re new to <strong>ESP32</strong> boards, check Bill’s (<a href="https://www.youtube.com/channel/UCzml9bXoEM0itbcE96CB03w">DroneBot Workshop</a>) review video:</p>
+
+<!-- Courtesy of embedresponsively.com //-->
+<div class="responsive-video-container">
+
+  <iframe src="https://www.youtube-nocookie.com/embed/xPlN_Tk3VLQ" frameborder="0" allowfullscreen=""></iframe>
+
+</div>
+
+<hr />
+
+<p>For a comparison of a few different <strong>ESP32-cam</strong> boards, check <a href="https://www.youtube.com/channel/UCu7_D0o48KbfhpEohoP7YSQ">Andreas Spiess’</a> video:</p>
+
+<!-- Courtesy of embedresponsively.com //-->
+<div class="responsive-video-container">
+
+  <iframe src="https://www.youtube-nocookie.com/embed/5IhhyJjjCxo" frameborder="0" allowfullscreen=""></iframe>
+
+</div>
+
+<hr />
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="overview">Overview</h1>
+<p>This tutorial was organized as follows.  First, I presented the motivation behind the use of Tasmota32 webcam server over one of the most common firmwares for the ESP32-cam, the Espressif CameraWebServer Arduino sketch.  This is followed by a list of the main hardware components involved into flashing a firmware onto the ESP32-cam.  Most of the tutorial focused on the installation and configuration of the Tasmota32 webcam server using a GNU/Linux OS.</p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="why-tasmota">Why Tasmota?</h1>
+<p>Tasmota was created and it is still maintanted by <a href="https://github.com/arendst">Theo Arends</a>. It started as hacky alternative to the <a href="https://sonoff.tech/">Sonoff</a> commercial firmware and moved onto an independent, <a href="https://github.com/arendst/Tasmota">free and open-source project</a> that provides multiple firmwares for ESP8266-based devices.  The firmwares come with a simple webUI that let’s you control and configure the board main modules as well as integration with a MQTT server and more. Even though Tasmota <a href="https://tasmota.github.io/docs/ESP32/">support for the ESP32 is still in beta development</a>, my experience with it has been very positive.</p>
+
+<p>One of the main webcam firmwares for the <strong>ESP32-cam</strong> is the one provided by Espressif themselves, the <a href="https://github.com/espressif/arduino-esp32/tree/master/libraries/ESP32/examples/Camera/CameraWebServer">CameraWebServer</a> Arduino sketch.  This one has features that the Tasmota32 webcam firmware does not offer, such as face recognition and motion detection.  However, my experience with the <strong>video streaming</strong> has been negative.  Specifically, the streaming runs smoothly when the video resolution is low (640x480) but it strugles quite a bit when running at medium to high resolutions–that is, the number of frames per second decreases noticeably.  I’ve also noticed that the board runs very hot when running the CameraWebServer Arduino sketch, even when the most CPU intensive tasks (motion detection and face reconition) are disabled.</p>
+
+<p>On the other hand, the <strong><a href="https://github.com/arendst/Tasmota/tree/firmware/firmware/tasmota32">Tasmota32 webcam server</a></strong> seems to perform much better in the areas the CameraWebServer Arduino sketch strugles with.  More specifically, the streaming is smoother and the board does not seem to get as hot.  I’ve not had a chance to investigate why this happens and to measure the actual difference in frames per second and temperature, so don’t take my opinion too seriously.  Also, I cannot tell if this happens for all ESP32-cam boards because I’ve only tested with the <strong>AI-Thinker</strong> module.  Overall, however, my experience with the Tasmota32 firmware has been better than with the Espressif firmware in the area that I think is the most relevant one for a camera module, namely video streaming performance.  On top of that, the Tasmota firmware offers a multitude of methods to interact with the ESP32-cam remotely, while the Espressif sketch is very limited in that regard.</p>
+
+<hr />
+
+<p>If you’ve never heard of Tasmota before, check Robbert’s (<a href="https://www.youtube.com/channel/UC2gyzKcHbYfqoXA5xbyGXtQ">The Hook Up</a>) introduction video:</p>
+
+<!-- Courtesy of embedresponsively.com //-->
+<div class="responsive-video-container">
+
+  <iframe src="https://www.youtube-nocookie.com/embed/08_GBROKQH0" frameborder="0" allowfullscreen=""></iframe>
+
+</div>
+
+<hr />
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="hardware">Hardware</h1>
+<p>To make a single wireless camera based on the ESP32-cam board, you’ll need at least the following items:</p>
+
+<ul>
+  <li>Board:
+    <ul>
+      <li>01x <a href="https://www.amazon.com/s?k=esp32cam+ai-thinker">ESP32-CAM, AI-Thinker board</a></li>
+    </ul>
+
+    <p><a href="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam.jpg"><img src="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam.jpg" alt="ESP32cam" class="PostImage" /></a></p>
+  </li>
+  <li>USB to TTL adapter:
+    <ul>
+      <li>01x <a href="https://www.amazon.com/s?k=ftdi+ft232RL+usb+to+ttl">FTDI FT232RL USB to TTL/serial module with 5v/3v3 voltage jumper</a></li>
+    </ul>
+
+    <p><a href="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/ftdi-usb-ttl.jpg"><img src="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/ftdi-usb-ttl.jpg" alt="FTDI FT232RL" class="PostImage" /></a></p>
+  </li>
+  <li>Cables:
+    <ul>
+      <li>05x <a href="https://www.amazon.com/s?k=female+dupont+wires">Female-Female dupont/jumper wires</a></li>
+    </ul>
+
+    <p><a href="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/female-dupont.jpg"><img src="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/female-dupont.jpg" alt="Female dupont wires" class="PostImage" /></a></p>
+
+    <ul>
+      <li>01x USB cable compatible with your USB to TTL adapter: Check the USB type and use a short cable to decrease resistance as much as possible because initially, we will be powering the ESP32-cam via your computer’s USB port.</li>
+    </ul>
+
+    <p><a href="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/usb-cable.jpg"><img src="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/usb-cable.jpg" alt="USB cable" class="PostImage" /></a></p>
+  </li>
+</ul>
+
+<p><em>Optional.</em> If you wish to add a case to your ESP32-cam project, there are many <a href="https://duckduckgo.com/?q=esp32-cam+case">3D printed options to choose from</a>.  (Notice that the use of an external antenna requires (de)soldering very small components.  If you plan on installing the camera on an area with good wireless coverage, don’t bother with an external antenna.  Otherwise, plan accordingly.)  In addition, you might want to add a <a href="https://www.amazon.com/s?k=USB+to+DIP">USB to DIP adapter</a> to your shopping list in order to power your ESP32-cam without the USB to TTL adapter.  The USB to DIP adapter is highly dependent on the casing choice and most 3D printed enclosure projects for the ESP32-cam include assembly instructions.  <strong>Casing and assembly are not covered in this tutorial</strong>, owing to the plethora of alternatives.</p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="installation">Installation</h1>
+<p>This guide assumes you’re running a <strong>Linux</strong> distribution, and more specifically, an <strong>apt-based distro</strong>, such as Debian or Ubuntu.  If you’re running a different distro, simply change the apt code to reflect your system’s package manager.  For non-Linux users, check <a href="https://tasmota.github.io/docs/Getting-Started/">Tasmota’s Getting Started</a> but use the binaries mentioned here and come back for the post-flashing configuration of the webcam server.</p>
+
+<h2 id="required-packages-and-user-permissions">Required packages and user permissions</h2>
+<p>Before we can flash the Tasmota32 webcam server onto the ESP32-cam, we will need to install a few packages and configure the permissions of our Linux user.</p>
+
+<ol>
+  <li>Open a terminal and install the required packages:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt update &amp;&amp; sudo apt install wget python3 python3-pip
+</code></pre></div>    </div>
+  </li>
+  <li>Install <code class="language-plaintext highlighter-rouge">esptool.py</code> via <code class="language-plaintext highlighter-rouge">pip3</code>:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip3 install esptool
+</code></pre></div>    </div>
+  </li>
+  <li>Find out if <code class="language-plaintext highlighter-rouge">esptool.py</code> can be found in your user’s <code class="language-plaintext highlighter-rouge">$PATH</code>. (Alternatively, when required to run <code class="language-plaintext highlighter-rouge">esptool.py</code>, instead of <code class="language-plaintext highlighter-rouge">esptool.py OPTIONS</code>, run as <code class="language-plaintext highlighter-rouge">python3 -m esptool OPTIONS</code>. If you choose to do this, skip this and the next step.)
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>whereis esptool.py
+</code></pre></div>    </div>
+  </li>
+  <li>If <code class="language-plaintext highlighter-rouge">esptool.py</code> was not found, it means your user’s <code class="language-plaintext highlighter-rouge">.local/bin</code> is not in your <code class="language-plaintext highlighter-rouge">$PATH</code>.  Add it as follows:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo "export PATH="$HOME/.local/bin:$PATH"" | tee -a "$HOME/.bashrc" &gt; /dev/null
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Connect your ESP32-cam to the USB to TTL/serial adapter in flash mode:</p>
+
+    <p><a href="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-wiring-flash-mode.jpg"><img src="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-wiring-flash-mode.jpg" alt="ESP32cam flash mode" class="PostImage PostImage--large" /></a></p>
+
+    <p class="notice notice--warning"><strong>Attention.</strong> Make sure your USB to TTL adapter has <strong>VCC in 5V mode</strong> and in the ESP32, the VCC cable is connected to the 5V pin.  Double check the wiring before moving on.</p>
+  </li>
+  <li>Connect the adapter to a USB port on your computer and check the new device in <code class="language-plaintext highlighter-rouge">/dev/</code>:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls -l /dev/ttyUSB*
+</code></pre></div>    </div>
+  </li>
+  <li>Add your <code class="language-plaintext highlighter-rouge">$USER</code> to the same group as <code class="language-plaintext highlighter-rouge">/dev/ttyUSB*</code> (it’s usually <code class="language-plaintext highlighter-rouge">dialout</code> but if different, change in the command below) and <code class="language-plaintext highlighter-rouge">tty</code>:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo usermod -a -G dialout ${USER} &amp;&amp; sudo usermod -a -G tty ${USER}
+</code></pre></div>    </div>
+  </li>
+  <li>Log off and back on.  (If you continue to run into permission issues, try rebooting instead.  You can check your user’s permissions with <code class="language-plaintext highlighter-rouge">id ${USER}</code>.)</li>
+</ol>
+
+<h2 id="flashing-tasmota32-webcam-server">Flashing Tasmota32 webcam server</h2>
+<p>We are now ready to flash the Tasmota firmware.  For reference, the official information is available at <a href="https://tasmota.github.io/docs/ESP32">https://tasmota.github.io/docs/ESP32</a>.</p>
+
+<ol>
+  <li>Create a <code class="language-plaintext highlighter-rouge">Tasmota32</code> dir in <code class="language-plaintext highlighter-rouge">/opt</code>:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd /opt &amp;&amp; sudo mkdir Tasmota32
+</code></pre></div>    </div>
+  </li>
+  <li>Download the <code class="language-plaintext highlighter-rouge">tasmota32-webcam.bin</code> binary and the needed ESP32 Tasmota binaries from the official Github repo via <code class="language-plaintext highlighter-rouge">wget</code>:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo wget -P Tasmota32/ https://github.com/arendst/Tasmota/raw/firmware/firmware/tasmota32/tasmota32-webcam.bin https://github.com/arendst/Tasmota/raw/firmware/firmware/tasmota32/ESP32_needed_files/boot_app0.bin https://github.com/arendst/Tasmota/raw/firmware/firmware/tasmota32/ESP32_needed_files/bootloader_dout_40m.bin https://github.com/arendst/Tasmota/raw/firmware/firmware/tasmota32/ESP32_needed_files/partitions.bin 
+</code></pre></div>    </div>
+  </li>
+  <li>Change ownership to your user instead of <code class="language-plaintext highlighter-rouge">root</code>:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo chown -R ${USER} Tasmota32/
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Make sure your ESP32-cam is still connected to your computer in <strong>flash mode</strong> (GPIO0-GND jumper).</p>
+  </li>
+  <li>Erase the current firmware (or whatever data) from your ESP32-cam. Change <code class="language-plaintext highlighter-rouge">--port /dev/ttyUSB</code> to the port your device is connected to, which you can find via <code class="language-plaintext highlighter-rouge">ls -l /dev/ttyUSB*</code>. For example, if your device is <code class="language-plaintext highlighter-rouge">/dev/ttyUSB0</code>, then use <code class="language-plaintext highlighter-rouge">--port /dev/ttyUSB0</code> in the options of the <code class="language-plaintext highlighter-rouge">esptool.py</code> utility.
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>esptool.py --port /dev/ttyUSB erase_flash
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Wait until <code class="language-plaintext highlighter-rouge">esptool.py</code> is done</strong>. Then, press the <strong>reset button on the ESP32-cam</strong>.  Now, check that <code class="language-plaintext highlighter-rouge">/dev/ttyUSB</code> is available again.</p>
+  </li>
+  <li>Flash the <code class="language-plaintext highlighter-rouge">tasmota32-webcam.bin</code> webcam server binary and the required Tasmota binaries to the ESP32-cam. (As before, change <code class="language-plaintext highlighter-rouge">--port</code> before running the command.)
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>esptool.py --chip esp32 --port /dev/ttyUSB --baud 921600 --before default_reset --after hard_reset write_flash -z --flash_mode dout --flash_freq 40m --flash_size detect 0x1000 /opt/Tasmota32/bootloader_dout_40m.bin 0x8000 /opt/Tasmota32/partitions.bin 0xe000 /opt/Tasmota32/boot_app0.bin 0x10000 /opt/Tasmota32/tasmota32-webcam.bin
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Wait until <code class="language-plaintext highlighter-rouge">esptool.py</code> is done</strong>. Then, <strong>remove the flash mode (GPIO0-GND) jumper</strong> from the ESP32-cam.</p>
+
+    <p><a href="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-wiring-nonflash-mode.jpg"><img src="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-wiring-nonflash-mode.jpg" alt="ESP32cam nonflash mode" class="PostImage PostImage--large" /></a></p>
+  </li>
+  <li>Now <strong>press the reset button</strong> on your ESP32-cam.</li>
+</ol>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="configuration">Configuration</h1>
+<p>By default, the Tasmota firmware will create a wireless access point for your ESP32-cam.</p>
+
+<ol>
+  <li>
+    <p>Use a wifi-capable device (e.g., laptop) and connect to it. The ESP32-cam will give your device an IP address, which you can check via <code class="language-plaintext highlighter-rouge">ip a</code>. Usually, the device’s IP address is in the <code class="language-plaintext highlighter-rouge">192.168.4.0/24</code> pool, which means the ESP32-cam webUI is at <code class="language-plaintext highlighter-rouge">192.168.4.1:80</code>; Otherwise, the webUI will be at the first addr in whichever pool your device connected to after joining the wireless access point created by the Tasmota firmware.</p>
+  </li>
+  <li>
+    <p>Open a web-browser of your choice and navigate to the ESP32-cam webUI. You should be prompted to change the wifi settings to allow your ESP32-cam to connect to your local wifi network.  Change the settings, save it, and wait for the ESP32-cam to reboot.</p>
+  </li>
+  <li>
+    <p>Navigate to the <strong>DHCP server</strong> of your local network and find the IP address assigned to your ESP32-cam.  At this point, it’s a good idea to assign a static address to it as well.  (If you set a static address, then reboot the ESP32-cam before moving on.)</p>
+  </li>
+  <li>
+    <p>Navigate to the ESP32-cam webUI on your local network.</p>
+  </li>
+</ol>
+
+<h2 id="updating-the-template">Updating the template</h2>
+<p>Tasmota templates are device-specific definitions of how their GPIO pins are assigned. As mentioned before, there are multiple ESP32-cam boards out there with different definitions.  In my case, I’m using the <strong>AI-Thinker cam</strong> module and therefore, I should configure the Tasmota32 webcam server to use the <a href="https://tasmota.github.io/docs/ESP32/#aithinker-cam">AITHINKER CAM template</a> instead of the default one.  (If your ESP32-cam is different, then check <a href="https://tasmota.github.io/docs/ESP32/">https://tasmota.github.io/docs/ESP32/</a> for the appropriate template and use that one instead of the AITHINKER CAM.)</p>
+
+<ol>
+  <li>Copy the <strong>AITHINKER CAM template</strong>:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{"NAME":"AITHINKER CAM","GPIO":[4992,1,1,1,1,5088,1,1,1,1,1,1,1,1,5089,5090,0,5091,5184,5152,0,5120,5024,5056,0,0,0,0,4928,1,5094,5095,5092,0,0,5093],"FLAG":0,"BASE":1}
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>From the ESP32-cam webUI, go to <strong>Configuration &gt; Configure &gt; Configure other</strong>.</p>
+  </li>
+  <li>
+    <p>Paste the template under <strong>Other parameters &gt; Template</strong>; <strong>Check Activate</strong>; Save it and wait for the reboot.</p>
+  </li>
+  <li>
+    <p>The device should now be named ‘AITHINKER CAM’ (or whaterver NAME was in the template).</p>
+  </li>
+  <li>
+    <p>The MJPEG stream should be accessible at <code class="language-plaintext highlighter-rouge">http://DEVICE_IP:81/stream</code> or <code class="language-plaintext highlighter-rouge">http://DEVICE_IP:81/cam.mjpeg</code>.</p>
+  </li>
+  <li>A single snapshot can be obtained at <code class="language-plaintext highlighter-rouge">http://DEVICE_IP:80/snapshot.jpg</code>.</li>
+</ol>
+
+<h2 id="auto-enabling-the-webcam-server-at-boot">Auto-enabling the webcam server at boot</h2>
+<p>If your board is like mine, the stream does not initialize on its own at boot–it requires a request to get webUI to initialize the stream.  This will happen whenever you try to visit the device’s webUI.  However, if you want to automatically initialize the webserver and video stream at boot, we can do so using Tasmota’s <strong><a href="https://tasmota.github.io/docs/Rules/">rules</a></strong>.  More specifically, we will add <code class="language-plaintext highlighter-rouge">Rule1</code> that tells the ESP32-cam to start the stream once Tasmota is fully initialized (i.e., after wifi and MQTT are connected, if configured).</p>
+
+<ol>
+  <li>Copy the following rule:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Rule1 ON System#Boot DO WcInit ENDON
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Go to the ESP32-cam webUI and then <strong>Console</strong>.</p>
+  </li>
+  <li>
+    <p>Paste the rule in the <strong>enter command</strong> box and press enter.</p>
+  </li>
+  <li>To enable <code class="language-plaintext highlighter-rouge">Rule1</code>, enter the following command:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Rule1 1
+</code></pre></div>    </div>
+  </li>
+  <li>Restart the ESP32-cam with the following command:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Restart 1
+</code></pre></div>    </div>
+  </li>
+  <li>Once it comes back on, check the console if <code class="language-plaintext highlighter-rouge">RULE 1</code> was executed.  It should show something similar to the following if the rule is working as expected:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>... RUL: SYSTEM#BOOT performs "WcInit"
+... SRC: Rule
+... CMD: Group 0, Index 1, Command "WCINIT", Data ""
+... CAM: Stream init
+... CAM: User template
+... CAM: PSRAM found
+... CAM: Initialized
+... RSL: stat/tasmota_***/RESULT = {"WCInit":"Done"}
+</code></pre></div>    </div>
+  </li>
+  <li>The MJPEG stream should now be accessible at <code class="language-plaintext highlighter-rouge">http://DEVICE_IP:81/stream</code> or <code class="language-plaintext highlighter-rouge">http://DEVICE_IP:81/cam.mjpeg</code> without ever accessing the webUI’s main page.</li>
+</ol>
+
+<p>By the way, <strong>rules</strong> are a great way to program your Tasmota device indepedently of any automation server. Make sure to read about <a href="https://tasmota.github.io/docs/Rules/">how to add or modify rules</a> and <a href="https://tasmota.github.io/docs/Commands/#rules">the list of available rule commands</a>.</p>
+
+<h2 id="webcam-server-additional-configurations">Webcam server additional configurations</h2>
+<p>A full list of commands for ESP32 devices can be found at <a href="https://tasmota.github.io/docs/Commands/#esp32">the official docs page</a>.  However, by the time I finished writing this, many of the commands that are specific to the Tasmota32 webcam server binary were gone… I’m not sure what happened there.  For this reason, I’ve decided to post here all the additional commands (<code class="language-plaintext highlighter-rouge">wc</code>) that I’m aware of (in alphabetical order):</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Command</th>
+      <th style="text-align: center">Definition</th>
+      <th style="text-align: center">Values</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcBrightness</code></td>
+      <td style="text-align: center">Image brightness</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">-2</code>, <code class="language-plaintext highlighter-rouge">-1</code>, <code class="language-plaintext highlighter-rouge">0</code>, <code class="language-plaintext highlighter-rouge">1</code>, <code class="language-plaintext highlighter-rouge">2</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcContrast</code></td>
+      <td style="text-align: center">Image contrast</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">-2</code>, <code class="language-plaintext highlighter-rouge">-1</code>, <code class="language-plaintext highlighter-rouge">0</code>, <code class="language-plaintext highlighter-rouge">1</code>, <code class="language-plaintext highlighter-rouge">2</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WCFlip</code></td>
+      <td style="text-align: center">Flips the image vertically</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">1</code>, <code class="language-plaintext highlighter-rouge">0</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcInit</code></td>
+      <td style="text-align: center">Initializes the webcam server</td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WCMirror</code></td>
+      <td style="text-align: center">Flips the image horizontally</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">1</code>, <code class="language-plaintext highlighter-rouge">0</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcResolution</code></td>
+      <td style="text-align: center">Image resolution</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">0</code>: <code class="language-plaintext highlighter-rouge">FRAMESIZE 96x96</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">1</code>: <code class="language-plaintext highlighter-rouge">FRAMESIZE 160x120</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">2</code>: <code class="language-plaintext highlighter-rouge">FRAMESIZE 176x144</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">3</code>: <code class="language-plaintext highlighter-rouge">FRAMESIZE 240x176</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">4</code>: <code class="language-plaintext highlighter-rouge">FRAMESIZE 240x240</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">5</code>: <code class="language-plaintext highlighter-rouge">FRAMESIZE 320x240</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">6</code>: <code class="language-plaintext highlighter-rouge">FRAMESIZE 400x256</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">7</code>: <code class="language-plaintext highlighter-rouge">FRAMESIZE 480x320</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">8</code>: <code class="language-plaintext highlighter-rouge">FRAMESIZE 640x480</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">9</code>: <code class="language-plaintext highlighter-rouge">FRAMESIZE 800x600</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">10</code>: <code class="language-plaintext highlighter-rouge">FRAMESIZE 1024x768</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcSaturation</code></td>
+      <td style="text-align: center">Image saturation</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">-2</code>, <code class="language-plaintext highlighter-rouge">-1</code>, <code class="language-plaintext highlighter-rouge">0</code>, <code class="language-plaintext highlighter-rouge">1</code>, <code class="language-plaintext highlighter-rouge">2</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcStream</code></td>
+      <td style="text-align: center">Controls the video streaming</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">0</code>: stop, <code class="language-plaintext highlighter-rouge">1</code>: start</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For example, to set the stream resolution to 800x600, go to the <strong>Console</strong> and enter the following command :</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>WcResolution 9
+</code></pre></div></div>
+
+<p>Alternatively, it’s possible to send commands via HTTP.  The previous example via web-browser: <code class="language-plaintext highlighter-rouge">http://DEVICE_IP/cm?cmnd=WcResolution%209</code>.  If using a terminal, you can send via <code class="language-plaintext highlighter-rouge">curl</code>, as follows:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl http://DEVICE_IP/cm?cmnd=WcResolution%209
+</code></pre></div></div>
+<p>which should reply with a <code class="language-plaintext highlighter-rouge">json</code> parsable by utilities such as <code class="language-plaintext highlighter-rouge">jq</code>.</p>
+
+<p>Finally, the <strong>flash LED</strong> is controlled by <strong>GPIO4</strong> and the <strong>red LED</strong> is controlled by <strong>GPIO33</strong>. Their state can be changed programatically as well.</p>
+
+<h2 id="fixing-the-timezone">Fixing the timezone</h2>
+<p>If you installed a pre-compilled firmware, there’s a chance your device is using the incorrect timezone.  To check the current timezone, go to <strong>Console</strong> and type</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>timezone
+</code></pre></div></div>
+<p>and to change it, enter the command with a value equal to your region’s <a href="https://upload.wikimedia.org/wikipedia/commons/8/88/World_Time_Zones_Map.png">standardized time zone</a>.  For America/Sao_Paulo, for example, that would be <code class="language-plaintext highlighter-rouge">-3</code>, which can be set in your Tasmota device as follows</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>timezone -3
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="basic-usage">Basic usage</h1>
+<p>You can now capture the live stream of your ESP32-cam at either <code class="language-plaintext highlighter-rouge">http://DEVICE_IP:81/stream</code> or <code class="language-plaintext highlighter-rouge">http://DEVICE_IP:81/cam.mjpeg</code>, and a single snapshot at <code class="language-plaintext highlighter-rouge">http://DEVICE_IP:80/snapshot.jpg</code>.  Such URLs can be easily fed into most camera surveillance servers, such as <a href="https://github.com/ccrisan/motioneye/">MotionEye</a>, <a href="https://shinobi.video/">Shinobi</a>, <a href="https://www.zoneminder.com/">ZoneMinder</a>, or <a href="https://www.ispyconnect.com/">iSpy</a>.  As mentioned before, the Tasmota32 webcam server can be configure to connect to a <strong><a href="https://mqtt.org/">MQTT server</a></strong> (see <strong>Configuration</strong> &gt; <strong>Configure MQTT</strong>) and then integrated with most home automation servers, such as <a href="https://www.home-assistant.io/">HomeAssistant</a>, <a href="https://www.openhab.org/">OpenHAB</a>, or one based on <a href="https://nodered.org/">NodeRed</a>’s flow programming.</p>
+
+<h2 id="standalone-wiring">Standalone wiring</h2>
+<p>If you bought a USB to DIP adapter, you can now power your ESP32-cam independent of your USB to TTL/serial adapter using a cheap <strong>5V (at least 400mA) USB power supply</strong>, such as an old cellphone charger, as follows:</p>
+
+<p><a href="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-wiring-standalone-mode.jpg"><img src="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-wiring-standalone-mode.jpg" alt="ESP32cam standalone mode" class="PostImage PostImage--large" /></a></p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="conclusion">Conclusion</h1>
+<p>This concludes the tutorial on how to install and configure the Tasmota32 webcam server onto the ESP32-cam.  As usual, if you spot an error or want to share an idea, feel free to <a href="/contact">get in touch with me</a>.  I try to keep my articles updated as much as possible to reflect my current understanding about the topic.  All such updates are noted in the <a href="#changelog">changelog</a>.</p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Posted on:</strong> <time datetime="2021-01-15T09:00:00-03:00">January 15, 2021</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="mailto:?subject=[cgomesu.com] Tasmota webcam server for the ESP32-cam&amp;body=http%3A%2F%2Flocalhost%3A4000%2Fblog%2FEsp32cam-tasmota-webcam-server%2F " class="btn btn--inverse" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on E-mail"><i class="fas fa-envelope" aria-hidden="true"></i><span> E-mail</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fblog%2FEsp32cam-tasmota-webcam-server%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.reddit.com/submit?title=Tasmota webcam server for the ESP32-cam&url=http%3A%2F%2Flocalhost%3A4000%2Fblog%2FEsp32cam-tasmota-webcam-server%2F" class="btn btn--reddit" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Reddit"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i><span> Reddit</span></a>
+
+  <a href="https://twitter.com/intent/tweet?text=Tasmota+webcam+server+for+the+ESP32-cam%20http%3A%2F%2Flocalhost%3A4000%2Fblog%2FEsp32cam-tasmota-webcam-server%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/blog/Rpi-button-box-ehdd-enclosure/" class="pagination--pager" title="Repurposing external HDD enclosures into button boxes for the Raspberry Pi
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search terms here...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search terms here..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/cgomesu" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          <li><a href="https://www.reddit.com/user/cgomesu/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i> Reddit</a></li>
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> RSS feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 CGomesu - Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> and <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a></div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>
