@@ -54,7 +54,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Tasmota webcam server for the ESP32-cam",
-        "excerpt":"Changelog Jan 16th, 2021: Publication of the original article top Introduction The ESP32 is a cheap and low-power microcontroller developed by Espressif. In addition to its low-cost, the ESP3 is known for its tiny and robust design, the versatility of its applications, and for having onboard Wi-Fi and Bluetooth. It...","categories": ["blog"],
+        "excerpt":"Changelog Jan 16th, 2021: Publication of the original article top Introduction The ESP32 is a cheap and low-power microcontroller developed by Espressif. In addition to its low-cost, the ESP32 is known for its tiny and robust design, the versatility of its applications, and for having onboard Wi-Fi and Bluetooth. It...","categories": ["blog"],
         "tags": ["iot","esp32","tasmota","mqtt","cam","webcam","surveillance","wifi","wireless","network"],
         "url": "http://localhost:4000/blog/Esp32cam-tasmota-webcam-server/",
         "teaser": null
