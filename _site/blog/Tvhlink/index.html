@@ -1,0 +1,1257 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.19.3 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>TVHlink: Livestreams as IPTV channels with TVHeadend and Streamlink - CGomesu</title>
+<meta name="description" content="A blog and portfolio website built with Jekyll and hosted on Github Pages">
+
+
+  <meta name="author" content="Carlos Gomes">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="CGomesu">
+<meta property="og:title" content="TVHlink: Livestreams as IPTV channels with TVHeadend and Streamlink">
+<meta property="og:url" content="/blog/Tvhlink/">
+
+
+  <meta property="og:description" content="A blog and portfolio website built with Jekyll and hosted on Github Pages">
+
+
+
+  <meta property="og:image" content="/assets/posts/2021-01-17-Tvhlink/header.jpg">
+
+
+
+
+
+  <meta property="article:published_time" content="2021-01-21T12:20:00-03:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="/blog/Tvhlink/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "",
+      "url": "/"
+    
+  }
+</script>
+
+
+  <meta name="google-site-verification" content="FA-B3i_TqYeaLPYwZvxxOsx07Coy_drBKJ0M_4DD0Gw" />
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="CGomesu Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="icon" href="/assets/img/site/favicon.ico" type="image/x-icon">
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/img/site/logo.png" alt=""></a>
+        
+        <a class="site-title" href="/">
+           
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/blog/">Blog</a>
+            </li><li class="masthead__menu-item">
+              <a href="/contact/">Contact</a>
+            </li><li class="masthead__menu-item">
+              <a href="/mtg/">MtG</a>
+            </li><li class="masthead__menu-item">
+              <a href="/publications/">Publications</a>
+            </li><li class="masthead__menu-item">
+              <a href="/projects/">Projects</a>
+            </li><li class="masthead__menu-item">
+              <a href="/resume/">Resume</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style="background-color: #000; background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('/assets/posts/2021-01-17-Tvhlink/header.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 id="page-title" class="page__title" itemprop="headline">
+        
+          TVHlink: Livestreams as IPTV channels with TVHeadend and Streamlink
+
+        
+      </h1>
+      
+        <p class="page__lead">
+</p>
+      
+      
+        <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  59 minute read
+
+</p>
+      
+      
+      
+    </div>
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/img/profile/profile-00.jpg" alt="Carlos Gomes" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Carlos Gomes</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>I’m a scientist, psychologist, math modeler, programmer, mtg player, free knowledge supporter, sbc fanatic, and electronics hobbyist.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Brazil</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="mailto:me@cgomesu.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Main e-mail</span></a></li>
+          
+        
+          
+        
+          
+            <li><a href="https://cgomesu.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">https://cgomesu.com</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="TVHlink: Livestreams as IPTV channels with TVHeadend and Streamlink">
+    <meta itemprop="description" content="">
+    <meta itemprop="datePublished" content="2021-01-21T12:20:00-03:00">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-list"></i> Table of Contents</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#changelog">Changelog</a></li>
+  <li><a href="#introduction">Introduction</a>
+    <ul>
+      <li><a href="#client-demo">Client demo</a></li>
+      <li><a href="#overview">Overview</a></li>
+    </ul>
+  </li>
+  <li><a href="#motivation">Motivation</a></li>
+  <li><a href="#client-server-flow">Client-server flow</a></li>
+  <li><a href="#hardware">Hardware</a>
+    <ul>
+      <li><a href="#device-recomendations">Device recomendations</a></li>
+    </ul>
+  </li>
+  <li><a href="#software">Software</a>
+    <ul>
+      <li><a href="#tvheadned">TVHeadned</a>
+        <ul>
+          <li><a href="#concepts">Concepts</a></li>
+          <li><a href="#installation">Installation</a>
+            <ul>
+              <li><a href="#host-installation">Host installation</a></li>
+              <li><a href="#docker-installation">Docker installation</a></li>
+            </ul>
+          </li>
+          <li><a href="#basic-configuration">Basic configuration</a></li>
+        </ul>
+      </li>
+      <li><a href="#streamlink">Streamlink</a>
+        <ul>
+          <li><a href="#installation-1">Installation</a>
+            <ul>
+              <li><a href="#host-installation-1">Host installation</a></li>
+              <li><a href="#docker-installation-1">Docker installation</a></li>
+            </ul>
+          </li>
+          <li><a href="#standalone-usage">Standalone usage</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#tvhlink">TVHlink</a>
+    <ul>
+      <li><a href="#single-livestream-channel">Single livestream channel</a></li>
+      <li><a href="#automatic-network-of-livestream-channels">Automatic network of livestream channels</a>
+        <ul>
+          <li><a href="#building-m3u-playlists">Building m3u playlists</a></li>
+          <li><a href="#curated-m3u-playlists">Curated m3u playlists</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#tvh-clients">TVH clients</a>
+    <ul>
+      <li><a href="#tvh-kodi-pvr-addon">TVH Kodi PVR addon</a></li>
+      <li><a href="#vlc-and-other-m3u-players">VLC and other m3u players</a></li>
+    </ul>
+  </li>
+  <li><a href="#conclusion">Conclusion</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
+        <h1 id="changelog">Changelog</h1>
+<p class="notice notice--info"><strong>Jan 21st, 2021</strong>: Publication of the original article</p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="introduction">Introduction</h1>
+<p>In my previous post titled <a href="/blog/Youtube-as-IPTV-with-TVH/">Youtube live as IPTV channels for TVHeadend</a>, I mentioned a method for capturing a Youtube livestream and feeding it into a <strong><a href="https://github.com/tvheadend/tvheadend">TVHeadend</a></strong> (TVH) server via a Python utility called <strong><a href="https://github.com/streamlink/streamlink">Streamlink</a></strong>.  In this tutorial, I will present an easier and more reliable method of doing that for Youtube as well as <a href="https://streamlink.github.io/plugin_matrix.html"><em>any</em> other supported sources</a>.  I called this integration <strong>TVHlink</strong>.</p>
+
+<p>The simplified TVHlink integration is largely due to the release of a new version of the Streamlink utility (<strong><a href="https://github.com/streamlink/streamlink/releases/tag/2.0.0">Streamlink v2.0.0</a></strong>) that includes many bug fixes and more flexible plugins for Youtube, Twitch, and other livestream sources.  For Youtube, for example, it’s now possible to simply point to a channel URL and the parser will automatically try to grab its livestream, instead of using the old method of pointing to the exact livestream URL, which often changes from time to time.  This is basically what I was doing with my <a href="https://github.com/cgomesu/youtube4tvh">youtube4tvh</a> utility but now that the improved content parser has been implemented into Streamlink, we don’t need youtube4tvh anymore because the livestream URL is found upon each TVH client request, rather than previously stored into a <code class="language-plaintext highlighter-rouge">.m3u</code> playlist.</p>
+
+<p class="notice notice--warning"><strong>DISCLAIMER</strong>. All the software used here is <strong>free and open-source</strong> and <strong>all livestream sources are publicly available</strong> and are provided by the copyright owners themselves via either plataforms such as <a href="https://www.youtube.com/">Youtube</a>, <a href="https://www.twitch.tv/">Twitch</a>, <a href="https://www.dailymotion.com/">Dailymotion</a>, etc., or their official channels (e.g., <a href="https://www.cbsnews.com/">CBS News</a>,  <a href="https://www.dw.com/">DW</a>, <a href="https://www.reuters.com/">Reuters</a>) for anyone to use. If you enjoy the content, <strong>please consider supporting the developers, streamers, and providers</strong> who make this possible.</p>
+
+<h2 id="client-demo">Client demo</h2>
+<p>Here is a preview of how the TVHlink integration looks like for mulitple TVH clients.  This is a <em>non-exhaustive</em> list because there are <a href="https://tvheadend.org/projects/tvheadend/wiki/Clients">other TVH compatible clients</a>.  For more information about TVH client configuration, refer to the <a href="#tvh-clients">TVH clients</a> section in this tutorial.</p>
+
+<p>For reference, all client demos were tested with a modest connection of D:<strong>10Mbps</strong> / U:<strong>150Kbps</strong>, which shows that the TVHlink integration works fairly well even if you have limited connectivity.  However, if your connection is better than that, you can <strong>expect much better performance than demonstrated</strong> in the videos, and fine-tuning the source quality via stream profiles will greatly improve performance as well (the demos used 720p for all streams).  Performance is also very much client-dependent.  The <strong>TVH client addon for Kodi</strong> has been the one that provided me the best experience so far.  It uses the HTSP protocol, which was designed for streaming, and allows the use of predictive tuning, which pre-loads channels before you access them, making the transition between channels next to each other much smoother than via webUI or VLC, as you can see in the demos.</p>
+
+<ul>
+  <li><strong><a href="#kodi-client">Kodi</a></strong></li>
+</ul>
+
+<!-- Courtesy of embedresponsively.com //-->
+<div class="responsive-video-container">
+
+  <iframe src="https://www.youtube-nocookie.com/embed/uZw3M3by2tI" frameborder="0" allowfullscreen=""></iframe>
+
+</div>
+
+<ul>
+  <li><strong>Web-browser (TVH webUI)</strong></li>
+</ul>
+
+<!-- Courtesy of embedresponsively.com //-->
+<div class="responsive-video-container">
+
+  <iframe src="https://www.youtube-nocookie.com/embed/EjJCRwiHXwY" frameborder="0" allowfullscreen=""></iframe>
+
+</div>
+
+<ul>
+  <li><strong><a href="#vlc-client">VLC player</a></strong></li>
+</ul>
+
+<!-- Courtesy of embedresponsively.com //-->
+<div class="responsive-video-container">
+
+  <iframe src="https://www.youtube-nocookie.com/embed/RBvuZXWxDMU" frameborder="0" allowfullscreen=""></iframe>
+
+</div>
+
+<h2 id="overview">Overview</h2>
+<p>This tutorial is organized into six main sections.  The first two sections introduce a few reasons two implement the TVH link integration (<a href="#motivation">motivation</a>) and a general picture of how it works (<a href="#client-server-flow">client-server flow</a>).  The third section, called <a href="#hardware">hardware</a>, contains a brief discussion about the hardware requirements to run a TVH server and my personal recommendation for new and experienced home users looking for hardware to buy.</p>
+
+<p>The last three sections contain the actual how-to guide for the <a href="#software">software</a> components, such as the installation of a TVH server and Streamlink on a GNU/Linux host or Docker container, as well as their basic configuration.  Afterwards, the <a href="#tvhlink">TVHlink</a> integration was described in detail, showing how to build customized IPTV networks of livestream channels.  The <a href="#tvh-clients">TVH clients</a> were discussed at the end of the tutorial, with a focus on my two favorite ones–namely, the Kodi PVR addon and VLC/<code class="language-plaintext highlighter-rouge">m3u</code> players.</p>
+
+<p>If you have already read my previous post called <a href="/blog/Youtube-as-IPTV-with-TVH/">Youtube live as IPTV channels for TVHeadend</a>, you might want to skip straight to the <a href="#software">software</a> discussion and <a href="#tvhlink">TVHlink integration</a>.  Note that the installation sections are much more detailed than before and the TVHlink integration was greatly simplified because now, we do not need to generate and update <code class="language-plaintext highlighter-rouge">m3u</code> playlists outside of the TVH server environment.  That said, the current TVHlink tutorial is self-contained and does not require anyone to have read my previous post in order to implement the TVHlink integration.</p>
+
+<p>If you are new to all of this, don’t panic!  Grab a towel, save some time, and read through. Then, give it a try on your own first and if you run into an “unsolvable” issue, feel free to <a href="/contact">get in touch with me</a>.  I am glad to help out.</p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="motivation">Motivation</h1>
+<p>There are multiple reasons to watch livestreams as if they were IPTV channels via a centralized server such as TVH.  To mention a few:</p>
+
+<ul>
+  <li>It is <strong>free and all programs are open-source</strong>;</li>
+  <li>There is at least one <strong>24/7 livestream</strong> that you enjoy. For example, the following Youtube channels:
+    <ul>
+      <li><strong>News</strong>: ABC News, Sky News, DW, France 24</li>
+      <li><strong>Space</strong>: NASA TV, Space Videos</li>
+      <li><strong>Webcam - Nature</strong>: Cornell Bird Cams, Monterey Bay Aquarium, Explore Nature</li>
+      <li><strong>Webcam - Other</strong>: earthTV, I Love You Venice, Railway</li>
+      <li><strong>Radio</strong>:  BGM channel, Cafe del Mar, Stay See</li>
+    </ul>
+  </li>
+  <li>More options to access content from multiple networks using a single client;</li>
+  <li>Keep your streaming services as centralized as possible.  That is, instead of multiple applications, you can manage everything from a single server;</li>
+  <li>Record livestreams with the push of a button on any client or via a schedule;</li>
+  <li>Take advantage of fast and reliable content delivery networks (e.g., Akamai, Youtube CDN).</li>
+</ul>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="client-server-flow">Client-server flow</h1>
+<p>The client-server flow underlying the TVHlink integration is illustrated next.</p>
+
+<p><a href="/assets/posts/2021-01-17-Tvhlink/client-server-flow.jpg"><img src="/assets/posts/2021-01-17-Tvhlink/client-server-flow.jpg" alt="Client-server-flow" class="PostImage PostImage--large" /></a></p>
+
+<p>That is, the TVH server stores one or more IPTV networks as <code class="language-plaintext highlighter-rouge">m3u</code> playlists that contain one or more (livestreaming) channels as a track.  When a TVH client (any IPTV/<code class="language-plaintext highlighter-rouge">m3u</code> player) connects to the TVH server, the server executes a Streamlink command, which will in turn try to find the livestream data.  If successful, streamlink will output the data into the TVH server, which will then send back to the client that requested the livestream.  Otherwise, the request will either return an error or timeout.</p>
+
+<p>A TVH server is not capable of multicasting any livestream.  This requires a third software component to the client-server flow, such as <a href="https://www.videolan.org/vlc/">VLC</a>.  This topic is beyond the scope of the current tutorial but if interested, check the following guide: <a href="https://tvheadend.org/projects/tvheadend/wiki/VLC_Multicasting#VLC-Multicasting-for-IPTV-into-TVHeadend">VLC Multicasting for IPTV into TVHeadend</a>.</p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="hardware">Hardware</h1>
+<p>The hardware requirement to run a TVH server depends largely on its usage.  It runs on a huge variety of devices, from a tiny ARM-based single-board computer (SBC) to a powerful AMD/Intel x86-64 machine.  (Users have even managed to run TVH on a <a href="https://tvheadend.org/boards/4/topics/16579">travel router</a> with 8MB of flash storage, 64MB of RAM, and a 600 MHz MIPS CPU.)  However, if you want to use TV tuners in addition to the TVHlink integration, I strongly suggest you to use a x86-64 machine with at least one PCIe interface instead of a SBC.  This will give you more options to choose from than relying exclusively on USB tuners.</p>
+
+<p>Most of the resource requirements to run TVH come from transcoding and networking.  For example, while a <a href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/">Raspbery Pi 3B</a> (RPi) will be more than enough to run a TVH server and use the TVHlink integration with default settings, CPU-wise, the RPi will strugle if you enable transcoding via different streaming profiles and feed it to multiple clients.  Fortunately, you can avoid transcoding altogether by configuring Streamlink to grab and feed lower resolution streams <strong>directly from the source</strong>, or even better, create <strong>_HD</strong> and <strong>_SD</strong> channels for the same livestream source and let the client choose what works best for them (e.g., in the pipe command to run <code class="language-plaintext highlighter-rouge">streamlink</code>, use the option <code class="language-plaintext highlighter-rouge">--default-stream 1080p,720p,best</code> for HD channels, and the option <code class="language-plaintext highlighter-rouge">--default-stream 480p,360p,worst</code> for SD).</p>
+
+<p>Networking-wise, a 100Mbit ethernet port can get easily saturated if serving high-resolution streams to more than one client at once.  Wireless connections are okay for clients but your TVH server should not rely on them because too many things can interfere with wireless communication.  An alternative is to use the wireless interface for management (i.e., to access the webUI) and reserve one or more ethernet ports for streaming.  My suggestion is that at the very least, reserve a <strong>1Gbit ethernet port</strong> for TVH.</p>
+
+<p>The RAM requirement is pretty low if not transcoding or recording to RAM.  In general, plan on dedicating <strong>at least 1GB of RAM</strong> to the TVH server.  Similarly, the TVH server <strong>uses less than 100MB of storage space</strong>.  However, TVH let’s you record videos from any of your sources and depending on the recording profile, this can use a lot of space.</p>
+
+<p>The hardware requirements for Streamlink are negligible.</p>
+
+<h2 id="device-recomendations">Device recomendations</h2>
+<p>If you are new to all of this and are looking for cheap and efficient hardware to get started, take a look at the <a href="https://www.raspberrypi.org/products/raspberry-pi-4-model-b/">Raspberry Pi 4B</a> and the <a href="https://www.hardkernel.com/shop/odroid-c2/">Odroid C2</a> or its latest iteration, the <a href="https://www.hardkernel.com/shop/odroid-c4/">Odroid C4</a>, for example.  They are solid, low-power devices that you can buy for less than US$ 50 and that meet the requirements to run a TVH server and more.  They can even be used as an <strong>all-in-one</strong> box–that is, TVH server and client at the same time.  All such boards are well-known and sold world-wide via AliExpress, Amazon, and the like.</p>
+
+<p><a href="/assets/posts/2021-01-17-Tvhlink/rpi4b-board.jpg"><img src="/assets/posts/2021-01-17-Tvhlink/rpi4b-board.jpg" alt="RPi 4B" class="PostImage PostImage--large" /></a></p>
+
+<p><a href="/assets/posts/2021-01-17-Tvhlink/odroidc2-board.jpg"><img src="/assets/posts/2021-01-17-Tvhlink/odroidc2-board.jpg" alt="Odroid C2" class="PostImage PostImage--large" /></a></p>
+
+<p><a href="/assets/posts/2021-01-17-Tvhlink/odroidc4-board.jpg"><img src="/assets/posts/2021-01-17-Tvhlink/odroidc4-board.jpg" alt="Odroid C4" class="PostImage PostImage--large" /></a></p>
+
+<p>However, if you are an experienced user, consider using <strong>virtualization</strong> with your existing hardware.  This will save you money and provide an easy to manage plataform for TVH and other services.</p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="software">Software</h1>
+<p>As the name suggests, there are two main software components to the TVHlink integration, namely <a href="https://github.com/tvheadend/tvheadend">TVH</a> and <a href="https://github.com/streamlink/streamlink">Streamlink</a>. The minor components are all their dependencies (e.g., <code class="language-plaintext highlighter-rouge">Python3</code>, <code class="language-plaintext highlighter-rouge">ffmpeg</code>) but their installation packages will take care of them in most cases.  As mentioned before, both projects are free and open-source, so anyone can download, install, use, and help developing and maintaining the projects.  (You don’t need to be a programmer to help out.  Check if they need assistance with translations, for example, and check how to report bugs via the Github repositories whenever you find one.)  <strong>Please consider supporting both projects</strong> if you find them useful:</p>
+
+<ul>
+  <li>
+    <p><strong>TVH Donations</strong>: <a href="https://tvheadend.org/projects/tvheadend/wiki/donate">https://tvheadend.org/projects/tvheadend/wiki/donate</a></p>
+  </li>
+  <li>
+    <p><strong>Streamlink Donations</strong>: <a href="https://streamlink.github.io/donate.html">https://streamlink.github.io/donate.html</a></p>
+  </li>
+</ul>
+
+<p>In this section of the tutorial, I will go over the installation process of the related software, their basic usage, concepts, and configuration.  Unless otherwise specified, I will assume the host is a <strong>GNU/Linux OS</strong> and more specifically, an <code class="language-plaintext highlighter-rouge">apt</code> based distribution, such as <strong>Debian</strong> or <strong>Ubuntu</strong>.  If this is not the case, simply adapt the commands to use your OS pkg manager instead.  In any case, a reference to the official documentation is always provided, which includes instructions for other distros as well.  However, make sure that by the end of the installation, you are running <strong>the latest version</strong> of both programs.  Otherwise, you will run into issues with the TVHlink integration.</p>
+
+<h2 id="tvheadned">TVHeadned</h2>
+<blockquote>
+  <p>Tvheadend is a TV streaming server for Linux supporting DVB-S, DVB-S2, DVB-C, DVB-T, ATSC, IPTV,SAT&gt;IP and other formats through the unix pipe as input sources.</p>
+</blockquote>
+
+<p>The goal of this section is to cover the <strong>installation</strong> and <strong>basic configuration</strong> of a TVH server in order to use the TVHlink integration.  Therefore, tuners, drivers, and electronic program guide (EPG) data usage won’t be covered here, even though they are all supported by a TVH server.  Fortunately, the configuration of such aspects and the TVHlink integration are <strong>not</strong> mutually exclusive–that is, you can configure your tuners and EPG data however you like after implementing the TVHlink integration. Similarly, if you use IPTV services, you can also run them in parallel to the TVHlink integration.</p>
+
+<h3 id="concepts">Concepts</h3>
+<p>In addition to the <a href="#client-server-flow">client-server flow</a> illustrated before, there are four key concepts related to how TVH organizes its content–namely, the notions of <strong>networks</strong>, <strong>muxes</strong>, <strong>services</strong>, and <strong>channels</strong>.  In brief, a network is composed of one or more muxes, which define services that are mapped onto channels.</p>
+
+<p>In the TVHlink and IPTV context, a <em>network</em> defines a meaningful <code class="language-plaintext highlighter-rouge">m3u</code> playlist (e.g., a livestreaming platform, like Youtube or Twitch) or the name of the IPTV service provider.  The <code class="language-plaintext highlighter-rouge">m3u</code> playlist contain <em>tracks</em>, which are translated into <em>muxes</em> in TVH lingo.  A mux carries and defines properties of each track, such as its name, icon, EPG source, provider, and so on.  Once a mux is verified to contain valid streaming data, it creates a corresponding <em>service</em>, and services are then mapped onto specific <em>channels</em> that will be accessible to a TVH client.</p>
+
+<p>The mapping of services onto channels is usually manual.  However, in this guide, we use <em>bouquets</em> to automatically map services to channels and generate their tags.  In the TVHlink/IPTV context, bouquets are just meaningful channel groupings with customized settings.</p>
+
+<h3 id="installation">Installation</h3>
+<p>Here is a list of various installation procedures.  Read the notes before following the official installation procedure.  Whatever method you choose, <em>after the installation</em>, check that your TVH server is either version <code class="language-plaintext highlighter-rouge">4.3</code> or higher.  Otherwise, review your installation or choose a different method because you are using an outdated version and compatibility is uncertain.</p>
+
+<h4 id="host-installation">Host installation</h4>
+<ul>
+  <li>
+    <p><a href="https://tvheadend.org/projects/tvheadend/wiki/AptRepositories">Install on host Linux machine via APT</a>: Suitable for Debian and Debian-based distros (e.g., Raspberry Pi OS, Ubuntu).  This is the recommended procedure for compatible devices because it allows you to keep your TVH updated via APT along with the other installed packages on your OS.</p>
+
+    <p class="notice notice--warning">In the <strong>apt source</strong> for tvheadend (<code class="language-plaintext highlighter-rouge">/etc/apt/sources.list.d/tvheadend.list</code>), use the <strong><a href="https://apt.tvheadend.org/unstable/">Unstable</a></strong> repository instead of the Stable one. The latter is too outdated.</p>
+
+    <p class="notice notice--warning"><strong>Before</strong> running <code class="language-plaintext highlighter-rouge">sudo apt install tvheadend</code>, check the repo’s package version with <code class="language-plaintext highlighter-rouge">sudo apt policy tvheadend</code>.  The package version must be <code class="language-plaintext highlighter-rouge">4.3*</code> or higher.  If it’s not, double check your installation procedure or use a different installation method (see below).</p>
+
+    <p class="notice notice--info">Specific package versions can be installed via <code class="language-plaintext highlighter-rouge">sudo apt install tvheadend=&lt;version&gt;</code>, in which <code class="language-plaintext highlighter-rouge">&lt;version&gt;</code> is an exact match to a repo’s valid version (version table avaliable with <code class="language-plaintext highlighter-rouge">sudo apt policy tvheadend</code>). This is useful if the candidate version (i.e., what would be installed by defeault) is not the latest one.</p>
+  </li>
+  <li>
+    <p><a href="https://tvheadend.org/projects/tvheadend/wiki/RpmRepository">Install on host Linux machine via RPM</a>: Suitable for Fedora and CentOS.</p>
+
+    <p class="notice notice--warning">In the <code class="language-plaintext highlighter-rouge">config-manager</code> command, add either the <strong><a href="https://dl.bintray.com/tvheadend/fedora/:bintray-tvheadend-fedora-unstable.repo">Fedora Unstable</a></strong> (if FedoraOS) or the <strong><a href="https://dl.bintray.com/tvheadend/centos/bintray-tvheadend-centos-unstable.repo">CentOS Unstable</a></strong> (if CentOS) repository instead of the other ones.  The other repos contain outdated releases.</p>
+  </li>
+  <li>
+    <p><a href="https://tvheadend.org/projects/tvheadend/wiki/Building">Install on host Linux machine from the Github source</a>: <em>Alternative</em> to using the APT/RPM repositories.  It takes some time to build from the source because dependencies and conflits have to be fixed manually and it’s much harder to keep TVH updated this way.</p>
+
+    <p class="notice notice--warning">Always build from the <code class="language-plaintext highlighter-rouge">master</code> branch of the Github repo.</p>
+  </li>
+</ul>
+
+<h4 id="docker-installation">Docker installation</h4>
+<ul>
+  <li>
+    <p><a href="https://docs.linuxserver.io/images/docker-tvheadend">Install as a Docker Container with the LinuxServer image</a>: <em>Alternative</em> to anyone who is not running a Linux host, for example, or already have other Dockerized services up and running.  The image is provided by an unofficial but well-known source–namely, <a href="https://www.linuxserver.io/">LinuxServer</a>.  The TVHlink integration is <strong>non-trivial</strong> because the container does not include Streamlink by default.  However, I’ve covered this in the section about <a href="#docker-installation-1">running Streamlink in a TVH Docker container</a>.  In short, it uses <a href="https://blog.linuxserver.io/2019/09/14/customizing-our-containers/#custom-scripts">custom script execution</a> to install and update Streamlink in the container.</p>
+
+    <p class="notice notice--warning">Use the <code class="language-plaintext highlighter-rouge">latest</code> image tag for your architecture. This is the default, so you should not need to change anything to pull the right image.</p>
+  </li>
+</ul>
+
+<h3 id="basic-configuration">Basic configuration</h3>
+<ol>
+  <li>
+    <p>Open a web-browser and navigate to the <strong>TVH webUI</strong>. If the web-browser is running on the same host as TVH, then the webUI will be at <strong><a href="http://127.0.0.1:9981">http://127.0.0.1:9981</a></strong>; Otherwise, it will be at <code class="language-plaintext highlighter-rouge">http://HOST_IP:9981</code>, in which <code class="language-plaintext highlighter-rouge">HOST_IP</code> is the IP address of the machine hosting the TVH server.</p>
+
+    <p class="notice notice--info">It goes without saying that the machine hosting the TVH server should have a <strong>fixed IP address</strong> at the local network because all the clients will be pointing to it.</p>
+  </li>
+  <li>
+    <p>If you provided admin credentials during the installation, you will be prompted to enter the credentials now.</p>
+  </li>
+  <li>TVH will start <strong>the wizard</strong> the first time you access the webUI but go ahead and skip it altogether:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Press Cancel
+</code></pre></div>    </div>
+  </li>
+  <li>Notice that there are several tabs in the webUI but many options will not show up if the <strong>View level</strong> is set to <code class="language-plaintext highlighter-rouge">Basic</code>. Change it to <code class="language-plaintext highlighter-rouge">Expert</code>, as follows:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Configuration &gt; General &gt; Base &gt; Web Interface Settings &gt; Default view level
+</code></pre></div>    </div>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Press Save
+</code></pre></div>    </div>
+
+    <p><a href="/assets/posts/2021-01-17-Tvhlink/tvh-config01.jpg"><img src="/assets/posts/2021-01-17-Tvhlink/tvh-config01.jpg" alt="TVH config 01" class="PostImage PostImage--large" /></a></p>
+  </li>
+  <li><em>Optional.</em> In the same tab as before, change the <strong>Authentication type</strong> to <code class="language-plaintext highlighter-rouge">Both plain and digest</code> to make the TVH server compatible with more clients than before.  (VLC, for example, is unable to authenticate if type is set to <code class="language-plaintext highlighter-rouge">Digest</code>.)
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Configuration &gt; General &gt; Base &gt; HTTP Server Settings &gt; Authentication type
+</code></pre></div>    </div>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Press Save
+</code></pre></div>    </div>
+
+    <p><a href="/assets/posts/2021-01-17-Tvhlink/tvh-config02.jpg"><img src="/assets/posts/2021-01-17-Tvhlink/tvh-config02.jpg" alt="TVH config 02" class="PostImage PostImage--large" /></a></p>
+
+    <p class="notice notice--danger"><strong>Note on exposing TVH to WAN</strong>. This configuration allows clients to send all their credentials <em>in plain text</em>.  This is <em>not a problem</em> if your TVH server is only used locally.  However, <em>this is a problem</em> if your TVH server is reachable outside your private network because the credentials will be accessible to anyone able to intercept the packets between client and server–you should always assume that this is the case when sending packets over the WAN.  If you want to use your TVH server remotely, my suggestion is to either use (a) vpn or (b) wireguard or (c) ssh tunnel (key-based auth) or (d) a reverse proxy with SSL termination (TLS) and independent and hardened credentials.</p>
+  </li>
+  <li>Clients can access TVH using the same credentials as you (admin access). However, as a general rule of thumb, that is not a good practice. Also, if you have multiple clients, it is nice to know what each one is trying to access on your TVH server.  To create a single <strong>user</strong> called <code class="language-plaintext highlighter-rouge">client</code> with password <code class="language-plaintext highlighter-rouge">client</code> and permission to only access streaming, do the following:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Configuration &gt; Users &gt; Access Entries &gt; Add
+</code></pre></div>    </div>
+    <p>Then in the <strong>Add Access Entry</strong> window:</p>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Enabled: Checked
+# Username: client
+# Streaming: Basic,Advanced,HTSP
+# Comment: default streaming client user
+</code></pre></div>    </div>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Press Create
+</code></pre></div>    </div>
+
+    <p><a href="/assets/posts/2021-01-17-Tvhlink/tvh-config03.jpg"><img src="/assets/posts/2021-01-17-Tvhlink/tvh-config03.jpg" alt="TVH config 03" class="PostImage PostImage--large" /></a></p>
+
+    <p>Now create a <strong>password</strong> for the <code class="language-plaintext highlighter-rouge">client</code> user:</p>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Configuration &gt; Users &gt; Passwords &gt; Add
+</code></pre></div>    </div>
+    <p>Then in the <strong>Add Password</strong> window:</p>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Enabled: Checked
+# Username: client
+# Password: client
+# Comment: default streaming client password
+</code></pre></div>    </div>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Press Create
+</code></pre></div>    </div>
+
+    <p><a href="/assets/posts/2021-01-17-Tvhlink/tvh-config04.jpg"><img src="/assets/posts/2021-01-17-Tvhlink/tvh-config04.jpg" alt="TVH config 04" class="PostImage PostImage--large" /></a></p>
+
+    <p>If you want to <strong>add more users</strong>, just repeat this step as many times as necessary.</p>
+  </li>
+  <li>
+    <p><em>Optional.</em> By default, TVH will attempt to grab EPG data from any channel added to it at start-up.  In the TVHlink context, however, EPG data either don’t make sense or there is no simple way of grabbing them.</p>
+
+    <p class="notice notice--info">Because some of the 24/7 news channels actually follow the same EPG as their Cable/Satellite broadcast, it is possible to use EPG tools like <a href="http://webgrabplus.com/">WebGrab+Plus</a> to configure TVH to use them.  However, this is way beyond the scope of this tutorial.</p>
+
+    <p>Therefore, you can safely <strong>disable automatic EPG grabbing at start-up</strong>, as follows:</p>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Configuration &gt; Channel / EPG &gt; EPG Grabber
+# Uncheck all 'grab at start-up' options
+</code></pre></div>    </div>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Press Save
+</code></pre></div>    </div>
+
+    <p><a href="/assets/posts/2021-01-17-Tvhlink/tvh-config05.jpg"><img src="/assets/posts/2021-01-17-Tvhlink/tvh-config05.jpg" alt="TVH config 05" class="PostImage PostImage--large" /></a></p>
+
+    <p>In addition, because you won’t be using any tuner for the TVHlink integration, you can also <strong>disable all EPG Grabber Modules</strong>, as follows:</p>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Configuration &gt; Channel / EPG &gt; EPG Grabber Modules
+# For each enabled module (green icon), make sure enabled is unchecked (red icon)
+</code></pre></div>    </div>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Press Save
+</code></pre></div>    </div>
+
+    <p><a href="/assets/posts/2021-01-17-Tvhlink/tvh-config06.jpg"><img src="/assets/posts/2021-01-17-Tvhlink/tvh-config06.jpg" alt="TVH config 06" class="PostImage PostImage--large" /></a></p>
+  </li>
+  <li>That is it. There are <a href="https://tvheadend.org/projects/tvheadend/wiki/Documentation">many other things you can do configuration-wise</a> but the ones covered are sufficient for the TVHlink integration.  Other things you might want to take a look at are the <strong><a href="https://docs.tvheadend.org/webui/config_dvr/">recording</a></strong> settings and <strong><a href="https://docs.tvheadend.org/webui/config_streamprofile/">stream profiles</a></strong>.</li>
+</ol>
+
+<h2 id="streamlink">Streamlink</h2>
+<blockquote>
+  <p>Streamlink is a command-line utility which pipes video streams from various services into a video player, such as VLC. The main purpose of Streamlink is to avoid resource-heavy and unoptimized websites, while still allowing the user to enjoy various streamed content.</p>
+</blockquote>
+
+<p>This is an awesome Python utility and if you have never used it before, make sure to check their <strong><a href="https://streamlink.github.io/">documentation</a></strong>.  In the TVHlink context, it is used to pipe data from a livestream channel to a TVH server, as <a href="#client-server-flow">illustrated in the client-server flow</a>.</p>
+
+<p>Streamlink has plugins for most of the major streaming platforms (Youtube, Twitch, Dailymotion, etc.) as well as a few specific websites (CBS News, NBC News, Reuters, etc.).  For an exhaustive list of the available plugins, check their <a href="https://streamlink.github.io/plugin_matrix.html#plugins">plugin matrix</a>.</p>
+
+<h3 id="installation-1">Installation</h3>
+<p>The official docs contain detailed instructions about <a href="https://streamlink.github.io/install.html">how to install Streamlink on a variety of platforms</a>.  However, a few of the package repositories contain <strong>outdated versions</strong> of the Streamlink utility.  If you choose to install via <code class="language-plaintext highlighter-rouge">apt</code>, <code class="language-plaintext highlighter-rouge">pacman</code>, <code class="language-plaintext highlighter-rouge">dnf</code>, and other common Linux distro package manager, make sure to install Streamlink version <code class="language-plaintext highlighter-rouge">2.0</code> or higher.  In my experience, keeping Streamlink up-to-date is more important than the TVH server because the former is more prone to changes than the latter, owning to required fixes/updates to content parsers.</p>
+
+<p>Once installed, you can find the version by running</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>streamlink --version
+</code></pre></div></div>
+<p>which should be at least <code class="language-plaintext highlighter-rouge">2.0</code> or higher, as mentioned before.  You can find the latest version number and a summary of the changes on their <strong><a href="https://github.com/streamlink/streamlink/releases">Releases page</a></strong>.</p>
+
+<h4 id="host-installation-1">Host installation</h4>
+<ul>
+  <li>
+    <p><a href="https://streamlink.github.io/install.html#linux-and-bsd">Install on host Linux or BSD machine via the system’s package manager</a>: At the time this tutorial was originally published, this was compatible with Arch, Debian, Fedora, Gentoo, NetBSD, NixOS, OpenBSD, Solus, Ubuntu, and Void.  This is the recommended procedure for compatible devices because it allows you to keep your Streamlink updated along with other packages installed on your OS.</p>
+  </li>
+  <li>
+    <p><a href="https://streamlink.github.io/install.html#pypi-package-and-source-code">Install via Python’s package manager, <code class="language-plaintext highlighter-rouge">pip</code></a>: <em>Alternative</em> to other installation methods when Streamlink is not available in the system’s package manager or the version is outdated. This offers the highest cross-plataform compatibility–that is, as long as you can install Python, you can install Streamlink this way.</p>
+
+    <p class="notice notice--warning">Starting Streamlink version <code class="language-plaintext highlighter-rouge">2.*</code>, the utility is only compatible with <strong>Python 3</strong> (and I strongly recommend to use Python <code class="language-plaintext highlighter-rouge">3.7</code> or higher).  Therefore, first, install <code class="language-plaintext highlighter-rouge">python3</code> and its package manager, <code class="language-plaintext highlighter-rouge">python3-pip</code>.  Then, install Streamlink via <code class="language-plaintext highlighter-rouge">pip3</code> to make sure it is installed as a Python 3 package instead of Python 2.</p>
+
+    <p>On Linux distributions, Python’s package manager will install user-related packages on the user’s <code class="language-plaintext highlighter-rouge">$HOME/.local/bin</code> directory, which by default, is not part of the user’s <code class="language-plaintext highlighter-rouge">$PATH</code>.  This means that if you try to run <code class="language-plaintext highlighter-rouge">streamlink</code> after a <code class="language-plaintext highlighter-rouge">pip3 install --user streamlink</code> install, for example, your shell might not find the executable.  To fix this, you need to add <code class="language-plaintext highlighter-rouge">$HOME/.local/bin</code> to your user’s <code class="language-plaintext highlighter-rouge">$PATH</code> as follows:</p>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo "export "PATH=$HOME/.local/bin:$PATH"" | tee -a "$HOME/.profile" &gt; /dev/null
+</code></pre></div>    </div>
+    <p>Then logoff and back on to apply the changes.</p>
+  </li>
+</ul>
+
+<h4 id="docker-installation-1">Docker installation</h4>
+<ul>
+  <li>
+    <p><a href="https://github.com/cgomesu/tvhlink/blob/master/tools/docker/streamlink_for_tvh_container.sh">Install on the LinuxServer TVH docker container</a>: <strong>Required for containerized TVH server installations</strong> because by deafult, the LinuxServer TVH container does not include Streamlink.  I created a repo called <strong><a href="https://github.com/cgomesu/tvhlink">tvhlink</a></strong> where I wrote a script to handle the automatic installation and update of the Streamlink utility via LinuxServer’s <a href="https://blog.linuxserver.io/2019/09/14/customizing-our-containers/#custom-scripts">custom script execution feature</a>.  To use it, do the following:</p>
+
+    <ol>
+      <li><strong>Install git</strong> on the docker <em>host machine</em> (<em>not</em> the container):
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  sudo apt update &amp;&amp; sudo apt install git
+</code></pre></div>        </div>
+      </li>
+      <li><strong>Clone the tvhlink repo</strong> to <code class="language-plaintext highlighter-rouge">/opt</code>:
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  cd /opt &amp;&amp; sudo git clone https://github.com/cgomesu/tvhlink.git
+</code></pre></div>        </div>
+      </li>
+      <li>Go to your TVH container’s <code class="language-plaintext highlighter-rouge">/config</code> directory (edit <code class="language-plaintext highlighter-rouge">&lt;TVH_CONTAINER&gt;</code> below before running the command; this is the dir where the TVH’s <code class="language-plaintext highlighter-rouge">/config</code> subdir is) and <strong>create a new dir</strong> called <code class="language-plaintext highlighter-rouge">custom-cont-init.d</code>. Any scripts in this dir are automatically executed at the container’s start-up:
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  cd &lt;TVH_CONTAINER&gt;/config &amp;&amp; sudo mkdir custom-cont-init.d
+</code></pre></div>        </div>
+      </li>
+      <li><strong>Copy</strong> the <code class="language-plaintext highlighter-rouge">streamlink_for_tvh_container.sh</code> script from the <code class="language-plaintext highlighter-rouge">tvhlink</code> repo to the new <code class="language-plaintext highlighter-rouge">custom-cont-init.d</code> dir:
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  sudo cp /opt/tvhlink/tools/docker/streamlink_for_tvh_container.sh custom-cont-init.d/
+</code></pre></div>        </div>
+      </li>
+      <li><strong>Fix the dir and script ownership</strong> to match the <code class="language-plaintext highlighter-rouge">PUID</code> (e.g., <code class="language-plaintext highlighter-rouge">1010</code>) and <code class="language-plaintext highlighter-rouge">PGID</code> (e.g., <code class="language-plaintext highlighter-rouge">100</code>) of your TVH container (edit the values before running the command below; if uncertain, then type <code class="language-plaintext highlighter-rouge">id &lt;TVH_USER&gt;</code>, in which <code class="language-plaintext highlighter-rouge">&lt;TVH_USER&gt;</code> is the user running the TVH container):
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  sudo chown -R 1010:100 custom-cont-init.d/
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p><strong>Restart your TVH container</strong> and the script should automatically install and update Streamlink at every startup.  Check the logs for any <code class="language-plaintext highlighter-rouge">[TVHlink]</code> messages.  If you don’t see any, just <strong>recreate the container</strong> and wait until it’s done installing–it can take a few minutes.</p>
+
+        <p class="notice notice--warning">Because the script is in the <code class="language-plaintext highlighter-rouge">/config</code> dir, it should persist after a TVH container update and will automatically be triggered at start-up to reinstall the required packages and Streamlink.  If you notice it’s broken, check the <a href="https://github.com/cgomesu/tvhlink">tvhlink repo</a> for an update or open an issue to let me know about it.  The script also updates Streamlink after it has been installed, so it makes sure your container is always runnig the latest version of it.  However, the script only triggers at start-up, so it will only try to update Streamlink then.  Therefore, if there’s a <a href="https://github.com/streamlink/streamlink/releases/">new Streamlink release</a> and you want to update it in the TVH container, simply restart the container and the script should take care of it.  (The script uses Python’s package manager, <code class="language-plaintext highlighter-rouge">pip</code>, so it will only install the latest version available there.)</p>
+      </li>
+    </ol>
+
+    <p class="notice notice--info">For other TVH docker images, either go to my <a href="https://github.com/cgomesu/tvhlink">tvhlink repo</a> and open an issue to request support or you will need to install Streamlink manually and then disable automatic container updates.</p>
+  </li>
+</ul>
+
+<h3 id="standalone-usage">Standalone usage</h3>
+<p>After installing Streamlink, you should be able to run it by itself with</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>streamlink [OPTIONS] &lt;URL&gt; [STREAM]
+</code></pre></div></div>
+<p>in which <code class="language-plaintext highlighter-rouge">&lt;URL&gt;</code> is a livestreaming channel (e.g., <em>Explore Live Nature Cams</em> Youtube channel: <a href="https://www.youtube.com/channel/UC-2KSeUU5SMCX6XLRD-AEvw">https://www.youtube.com/channel/UC-2KSeUU5SMCX6XLRD-AEvw</a>) or <a href="https://streamlink.github.io/plugin_matrix.html">a parsable website</a> URL; and <code class="language-plaintext highlighter-rouge">[STREAM]</code> is a streaming quality profile (e.g., <code class="language-plaintext highlighter-rouge">worst</code>, <code class="language-plaintext highlighter-rouge">best</code>, <code class="language-plaintext highlighter-rouge">720p</code>, <code class="language-plaintext highlighter-rouge">360p</code>)–if you omit the latter, <code class="language-plaintext highlighter-rouge">streamlink</code> will show a list of all available profiles for the given <code class="language-plaintext highlighter-rouge">&lt;URL&gt;</code>.  You can find a complete list of additional options (<code class="language-plaintext highlighter-rouge">[OPTIONS]</code>) with the <code class="language-plaintext highlighter-rouge">--help</code> usage argument, as follows:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>streamlink --help
+</code></pre></div></div>
+<p>Streamlink is compatible with multiple popular video players, such as <a href="https://videolan.org/">VLC</a> and <a href="https://mpv.io/">MPV</a>.  For a non-exhaustive compatibility list and their transport modes, check the <a href="https://streamlink.github.io/players.html#player-compatibility">official player compatibility table</a>.</p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="tvhlink">TVHlink</h1>
+<p>Now that you have installed both TVH and Streamlink, the TVHlink integration is rather trivial.  In fact, the only difference between its implementation and the implementation of any IPTV is that in the configuration of each <em>mux</em> in the TVH server, we will be using a <code class="language-plaintext highlighter-rouge">pipe://</code> command with our <code class="language-plaintext highlighter-rouge">streamlink</code> utility, instead of pointing it to an external <code class="language-plaintext highlighter-rouge">MPEG-TS</code> or similar file.</p>
+
+<h2 id="single-livestream-channel">Single livestream channel</h2>
+<p>To add a single livestream channel to your TVH server, first, you need to manually create an IPTV network and then add muxes to it.  We will configure the network to automatically create services for the muxes, instead of scanning them one by one, and then enable a bouquet to automatically map services to channels.</p>
+<ol>
+  <li>Open your TVH webUI and go to the <strong>Networks</strong> tab of your TV inputs settings:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Configuration &gt; DVB Inputs &gt; Networks
+</code></pre></div>    </div>
+  </li>
+  <li>Create a <strong>new network</strong> called <code class="language-plaintext highlighter-rouge">Youtube</code>:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Press Add
+</code></pre></div>    </div>
+    <p>In the <strong>Add Network</strong> window, select the following:</p>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Type: IPTV Network
+</code></pre></div>    </div>
+
+    <p><a href="/assets/posts/2021-01-17-Tvhlink/tvhlink-config01.jpg"><img src="/assets/posts/2021-01-17-Tvhlink/tvhlink-config01.jpg" alt="TVHlink config 01" class="PostImage PostImage--large" /></a></p>
+
+    <p>Now, in the <strong>Add IPTV Network</strong> window, change the following:</p>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Enabled: Checked
+# Network name: Youtube
+# Create bouquet: Checked
+# Provider name: Youtube
+# Ignore provider's channel numbers: Checked
+# Character set: UTF-8
+# Scan after creation: Unchecked
+# Skip startup scan: Checked
+# Service ID: 1
+</code></pre></div>    </div>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Press Create
+</code></pre></div>    </div>
+
+    <p><a href="/assets/posts/2021-01-17-Tvhlink/tvhlink-config02.jpg"><img src="/assets/posts/2021-01-17-Tvhlink/tvhlink-config02.jpg" alt="TVHlink config 02" class="PostImage PostImage--large" /></a></p>
+  </li>
+  <li>Create a <strong>new mux</strong> called <code class="language-plaintext highlighter-rouge">France 24 English</code>:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Configuration &gt; DVB Inputs &gt; Muxes
+</code></pre></div>    </div>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Press Add
+</code></pre></div>    </div>
+    <p>and in <strong>Add Mux</strong> window, select the following:</p>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Network: Youtube
+</code></pre></div>    </div>
+
+    <p><a href="/assets/posts/2021-01-17-Tvhlink/tvhlink-config03.jpg"><img src="/assets/posts/2021-01-17-Tvhlink/tvhlink-config03.jpg" alt="TVHlink config 03" class="PostImage PostImage--large" /></a></p>
+
+    <p>Then, change the following settings:</p>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Enabled: Enable
+# EPG scan: Disabled
+# URL: pipe:///usr/bin/env streamlink --stdout --default-stream best --url https://www.youtube.com/user/france24english
+# Mux name: Youtube - France 24 English
+# Channel number: 1
+# Service name: France 24 English
+# Icon URL: https://yt3.ggpht.com/ytc/AAUvwnjQokqv8-b-XLH34XJulaY0W27AzlCmyeEY7TayMw=s176-c-k-c0x00ffffff-no-rj
+# Channel tags: News
+# Accept zero value for TSID: Checked
+</code></pre></div>    </div>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Press Create
+</code></pre></div>    </div>
+
+    <p><a href="/assets/posts/2021-01-17-Tvhlink/tvhlink-config04.jpg"><img src="/assets/posts/2021-01-17-Tvhlink/tvhlink-config04.jpg" alt="TVHlink config 04" class="PostImage PostImage--large" /></a></p>
+
+    <p>Notice the <code class="language-plaintext highlighter-rouge">pipe://</code> command in <em>URL</em>. In brief, it tells your TVH server to call <code class="language-plaintext highlighter-rouge">streamlink</code> with the options:</p>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">--stdout</code>: Output the stream data to <code class="language-plaintext highlighter-rouge">stdout</code>, which will be read by your TVH server</li>
+      <li><code class="language-plaintext highlighter-rouge">--default-stream</code>: Stream quality, which is <code class="language-plaintext highlighter-rouge">best</code> but could be <code class="language-plaintext highlighter-rouge">720p</code>, <code class="language-plaintext highlighter-rouge">480p</code>, or whatever is acceptable by the source (Youtube)</li>
+      <li><code class="language-plaintext highlighter-rouge">--url</code>: France 24 English Youtube channel URL. Sometimes, this will be the channelID instead of an alias.</li>
+    </ul>
+
+    <p>It is possible to include additional options but these are both necessary and sufficient to get the TVHlink integration working.  Also, I tend to use the <em>Icon URL</em> from the official Youtube channels because the address has proved to be quite reliable and the image format is perfect for what we are doing.  Lastly, <em>Channel tags</em> are optional but it will help your clients finding what they want more efficiently.</p>
+  </li>
+  <li>
+    <p>Open the <strong>Tvheadend log</strong> window in the webUI (at the bottom) and check that the TVH is correctly requesting and reading data from <code class="language-plaintext highlighter-rouge">streamlink</code>.  If it is, you should see something like this:</p>
+
+    <p><a href="/assets/posts/2021-01-17-Tvhlink/tvh-kodi-config05.jpg"><img src="/assets/posts/2021-01-17-Tvhlink/tvh-kodi-config05.jpg" alt="TVH Kodi config 05" class="PostImage PostImage--large" /></a></p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2021-01-21 10:31:51.171 bouquet: new bouquet 'Youtube'
+2021-01-21 10:55:26.380 mpegts: Youtube - France 24 English in Youtube - tuning on IPTV #1
+2021-01-21 10:55:26.381 subscription: 0001: "scan" subscribing to mux "Youtube - France 24 English", weight: 5, adapter: "IPTV #1", network: "Youtube", service: "Raw PID Subscription"
+2021-01-21 10:55:26.381 spawn: Executing "/usr/bin/env"
+2021-01-21 10:55:27.575 spawn: [cli][info] Found matching plugin youtube for URL https://www.youtube.com/user/france24english
+2021-01-21 10:55:30.524 spawn: [cli][info] Available streams: 144p (worst), 240p, 360p, 480p, 720p, 1080p (best)
+2021-01-21 10:55:30.524 spawn: [cli][info] Opening stream: 1080p (hls)
+2021-01-21 10:55:41.380 mpegts: Youtube - France 24 English in Youtube scan complete
+2021-01-21 10:55:41.380 subscription: 0001: "scan" unsubscribing
+</code></pre></div>    </div>
+    <p>And in the <em>Scan result</em> of the mux, you should now see a <code class="language-plaintext highlighter-rouge">OK</code> status, which means we can configure the bouquet to automap the service to a channel that any TVH client will be able to watch.</p>
+  </li>
+  <li>Enable the <code class="language-plaintext highlighter-rouge">Youtube</code> <strong>bouquet</strong>, as follows:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Configuration &gt; Channel / EPG &gt; Bouquets
+</code></pre></div>    </div>
+    <p>Scroll down until you find <code class="language-plaintext highlighter-rouge">Youtube</code> and enable it:</p>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Enabled: Checked
+</code></pre></div>    </div>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Press Save
+</code></pre></div>    </div>
+
+    <p><a href="/assets/posts/2021-01-17-Tvhlink/tvhlink-config05.jpg"><img src="/assets/posts/2021-01-17-Tvhlink/tvhlink-config05.jpg" alt="TVHlink config 05" class="PostImage PostImage--large" /></a></p>
+
+    <p>And in the <strong>Tvheadend log</strong>, you should see a message confirming that the service was mapped:</p>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2021-01-21 11:02:41.575 bouquet: Youtube/Youtube - France 24 English/{PMT:0}: mapped service from Youtube
+</code></pre></div>    </div>
+    <p>which will then show up in the <strong>Channels</strong> tab:</p>
+
+    <p><a href="/assets/posts/2021-01-17-Tvhlink/tvhlink-config06.jpg"><img src="/assets/posts/2021-01-17-Tvhlink/tvhlink-config06.jpg" alt="TVHlink config 06" class="PostImage PostImage--large" /></a></p>
+  </li>
+  <li>To test your new channel using the webUI itself, do the following:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Electronic Program Guide &gt; Watch TV
+</code></pre></div>    </div>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Select channel: 1 France 24 English
+</code></pre></div>    </div>
+    <p>The webUI playback is not very reliable because lots of things depend on the web-browser you are using and how it handles the video playback.  (In other words, even if you’re unable to see the video or hear the sound using the webUI, chances are the stream is working just fine when using a <em>proper video player</em>.)  If you really want to test the connection at this point, then skip to the <a href="#tvh-clients">TVH clients</a> section and use one of the methods described there.</p>
+  </li>
+</ol>
+
+<h2 id="automatic-network-of-livestream-channels">Automatic network of livestream channels</h2>
+<p>If you were paying attention to the IPTV network creation step described before, you might have noticed that there is an <strong>IPTV Automatic Network</strong> option in the network <em>Type</em>.  In this type of network, we <strong>import</strong> an external <code class="language-plaintext highlighter-rouge">m3u</code> file to the TVH server and it reads its <em>tracks</em> as <em>muxes</em>, which means that we don’t need to create muxes one by one.  The drawback is that you need to know the <code class="language-plaintext highlighter-rouge">m3u</code> syntax in order to build one yourself or find someone who has already done that for you and made the file available.  In this section, I will describe both alternatives.</p>
+
+<h3 id="building-m3u-playlists">Building m3u playlists</h3>
+<p>Anyone can create and edit <code class="language-plaintext highlighter-rouge">m3u</code> playlists using any simple text editor, such as Pluma, <code class="language-plaintext highlighter-rouge">nano</code>, <code class="language-plaintext highlighter-rouge">vi</code>, Vim, and so on.  For example, open a text editor of your choice and copy and paste the following:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#EXTM3U
+#EXTINF:-1 tvg-name="France 24 English" tvg-language="English" tvg-country="FR" tvg-logo="https://yt3.ggpht.com/ytc/AAUvwnjQokqv8-b-XLH34XJulaY0W27AzlCmyeEY7TayMw=s176-c-k-c0x00ffffff-no-rj-mo" group-title="News",France 24 English
+pipe:///usr/bin/env streamlink --stdout --default-stream 720p,best --url https://www.youtube.com/user/france24english
+#EXTINF:-1 tvg-name="France 24" tvg-language="French" tvg-country="FR" tvg-logo="https://yt3.ggpht.com/ytc/AAUvwngwSBIFO5UNdycjzkUjIRFEq0n5YWKTOgsfbgKdoQ=s176-c-k-c0x00ffffff-no-rj-mo" group-title="News",France 24
+pipe:///usr/bin/env streamlink --stdout --default-stream 720p,best --url https://www.youtube.com/user/france24
+#EXTINF:-1 tvg-name="DW English" tvg-language="English" tvg-country="DE" tvg-logo="https://yt3.ggpht.com/ytc/AAUvwngnDcvUkm6jCn6TEENsvO8bdy60g-T4lCgUWOyemCs=s176-c-k-c0x00ffffff-no-rj-mo" group-title="News",DW English
+pipe:///usr/bin/env streamlink --stdout --default-stream 720p,best --url https://www.youtube.com/user/deutschewelleenglish
+#EXTINF:-1 tvg-name="DW Deutsch" tvg-language="German" tvg-country="DE" tvg-logo="https://yt3.ggpht.com/ytc/AAUvwnhXY-iIvV4naxL4WWuS_JQKOqfjqwSgzMswGp4aJUc=s176-c-k-c0x00ffffff-no-rj-mo" group-title="News",DW Deutsch
+pipe:///usr/bin/env streamlink --stdout --default-stream 720p,best --url https://www.youtube.com/user/deutschewelle
+#EXTINF:-1 tvg-name="Euronews English" tvg-language="English" tvg-country="FR" tvg-logo="https://yt3.ggpht.com/ytc/AAUvwnja_dPZdy_el5IhBkj9BJUAd29fZzSs4-vaws_uPLw=s176-c-k-c0x00ffffff-no-rj-mo" group-title="News",Euronews English
+pipe:///usr/bin/env streamlink --stdout --default-stream 720p,best --url https://www.youtube.com/user/Euronews
+#EXTINF:-1 tvg-name="Euronews Spanish" tvg-language="Spanish" tvg-country="FR" tvg-logo="https://yt3.ggpht.com/ytc/AAUvwnh8LYxyL6VKfHAGYV0qCJ4hqaWDO5GympC7lRIViw=s176-c-k-c0x00ffffff-no-rj-mo" group-title="News",Euronews Spanish
+pipe:///usr/bin/env streamlink --stdout --default-stream 720p,best --url https://www.youtube.com/user/euronewses
+#EXTINF:-1 tvg-name="Euronews Portuguese" tvg-language="Portuguese" tvg-country="FR" tvg-logo="https://yt3.ggpht.com/ytc/AAUvwngxE0l-vGHBafT-fP7WfCq_Xo7QfDLATRspf0agKA=s176-c-k-c0x00ffffff-no-rj-mo" group-title="News",Euronews Portuguese
+pipe:///usr/bin/env streamlink --stdout --default-stream 720p,best --url https://www.youtube.com/user/euronewspt
+</code></pre></div></div>
+<p>Then, observe that</p>
+
+<ol>
+  <li>
+    <p>The first row always contains <code class="language-plaintext highlighter-rouge">#EXTM3U</code> to identify this file as being an <code class="language-plaintext highlighter-rouge">m3u</code> playlist;</p>
+  </li>
+  <li>
+    <p>The remaining rows contain two distinct rows, namely (a) one starting with <code class="language-plaintext highlighter-rouge">#EXTINF:</code> that defines properties of a mux, and (b) another immediately below it that contains the <code class="language-plaintext highlighter-rouge">pipe://</code> command to request the stream data.</p>
+  </li>
+</ol>
+
+<p>Regarding the <code class="language-plaintext highlighter-rouge">#EXTINF:</code> row, the <code class="language-plaintext highlighter-rouge">-1</code> next to it simply indicates that this <em>track</em> has infinite length; the meaning of the other variables is quite intuitive. Of note, however, I’ve ommitted the <code class="language-plaintext highlighter-rouge">tvg-id</code> variable that is often found in such files because it has no useful meaning outside the context of EPG data.  If you choose to play around with EPG, then you might want to add one that matches the channel’s <code class="language-plaintext highlighter-rouge">id</code> in a given EPG data provider, for example.</p>
+
+<p>As long as you follow the structure in the example, you can add as many livestreaming channels as you want.  When you are done, you can import your <code class="language-plaintext highlighter-rouge">m3u</code> playlist to the TVH server as follows:</p>
+
+<ol>
+  <li>
+    <p><strong>Save your <code class="language-plaintext highlighter-rouge">m3u</code> playlist</strong> with the name <code class="language-plaintext highlighter-rouge">youtube.m3u</code> on a dir <strong>accessible to your TVH server</strong>. In Dockerized installations, I suggest to create a subdir on the container’s appdata (next to its <code class="language-plaintext highlighter-rouge">/config</code> dir, for example) and in the container’s settings, add a new volume bind pointing to the new dir you created. Make sure to fix permissions, so that the new dir and <code class="language-plaintext highlighter-rouge">m3u</code> files match the <code class="language-plaintext highlighter-rouge">PUID</code> and <code class="language-plaintext highlighter-rouge">PGID</code> of the TVH server;</p>
+  </li>
+  <li>Open your TVH webUI and naviagate to the <strong>Networks</strong> tab:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Configuration &gt; DVB Inputs &gt; Networks
+</code></pre></div>    </div>
+  </li>
+  <li>Create a <strong>new network</strong> called <code class="language-plaintext highlighter-rouge">Youtube Auto</code>:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Press Add
+</code></pre></div>    </div>
+    <p>In the <strong>Add Network</strong> window, select the following:</p>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Type: IPTV Automatic Network
+</code></pre></div>    </div>
+
+    <p>Now, in the <strong>Add IPTV Network</strong> window, change the following:</p>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Enabled: Checked
+# Network name: Youtube Auto
+# Create bouquet: Checked
+# URL: file:///full/path/to/youtube.m3u
+# Channel numbers from: 101
+# Accept zero value for TSID: Checked
+# Provider name: Youtube
+# Ignore provider's channel numbers: Checked
+# Character set: UTF-8
+# Scan after creation: Unchecked
+# Content character set: UTF-8
+# Skip startup scan: Checked
+# Service ID: 1
+</code></pre></div>    </div>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Press Create
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<p><a href="/assets/posts/2021-01-17-Tvhlink/tvhlink-config07.jpg"><img src="/assets/posts/2021-01-17-Tvhlink/tvhlink-config07.jpg" alt="TVHlink config 07" class="PostImage PostImage--large" /></a></p>
+
+<ol>
+  <li>Enable the <code class="language-plaintext highlighter-rouge">Youtube Auto</code> <strong>bouquet</strong>, as follows:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Configuration &gt; Channel / EPG &gt; Bouquets
+</code></pre></div>    </div>
+    <p>Scroll down until you find <code class="language-plaintext highlighter-rouge">Youtube Auto</code> and enable it:</p>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Enabled: Checked
+</code></pre></div>    </div>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Press Save
+</code></pre></div>    </div>
+    <p>which should map all services to channels in the <strong>Channels</strong> tab:</p>
+  </li>
+  <li>To test your new channels using the webUI itself, do the following:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Electronic Program Guide &gt; Watch TV
+</code></pre></div>    </div>
+  </li>
+  <li>That is it!  You have learned how to build and import a customized <code class="language-plaintext highlighter-rouge">m3u</code> playlist of livestreams to your TVH server.  If you think this is a lot of work, check the following section then.</li>
+</ol>
+
+<h3 id="curated-m3u-playlists">Curated m3u playlists</h3>
+<p>I create a Github repository called <strong><a href="https://github.com/cgomesu/tvhlink">tvhlink</a></strong> that contains <a href="https://github.com/cgomesu/tvhlink/tree/master/tools">tools</a> and <a href="https://github.com/cgomesu/tvhlink/tree/master/m3u"><code class="language-plaintext highlighter-rouge">m3u</code> playlists</a> I personally use for my TVHlink integration.  You are all welcome to use my <code class="language-plaintext highlighter-rouge">m3u</code> playlists and contribute to keep them up-to-date (<a href="https://akrabat.com/the-beginners-guide-to-contributing-to-a-github-project/">fork, make changes, push commits, and submit a PR with a description of what and why</a>).</p>
+
+<p>To add one of my curated <code class="language-plaintext highlighter-rouge">m3u</code> playlists to your TVH server, follow the same steps as in the previous section, with the following exceptions:</p>
+
+<ul>
+  <li>You <strong>do not need to save any playlist locally</strong>, unless you want to edit them before importing to the TVH server.  Instead, you can tell your TVH server to automatically <strong>fetch from the tvhlink repo</strong>, as follows:
+    <ul>
+      <li>
+        <p>In the <strong>Add IPTV Automatic Network</strong> copy and paste the following on the <em>URL</em> option to fetch my <code class="language-plaintext highlighter-rouge">youtube.m3u</code> playlist:</p>
+
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> https://raw.githubusercontent.com/cgomesu/tvhlink/master/m3u/youtube.m3u
+</code></pre></div>        </div>
+
+        <p>or alternatively, my <code class="language-plaintext highlighter-rouge">direct.m3u</code> playlist:</p>
+
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> https://raw.githubusercontent.com/cgomesu/tvhlink/master/m3u/direct.m3u
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>That is it! Your TVH server will automatically check the <strong>tvhlink</strong> repo every hour for changes and if detected, it will update all your channels accordingly.</p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="tvh-clients">TVH clients</h1>
+<p>Now that there is a TVH server up and running with the TVHlink integration enabled, you should configure at least one TVH <em>client</em> for testing purpose.  There are <a href="https://tvheadend.org/projects/tvheadend/wiki/Clients">multiple ways to watch the channels on your TVH server</a>, including directly from the <strong>TVH webUI</strong> itself:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Electronic Program Guide &gt; Watch TV
+</code></pre></div></div>
+
+<p><a href="/assets/posts/2021-01-17-Tvhlink/tvh-webui-config01.jpg"><img src="/assets/posts/2021-01-17-Tvhlink/tvh-webui-config01.jpg" alt="TVH webUI config 01" class="PostImage PostImage--large" /></a></p>
+
+<p>The webUI player uses a very specific streaming profile though, and because it requires access to the webUI, it’s not possible to test the <code class="language-plaintext highlighter-rouge">client</code> user this way (because it doesn’t have permission to access the webUI).</p>
+
+<p>There are clients (apps) for <strong>iOS</strong> and <strong>Android</strong>, for example.  They can be clients developed <em>for</em> a TVH server–such as Robert’s <a href="https://play.google.com/store/apps/details?id=org.tvheadend.tvhclient">TVHClient</a> for Android or Luis’ <a href="https://apps.apple.com/us/app/tvhclient/id638900112">TvhClient</a> for iOS–or general use <em>IPTV players</em>.  The latter works because the TVH server can provide a parsable <code class="language-plaintext highlighter-rouge">m3u</code> file to such players–see the section about the <a href="#vlc-player">VLC player</a> for an example of how to obtain such file.</p>
+
+<p>Here, however, I will show how to configure my two preferred clients.  Specifically, the <strong><a href="#tvh-kodi-pvr-addon">Kodi PVR addon</a></strong> and <strong><a href="#vlc-and-other-m3u-players">VLC and other <code class="language-plaintext highlighter-rouge">m3u</code> players</a></strong>.</p>
+
+<h2 id="tvh-kodi-pvr-addon">TVH Kodi PVR addon</h2>
+<p>The <a href="https://kodi.wiki/view/addon:Tvheadend_HTSP_Client">TVH HTSP client addon</a> for the <a href="https://kodi.tv/download"><strong>Kodi Media Center</strong></a> is <em>by far</em> my favorite client.  It uses the proper protocol for streaming (HTSP) and has <strong>predictive tuning</strong>, which makes the channel transitions very smooth because it loads neighboring channels in advance, threfore reducing the initial livestream request time (but this also greatly incrases bandwidth usage).</p>
+
+<p>You can install Kodi on pretty much any OS.  The <a href="https://kodi.tv/">official Kodi website</a> provides a variety of installation packages to <a href="https://kodi.tv/download">download</a> and you will find a <em>HOW-TO</em> button for each one of them. Choose one of them and follow the installation instructions.  When you are done, come back to see <strong>how to install the <a href="https://kodi.wiki/view/addon:Tvheadend_HTSP_Client">TVH PVR addon</a></strong>.</p>
+
+<ol>
+  <li>To install the PVR addon, open Kodi and try to install via the <strong>official repo</strong>:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Addons &gt; Install from repo &gt; PVR clients
+</code></pre></div>    </div>
+
+    <p><a href="/assets/posts/2021-01-17-Tvhlink/tvh-kodi-config01.jpg"><img src="/assets/posts/2021-01-17-Tvhlink/tvh-kodi-config01.jpg" alt="TVH Kodi config 01" class="PostImage PostImage--large" /></a></p>
+  </li>
+  <li><strong>If you find</strong> the <code class="language-plaintext highlighter-rouge">PVR clients</code> option, then select it, then select <code class="language-plaintext highlighter-rouge">Tvheadend HTSP Client</code> and install it.  However, if you <strong>do not find</strong> the <code class="language-plaintext highlighter-rouge">PVR clients</code> option, this means the PVR clients binary was not packaged with your Kodi version, which happens with a few <code class="language-plaintext highlighter-rouge">apt</code>-based distributions.  The solution is to manually install the missing addon.  Close Kodi and open a terminal, then with a <code class="language-plaintext highlighter-rouge">sudo</code> user, type the following:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt update &amp;&amp; sudo apt install kodi-pvr-hts
+</code></pre></div>    </div>
+    <p>Restart Kodi and the <code class="language-plaintext highlighter-rouge">PVR clients</code> option should be available and will contain the <code class="language-plaintext highlighter-rouge">Tvheadend HTSP Client</code> installed.</p>
+
+    <p><a href="/assets/posts/2021-01-17-Tvhlink/tvh-kodi-config02.jpg"><img src="/assets/posts/2021-01-17-Tvhlink/tvh-kodi-config02.jpg" alt="TVH Kodi config 02" class="PostImage PostImage--large" /></a></p>
+
+    <p class="notice notice--info">Another option to install a missing addon is to download a <code class="language-plaintext highlighter-rouge">.zip</code> of it from a public website and in the Kodi addons tab, choose <code class="language-plaintext highlighter-rouge">install from zip</code>.  However, do not go around installing addons from random websites.  <strong>Do your research first</strong>.  Unofficial addons can contain all sorts of bad stuff.</p>
+  </li>
+  <li>Now, to configure the PVR addon, do the following:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Addons &gt; My addons &gt; PVR clients &gt; Tvheadend HTSP Client &gt; Configure
+</code></pre></div>    </div>
+    <p>and in the <strong>Connection settings</strong> tab, change the following:</p>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># IP address: &lt;IP of the machine hosting the TVH server&gt;
+# HTTP port: 9981
+# HTSP port: 9982
+# Username: client
+# Password: client
+</code></pre></div>    </div>
+
+    <p><a href="/assets/posts/2021-01-17-Tvhlink/tvh-kodi-config03.jpg"><img src="/assets/posts/2021-01-17-Tvhlink/tvh-kodi-config03.jpg" alt="TVH Kodi config 03" class="PostImage PostImage--large" /></a></p>
+
+    <p>and in the <strong>Streaming settings</strong>, change the following:</p>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Profile to use: htsp
+# Use predictive tuning: Enabled
+# Number of subscriptions: 3
+# Unused subscription delay: 50
+</code></pre></div>    </div>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Press OK
+</code></pre></div>    </div>
+
+    <p><a href="/assets/posts/2021-01-17-Tvhlink/tvh-kodi-config04.jpg"><img src="/assets/posts/2021-01-17-Tvhlink/tvh-kodi-config04.jpg" alt="TVH Kodi config 04" class="PostImage PostImage--large" /></a></p>
+  </li>
+  <li>Every time you change the client configuration, you will be required to <strong>restart Kodi</strong> to see the changes.  So, restart your Kodi now. Once it comes back, all the channels will show up in
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># TV &gt; Channels
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Go ahead and test a few of them.  If you want to debug the connection, open a web-browser and navigate to your TVH webUI.  At the bottom of the webUI, there’s a button to open the TVH log.  Press the buttom and see the log updates live.</p>
+
+    <p><a href="/assets/posts/2021-01-17-Tvhlink/tvh-kodi-config05.jpg"><img src="/assets/posts/2021-01-17-Tvhlink/tvh-kodi-config05.jpg" alt="TVH Kodi config 05" class="PostImage PostImage--large" /></a></p>
+
+    <p><a href="/assets/posts/2021-01-17-Tvhlink/tvh-kodi-config06.jpg"><img src="/assets/posts/2021-01-17-Tvhlink/tvh-kodi-config06.jpg" alt="TVH Kodi config 06" class="PostImage PostImage--large" /></a></p>
+  </li>
+  <li>Lastly, <strong>additional Kodi PVR settings</strong> can be changed in
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Settings &gt; PVR &amp; Live TV settings
+</code></pre></div>    </div>
+  </li>
+  <li>That is it!  Enjoy your TVHlink integration.</li>
+</ol>
+
+<h2 id="vlc-and-other-m3u-players">VLC and other m3u players</h2>
+<blockquote>
+  <p>VLC media player (previously the VideoLAN Client and commonly known as simply VLC) is a free and open-source, portable, cross-platform media player software, and streaming media server developed by the VideoLAN project. VLC is available for desktop operating systems, and mobile platforms, such as Android, iOS, iPadOS, Tizen, Windows 10 Mobile, and Windows Phone. VLC is also available on digital distribution platforms such as Apple’s App Store, Google Play, and Microsoft Store.</p>
+</blockquote>
+
+<p>The VLC player is available to a variety of platforms and can be <a href="https://www.videolan.org/vlc/#download">downloaded from the official website</a>.</p>
+
+<p>There is an <a href="https://github.com/BtbN/vlc-htsp-plugin">unofficial TVH HTSP plugin for VLC</a> but the repository has been archived and according to the author:</p>
+<blockquote>
+  <p>I am no longer working on this (..). Also, if you export an m3u playlist of your channels from tvh, and open it in VLC, you have the same set of features this plugin offers, just without all the weird bugs.</p>
+</blockquote>
+
+<p>Fortunately, it is very easy to export your TVH channels <code class="language-plaintext highlighter-rouge">m3u</code> playlist and use it with the VLC player or any other <code class="language-plaintext highlighter-rouge">m3u</code> capable player:</p>
+
+<ol>
+  <li>
+    <p>Open a web-browser and navigate to your TVH webUI;</p>
+  </li>
+  <li>Append <code class="language-plaintext highlighter-rouge">/playlist</code> to the TVH webUI address, as follows:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://TVH_HOST_IP:9981/playlist
+</code></pre></div>    </div>
+
+    <p><a href="/assets/posts/2021-01-17-Tvhlink/tvh-vlc-config01.jpg"><img src="/assets/posts/2021-01-17-Tvhlink/tvh-vlc-config01.jpg" alt="TVH VLC config 01" class="PostImage PostImage--large" /></a></p>
+  </li>
+  <li>
+    <p>This will request an <code class="language-plaintext highlighter-rouge">m3u</code> playlist from your TVH server called <code class="language-plaintext highlighter-rouge">channels</code>.  It contains all currently configured channels from your server.  <strong>Save it</strong> on a directory accessible to your VLC player or other <code class="language-plaintext highlighter-rouge">m3u</code> player.</p>
+
+    <p class="notice notice--warning">If you open the <code class="language-plaintext highlighter-rouge">m3u</code> playlist with a text editor, you will see that below each <code class="language-plaintext highlighter-rouge">#EXTINF</code>, there is a network address (<code class="language-plaintext highlighter-rouge">http://...</code>).  If the address does not contain the IP address of your TVH server host, go ahead and replace them.  Please do not do this manually; use the editor’s <em>find a replace</em> tool instead.  For example, if your client is not running on the same host as the TVH server, then instead of <code class="language-plaintext highlighter-rouge">http://localhost</code> or <code class="language-plaintext highlighter-rouge">http://127.0.0.1</code>, you would want to use <code class="language-plaintext highlighter-rouge">http://TVH_IP</code>, in which <code class="language-plaintext highlighter-rouge">TVH_IP</code> is the IP address of the TVH server host in your local network.  When you’re done making the changes, just save the <code class="language-plaintext highlighter-rouge">m3u</code> file.</p>
+  </li>
+  <li>Open your VLC player and open the <code class="language-plaintext highlighter-rouge">channels</code> <code class="language-plaintext highlighter-rouge">m3u</code> playlist as follows:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Media &gt; Open files
+</code></pre></div>    </div>
+    <p>Then, in the <strong>Select on or more files to open</strong> window, select <em>All Files</em> type, navigate to where you stored the <code class="language-plaintext highlighter-rouge">channels</code> playlist and open it.</p>
+
+    <p><a href="/assets/posts/2021-01-17-Tvhlink/tvh-vlc-config02.jpg"><img src="/assets/posts/2021-01-17-Tvhlink/tvh-vlc-config02.jpg" alt="TVH VLC config 02" class="PostImage PostImage--large" /></a></p>
+  </li>
+  <li>
+    <p>You should be prompted to authenticate yourself now.  Use your <code class="language-plaintext highlighter-rouge">client</code> credentials.</p>
+  </li>
+  <li>That is it! Enjoy your TVHlink integration.</li>
+</ol>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="conclusion">Conclusion</h1>
+<p>You have reached the end of this tutorial.  If you have not started configuring your TVH server, this is the perfect time to do so.  I have been using this integration for multiple months now and it has been absolutely great.  I strongly recommend it for any cord-cutters out there and in my opinion, it is a <em>must have</em> if you already have a TVH server up and running.</p>
+
+<p>Streamlink v2.0 made the implementation of Youtube channels so much simpler than before and in my experience, Youtube provides the most reliable 24/7 livestream channels (mostly news, webcams, and music).  I am not a big fan of gaming streams in general, so I don’t ever watch Twitch streams, for example.  But as pointed out previously, Streamlink has plugins able to parse content from many sources other than Youtube and you are welcome to try them out.</p>
+
+<p>That is it for now.  If you enjoyed or have a few suggestions, <a href="/contact">let me know</a>.  Every once in a while, come back and check the <a href="#changelog">changelog</a> for updates.</p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Posted on:</strong> <time datetime="2021-01-21T12:20:00-03:00">January 21, 2021</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="mailto:?subject=[cgomesu.com] TVHlink: Livestreams as IPTV channels with TVHeadend and Streamlink&amp;body=%2Fblog%2FTvhlink%2F " class="btn btn--inverse" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on E-mail"><i class="fas fa-envelope" aria-hidden="true"></i><span> E-mail</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2Fblog%2FTvhlink%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.reddit.com/submit?title=TVHlink: Livestreams as IPTV channels with TVHeadend and Streamlink&url=%2Fblog%2FTvhlink%2F" class="btn btn--reddit" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Reddit"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i><span> Reddit</span></a>
+
+  <a href="https://twitter.com/intent/tweet?text=TVHlink%3A+Livestreams+as+IPTV+channels+with+TVHeadend+and+Streamlink%20%2Fblog%2FTvhlink%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/blog/Esp32cam-tasmota-webcam-server/" class="pagination--pager" title="Tasmota webcam server for the ESP32-cam
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search terms here...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search terms here..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/cgomesu" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          <li><a href="https://www.reddit.com/user/cgomesu/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i> Reddit</a></li>
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> RSS feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 CGomesu - Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> and <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a></div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>
