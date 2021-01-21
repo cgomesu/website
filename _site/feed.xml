@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-01-21T16:40:40-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">TVHlink: Livestreams as IPTV channels with TVHeadend and Streamlink</title><link href="/blog/Tvhlink/" rel="alternate" type="text/html" title="TVHlink: Livestreams as IPTV channels with TVHeadend and Streamlink" /><published>2021-01-21T12:20:00-03:00</published><updated>2021-01-21T12:20:00-03:00</updated><id>/blog/Tvhlink</id><content type="html" xml:base="/blog/Tvhlink/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-01-21T16:43:08-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">TVHlink: Livestreams as IPTV channels with TVHeadend and Streamlink</title><link href="/blog/Tvhlink/" rel="alternate" type="text/html" title="TVHlink: Livestreams as IPTV channels with TVHeadend and Streamlink" /><published>2021-01-21T12:20:00-03:00</published><updated>2021-01-21T12:20:00-03:00</updated><id>/blog/Tvhlink</id><content type="html" xml:base="/blog/Tvhlink/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;Jan 21st, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
@@ -38,7 +38,7 @@
 &lt;/div&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;&lt;a href=&quot;#tvh-kodi-pvr-addon&quot;&gt;VLC player&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;a href=&quot;#vlc-and-other-m3u-players&quot;&gt;VLC player&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;!-- Courtesy of embedresponsively.com //--&gt;
