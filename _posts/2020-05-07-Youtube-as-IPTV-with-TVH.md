@@ -10,6 +10,9 @@ toc_icon: "list"
 ---
 
 # Changelog
+**January 21st, 2021**: **READ THIS**. This tutorial **has been deprecated** because I wrote a **new tutorial** about the integration between Tvheadend and Streamlink, called **[TVHlink: Livestreams as IPTV channels with TVHeadend and Streamlink](/blog/Tvhlink/)**.  The integration has been greatly simplified and is more reliable than before.  In addition, the new tutorial is much more comprehensive than this one.  The new tutorial is self-contained, so you don't need to read this one first--just skip it altogether.  I will only keep this up for archiving purposes.
+{: .notice .notice--danger }
+
 **September 15th, 2020**: There's a [new release of the Youtube4TVH](https://github.com/cgomesu/youtube4tvh/releases) program that does not require the use of API keys. The section about how to create an API key has been updated accordingly.
 {: .notice .notice--info }
 
