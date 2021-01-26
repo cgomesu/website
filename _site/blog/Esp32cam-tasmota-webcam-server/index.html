@@ -200,7 +200,7 @@
 
 
 
-  20 minute read
+  21 minute read
 
 </p>
       
@@ -384,6 +384,8 @@
           </aside>
         
         <h1 id="changelog">Changelog</h1>
+<p class="notice notice--info"><strong>Jan 26th, 2021</strong>: Added an alternative source for the Tasmota32 binaries to the <a href="#flashing-tasmota32-webcam-server">Flashing Tasmota32 webcam server</a> section.  I few individuals reported issues flashing the latest (<code class="language-plaintext highlighter-rouge">firmware</code> branch) binaries, so I added a reference to the more stable (<code class="language-plaintext highlighter-rouge">release-firmware</code> branch) binaries instead.  A list of currently active branches can be found in the official Github repo’s <a href="https://github.com/arendst/Tasmota/branches/active">active branches</a> website.</p>
+
 <p class="notice notice--info"><strong>Jan 16th, 2021</strong>: Publication of the original article</p>
 
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
@@ -532,9 +534,18 @@
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd /opt &amp;&amp; sudo mkdir Tasmota32
 </code></pre></div>    </div>
   </li>
-  <li>Download the <code class="language-plaintext highlighter-rouge">tasmota32-webcam.bin</code> binary and the needed ESP32 Tasmota binaries from the official Github repo via <code class="language-plaintext highlighter-rouge">wget</code>:
+  <li>
+    <p>Download the <code class="language-plaintext highlighter-rouge">tasmota32-webcam.bin</code> binary and the needed ESP32 Tasmota binaries from the official Github repo via <code class="language-plaintext highlighter-rouge">wget</code>.  The most stable binaries are available in the <code class="language-plaintext highlighter-rouge">release-firmware</code> branch and can be downloaded via the following command:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo wget -P Tasmota32/ https://github.com/arendst/Tasmota/raw/release-firmware/firmware/tasmota32/tasmota32-webcam.bin https://github.com/arendst/Tasmota/raw/release-firmware/firmware/tasmota32/ESP32_needed_files/boot_app0.bin https://github.com/arendst/Tasmota/raw/release-firmware/firmware/tasmota32/ESP32_needed_files/bootloader_dout_40m.bin https://github.com/arendst/Tasmota/raw/release-firmware/firmware/tasmota32/ESP32_needed_files/partitions.bin 
+</code></pre></div>    </div>
+
+    <p>However, if you want to try the latest (development) binaries, then download the binaries from the <code class="language-plaintext highlighter-rouge">firmware</code> branch via the following command:</p>
+
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo wget -P Tasmota32/ https://github.com/arendst/Tasmota/raw/firmware/firmware/tasmota32/tasmota32-webcam.bin https://github.com/arendst/Tasmota/raw/firmware/firmware/tasmota32/ESP32_needed_files/boot_app0.bin https://github.com/arendst/Tasmota/raw/firmware/firmware/tasmota32/ESP32_needed_files/bootloader_dout_40m.bin https://github.com/arendst/Tasmota/raw/firmware/firmware/tasmota32/ESP32_needed_files/partitions.bin 
 </code></pre></div>    </div>
+
+    <p>My recommendation is to try the latest (<code class="language-plaintext highlighter-rouge">firmware</code>) first. Then, if you run into issues, go back to <code class="language-plaintext highlighter-rouge">release-firmware</code>.  You can find a list of active branches at <a href="https://github.com/arendst/Tasmota/branches/active">https://github.com/arendst/Tasmota/branches/active</a>.</p>
   </li>
   <li>Change ownership to your user instead of <code class="language-plaintext highlighter-rouge">root</code>:
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo chown -R ${USER} Tasmota32/
