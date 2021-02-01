@@ -24,7 +24,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Youtube live-streams as IPTV channels for TVHeadend",
-        "excerpt":"Changelog September 15th, 2020: There’s a new release of the Youtube4TVH program that does not require the use of API keys. The section about how to create an API key has been updated accordingly. June 23rd, 2020: Moved content from Blogger to my website and converted to markdown. Fixed typos...","categories": ["blog"],
+        "excerpt":"Changelog January 21st, 2021: READ THIS. This tutorial has been deprecated because I wrote a new tutorial about the integration between Tvheadend and Streamlink, called TVHlink: Livestreams as IPTV channels with TVHeadend and Streamlink. The integration has been greatly simplified and is more reliable than before. In addition, the new...","categories": ["blog"],
         "tags": ["github","iptv","kodi","streamlink","tvheadend","youtube"],
         "url": "/blog/Youtube-as-IPTV-with-TVH/",
         "teaser": null
@@ -54,14 +54,20 @@ var store = [{
         "teaser": null
       },{
         "title": "Tasmota webcam server for the ESP32-cam",
-        "excerpt":"Changelog Jan 16th, 2021: Publication of the original article top Introduction The ESP32 is a cheap and low-power microcontroller developed by Espressif. In addition to its low-cost, the ESP32 is known for its tiny and robust design, the versatility of its applications, and for having onboard Wi-Fi and Bluetooth. It...","categories": ["blog"],
+        "excerpt":"Changelog Jan 26th, 2021: Added an alternative source for the Tasmota32 binaries to the Flashing Tasmota32 webcam server section. I few individuals reported issues flashing the latest (firmware branch) binaries, so I added a reference to the more stable (release-firmware branch) binaries instead. A list of currently active branches can...","categories": ["blog"],
         "tags": ["iot","esp32","tasmota","mqtt","cam","webcam","surveillance","wifi","wireless","network"],
         "url": "/blog/Esp32cam-tasmota-webcam-server/",
         "teaser": null
       },{
         "title": "TVHlink: Livestreams as IPTV channels with TVHeadend and Streamlink",
-        "excerpt":"Changelog Jan 18th, 2021: Publication of the original article top Introduction In my previous post titled Youtube live as IPTV channels for TVHeadend, I mentioned a method for capturing a Youtube livestream and feeding it into a TVHeadend (TVH) server via a Python utility called Streamlink. In this tutorial, I...","categories": ["blog"],
-        "tags": ["github","iptv","kodi","streamlink","tvheadend","youtube","streaming","live"],
+        "excerpt":"Changelog Jan 21st, 2021: Publication of the original article top Introduction In my previous post titled Youtube live as IPTV channels for TVHeadend, I mentioned a method for capturing a Youtube livestream and feeding it into a TVHeadend (TVH) server via a Python utility called Streamlink. In this tutorial, I...","categories": ["blog"],
+        "tags": ["tvhlink","streamlink","tvheadend","github","iptv","kodi","youtube","streaming","livestream"],
         "url": "/blog/Tvhlink/",
+        "teaser": null
+      },{
+        "title": "Flashing Tasmota firmware onto Sonoff devices over-the-air: \"How-to\" using just a terminal and web-browser",
+        "excerpt":"Changelog Feb 1st, 2021: Publication of the original article top Introduction Sonoff devices are very popular home-automation devices developed by a Chinese company called ITEAD. By default, they are controlled by a closed-source application developed by ITEAD–called EWeLink–that can be installed onto iOS and Android cellphones, for example, making use...","categories": ["blog"],
+        "tags": ["iot","tasmota","sonoff","wireless","automation","firmware"],
+        "url": "/blog/ota-tasmota-sonoff/",
         "teaser": null
       }]
