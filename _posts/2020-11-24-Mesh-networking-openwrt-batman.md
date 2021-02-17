@@ -10,6 +10,8 @@ toc_label: "Table of Contents"
 toc_icon: "list"
 ---
 # Changelog
+**Feb 17th, 2021**: Per a reader's suggestion (Joshua), I added a [`vi` cheat table](#vi-cheat-table) that has a summary of the main commands, and in the [Mesh node basic config](#mesh-node-basic-config) section, I included additional instructions on how to copy and paste the configuration files from one mesh node to another using `scp`.  (Alternatively, it's also possible to do so using Luci's backup/restore option.)
+{: .notice .notice--info }
 **Jan 9th, 2021**, Update #2: Added instructions on how to automatically upgrade all installed packages with a single command.  This information is in [Updating and installing packages](#updating-and-installing-packages).
 {: .notice .notice--info }
 **Jan 9th, 2021**, Update #1: Added a new section about [hardware-specific configurations](#hardware-specific-configurations) that are sometimes required for enabling the `mesh point` mode of operation.
@@ -288,7 +290,19 @@ Alternatively, you can *write and quit* by simply typing `:wq`.
 
 `vi` has other commands as well but honestly, that's pretty much all that you need to know about `vi` in order to use in the examples covered here.  Give it a try!  
 
-## Alternatives to VI
+### VI cheat table
+
+| mode | key/command | action | 
+|:---:|:---:|:---:|
+| command | `i` | Enter *insert* mode |
+| insert | `Esc` key | Return to *command* mode |
+| command | `dd` (or hold `d` key) | Erase entire row |
+| command | `:w` + Enter/Return | Write to file |
+| command | `:q` + Enter/Return | Quit to terminal |
+| command | `:q!` + Enter/Return | Quit without saving changes |
+| command | `:wq` + Enter/Return | Write to file and quit |
+
+### Alternatives to VI
 Now, if you still don't like to use `vi`, you can always transfer files from your laptop/PC to OpenWrt via sftp, for example, or utilities like [`scp`](https://en.wikipedia.org/wiki/Secure_copy_protocol).
 
 [top](#){: .btn .btn--light-outline .btn--small}
@@ -618,7 +632,17 @@ and if the config is right, you should now see `bat0` and `if-mesh` in the outpu
 batctl if
 ```
 
-If all looks good, exit the `ssh` session, disconnect your laptop/PC from the wireless device (but keep it running nearby), and **go ahead and configure at least one other node**.  
+If it all looks good, exit the `ssh` session, disconnect your laptop/PC from the wireless device (but keep it running nearby), and **go ahead and configure at least one other node**.  This can be done manually just like you've just configured the current node.  However, if your other mesh nodes are identical to the one you have already configured--that is, it is the same brand, model, and it is running the same OpenWrt version--then you can simply **copy the modified files** and then **paste them on the `/etc/config/` dir of the new device**.  To copy all such files from the configured device to your laptop/PC current directory, you can use `scp`, as follows:
+
+```
+scp -r root@IP_MESH_NODE:/etc/config ./
+```
+
+which should create a `config` dir on your laptop/PC that has all the config files from the already configured device.  Then, it's just a matter of doing the reverse process on the unconfigured devices:
+
+```
+scp -r ./config/* root@IP_NEW_MESH_NODE:/etc/config/
+```
 
 Because we're starting SSH sessions with *different machines* using the *same IP addr* (`192.168.1.1`), it's quite possible that your SSH client will complaint about the authenticity of the host at `192.168.1.1`.  To get rid of this message, simply remove the relevant entry in your user's `known_hosts` file or delete it altogether.  On Linux distros, such file can be found at `~/.ssh/known_hosts`--that is, the `ssh` folder for your current user.
 {: .notice .notice--warning }
@@ -670,7 +694,7 @@ A more powerful tool to see what is going on in the mesh network is the `tcpdump
 batctl td batX
 ```
 
-in which `batX` is a `batman-adv` interface (usually `bat0` but if you have more than one, then `bat1`, etc.).  This is quite useful when configuring VLANs because it will show the VLAN ID of each client as well.  Depending on the scale of your mesh network, you might need to filter the output because things can get wild with `tcpdump` really fast.
+in which `batX` is a `batman-adv` interface (usually `bat0` but if you have more than one, then `bat1`, etc.).  This is quite useful when configuring VLANs because it will show the VLAN ID of each client as well.  In addition, it is possible to specify the VLAN ID in the `td` argument to constraint the output to one particular VLAN (e.g., `batctl td bat0.1`).  Depending on the scale of your mesh network, you might need to filter the output because things can get wild with `tcpdump` really fast.
 
 For more details, see the [**batctl man page**](https://downloads.open-mesh.org/batman/manpages/batctl.8.html).
 

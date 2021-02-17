@@ -1,0 +1,807 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.19.3 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Flashing Tasmota firmware onto Sonoff devices over-the-air: “How-to” using just a terminal and web-browser - CGomesu</title>
+<meta name="description" content="A blog and portfolio website built with Jekyll and hosted on Github Pages">
+
+
+  <meta name="author" content="Carlos Gomes">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="CGomesu">
+<meta property="og:title" content="Flashing Tasmota firmware onto Sonoff devices over-the-air: “How-to” using just a terminal and web-browser">
+<meta property="og:url" content="/blog/ota-tasmota-sonoff/">
+
+
+  <meta property="og:description" content="A blog and portfolio website built with Jekyll and hosted on Github Pages">
+
+
+
+  <meta property="og:image" content="/assets/posts/2021-01-30-ota-tasmota-sonoff/header.jpg">
+
+
+
+
+
+  <meta property="article:published_time" content="2021-02-01T10:20:00-03:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="/blog/ota-tasmota-sonoff/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "",
+      "url": "/"
+    
+  }
+</script>
+
+
+  <meta name="google-site-verification" content="FA-B3i_TqYeaLPYwZvxxOsx07Coy_drBKJ0M_4DD0Gw" />
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="CGomesu Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="icon" href="/assets/img/site/favicon.ico" type="image/x-icon">
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/img/site/logo.png" alt=""></a>
+        
+        <a class="site-title" href="/">
+           
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/blog/">Blog</a>
+            </li><li class="masthead__menu-item">
+              <a href="/contact/">Contact</a>
+            </li><li class="masthead__menu-item">
+              <a href="/mtg/">MtG</a>
+            </li><li class="masthead__menu-item">
+              <a href="/publications/">Publications</a>
+            </li><li class="masthead__menu-item">
+              <a href="/projects/">Projects</a>
+            </li><li class="masthead__menu-item">
+              <a href="/resume/">Resume</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style="background-color: #000; background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('/assets/posts/2021-01-30-ota-tasmota-sonoff/header.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 id="page-title" class="page__title" itemprop="headline">
+        
+          Flashing Tasmota firmware onto Sonoff devices over-the-air: “How-to” using just a terminal and web-browser
+
+        
+      </h1>
+      
+        <p class="page__lead">
+</p>
+      
+      
+        <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  22 minute read
+
+</p>
+      
+      
+      
+    </div>
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/img/profile/profile-00.jpg" alt="Carlos Gomes" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Carlos Gomes</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>I’m a scientist, psychologist, math modeler, programmer, mtg player, free knowledge supporter, sbc fanatic, and electronics hobbyist.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Brazil</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="mailto:me@cgomesu.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Main e-mail</span></a></li>
+          
+        
+          
+        
+          
+            <li><a href="https://cgomesu.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">https://cgomesu.com</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Flashing Tasmota firmware onto Sonoff devices over-the-air: “How-to” using just a terminal and web-browser">
+    <meta itemprop="description" content="">
+    <meta itemprop="datePublished" content="2021-02-01T10:20:00-03:00">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-list"></i> Table of Contents</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#changelog">Changelog</a></li>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#requirements">Requirements</a>
+    <ul>
+      <li><a href="#additional-hardware-requirements">Additional hardware requirements</a></li>
+      <li><a href="#additional-software-requirements">Additional software requirements</a></li>
+    </ul>
+  </li>
+  <li><a href="#installation">Installation</a>
+    <ul>
+      <li><a href="#preparing-the-sonoff-device">Preparing the Sonoff device</a></li>
+      <li><a href="#interacting-with-the-restful-api">Interacting with the RESTful API</a></li>
+      <li><a href="#webserver-configuration">Webserver configuration</a></li>
+      <li><a href="#flashing-the-tasmota-firmware">Flashing the Tasmota firmware</a></li>
+    </ul>
+  </li>
+  <li><a href="#basic-tasmota-configuration">Basic Tasmota configuration</a>
+    <ul>
+      <li><a href="#fixing-the-timezone">Fixing the timezone</a></li>
+    </ul>
+  </li>
+  <li><a href="#final-remarks">Final remarks</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
+        <h1 id="changelog">Changelog</h1>
+<p class="notice notice--info"><strong>Feb 1st, 2021</strong>: Publication of the original article</p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="introduction">Introduction</h1>
+<p><strong><a href="https://sonoff.tech/">Sonoff</a></strong> devices are very popular home-automation devices developed by a Chinese company called <a href="https://www.itead.cc">ITEAD</a>. By default, they are controlled by a closed-source application developed by ITEAD–called <a href="https://www.itead.cc/wiki/EWeLink_Introduction">EWeLink</a>–that can be installed onto iOS and Android cellphones, for example, making use of cloud services.  However, this makes it hard to integrate with existing home-automation servers, such as <a href="https://www.home-assistant.io/">Home Assistant</a> and <a href="https://www.openhab.org/">OpenHAB</a>, or to simply control the devices locally–that is, without access to the Internet.</p>
+
+<p>Fortunately, there are alternatives that require flashing a different firmware onto Sonoff devices. The <strong><a href="https://github.com/arendst/tasmota/">Tasmota</a> firmware</strong>, for example, is a well-known alternative that provides easy integration with existing home-automation servers and let users control devices via multiple methods, such as webUI, HTTP requests, and MQTT, all of which can be accessed either locally or remotely or both.  On top of that, it is <strong>free and open-source</strong>.  Traditionally, flashing a Tasmota firmware onto a Sonoff device involves finding a <strong>serial connection</strong>, soldering a few cables/pins, and connecting the device to a <strong>serial-to-USB</strong> adapter.  However, more often than not, this takes time, knowledge about electronics, and soldering very small components.</p>
+
+<p>ITEAD is aware that many users do not user their app or even their firmware for Sonoff devices.  Instead of forcing the use of their own software, recently, they have taken the much smarter path of <em>making it easier</em> for users to control Sonoff devices independently of their software via the release of a <strong><a href="https://github.com/itead/Sonoff_Devices_DIY_Tools">DIY mode</a></strong> in the latest firmware versions.  In DIY mode, it is possible to use the device’s <strong>RESTful API</strong> to monitor and control a variety of attributes, such as toggle a relay ON/OFF, checking the wireless signal quality, and more importantly for any Tasmota enthusiast, <strong>flashing custom firmware over-the-air (OTA)</strong>.</p>
+
+<p>In this tutorial, I will describe how to flash the <code class="language-plaintext highlighter-rouge">tasmota-lite.bin</code> binary onto <strong>Sonoff Mini</strong> relays and any other <strong>Sonoff device that can operate in DIY mode</strong>.  This will be done OTA (wirelessly) using only <code class="language-plaintext highlighter-rouge">curl</code> to send <code class="language-plaintext highlighter-rouge">POST</code> requests and then either the BusyBox HTTP Daemon (<code class="language-plaintext highlighter-rouge">busybox httpd</code>) or a common webserver application (e.g., Apache, Nginx) to create a simple webserver to serve the Tasmota binary to the local network. There is no need to install and run any other application, executable, or whatever.  Software-wise, we just need a terminal and web-browser.</p>
+
+<p class="notice notice--warning"><strong>DISCLAIMER</strong>.The procedure described in this tutorial is <strong>one-way</strong>.  That is, once flashed the Tasmota firmware, it is <strong>not possible to go back</strong> to the original ITEAD firmware.</p>
+
+<p class="notice notice--danger"><strong>ATTENTION</strong>. From this part and on, the tutorial describes procedures that involve working with <strong>mains power</strong>.  If you have not taken the necessary time to learn how to work with it safely, <strong>stop right now</strong> and ask for someone knowledgeable to assist and teach you.  <strong>Do not take this warning lightly</strong>.  Mains power can kill you or set your house on fire or both (or worse).  <strong>Be safe</strong>.</p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="requirements">Requirements</h1>
+<p>Only follow this tutorial if your Sonoff device satisfies all of the following criteria:</p>
+
+<ul>
+  <li><strong>Device</strong>
+    <ul>
+      <li><a href="https://www.itead.cc/sonoff-basicr3-wifi-diy-smart-switch.html">Sonoff Basic R3</a></li>
+      <li><a href="https://www.itead.cc/sonoff-rfr3.html">Sonoff RF R3</a></li>
+      <li><a href="https://www.itead.cc/sonoff-mini.html">Sonoff Mini</a></li>
+    </ul>
+  </li>
+  <li><strong>ITEAD firmware</strong>
+    <ul>
+      <li>
+        <p>Version <code class="language-plaintext highlighter-rouge">3.5</code> or higher</p>
+
+        <p class="notice notice--info">If running version <code class="language-plaintext highlighter-rouge">3.3</code> or <code class="language-plaintext highlighter-rouge">3.4</code>, you can try the <a href="https://github.com/itead/Sonoff_Devices_DIY_Tools/blob/master/SONOFF%20DIY%20MODE%20Protocol%20Doc%20v1.4.md#diy-mode-description">protocol v<code class="language-plaintext highlighter-rouge">1.4</code> documentation</a> instead. The procedure does not require soldering but you need to open the device to connect the OTA jumper manually.  The interaction with the RESTful API is the same as described here, so come back to follow the procedure for flashing Tasmota OTA with <code class="language-plaintext highlighter-rouge">curl</code>.</p>
+
+        <p class="notice notice--info">Alternatively, if running an outdated version, install the EWeLink app, create a bogus acount, update the firmware to latest, uninstall the app, come back and follow this guide.</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>That said, it’s possible that this tutorial is partially or completely applicable to other Sonoff devices that can operate in <strong>DIY mode</strong>.  The ones listed here are the ones that <a href="https://github.com/itead/Sonoff_Devices_DIY_Tools">ITEAD listed as supported</a>.</p>
+
+<h2 id="additional-hardware-requirements">Additional hardware requirements</h2>
+<p>You <strong>won’t need</strong> to do any soldering and won’t even need to open the device.  However, we will need to <strong>power the device using mains (110-220v AC) power</strong>.  For the <strong>Sonoff Mini</strong>, for example, you need to wire it as follows:</p>
+
+<p><a href="/assets/posts/2021-01-30-ota-tasmota-sonoff/sonoff-mini-wiring.jpg"><img src="/assets/posts/2021-01-30-ota-tasmota-sonoff/sonoff-mini-wiring.jpg" alt="Sonoff Mini Wiring" class="PostImage" /></a></p>
+
+<p>Please note that color conventions, outlet format, etc., are not always the same accross countries.  Check (and double check) the ones in your country and property <strong>before wiring the Sonoff device to mains</strong>.</p>
+
+<p>For other Sonoff devices, check their manual.  At this point, you just need to provide power to the device itself–there is no need to connect it to whatever the relay is going to control, for example, or any switches.</p>
+
+<p>Therefore, the only additional hardware requirements are the following:</p>
+
+<ul>
+  <li><strong>Stripped mains power cable</strong> with live (<strong>L</strong>) and neutral (<strong>N</strong>) wires;</li>
+  <li>A wifi capable <strong>laptop or PC</strong>.</li>
+</ul>
+
+<h2 id="additional-software-requirements">Additional software requirements</h2>
+<p>I wrote this tutorial for <strong>GNU/Linux</strong> users.  That is, unless otherwise specified, the instructions assume that you are running a Linux distribution on your PC/laptop that will be used to interact with (and serve files to) the Sonoff device.  If running iOS, you might be able to adapt the procedure more easily than if you were running Windows or other OS.</p>
+
+<p>Therefore, the only additional software requirement is the following:</p>
+
+<ul>
+  <li><strong>GNU/Linux distro</strong> installed on the host machine, preferrably <strong>apt</strong>-based distros, such as Debian or Ubuntu.</li>
+</ul>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="installation">Installation</h1>
+<p>This section describes how to flash the Tasmota firmware onto a Sonoff device OTA.  In brief, the procedure consists of (a) putting the Sonoff device in DIY mode, (b) configuring it to access your existing wireless network, (c) using a set of GNU/Linux utilities to interact with the device’s RESTful API, (d) creating a simple webserver to serve the Tasmota firmware locally, and finally, (e) flashing the Tasmota firmware OTA.  Each of those steps is explained in more detail next.</p>
+
+<h2 id="preparing-the-sonoff-device">Preparing the Sonoff device</h2>
+<ol>
+  <li>
+    <p><strong>Turn ON</strong> your Sonoff device by connecting it to the mains power;</p>
+  </li>
+  <li>
+    <p>Enable the <strong>DIY mode</strong> by pressing its button for at <strong>least 5 seconds</strong>;</p>
+  </li>
+  <li>Once the DIY mode is enabled, the device will create a wireless access point (WAP) with the following credentials:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SSID: ITEAD-X
+Password: 12345678
+</code></pre></div>    </div>
+    <p>Using your laptop/PC, find the SSID and enter the credentials to <strong>join the ITEAD WAP</strong>;</p>
+  </li>
+  <li>The Sonoff device will assign an IP to your laptop/PC in the <code class="language-plaintext highlighter-rouge">10.10.7.0/24</code> network, which you can check with <code class="language-plaintext highlighter-rouge">ip a</code>.  If it does, then <strong>open a web-browser and type the following IP</strong>:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>10.10.7.1:80
+</code></pre></div>    </div>
+    <p>If your laptop/PC was assigned to a different IP pool than <code class="language-plaintext highlighter-rouge">10.10.7.0/24</code>, then simply try the first address of whichever pool it was assigned to (e.g., if <code class="language-plaintext highlighter-rouge">10.10.1.0/24</code>, then <code class="language-plaintext highlighter-rouge">10.10.1.1</code>);</p>
+  </li>
+  <li>
+    <p>Follow the inscructions on the screen to <strong>let the Sonoff device join your local network</strong> via an existing WAP. <strong>Save and let it reboot</strong>.</p>
+
+    <p>In the meantime, tell your laptop/PC to <strong>join the same local network</strong> you configured in the Sonoff device webUI;</p>
+  </li>
+  <li><strong>Go to your DHCP server</strong> and find out which IP address it assigned to the Sonoff device on the local network.  From now on, I will refer to its local IP address as <code class="language-plaintext highlighter-rouge">IP_SONOFF</code>.  Change it too its actual IP addr before running any command.</li>
+</ol>
+
+<h2 id="interacting-with-the-restful-api">Interacting with the RESTful API</h2>
+<ol>
+  <li>Now, we will start using <code class="language-plaintext highlighter-rouge">curl</code> to send <code class="language-plaintext highlighter-rouge">POST</code> requests and pipe the output to <code class="language-plaintext highlighter-rouge">jq</code> to parse the <code class="language-plaintext highlighter-rouge">json</code> output.  Later on, we will use <code class="language-plaintext highlighter-rouge">wget</code> to download the Tasmota binary from its latest release.  To make sure all utlities are installed on your distro and you are running their latest version, <strong>open a terminal</strong> and run the following command:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt update &amp;&amp; sudo apt install curl jq wget -y
+</code></pre></div>    </div>
+
+    <p class="notice notice--info">If not using an <code class="language-plaintext highlighter-rouge">apt</code> based distro, simply adapt the code to use your package manager instead.</p>
+  </li>
+  <li>Let’s check that the Sonoff device’s API is working and <strong>get information</strong> about it, as follows:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -v -H "Content-Type: application/json" -d "{"data": {}}" IP_SONOFF:8081/zeroconf/info | jq '.'
+</code></pre></div>    </div>
+    <p>which should output something like this:</p>
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+ </span><span class="nl">"seq"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+ </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+ </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+     </span><span class="nl">"switch"</span><span class="p">:</span><span class="w"> </span><span class="s2">"off"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"startup"</span><span class="p">:</span><span class="w"> </span><span class="s2">"off"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"pulse"</span><span class="p">:</span><span class="w"> </span><span class="s2">"off"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"pulseWidth"</span><span class="p">:</span><span class="w"> </span><span class="mi">2000</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"ssid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SSID_WAP"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"otaUnlock"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"fwVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3.5.0"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"deviceid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ID_DEVICE"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"bssid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BSSID_WAP"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"signalStrength"</span><span class="p">:</span><span class="w"> </span><span class="mi">-48</span><span class="w">
+     </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>    </div>
+  </li>
+  <li>Of note, check that <code class="language-plaintext highlighter-rouge">otaUnlock</code> is <code class="language-plaintext highlighter-rouge">false</code>, which means that currently, it is not possible to flash a custom firmware OTA.  To enable it, we need to <strong>set <code class="language-plaintext highlighter-rouge">otaUnlock</code> to <code class="language-plaintext highlighter-rouge">true</code></strong>, as follows:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -v -H "Content-Type: application/json" -d "{"data": {}}" IP_SONOFF:8081/zeroconf/ota_unlock | jq '.'
+</code></pre></div>    </div>
+    <p>and we can now verify that OTA is unlocked by getting the device’s info once again, as follows:</p>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -v -H "Content-Type: application/json" -d "{"data": {}}" IP_SONOFF:8081/zeroconf/info | jq '.'
+</code></pre></div>    </div>
+    <p>which should indicate that <code class="language-plaintext highlighter-rouge">otaUnlock</code> is now <code class="language-plaintext highlighter-rouge">true</code>:</p>
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+ </span><span class="nl">"seq"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+ </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+ </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+     </span><span class="nl">"switch"</span><span class="p">:</span><span class="w"> </span><span class="s2">"off"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"startup"</span><span class="p">:</span><span class="w"> </span><span class="s2">"off"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"pulse"</span><span class="p">:</span><span class="w"> </span><span class="s2">"off"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"pulseWidth"</span><span class="p">:</span><span class="w"> </span><span class="mi">2000</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"ssid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SSID_WAP"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"otaUnlock"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"fwVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3.5.0"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"deviceid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ID_DEVICE"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"bssid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BSSID_WAP"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"signalStrength"</span><span class="p">:</span><span class="w"> </span><span class="mi">-48</span><span class="w">
+     </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>    </div>
+    <p>If you are not seeing this, review your steps until now.  You can still reset the device powering it OFF and back ON, and the device should come back in DIY mode once again (test with the first <code class="language-plaintext highlighter-rouge">curl</code> command, for example).</p>
+  </li>
+  <li><strong>Download the latest <code class="language-plaintext highlighter-rouge">tasmota-lite.bin</code> binary</strong> from the Tasmota Github repository to your user’s <code class="language-plaintext highlighter-rouge">Downloads/tasmota</code> directory, as follows:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir /home/${USER}/Downloads/tasmota
+wget -P /home/${USER}/Downloads/tasmota $(curl -s https://api.github.com/repos/arendst/Tasmota/releases/latest | grep '\"browser_download_url.*tasmota-lite.bin\"' | cut -d '"' -f 4)
+</code></pre></div>    </div>
+    <p>This should write a <code class="language-plaintext highlighter-rouge">tasmota-lite.bin</code> file onto your user’s <code class="language-plaintext highlighter-rouge">Downloads/tasmota/</code> directory. If it does not, please <a href="/contact">let me know about it</a> and in the meantime, try downloading the file manually from the <a href="https://github.com/arendst/Tasmota/releases">Tasmota Github repo</a>.</p>
+  </li>
+  <li>Check the <code class="language-plaintext highlighter-rouge">tasmota-lite.bin</code> SHA256 signature and save it to file <code class="language-plaintext highlighter-rouge">tasmota-lite-sha256.txt</code>, as follows:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> sha256sum "/home/${USER}/Downloads/tasmota/tasmota-lite.bin" &gt; "/home/${USER}/Downloads/tasmota/tasmota-lite-sha256.txt"
+</code></pre></div>    </div>
+    <p><strong>Take note of the signature</strong> and paste it whenever I refer to <code class="language-plaintext highlighter-rouge">BIN_SHA256</code>.  You can find the signature with the following command (or just open the text file and copy the first string):</p>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> cat "/home/${USER}/Downloads/tasmota/tasmota-lite-sha256sum.txt" | cut -d ' ' -f 1
+</code></pre></div>    </div>
+    <p>This signature is used to check the firmware integrity after the Sonoff device is done downloading it from a webserver. This is done to prevent the device from flashing a corrupted firmware, for example, because a corrupted file will likely yield a different SHA256 signature.</p>
+  </li>
+</ol>
+
+<h2 id="webserver-configuration">Webserver configuration</h2>
+<p>The webserver has a few peculiar requirements (e.g., needs to accept the <code class="language-plaintext highlighter-rouge">Ranges</code> header, run in <code class="language-plaintext highlighter-rouge">http</code> instead of <code class="language-plaintext highlighter-rouge">https</code>) that does not allow us to point to Tasmota’s OTA website, Github releases, or any other official source of the Tasmota firmware binary. Fortunately, we can run a webserver on the local network that satisfies all requirements by the ITEAD firmware and in my experience, the easiest way to do that is to either use the <strong>BusyBox HTTP Daemon</strong> or run an <strong>Apache</strong> webserver–or lighttp or Nginx, for instance, but <strong>do not</strong> try Python’s <code class="language-plaintext highlighter-rouge">http.server</code> or PHP because they do not accept partial content.</p>
+
+<p>BusyBox and Apache are the easiest applications to get up and running because they often come pre-installed in several Linux distros, such as Debian, which means that all you need to do is run a simple command or enable a systemd service that controls the webserver application.  Here, I will focus on the former (<code class="language-plaintext highlighter-rouge">busybox</code>) rather than the latter (<code class="language-plaintext highlighter-rouge">apache2</code>) because in my opinion, BusyBox makes this step rather trivial.</p>
+
+<p>If you have never heard of <a href="https://www.busybox.net/">BusyBox</a> before, it is a sort of Swiss Army knife for Linux, Android, and many other POSIX environments.  It encapsulates multiple Unix utilities into a single and small executable, and for this reason, it is often used in resource limited applications (e.g., routers/modems, other embedded systems, cellphones).  Here, we will take advantage of one of its utilities, namely the <strong><a href="https://openwrt.org/docs/guide-user/services/webserver/http.httpd">HTTP Daemon</a></strong>, to create a minimal webserver to serve the <code class="language-plaintext highlighter-rouge">tasmota-lite.bin</code> firmware to the Sonoff device.</p>
+
+<ol>
+  <li>First, make sure you have <code class="language-plaintext highlighter-rouge">busybox</code> <strong>installed</strong>, as follows:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> sudo apt update &amp;&amp; sudo apt install busybox -y
+</code></pre></div>    </div>
+
+    <p class="notice notice--info">If not using an <code class="language-plaintext highlighter-rouge">apt</code> based distro, simply adapt the code to use your package manager instead.</p>
+  </li>
+  <li>Then, <strong>create a webserver</strong> with your user’s <code class="language-plaintext highlighter-rouge">Downloads/tasmota</code> directory as root and using port <code class="language-plaintext highlighter-rouge">2020</code>:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>busybox httpd -p 2020 -h "/home/${USER}/Downloads/tasmota/"
+</code></pre></div>    </div>
+
+    <p class="notice notice--warning">If you are running a <strong>firewall</strong> on your laptop/PC, make sure to allow incoming TCP/UDP to port <code class="language-plaintext highlighter-rouge">2020</code> as well.  Otherwise, other devices on your local network won’t be able to access the webserver you just created.</p>
+  </li>
+  <li>
+    <p>Find the local <strong>IP address of your laptop/PC</strong> with <code class="language-plaintext highlighter-rouge">ip a</code> (e.g., <code class="language-plaintext highlighter-rouge">192.168.1.100</code>).  The address should be reachable by the Sonoff device (e.g., it is on the same subnet).  From this point forward, I will refer to the host IP address by <code class="language-plaintext highlighter-rouge">IP_HOST</code>.</p>
+  </li>
+  <li><em>Optional.</em> Using another wifi capable device, test that the <code class="language-plaintext highlighter-rouge">tasmota-lite-bin</code> file is <strong>available to the local network</strong> by typing the following on a web-browser:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://IP_HOST:2020/tasmota-lite.bin
+</code></pre></div>    </div>
+
+    <p>If correctly configured, the device should be able to download the binary.  Otherwise, review your steps.</p>
+  </li>
+</ol>
+
+<p class="notice notice--info">If you would like to use one of the most common webservers, such as Apache, Lighttpd, and Nginx, install any one of them using your system’s package manager and then <em>copy the files in your user’s</em> <code class="language-plaintext highlighter-rouge">Downloads/tasmota</code> <em>dir to the webserver’s root</em>, which by default is usually on <code class="language-plaintext highlighter-rouge">/var/www/html</code>.</p>
+
+<h2 id="flashing-the-tasmota-firmware">Flashing the Tasmota firmware</h2>
+<ol>
+  <li>Flash the <code class="language-plaintext highlighter-rouge">tasmota-lite.bin</code> binary onto the Sonoff device via a <code class="language-plaintext highlighter-rouge">curl</code> <code class="language-plaintext highlighter-rouge">POST</code>: (Change <code class="language-plaintext highlighter-rouge">IP_HOST</code>, <code class="language-plaintext highlighter-rouge">BIN_SHA256</code>, and <code class="language-plaintext highlighter-rouge">IP_SONOFF</code> <strong>before running the command</strong>.  Double check everything to make sure it is correct as well.)
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -v -H "Content-Type: application/json" -d '{"data": {"downloadUrl": "http://IP_HOST:2020/tasmota-lite.bin", "sha256sum": "BIN_SHA256"}}' IP_SONOFF:8081/zeroconf/ota_flash | jq '.'
+</code></pre></div>    </div>
+    <p>You should get an HTTP response fairly quickly.  The following codes indicate that there was an <strong>error</strong> and you should review your steps until now:</p>
+
+    <ul>
+      <li><strong>403</strong>: The operation failed and the OTA function was not unlocked.</li>
+      <li><strong>408</strong>: The operation failed and the pre-download firmware timed out.</li>
+      <li><strong>413</strong>: The operation failed and the request body size is too large.  Make sure the tasmota firmware is the right size for your device.  You should try the <code class="language-plaintext highlighter-rouge">tasmota-lite.bin</code> before anything else.</li>
+      <li><strong>424</strong>: The operation failed and the firmware could not be downloaded. Check that your webserver and firmware file are both reachable by other devices on the same local network; check for typos in the URL.</li>
+      <li><strong>471</strong>: The operation failed and the firmware integrity check failed.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Wait 2 minutes</strong> or so.</p>
+  </li>
+  <li>Once the device is done flashing the new firmware, <strong>open a web-browser</strong> and try reaching the Tasmota webUI at the following URL:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>IP_SONOFF:80
+</code></pre></div>    </div>
+    <p>If corretcly installed, you will be greeted by the following Tasmota webUI:</p>
+
+    <p><a href="/assets/posts/2021-01-30-ota-tasmota-sonoff/sonoff-webui.jpg"><img src="/assets/posts/2021-01-30-ota-tasmota-sonoff/sonoff-webui.jpg" alt="Sonoff webUI" class="PostImage" /></a></p>
+
+    <p>and then, see the next section for the basic settings; Otherwise, review your steps and try reflashing the firmware.</p>
+  </li>
+</ol>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="basic-tasmota-configuration">Basic Tasmota configuration</h1>
+<p>Before wiring your device to anything else, you should first <strong>configure</strong> and <strong>test</strong> it.  Configuration-wise, there is a lot of possibilities with a Tasmota firmware.  If you’ve never used Tasmota before, check Robbert’s (<a href="https://www.youtube.com/channel/UC2gyzKcHbYfqoXA5xbyGXtQ">The Hook Up</a>) introduction video:</p>
+
+<!-- Courtesy of embedresponsively.com //-->
+<div class="responsive-video-container">
+
+  <iframe src="https://www.youtube-nocookie.com/embed/08_GBROKQH0" frameborder="0" allowfullscreen=""></iframe>
+
+</div>
+
+<p>At the very least, you should <strong>update the firmware Template</strong> to use the one appropriate for your device.  Templates are device-specific definitions of how their GPIO pins are assigned.</p>
+
+<ol>
+  <li><strong>Copy the template</strong> for your Sonoff device:</li>
+</ol>
+
+<ul>
+  <li><a href="https://www.itead.cc/sonoff-basicr3-wifi-diy-smart-switch.html">Sonoff Basic R3</a>:
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="p">{</span><span class="nl">"NAME"</span><span class="p">:</span><span class="s2">"Sonoff Basic"</span><span class="p">,</span><span class="nl">"GPIO"</span><span class="p">:[</span><span class="mi">17</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">21</span><span class="p">,</span><span class="mi">56</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="nl">"FLAG"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nl">"BASE"</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span><span class="w">
+</span></code></pre></div>    </div>
+  </li>
+  <li><a href="https://www.itead.cc/sonoff-rfr3.html">Sonoff RF R3</a>
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="p">{</span><span class="nl">"NAME"</span><span class="p">:</span><span class="s2">"Sonoff RF"</span><span class="p">,</span><span class="nl">"GPIO"</span><span class="p">:[</span><span class="mi">17</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">21</span><span class="p">,</span><span class="mi">56</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="nl">"FLAG"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nl">"BASE"</span><span class="p">:</span><span class="mi">2</span><span class="p">}</span><span class="w">
+</span></code></pre></div>    </div>
+  </li>
+  <li><a href="https://www.itead.cc/sonoff-mini.html">Sonoff Mini</a>
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="nl">"NAME"</span><span class="p">:</span><span class="s2">"Sonoff Mini"</span><span class="p">,</span><span class="nl">"GPIO"</span><span class="p">:[</span><span class="mi">17</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">21</span><span class="p">,</span><span class="mi">56</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">],</span><span class="nl">"FLAG"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nl">"BASE"</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span><span class="w">
+</span></code></pre></div>    </div>
+  </li>
+</ul>
+
+<ol>
+  <li>
+    <p><strong>Open a web-browser</strong> and navigate to the Tasmota webUI.</p>
+  </li>
+  <li>
+    <p>On the webUI, go to <strong>Configuration</strong> &gt; <strong>Configure other</strong> and then <strong>paste the tempalte</strong> into the <em>Template field</em>, check the <em>Activate</em> box and hit <strong>Save</strong>.  The device will then reboot.</p>
+  </li>
+  <li>
+    <p>Once the device is back up, check that its name is now the same as in the <code class="language-plaintext highlighter-rouge">NAME</code> property value.  For the Sonoff mini template, for example, it should be <code class="language-plaintext highlighter-rouge">Sonoff Mini</code>.  You can further configure your template at <strong>Configuration</strong> &gt; <strong>Configure Template</strong> to assign new components, if at all possible.  (The Mini does have an exposed GPIO available that was previously used by the ITEAD firmware for flashing mode, which is not going to be used anymore.)</p>
+  </li>
+</ol>
+
+<h2 id="fixing-the-timezone">Fixing the timezone</h2>
+<p>If you installed a pre-compilled firmware, there’s a chance your device is using the incorrect timezone.  To check the current timezone, go to the webUI main page and then <strong>Console</strong>. Now, type the following:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>timezone
+</code></pre></div></div>
+<p>and if that is incorrect, to change it, enter the same <code class="language-plaintext highlighter-rouge">timezone</code> command with a value equal to your region’s <a href="https://upload.wikimedia.org/wikipedia/commons/8/88/World_Time_Zones_Map.png">standardized time zone</a> timezone.  For America/Sao_Paulo, for example, that would be <code class="language-plaintext highlighter-rouge">-3</code>, which can be set in your Tasmota device as follows</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>timezone -3
+</code></pre></div></div>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="final-remarks">Final remarks</h1>
+<p>Tasmota is a <strong>featureful firmware</strong> and it is worth taking a look at the <strong><a href="https://tasmota.github.io/docs/">official documentation</a></strong> to learn about the possibilities.  If you run into issues, go to their <a href="https://github.com/arendst/tasmota/">Github repository</a>, search their open and closed issues, and if you do not find an answer to your problem, open a new one.</p>
+
+<p>Come back to this website every once in a while to check for changes in the <a href="#changelog">changelog</a>.  I try to keep all my guides up-to-date as much as possible because I actually use them myself.</p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Posted on:</strong> <time datetime="2021-02-01T10:20:00-03:00">February 1, 2021</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="mailto:?subject=[cgomesu.com] Flashing Tasmota firmware onto Sonoff devices over-the-air: "How-to" using just a terminal and web-browser&amp;body=%2Fblog%2Fota-tasmota-sonoff%2F " class="btn btn--inverse" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on E-mail"><i class="fas fa-envelope" aria-hidden="true"></i><span> E-mail</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2Fblog%2Fota-tasmota-sonoff%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.reddit.com/submit?title=Flashing Tasmota firmware onto Sonoff devices over-the-air: "How-to" using just a terminal and web-browser&url=%2Fblog%2Fota-tasmota-sonoff%2F" class="btn btn--reddit" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Reddit"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i><span> Reddit</span></a>
+
+  <a href="https://twitter.com/intent/tweet?text=Flashing+Tasmota+firmware+onto+Sonoff+devices+over-the-air%3A+%22How-to%22+using+just+a+terminal+and+web-browser%20%2Fblog%2Fota-tasmota-sonoff%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/blog/Tvhlink/" class="pagination--pager" title="TVHlink: Livestreams as IPTV channels with TVHeadend and Streamlink
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search terms here...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search terms here..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/cgomesu" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          <li><a href="https://www.reddit.com/user/cgomesu/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i> Reddit</a></li>
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> RSS feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 CGomesu - Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> and <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a></div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

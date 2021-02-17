@@ -200,7 +200,7 @@
 
 
 
-  91 minute read
+  94 minute read
 
 </p>
       
@@ -388,8 +388,12 @@
   </li>
   <li><a href="#software">Software</a>
     <ul>
-      <li><a href="#vi-text-editor">VI text editor</a></li>
-      <li><a href="#alternatives-to-vi">Alternatives to VI</a></li>
+      <li><a href="#vi-text-editor">VI text editor</a>
+        <ul>
+          <li><a href="#vi-cheat-table">VI cheat table</a></li>
+          <li><a href="#alternatives-to-vi">Alternatives to VI</a></li>
+        </ul>
+      </li>
     </ul>
   </li>
   <li><a href="#implementation">Implementation</a>
@@ -437,6 +441,7 @@
           </aside>
         
         <h1 id="changelog">Changelog</h1>
+<p class="notice notice--info"><strong>Feb 17th, 2021</strong>: Per a reader’s suggestion (Joshua), I added a <a href="#vi-cheat-table"><code class="language-plaintext highlighter-rouge">vi</code> cheat table</a> that has a summary of the main commands, and in the <a href="#mesh-node-basic-config">Mesh node basic config</a> section, I included additional instructions on how to copy and paste the configuration files from one mesh node to another using <code class="language-plaintext highlighter-rouge">scp</code>.  (Alternatively, it’s also possible to do so using Luci’s backup/restore option.)</p>
 <p class="notice notice--info"><strong>Jan 9th, 2021</strong>, Update #2: Added instructions on how to automatically upgrade all installed packages with a single command.  This information is in <a href="#updating-and-installing-packages">Updating and installing packages</a>.</p>
 <p class="notice notice--info"><strong>Jan 9th, 2021</strong>, Update #1: Added a new section about <a href="#hardware-specific-configurations">hardware-specific configurations</a> that are sometimes required for enabling the <code class="language-plaintext highlighter-rouge">mesh point</code> mode of operation.</p>
 <p class="notice notice--info"><strong>Dec 7th, 2020</strong>: Publication of the original guide</p>
@@ -788,7 +793,56 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
 
 <p><code class="language-plaintext highlighter-rouge">vi</code> has other commands as well but honestly, that’s pretty much all that you need to know about <code class="language-plaintext highlighter-rouge">vi</code> in order to use in the examples covered here.  Give it a try!</p>
 
-<h2 id="alternatives-to-vi">Alternatives to VI</h2>
+<h3 id="vi-cheat-table">VI cheat table</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">mode</th>
+      <th style="text-align: center">key/command</th>
+      <th style="text-align: center">action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">command</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">i</code></td>
+      <td style="text-align: center">Enter <em>insert</em> mode</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">insert</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">Esc</code> key</td>
+      <td style="text-align: center">Return to <em>command</em> mode</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">command</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">dd</code> (or hold <code class="language-plaintext highlighter-rouge">d</code> key)</td>
+      <td style="text-align: center">Erase entire row</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">command</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">:w</code> + Enter/Return</td>
+      <td style="text-align: center">Write to file</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">command</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">:q</code> + Enter/Return</td>
+      <td style="text-align: center">Quit to terminal</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">command</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">:q!</code> + Enter/Return</td>
+      <td style="text-align: center">Quit without saving changes</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">command</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">:wq</code> + Enter/Return</td>
+      <td style="text-align: center">Write to file and quit</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="alternatives-to-vi">Alternatives to VI</h3>
 <p>Now, if you still don’t like to use <code class="language-plaintext highlighter-rouge">vi</code>, you can always transfer files from your laptop/PC to OpenWrt via sftp, for example, or utilities like <a href="https://en.wikipedia.org/wiki/Secure_copy_protocol"><code class="language-plaintext highlighter-rouge">scp</code></a>.</p>
 
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
@@ -1117,7 +1171,15 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>batctl if
 </code></pre></div></div>
 
-<p>If all looks good, exit the <code class="language-plaintext highlighter-rouge">ssh</code> session, disconnect your laptop/PC from the wireless device (but keep it running nearby), and <strong>go ahead and configure at least one other node</strong>.</p>
+<p>If it all looks good, exit the <code class="language-plaintext highlighter-rouge">ssh</code> session, disconnect your laptop/PC from the wireless device (but keep it running nearby), and <strong>go ahead and configure at least one other node</strong>.  This can be done manually just like you’ve just configured the current node.  However, if your other mesh nodes are identical to the one you have already configured–that is, it is the same brand, model, and it is running the same OpenWrt version–then you can simply <strong>copy the modified files</strong> and then <strong>paste them on the <code class="language-plaintext highlighter-rouge">/etc/config/</code> dir of the new device</strong>.  To copy all such files from the configured device to your laptop/PC current directory, you can use <code class="language-plaintext highlighter-rouge">scp</code>, as follows:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scp -r root@IP_MESH_NODE:/etc/config ./
+</code></pre></div></div>
+
+<p>which should create a <code class="language-plaintext highlighter-rouge">config</code> dir on your laptop/PC that has all the config files from the already configured device.  Then, it’s just a matter of doing the reverse process on the unconfigured devices:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scp -r ./config/* root@IP_NEW_MESH_NODE:/etc/config/
+</code></pre></div></div>
 
 <p class="notice notice--warning">Because we’re starting SSH sessions with <em>different machines</em> using the <em>same IP addr</em> (<code class="language-plaintext highlighter-rouge">192.168.1.1</code>), it’s quite possible that your SSH client will complaint about the authenticity of the host at <code class="language-plaintext highlighter-rouge">192.168.1.1</code>.  To get rid of this message, simply remove the relevant entry in your user’s <code class="language-plaintext highlighter-rouge">known_hosts</code> file or delete it altogether.  On Linux distros, such file can be found at <code class="language-plaintext highlighter-rouge">~/.ssh/known_hosts</code>–that is, the <code class="language-plaintext highlighter-rouge">ssh</code> folder for your current user.</p>
 
@@ -1163,7 +1225,7 @@ rtt min/avg/max/mdev = 1.103/1.942/3.008/0.794 ms
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>batctl td batX
 </code></pre></div></div>
 
-<p>in which <code class="language-plaintext highlighter-rouge">batX</code> is a <code class="language-plaintext highlighter-rouge">batman-adv</code> interface (usually <code class="language-plaintext highlighter-rouge">bat0</code> but if you have more than one, then <code class="language-plaintext highlighter-rouge">bat1</code>, etc.).  This is quite useful when configuring VLANs because it will show the VLAN ID of each client as well.  Depending on the scale of your mesh network, you might need to filter the output because things can get wild with <code class="language-plaintext highlighter-rouge">tcpdump</code> really fast.</p>
+<p>in which <code class="language-plaintext highlighter-rouge">batX</code> is a <code class="language-plaintext highlighter-rouge">batman-adv</code> interface (usually <code class="language-plaintext highlighter-rouge">bat0</code> but if you have more than one, then <code class="language-plaintext highlighter-rouge">bat1</code>, etc.).  This is quite useful when configuring VLANs because it will show the VLAN ID of each client as well.  In addition, it is possible to specify the VLAN ID in the <code class="language-plaintext highlighter-rouge">td</code> argument to constraint the output to one particular VLAN (e.g., <code class="language-plaintext highlighter-rouge">batctl td bat0.1</code>).  Depending on the scale of your mesh network, you might need to filter the output because things can get wild with <code class="language-plaintext highlighter-rouge">tcpdump</code> really fast.</p>
 
 <p>For more details, see the <a href="https://downloads.open-mesh.org/batman/manpages/batctl.8.html"><strong>batctl man page</strong></a>.</p>
 
