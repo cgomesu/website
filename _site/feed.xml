@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-02-17T11:17:11-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">Flashing Tasmota firmware onto Sonoff devices over-the-air: “How-to” using just a terminal and web-browser</title><link href="/blog/ota-tasmota-sonoff/" rel="alternate" type="text/html" title="Flashing Tasmota firmware onto Sonoff devices over-the-air: “How-to” using just a terminal and web-browser" /><published>2021-02-01T10:20:00-03:00</published><updated>2021-02-01T10:20:00-03:00</updated><id>/blog/ota-tasmota-sonoff</id><content type="html" xml:base="/blog/ota-tasmota-sonoff/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-02-01T10:35:15-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">Flashing Tasmota firmware onto Sonoff devices over-the-air: “How-to” using just a terminal and web-browser</title><link href="/blog/ota-tasmota-sonoff/" rel="alternate" type="text/html" title="Flashing Tasmota firmware onto Sonoff devices over-the-air: “How-to” using just a terminal and web-browser" /><published>2021-02-01T10:20:00-03:00</published><updated>2021-02-01T10:20:00-03:00</updated><id>/blog/ota-tasmota-sonoff</id><content type="html" xml:base="/blog/ota-tasmota-sonoff/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;Feb 1st, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
@@ -2032,7 +2032,6 @@ sudo systemctl start button-box.service
 &lt;p&gt;This conlcudes the tutorial on how to repurpose an old external HDD enclosure into a button box for the Raspberry Pi (or any other SBC).  Check the &lt;a href=&quot;#changelog&quot;&gt;changelog&lt;/a&gt; for updates.  If you have any questions, feel free to &lt;a href=&quot;/contact/&quot;&gt;get in touch with me&lt;/a&gt;.  For anything related to the controller, please visit the &lt;a href=&quot;https://github.com/cgomesu/rpi-button-box&quot;&gt;rpi-button-box repo&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="DIY" /><category term="raspberrypi" /><category term="rpi" /><category term="hdd" /><category term="enclosure" /><category term="button" /><category term="box" /></entry><entry><title type="html">Mesh networking: A guide to using free and open-source software with common hardware</title><link href="/blog/Mesh-networking-openwrt-batman/" rel="alternate" type="text/html" title="Mesh networking: A guide to using free and open-source software with common hardware" /><published>2020-12-07T12:10:00-03:00</published><updated>2020-12-07T12:10:00-03:00</updated><id>/blog/Mesh-networking-openwrt-batman</id><content type="html" xml:base="/blog/Mesh-networking-openwrt-batman/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
-&lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;Feb 17th, 2021&lt;/strong&gt;: Per a reader’s suggestion (Joshua), I added a &lt;a href=&quot;#vi-cheat-table&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vi&lt;/code&gt; cheat table&lt;/a&gt; that has a summary of the main commands, and in the &lt;a href=&quot;#mesh-node-basic-config&quot;&gt;Mesh node basic config&lt;/a&gt; section, I included additional instructions on how to copy and paste the configuration files from one mesh node to another using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scp&lt;/code&gt;.  (Alternatively, it’s also possible to do so using Luci’s backup/restore option.)&lt;/p&gt;
 &lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;Jan 9th, 2021&lt;/strong&gt;, Update #2: Added instructions on how to automatically upgrade all installed packages with a single command.  This information is in &lt;a href=&quot;#updating-and-installing-packages&quot;&gt;Updating and installing packages&lt;/a&gt;.&lt;/p&gt;
 &lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;Jan 9th, 2021&lt;/strong&gt;, Update #1: Added a new section about &lt;a href=&quot;#hardware-specific-configurations&quot;&gt;hardware-specific configurations&lt;/a&gt; that are sometimes required for enabling the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mesh point&lt;/code&gt; mode of operation.&lt;/p&gt;
 &lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;Dec 7th, 2020&lt;/strong&gt;: Publication of the original guide&lt;/p&gt;
@@ -2384,56 +2383,7 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vi&lt;/code&gt; has other commands as well but honestly, that’s pretty much all that you need to know about &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vi&lt;/code&gt; in order to use in the examples covered here.  Give it a try!&lt;/p&gt;
 
-&lt;h3 id=&quot;vi-cheat-table&quot;&gt;VI cheat table&lt;/h3&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;mode&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;key/command&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;action&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;command&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Enter &lt;em&gt;insert&lt;/em&gt; mode&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;insert&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Esc&lt;/code&gt; key&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Return to &lt;em&gt;command&lt;/em&gt; mode&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;command&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dd&lt;/code&gt; (or hold &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;d&lt;/code&gt; key)&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Erase entire row&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;command&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:w&lt;/code&gt; + Enter/Return&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Write to file&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;command&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:q&lt;/code&gt; + Enter/Return&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Quit to terminal&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;command&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:q!&lt;/code&gt; + Enter/Return&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Quit without saving changes&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;command&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:wq&lt;/code&gt; + Enter/Return&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Write to file and quit&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&quot;alternatives-to-vi&quot;&gt;Alternatives to VI&lt;/h3&gt;
+&lt;h2 id=&quot;alternatives-to-vi&quot;&gt;Alternatives to VI&lt;/h2&gt;
 &lt;p&gt;Now, if you still don’t like to use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vi&lt;/code&gt;, you can always transfer files from your laptop/PC to OpenWrt via sftp, for example, or utilities like &lt;a href=&quot;https://en.wikipedia.org/wiki/Secure_copy_protocol&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scp&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
@@ -2762,15 +2712,7 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;batctl if
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;If it all looks good, exit the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ssh&lt;/code&gt; session, disconnect your laptop/PC from the wireless device (but keep it running nearby), and &lt;strong&gt;go ahead and configure at least one other node&lt;/strong&gt;.  This can be done manually just like you’ve just configured the current node.  However, if your other mesh nodes are identical to the one you have already configured–that is, it is the same brand, model, and it is running the same OpenWrt version–then you can simply &lt;strong&gt;copy the modified files&lt;/strong&gt; and then &lt;strong&gt;paste them on the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/&lt;/code&gt; dir of the new device&lt;/strong&gt;.  To copy all such files from the configured device to your laptop/PC current directory, you can use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scp&lt;/code&gt;, as follows:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;scp -r root@IP_MESH_NODE:/etc/config ./
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;which should create a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config&lt;/code&gt; dir on your laptop/PC that has all the config files from the already configured device.  Then, it’s just a matter of doing the reverse process on the unconfigured devices:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;scp -r ./config/* root@IP_NEW_MESH_NODE:/etc/config/
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;If all looks good, exit the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ssh&lt;/code&gt; session, disconnect your laptop/PC from the wireless device (but keep it running nearby), and &lt;strong&gt;go ahead and configure at least one other node&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p class=&quot;notice notice--warning&quot;&gt;Because we’re starting SSH sessions with &lt;em&gt;different machines&lt;/em&gt; using the &lt;em&gt;same IP addr&lt;/em&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.1.1&lt;/code&gt;), it’s quite possible that your SSH client will complaint about the authenticity of the host at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.1.1&lt;/code&gt;.  To get rid of this message, simply remove the relevant entry in your user’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;known_hosts&lt;/code&gt; file or delete it altogether.  On Linux distros, such file can be found at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.ssh/known_hosts&lt;/code&gt;–that is, the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ssh&lt;/code&gt; folder for your current user.&lt;/p&gt;
 
@@ -2816,7 +2758,7 @@ rtt min/avg/max/mdev = 1.103/1.942/3.008/0.794 ms
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;batctl td batX
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;in which &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batX&lt;/code&gt; is a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt; interface (usually &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt; but if you have more than one, then &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat1&lt;/code&gt;, etc.).  This is quite useful when configuring VLANs because it will show the VLAN ID of each client as well.  In addition, it is possible to specify the VLAN ID in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;td&lt;/code&gt; argument to constraint the output to one particular VLAN (e.g., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batctl td bat0.1&lt;/code&gt;).  Depending on the scale of your mesh network, you might need to filter the output because things can get wild with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tcpdump&lt;/code&gt; really fast.&lt;/p&gt;
+&lt;p&gt;in which &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batX&lt;/code&gt; is a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt; interface (usually &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt; but if you have more than one, then &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat1&lt;/code&gt;, etc.).  This is quite useful when configuring VLANs because it will show the VLAN ID of each client as well.  Depending on the scale of your mesh network, you might need to filter the output because things can get wild with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tcpdump&lt;/code&gt; really fast.&lt;/p&gt;
 
 &lt;p&gt;For more details, see the &lt;a href=&quot;https://downloads.open-mesh.org/batman/manpages/batctl.8.html&quot;&gt;&lt;strong&gt;batctl man page&lt;/strong&gt;&lt;/a&gt;.&lt;/p&gt;
 
