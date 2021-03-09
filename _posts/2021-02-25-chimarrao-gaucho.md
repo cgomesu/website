@@ -96,7 +96,7 @@ If you happen to be in Southern Brazil, then you will likely find everything you
 
 * [AliExpress](https://aliexpress.com): An alternative to Amazon for people in Asia and Oceania.  However, you will only find utensils at AliExpress.  Check your local marketplaces for yerba mate.
 
-Of course, there are many other optiones out there.  Dig around **the marketplaces available in your country** before trying the global-scale ones because the former probably has better prices than the latter.  
+Of course, there are many other options out there.  Dig around **the marketplaces available in your country** before trying the global-scale ones because the former probably has better prices than the latter.  
 
 Lastly, if your city has a large public market or stores that specialized in selling organic products, teas, herbs, etc., **do not be afraid to ask them** about yerba mate and related utensils.  Even if they do not have any of them, most will go above and beyond to find out where to buy in your city.  
 
@@ -262,22 +262,22 @@ Once you have acquired all the ingredients and utensils, it is time to make your
     If you are not feeling adventurous, then do the following:  In the side opposite to where your *bomba* is, use the spoon to push the yerba mate *towards* the side where the *bomba* is.  The goal is to dig the surface until you find the water laying underneath.
 
     [![How-to 008](/assets/posts/2021-02-25-chimarrao-gaucho/howto-008.jpg){:.PostImage}](/assets/posts/2021-02-25-chimarrao-gaucho/howto-008.jpg)
-
+    
     [![How-to 009](/assets/posts/2021-02-25-chimarrao-gaucho/howto-009.jpg){:.PostImage}](/assets/posts/2021-02-25-chimarrao-gaucho/howto-009.jpg)
 
 11. Once you have found the water, fill the entrance with more warm water.  The yerba mate directly in contact with the water will start absorbing it.
    
-   [![How-to 006](/assets/posts/2021-02-25-chimarrao-gaucho/howto-010.jpg){:.PostImage}](/assets/posts/2021-02-25-chimarrao-gaucho/howto-010.jpg)
+    [![How-to 006](/assets/posts/2021-02-25-chimarrao-gaucho/howto-010.jpg){:.PostImage}](/assets/posts/2021-02-25-chimarrao-gaucho/howto-010.jpg)
 
-12. Using the spoon, mold the entrance and gently increase the bottom part of the layer by pushing it a little further towards the direction there your *bomba* is.  This will create a cleaner entrance to refill your *chimarrão*.
+12. Using the spoon, mold the entrance and gently increase the bottom part of the layer by pushing it a little further towards the direction where your *bomba* is.  This will create a cleaner entrance to refill your *chimarrão*.
+   
+    [![How-to 011](/assets/posts/2021-02-25-chimarrao-gaucho/howto-011.jpg){:.PostImage}](/assets/posts/2021-02-25-chimarrao-gaucho/howto-011.jpg)
 
-   [![How-to 011](/assets/posts/2021-02-25-chimarrao-gaucho/howto-011.jpg){:.PostImage}](/assets/posts/2021-02-25-chimarrao-gaucho/howto-011.jpg)
-
-   [![How-to 012](/assets/posts/2021-02-25-chimarrao-gaucho/howto-012.jpg){:.PostImage}](/assets/posts/2021-02-25-chimarrao-gaucho/howto-012.jpg)
+    [![How-to 012](/assets/posts/2021-02-25-chimarrao-gaucho/howto-012.jpg){:.PostImage}](/assets/posts/2021-02-25-chimarrao-gaucho/howto-012.jpg)
 
 13. That is it!  Now, enjoy your drink.  The first batch is much stronger than the next ones.  Some people find it too strong and discard the first one (suck and spit until it is empty; then, refill and drink the next one).  
    
-   [![How-to 013](/assets/posts/2021-02-25-chimarrao-gaucho/howto-013.jpg){:.PostImage}](/assets/posts/2021-02-25-chimarrao-gaucho/howto-013.jpg)
+    [![How-to 013](/assets/posts/2021-02-25-chimarrao-gaucho/howto-013.jpg){:.PostImage}](/assets/posts/2021-02-25-chimarrao-gaucho/howto-013.jpg)
 
 Once the *chimarrão* is empty, you will start sucking air from the *bomba*, which should make a sound because the filter head is not completely submerged into water anymore.  Whenever you hear it, you should refill the *chimarrão* to prevent it from getting cold--this is particularly important during the winter or when drinking outdoors--and help preserving its taste a little longer.
 
