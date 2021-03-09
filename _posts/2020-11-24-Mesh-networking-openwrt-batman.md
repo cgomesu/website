@@ -294,7 +294,7 @@ Alternatively, you can *write and quit* by simply typing `:wq`.
 
 | mode | key/command | action | 
 |:---:|:---:|:---:|
-| command | `i` | Enter *insert* mode |
+| command | `i` key | Enter *insert* mode |
 | insert | `Esc` key | Return to *command* mode |
 | command | `dd` (or hold `d` key) | Erase entire row |
 | command | `:w` + Enter/Return | Write to file |

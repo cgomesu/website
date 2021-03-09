@@ -1,4 +1,337 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-02-25T14:42:40-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">Flashing Tasmota firmware onto Sonoff devices over-the-air: “How-to” using just a terminal and web-browser</title><link href="/blog/ota-tasmota-sonoff/" rel="alternate" type="text/html" title="Flashing Tasmota firmware onto Sonoff devices over-the-air: “How-to” using just a terminal and web-browser" /><published>2021-02-01T10:20:00-03:00</published><updated>2021-02-01T10:20:00-03:00</updated><id>/blog/ota-tasmota-sonoff</id><content type="html" xml:base="/blog/ota-tasmota-sonoff/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-03-09T12:22:36-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">How to make a chimarrão Gaúcho</title><link href="/blog/chimarrao-gaucho/" rel="alternate" type="text/html" title="How to make a chimarrão Gaúcho" /><published>2021-02-25T00:00:00-03:00</published><updated>2021-02-25T00:00:00-03:00</updated><id>/blog/chimarrao-gaucho</id><content type="html" xml:base="/blog/chimarrao-gaucho/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+&lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;Feb 28th, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;In this guide, I will provide all the essential information on how to make the same &lt;strong&gt;&lt;em&gt;chimarrão Gaúcho&lt;/em&gt;&lt;/strong&gt;–pronounced &lt;a href=&quot;https://en.wikipedia.org/wiki/Help:IPA/Portuguese&quot;&gt;ʃimɐˈʁɐ̃w̃ ɡaˈuʃu&lt;/a&gt; in Portuguese or roughly, &lt;em&gt;shemaHaoom gaOOshoo&lt;/em&gt;–that I drink almost on a daily basis.  I feel my previous posts have focused too much on tech-related content, so this should provide a nice change of pace.  If you enjoy hot tea and would like to learn and try a different one, then read on.  The required ingredients and utensils can be found worldwide (or easily imported) and the preparation takes less than 5 min.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/chimarrao.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/chimarrao.jpg&quot; alt=&quot;Chimarrão&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;I am not a historian and do not claim to have a deep understanding of the &lt;em&gt;Gaúcho&lt;/em&gt; culture and history.  To be very honest, I do not share the opinion that such knowledge is required to appreciate a &lt;em&gt;chimarrão&lt;/em&gt; at all.  In fact, some of the drinking customs/etiquette are arguably unhygienic (e.g., sharing the same drink with multiple individuals) or petty (e.g., the way one holds the container or positions the straw inside the container) and you definitely do not need to abide to any such customs if all that you want is to enjoy the drink.  Therefore, I won’t delve too much into history, culture, and etiquette but will provide external sources in the appropriate sections.&lt;/p&gt;
+
+&lt;p&gt;However, if you want to have a taste of the culture and get in the mood for a &lt;em&gt;mate&lt;/em&gt;, here is a song by the Brazilian &lt;em&gt;payador&lt;/em&gt; &lt;a href=&quot;https://en.wikipedia.org/wiki/Jaime_Caetano_Braun&quot;&gt;Jayme Guilherme Caetano Braun&lt;/a&gt;, called &lt;strong&gt;&lt;em&gt;Mateando&lt;/em&gt;&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;!-- Courtesy of embedresponsively.com //--&gt;
+&lt;div class=&quot;responsive-video-container&quot;&gt;
+
+  &lt;iframe src=&quot;https://www.youtube-nocookie.com/embed/ewfIVyRJDFk&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;(If you liked it, you might want to listen to the album &lt;a href=&quot;https://www.youtube.com/watch?v=52X4H6KZ5Qc&quot;&gt;&lt;em&gt;Payador&lt;/em&gt;&lt;/a&gt; while you read the remaining part of this guide.) As usual, feel free to &lt;a href=&quot;/contact&quot;&gt;get in touch with me&lt;/a&gt; if you have suggestions on how to improve this guide.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;overview&quot;&gt;Overview&lt;/h1&gt;
+&lt;p&gt;This guide was organized as follows.  First, I presented the definition of &lt;em&gt;chimarrão&lt;/em&gt; and more specifially, the &lt;em&gt;Gaúcho&lt;/em&gt; style of preparing a &lt;em&gt;chimarrão&lt;/em&gt;.  Next, I covered the ingredients and utensils that are necessary to prepare the traditional &lt;em&gt;chimarrão Gaúcho&lt;/em&gt;, as well as alternatives more commonly found worldwide.  Then, at the end, there is a step-by-step procedure describing how I make my chimarrão that anyone can follow along.  If you are already familiar with &lt;em&gt;chimarrão&lt;/em&gt; and just want to check the method I use to prepare mine, then skip to the last part of this guide.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;definition&quot;&gt;Definition&lt;/h1&gt;
+&lt;p&gt;According to the &lt;a href=&quot;https://en.wikipedia.org/wiki/Mate_(drink)&quot;&gt;Wikipedia entry for &lt;em&gt;Mate&lt;/em&gt;&lt;/a&gt;,&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Mate or maté, also known as chimarrão or cimarrón, is a traditional South American caffeine-rich infused drink. It is made by soaking dried leaves of the holly species &lt;a href=&quot;https://en.wikipedia.org/wiki/Yerba_mate&quot;&gt;Ilex paraguariensis&lt;/a&gt; in hot water and is served with a metal straw in a container typically made from a &lt;a href=&quot;https://en.wikipedia.org/wiki/Calabash_gourd&quot;&gt;calabash gourd&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;In this guide, the Brazilian Portuguese term &lt;em&gt;chimarrão Gaúcho&lt;/em&gt; refers to the infused drink commonly prepared in the Southern states of Brazil, typically in the state of &lt;em&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Rio_Grande_do_Sul&quot;&gt;Rio Grande do Sul&lt;/a&gt;&lt;/em&gt;.  Its main ingredient is the &lt;strong&gt;yerba mate&lt;/strong&gt;, which is the &lt;em&gt;dried, toasted, and shredded&lt;/em&gt; leaf of the &lt;em&gt;Ilex paraguariensis&lt;/em&gt;.  As opposed to the yerba mate often used in &lt;a href=&quot;https://en.wikipedia.org/wiki/Argentina&quot;&gt;Argentina&lt;/a&gt;, &lt;a href=&quot;https://en.wikipedia.org/wiki/Uruguay&quot;&gt;Uruguay&lt;/a&gt;, and other regions in South America, the yerba mate used to make a &lt;em&gt;chimarrão Gaúcho&lt;/em&gt; is packed just a few days after processing to prevent oxidation, which gives it a characteristic &lt;strong&gt;bright green color&lt;/strong&gt; from the higher concentration of &lt;a href=&quot;https://en.wikipedia.org/wiki/Chlorophyll&quot;&gt;chlorophyll&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/yerba-mate-types.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/yerba-mate-types.jpg&quot; alt=&quot;Chimarrão&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Flavor-wise, the yerba mate used to make the &lt;em&gt;chimarrão Gaúcho&lt;/em&gt; is &lt;strong&gt;less bitter&lt;/strong&gt; and &lt;strong&gt;less toasted&lt;/strong&gt; than its aged counterparts.  This makes it well-suited for people who have never tried yerba mate before, for example, or for anyone who finds the other yerba mates too strong.  This is the main ingredient of the &lt;em&gt;chimarrão&lt;/em&gt; and as such, it cannot be replaced; otherwise, you would be making a different infused drink.&lt;/p&gt;
+
+&lt;p&gt;The yerba mate is a well-known source of &lt;strong&gt;caffeine&lt;/strong&gt; and vitamins B and C, and has slightly higher concentration of antioxidants than &lt;a href=&quot;https://en.wikipedia.org/wiki/Green_tea&quot;&gt;green tea&lt;/a&gt;.  As far as I am aware, it is not prohibited by any food and drugs agency and therefore, it can be found and commercialized worldwide.  That said, if you drink it outdoors in a country where it is not popular, you are bound to draw a little bit of attention but in my case, it’s been more of a conversation piece than a trouble maker.  Psychologically, the effects are very much similar to drinking coffee or black tea, and as such, the &lt;em&gt;chimarrão Gaúcho&lt;/em&gt; is best when consumed early in the morning and during cold days.&lt;/p&gt;
+
+&lt;p class=&quot;notice notice--warning&quot;&gt;This drink &lt;strong&gt;will not&lt;/strong&gt; get you high.  At most, some people report upset stomach and acid reflux.  Of course, stop consuming &lt;em&gt;chimarrão&lt;/em&gt; if you experience such symptoms and it might be a good idea to see a physician because those symptoms might be related to an undiagnosed and treatable medical condition.  The risks associated with the consumption this drink are the same as any common tea.&lt;/p&gt;
+
+&lt;p&gt;Another noteworthy difference between the &lt;em&gt;chimarrão Gaúcho&lt;/em&gt; and other yerba mate drinks is the container used, called &lt;strong&gt;&lt;em&gt;cuia&lt;/em&gt;&lt;/strong&gt; in Portuguese.  More specifically, the &lt;em&gt;cuia&lt;/em&gt; used in a &lt;em&gt;chimarrão Gaúcho&lt;/em&gt; is made of a &lt;a href=&quot;https://en.wikipedia.org/wiki/Calabash&quot;&gt;calabash&lt;/a&gt; (&lt;em&gt;Lagenaria siceraria&lt;/em&gt;) gourd that has thicker walls than the more traditional mate gourds and a larger neck as well.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/calabash-gourd.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/calabash-gourd.jpg&quot; alt=&quot;Calabash gourd&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/calabash-gourd-dry.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/calabash-gourd-dry.jpg&quot; alt=&quot;Dry calabash gourd&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/chimarrao-cuia.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/chimarrao-cuia.jpg&quot; alt=&quot;Cuia de chimarrão&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Finally, there is the metal/wooden straw used to drink, called &lt;strong&gt;&lt;em&gt;bomba&lt;/em&gt;&lt;/strong&gt; in Portuguese.  The &lt;em&gt;bomba&lt;/em&gt; is not a utensil exclusively used in the &lt;em&gt;chimarrão Gaúcho&lt;/em&gt; and therefore, it is more easily found worldwide than the &lt;em&gt;cuia&lt;/em&gt; and the yerba mate for &lt;em&gt;chimarrão Gaúcho&lt;/em&gt;, for example.  It comes in various sizes, shapes, and with none or multiple decorations.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/chimarrao-bomba.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/chimarrao-bomba.jpg&quot; alt=&quot;Cuia de chimarrão&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;history-myths-and-folklore&quot;&gt;History, Myths, and Folklore&lt;/h1&gt;
+&lt;p&gt;There are many stories about the &lt;strong&gt;origins of the mate&lt;/strong&gt; that predate the &lt;em&gt;Gaúcho&lt;/em&gt; culture and the Portuguese and Spanish colonization.  The &lt;a href=&quot;https://en.wikipedia.org/wiki/Tupi_people&quot;&gt;&lt;em&gt;Tupi&lt;/em&gt;&lt;/a&gt; and &lt;a href=&quot;https://en.wikipedia.org/wiki/Guaran%C3%AD_people&quot;&gt;&lt;em&gt;Guarani&lt;/em&gt;&lt;/a&gt; tribes (indigenous peoples of South America), for example, tell several tales about how the moon, the sun, and tribe warriors where involved in gifting the &lt;em&gt;mate&lt;/em&gt; to humanity.  If you want to learn more about the history and myths, take a look at the following:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Native Leaf’s article on the &lt;a href=&quot;https://www.nativeleaf.co.uk/the-history-of-yerba-mate/&quot;&gt;&lt;strong&gt;History of Yerba Mate&lt;/strong&gt;&lt;/a&gt;: A short article about the early and modern history of the yerba mate, including its use in the Middle East, which I was not aware of.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;earthstOriez’s article about &lt;a href=&quot;https://www.earthstoriez.com/legend-mate/&quot;&gt;&lt;strong&gt;the origins of mate&lt;/strong&gt;&lt;/a&gt;: Contains multiple tales from indigenous peoples about the origins of the yerba mate.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;ClicRBS’ article on &lt;a href=&quot;/assets/pdf/clicrbs-lenda-da-erva-mate.pdf&quot;&gt;&lt;strong&gt;the legend of the yerba mate&lt;/strong&gt;&lt;/a&gt;: This article focuses on the &lt;em&gt;Guarani&lt;/em&gt; tales about the origins of the mate and how it became part of the &lt;em&gt;Gaúcho&lt;/em&gt; culture.  Unfortunately, it is in Portuguese.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;ingredients-and-utensils&quot;&gt;Ingredients and Utensils&lt;/h1&gt;
+
+&lt;h2 id=&quot;where-to-buy&quot;&gt;Where to buy&lt;/h2&gt;
+&lt;p&gt;If you happen to be in Southern Brazil, then you will likely find everything you need in any large retail grocery store chain (e.g., Zaffari, Carrefour, Walmart, Bourbon) or specialized stores in any major cities.  However, I figure that most of you are nowhere near this part of the world.  Fortunately, big online &lt;strong&gt;marketplaces&lt;/strong&gt; are available worldwide and come handy in these cases but you will need to be willing to pay a little more for the convenience of buying imported goods online.  So, let me tell you about a few alternatives I have used in the past:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://www.amazon.com/&quot;&gt;Amazon&lt;/a&gt;: The largest marketplace out there.  In the US, you can find everything you will need to make a &lt;em&gt;chimarrão&lt;/em&gt; right here.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://mercadolibre.com/&quot;&gt;Mercado Libre&lt;/a&gt;: One of the largest marketplace in South and Cental America.  Chances are you can find everything here as well.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://www.walmart.com&quot;&gt;Walmart&lt;/a&gt;: A possible alternative to Amazon for people in Europe.  You can find everything at Walmart as well.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://aliexpress.com&quot;&gt;AliExpress&lt;/a&gt;: An alternative to Amazon for people in Asia and Oceania.  However, you will only find utensils at AliExpress.  Check your local marketplaces for yerba mate.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Of course, there are many other optiones out there.  Dig around &lt;strong&gt;the marketplaces available in your country&lt;/strong&gt; before trying the global-scale ones because the former probably has better prices than the latter.&lt;/p&gt;
+
+&lt;p&gt;Lastly, if your city has a large public market or stores that specialized in selling organic products, teas, herbs, etc., &lt;strong&gt;do not be afraid to ask them&lt;/strong&gt; about yerba mate and related utensils.  Even if they do not have any of them, most will go above and beyond to find out where to buy in your city.&lt;/p&gt;
+
+&lt;p&gt;In the next section, I will talk about all the traditional items and a few alternatives for those not willing to buy the real deal just yet.&lt;/p&gt;
+
+&lt;h2 id=&quot;items&quot;&gt;Items&lt;/h2&gt;
+&lt;p&gt;To make a &lt;em&gt;chimarrão Gaúcho&lt;/em&gt;, you will need the following ingredients and utensils:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Yerba mate for &lt;em&gt;chimarrão Gaúcho&lt;/em&gt;&lt;/strong&gt;: As mentioned before, this is the &lt;strong&gt;main ingredient&lt;/strong&gt; and it is not replaceable.  The quality of your &lt;em&gt;chimarrão&lt;/em&gt; is highly dependent on the quality of the &lt;em&gt;mate&lt;/em&gt; used to prepare it.  Some people like to mix it with herbs and teas to create a more complex flavor (see below) but that is definitely optional.  (I drink mine plain but it is fairly common to add chamomile and lemon grass, for example.)&lt;/p&gt;
+
+    &lt;p&gt;When buying online, make sure there is a photo of the product showing that the yerba mate has a &lt;strong&gt;bright green&lt;/strong&gt; color and that the yerba &lt;strong&gt;does not contain sugar&lt;/strong&gt; (&lt;em&gt;sem açúcar&lt;/em&gt; in Portuguese).&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/chimarrao-yerba-mate.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/chimarrao-yerba-mate.jpg&quot; alt=&quot;Yerba Mate for Chimarrao&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;Use the following keywords to help selecting the right type of yerba mate: “&lt;strong&gt;yerba mate for chimarrao&lt;/strong&gt;”, “&lt;strong&gt;brazilian yerba mate&lt;/strong&gt;”, or language-specific variations of those.&lt;/p&gt;
+
+    &lt;p&gt;These items have a &lt;strong&gt;long shelf life&lt;/strong&gt;, so if you start enjoying the drink, buy lots of yerba mate (between 3kg and 6kg, or roughly 105-215 ounces) and store them at home.  &lt;strong&gt;Vacuum sealed&lt;/strong&gt; packages (&lt;em&gt;embalada a vácuo&lt;/em&gt; in Portuguese) are the best ones for long-term storage.&lt;/p&gt;
+
+    &lt;p&gt;The following are three of my favorite brands that I have seen being sold abroad:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;a href=&quot;https://www.ximango.com.br/&quot;&gt;&lt;strong&gt;Ximango&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+
+        &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/yerba-ximango.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/yerba-ximango.jpg&quot; alt=&quot;Yerba Ximango&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;a href=&quot;http://www.madrugada.com.br/&quot;&gt;&lt;strong&gt;Madrugada&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+
+        &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/yerba-madrugada.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/yerba-madrugada.jpg&quot; alt=&quot;Yerba Madrugada&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;a href=&quot;https://www.baraoervamate.com.br/en/&quot;&gt;&lt;strong&gt;Barão de Cotegipe&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+
+        &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/yerba-barao.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/yerba-barao.jpg&quot; alt=&quot;Yerba Barao&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;p&gt;I suggest you to buy a brand name because in Brazil, those companies must comply with health regulations in order to distribute their product.  There are other details about the selection of yerba mates for &lt;em&gt;chimarrão&lt;/em&gt; but they are non-essential for most people.  They include leaf-to-stem ratios, maturation, and various processing techniques, for example.  (If planning on consuming for long periods, it might be worth looking into the processing methods and making sure it &lt;strong&gt;does not&lt;/strong&gt; involve smoke from burning wood, as the latter can produce carcinogenic compounds.)&lt;/p&gt;
+
+    &lt;p class=&quot;notice notice--warning&quot;&gt;It goes without saying that yerba mate sold in &lt;em&gt;tea bags&lt;/em&gt; are &lt;strong&gt;no good&lt;/strong&gt; here.  The taste of &lt;em&gt;chimarrão&lt;/em&gt; is actually &lt;strong&gt;very&lt;/strong&gt; different from the tea.  In fact, I drink &lt;em&gt;chimarrão&lt;/em&gt; every day but I do not like the yerba mate tea at all.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;01x &lt;strong&gt;&lt;em&gt;Cuia&lt;/em&gt;&lt;/strong&gt;: The traditional &lt;em&gt;cuia&lt;/em&gt; made of a galash gourd (&lt;em&gt;porongo&lt;/em&gt; in Portuguese) can be bought online or via specialized stores.  A single one can be used and re-used multiple times, even for years if well maintained.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/cuia-traditional.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/cuia-traditional.jpg&quot; alt=&quot;Traditional Cuia&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;After acquiring a &lt;strong&gt;brand-new&lt;/strong&gt; &lt;em&gt;cuia&lt;/em&gt;, it is &lt;strong&gt;required to curate&lt;/strong&gt; it before use. The &lt;a href=&quot;https://yerbamatero.com/&quot;&gt;Yerb Matero&lt;/a&gt; has a fairly good guide on &lt;a href=&quot;https://yerbamatero.com/blogs/guides/taking-care-of-your-yerba-mate-kit&quot;&gt;curating, cleaning, and mainting the &lt;em&gt;cuia&lt;/em&gt;&lt;/a&gt;; or check this &lt;a href=&quot;https://www.youtube.com/watch?v=8l7li3PVYL4&quot;&gt;Youtube video that illustrates the entire process&lt;/a&gt;.  In brief, go over the following steps to curate a brand-new &lt;em&gt;cuia&lt;/em&gt; made of a galash gourd:&lt;/p&gt;
+
+    &lt;ol&gt;
+      &lt;li&gt;Wash the inside of the &lt;em&gt;cuia&lt;/em&gt; with &lt;strong&gt;boiling&lt;/strong&gt; water (be careful!). Remove all the water before moving on;&lt;/li&gt;
+      &lt;li&gt;Fill 1/3 of the &lt;em&gt;cuia&lt;/em&gt; with yerba mate, fill the remaining with &lt;strong&gt;warm&lt;/strong&gt; water, and using a spoon, gently mix it. Then, &lt;strong&gt;let it sit for 24h&lt;/strong&gt; with the mate inside.  If you notice that the water level has dropped (the galash gourd should absorb a little bit), add more warm water to try to keep the &lt;em&gt;cuia&lt;/em&gt; always full;&lt;/li&gt;
+      &lt;li&gt;After 24h, remove the contents of the &lt;em&gt;cuia&lt;/em&gt; with the help of a spoon and &lt;strong&gt;repeat steps #1 and #2&lt;/strong&gt; at least once;&lt;/li&gt;
+      &lt;li&gt;Rinse it well (&lt;strong&gt;only use running water&lt;/strong&gt;; &lt;strong&gt;never&lt;/strong&gt; use cleaning products) and &lt;strong&gt;let it dry&lt;/strong&gt;.  If your &lt;em&gt;cuia&lt;/em&gt; does not have leather, let it dry in the sun;&lt;/li&gt;
+      &lt;li&gt;(Optional.) For better results, repeat steps #1 and #2 and after rinsing, add a little bit of yerba mate to &lt;strong&gt;coat the internal surface of the &lt;em&gt;cuia&lt;/em&gt;&lt;/strong&gt; and let it dry this way for 12h.&lt;/li&gt;
+      &lt;li&gt;When you are done, you should notice that inside the &lt;em&gt;cuia&lt;/em&gt;, there is now a slightly green color from the yerba mate and a few greener spots.  If you find &lt;strong&gt;any mold&lt;/strong&gt;, don’t worry.  Just curate it again and you are ready to go.  The more you use the &lt;em&gt;cuia&lt;/em&gt;, the more evenly curated it becomes.  After a few weeks of use, it should be much darker in the inside.&lt;/li&gt;
+    &lt;/ol&gt;
+
+    &lt;p&gt;Contrary to the yerba mate for &lt;em&gt;chimarrão&lt;/em&gt;, the traditional &lt;em&gt;cuia&lt;/em&gt; is actually replaceable.  In fact, you can use pretty much any container that you would normally use with hot beverages.  The preparation method described in this guide should work even with flat, non-porous surfaces, like a standard coffee mug.  A coffee mug won’t look as good as the &lt;em&gt;cuia&lt;/em&gt; but it should work.  I have even managed to make a &lt;em&gt;chimarrão&lt;/em&gt; using a 5cm-long coffee mug:&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/cuia-experimental.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/cuia-experimental.jpg&quot; alt=&quot;Experimental Cuia&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;More common variations include &lt;em&gt;cuias&lt;/em&gt; made of wood (e.g., &lt;a href=&quot;https://en.wikipedia.org/wiki/Ocotea_porosa&quot;&gt;&lt;em&gt;Imbuia&lt;/em&gt;&lt;/a&gt;), ceramic, or glass.  Of course, you don’t need to curate any such types of &lt;em&gt;cuia&lt;/em&gt; (but make sure to rinse very well before using it for the first time).  They are more expensive, though.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/cuia-imbuia.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/cuia-imbuia.jpg&quot; alt=&quot;Cuia made of Wood&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;01x &lt;strong&gt;&lt;em&gt;Bomba&lt;/em&gt;&lt;/strong&gt;: The traditional &lt;em&gt;bomba&lt;/em&gt; is a metal (stainless steel) straw that has a filter at its bottom.  It is re-usable and if well-maintained, can last several years.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/bomba-tradicional.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/bomba-tradicional.jpg&quot; alt=&quot;Bomba Tradicional&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;As mentioned before, a traditional &lt;em&gt;bomba&lt;/em&gt; comes in many shapes and sizes.  The size of it depends on the size of the &lt;em&gt;cuia&lt;/em&gt;.  More specifically, the &lt;em&gt;bomba&lt;/em&gt; should be roughly &lt;strong&gt;twice the size&lt;/strong&gt; of the &lt;em&gt;cuia&lt;/em&gt;–or at the very least, taller than the &lt;em&gt;cuia&lt;/em&gt;.  The decorations are a personal choice.  You &lt;strong&gt;do not&lt;/strong&gt; need a &lt;em&gt;bomba&lt;/em&gt; with a spoon-like filter head to drink a &lt;em&gt;chimarrão Gaúcho&lt;/em&gt;.  Any &lt;em&gt;bomba&lt;/em&gt; that fits your &lt;em&gt;cuia&lt;/em&gt; will do just fine.  Personally, I am a fan of the ones that have a &lt;strong&gt;removable filter head&lt;/strong&gt; because they are easier to maintain than the non-removable ones.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/bomba-removable-filter.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/bomba-removable-filter.jpg&quot; alt=&quot;Bomba Removable Filter&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;The traditional &lt;em&gt;bomba&lt;/em&gt; is replaceable though. If you cannot find one in your country, you might want to try looking for &lt;strong&gt;wooden straws&lt;/strong&gt;, usually made of bamboo.  I have never used them before but if they do not have a filter, you &lt;strong&gt;have to add an external filter&lt;/strong&gt; to it (see below).  The latter type of straw is not always reusable though (depends on the type of wood), so I strongly recommend to stick to metal straws for long-term use.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/bomba-wooden.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/bomba-wooden.jpg&quot; alt=&quot;Wooden Bomba&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;01x &lt;a href=&quot;https://www.amazon.com/s?k=portable+insulated+beverage+dispenser&quot;&gt;&lt;strong&gt;Portable and insulated beverage dispenser&lt;/strong&gt;&lt;/a&gt;: Anything that can hold at least 1l (52oz) of hot water will do.  Make sure there is enough space to serve your &lt;em&gt;cuia&lt;/em&gt;–prefer the ones with a dispenser at the top, instead of bottom, for example.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/hot-water-dispenser.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/hot-water-dispenser.jpg&quot; alt=&quot;Insulated Beverage Dispenser&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;1l-3l of &lt;strong&gt;hot water&lt;/strong&gt;: As in most traditional infused drinks, we will need hot water.  &lt;strong&gt;Do not&lt;/strong&gt; use boiling water–it will ruin the yerba mate and it is unhealthy for you.  The water needs to be hot, as in a black tea or hot coffee.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;01x &lt;strong&gt;Dinner spoon&lt;/strong&gt;.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/spoon.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/spoon.jpg&quot; alt=&quot;Spoon&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;(Optional.) External filters for the &lt;em&gt;bomba&lt;/em&gt;: If you dislike when an ocasional mate leaf passes the &lt;em&gt;bomba&lt;/em&gt; filter, or your &lt;em&gt;chimarrão&lt;/em&gt; clogs too often, you might want to try an external filter for your &lt;em&gt;bomba&lt;/em&gt;.  These filters are reusable (usually between 2-3 weeks) and are tied around the filter head of your &lt;em&gt;bomba&lt;/em&gt;.  This is &lt;strong&gt;required if using straws without a built-in filter&lt;/strong&gt;, such as common wooden straws.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/bomba-filter.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/bomba-filter.jpg&quot; alt=&quot;External Filter&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;(Optional.) Herbs/teas: If you ever get bored with the taste of plain &lt;em&gt;chimarrão&lt;/em&gt;, you might want to make its flavor a little bit more complex by adding tea to the water or mixing herbs with your yerba mate.  Here are a few herbs/teas that are often mixed with &lt;em&gt;chimarrão&lt;/em&gt;:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;Organge (or any other citrus) peel&lt;/p&gt;
+
+        &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/orange-peel.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/orange-peel.jpg&quot; alt=&quot;Orange peel&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Chamomile&quot;&gt;Chamomile (&lt;em&gt;Matriacaria chamomilia&lt;/em&gt;, &lt;em&gt;Chamaemelum nobile&lt;/em&gt;)&lt;/a&gt;&lt;/p&gt;
+
+        &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/chamomile.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/chamomile.jpg&quot; alt=&quot;Chamomile&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Cymbopogon_citratus&quot;&gt;Lemon grass (&lt;em&gt;Cymbopogon citratus&lt;/em&gt;)&lt;/a&gt;&lt;/p&gt;
+
+        &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/lemon-grass.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/lemon-grass.jpg&quot; alt=&quot;Lemon grass&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Anise&quot;&gt;Anise (&lt;em&gt;Pimpinella anisum&lt;/em&gt;)&lt;/a&gt;&lt;/p&gt;
+
+        &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/anise.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/anise.jpg&quot; alt=&quot;Anise bush&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Illicium_verum&quot;&gt;Star anise (&lt;em&gt;Illicium verum&lt;/em&gt;)&lt;/a&gt;&lt;/p&gt;
+
+        &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/star-anise.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/star-anise.jpg&quot; alt=&quot;Dried star anise&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;p class=&quot;notice notice--danger&quot;&gt;Many herbs can cause &lt;strong&gt;allergic reactions&lt;/strong&gt; or have &lt;strong&gt;adverse interactions&lt;/strong&gt; with other herbal products and prescription drugs.  Before trying anything unusual, make sure to check it is safe for you to use.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;making-the-chimarrão-gaúcho&quot;&gt;Making the &lt;em&gt;chimarrão Gaúcho&lt;/em&gt;&lt;/h1&gt;
+&lt;p&gt;Once you have acquired all the ingredients and utensils, it is time to make your first &lt;em&gt;chimarrão Gaúcho&lt;/em&gt;.  There are many different ways of making a &lt;em&gt;chimarrão&lt;/em&gt;.  The following is the fastest, the most fool-proof and efficient way of making a &lt;em&gt;chimarrão&lt;/em&gt; that I am aware of and the technique that I have been using over the last ten years.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/howto-000.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/howto-000.jpg&quot; alt=&quot;How-to 000&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;This is a hot beverage, so start by &lt;strong&gt;warming up between 1l (35oz) and 3l (105z) of water&lt;/strong&gt;, depending on how much liquid you can store on your insulated beverage dispenser.  If you want to boil the water first, then let it cool down until it is hot but not burning hot when it finally reaches your body.  &lt;strong&gt;Store at a temperature between 55°C (131°F) and 70°C (158°F)&lt;/strong&gt;.&lt;/p&gt;
+
+    &lt;p class=&quot;notice notice--warning&quot;&gt;You might want to compensate for room temperature as well.  If it is a really cold day, you might want to store the water at a higher temperature than you would in a hot, sunny day, because your &lt;em&gt;chimarrão&lt;/em&gt; will lose heat much faster when exposed to low temperatures.  Similarly, different types of &lt;em&gt;cuia&lt;/em&gt; will be more or less prone to lose heat over time, and wind also plays a role in decreasing the temperature when consuming &lt;em&gt;chimarrão&lt;/em&gt; outdoors.  As you can see, there are multiple factors to take into account if you want to keep your &lt;em&gt;chimarrão&lt;/em&gt; warm. However, &lt;strong&gt;never&lt;/strong&gt; drink or pour boiling water in your &lt;em&gt;chimarrão&lt;/em&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Fill your insulated beverage dispenser with the hot water.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Grab your &lt;strong&gt;curated&lt;/strong&gt; &lt;em&gt;cuia&lt;/em&gt;, yerba mate for &lt;em&gt;chimarrão&lt;/em&gt;, and a kitchen spoon.  If you have not cureated your &lt;em&gt;cuia&lt;/em&gt; yet, review the procedure described in the &lt;a href=&quot;#items&quot;&gt;items&lt;/a&gt; section; Otherwise, go the next step.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/howto-001.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/howto-001.jpg&quot; alt=&quot;How-to 001&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Using a spoon, fill 1/10 of the &lt;em&gt;cuia&lt;/em&gt; with yerba mate.  This will create a thin layer of yerba mate at the bottom of your &lt;em&gt;chimarrão&lt;/em&gt; that will help giving it its characteristic taste.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/howto-002.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/howto-002.jpg&quot; alt=&quot;How-to 002&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Fill between 5/10 and 6/10 of the cuia with warm water.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/howto-003.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/howto-003.jpg&quot; alt=&quot;How-to 003&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/howto-004.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/howto-004.jpg&quot; alt=&quot;How-to 004&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Grab your &lt;em&gt;bomba&lt;/em&gt;.  (If you want to add an external filter to it, this is the time.) Then, using your &lt;strong&gt;thumb&lt;/strong&gt;, cover its mouthpiece &lt;strong&gt;to prevent the air from escaping the bomba&lt;/strong&gt; and thus, prevent the water from getting inside the bomba while you insert and position it into the &lt;em&gt;cuia&lt;/em&gt;.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/howto-hold-bomba-01.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/howto-hold-bomba-01.jpg&quot; alt=&quot;How to hold the bomba 001&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/howto-hold-bomba-02.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/howto-hold-bomba-02.jpg&quot; alt=&quot;How to hold the bomba 002&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/howto-hold-bomba-03.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/howto-hold-bomba-03.jpg&quot; alt=&quot;How to hold the bomba 003&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Now, &lt;strong&gt;while still holding the mouthpiece with your thumb&lt;/strong&gt;, insert the &lt;em&gt;bomba&lt;/em&gt; into the &lt;em&gt;cuia&lt;/em&gt; until its filter head reaches the opposite side of the bottom of the &lt;em&gt;cuia&lt;/em&gt;.  Then, lay the &lt;em&gt;bomba&lt;/em&gt; diagonally on the inner wall of the &lt;em&gt;cuia&lt;/em&gt;.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/howto-005.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/howto-005.jpg&quot; alt=&quot;How-to 005&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Using a spoon, start adding yerba mate on top of the water until the inside of the &lt;em&gt;cuia&lt;/em&gt; is completely covered with yerba mate.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/howto-006.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/howto-006.jpg&quot; alt=&quot;How-to 006&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Using the bottom side of the spoon, gently distribute the yerba mate over the entire top of the &lt;em&gt;cuia&lt;/em&gt;.  Do so until there is a flat surface of yerba mate.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/howto-007.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/howto-007.jpg&quot; alt=&quot;How-to 007&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;At this point, you can do all sorts of things to create an entrance to refill your &lt;em&gt;chimarrão&lt;/em&gt; with water.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/chimarrao-decorated.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/chimarrao-decorated.jpg&quot; alt=&quot;Decorated Chimarrao&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;If you are not feeling adventurous, then do the following:  In the side opposite to where your &lt;em&gt;bomba&lt;/em&gt; is, use the spoon to push the yerba mate &lt;em&gt;towards&lt;/em&gt; the side where the &lt;em&gt;bomba&lt;/em&gt; is.  The goal is to dig the surface until you find the water laying underneath.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/howto-008.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/howto-008.jpg&quot; alt=&quot;How-to 008&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/howto-009.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/howto-009.jpg&quot; alt=&quot;How-to 009&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Once you have found the water, fill the entrance with more warm water.  The yerba mate directly in contact with the water will start absorbing it.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/howto-010.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/howto-010.jpg&quot; alt=&quot;How-to 006&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Using the spoon, mold the entrance and gently increase the bottom part of the layer by pushing it a little further towards the direction there your &lt;em&gt;bomba&lt;/em&gt; is.  This will create a cleaner entrance to refill your &lt;em&gt;chimarrão&lt;/em&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/howto-011.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/howto-011.jpg&quot; alt=&quot;How-to 011&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/howto-012.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/howto-012.jpg&quot; alt=&quot;How-to 012&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;That is it!  Now, enjoy your drink.  The first batch is much stronger than the next ones.  Some people find it too strong and discard the first one (suck and spit until it is empty; then, refill and drink the next one).&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/howto-013.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-02-25-chimarrao-gaucho/howto-013.jpg&quot; alt=&quot;How-to 013&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Once the &lt;em&gt;chimarrão&lt;/em&gt; is empty, you will start sucking air from the &lt;em&gt;bomba&lt;/em&gt;, which should make a sound because the filter head is not completely submerged into water anymore.  Whenever you hear it, you should refill the &lt;em&gt;chimarrão&lt;/em&gt; to prevent it from getting cold–this is particularly important during the winter or when drinking outdoors–and help preserving its taste a little longer.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Do not&lt;/strong&gt; move your &lt;em&gt;bomba&lt;/em&gt; around. In fact, never hold/touch the &lt;em&gt;bomba&lt;/em&gt; once you are done making the &lt;em&gt;chimarrão&lt;/em&gt;.  This will very likely clog your &lt;em&gt;chimarrão&lt;/em&gt; even further and completely ruin it.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Do not&lt;/strong&gt; blow air through your &lt;em&gt;bomba&lt;/em&gt;.  If it gets clogged, try using an &lt;strong&gt;external filter&lt;/strong&gt;, or a different type of yerba mate, or a &lt;em&gt;bomba&lt;/em&gt; with a different filter head, or any combination of those.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;This concludes my guide on how to make a &lt;em&gt;chimarrão Gaúcho&lt;/em&gt;.  If you find it interesting, give it a try yourself!  The ingredients and utensils are fairly easy to find nowadays and the &lt;em&gt;chimarrão&lt;/em&gt; is a fantastic way of keeping yourself hydrated, especially for those of us who spend a lot of time in front of a computer screen.  It is also a conversation piece for socializing and in my opinion, one of the best drinks for cold days.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="culture" /><category term="food" /><category term="beverage" /><category term="brazil" /></entry><entry><title type="html">Flashing Tasmota firmware onto Sonoff devices over-the-air: “How-to” using just a terminal and web-browser</title><link href="/blog/ota-tasmota-sonoff/" rel="alternate" type="text/html" title="Flashing Tasmota firmware onto Sonoff devices over-the-air: “How-to” using just a terminal and web-browser" /><published>2021-02-01T10:20:00-03:00</published><updated>2021-02-01T10:20:00-03:00</updated><id>/blog/ota-tasmota-sonoff</id><content type="html" xml:base="/blog/ota-tasmota-sonoff/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;Feb 1st, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
@@ -2397,7 +2730,7 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
   &lt;tbody&gt;
     &lt;tr&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;command&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt; key&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;Enter &lt;em&gt;insert&lt;/em&gt; mode&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
@@ -4421,78 +4754,4 @@ irrecord
 
 &lt;p&gt;That’s it.  This is a short tutorial I wrote mostly to remind myself about this feature but hopefully, this tutorial is going to help someone else out there, too.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--small btn--light-outline&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="odroid" /><category term="sbc" /></entry><entry><title type="html">The math of a bruised souleater</title><link href="/blog/Math-of-bruised-souleater/" rel="alternate" type="text/html" title="The math of a bruised souleater" /><published>2019-07-19T00:00:00-03:00</published><updated>2019-07-19T00:00:00-03:00</updated><id>/blog/Math-of-bruised-souleater</id><content type="html" xml:base="/blog/Math-of-bruised-souleater/">&lt;p class=&quot;notice notice--info&quot;&gt;This is a repost of my &lt;a href=&quot;https://www.reddit.com/r/magicTCG/comments/7phqk1/the_math_of_a_bruised_souleater/&quot;&gt;original reddit post&lt;/a&gt;. I’ve made a few changes to the original version to improve readability.&lt;/p&gt;
-
-&lt;p&gt;This is a post about an interesting interaction that came up yesterday, when I was making changes to an EDH deck. I thought someone else might find this analysis interesting, so I decided to share it here. If you spot an error, feel free to point it out. The interaction is about two cards, namely &lt;strong&gt;Immolating Souleater&lt;/strong&gt; and &lt;strong&gt;Bruse Tarl, Boorish Herder&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2019-07-19-Math-bruised-souleater/immolating-souleater.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2019-07-19-Math-bruised-souleater/immolating-souleater.jpg&quot; alt=&quot;Immolating souleater&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2019-07-19-Math-bruised-souleater/bruse-tarl.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2019-07-19-Math-bruised-souleater/bruse-tarl.jpg&quot; alt=&quot;Bruse tarl&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Suppose you have Immolating Souleater on the battlefield and Bruse Tarl, Boorish Herder’s triggered ability give it double-strike and lifelink. Souleater is a 1/1 creature that costs 2 colorless and let’s you pay one phyrexian red mana to give it +1/+0 until eot.  Let’s assume you cannot pay red mana and if you want to activate Souleater’s ability, you need to pay life. The souleater is not under summoning sickness, so it can attack an opponent. For now, let’s also assume you have 40 life and your opponents also have 40 life. You see an opportunity to kill an opponent, declare attack, the souleater is not blocked, you pay 38 life to make it a 20/1 creature with double-strike and lifelink, and after all damage is done, your opponent dies and you gain 40 life back (for a +2 net life, as you end up with 42 in the end).&lt;/p&gt;
-
-&lt;p&gt;This is cool and all but what happens when you cannot pay 38 life before the first hit? What if your opponent has more life than you? Life-wise, does it matter how much life you pay before the first hit? How much life can you pay at any given point to either maximize damage or minimize net life loss? Let’s think about it.&lt;/p&gt;
-
-&lt;p&gt;Souleater’s activated ability is a simple linear function of the amount of life you pay. Let x be the amount of life paid, so that souleater’s power is given by&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2019-07-19-Math-bruised-souleater/eq1.png&quot;&gt;&lt;img src=&quot;/assets/posts/2019-07-19-Math-bruised-souleater/eq1.png&quot; alt=&quot;Eq 01&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;(To make it simple, we ignore the fact that phyrexian mana is always 2 life and let x be any non-negative integer.) As in the previous example, if you pay 38 life, f(38) = 20. The tricky part is how this simple linear function interacts with Bruse’s ability, that is, the ability to give a creature double-strike and lifelink (“bruised”).&lt;/p&gt;
-
-&lt;p&gt;The intuition with double-strike is to multiply f(x) by 2, which would be correct if we only paid life before the first hit (x1) and nothing else before the second hit (x2 = 0) but that does not need to be the case. Say we pay 20 life before the first hit (x1 = 20) and an additional 10 life afterwards (x2 = 10). How much damage will we deal to the opponent? We know that f(20) = 11 and f(10) = 6 but the first hit should carry over to the second becasue the +1/+0 lasts until eot. At this point, let’s make an equation for the first hit,&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2019-07-19-Math-bruised-souleater/eq2.png&quot;&gt;&lt;img src=&quot;/assets/posts/2019-07-19-Math-bruised-souleater/eq2.png&quot; alt=&quot;Eq 02&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;and another for the second hit,&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2019-07-19-Math-bruised-souleater/eq3.png&quot;&gt;&lt;img src=&quot;/assets/posts/2019-07-19-Math-bruised-souleater/eq3.png&quot; alt=&quot;Eq 03&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Now, we can sum both functions to get the total amount of damage dealt (d) by a Souleater with double-strike:&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2019-07-19-Math-bruised-souleater/eq4.png&quot;&gt;&lt;img src=&quot;/assets/posts/2019-07-19-Math-bruised-souleater/eq4.png&quot; alt=&quot;Eq 04&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;(It’s easy to see how one could generalize this to triple-strike, quadruple-strike, …, but let’s not delve into it now.) Therefore, if x1=20 and x2=10, d(20,10) = f1(20)+f2(20,10), which is 27 damage for 30 life paid.&lt;/p&gt;
-
-&lt;p&gt;So, now we have an equation (d) that we can play with. For example, if an opponent has 60 life, how much life do you need to pay? Because x1 is multiplied by two, if the goal is to deal as much damage as possible, you should always pay as much life as possible before the first hit. The easiest way here is to pay 58 life right away (x1 = 58 and x2 = 0) but what if you only have 40 life. Our dmg equation shows that if you have 40 life, you can pay 38 before the first hit (x1=38) but in order to kill your opp, you’d have to pay 40 before the second hit (x2=40), which we can already tell that won’t be possible with the other parameters we set for this scenario. The question is then how high can x2 be in order to deal the highest amount of damage without killing ourselves? Now we need to figure out how to add lifelink into the equation.&lt;/p&gt;
-
-&lt;p&gt;Lifelink will affect your life total (k) and because a souleater with double-strike hits twice, let’s define your starting life total (k1), our life total after the first hit (k2), and our life total after the second hit (k3). As before, let’s say that we pay 20 life before the first hit (x1 = 20) and an additional 10 life afterwards (x2 = 10). Because our life total matters here, let’s also assume that our starting life total is k1 = 40. So, if x1 = 20, our remaining life before the first hit is the difference k1 – x1 = 20 and immediately after the first hit, the lifelink effect makes it go up by f1(20) = 11 points, which means that we can define&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2019-07-19-Math-bruised-souleater/eq5.png&quot;&gt;&lt;img src=&quot;/assets/posts/2019-07-19-Math-bruised-souleater/eq5.png&quot; alt=&quot;Eq 05&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;and similarly,&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2019-07-19-Math-bruised-souleater/eq6.png&quot;&gt;&lt;img src=&quot;/assets/posts/2019-07-19-Math-bruised-souleater/eq6.png&quot; alt=&quot;Eq 06&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Now we have a simple way of defining net-life gain/loss (nl) as the difference between k3 and k1, namely&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2019-07-19-Math-bruised-souleater/eq7.png&quot;&gt;&lt;img src=&quot;/assets/posts/2019-07-19-Math-bruised-souleater/eq7.png&quot; alt=&quot;Eq 07&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;which funny enough doesn’t include x1 into the equation. The equation for nl tells us three main things: (a) that we will never net more than 2 life, (b) we’ll net life loss proportional to the amount of life we pay before the second hit (x2), and (c) net-wise, it doesn’t really matter how much life you pay before the first hit (x1). (x1 doesn’t matter because in our scenario, it always nets 0 life. Think about it. You are paying 2 life to increase 1 dmg but with double-strike, souleater hits twice and in the end, you get your 2 life back with lifelink. The only thing that carries over is the base power, which is why there’s a constant 2 in the equation for k3.)&lt;/p&gt;
-
-&lt;p&gt;Good. Now, what can we do with that? Well, we can figure out how to maximize dmg in terms of our life total, so that you deal as much damage as possible without dying for any given amount of starting life total (the math equivalent of “just pay as much life as you can before each hit”). For k1 &amp;gt; 0, let i1 and i2 be the amount of life you want to have before the first hit and second hit, respectively, then&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2019-07-19-Math-bruised-souleater/eq8.png&quot;&gt;&lt;img src=&quot;/assets/posts/2019-07-19-Math-bruised-souleater/eq8.png&quot; alt=&quot;Eq 08&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;(There’s an additional complication here because of how we use phyrexian mana but we don’t need to worry too much about it as long as we can figure out the appropriate i1 and i2 for each value of k1. For example, if you have 40 life, max(d) = 2.5 + 1.25(40) - .75(2) - .5(2) = 50. Because k1 is multiplied by a value greater than one, this equation tells us that the amount of damage done above your starting life increases with our starting life. For example, if you have 40 life, you can deal 10 damage above your starting life to an opponent (e.g., kill an opponent with 50 life points) but if you have 20 life, you can only deal 5 damage above your starting life (e.g., kill an opponent with 25 life points). It’s easier to see this relationship when we plot max(d) as a function of the starting life (k1) using the minimum appropriate values of i1 and i2:&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2019-07-19-Math-bruised-souleater/regression.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2019-07-19-Math-bruised-souleater/regression.jpg&quot; alt=&quot;Regression&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;If we fit a linear equation to it, we get a solution that does not require knowing the exact values of i1 and i2, namely max(d) ≈ .65 + 1.25k1.  However, because each point is equally likely, as /u/darth_aardvark pointed out, the appropriate intercept should be the mean of all possible combinations of min(i1) and min(i2), which can only take on values {1, 2}.  There is a total of 2^2 combinations of  min(i1) and min(i2), namely&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2019-07-19-Math-bruised-souleater/eq9.png&quot;&gt;&lt;img src=&quot;/assets/posts/2019-07-19-Math-bruised-souleater/eq9.png&quot; alt=&quot;Eq 09&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Those equations give us a mean intercept = .625 and a revised and final formula for the maximum amount of damage that a “bruised” souleater can do, specifically&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2019-07-19-Math-bruised-souleater/eq10.png&quot;&gt;&lt;img src=&quot;/assets/posts/2019-07-19-Math-bruised-souleater/eq10.png&quot; alt=&quot;Eq 10&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;which is equivalent to the more memorable formula&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2019-07-19-Math-bruised-souleater/eq11.png&quot;&gt;&lt;img src=&quot;/assets/posts/2019-07-19-Math-bruised-souleater/eq11.png&quot; alt=&quot;Eq 11&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;in which k1 is simply your life total before the attack.  The 5/4 coefficient is quite instructive because it connects this approach to /u/darth_aardvark’s.  Specifically, the first maximized damage of a bruised souleater will hit for approximately half our life total (k1/2), while the second hit will hit for half our life total plus half of the life gained from the second hit (k1/2 + k1/4), which gives us a total of 5/4(k1).&lt;/p&gt;
-
-&lt;p&gt;Well, this has been fun. I’m sure there are other things we could play with here but I’ve had enough for now. I think there are two main conclusions about a “bruised” Souleater. The first and least obvious one imo is that the more life you have, the more damage you can deal above your own life total. This is useful because it gives an intuition about whether you can kill an opponent or not at any given point (low life = cannot deal much above my own life; high life = can deal a bit more than my own life), and whether you should attempt to compute exacties. In most cases, however, you won’t be able to deal a whole lot more than your own life. The other conclusion is that the amount of life you pay before the first hit and second hit is net neutral and net negative, respectively, but I feel most of us would be able to figure this one out without much effort (lifelink gets only half the amount of life paid immediately before the second hit, while it gets it all back for the amount of life paid immediately before the first hit).&lt;/p&gt;
-
-&lt;p&gt;Again, if you spot an error, please point it out. If you found a better way to look at this interaction or thought about a different scenario, feel free to explain it.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--small btn--light-outline&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="mtg" /><category term="math" /></entry></feed>
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--small btn--light-outline&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="odroid" /><category term="sbc" /></entry></feed>
