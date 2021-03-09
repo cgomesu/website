@@ -1,7 +1,1 @@
-User-agent: *
-Disallow: /assets/materials/
-Disallow: /assets/pdf/
-Disallow: /assets/img/profile/
-Disallow: /assets/img/signature/
-
 Sitemap: /sitemap.xml
