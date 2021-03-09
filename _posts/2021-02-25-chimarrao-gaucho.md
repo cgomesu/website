@@ -1,6 +1,6 @@
 ---
 title: "How to make a chimarrão Gaúcho"
-date: 2021-02-25 00:00:00 -0300
+date: 2021-03-09 12:30:00 -0300
 tags: culture food beverage brazil
 header:
   overlay_image: "/assets/posts/2021-02-25-chimarrao-gaucho/header.jpg"
@@ -11,7 +11,7 @@ toc_icon: "list"
 ---
 
 # Changelog
-**Feb 28th, 2021**: Publication of the original article
+**Mar 9th, 2021**: Publication of the original article
 {: .notice .notice--info }
 
 [top](#){: .btn .btn--light-outline .btn--small}

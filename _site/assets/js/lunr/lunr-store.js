@@ -72,7 +72,7 @@ var store = [{
         "teaser": null
       },{
         "title": "How to make a chimarrão Gaúcho",
-        "excerpt":"Changelog Feb 28th, 2021: Publication of the original article top Introduction In this guide, I will provide all the essential information on how to make the same chimarrão Gaúcho–pronounced ʃimɐˈʁɐ̃w̃ ɡaˈuʃu in Portuguese or roughly, shemaHaoom gaOOshoo–that I drink almost on a daily basis. I feel my previous posts have...","categories": ["blog"],
+        "excerpt":"Changelog Mar 9th, 2021: Publication of the original article top Introduction In this guide, I will provide all the essential information on how to make the same chimarrão Gaúcho–pronounced ʃimɐˈʁɐ̃w̃ ɡaˈuʃu in Portuguese or roughly, shemaHaoom gaOOshoo–that I drink almost on a daily basis. I feel my previous posts have...","categories": ["blog"],
         "tags": ["culture","food","beverage","brazil"],
         "url": "/blog/chimarrao-gaucho/",
         "teaser": null
