@@ -177,6 +177,11 @@ A collection of applications for the analysis of multinomial processing tree (MP
 ### [WinBUGS](https://www.mrc-bsu.cam.ac.uk/software/bugs/the-bugs-project-winbugs/)
 > WinBUGS is statistical software for Bayesian analysis using Markov chain Monte Carlo methods.
 
+[top](#){: .btn .btn--light-outline .btn--small}
+
+## File Versioning
+### [GIT](https://git-scm.com/)
+> Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency. 
 
 [top](#){: .btn .btn--light-outline .btn--small}
 
