@@ -112,6 +112,34 @@ A list of various languages that I've used before, listed in order of highest to
 ***
 # Application Knowledge
 This is a non-exhaustive list of systems and applications that I'm particularly familiar with.  (Applications commonly used to edit text, to browse files and the web, to edit images, spreadsheets, and so on were not listed because they are common knowledge at this point.)  The items are ordered alphabetically and loosely organized by area. 
+
+## Automation
+### [Home Assistant](https://www.home-assistant.io/)
+> Open source home automation that puts local control and privacy first. Powered by a worldwide community of tinkerers and DIY enthusiasts
+
+[top](#){: .btn .btn--light-outline .btn--small}
+
+## Computer Vision and Pattern Recognition
+### APIs
+#### [DeepStack](https://deepstack.cc/)
+> DeepStack is an Open-Source AI API engine that serves pre-built models and custom models on multiple edge devices locally or on your private cloud.
+
+#### [DOODS](https://github.com/snowzach/doods)
+> DOODS is a GRPC/REST service that detects objects in images. It's designed to be very easy to use, run as a container and available remotely.
+
+### Libraries
+#### [OpenCV](https://opencv.org/)
+> OpenCV is a library of programming functions mainly aimed at real-time computer vision.
+
+### Models
+#### [Single Shot Detector](https://arxiv.org/abs/1512.02325)
+> SSD is an unified framework for object detection with a single network.
+
+#### [YOLO](https://pjreddie.com/darknet/yolo/)
+> You only look once (YOLO) is a state-of-the-art, real-time object detection system.
+
+[top](#){: .btn .btn--light-outline .btn--small}
+
 ## Containers and virtualization
 ### [Docker (CE)](https://www.docker.com/)
 > Docker is a set of platform as a service products that uses OS-level virtualization to deliver software in packages called containers. Containers are isolated from one another and bundle their own software, libraries and configuration files; they can communicate with each other through well-defined channels.
@@ -206,8 +234,6 @@ A collection of media management applications: movies (Radarr), series (Sonarr),
 #### [pfSense](https://www.pfsense.org/)
 > pfSense is an open source firewall/router computer software distribution based on FreeBSD. It is installed on a physical computer or a virtual machine to make a dedicated firewall/router for a network. It can be configured and upgraded through a web-based interface, and requires no knowledge of the underlying FreeBSD system to manage.
 
-In addition to the basic configuration, I'm familiar with the following pfSense packages:
-
 ##### [HAproxy](https://www.haproxy.org/)
 > HAProxy is free, open source software that provides a high availability load balancer and proxy server for TCP and HTTP-based applications that spreads requests across multiple servers. It is written in C and has a reputation for being fast and efficient.
 
@@ -215,33 +241,40 @@ In addition to the basic configuration, I'm familiar with the following pfSense 
 > Snort is a free open source network intrusion detection system and intrusion prevention system.
 
 ##### [pfBlocker-NG](https://docs.netgate.com/pfsense/en/latest/packages/pfblocker.html)
-> pfBlocker-NG introduces an Enhanced Alias Table Feature to pfSense software.
-> 
-> What it allows:
->    Assigning many IP address URL lists from sites like I-blocklist to a single alias and then choose a rule action.
->    Blocking countries and IP ranges.
->    Replacement of both Countryblock and IPblocklist by providing the same functionality, and more, in one package.
->    Uses native functions of pfSense software instead of file hacks and table manipulation.
+> pfBlocker-NG introduces an Enhanced Alias Table Feature to pfSense software. (...) It allows: Assigning many IP address URL lists from sites like I-blocklist to a single alias and then choose a rule action; Blocking countries and IP ranges; Replacement of both Countryblock and IPblocklist by providing the same functionality, and more, in one package; Uses native functions of pfSense software instead of file hacks and table manipulation.
 
 ### Mesh networking
-#### [Batman-adv](https://www.open-mesh.org/projects/batman-adv/wiki)
+#### [batman-adv](https://www.open-mesh.org/projects/batman-adv/wiki)
 > Better Aapproach to Mobile Adhoc Network advanced (often referenced as batman-adv) is an implementation of the B.A.T.M.A.N. routing protocol in form of a linux kernel module operating on layer 2.
 
-### SD-WAN
-#### [ZeroTier](https://www.zerotier.com/)
-> ZeroTier provides open-source software, SDKs and commercial products and services to create and manage virtual software defined networks.
+#### [batctl](https://www.kernel.org/doc/html/v5.7/networking/batman-adv.html#batctl)
+> batctl offers a convenient way to configure the batman-adv kernel module as well as displaying debug information such as originator tables, translation tables and the debug log. In combination with a bat-hosts file batctl allows the use of host names instead of MAC addresses.
 
-### SSH
+### Network Utilities
+#### [Aircrack-ng](https://www.aircrack-ng.org/)
+> Aircrack-ng is a complete suite of tools to assess WiFi network security. 
+
+#### [iperf/iperf3](https://iperf.fr/)
+>  IPerf3 is a tool for active measurements of the maximum achievable bandwidth on IP networks. It supports tuning of various parameters related to timing, buffers and protocols (TCP, UDP, SCTP with IPv4 and IPv6). For each test it reports the bandwidth, loss, and other parameters.
+
+#### [tcpdump](https://www.tcpdump.org/)
+> tcpdump is a data-network packet analyzer computer program that runs under a command line interface. It allows the user to display TCP/IP and other packets being transmitted or received over a network to which the computer is attached. Distributed under the BSD license, tcpdump is free software.
+
+#### [Wireshark](https://www.wireshark.org/)
+> Wireshark is a free and open-source packet analyzer. It is used for network troubleshooting, analysis, software and communications protocol development, and education.
+
+### Remote Connectivity
+#### [MeshCentral](https://meshcentral.com/info/)
+> MeshCentral is a community driven open source remote management web site built on NodeJS and available freely on NPM. You can get started with the "Public Server Login" button on the upper right to use the public at your own risk community server for free and then move on to installing your own server. The server and management agent run on Windows, Linux, MacOS and FreeBSD. 
+
 #### [OpenSSH](https://www.openssh.com/)
 > OpenSSH is the premier connectivity tool for remote login with the SSH protocol. It encrypts all traffic to eliminate eavesdropping, connection hijacking, and other attacks. In addition, OpenSSH provides a large suite of secure tunneling capabilities, several authentication methods, and sophisticated configuration options. 
 
-### VPN
 #### [OpenVPN](https://openvpn.net/)
 > OpenVPN Connect is the free and full-featured VPN Client that is developed in-house. It is the official Client for all our VPN solutions. Any other OpenVPN protocol compatible Server will work with it too.
 
-## RDBMS
-### [SQLite](https://sqlite.org/index.html)
-> SQLite is a relational database management system contained in a C library. In contrast to many other database management systems, SQLite is not a client–server database engine. Rather, it is embedded into the end program. SQLite is ACID-compliant and implements most of the SQL standard, generally following PostgreSQL syntax.
+#### [ZeroTier](https://www.zerotier.com/)
+> ZeroTier provides open-source software, SDKs and commercial products and services to create and manage virtual software defined networks.
 
 [top](#){: .btn .btn--light-outline .btn--small}
 
@@ -272,11 +305,17 @@ In addition to the basic configuration, I'm familiar with the following pfSense 
 > Ubuntu is a Linux distribution based on Debian and mostly composed of free and open-source software.
 
 ### Other
-#### Microsoft Windows
+#### [Microsoft Windows](https://www.microsoft.com/en-us/windows)
 > Microsoft Windows is a group of several proprietary graphical operating system families, all of which are developed and marketed by Microsoft.
 
-#### Tasmota
+#### [Tasmota](https://github.com/arendst/Tasmota)
 > Tasmota is an open source firmware for ESP8266 based devices created and maintained by Theo Arends. 
+
+[top](#){: .btn .btn--light-outline .btn--small}
+
+## RDBMS
+### [SQLite](https://sqlite.org/index.html)
+> SQLite is a relational database management system contained in a C library. In contrast to many other database management systems, SQLite is not a client–server database engine. Rather, it is embedded into the end program. SQLite is ACID-compliant and implements most of the SQL standard, generally following PostgreSQL syntax.
 
 [top](#){: .btn .btn--light-outline .btn--small}
 
@@ -298,6 +337,23 @@ In addition to the basic configuration, I'm familiar with the following pfSense 
 
 #### [Syncthing](https://syncthing.net/)
 > Syncthing is a free, open-source peer-to-peer file synchronization application available for Windows, Mac, Linux, Android, Solaris, Darwin, and BSD. It can sync files between devices on a local network, or between remote devices over the Internet. Data security and data safety are built into the design of the software.
+
+[top](#){: .btn .btn--light-outline .btn--small}
+
+
+## Text-to-Speech
+### [Google TTS (gTTS Python pkg)](https://github.com/pndurette/gTTS)
+> gTTS (Google Text-to-Speech), a Python library and CLI tool to interface with Google Translate's text-to-speech API. Write spoken mp3 data to a file, a file-like object (bytestring) for further audio manipulation, or stdout. Or simply pre-generate Google Translate TTS request URLs to feed to an external program. 
+
+### [Festival Speech Synthesis System](https://www.cstr.ed.ac.uk/projects/festival/)
+> Festival offers a general framework for building speech synthesis systems as well as including examples of various modules. As a whole it offers full text to speech through a number APIs: from shell level, though a Scheme command interpreter, as a C++ library, from Java, and an Emacs interface. Festival is multi-lingual (currently English (British and American), and Spanish) though English is the most advanced.
+
+### [eSpeak-ng](https://github.com/espeak-ng/espeak-ng/)
+> The eSpeak NG is a compact open source software text-to-speech synthesizer for Linux, Windows, Android and other operating systems. It supports more than 100 languages and accents. It is based on the eSpeak engine created by Jonathan Duddington.
+
+## Tracking
+### [Traccar](https://www.traccar.org/)
+> Traccar is a free and open source GPS tracking server. As of 2019, Traccar claims to support more than 1,500 different models of GPS tracking devices
 
 [top](#){: .btn .btn--light-outline .btn--small}
 
@@ -344,6 +400,6 @@ In addition to the basic configuration, I'm familiar with the following pfSense 
 [top](#){: .btn .btn--light-outline .btn--small}
 
 ## Publications
-See [**Publications**]({{ site.url }}{{ site.baseurl }}/publications/) for an updated list.
+See [**Publications**](/publications/) for an updated list.
 
 [top](#){: .btn .btn--light-outline .btn--small}
