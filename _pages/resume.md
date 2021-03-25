@@ -140,7 +140,7 @@ This is a non-exhaustive list of systems and applications that I'm particularly 
 
 [top](#){: .btn .btn--light-outline .btn--small}
 
-## Containers and virtualization
+## Containers and Virtualization
 ### [Docker (CE)](https://www.docker.com/)
 > Docker is a set of platform as a service products that uses OS-level virtualization to deliver software in packages called containers. Containers are isolated from one another and bundle their own software, libraries and configuration files; they can communicate with each other through well-defined channels.
 
@@ -158,7 +158,7 @@ This is a non-exhaustive list of systems and applications that I'm particularly 
 
 [top](#){: .btn .btn--light-outline .btn--small}
 
-## Data analysis
+## Data Analysis
 ### GPT, multiTree, HMMTree
 A collection of applications for the analysis of multinomial processing tree (MPT) models.  I'm listing here just for historical purposes.  R packages provide a much more conveninent way of working with datasets and MPT models.
 
@@ -248,7 +248,7 @@ A collection of media management applications: movies (Radarr), series (Sonarr),
 ##### [pfBlocker-NG](https://docs.netgate.com/pfsense/en/latest/packages/pfblocker.html)
 > pfBlocker-NG introduces an Enhanced Alias Table Feature to pfSense software. (...) It allows: Assigning many IP address URL lists from sites like I-blocklist to a single alias and then choose a rule action; Blocking countries and IP ranges; Replacement of both Countryblock and IPblocklist by providing the same functionality, and more, in one package; Uses native functions of pfSense software instead of file hacks and table manipulation.
 
-### Mesh networking
+### Mesh Networking
 #### [batman-adv](https://www.open-mesh.org/projects/batman-adv/wiki)
 > Better Aapproach to Mobile Adhoc Network advanced (often referenced as batman-adv) is an implementation of the B.A.T.M.A.N. routing protocol in form of a linux kernel module operating on layer 2.
 
@@ -364,7 +364,7 @@ A collection of media management applications: movies (Radarr), series (Sonarr),
 
 ***
 # Academic and Professional Experience
-## Professional jobs
+## Professional Jobs
 
 | years | hours/week | position | country | company | job description |
 |:---:|:---:|:---:|:---:|:---:|:---:|
@@ -373,7 +373,7 @@ A collection of media management applications: movies (Radarr), series (Sonarr),
 
 [top](#){: .btn .btn--light-outline .btn--small}
 
-## Research and education jobs
+## Research and Education Jobs
 
 | years | hours/week | position | country | institution | lab or course |
 |:---:|:---:|:---:|:---:|:---:|:---:|
