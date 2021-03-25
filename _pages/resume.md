@@ -54,7 +54,7 @@ toc_icon: "list"
 # Programming Skills
 A list of various languages that I've used before, listed in order of highest to lowest familiarity.
 
-## Backend languages
+## Backend Languages
 
 | language | skills |
 |:---:|:---:|
@@ -67,7 +67,7 @@ A list of various languages that I've used before, listed in order of highest to
 | [PHP](https://en.wikipedia.org/wiki/PHP) | Basic knowledge about the syntax and use cases. |
 | [MATLAB](https://en.wikipedia.org/wiki/MATLAB) | Helped parsing neuroimaging datasets and used to run matrix operations of a Markov chain. |
 
-## Frontend languages
+## Frontend Languages
 
 | language | skills |
 |:---:|:---:|
@@ -82,7 +82,7 @@ A list of various languages that I've used before, listed in order of highest to
 |:---:|:---:|
 | [Laravel](https://laravel.com/) | Basic knowledge about the framework.  Never used outside self-learning exercises. |
 
-## Static website generators
+## Static Website Generators
 
 | generator | skills |
 |:---:|:---:|
