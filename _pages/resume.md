@@ -259,11 +259,17 @@ A collection of media management applications: movies (Radarr), series (Sonarr),
 #### [Aircrack-ng](https://www.aircrack-ng.org/)
 > Aircrack-ng is a complete suite of tools to assess WiFi network security. 
 
+#### [curl](https://curl.se/)
+> cURL is a computer software project providing a library (libcurl) and command-line tool (curl) for transferring data using various network protocols.
+
 #### [iperf/iperf3](https://iperf.fr/)
 >  IPerf3 is a tool for active measurements of the maximum achievable bandwidth on IP networks. It supports tuning of various parameters related to timing, buffers and protocols (TCP, UDP, SCTP with IPv4 and IPv6). For each test it reports the bandwidth, loss, and other parameters.
 
 #### [tcpdump](https://www.tcpdump.org/)
 > tcpdump is a data-network packet analyzer computer program that runs under a command line interface. It allows the user to display TCP/IP and other packets being transmitted or received over a network to which the computer is attached. Distributed under the BSD license, tcpdump is free software.
+
+#### [wget](https://www.gnu.org/software/wget/)
+> GNU Wget is a computer program that retrieves content from web servers.
 
 #### [Wireshark](https://www.wireshark.org/)
 > Wireshark is a free and open-source packet analyzer. It is used for network troubleshooting, analysis, software and communications protocol development, and education.
@@ -344,7 +350,6 @@ A collection of media management applications: movies (Radarr), series (Sonarr),
 > Syncthing is a free, open-source peer-to-peer file synchronization application available for Windows, Mac, Linux, Android, Solaris, Darwin, and BSD. It can sync files between devices on a local network, or between remote devices over the Internet. Data security and data safety are built into the design of the software.
 
 [top](#){: .btn .btn--light-outline .btn--small}
-
 
 ## Text-to-Speech
 ### [Google TTS (gTTS Python pkg)](https://github.com/pndurette/gTTS)
