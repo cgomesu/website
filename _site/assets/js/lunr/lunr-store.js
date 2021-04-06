@@ -54,7 +54,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Tasmota webcam server for the ESP32-cam",
-        "excerpt":"Changelog Jan 26th, 2021: Added an alternative source for the Tasmota32 binaries to the Flashing Tasmota32 webcam server section. I few individuals reported issues flashing the latest (firmware branch) binaries, so I added a reference to the more stable (release-firmware branch) binaries instead. A list of currently active branches can...","categories": ["blog"],
+        "excerpt":"Changelog April 6th, 2021, Update #2: Created a bonus content section at the end called Firmware customization. The new section describes how to create a customized Tasmota firmware to use any supported I2C or other peripherals that are not available in the pre-compiled binary. The BME280 sensor–a cheap and very...","categories": ["blog"],
         "tags": ["iot","esp32","tasmota","mqtt","cam","webcam","surveillance","wifi","wireless","network"],
         "url": "/blog/Esp32cam-tasmota-webcam-server/",
         "teaser": null

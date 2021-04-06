@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-04-01T13:09:57-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">How to make a chimarrão Gaúcho</title><link href="/blog/chimarrao-gaucho/" rel="alternate" type="text/html" title="How to make a chimarrão Gaúcho" /><published>2021-03-09T12:30:00-03:00</published><updated>2021-03-09T12:30:00-03:00</updated><id>/blog/chimarrao-gaucho</id><content type="html" xml:base="/blog/chimarrao-gaucho/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-04-06T16:59:05-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">How to make a chimarrão Gaúcho</title><link href="/blog/chimarrao-gaucho/" rel="alternate" type="text/html" title="How to make a chimarrão Gaúcho" /><published>2021-03-09T12:30:00-03:00</published><updated>2021-03-09T12:30:00-03:00</updated><id>/blog/chimarrao-gaucho</id><content type="html" xml:base="/blog/chimarrao-gaucho/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;Mar 9th, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
@@ -1338,6 +1338,10 @@ pipe:///usr/bin/env streamlink --stdout --default-stream 720p,best --url https:/
 &lt;p&gt;That is it for now.  If you enjoyed or have a few suggestions, &lt;a href=&quot;/contact&quot;&gt;let me know&lt;/a&gt;.  Every once in a while, come back and check the &lt;a href=&quot;#changelog&quot;&gt;changelog&lt;/a&gt; for updates.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="tvhlink" /><category term="streamlink" /><category term="tvheadend" /><category term="github" /><category term="iptv" /><category term="kodi" /><category term="youtube" /><category term="streaming" /><category term="livestream" /></entry><entry><title type="html">Tasmota webcam server for the ESP32-cam</title><link href="/blog/Esp32cam-tasmota-webcam-server/" rel="alternate" type="text/html" title="Tasmota webcam server for the ESP32-cam" /><published>2021-01-15T09:00:00-03:00</published><updated>2021-01-15T09:00:00-03:00</updated><id>/blog/Esp32cam-tasmota-webcam-server</id><content type="html" xml:base="/blog/Esp32cam-tasmota-webcam-server/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+&lt;p class=&quot;notice notice--success&quot;&gt;&lt;strong&gt;April 6th, 2021&lt;/strong&gt;, Update #2: Created a bonus content section at the end called &lt;a href=&quot;#bonus-content-firmware-customization&quot;&gt;&lt;strong&gt;Firmware customization&lt;/strong&gt;&lt;/a&gt;. The new section describes how to create a customized Tasmota firmware to use any supported I2C or other peripherals that are not available in the pre-compiled binary. The &lt;em&gt;BME280&lt;/em&gt; sensor–a cheap and very reliable ambient temperature, humidity, and pressure sensor–was used as an example but the same procedure applies for displays and other I2C sensors that you might wish to use with your ESP32-cam board. This provides a very easy way to turn a simple webcam server into a weather station, smoke detector, relay controller, and more.&lt;/p&gt;
+
+&lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;April 6th, 2021&lt;/strong&gt;, Update #1: Added a pinout diagram for the ESP32-cam AI-Thinker board to the &lt;a href=&quot;#hardware&quot;&gt;Hardware&lt;/a&gt; section.&lt;/p&gt;
+
 &lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;Jan 26th, 2021&lt;/strong&gt;: Added an alternative source for the Tasmota32 binaries to the &lt;a href=&quot;#flashing-tasmota32-webcam-server&quot;&gt;Flashing Tasmota32 webcam server&lt;/a&gt; section.  I few individuals reported issues flashing the latest (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;firmware&lt;/code&gt; branch) binaries, so I added a reference to the more stable (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;release-firmware&lt;/code&gt; branch) binaries instead.  A list of currently active branches can be found in the official Github repo’s &lt;a href=&quot;https://github.com/arendst/Tasmota/branches/active&quot;&gt;active branches&lt;/a&gt; website.&lt;/p&gt;
 
 &lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;Jan 16th, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
@@ -1412,6 +1416,8 @@ pipe:///usr/bin/env streamlink --stdout --default-stream 720p,best --url https:/
     &lt;/ul&gt;
 
     &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam.jpg&quot; alt=&quot;ESP32cam&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-pinout.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-pinout.jpg&quot; alt=&quot;ESP32cam pinout&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;USB to TTL adapter:
     &lt;ul&gt;
@@ -1552,8 +1558,8 @@ pipe:///usr/bin/env streamlink --stdout --default-stream 720p,best --url https:/
 
 &lt;ol&gt;
   &lt;li&gt;Copy the &lt;strong&gt;AITHINKER CAM template&lt;/strong&gt;:
-    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{&quot;NAME&quot;:&quot;AITHINKER CAM&quot;,&quot;GPIO&quot;:[4992,1,1,1,1,5088,1,1,1,1,1,1,1,1,5089,5090,0,5091,5184,5152,0,5120,5024,5056,0,0,0,0,4928,1,5094,5095,5092,0,0,5093],&quot;FLAG&quot;:0,&quot;BASE&quot;:1}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;NAME&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;AITHINKER CAM&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;GPIO&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4992&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5088&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5089&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5090&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5091&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5184&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5152&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5120&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5024&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5056&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4928&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5094&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5095&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5092&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5093&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;FLAG&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;BASE&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;From the ESP32-cam webUI, go to &lt;strong&gt;Configuration &amp;gt; Configure &amp;gt; Configure other&lt;/strong&gt;.&lt;/p&gt;
@@ -1741,6 +1747,138 @@ pipe:///usr/bin/env streamlink --stdout --default-stream 720p,best --url https:/
 &lt;p&gt;If you bought a USB to DIP adapter, you can now power your ESP32-cam independent of your USB to TTL/serial adapter using a cheap &lt;strong&gt;5V (at least 400mA) USB power supply&lt;/strong&gt;, such as an old cellphone charger, as follows:&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-wiring-standalone-mode.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-wiring-standalone-mode.jpg&quot; alt=&quot;ESP32cam standalone mode&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;bonus-content-firmware-customization&quot;&gt;Bonus-content: Firmware customization&lt;/h1&gt;
+&lt;p&gt;Even though many of GPIO pins in the ESP32-cam board are used for the built-in camera module, the board certainly has more than enough pins to interface with additional peripherals.  In other words, while you can use your ESP32-cam as a simple webcam server, it is possible–and as we will see, very easy–to turn it into something more than that, such as a weather station, smoke detector, relay controller, and so on, owning to the multitude of peripherals that are currently supported by the Tasmota firmware.  For an up-to-date list, see the &lt;a href=&quot;https://tasmota.github.io/docs/Supported-Peripherals/#supported-peripherals&quot;&gt;&lt;strong&gt;official Supported Peripherals table&lt;/strong&gt;&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;However, due to space limitations, support for some peripherals are not included in pre-compilled binaries.  In the official docs, for example, it says that support for the &lt;a href=&quot;https://tasmota.github.io/docs/BME280/&quot;&gt;&lt;strong&gt;BME280 sensor module&lt;/strong&gt;&lt;/a&gt; is only available in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmota-sensors.bin&lt;/code&gt; pre-compiled binary.  Fortunately, it is now very easy to customize the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmota32-webcam.bin&lt;/code&gt; to support the BME280 and any other supported peripherals.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/bme280.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/bme280.jpg&quot; alt=&quot;BME280&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;In the following sections, I described how to customize the Tasmota32 firmware to support a BME280 sensor module.  This was accomplished with &lt;a href=&quot;https://www.docker.com/&quot;&gt;&lt;strong&gt;Docker&lt;/strong&gt;&lt;/a&gt; and the container &lt;a href=&quot;https://github.com/benzino77/tasmocompiler&quot;&gt;&lt;strong&gt;TasmoCompiler&lt;/strong&gt;&lt;/a&gt;.  At the end, I showed how to update the firmware over-the-air and how to configure the template to interface with peripherals connected to GPIO pins.&lt;/p&gt;
+
+&lt;p class=&quot;notice notice--info&quot;&gt;There are &lt;a href=&quot;https://tasmota.github.io/docs/Compile-your-build/&quot;&gt;many different ways of customizing a Tasmota firmware&lt;/a&gt;.  TasmoCompiler is just one of them that does not use an IDE and has a user-friendly GUI.&lt;/p&gt;
+
+&lt;h2 id=&quot;installing-docker-and-running-tasmocompiler&quot;&gt;Installing Docker and running TasmoCompiler&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Docker&lt;/strong&gt; is a ver well-known, documented, and used virtualization platform. To install Docker, follow the official documentation:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.docker.com/get-docker/&quot;&gt;&lt;strong&gt;Get Docker&lt;/strong&gt; and &lt;strong&gt;install it&lt;/strong&gt; on your OS&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Once you have Docker up and running, it is time to pull and run the &lt;strong&gt;TasmoCompiler&lt;/strong&gt; container. TasmoCompiler was developed by user &lt;a href=&quot;https://github.com/benzino77&quot;&gt;benzino77&lt;/a&gt; to do only one thing, namely compile a Tasmota firmware with customized settings via a simple (web) GUI.  To run it in a Docker container, &lt;strong&gt;open a terminal&lt;/strong&gt; and pull the image, as follows:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker pull benzino77/tasmocompiler
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-pull.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-pull.jpg&quot; alt=&quot;tasmocompiler pull&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p class=&quot;notice notice--info&quot;&gt;If you run into permission issues, either append &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sudo&lt;/code&gt; to any docker command or create and add your current user to a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;docker&lt;/code&gt; group, as follows: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sudo groupadd docker &amp;amp;&amp;amp; sudo usermod -aG docker $USER&lt;/code&gt;. Other post-install configurations for Linux users can be found at the official docs: &lt;a href=&quot;https://docs.docker.com/engine/install/linux-postinstall/&quot;&gt;Optional post-install steps&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Then, run the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmocompiler&lt;/code&gt; container, as follows:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run --rm --name tasmocompiler -p 3000:3000 -e DEBUG=server,git,compile benzino77/tasmocompiler
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-run.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-run.jpg&quot; alt=&quot;tasmocompiler run&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p class=&quot;notice notice--info&quot;&gt;Of course, if you use &lt;a href=&quot;https://www.portainer.io/&quot;&gt;Portainer&lt;/a&gt; or other application for managing your docker containers, you can also pull and run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmocompiler&lt;/code&gt; via the application instead of a terminal.  In this case, translate the commands to your application.  This also applies to users who are not running Docker on Linux.&lt;/p&gt;
+
+&lt;p&gt;This will create a container named &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmocompiler&lt;/code&gt; that has a web GUI exposed on port &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;3000&lt;/code&gt; of the local machine.  To access it, go to the following address using any web-browser:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://localhost:3000&quot;&gt;&lt;strong&gt;http://localhost:3000&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;customizing-the-tasmota32-webcam-firmware&quot;&gt;Customizing the tasmota32-webcam firmware&lt;/h2&gt;
+&lt;p&gt;Now that the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmocompiler&lt;/code&gt; container is running, we can compile a new customized Tasmota firmware for the ESP32-cam in just a few simple steps:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Open any web-browser and navigate to &lt;a href=&quot;http://localhost:3000&quot;&gt;&lt;strong&gt;http://localhost:3000&lt;/strong&gt;&lt;/a&gt;;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In &lt;strong&gt;Tasmota source code&lt;/strong&gt;, select &lt;em&gt;Refresh Source&lt;/em&gt; (this can take a few minutes, depending on your connection) and afterwards, &lt;em&gt;Next&lt;/em&gt;;&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-step01.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-step01.jpg&quot; alt=&quot;tasmocompiler step 01&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In &lt;strong&gt;WiFi configuration&lt;/strong&gt;, add your wifi credentials and hit &lt;em&gt;Next&lt;/em&gt;;&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-step02.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-step02.jpg&quot; alt=&quot;tasmocompiler step 02&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In &lt;strong&gt;Select Features&lt;/strong&gt;, select &lt;strong&gt;ESP32 webcam&lt;/strong&gt; as your board.  For this example, we are adding the &lt;strong&gt;BME280 sensor module&lt;/strong&gt; and therefore, in feature, we add the &lt;em&gt;Temp/Hum sensors&lt;/em&gt; feature to support the BME280 sensor. If you are attaching another device, check the appropriate feature to support it here (e.g., check &lt;em&gt;Displays (I2C/SPI)&lt;/em&gt; to support an OLED display module).  When done, hit &lt;em&gt;Next&lt;/em&gt;;&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-step03.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-step03.jpg&quot; alt=&quot;tasmocompiler step 03&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;It is not necessary to edit any parameter in &lt;strong&gt;Custom Parameters&lt;/strong&gt;, so hit &lt;em&gt;Next&lt;/em&gt;;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Finally, in &lt;strong&gt;Select Version and Compile&lt;/strong&gt;, choose a Tasmota version (&lt;em&gt;development&lt;/em&gt; is usually fine but if you run into issues later on, try the latest stable) and base language for the interface.  Then, select &lt;strong&gt;Compile&lt;/strong&gt; and wait until it is done (this can take a few minutes);&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-step05.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-step05.jpg&quot; alt=&quot;tasmocompiler step 05&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-step06.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-step06.jpg&quot; alt=&quot;tasmocompiler step 06&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Once it is done compiling, check that the firmware was successfully compiled and if all looks good, &lt;strong&gt;download the firmware&lt;/strong&gt; (and optionally, any of the other files);&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-step07.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-step07.jpg&quot; alt=&quot;tasmocompiler step 07&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;If you run into issues, check the &lt;a href=&quot;https://github.com/benzino77/tasmocompiler/issues&quot;&gt;issues tab&lt;/a&gt; of the TasmoCompiler repository for open and closed issues similar to the one you are experiencing. If you do not find anything similar, open a new issue there to warn the developer know about it.&lt;/p&gt;
+
+&lt;h2 id=&quot;updating-the-firmware&quot;&gt;Updating the firmware&lt;/h2&gt;
+&lt;p&gt;If you have already flashed a pre-compiled Tasmota binary onto the ESP32-cam, then it is possible to update the firmware over-the-air (OTA).  To update the firmware OTA, do the following:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Open a web-browser and go to the IP address of your Tasmota ESP32-cam;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Then navigate to &lt;strong&gt;Firmware Upgrade&lt;/strong&gt; &amp;gt; &lt;strong&gt;Upgrade by file upload&lt;/strong&gt; &amp;gt; Browse and select the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;firmware.bin&lt;/code&gt; file you compiled with TasmoCompiler.  Afterwards, select &lt;strong&gt;Start Upgrade&lt;/strong&gt; and wait until it is done;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The device will reboot automatically and once it is back on, it should connect to the wireless network configured with TasmoCompiler.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Now, if you have not flashed any pre-compiled Tasmota binary, simply switch the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmota32-webcam.bin&lt;/code&gt; file mentioned in &lt;a href=&quot;#flashing-tasmota32-webcam-server&quot;&gt;Flashing Tasmota32 webcam server&lt;/a&gt; for the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;firmware.bin&lt;/code&gt; file you compiled with TasmoCompiler.&lt;/p&gt;
+
+&lt;h2 id=&quot;wiring-and-template-configuration&quot;&gt;Wiring and template configuration&lt;/h2&gt;
+&lt;p&gt;Suppose we have a &lt;strong&gt;BME280 sensor module&lt;/strong&gt; wired to an ESP32-cam (AI-Thinker) board as follows:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-wiring-bme280.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-wiring-bme280.jpg&quot; alt=&quot;Wiring BME280&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p class=&quot;notice notice--warning&quot;&gt;Note that to use the VCC output pin as a 3.3V output pin, you need to make sure the board has a &lt;strong&gt;resistor connecting the two 3v3 pads&lt;/strong&gt; and nothing connecting the two 5V pads. This was indicated by the red arrow in the image above. From my experience, a resistor connecting the 3v3 pads is the default for all ESP32-cam AI-Thinker boards, meaning that it should output 3.3V by default and if you want to change it to 5V, you need to desolder the resistor between the 3v3 pads and solder it between the 5V pads.  However, make sure to double check this before wiring any peripheral that will use the VCC out pin from the board.&lt;/p&gt;
+
+&lt;p&gt;Then, now that the board is running a customized firmware that should support the BME280 sensor module, all that we need to do is to configure its template to inform the program about (a) which GPIO pins the peripheral is using and (b) how the pins should be configured.&lt;/p&gt;
+
+&lt;p&gt;To configure the ESP32-cam template, do the following:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Open a web-browser and go to the IP address of your Tasmota ESP32-cam;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Follow the instructions in &lt;a href=&quot;#updating-the-template&quot;&gt;&lt;strong&gt;Updating the template&lt;/strong&gt;&lt;/a&gt; if you have not done that before. Afterwards, navigate to &lt;strong&gt;Configuration&lt;/strong&gt; &amp;gt; &lt;strong&gt;Configure Other&lt;/strong&gt; &amp;gt; &lt;strong&gt;Other parameters&lt;/strong&gt; &amp;gt; &lt;strong&gt;Template&lt;/strong&gt; and make sure the &lt;strong&gt;Activate&lt;/strong&gt; is checked.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Navigate to &lt;strong&gt;Configuration&lt;/strong&gt; &amp;gt; &lt;strong&gt;Configure Template&lt;/strong&gt;.  The name of the template should be the same one you specified in the previous step.  Remember that according to the wiring of the BME280 board, &lt;strong&gt;SDA&lt;/strong&gt; and &lt;strong&gt;SCL&lt;/strong&gt; are connected to pins &lt;strong&gt;GPIO14&lt;/strong&gt; and &lt;strong&gt;GPIO15&lt;/strong&gt;, respectively.  Therefore, &lt;strong&gt;find the GPIO14 pin&lt;/strong&gt; and instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;User&lt;/code&gt;, select &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;I2C SDA&lt;/code&gt;; and similarly, &lt;strong&gt;find the GPIO15 pin&lt;/strong&gt; and instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;User&lt;/code&gt;, select &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;I2C SCL&lt;/code&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Hit &lt;em&gt;Save&lt;/em&gt; and wait for the device to reboot. Once it comes back on, the firmware should automatically detect and configure the I2C device and on the &lt;strong&gt;Main Page&lt;/strong&gt;, there should be some of the metrics associated with the device.  Because we are connecting the board to a BME280 sensor module, the Main page will show measures for the ambient temperature, humidity, dew point, and pressure.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-bme280.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-bme280.jpg&quot; alt=&quot;ESP32-cam BME280&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;Of course, different peripherals will show different metrics, buttons, sliders, etc., on the main page. As before, the camera stream should be available on the main page and via port &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;81&lt;/code&gt; at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/stream&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cam.mjpeg&lt;/code&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 

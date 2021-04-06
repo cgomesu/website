@@ -11,6 +11,12 @@ toc_icon: "list"
 ---
 
 # Changelog
+**April 6th, 2021**, Update #2: Created a bonus content section at the end called [**Firmware customization**](#bonus-content-firmware-customization). The new section describes how to create a customized Tasmota firmware to use any supported I2C or other peripherals that are not available in the pre-compiled binary. The *BME280* sensor--a cheap and very reliable ambient temperature, humidity, and pressure sensor--was used as an example but the same procedure applies for displays and other I2C sensors that you might wish to use with your ESP32-cam board. This provides a very easy way to turn a simple webcam server into a weather station, smoke detector, relay controller, and more.
+{: .notice .notice--success }
+
+**April 6th, 2021**, Update #1: Added a pinout diagram for the ESP32-cam AI-Thinker board to the [Hardware](#hardware) section.
+{: .notice .notice--info }
+
 **Jan 26th, 2021**: Added an alternative source for the Tasmota32 binaries to the [Flashing Tasmota32 webcam server](#flashing-tasmota32-webcam-server) section.  I few individuals reported issues flashing the latest (`firmware` branch) binaries, so I added a reference to the more stable (`release-firmware` branch) binaries instead.  A list of currently active branches can be found in the official Github repo's [active branches](https://github.com/arendst/Tasmota/branches/active) website.
 {: .notice .notice--info }
 
@@ -76,6 +82,8 @@ To make a single wireless camera based on the ESP32-cam board, you'll need at le
   * 01x [ESP32-CAM, AI-Thinker board](https://www.amazon.com/s?k=esp32cam+ai-thinker)
 
   [![ESP32cam](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam.jpg){:.PostImage}](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam.jpg)
+
+  [![ESP32cam pinout](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-pinout.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-pinout.jpg)
 
 * USB to TTL adapter:
   * 01x [FTDI FT232RL USB to TTL/serial module with 5v/3v3 voltage jumper](https://www.amazon.com/s?k=ftdi+ft232RL+usb+to+ttl)
@@ -206,7 +214,7 @@ By default, the Tasmota firmware will create a wireless access point for your ES
 Tasmota templates are device-specific definitions of how their GPIO pins are assigned. As mentioned before, there are multiple ESP32-cam boards out there with different definitions.  In my case, I'm using the **AI-Thinker cam** module and therefore, I should configure the Tasmota32 webcam server to use the [AITHINKER CAM template](https://tasmota.github.io/docs/ESP32/#aithinker-cam) instead of the default one.  (If your ESP32-cam is different, then check [https://tasmota.github.io/docs/ESP32/](https://tasmota.github.io/docs/ESP32/) for the appropriate template and use that one instead of the AITHINKER CAM.)
 
 1. Copy the **AITHINKER CAM template**:
-   ```
+   ```json
    {"NAME":"AITHINKER CAM","GPIO":[4992,1,1,1,1,5088,1,1,1,1,1,1,1,1,5089,5090,0,5091,5184,5152,0,5120,5024,5056,0,0,0,0,4928,1,5094,5095,5092,0,0,5093],"FLAG":0,"BASE":1}
    ```
 
@@ -316,6 +324,118 @@ You can now capture the live stream of your ESP32-cam at either `http://DEVICE_I
 If you bought a USB to DIP adapter, you can now power your ESP32-cam independent of your USB to TTL/serial adapter using a cheap **5V (at least 400mA) USB power supply**, such as an old cellphone charger, as follows:
 
 [![ESP32cam standalone mode](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-wiring-standalone-mode.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-wiring-standalone-mode.jpg)
+
+[top](#){: .btn .btn--light-outline .btn--small}
+
+
+# Bonus-content: Firmware customization
+Even though many of GPIO pins in the ESP32-cam board are used for the built-in camera module, the board certainly has more than enough pins to interface with additional peripherals.  In other words, while you can use your ESP32-cam as a simple webcam server, it is possible--and as we will see, very easy--to turn it into something more than that, such as a weather station, smoke detector, relay controller, and so on, owning to the multitude of peripherals that are currently supported by the Tasmota firmware.  For an up-to-date list, see the [**official Supported Peripherals table**](https://tasmota.github.io/docs/Supported-Peripherals/#supported-peripherals).
+
+However, due to space limitations, support for some peripherals are not included in pre-compilled binaries.  In the official docs, for example, it says that support for the [**BME280 sensor module**](https://tasmota.github.io/docs/BME280/) is only available in the `tasmota-sensors.bin` pre-compiled binary.  Fortunately, it is now very easy to customize the `tasmota32-webcam.bin` to support the BME280 and any other supported peripherals.
+
+[![BME280](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/bme280.jpg){:.PostImage}](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/bme280.jpg)
+
+In the following sections, I described how to customize the Tasmota32 firmware to support a BME280 sensor module.  This was accomplished with [**Docker**](https://www.docker.com/) and the container [**TasmoCompiler**](https://github.com/benzino77/tasmocompiler).  At the end, I showed how to update the firmware over-the-air and how to configure the template to interface with peripherals connected to GPIO pins.
+
+There are [many different ways of customizing a Tasmota firmware](https://tasmota.github.io/docs/Compile-your-build/).  TasmoCompiler is just one of them that does not use an IDE and has a user-friendly GUI.
+{: .notice .notice--info }
+
+## Installing Docker and running TasmoCompiler
+**Docker** is a ver well-known, documented, and used virtualization platform. To install Docker, follow the official documentation:
+
+* [**Get Docker** and **install it** on your OS](https://docs.docker.com/get-docker/)
+
+Once you have Docker up and running, it is time to pull and run the **TasmoCompiler** container. TasmoCompiler was developed by user [benzino77](https://github.com/benzino77) to do only one thing, namely compile a Tasmota firmware with customized settings via a simple (web) GUI.  To run it in a Docker container, **open a terminal** and pull the image, as follows:
+
+```
+docker pull benzino77/tasmocompiler
+```
+
+[![tasmocompiler pull](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-pull.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-pull.jpg)
+
+If you run into permission issues, either append `sudo` to any docker command or create and add your current user to a `docker` group, as follows: `sudo groupadd docker && sudo usermod -aG docker $USER`. Other post-install configurations for Linux users can be found at the official docs: [Optional post-install steps](https://docs.docker.com/engine/install/linux-postinstall/).
+{: .notice .notice--info }
+
+Then, run the `tasmocompiler` container, as follows:
+
+```
+docker run --rm --name tasmocompiler -p 3000:3000 -e DEBUG=server,git,compile benzino77/tasmocompiler
+```
+
+[![tasmocompiler run](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-run.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-run.jpg)
+
+Of course, if you use [Portainer](https://www.portainer.io/) or other application for managing your docker containers, you can also pull and run `tasmocompiler` via the application instead of a terminal.  In this case, translate the commands to your application.  This also applies to users who are not running Docker on Linux.
+{: .notice .notice--info }
+
+This will create a container named `tasmocompiler` that has a web GUI exposed on port `3000` of the local machine.  To access it, go to the following address using any web-browser: 
+
+* [**http://localhost:3000**](http://localhost:3000)
+
+## Customizing the tasmota32-webcam firmware
+Now that the `tasmocompiler` container is running, we can compile a new customized Tasmota firmware for the ESP32-cam in just a few simple steps:
+
+1. Open any web-browser and navigate to [**http://localhost:3000**](http://localhost:3000);
+
+2. In **Tasmota source code**, select *Refresh Source* (this can take a few minutes, depending on your connection) and afterwards, *Next*; 
+   
+   [![tasmocompiler step 01](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-step01.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-step01.jpg)
+
+3. In **WiFi configuration**, add your wifi credentials and hit *Next*;
+   
+   [![tasmocompiler step 02](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-step02.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-step02.jpg)
+
+4. In **Select Features**, select **ESP32 webcam** as your board.  For this example, we are adding the **BME280 sensor module** and therefore, in feature, we add the *Temp/Hum sensors* feature to support the BME280 sensor. If you are attaching another device, check the appropriate feature to support it here (e.g., check *Displays (I2C/SPI)* to support an OLED display module).  When done, hit *Next*;
+   
+   [![tasmocompiler step 03](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-step03.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-step03.jpg)
+
+5. It is not necessary to edit any parameter in **Custom Parameters**, so hit *Next*;
+
+6. Finally, in **Select Version and Compile**, choose a Tasmota version (*development* is usually fine but if you run into issues later on, try the latest stable) and base language for the interface.  Then, select **Compile** and wait until it is done (this can take a few minutes);
+
+   [![tasmocompiler step 05](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-step05.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-step05.jpg)
+
+   [![tasmocompiler step 06](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-step06.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-step06.jpg)
+
+7. Once it is done compiling, check that the firmware was successfully compiled and if all looks good, **download the firmware** (and optionally, any of the other files);
+
+   [![tasmocompiler step 07](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-step07.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-step07.jpg)
+
+If you run into issues, check the [issues tab](https://github.com/benzino77/tasmocompiler/issues) of the TasmoCompiler repository for open and closed issues similar to the one you are experiencing. If you do not find anything similar, open a new issue there to warn the developer know about it.
+
+## Updating the firmware
+If you have already flashed a pre-compiled Tasmota binary onto the ESP32-cam, then it is possible to update the firmware over-the-air (OTA).  To update the firmware OTA, do the following:
+
+1. Open a web-browser and go to the IP address of your Tasmota ESP32-cam;
+
+2. Then navigate to **Firmware Upgrade** > **Upgrade by file upload** > Browse and select the `firmware.bin` file you compiled with TasmoCompiler.  Afterwards, select **Start Upgrade** and wait until it is done;
+
+3. The device will reboot automatically and once it is back on, it should connect to the wireless network configured with TasmoCompiler.
+
+Now, if you have not flashed any pre-compiled Tasmota binary, simply switch the `tasmota32-webcam.bin` file mentioned in [Flashing Tasmota32 webcam server](#flashing-tasmota32-webcam-server) for the `firmware.bin` file you compiled with TasmoCompiler.
+
+## Wiring and template configuration
+Suppose we have a **BME280 sensor module** wired to an ESP32-cam (AI-Thinker) board as follows:
+
+[![Wiring BME280](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-wiring-bme280.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-wiring-bme280.jpg)
+
+Note that to use the VCC output pin as a 3.3V output pin, you need to make sure the board has a **resistor connecting the two 3v3 pads** and nothing connecting the two 5V pads. This was indicated by the red arrow in the image above. From my experience, a resistor connecting the 3v3 pads is the default for all ESP32-cam AI-Thinker boards, meaning that it should output 3.3V by default and if you want to change it to 5V, you need to desolder the resistor between the 3v3 pads and solder it between the 5V pads.  However, make sure to double check this before wiring any peripheral that will use the VCC out pin from the board.
+{:.notice .notice--warning}
+
+Then, now that the board is running a customized firmware that should support the BME280 sensor module, all that we need to do is to configure its template to inform the program about (a) which GPIO pins the peripheral is using and (b) how the pins should be configured.
+
+To configure the ESP32-cam template, do the following:
+
+1. Open a web-browser and go to the IP address of your Tasmota ESP32-cam;
+
+2. Follow the instructions in [**Updating the template**](#updating-the-template) if you have not done that before. Afterwards, navigate to **Configuration** > **Configure Other** > **Other parameters** > **Template** and make sure the **Activate** is checked. 
+
+3. Navigate to **Configuration** > **Configure Template**.  The name of the template should be the same one you specified in the previous step.  Remember that according to the wiring of the BME280 board, **SDA** and **SCL** are connected to pins **GPIO14** and **GPIO15**, respectively.  Therefore, **find the GPIO14 pin** and instead of `User`, select `I2C SDA`; and similarly, **find the GPIO15 pin** and instead of `User`, select `I2C SCL`.
+
+4. Hit *Save* and wait for the device to reboot. Once it comes back on, the firmware should automatically detect and configure the I2C device and on the **Main Page**, there should be some of the metrics associated with the device.  Because we are connecting the board to a BME280 sensor module, the Main page will show measures for the ambient temperature, humidity, dew point, and pressure.
+   
+   [![ESP32-cam BME280](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-bme280.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-bme280.jpg)
+
+   Of course, different peripherals will show different metrics, buttons, sliders, etc., on the main page. As before, the camera stream should be available on the main page and via port `81` at `/stream` and `cam.mjpeg`.
 
 [top](#){: .btn .btn--light-outline .btn--small}
 
