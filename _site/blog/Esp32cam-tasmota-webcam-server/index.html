@@ -377,7 +377,7 @@
       <li><a href="#standalone-wiring">Standalone wiring</a></li>
     </ul>
   </li>
-  <li><a href="#bonus-content-firmware-customization">Bonus-content: Firmware customization</a>
+  <li><a href="#bonus-content-firmware-customization">Bonus content: Firmware customization</a>
     <ul>
       <li><a href="#installing-docker-and-running-tasmocompiler">Installing Docker and running TasmoCompiler</a></li>
       <li><a href="#customizing-the-tasmota32-webcam-firmware">Customizing the tasmota32-webcam firmware</a></li>
@@ -804,8 +804,8 @@
 
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 
-<h1 id="bonus-content-firmware-customization">Bonus-content: Firmware customization</h1>
-<p>Even though many of GPIO pins in the ESP32-cam board are used for the built-in camera module, the board certainly has more than enough pins to interface with additional peripherals.  In other words, while you can use your ESP32-cam as a simple webcam server, it is possible–and as we will see, very easy–to turn it into something more than that, such as a weather station, smoke detector, relay controller, and so on, owning to the multitude of peripherals that are currently supported by the Tasmota firmware.  For an up-to-date list, see the <a href="https://tasmota.github.io/docs/Supported-Peripherals/#supported-peripherals"><strong>official Supported Peripherals table</strong></a>.</p>
+<h1 id="bonus-content-firmware-customization">Bonus content: Firmware customization</h1>
+<p>Even though many of the GPIO pins in the ESP32-cam board are used for the built-in camera module, the board certainly has more than enough pins to interface with additional peripherals.  In other words, while you can use your ESP32-cam as a simple webcam server, it is possible–and as we will see, very easy–to turn it into something more than that, such as a weather station, smoke detector, relay controller, and so on, owning to the multitude of peripherals that are currently supported by the Tasmota firmware.  For an up-to-date list, see the <a href="https://tasmota.github.io/docs/Supported-Peripherals/#supported-peripherals"><strong>official Supported Peripherals table</strong></a>.</p>
 
 <p>However, due to space limitations, support for some peripherals are not included in pre-compilled binaries.  In the official docs, for example, it says that support for the <a href="https://tasmota.github.io/docs/BME280/"><strong>BME280 sensor module</strong></a> is only available in the <code class="language-plaintext highlighter-rouge">tasmota-sensors.bin</code> pre-compiled binary.  Fortunately, it is now very easy to customize the <code class="language-plaintext highlighter-rouge">tasmota32-webcam.bin</code> to support the BME280 and any other supported peripherals.</p>
 
@@ -924,13 +924,15 @@
   </li>
   <li>
     <p>Navigate to <strong>Configuration</strong> &gt; <strong>Configure Template</strong>.  The name of the template should be the same one you specified in the previous step.  Remember that according to the wiring of the BME280 board, <strong>SDA</strong> and <strong>SCL</strong> are connected to pins <strong>GPIO14</strong> and <strong>GPIO15</strong>, respectively.  Therefore, <strong>find the GPIO14 pin</strong> and instead of <code class="language-plaintext highlighter-rouge">User</code>, select <code class="language-plaintext highlighter-rouge">I2C SDA</code>; and similarly, <strong>find the GPIO15 pin</strong> and instead of <code class="language-plaintext highlighter-rouge">User</code>, select <code class="language-plaintext highlighter-rouge">I2C SCL</code>.</p>
+
+    <p><a href="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-template-bme280.jpg"><img src="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-template-bme280.jpg" alt="BME280 template" class="PostImage" /></a></p>
   </li>
   <li>
     <p>Hit <em>Save</em> and wait for the device to reboot. Once it comes back on, the firmware should automatically detect and configure the I2C device and on the <strong>Main Page</strong>, there should be some of the metrics associated with the device.  Because we are connecting the board to a BME280 sensor module, the Main page will show measures for the ambient temperature, humidity, dew point, and pressure.</p>
 
     <p><a href="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-bme280.jpg"><img src="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-bme280.jpg" alt="ESP32-cam BME280" class="PostImage PostImage--large" /></a></p>
 
-    <p>Of course, different peripherals will show different metrics, buttons, sliders, etc., on the main page. As before, the camera stream should be available on the main page and via port <code class="language-plaintext highlighter-rouge">81</code> at <code class="language-plaintext highlighter-rouge">/stream</code> and <code class="language-plaintext highlighter-rouge">cam.mjpeg</code>.</p>
+    <p>Of course, different peripherals will show different metrics, buttons, sliders, etc., on the main page. As before, the camera stream should be available on the main page and via port <code class="language-plaintext highlighter-rouge">81</code> at <code class="language-plaintext highlighter-rouge">/stream</code> and <code class="language-plaintext highlighter-rouge">/cam.mjpeg</code>.</p>
   </li>
 </ol>
 

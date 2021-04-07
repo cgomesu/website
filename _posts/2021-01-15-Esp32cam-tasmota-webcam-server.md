@@ -328,8 +328,8 @@ If you bought a USB to DIP adapter, you can now power your ESP32-cam independent
 [top](#){: .btn .btn--light-outline .btn--small}
 
 
-# Bonus-content: Firmware customization
-Even though many of GPIO pins in the ESP32-cam board are used for the built-in camera module, the board certainly has more than enough pins to interface with additional peripherals.  In other words, while you can use your ESP32-cam as a simple webcam server, it is possible--and as we will see, very easy--to turn it into something more than that, such as a weather station, smoke detector, relay controller, and so on, owning to the multitude of peripherals that are currently supported by the Tasmota firmware.  For an up-to-date list, see the [**official Supported Peripherals table**](https://tasmota.github.io/docs/Supported-Peripherals/#supported-peripherals).
+# Bonus content: Firmware customization
+Even though many of the GPIO pins in the ESP32-cam board are used for the built-in camera module, the board certainly has more than enough pins to interface with additional peripherals.  In other words, while you can use your ESP32-cam as a simple webcam server, it is possible--and as we will see, very easy--to turn it into something more than that, such as a weather station, smoke detector, relay controller, and so on, owning to the multitude of peripherals that are currently supported by the Tasmota firmware.  For an up-to-date list, see the [**official Supported Peripherals table**](https://tasmota.github.io/docs/Supported-Peripherals/#supported-peripherals).
 
 However, due to space limitations, support for some peripherals are not included in pre-compilled binaries.  In the official docs, for example, it says that support for the [**BME280 sensor module**](https://tasmota.github.io/docs/BME280/) is only available in the `tasmota-sensors.bin` pre-compiled binary.  Fortunately, it is now very easy to customize the `tasmota32-webcam.bin` to support the BME280 and any other supported peripherals.
 
@@ -430,12 +430,14 @@ To configure the ESP32-cam template, do the following:
 2. Follow the instructions in [**Updating the template**](#updating-the-template) if you have not done that before. Afterwards, navigate to **Configuration** > **Configure Other** > **Other parameters** > **Template** and make sure the **Activate** is checked. 
 
 3. Navigate to **Configuration** > **Configure Template**.  The name of the template should be the same one you specified in the previous step.  Remember that according to the wiring of the BME280 board, **SDA** and **SCL** are connected to pins **GPIO14** and **GPIO15**, respectively.  Therefore, **find the GPIO14 pin** and instead of `User`, select `I2C SDA`; and similarly, **find the GPIO15 pin** and instead of `User`, select `I2C SCL`.
+   
+   [![BME280 template](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-template-bme280.jpg){:.PostImage}](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-template-bme280.jpg)
 
 4. Hit *Save* and wait for the device to reboot. Once it comes back on, the firmware should automatically detect and configure the I2C device and on the **Main Page**, there should be some of the metrics associated with the device.  Because we are connecting the board to a BME280 sensor module, the Main page will show measures for the ambient temperature, humidity, dew point, and pressure.
    
    [![ESP32-cam BME280](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-bme280.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-bme280.jpg)
 
-   Of course, different peripherals will show different metrics, buttons, sliders, etc., on the main page. As before, the camera stream should be available on the main page and via port `81` at `/stream` and `cam.mjpeg`.
+   Of course, different peripherals will show different metrics, buttons, sliders, etc., on the main page. As before, the camera stream should be available on the main page and via port `81` at `/stream` and `/cam.mjpeg`.
 
 [top](#){: .btn .btn--light-outline .btn--small}
 
