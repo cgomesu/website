@@ -159,9 +159,8 @@ This is a non-exhaustive list of systems and applications that I'm particularly 
 [top](#){: .btn .btn--light-outline .btn--small}
 
 ## Data Analysis
-* GPT, multiTree, HMMTree
-
-  A collection of applications for the analysis of multinomial processing tree (MPT) models.  I'm listing here just for historical purposes.  R packages provide a much more conveninent way of working with datasets and MPT models.
+* [IBM SPSS](https://www.ibm.com/products/spss-statistics)
+  > IBM SPSS Statistics is a software package used for interactive, or batched, statistical analysis. 
 
 * [JAGS](http://mcmc-jags.sourceforge.net/)
   > Just another Gibbs sampler is a program for simulation from Bayesian hierarchical models using Markov chain Monte Carlo, developed by Martyn Plummer. JAGS has been employed for statistical work in many fields, for example ecology, management, and genetics.
@@ -169,13 +168,14 @@ This is a non-exhaustive list of systems and applications that I'm particularly 
 * [MATLAB](https://www.mathworks.com/products/matlab.html)
   > MATLAB is a multi-paradigm numerical computing environment and proprietary programming language developed by MathWorks. MATLAB allows matrix manipulations, plotting of functions and data, implementation of algorithms, creation of user interfaces, and interfacing with programs written in other languages.
 
+* Multinomial analysis (GPT, multiTree, HMMTree; MPTinR and TreeBUGS R pkgs)
+
+  A collection of applications for the analysis of multinomial processing tree (MPT) models.  I'm listing here just for historical purposes.  R packages provide a much more conveninent way of working with datasets and MPT models.
+
 * [R Project for Statistical Computing](https://www.r-project.org/)
   > R is a programming language and free software environment for statistical computing and graphics supported by the R Foundation for Statistical Computing. The R language is widely used among statisticians and data miners for developing statistical software and data analysis.
 
-* [SPSS](https://www.ibm.com/products/spss-statistics)
-  > SPSS Statistics is a software package used for interactive, or batched, statistical analysis. 
-
-* [WinBUGS](https://www.mrc-bsu.cam.ac.uk/software/bugs/the-bugs-project-winbugs/)
+* [Win/OpenBUGS](https://www.mrc-bsu.cam.ac.uk/software/bugs/the-bugs-project-winbugs/)
   > WinBUGS is statistical software for Bayesian analysis using Markov chain Monte Carlo methods.
 
 [top](#){: .btn .btn--light-outline .btn--small}
@@ -277,8 +277,14 @@ This is a non-exhaustive list of systems and applications that I'm particularly 
   > Wireshark is a free and open-source packet analyzer. It is used for network troubleshooting, analysis, software and communications protocol development, and education.
 
 ### Remote Connectivity
+* [AnyDesk](https://www.anydesk.com/)
+  > AnyDesk is a remote desktop application distributed by AnyDesk Software GmbH. The proprietary software program provides platform independent remote access to personal computers and other devices running the host application. It offers remote control, file transfer, and VPN functionality.
+
 * [MeshCentral](https://meshcentral.com/info/)
   > MeshCentral is a community driven open source remote management web site built on NodeJS and available freely on NPM. You can get started with the "Public Server Login" button on the upper right to use the public at your own risk community server for free and then move on to installing your own server. The server and management agent run on Windows, Linux, MacOS and FreeBSD. 
+
+* [ngrok](https://ngrok.com/)
+  > Ngrok exposes local servers behind NATs and firewalls to the public internet over secure tunnels.
 
 * [OpenSSH](https://www.openssh.com/)
   > OpenSSH is the premier connectivity tool for remote login with the SSH protocol. It encrypts all traffic to eliminate eavesdropping, connection hijacking, and other attacks. In addition, OpenSSH provides a large suite of secure tunneling capabilities, several authentication methods, and sophisticated configuration options. 
@@ -327,6 +333,9 @@ This is a non-exhaustive list of systems and applications that I'm particularly 
 [top](#){: .btn .btn--light-outline .btn--small}
 
 ## RDBMS
+* [MySQL](https://www.mysql.com/)
+  > MySQL is an open-source relational database management system.
+
 * [SQLite](https://sqlite.org/index.html)
   > SQLite is a relational database management system contained in a C library. In contrast to many other database management systems, SQLite is not a client–server database engine. Rather, it is embedded into the end program. SQLite is ACID-compliant and implements most of the SQL standard, generally following PostgreSQL syntax.
 
@@ -334,6 +343,9 @@ This is a non-exhaustive list of systems and applications that I'm particularly 
 
 ## Storage
 ### Backup
+* [Borg](https://www.borgbackup.org/)
+  > Deduplicating archiver with compression and encryption
+
 * [Duplicati](https://www.duplicati.com/)
   > Duplicati is a backup client that securely stores encrypted, incremental, compressed remote backups of local files on cloud storage services and remote file servers. Duplicati supports not only various online backup services like OneDrive, Amazon S3, Backblaze, Rackspace Cloud Files, Tahoe LAFS, and Google Drive, but also any servers that support SSH/SFTP, WebDAV, or FTP.
 
