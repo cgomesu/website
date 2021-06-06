@@ -1,0 +1,782 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.19.3 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Towards a smarter Home Assistant: Getting started on dynamic statistical analysis of devices, sensors, and services - CGomesu</title>
+<meta name="description" content="A blog and portfolio website built with Jekyll and hosted on Github Pages">
+
+
+  <meta name="author" content="Carlos Gomes">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="CGomesu">
+<meta property="og:title" content="Towards a smarter Home Assistant: Getting started on dynamic statistical analysis of devices, sensors, and services">
+<meta property="og:url" content="/blog/smarter-hass/">
+
+
+  <meta property="og:description" content="A blog and portfolio website built with Jekyll and hosted on Github Pages">
+
+
+
+  <meta property="og:image" content="/assets/posts/2021-06-04-smarter-hass/header.jpg">
+
+
+
+
+
+  <meta property="article:published_time" content="2021-06-04T10:40:00-03:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="/blog/smarter-hass/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "",
+      "url": "/"
+    
+  }
+</script>
+
+
+  <meta name="google-site-verification" content="FA-B3i_TqYeaLPYwZvxxOsx07Coy_drBKJ0M_4DD0Gw" />
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="CGomesu Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="icon" href="/assets/img/site/favicon.ico" type="image/x-icon">
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/img/site/logo.png" alt=""></a>
+        
+        <a class="site-title" href="/">
+           
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/blog/">Blog</a>
+            </li><li class="masthead__menu-item">
+              <a href="/contact/">Contact</a>
+            </li><li class="masthead__menu-item">
+              <a href="/mtg/">MtG</a>
+            </li><li class="masthead__menu-item">
+              <a href="/publications/">Publications</a>
+            </li><li class="masthead__menu-item">
+              <a href="/projects/">Projects</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style="background-color: #000; background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/assets/posts/2021-06-04-smarter-hass/header.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 id="page-title" class="page__title" itemprop="headline">
+        
+          Towards a smarter Home Assistant: Getting started on dynamic statistical analysis of devices, sensors, and services
+
+        
+      </h1>
+      
+        <p class="page__lead">
+</p>
+      
+      
+        <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  13 minute read
+
+</p>
+      
+      
+      
+    </div>
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/img/profile/profile-00.jpg" alt="Carlos Gomes" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Carlos Gomes</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>I’m a scientist, psychologist, math modeler, programmer, mtg player, free knowledge supporter, sbc fanatic, and electronics hobbyist.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Brazil</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="mailto:me@cgomesu.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Main e-mail</span></a></li>
+          
+        
+          
+        
+          
+            <li><a href="https://cgomesu.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">https://cgomesu.com</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Towards a smarter Home Assistant: Getting started on dynamic statistical analysis of devices, sensors, and services">
+    <meta itemprop="description" content="">
+    <meta itemprop="datePublished" content="2021-06-04T10:40:00-03:00">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-list"></i> Table of Contents</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#changelog">Changelog</a></li>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#outline">Outline</a></li>
+  <li><a href="#prerequisites">Prerequisites</a>
+    <ul>
+      <li><a href="#hass-core">HASS Core</a></li>
+      <li><a href="#yaml-syntax">YAML syntax</a></li>
+      <li><a href="#hass-database">HASS database</a></li>
+      <li><a href="#statistics">Statistics</a></li>
+    </ul>
+  </li>
+  <li><a href="#implementation">Implementation</a>
+    <ul>
+      <li><a href="#data-properties">Data properties</a></li>
+      <li><a href="#utilities">Utilities</a>
+        <ul>
+          <li><a href="#history-stats">History Stats</a></li>
+          <li><a href="#statistics-1">Statistics</a></li>
+          <li><a href="#trend">Trend</a></li>
+          <li><a href="#integration">Integration</a></li>
+        </ul>
+      </li>
+      <li><a href="#statistical-inference">Statistical inference</a>
+        <ul>
+          <li><a href="#visualizing-inferences">Visualizing inferences</a></li>
+        </ul>
+      </li>
+      <li><a href="#inferential-automations">Inferential automations</a></li>
+    </ul>
+  </li>
+  <li><a href="#development">Development</a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
+        <h1 id="changelog">Changelog</h1>
+<p class="notice notice--info"><strong>June 4th, 2021</strong>: Publication of the original article</p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="introduction">Introduction</h1>
+<p><a href="https://www.home-assistant.io/">Home Assistant</a> (HASS) is a free and open-source software (FOSS) that provides a feature-rich environment for managing, controlling, and automating smart home devices, such as light bulbs, blinders, and LED strips.  In addition, it provides a highly customizable system for collecting and organizing a multitude of data (e.g., on/off device states, local temperature, GPS tracking information, exchange rates), as provided by <strong>more than a thousand <a href="https://www.home-assistant.io/integrations">integrations</a></strong> with local <a href="https://en.wikipedia.org/wiki/Internet_of_things">Internet of things</a> (IoT) devices and sensors (e.g., micro-controllers or single-board computers connected to sensor modules) and cloud-based services (e.g., weather and financial web APIs).</p>
+
+<p><a href="/assets/posts/2021-06-04-smarter-hass/hass-demo.jpg"><img src="/assets/posts/2021-06-04-smarter-hass/hass-demo.jpg" alt="HASS demo frontend" class="PostImage PostImage--large" /></a></p>
+
+<p>More often than not, people use HASS to view or modify the <strong>current state and value</strong> of integrated devices and sensors via manual triggers (e.g., pressing a button to turn off the AC) or automations (e.g., if the temperature is lower than 14°C, then turn on the heat).  However, the <a href="https://www.home-assistant.io/integrations#utility">HASS utility integrations</a> offer users the possibility to go (way) beyond with the help of built-in mathematical and statistical tools.  More specifically, such <strong>analytical tools</strong> allow users to summarize past states and measurements to answer questions such as:</p>
+
+<ul>
+  <li>How many times has the front door been opened over the last 24hrs and for how long?</li>
+  <li>How much energy (kWh) has my uninterrupted power supply used over the last month?</li>
+  <li>What was the average temperature in the living-room during yesterday’s morning, afternoon, and evening?  What about last week?</li>
+  <li>What is the average level of volatile organic compounds (VOC) measured by the <a href="https://www.bosch-sensortec.com/products/environmental-sensors/gas-sensors/bme680/">BME680 sensor</a> in my bedroom?  How much does it change over the day?</li>
+</ul>
+
+<p><a href="/assets/posts/2021-06-04-smarter-hass/voc-plot.jpg"><img src="/assets/posts/2021-06-04-smarter-hass/voc-plot.jpg" alt="VOC plot" class="PostImage PostImage--large" /></a></p>
+
+<p>In addition, the same analytical tools can be used to make statistical, data-driven inferences about the <strong>future states</strong> of smart devices and sensors to create what I call <em>inferential automations</em>. Inferential automations determine actions based on abnormal states and measurements, for example, or reliable tendencies over a user-specified period of time:</p>
+
+<ul>
+  <li>if the temperature started <em>decreasing significantly over the last five minutes</em>, then ___ .</li>
+  <li>if the VOC started <em>increasing significantly over the last fifteen minutes</em>, then ___ .</li>
+  <li>if the water level is <em>significantly lower than yesterday</em>, then ___ .</li>
+  <li>if the number of detected cars on my camera is <em>significantly higher than thirty minutes ago</em>, then ___ .</li>
+</ul>
+
+<p><a href="/assets/posts/2021-06-04-smarter-hass/voc-plot-linear-fit.jpg"><img src="/assets/posts/2021-06-04-smarter-hass/voc-plot-linear-fit.jpg" alt="VOC plot linear fit" class="PostImage PostImage--large" /></a></p>
+
+<p>Unfortunately, according to the HASS website, the <a href="https://www.home-assistant.io/integrations/statistics/">Statistics</a> and related utilities are currently used by less than 5% of the HASS userbase.  I feel there is much to be explored and gained from the application of <strong>dynamic statistical inferences</strong> in home automation systems.  To mention a few reasons, sensors are susceptible to measurement error and many user-defined events (e.g., Carlos is at home) are multidimensional and frequently determined by more factors than integrated with a home automation system (e.g., my cellphone connected to my home’s private network is not a sufficient condition to tell that I’m at home but it does inform about the likelihood that I am at home).  This creates uncertainty about the current and future states of things but fortunately, the uncertainty can be quantified and taken into account by various statistical tools that have already been developed.</p>
+
+<p>Furthermore, the fact that HASS integrations are written in the <a href="https://www.python.org/">Python programming language</a> makes HASS a prime candidate for exploring the use of statistical inference in home automation systems because many statistical packages are already available in Python and are widely used and well-maintained (e.g., <a href="https://pypi.org/project/numpy/"><code class="language-plaintext highlighter-rouge">numpy</code></a> and <a href="https://pypi.org/project/scipy/"><code class="language-plaintext highlighter-rouge">scipy</code></a>). Therefore, porting new and more sophisticated analytical tools to HASS should be fairly straightforward.  (More on this in the <a href="#development">Development</a> section).</p>
+
+<p>If you find these ideas interesting and want to get started on their implementation in your own personal HASS instances, then read on.  As in my previous guides and tutorials, I tried to unpack and digest as much of the content as possible, the goal being to make it accessible to experts as well as novices.  Check the <a href="#changelog">Changelog</a> for updates and if you ever get stuck on something or just want to share a few ideas and opinions, feel free to <a href="/contact">get in touch with me</a>.</p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="outline">Outline</h1>
+<ul>
+  <li>TODO: General picture of the structure</li>
+</ul>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="prerequisites">Prerequisites</h1>
+<p>The implementation of analytical tools in HASS the following basic requirements:</p>
+
+<ol>
+  <li>A <a href="#hass-core">HASS <strong>Core</strong></a> instance;</li>
+  <li>Understanding of the <a href="#yaml-syntax"><strong>YAML</strong> syntax</a>;</li>
+  <li>Understanding the <a href="#hass-database">HASS <strong>database</strong></a>;</li>
+  <li>And of course, <a href="#statistics">basic <strong>statistics</strong></a> knowledge.</li>
+</ol>
+
+<p>Those four topics are described separately next.  If you are already familiar with them, feel free to skip straight to the main <a href="#implementation">Implementation</a> section.  However, at the very least, I suggest to glance over each topic to make sure we are on the same page before moving on.</p>
+
+<h2 id="hass-core">HASS Core</h2>
+<p>Structurally, HASS can be divided into three main layers: (a) Core; (b) Supervisor; and (c) Operating System (OS).  The folks at the HASS wiki were kind enough to put together a plethora of <a href="https://www.home-assistant.io/installation/">installation methods</a> for all sorts of OSes and environments (bare-metal vs. virtual).  For this guide, however, only the most basic component of the HASS system is needed, namely the <strong>HASS Core</strong>, which is available in <em>any</em> installation method.</p>
+
+<p>Instead of using an existing HASS instance, I <strong>strongly</strong> recommend to <strong>create a containerized (Docker) HASS instance</strong> for testing purposes.  This will be much safer than playing with an existing HASS instance and its database.</p>
+
+<p>To create a HASS Docker container, follow the instructions in the <strong>official documentation</strong>:</p>
+
+<ol>
+  <li><a href="https://docs.docker.com/engine/install/">Install <strong>Docker Engine - Community Edition</strong></a>;</li>
+  <li>(<em>Optional</em>.) <a href="https://documentation.portainer.io/v2.0/deploy/ceinstalldocker/">Install <strong>Portainer - Community Edition</strong></a> to manage your Docker containers;</li>
+  <li><a href="https://www.home-assistant.io/installation/linux#install-home-assistant-container">Install <strong>HASS Docker container</strong></a>.</li>
+</ol>
+
+<p>Of note, after deploying the HASS container, use a host’s text editor (e.g., <code class="language-plaintext highlighter-rouge">nano</code>, <code class="language-plaintext highlighter-rouge">vi</code>, <code class="language-plaintext highlighter-rouge">vim</code>, <code class="language-plaintext highlighter-rouge">pluma</code>) to edit the <code class="language-plaintext highlighter-rouge">configuration.yaml</code> file and related configuration files.  If you create a new <code class="language-plaintext highlighter-rouge">.yaml</code> file, make sure that the HASS user will have permission to read it, or you will run into issues.  Finally, in the HASS webUI, your user must be able to access the <a href="https://www.home-assistant.io/docs/tools/dev-tools/"><strong>Developer Tools</strong> &gt; Services</a> tab to check the state of each entity and their attributes.  The default admin user should have access to such a resource.</p>
+
+<h2 id="yaml-syntax">YAML syntax</h2>
+<ul>
+  <li>Basics (https://www.home-assistant.io/docs/configuration/yaml/)</li>
+  <li>Spiting up the <code class="language-plaintext highlighter-rouge">configuration.yaml</code> with <code class="language-plaintext highlighter-rouge">!include</code> statements and additional <code class="language-plaintext highlighter-rouge">*.yaml</code> files</li>
+  <li>Reloading the <code class="language-plaintext highlighter-rouge">configuration.yaml</code></li>
+</ul>
+
+<h2 id="hass-database">HASS database</h2>
+<ul>
+  <li>RDBMSes (HASS uses SQLite by default but you can create an use another RDBMSes, like MongoDB and MySQL)</li>
+  <li>Settings (by default, HASS uses 10 days autopurge, 10sec DB write resolution, etc.)</li>
+  <li>DB storage considerations</li>
+  <li>Customization via <code class="language-plaintext highlighter-rouge">recorder:</code></li>
+</ul>
+
+<h2 id="statistics">Statistics</h2>
+<ul>
+  <li>Assume very basic statistical knowledge
+    <ul>
+      <li>Reference to free online stats material</li>
+      <li>Reference to good intro books</li>
+    </ul>
+  </li>
+  <li>Only simple, widely used inferential methods will be referred to here</li>
+  <li>The possibilities are endless for knowledgeable users (application of Bayesian methods, hierarchical modeling, and so on.).  See notes on how to help to developing (porting) new analytic tools (integrations) for the HASS environment.</li>
+</ul>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="implementation">Implementation</h1>
+<ul>
+  <li>HASS utility integrations (https://www.home-assistant.io/integrations/#utility)
+    <ul>
+      <li>general picture of the ones I find most useful and mentioned here</li>
+      <li>mention the last topic about development of new, more general analytic tools (porting numpy and other Py packages used in statistical analysis and mathematical modeling)</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="data-properties">Data properties</h2>
+<ul>
+  <li>Discrete vs. continuous</li>
+  <li>How the data from each sensor is being collected</li>
+  <li>Examples of sensor data (finance, weather, energy, object detection, gps tracking, etc)</li>
+  <li>Setting up the data used to illustrate the application of inferential automations: Weather data</li>
+</ul>
+
+<h2 id="utilities">Utilities</h2>
+<ul>
+  <li>Tools to prepare the collected data for inferential automations</li>
+  <li>Each covered utility includes an usage example that anyone can follow along using a fresh or existing HASS instance</li>
+</ul>
+
+<h3 id="history-stats">History Stats</h3>
+<ul>
+  <li>Counting, compute ratios and state duration over a user-specified time</li>
+  <li>Overview of the doc and configuration</li>
+  <li>
+    <p>Illustrate usage with an example anyone can use and follow along</p>
+  </li>
+  <li>Additional content
+    <ul>
+      <li>Codes and docs:
+        <ul>
+          <li>HASS doc: https://www.home-assistant.io/integrations/history_stats/</li>
+          <li>HASS Github: https://github.com/home-assistant/core/tree/dev/homeassistant/components/history_stats</li>
+          <li>Methods defined by the integration itself (no external dependencies)</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="statistics-1">Statistics</h3>
+<ul>
+  <li>Multiple, general purpose descriptive statistics</li>
+  <li>Overview of the doc and configuration</li>
+  <li>
+    <p>Illustrate with an example</p>
+  </li>
+  <li>Additional content
+    <ul>
+      <li>Codes and docs:
+        <ul>
+          <li>HASS doc: https://www.home-assistant.io/integrations/statistics/</li>
+          <li>HASS Github: https://github.com/home-assistant/core/blob/dev/homeassistant/components/statistics/sensor.py</li>
+          <li>Python (statistics core pkg): https://docs.python.org/3/library/statistics.html</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="trend">Trend</h3>
+<ul>
+  <li>Of note, depends on the <code class="language-plaintext highlighter-rouge">numpy</code> Python pkg.  More specifically, uses the <code class="language-plaintext highlighter-rouge">np.polyfit(time, values, degree=1)</code> method to estimate the slope of a linear function over a user-speficied time period (gradient).</li>
+  <li>Note about the comparison between the Trend utility vs. Derivative: Derivative is just for the last two values over the last two time points; trend can accomplish the same thing for n=2 and can.</li>
+  <li>Overview of the doc</li>
+  <li>
+    <p>Illustrate with an example anyone can use and follow along</p>
+  </li>
+  <li>Additional content
+    <ul>
+      <li>Codes and docs:
+        <ul>
+          <li>HASS doc: https://www.home-assistant.io/integrations/trend/</li>
+          <li>HASS Github: https://github.com/home-assistant/core/blob/dev/homeassistant/components/trend/binary_sensor.py</li>
+          <li>Python (NumPy): https://numpy.org/doc/stable/reference/generated/numpy.polyfit.html</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="integration">Integration</h3>
+<ul>
+  <li>
+    <p>Area under the curve; cumulative measures, such as kWh for energy consumption</p>
+  </li>
+  <li>
+    <p>Additional content</p>
+    <ul>
+      <li>Codes and docs:
+        <ul>
+          <li>HASS doc: https://www.home-assistant.io/integrations/integration/</li>
+          <li>HASS Github: https://github.com/home-assistant/core/blob/dev/homeassistant/components/integration/sensor.py</li>
+          <li>Methods defined by the integration itself (no external dependencies)</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="statistical-inference">Statistical inference</h2>
+<ul>
+  <li>Where your statistics knowledge comes in</li>
+  <li>At the very basic level:
+    <ul>
+      <li>Confidence intervals (CI): https://www.statology.org/test-significance-regression-slope/</li>
+      <li>Distance from the mean in SD units</li>
+    </ul>
+  </li>
+  <li>Notes on sample, power, and null hypothesis testing for robust dynamic predictions</li>
+</ul>
+
+<h3 id="visualizing-inferences">Visualizing inferences</h3>
+<ul>
+  <li>Making use of HASS built-in visualization tools
+    <ul>
+      <li>Historical plots</li>
+      <li>Filters (state_filter gradients) to create heatmaps</li>
+    </ul>
+  </li>
+  <li>Customized plots</li>
+</ul>
+
+<h2 id="inferential-automations">Inferential automations</h2>
+<ul>
+  <li>Automations based on future states</li>
+</ul>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="development">Development</h1>
+<ul>
+  <li>A lot more can be done via templating but consider developing and porting new analytic tools as utility integrations
+    <ul>
+      <li>Develop new integrations: https://developers.home-assistant.io/docs/development_index/</li>
+    </ul>
+  </li>
+  <li>Ideas
+    <ul>
+      <li>Generalized polynomial fits for the Trend utility, instead of the forced linear
+        <ul>
+          <li>default degree = 1 assures backward compatibility</li>
+        </ul>
+      </li>
+      <li>Correlations (linear, rank)</li>
+      <li>Genrealized linear models and other common statistical models</li>
+      <li>Endless possibilities for analytic tool development; most require simple porting to the HASS environment because we already have many Python pkgs for statistical analysis (e.g., SciPy)</li>
+    </ul>
+  </li>
+</ul>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>This is all served via a beautiful and configurable web interface that can be accessed both locally and remotely using either any of the popular web browsers or its official app for <a href="https://play.google.com/store/apps/details?id=io.homeassistant.companion.android">Android</a> and <a href="https://apps.apple.com/us/app/home-assistant/id1099568401">iOS</a>.</p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Posted on:</strong> <time datetime="2021-06-04T10:40:00-03:00">June 4, 2021</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="mailto:?subject=[cgomesu.com] Towards a smarter Home Assistant: Getting started on dynamic statistical analysis of devices, sensors, and services&amp;body=%2Fblog%2Fsmarter-hass%2F " class="btn btn--inverse" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on E-mail"><i class="fas fa-envelope" aria-hidden="true"></i><span> E-mail</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2Fblog%2Fsmarter-hass%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.reddit.com/submit?title=Towards a smarter Home Assistant: Getting started on dynamic statistical analysis of devices, sensors, and services&url=%2Fblog%2Fsmarter-hass%2F" class="btn btn--reddit" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Reddit"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i><span> Reddit</span></a>
+
+  <a href="https://twitter.com/intent/tweet?text=Towards+a+smarter+Home+Assistant%3A+Getting+started+on+dynamic+statistical+analysis+of+devices%2C+sensors%2C+and+services%20%2Fblog%2Fsmarter-hass%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/blog/chimarrao-gaucho/" class="pagination--pager" title="How to make a chimarrão Gaúcho
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search terms here...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search terms here..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/cgomesu" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          <li><a href="https://www.reddit.com/user/cgomesu/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i> Reddit</a></li>
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> RSS feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 CGomesu - Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> and <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a></div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

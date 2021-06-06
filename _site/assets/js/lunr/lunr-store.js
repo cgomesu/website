@@ -76,4 +76,10 @@ var store = [{
         "tags": ["culture","food","beverage","brazil"],
         "url": "/blog/chimarrao-gaucho/",
         "teaser": null
+      },{
+        "title": "Towards a smarter Home Assistant: Getting started on dynamic statistical analysis of devices, sensors, and services",
+        "excerpt":"Changelog June 4th, 2021: Publication of the original article top Introduction Home Assistant (HASS) is a free and open-source software (FOSS) that provides a feature-rich environment for managing, controlling, and automating smart home devices, such as light bulbs, blinders, and LED strips. In addition, it provides a highly customizable system...","categories": ["blog"],
+        "tags": ["hass","iot","automation","math","stats"],
+        "url": "/blog/smarter-hass/",
+        "teaser": null
       }]

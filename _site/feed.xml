@@ -1,4 +1,268 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-06-03T15:07:37-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">How to make a chimarrão Gaúcho</title><link href="/blog/chimarrao-gaucho/" rel="alternate" type="text/html" title="How to make a chimarrão Gaúcho" /><published>2021-03-09T12:30:00-03:00</published><updated>2021-03-09T12:30:00-03:00</updated><id>/blog/chimarrao-gaucho</id><content type="html" xml:base="/blog/chimarrao-gaucho/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-06-06T15:50:10-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">Towards a smarter Home Assistant: Getting started on dynamic statistical analysis of devices, sensors, and services</title><link href="/blog/smarter-hass/" rel="alternate" type="text/html" title="Towards a smarter Home Assistant: Getting started on dynamic statistical analysis of devices, sensors, and services" /><published>2021-06-04T10:40:00-03:00</published><updated>2021-06-04T10:40:00-03:00</updated><id>/blog/smarter-hass</id><content type="html" xml:base="/blog/smarter-hass/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+&lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;June 4th, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.home-assistant.io/&quot;&gt;Home Assistant&lt;/a&gt; (HASS) is a free and open-source software (FOSS) that provides a feature-rich environment for managing, controlling, and automating smart home devices, such as light bulbs, blinders, and LED strips.  In addition, it provides a highly customizable system for collecting and organizing a multitude of data (e.g., on/off device states, local temperature, GPS tracking information, exchange rates), as provided by &lt;strong&gt;more than a thousand &lt;a href=&quot;https://www.home-assistant.io/integrations&quot;&gt;integrations&lt;/a&gt;&lt;/strong&gt; with local &lt;a href=&quot;https://en.wikipedia.org/wiki/Internet_of_things&quot;&gt;Internet of things&lt;/a&gt; (IoT) devices and sensors (e.g., micro-controllers or single-board computers connected to sensor modules) and cloud-based services (e.g., weather and financial web APIs).&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-06-04-smarter-hass/hass-demo.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-06-04-smarter-hass/hass-demo.jpg&quot; alt=&quot;HASS demo frontend&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;More often than not, people use HASS to view or modify the &lt;strong&gt;current state and value&lt;/strong&gt; of integrated devices and sensors via manual triggers (e.g., pressing a button to turn off the AC) or automations (e.g., if the temperature is lower than 14°C, then turn on the heat).  However, the &lt;a href=&quot;https://www.home-assistant.io/integrations#utility&quot;&gt;HASS utility integrations&lt;/a&gt; offer users the possibility to go (way) beyond with the help of built-in mathematical and statistical tools.  More specifically, such &lt;strong&gt;analytical tools&lt;/strong&gt; allow users to summarize past states and measurements to answer questions such as:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;How many times has the front door been opened over the last 24hrs and for how long?&lt;/li&gt;
+  &lt;li&gt;How much energy (kWh) has my uninterrupted power supply used over the last month?&lt;/li&gt;
+  &lt;li&gt;What was the average temperature in the living-room during yesterday’s morning, afternoon, and evening?  What about last week?&lt;/li&gt;
+  &lt;li&gt;What is the average level of volatile organic compounds (VOC) measured by the &lt;a href=&quot;https://www.bosch-sensortec.com/products/environmental-sensors/gas-sensors/bme680/&quot;&gt;BME680 sensor&lt;/a&gt; in my bedroom?  How much does it change over the day?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-06-04-smarter-hass/voc-plot.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-06-04-smarter-hass/voc-plot.jpg&quot; alt=&quot;VOC plot&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;In addition, the same analytical tools can be used to make statistical, data-driven inferences about the &lt;strong&gt;future states&lt;/strong&gt; of smart devices and sensors to create what I call &lt;em&gt;inferential automations&lt;/em&gt;. Inferential automations determine actions based on abnormal states and measurements, for example, or reliable tendencies over a user-specified period of time:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;if the temperature started &lt;em&gt;decreasing significantly over the last five minutes&lt;/em&gt;, then ___ .&lt;/li&gt;
+  &lt;li&gt;if the VOC started &lt;em&gt;increasing significantly over the last fifteen minutes&lt;/em&gt;, then ___ .&lt;/li&gt;
+  &lt;li&gt;if the water level is &lt;em&gt;significantly lower than yesterday&lt;/em&gt;, then ___ .&lt;/li&gt;
+  &lt;li&gt;if the number of detected cars on my camera is &lt;em&gt;significantly higher than thirty minutes ago&lt;/em&gt;, then ___ .&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-06-04-smarter-hass/voc-plot-linear-fit.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-06-04-smarter-hass/voc-plot-linear-fit.jpg&quot; alt=&quot;VOC plot linear fit&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Unfortunately, according to the HASS website, the &lt;a href=&quot;https://www.home-assistant.io/integrations/statistics/&quot;&gt;Statistics&lt;/a&gt; and related utilities are currently used by less than 5% of the HASS userbase.  I feel there is much to be explored and gained from the application of &lt;strong&gt;dynamic statistical inferences&lt;/strong&gt; in home automation systems.  To mention a few reasons, sensors are susceptible to measurement error and many user-defined events (e.g., Carlos is at home) are multidimensional and frequently determined by more factors than integrated with a home automation system (e.g., my cellphone connected to my home’s private network is not a sufficient condition to tell that I’m at home but it does inform about the likelihood that I am at home).  This creates uncertainty about the current and future states of things but fortunately, the uncertainty can be quantified and taken into account by various statistical tools that have already been developed.&lt;/p&gt;
+
+&lt;p&gt;Furthermore, the fact that HASS integrations are written in the &lt;a href=&quot;https://www.python.org/&quot;&gt;Python programming language&lt;/a&gt; makes HASS a prime candidate for exploring the use of statistical inference in home automation systems because many statistical packages are already available in Python and are widely used and well-maintained (e.g., &lt;a href=&quot;https://pypi.org/project/numpy/&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;numpy&lt;/code&gt;&lt;/a&gt; and &lt;a href=&quot;https://pypi.org/project/scipy/&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scipy&lt;/code&gt;&lt;/a&gt;). Therefore, porting new and more sophisticated analytical tools to HASS should be fairly straightforward.  (More on this in the &lt;a href=&quot;#development&quot;&gt;Development&lt;/a&gt; section).&lt;/p&gt;
+
+&lt;p&gt;If you find these ideas interesting and want to get started on their implementation in your own personal HASS instances, then read on.  As in my previous guides and tutorials, I tried to unpack and digest as much of the content as possible, the goal being to make it accessible to experts as well as novices.  Check the &lt;a href=&quot;#changelog&quot;&gt;Changelog&lt;/a&gt; for updates and if you ever get stuck on something or just want to share a few ideas and opinions, feel free to &lt;a href=&quot;/contact&quot;&gt;get in touch with me&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;outline&quot;&gt;Outline&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;TODO: General picture of the structure&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;prerequisites&quot;&gt;Prerequisites&lt;/h1&gt;
+&lt;p&gt;The implementation of analytical tools in HASS the following basic requirements:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;A &lt;a href=&quot;#hass-core&quot;&gt;HASS &lt;strong&gt;Core&lt;/strong&gt;&lt;/a&gt; instance;&lt;/li&gt;
+  &lt;li&gt;Understanding of the &lt;a href=&quot;#yaml-syntax&quot;&gt;&lt;strong&gt;YAML&lt;/strong&gt; syntax&lt;/a&gt;;&lt;/li&gt;
+  &lt;li&gt;Understanding the &lt;a href=&quot;#hass-database&quot;&gt;HASS &lt;strong&gt;database&lt;/strong&gt;&lt;/a&gt;;&lt;/li&gt;
+  &lt;li&gt;And of course, &lt;a href=&quot;#statistics&quot;&gt;basic &lt;strong&gt;statistics&lt;/strong&gt;&lt;/a&gt; knowledge.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Those four topics are described separately next.  If you are already familiar with them, feel free to skip straight to the main &lt;a href=&quot;#implementation&quot;&gt;Implementation&lt;/a&gt; section.  However, at the very least, I suggest to glance over each topic to make sure we are on the same page before moving on.&lt;/p&gt;
+
+&lt;h2 id=&quot;hass-core&quot;&gt;HASS Core&lt;/h2&gt;
+&lt;p&gt;Structurally, HASS can be divided into three main layers: (a) Core; (b) Supervisor; and (c) Operating System (OS).  The folks at the HASS wiki were kind enough to put together a plethora of &lt;a href=&quot;https://www.home-assistant.io/installation/&quot;&gt;installation methods&lt;/a&gt; for all sorts of OSes and environments (bare-metal vs. virtual).  For this guide, however, only the most basic component of the HASS system is needed, namely the &lt;strong&gt;HASS Core&lt;/strong&gt;, which is available in &lt;em&gt;any&lt;/em&gt; installation method.&lt;/p&gt;
+
+&lt;p&gt;Instead of using an existing HASS instance, I &lt;strong&gt;strongly&lt;/strong&gt; recommend to &lt;strong&gt;create a containerized (Docker) HASS instance&lt;/strong&gt; for testing purposes.  This will be much safer than playing with an existing HASS instance and its database.&lt;/p&gt;
+
+&lt;p&gt;To create a HASS Docker container, follow the instructions in the &lt;strong&gt;official documentation&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.docker.com/engine/install/&quot;&gt;Install &lt;strong&gt;Docker Engine - Community Edition&lt;/strong&gt;&lt;/a&gt;;&lt;/li&gt;
+  &lt;li&gt;(&lt;em&gt;Optional&lt;/em&gt;.) &lt;a href=&quot;https://documentation.portainer.io/v2.0/deploy/ceinstalldocker/&quot;&gt;Install &lt;strong&gt;Portainer - Community Edition&lt;/strong&gt;&lt;/a&gt; to manage your Docker containers;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.home-assistant.io/installation/linux#install-home-assistant-container&quot;&gt;Install &lt;strong&gt;HASS Docker container&lt;/strong&gt;&lt;/a&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Of note, after deploying the HASS container, use a host’s text editor (e.g., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nano&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vi&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vim&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pluma&lt;/code&gt;) to edit the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;configuration.yaml&lt;/code&gt; file and related configuration files.  If you create a new &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.yaml&lt;/code&gt; file, make sure that the HASS user will have permission to read it, or you will run into issues.  Finally, in the HASS webUI, your user must be able to access the &lt;a href=&quot;https://www.home-assistant.io/docs/tools/dev-tools/&quot;&gt;&lt;strong&gt;Developer Tools&lt;/strong&gt; &amp;gt; Services&lt;/a&gt; tab to check the state of each entity and their attributes.  The default admin user should have access to such a resource.&lt;/p&gt;
+
+&lt;h2 id=&quot;yaml-syntax&quot;&gt;YAML syntax&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Basics (https://www.home-assistant.io/docs/configuration/yaml/)&lt;/li&gt;
+  &lt;li&gt;Spiting up the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;configuration.yaml&lt;/code&gt; with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;!include&lt;/code&gt; statements and additional &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;*.yaml&lt;/code&gt; files&lt;/li&gt;
+  &lt;li&gt;Reloading the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;configuration.yaml&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;hass-database&quot;&gt;HASS database&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;RDBMSes (HASS uses SQLite by default but you can create an use another RDBMSes, like MongoDB and MySQL)&lt;/li&gt;
+  &lt;li&gt;Settings (by default, HASS uses 10 days autopurge, 10sec DB write resolution, etc.)&lt;/li&gt;
+  &lt;li&gt;DB storage considerations&lt;/li&gt;
+  &lt;li&gt;Customization via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;recorder:&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;statistics&quot;&gt;Statistics&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Assume very basic statistical knowledge
+    &lt;ul&gt;
+      &lt;li&gt;Reference to free online stats material&lt;/li&gt;
+      &lt;li&gt;Reference to good intro books&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Only simple, widely used inferential methods will be referred to here&lt;/li&gt;
+  &lt;li&gt;The possibilities are endless for knowledgeable users (application of Bayesian methods, hierarchical modeling, and so on.).  See notes on how to help to developing (porting) new analytic tools (integrations) for the HASS environment.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;implementation&quot;&gt;Implementation&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;HASS utility integrations (https://www.home-assistant.io/integrations/#utility)
+    &lt;ul&gt;
+      &lt;li&gt;general picture of the ones I find most useful and mentioned here&lt;/li&gt;
+      &lt;li&gt;mention the last topic about development of new, more general analytic tools (porting numpy and other Py packages used in statistical analysis and mathematical modeling)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;data-properties&quot;&gt;Data properties&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Discrete vs. continuous&lt;/li&gt;
+  &lt;li&gt;How the data from each sensor is being collected&lt;/li&gt;
+  &lt;li&gt;Examples of sensor data (finance, weather, energy, object detection, gps tracking, etc)&lt;/li&gt;
+  &lt;li&gt;Setting up the data used to illustrate the application of inferential automations: Weather data&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;utilities&quot;&gt;Utilities&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Tools to prepare the collected data for inferential automations&lt;/li&gt;
+  &lt;li&gt;Each covered utility includes an usage example that anyone can follow along using a fresh or existing HASS instance&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;history-stats&quot;&gt;History Stats&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Counting, compute ratios and state duration over a user-specified time&lt;/li&gt;
+  &lt;li&gt;Overview of the doc and configuration&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Illustrate usage with an example anyone can use and follow along&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Additional content
+    &lt;ul&gt;
+      &lt;li&gt;Codes and docs:
+        &lt;ul&gt;
+          &lt;li&gt;HASS doc: https://www.home-assistant.io/integrations/history_stats/&lt;/li&gt;
+          &lt;li&gt;HASS Github: https://github.com/home-assistant/core/tree/dev/homeassistant/components/history_stats&lt;/li&gt;
+          &lt;li&gt;Methods defined by the integration itself (no external dependencies)&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;statistics-1&quot;&gt;Statistics&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Multiple, general purpose descriptive statistics&lt;/li&gt;
+  &lt;li&gt;Overview of the doc and configuration&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Illustrate with an example&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Additional content
+    &lt;ul&gt;
+      &lt;li&gt;Codes and docs:
+        &lt;ul&gt;
+          &lt;li&gt;HASS doc: https://www.home-assistant.io/integrations/statistics/&lt;/li&gt;
+          &lt;li&gt;HASS Github: https://github.com/home-assistant/core/blob/dev/homeassistant/components/statistics/sensor.py&lt;/li&gt;
+          &lt;li&gt;Python (statistics core pkg): https://docs.python.org/3/library/statistics.html&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;trend&quot;&gt;Trend&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Of note, depends on the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;numpy&lt;/code&gt; Python pkg.  More specifically, uses the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;np.polyfit(time, values, degree=1)&lt;/code&gt; method to estimate the slope of a linear function over a user-speficied time period (gradient).&lt;/li&gt;
+  &lt;li&gt;Note about the comparison between the Trend utility vs. Derivative: Derivative is just for the last two values over the last two time points; trend can accomplish the same thing for n=2 and can.&lt;/li&gt;
+  &lt;li&gt;Overview of the doc&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Illustrate with an example anyone can use and follow along&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Additional content
+    &lt;ul&gt;
+      &lt;li&gt;Codes and docs:
+        &lt;ul&gt;
+          &lt;li&gt;HASS doc: https://www.home-assistant.io/integrations/trend/&lt;/li&gt;
+          &lt;li&gt;HASS Github: https://github.com/home-assistant/core/blob/dev/homeassistant/components/trend/binary_sensor.py&lt;/li&gt;
+          &lt;li&gt;Python (NumPy): https://numpy.org/doc/stable/reference/generated/numpy.polyfit.html&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;integration&quot;&gt;Integration&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Area under the curve; cumulative measures, such as kWh for energy consumption&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Additional content&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Codes and docs:
+        &lt;ul&gt;
+          &lt;li&gt;HASS doc: https://www.home-assistant.io/integrations/integration/&lt;/li&gt;
+          &lt;li&gt;HASS Github: https://github.com/home-assistant/core/blob/dev/homeassistant/components/integration/sensor.py&lt;/li&gt;
+          &lt;li&gt;Methods defined by the integration itself (no external dependencies)&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;statistical-inference&quot;&gt;Statistical inference&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Where your statistics knowledge comes in&lt;/li&gt;
+  &lt;li&gt;At the very basic level:
+    &lt;ul&gt;
+      &lt;li&gt;Confidence intervals (CI): https://www.statology.org/test-significance-regression-slope/&lt;/li&gt;
+      &lt;li&gt;Distance from the mean in SD units&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Notes on sample, power, and null hypothesis testing for robust dynamic predictions&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;visualizing-inferences&quot;&gt;Visualizing inferences&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Making use of HASS built-in visualization tools
+    &lt;ul&gt;
+      &lt;li&gt;Historical plots&lt;/li&gt;
+      &lt;li&gt;Filters (state_filter gradients) to create heatmaps&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Customized plots&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;inferential-automations&quot;&gt;Inferential automations&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Automations based on future states&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;development&quot;&gt;Development&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;A lot more can be done via templating but consider developing and porting new analytic tools as utility integrations
+    &lt;ul&gt;
+      &lt;li&gt;Develop new integrations: https://developers.home-assistant.io/docs/development_index/&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Ideas
+    &lt;ul&gt;
+      &lt;li&gt;Generalized polynomial fits for the Trend utility, instead of the forced linear
+        &lt;ul&gt;
+          &lt;li&gt;default degree = 1 assures backward compatibility&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Correlations (linear, rank)&lt;/li&gt;
+      &lt;li&gt;Genrealized linear models and other common statistical models&lt;/li&gt;
+      &lt;li&gt;Endless possibilities for analytic tool development; most require simple porting to the HASS environment because we already have many Python pkgs for statistical analysis (e.g., SciPy)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;This is all served via a beautiful and configurable web interface that can be accessed both locally and remotely using either any of the popular web browsers or its official app for &lt;a href=&quot;https://play.google.com/store/apps/details?id=io.homeassistant.companion.android&quot;&gt;Android&lt;/a&gt; and &lt;a href=&quot;https://apps.apple.com/us/app/home-assistant/id1099568401&quot;&gt;iOS&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="hass" /><category term="iot" /><category term="automation" /><category term="math" /><category term="stats" /></entry><entry><title type="html">How to make a chimarrão Gaúcho</title><link href="/blog/chimarrao-gaucho/" rel="alternate" type="text/html" title="How to make a chimarrão Gaúcho" /><published>2021-03-09T12:30:00-03:00</published><updated>2021-03-09T12:30:00-03:00</updated><id>/blog/chimarrao-gaucho</id><content type="html" xml:base="/blog/chimarrao-gaucho/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;Mar 9th, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
@@ -4853,43 +5117,4 @@ sudo apt install kodi-pvr-hts
 
 &lt;p&gt;If you found this useful or have suggestions on how to improve this guide, please leave a comment and I’ll try to reply asap.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="github" /><category term="iptv" /><category term="kodi" /><category term="streamlink" /><category term="tvheadend" /><category term="youtube" /></entry><entry><title type="html">Using the Odroid C2 IR receiver with LibreElec OS</title><link href="/blog/IR-with-odroidc2/" rel="alternate" type="text/html" title="Using the Odroid C2 IR receiver with LibreElec OS" /><published>2020-02-18T00:00:00-03:00</published><updated>2020-02-18T00:00:00-03:00</updated><id>/blog/IR-with-odroidc2</id><content type="html" xml:base="/blog/IR-with-odroidc2/">&lt;p&gt;In case you didn’t know, the &lt;a href=&quot;https://www.hardkernel.com/shop/odroid-c2/&quot;&gt;Odroid C2&lt;/a&gt; comes with an onboard infrared (IR) receiver.  Until a few days ago, I thought that such a receiver was only compatible with their own IR remote controller but it turns out you can use it with &lt;em&gt;any IR controller&lt;/em&gt;.  We can do that with a package called &lt;a href=&quot;http://www.lirc.org/html/&quot;&gt;&lt;strong&gt;lirc&lt;/strong&gt;&lt;/a&gt;, which stands for &lt;strong&gt;linux infrared remote control&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-02-18-IR-with-odroidc2/board.png&quot;&gt;&lt;img src=&quot;/assets/posts/2020-02-18-IR-with-odroidc2/board.png&quot; alt=&quot;Odroid C2 board&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;This brief tutorial is for the &lt;strong&gt;LibreElec OS&lt;/strong&gt; but one can use lirc with &lt;strong&gt;any Linux distro&lt;/strong&gt; and the configuration won’t be completely different than the one shown here.  (For the sake of completeness, I’ve tested with &lt;strong&gt;LibreElec Official OS 9.0.2&lt;/strong&gt; running &lt;strong&gt;Kodi 18.2&lt;/strong&gt;) Here’s a step by step procedure to get the IR working with lirc:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;SSH into your Odroid C2
-    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssh root@IP
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Get a list of all available keys that you can map to your IR remote
-    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;irrecord --list-namespace
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Kill running lircd, if there’s any
-    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ps aux | grep lircd
-kill PID
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Turn off all other IR compatible devices before moving forward&lt;/li&gt;
-  &lt;li&gt;Go to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/storage&lt;/code&gt;, record IR custom keys and follow the instructions that will show yup on your screen:
-    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd /storage/
-irrecord
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;If succesful, irrecord will genetare a .conf file on /storage/ with the name you provided at the beginnig. Copy the .conf file to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/storage/.conf/lircd.conf&lt;/code&gt;, as follows:
-    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cp *.conf /storage/.conf/lircd.conf
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Reboot your system
-    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;reboot now
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Test your IR remote! If some key is missing, you can go back to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;irrecord&lt;/code&gt; and edit or record new keys.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;That’s it.  This is a short tutorial I wrote mostly to remind myself about this feature but hopefully, this tutorial is going to help someone else out there, too.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--small btn--light-outline&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="odroid" /><category term="sbc" /></entry></feed>
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="github" /><category term="iptv" /><category term="kodi" /><category term="streamlink" /><category term="tvheadend" /><category term="youtube" /></entry></feed>
