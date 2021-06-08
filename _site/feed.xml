@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-06-06T15:50:10-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">Towards a smarter Home Assistant: Getting started on dynamic statistical analysis of devices, sensors, and services</title><link href="/blog/smarter-hass/" rel="alternate" type="text/html" title="Towards a smarter Home Assistant: Getting started on dynamic statistical analysis of devices, sensors, and services" /><published>2021-06-04T10:40:00-03:00</published><updated>2021-06-04T10:40:00-03:00</updated><id>/blog/smarter-hass</id><content type="html" xml:base="/blog/smarter-hass/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-06-08T14:56:26-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">Towards a smarter Home Assistant: Getting started on dynamic statistical analysis of devices, sensors, and services</title><link href="/blog/smarter-hass/" rel="alternate" type="text/html" title="Towards a smarter Home Assistant: Getting started on dynamic statistical analysis of devices, sensors, and services" /><published>2021-06-04T10:40:00-03:00</published><updated>2021-06-04T10:40:00-03:00</updated><id>/blog/smarter-hass</id><content type="html" xml:base="/blog/smarter-hass/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;June 4th, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
-&lt;p&gt;&lt;a href=&quot;https://www.home-assistant.io/&quot;&gt;Home Assistant&lt;/a&gt; (HASS) is a free and open-source software (FOSS) that provides a feature-rich environment for managing, controlling, and automating smart home devices, such as light bulbs, blinders, and LED strips.  In addition, it provides a highly customizable system for collecting and organizing a multitude of data (e.g., on/off device states, local temperature, GPS tracking information, exchange rates), as provided by &lt;strong&gt;more than a thousand &lt;a href=&quot;https://www.home-assistant.io/integrations&quot;&gt;integrations&lt;/a&gt;&lt;/strong&gt; with local &lt;a href=&quot;https://en.wikipedia.org/wiki/Internet_of_things&quot;&gt;Internet of things&lt;/a&gt; (IoT) devices and sensors (e.g., micro-controllers or single-board computers connected to sensor modules) and cloud-based services (e.g., weather and financial web APIs).&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.home-assistant.io/&quot;&gt;Home Assistant&lt;/a&gt; (HASS) is a free and open-source software (FOSS) that provides a feature-rich environment for managing, controlling, and automating smart home devices, such as light bulbs, blinders, and LED strips.  In addition, it provides a highly customizable system for collecting and organizing a multitude of data (e.g., on/off device states, local temperature, GPS tracking, exchange rates), as provided by &lt;strong&gt;more than a thousand &lt;a href=&quot;https://www.home-assistant.io/integrations&quot;&gt;integrations&lt;/a&gt;&lt;/strong&gt; with local &lt;a href=&quot;https://en.wikipedia.org/wiki/Internet_of_things&quot;&gt;Internet of things&lt;/a&gt; (IoT) devices (e.g., &lt;a href=&quot;https://sonoff.tech/&quot;&gt;Sonoff&lt;/a&gt;, &lt;a href=&quot;https://wyze.com/&quot;&gt;Wyze&lt;/a&gt;, &lt;a href=&quot;https://www.z-wave.com/&quot;&gt;Z-Wave&lt;/a&gt;), sensors (e.g., micro-controllers or single-board computers connected to sensor modules), and cloud-based services (e.g., weather and financial web APIs).&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-06-04-smarter-hass/hass-demo.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-06-04-smarter-hass/hass-demo.jpg&quot; alt=&quot;HASS demo frontend&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
@@ -22,10 +22,10 @@
 &lt;p&gt;In addition, the same analytical tools can be used to make statistical, data-driven inferences about the &lt;strong&gt;future states&lt;/strong&gt; of smart devices and sensors to create what I call &lt;em&gt;inferential automations&lt;/em&gt;. Inferential automations determine actions based on abnormal states and measurements, for example, or reliable tendencies over a user-specified period of time:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;if the temperature started &lt;em&gt;decreasing significantly over the last five minutes&lt;/em&gt;, then ___ .&lt;/li&gt;
-  &lt;li&gt;if the VOC started &lt;em&gt;increasing significantly over the last fifteen minutes&lt;/em&gt;, then ___ .&lt;/li&gt;
   &lt;li&gt;if the water level is &lt;em&gt;significantly lower than yesterday&lt;/em&gt;, then ___ .&lt;/li&gt;
   &lt;li&gt;if the number of detected cars on my camera is &lt;em&gt;significantly higher than thirty minutes ago&lt;/em&gt;, then ___ .&lt;/li&gt;
+  &lt;li&gt;if the temperature started &lt;em&gt;decreasing significantly over the last five minutes&lt;/em&gt;, then ___ .&lt;/li&gt;
+  &lt;li&gt;if the VOC started &lt;em&gt;increasing significantly over the last fifteen minutes&lt;/em&gt;, then ___ .&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-06-04-smarter-hass/voc-plot-linear-fit.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-06-04-smarter-hass/voc-plot-linear-fit.jpg&quot; alt=&quot;VOC plot linear fit&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
@@ -46,7 +46,7 @@
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;prerequisites&quot;&gt;Prerequisites&lt;/h1&gt;
-&lt;p&gt;The implementation of analytical tools in HASS the following basic requirements:&lt;/p&gt;
+&lt;p&gt;The implementation of analytical tools in HASS has the following basic requirements:&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;A &lt;a href=&quot;#hass-core&quot;&gt;HASS &lt;strong&gt;Core&lt;/strong&gt;&lt;/a&gt; instance;&lt;/li&gt;
@@ -58,7 +58,7 @@
 &lt;p&gt;Those four topics are described separately next.  If you are already familiar with them, feel free to skip straight to the main &lt;a href=&quot;#implementation&quot;&gt;Implementation&lt;/a&gt; section.  However, at the very least, I suggest to glance over each topic to make sure we are on the same page before moving on.&lt;/p&gt;
 
 &lt;h2 id=&quot;hass-core&quot;&gt;HASS Core&lt;/h2&gt;
-&lt;p&gt;Structurally, HASS can be divided into three main layers: (a) Core; (b) Supervisor; and (c) Operating System (OS).  The folks at the HASS wiki were kind enough to put together a plethora of &lt;a href=&quot;https://www.home-assistant.io/installation/&quot;&gt;installation methods&lt;/a&gt; for all sorts of OSes and environments (bare-metal vs. virtual).  For this guide, however, only the most basic component of the HASS system is needed, namely the &lt;strong&gt;HASS Core&lt;/strong&gt;, which is available in &lt;em&gt;any&lt;/em&gt; installation method.&lt;/p&gt;
+&lt;p&gt;Structurally, HASS can be divided into three main layers: (a) Core; (b) Supervisor; and (c) Operating System (OS).  The folks at the HASS wiki were kind enough to put together a plethora of &lt;a href=&quot;https://www.home-assistant.io/installation/&quot;&gt;installation methods&lt;/a&gt; for all sorts of OSes and environments (bare-metal vs. virtual).  For this guide, however, only the most basic layer of the HASS system is needed, namely the &lt;strong&gt;HASS Core&lt;/strong&gt;, which is available in &lt;em&gt;any&lt;/em&gt; installation method.&lt;/p&gt;
 
 &lt;p&gt;Instead of using an existing HASS instance, I &lt;strong&gt;strongly&lt;/strong&gt; recommend to &lt;strong&gt;create a containerized (Docker) HASS instance&lt;/strong&gt; for testing purposes.  This will be much safer than playing with an existing HASS instance and its database.&lt;/p&gt;
 
@@ -70,53 +70,149 @@
   &lt;li&gt;&lt;a href=&quot;https://www.home-assistant.io/installation/linux#install-home-assistant-container&quot;&gt;Install &lt;strong&gt;HASS Docker container&lt;/strong&gt;&lt;/a&gt;.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;Of note, after deploying the HASS container, use a host’s text editor (e.g., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nano&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vi&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vim&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pluma&lt;/code&gt;) to edit the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;configuration.yaml&lt;/code&gt; file and related configuration files.  If you create a new &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.yaml&lt;/code&gt; file, make sure that the HASS user will have permission to read it, or you will run into issues.  Finally, in the HASS webUI, your user must be able to access the &lt;a href=&quot;https://www.home-assistant.io/docs/tools/dev-tools/&quot;&gt;&lt;strong&gt;Developer Tools&lt;/strong&gt; &amp;gt; Services&lt;/a&gt; tab to check the state of each entity and their attributes.  The default admin user should have access to such a resource.&lt;/p&gt;
+&lt;p&gt;Of note, after deploying the HASS container, use a host’s text editor (e.g., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nano&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vi&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vim&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pluma&lt;/code&gt;) to edit the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;configuration.yaml&lt;/code&gt; file and related configuration files.  Whenever you create a new &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.yaml&lt;/code&gt; file, make sure that the HASS user will have permission to read it at the very least, or you will run into issues.  Finally, in the HASS webUI, your HASS user must be able to access the &lt;a href=&quot;https://www.home-assistant.io/docs/tools/dev-tools/&quot;&gt;&lt;strong&gt;Developer Tools&lt;/strong&gt; &amp;gt; Services&lt;/a&gt; tab to check the state of each entity and their attributes.  The default admin user should have access to such a resource.&lt;/p&gt;
 
 &lt;h2 id=&quot;yaml-syntax&quot;&gt;YAML syntax&lt;/h2&gt;
+&lt;p&gt;The configuration files in HASS use a human-readable data serialization language called &lt;a href=&quot;https://yaml.org/&quot;&gt;&lt;strong&gt;YAML&lt;/strong&gt;&lt;/a&gt; (YAML Ain’t Markup Language).  In this guide, we will use YAML to edit and create configuration files for HASS that will customize database settings and new entities to collect data and help with their visualization.&lt;/p&gt;
+
+&lt;p&gt;If you are new to YAML, take a few minutes right now to familiarize yourself with it.  The HASS wiki has a straight to the point explanation that I invite everyone to read:&lt;/p&gt;
+
 &lt;ul&gt;
-  &lt;li&gt;Basics (https://www.home-assistant.io/docs/configuration/yaml/)&lt;/li&gt;
-  &lt;li&gt;Spiting up the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;configuration.yaml&lt;/code&gt; with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;!include&lt;/code&gt; statements and additional &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;*.yaml&lt;/code&gt; files&lt;/li&gt;
-  &lt;li&gt;Reloading the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;configuration.yaml&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.home-assistant.io/docs/configuration/yaml/&quot;&gt;https://www.home-assistant.io/docs/configuration/yaml/&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;To highlight a few important points about the configuration files and the YAML syntax:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Indentation and spacing in general are &lt;strong&gt;very&lt;/strong&gt; important in YAML. Use only the spacebar and maintain consistency across all configuration files. If at all possible, use an editor that shows whitespaces when editing any YAML files;&lt;/li&gt;
+  &lt;li&gt;UPPER and lower cases matter;&lt;/li&gt;
+  &lt;li&gt;Use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;#&lt;/code&gt; to add comments;&lt;/li&gt;
+  &lt;li&gt;Use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&quot;&quot;&lt;/code&gt; (double quotation marks) for escaping special characters in sequences (e.g., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&quot;Hey! What's up?&quot;&lt;/code&gt;) and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;''&lt;/code&gt; (single quotation marks) when escaping is not necessary (e.g., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;'Nothing much.'&lt;/code&gt;);&lt;/li&gt;
+  &lt;li&gt;Use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;!include&lt;/code&gt; for splitting up your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;configuration.yaml&lt;/code&gt;. For instance, instead of adding all your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sensor:&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;binary_sensor:&lt;/code&gt; to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;configuration.yaml&lt;/code&gt; file itself, create &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sensors.yaml&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;binary_sensors.yaml&lt;/code&gt; files in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config/&lt;/code&gt; directory and then use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;!include&lt;/code&gt; to add them automatically to your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;configuration.yaml&lt;/code&gt;:
+    &lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# Sensors&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;sensor&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;!include&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;sensors.yaml&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;binary_sensor&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;!include&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;binary_sensors.yaml&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;!secret&lt;/code&gt; and a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;secrets.yaml&lt;/code&gt; for managing passwords.  (See more in the HASS wiki called &lt;a href=&quot;https://www.home-assistant.io/docs/configuration/secrets/&quot;&gt;Storing secrets&lt;/a&gt;.)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Finally, after making any changes to any YAML file (and saving them), it is necessary to &lt;a href=&quot;https://www.home-assistant.io/docs/configuration/#reloading-changes&quot;&gt;&lt;strong&gt;reload&lt;/strong&gt; the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;configuration.yaml&lt;/code&gt; file&lt;/a&gt;.  If your installation method does not allow for selective reloading, then go ahead and reload the entire HASS.  Keep an eye on the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;home-assistant.log&lt;/code&gt; file for errors.  This will help you troubleshooting most issues on your own.&lt;/p&gt;
 
 &lt;h2 id=&quot;hass-database&quot;&gt;HASS database&lt;/h2&gt;
+&lt;p&gt;HASS uses a relational database (DB) management system (RDBMS) based on the &lt;strong&gt;SQL engine&lt;/strong&gt; and by default, it creates a &lt;a href=&quot;https://www.sqlite.org/index.html&quot;&gt;&lt;strong&gt;SQLite DB&lt;/strong&gt;&lt;/a&gt; in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config/home-assistant_v2.db&lt;/code&gt; to track events and parameters over time.  If you want to learn more about and dive into the HASS DB, including how to create your own SQL backend, take a look at the two following resources:&lt;/p&gt;
+
 &lt;ul&gt;
-  &lt;li&gt;RDBMSes (HASS uses SQLite by default but you can create an use another RDBMSes, like MongoDB and MySQL)&lt;/li&gt;
-  &lt;li&gt;Settings (by default, HASS uses 10 days autopurge, 10sec DB write resolution, etc.)&lt;/li&gt;
-  &lt;li&gt;DB storage considerations&lt;/li&gt;
-  &lt;li&gt;Customization via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;recorder:&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.home-assistant.io/docs/backend/database/&quot;&gt;https://www.home-assistant.io/docs/backend/database/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.home-assistant.io/integrations/recorder/&quot;&gt;https://www.home-assistant.io/integrations/recorder/&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;statistics&quot;&gt;Statistics&lt;/h2&gt;
+&lt;p&gt;Fortunately, most users won’t need to learn RDBMSes and SQL to take advantage of analytical tools in HASS because the default SQLite DB is usually enough.  However, there are a few aspects about the &lt;strong&gt;default settings&lt;/strong&gt; that can affect the way the data are analyzed.  Those aspects are described in more detail next.&lt;/p&gt;
+
+&lt;h3 id=&quot;default-database&quot;&gt;Default database&lt;/h3&gt;
+&lt;p&gt;In the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;configuration.yaml&lt;/code&gt; file, the &lt;strong&gt;default SQLite DB&lt;/strong&gt; is created along with many of the other default settings by the following configuration variable:&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;default_config&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To change the default DB settings, it is necessary to add a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;recorder:&lt;/code&gt; configuration variable to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;configuration.yaml&lt;/code&gt; file, as follows:&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;default_config&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# Customized DB settings&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;recorder&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The documentation of the specific &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;recorder:&lt;/code&gt; variables can be found at the HASS wiki:&lt;/p&gt;
+
 &lt;ul&gt;
-  &lt;li&gt;Assume very basic statistical knowledge
+  &lt;li&gt;&lt;a href=&quot;https://www.home-assistant.io/integrations/recorder/&quot;&gt;https://www.home-assistant.io/integrations/recorder/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In brief, by default, the HASS DB &lt;strong&gt;keeps historical data up to 10 days&lt;/strong&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;purge_keep_days: 10&lt;/code&gt;), running an automatic purge of the database every night to prevent the DB from increasing in size indefinitely (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;auto_purge: true&lt;/code&gt;).  Therefore, &lt;em&gt;if you want to keep data from one or more entities for longer than 10 days&lt;/em&gt;, then you must edit the DB default settings.&lt;/p&gt;
+
+&lt;p&gt;In addition, as mentioned before, the default DB is stored in your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config/&lt;/code&gt; directory and also by default, &lt;strong&gt;changes are committed to the DB every 1 sec&lt;/strong&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;commit_interval: 1&lt;/code&gt;). This matters because if you are collecting data over a time window lower than 1 sec, then you might want to change the commit interval to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0&lt;/code&gt; (zero, or as soon as possible) instead. At this point, it is also important to consider where the DB is being physically stored (SD card, eMMC, HDD, or SSD), owing to &lt;strong&gt;disk I/O&lt;/strong&gt; and &lt;strong&gt;wear and tear&lt;/strong&gt; considerations.  (More advanced aspects come into play if HASS is not the only application committing to the DB but I trust that if this is your case, then you probably know how to customize the HASS DB accordingly.)&lt;/p&gt;
+
+&lt;p&gt;For advanced users who want to browse and manually add/edit entries from the default (SQLite) &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;home-assistant_v2.db&lt;/code&gt;, it is possible to use the &lt;a href=&quot;https://sqlitebrowser.org/&quot;&gt;SQLite Database Browser&lt;/a&gt;.  Just keep in mind that the default HASS DB might have permissions (ownership and group membership) that are incompatible with your current host user and therefore, you might be unable even to read the DB without first editing the permissions–in Linux, appending &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sudo&lt;/code&gt; to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sqlitebrowser&lt;/code&gt; should give you access no matter what though.&lt;/p&gt;
+
+&lt;h2 id=&quot;statistics&quot;&gt;Statistics&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-06-04-smarter-hass/humor-stats.png&quot;&gt;&lt;img src=&quot;/assets/posts/2021-06-04-smarter-hass/humor-stats.png&quot; alt=&quot;Humor about stats&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;You don’t need to be a mathematician who specialized in statistics to make use of it.  In this guide, we will only make reference to very introductory statistical knowledge, such as measures of central tendency (e.g., mean, median), variability (e.g., variance, standard deviation) and simple (univariate) linear regression (e.g., gradient/slope). Similarly, math-wise, I will briefly talk about first-order derivatives (the ratio of the increment) and integrals (the area under the curve).&lt;/p&gt;
+
+&lt;p&gt;The goal in this guide is to present a starting point for more advanced usage of analytical tools in home automation systems.  The possibilities are endless for knowledgeable users (e.g., application of Bayesian methods, dynamic mixed-effects modeling) and how far you will go along these paths is up to you.&lt;/p&gt;
+
+&lt;p&gt;Fortunately, it doesn’t take much to create really good inferential automations for your HASS instances. If you want to refresh your stats knowledge or dig deeper into it, save some time and take a look at the following resources:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Basic calculus refresher:
     &lt;ul&gt;
-      &lt;li&gt;Reference to free online stats material&lt;/li&gt;
-      &lt;li&gt;Reference to good intro books&lt;/li&gt;
+      &lt;li&gt;&lt;em&gt;TODO: Embed videos? Series + Derivative + Integration&lt;/em&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;Only simple, widely used inferential methods will be referred to here&lt;/li&gt;
-  &lt;li&gt;The possibilities are endless for knowledgeable users (application of Bayesian methods, hierarchical modeling, and so on.).  See notes on how to help to developing (porting) new analytic tools (integrations) for the HASS environment.&lt;/li&gt;
+  &lt;li&gt;Basic stats refresher:
+    &lt;ul&gt;
+      &lt;li&gt;&lt;em&gt;TODO: Embed videos? Probability + Basic stats&lt;/em&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Reading material:
+    &lt;ul&gt;
+      &lt;li&gt;Introduction:
+        &lt;ul&gt;
+          &lt;li&gt;&lt;em&gt;TODO: Link to papers and books&lt;/em&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Advanced topics:
+        &lt;ul&gt;
+          &lt;li&gt;&lt;em&gt;TODO: Link to papers and books&lt;/em&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;implementation&quot;&gt;Implementation&lt;/h1&gt;
-&lt;ul&gt;
-  &lt;li&gt;HASS utility integrations (https://www.home-assistant.io/integrations/#utility)
-    &lt;ul&gt;
-      &lt;li&gt;general picture of the ones I find most useful and mentioned here&lt;/li&gt;
-      &lt;li&gt;mention the last topic about development of new, more general analytic tools (porting numpy and other Py packages used in statistical analysis and mathematical modeling)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;The main functionalities in HASS are extended by the configuration of new &lt;strong&gt;integrations&lt;/strong&gt;.  According to the &lt;a href=&quot;https://www.home-assistant.io/docs/glossary/&quot;&gt;HASS Glossary&lt;/a&gt;,&lt;/p&gt;
 
-&lt;h2 id=&quot;data-properties&quot;&gt;Data properties&lt;/h2&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://www.home-assistant.io/integrations/&quot;&gt;Integrations&lt;/a&gt; provide the core logic for the functionality in Home Assistant.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Therefore, the analytical tools covered in this guide are implemented by one or more of the &lt;strong&gt;1800&lt;/strong&gt; integrations that are currently supported by a community of home automation enthusiasts.  More specifically, most of the analytical tools are grouped under &lt;a href=&quot;https://www.home-assistant.io/integrations/#utility&quot;&gt;Utility&lt;/a&gt; integrations and in this guide, I will cover the following four:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#history-stats&quot;&gt;History Stats&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#statistics-1&quot;&gt;Statistics&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#trend&quot;&gt;Trend&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#integration&quot;&gt;Integration&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The current set of analytical integrations is fairly limited in what it can do.  For the most part, the tools can be used to create summary statistics of the past states and measurements of integrated devices and sensors.  Inference-wise, a lot can be done via &lt;a href=&quot;https://www.home-assistant.io/docs/configuration/templating/&quot;&gt;templates&lt;/a&gt; but moving forward, there is a need for more advanced analytical integrations.  For this reason, at the end of this guide, I added a section about &lt;a href=&quot;#development&quot;&gt;Development&lt;/a&gt; for anyone interested in helping out.  First, however, we need to talk about data.&lt;/p&gt;
+
+&lt;h2 id=&quot;data&quot;&gt;Data&lt;/h2&gt;
+&lt;p&gt;Before delving into any analytical integration, there are at least three things that we need to do. First, we need think about the nature of the data.  For example, consider the default &lt;a href=&quot;https://www.home-assistant.io/integrations/sun/&quot;&gt;Sun&lt;/a&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sun.sun&lt;/code&gt;) entity in HASS:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-06-04-smarter-hass/hass-entity-sun.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-06-04-smarter-hass/hass-entity-sun.jpg&quot; alt=&quot;Sun entity&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;While the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sun.sun&lt;/code&gt; &lt;em&gt;state&lt;/em&gt; is &lt;strong&gt;discrete&lt;/strong&gt; (it’s either &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;above_horizon&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;below_horizon&lt;/code&gt;), its &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;elevation&lt;/code&gt; &lt;em&gt;attribute&lt;/em&gt; is actually &lt;strong&gt;continuous&lt;/strong&gt; (e.g., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;35.84&lt;/code&gt;° between the sun and the horizon) and therefore, it doesn’t make sense to use the same tools to analyze both of them, does it?  Nonetheless, discrete variables can be transformed into continuous ones (e.g., the sun was &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;above_horizon&lt;/code&gt; for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;34.1&lt;/code&gt;% of the day), and similarly, continuous variables can be discretised (e.g., the elevation was either &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;negative&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;positive&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zero&lt;/code&gt;) in order to better answer our questions of interest.&lt;/p&gt;
+
+&lt;p&gt;Second, we need to check whether HASS is keeping track of the data.&lt;/p&gt;
+
+&lt;p&gt;Third, we need to check how the data are being represented in the DB.&lt;/p&gt;
+
+&lt;p&gt;In HASS, it is possible to find a list of all entities and their attributes in Developer Tools &amp;gt; States.&lt;/p&gt;
+
 &lt;ul&gt;
   &lt;li&gt;Discrete vs. continuous&lt;/li&gt;
-  &lt;li&gt;How the data from each sensor is being collected&lt;/li&gt;
   &lt;li&gt;Examples of sensor data (finance, weather, energy, object detection, gps tracking, etc)&lt;/li&gt;
   &lt;li&gt;Setting up the data used to illustrate the application of inferential automations: Weather data&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;sampling&quot;&gt;Sampling&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;How the data from each sensor is being collected affects your conclusions&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;utilities&quot;&gt;Utilities&lt;/h2&gt;
@@ -225,7 +321,11 @@
       &lt;li&gt;Filters (state_filter gradients) to create heatmaps&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;Customized plots&lt;/li&gt;
+  &lt;li&gt;Customized plots
+    &lt;ul&gt;
+      &lt;li&gt;Mini-graph card (https://github.com/kalkih/mini-graph-card)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;inferential-automations&quot;&gt;Inferential automations&lt;/h2&gt;
