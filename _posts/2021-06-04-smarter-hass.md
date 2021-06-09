@@ -1,5 +1,5 @@
 ---
-title: "Towards a smarter Home Assistant: Getting started on dynamic statistical analysis of devices, sensors, and services"
+title: "Towards a smarter Home Assistant: Getting started on the analytical tools and beyond"
 date: 2021-06-04 10:40:00 -0300
 tags: hass iot automation math stats
 header:
@@ -18,7 +18,7 @@ toc_icon: "list"
 
 
 # Introduction
-[Home Assistant](https://www.home-assistant.io/) (HASS) is a free and open-source software (FOSS) that provides a feature-rich environment for managing, controlling, and automating smart home devices, such as light bulbs, blinders, and LED strips.  In addition, it provides a highly customizable system for collecting and organizing a multitude of data (e.g., on/off device states, local temperature, GPS tracking, exchange rates), as provided by **more than a thousand [integrations](https://www.home-assistant.io/integrations)** with local [Internet of things](https://en.wikipedia.org/wiki/Internet_of_things) (IoT) devices (e.g., [Sonoff](https://sonoff.tech/), [Wyze](https://wyze.com/), [Z-Wave](https://www.z-wave.com/)), sensors (e.g., micro-controllers or single-board computers connected to sensor modules), and cloud-based services (e.g., weather and financial web APIs).
+[Home Assistant](https://www.home-assistant.io/) (HASS) is a free and open-source software (FOSS) that provides a feature-rich environment for managing, controlling, and automating smart home devices, such as light bulbs, blinders, and LED strips.  In addition, it provides a highly customizable system for collecting and organizing a multitude of data (e.g., on/off device states, local temperature, GPS tracking, exchange rates), as provided by **more than a thousand [integrations](https://www.home-assistant.io/integrations)** with [Internet of things](https://en.wikipedia.org/wiki/Internet_of_things) (IoT) devices (e.g., [Sonoff](https://sonoff.tech/), [Wyze](https://wyze.com/), [Z-Wave](https://www.z-wave.com/)), local sensors (e.g., micro-controllers or single-board computers connected to sensor modules), and cloud-based services (e.g., weather and financial web APIs).
 
 [![HASS demo frontend](/assets/posts/2021-06-04-smarter-hass/hass-demo.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-06-04-smarter-hass/hass-demo.jpg)
 
@@ -33,10 +33,10 @@ More often than not, people use HASS to view or modify the **current state and v
 
 In addition, the same analytical tools can be used to make statistical, data-driven inferences about the **future states** of smart devices and sensors to create what I call *inferential automations*. Inferential automations determine actions based on abnormal states and measurements, for example, or reliable tendencies over a user-specified period of time:
 
-- if the water level is *significantly lower than yesterday*, then ___ .
-- if the number of detected cars on my camera is *significantly higher than thirty minutes ago*, then ___ .
-- if the temperature started *decreasing significantly over the last five minutes*, then ___ .
-- if the VOC started *increasing significantly over the last fifteen minutes*, then ___ .
+- if the water level is *significantly lower than yesterday*, then __ .
+- if the number of detected cars on my camera is *significantly higher than thirty minutes ago*, then __ .
+- if the temperature started *decreasing significantly over the last five minutes*, then __ .
+- if the VOC started *increasing significantly over the last fifteen minutes*, then __ .
 
 [![VOC plot linear fit](/assets/posts/2021-06-04-smarter-hass/voc-plot-linear-fit.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-06-04-smarter-hass/voc-plot-linear-fit.jpg)
 
@@ -59,7 +59,7 @@ If you find these ideas interesting and want to get started on their implementat
 The implementation of analytical tools in HASS has the following basic requirements:
 
 1. A [HASS **Core**](#hass-core) instance;
-2. Understanding of the [**YAML** syntax](#yaml-syntax);
+2. Understanding of [the **configuration** files and the **YAML** syntax](#hass-configuration-and-the-yaml-syntax);
 3. Understanding the [HASS **database**](#hass-database);
 4. And of course, [basic **statistics**](#statistics) knowledge.
 
@@ -78,7 +78,7 @@ To create a HASS Docker container, follow the instructions in the **official doc
 
 Of note, after deploying the HASS container, use a host's text editor (e.g., `nano`, `vi`, `vim`, `pluma`) to edit the `configuration.yaml` file and related configuration files.  Whenever you create a new `.yaml` file, make sure that the HASS user will have permission to read it at the very least, or you will run into issues.  Finally, in the HASS webUI, your HASS user must be able to access the [**Developer Tools** > Services](https://www.home-assistant.io/docs/tools/dev-tools/) tab to check the state of each entity and their attributes.  The default admin user should have access to such a resource.
 
-## YAML syntax
+## HASS configuration and the YAML syntax
 The configuration files in HASS use a human-readable data serialization language called [**YAML**](https://yaml.org/) (YAML Ain't Markup Language).  In this guide, we will use YAML to edit and create configuration files for HASS that will customize database settings and new entities to collect data and help with their visualization.
 
 If you are new to YAML, take a few minutes right now to familiarize yourself with it.  The HASS wiki has a straight to the point explanation that I invite everyone to read:
@@ -99,7 +99,18 @@ To highlight a few important points about the configuration files and the YAML s
   ```
 - Use `!secret` and a `secrets.yaml` for managing passwords.  (See more in the HASS wiki called [Storing secrets](https://www.home-assistant.io/docs/configuration/secrets/).)
 
-Finally, after making any changes to any YAML file (and saving them), it is necessary to [**reload** the `configuration.yaml` file](https://www.home-assistant.io/docs/configuration/#reloading-changes).  If your installation method does not allow for selective reloading, then go ahead and reload the entire HASS.  Keep an eye on the `home-assistant.log` file for errors.  This will help you troubleshooting most issues on your own.
+Finally, after making any changes to any YAML file (and saving them), it is necessary to [**reload** the `configuration.yaml` file](https://www.home-assistant.io/docs/configuration/#reloading-changes).  If your installation method does not allow for selective reloading, then go ahead and reload the entire HASS.  However, *before reloading any configuration file*, use the `hass --script check_config` script to make sure your `configuration.yaml` file is okay, as follows:
+
+- From within the HASS webUI, navigate to **Configuration** > **Server Controls** > Configuration validation.
+  
+  [![HASS config validation](/assets/posts/2021-06-04-smarter-hass/hass-config-validation.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-06-04-smarter-hass/hass-config-validation.jpg)
+  
+  [![HASS config reload](/assets/posts/2021-06-04-smarter-hass/hass-config-reload.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-06-04-smarter-hass/hass-config-reload.jpg)
+  
+  Alternatively, if running the HASS Docker container, use `docker exec homeassistant python -m homeassistant --script check_config --config /config` to run the `check_config` script from your host machine.  (This assumes that your HASS container is called `homeassistant`. If this is not the case, change it accordingly.)
+  {:.notice}
+
+Always keep an eye on the `home-assistant.log` file for errors.  This will greatly help you troubleshooting most issues on your own (e.g., incorrect references or operations in templates).
 
 ## HASS database
 HASS uses a relational database (DB) management system (RDBMS) based on the **SQL engine** and by default, it creates a [**SQLite DB**](https://www.sqlite.org/index.html) in `config/home-assistant_v2.db` to track events and parameters over time.  If you want to learn more about and dive into the HASS DB, including how to create your own SQL backend, take a look at the two following resources:
@@ -128,7 +139,7 @@ The documentation of the specific `recorder:` variables can be found at the HASS
 
 - [https://www.home-assistant.io/integrations/recorder/](https://www.home-assistant.io/integrations/recorder/)
 
-In brief, by default, the HASS DB **keeps historical data up to 10 days** (`purge_keep_days: 10`), running an automatic purge of the database every night to prevent the DB from increasing in size indefinitely (`auto_purge: true`).  Therefore, *if you want to keep data from one or more entities for longer than 10 days*, then you must edit the DB default settings.
+In brief, by default, the HASS DB **keeps historical data up to 10 days** (`purge_keep_days: 10`), running an automatic purge of the database every night to prevent the DB from increasing in size indefinitely (`auto_purge: true`).  Therefore, *if you want to keep data from one or more entities for longer than 10 days*, then you must edit the DB default settings.  The `include` and `exclude` filter parameters are particularly useful whenever working with non-default settings, as they help you specify which entities should be tracked.  [Check the HASS wiki Configure Filter for examples](https://www.home-assistant.io/integrations/recorder/#common-filtering-examples).
 
 In addition, as mentioned before, the default DB is stored in your `config/` directory and also by default, **changes are committed to the DB every 1 sec** (`commit_interval: 1`). This matters because if you are collecting data over a time window lower than 1 sec, then you might want to change the commit interval to `0` (zero, or as soon as possible) instead. At this point, it is also important to consider where the DB is being physically stored (SD card, eMMC, HDD, or SSD), owing to **disk I/O** and **wear and tear** considerations.  (More advanced aspects come into play if HASS is not the only application committing to the DB but I trust that if this is your case, then you probably know how to customize the HASS DB accordingly.)
 
@@ -172,27 +183,70 @@ Therefore, the analytical tools covered in this guide are implemented by one or 
 3. [Trend](#trend)
 4. [Integration](#integration)
 
-The current set of analytical integrations is fairly limited in what it can do.  For the most part, the tools can be used to create summary statistics of the past states and measurements of integrated devices and sensors.  Inference-wise, a lot can be done via [templates](https://www.home-assistant.io/docs/configuration/templating/) but moving forward, there is a need for more advanced analytical integrations.  For this reason, at the end of this guide, I added a section about [Development](#development) for anyone interested in helping out.  First, however, we need to talk about data.
+The current set of analytical integrations is fairly limited in what it can do.  For the most part, the tools can be used to create summary statistics of the past states and measurements of integrated devices and sensors.  Inference-wise, a lot can be done via [templates](https://www.home-assistant.io/docs/configuration/templating/) but moving forward, there is a need for more advanced analytical integrations.  For this reason, at the end of this guide, I added a section about [Development](#development) for anyone interested in helping out.  First, however, we need to talk about [Data](#data) and [Sampling](#sampling).
 
 ## Data
-Before delving into any analytical integration, there are at least three things that we need to do. First, we need think about the nature of the data.  For example, consider the default [Sun](https://www.home-assistant.io/integrations/sun/) (`sun.sun`) entity in HASS:
+Before delving into any analytical integration, there are at least three things that we need to do. First, we need to think about the nature of the data.  For example, consider the default [Sun](https://www.home-assistant.io/integrations/sun/) (`sun.sun`) entity in HASS:
 
 [![Sun entity](/assets/posts/2021-06-04-smarter-hass/hass-entity-sun.jpg){:.PostImage}](/assets/posts/2021-06-04-smarter-hass/hass-entity-sun.jpg)
 
-While the `sun.sun` *state* is **discrete** (it's either `above_horizon` or `below_horizon`), its `elevation` *attribute* is actually **continuous** (e.g., `35.84`° between the sun and the horizon) and therefore, it doesn't make sense to use the same tools to analyze both of them, does it?  Nonetheless, discrete variables can be transformed into continuous ones (e.g., the sun was `above_horizon` for `34.1`% of the day), and similarly, continuous variables can be discretised (e.g., the elevation was either `negative` or `positive` or `zero`) in order to better answer our questions of interest.
+While the `sun.sun` *state* is a **discrete** variable (it's either `above_horizon` or `below_horizon`), its `elevation` *attribute* is actually **continuous** (e.g., `35.84`° between the sun and the horizon) and therefore, it doesn't make sense to use the same tools to analyze both of them.  Nonetheless, discrete variables can be transformed into continuous ones (e.g., the sun was `above_horizon` for `34.1`% of the day), and similarly, continuous variables can be discretised (e.g., the elevation is either `negative` or `positive` or `zero`) in order to better answer our questions of interest. 
 
-Second, we need to check whether HASS is keeping track of the data.
+Second, we need to check whether HASS is keeping track of the data we need. There are multiple ways of doing that but by far, the easiest method is to navigate to **Developer Tools** > States and then make sure that the entities whose states and attributes we would like to keep track of are being listed there.  (Alternatively, you can open the HASS DB with a SQL browser and look for the entity in the `states` Table.)
 
-Third, we need to check how the data are being represented in the DB.
+[![HASS developer tools](/assets/posts/2021-06-04-smarter-hass/hass-developer-tools.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-06-04-smarter-hass/hass-developer-tools.jpg)
 
-In HASS, it is possible to find a list of all entities and their attributes in Developer Tools > States.
+Third, we need to check how the data are being represented in the DB.  As in the previous example, some variables might be an attribute of an existing entity in the HASS DB.  If the `recorder:` settings for such entity are fine for the type of analysis you want to automate (e.g., purge every 10 days), then you should be fine.  However, notice that *attributes* cannot be displayed the same way as the *states* of an entity in the HASS webUI.  In addition, you might want to **pre-process** the attributes (e.g., `float` and then `round(2)`) or perform transformations before running the analysis.
 
-- Discrete vs. continuous
-- Examples of sensor data (finance, weather, energy, object detection, gps tracking, etc)
-- Setting up the data used to illustrate the application of inferential automations: Weather data
+For all such a reasons, I always create **new entities** for the variables that will be analyzed. This is accomplished with the [`template` integration](https://www.home-assistant.io/integrations/template/).  Per the HASS wiki:
+
+> The template integration allows creating entities which derive their values from other data. This is done by specifying templates for properties of an entity, like the name or the state.
+
+[Building templates](https://www.home-assistant.io/docs/configuration/templating/#building-templates) is fairly easy once you get the hang of the syntax.  In short, templates follow the [**Jinja2** templating engine](https://palletsprojects.com/p/jinja) and are mainly used to perform mathematical operations (`+`, `-`, `*`, `/`) and logic tests (if `true` , then __ ) but can also do loops (for `i` in `states.sensor`), for example.  As a result, templates give users a scripting tool to go beyond the HASS built-in functionalities.
+
+As an example, let's create an entity to store and round to zero the `sun.sun` `elevation` attribute.  First, in the `configuration.yaml`, **append** (add to the bottom) a reference to the `templates.yaml` configuration file:
+
+```yaml
+# Templates
+template: !include templates.yaml
+```
+
+Then, use a text editor to create an empty `templates.yaml` file and create a sensor template for the sun elevation, as follows:
+
+{% raw %}
+```yaml
+# Sensor Templates
+- sensor:
+    - name: "template sun elevation"
+      unit_of_measurement: "°"
+      state: >
+        {{ state_attr('sun.sun', 'elevation') | float | round(0) }}
+```
+{% endraw %}
+
+Notice that in `state:`, we use `state_attr()` to retrieve the `elevation` attribute of the `sun.sun` entity. Then, we use `float` to force the output to a [floating point number](https://en.wikipedia.org/wiki/Floating-point_arithmetic), which ensures that the output is interpreted as a number, and run `round(0)` on the numeric output to round the decimals to zero cases.  The result should be an [integer](https://en.wikipedia.org/wiki/Integer) of the Sun elevation.  (Alternatively, we could simply use `int` to convert the output to an integer, of course.)
+
+I find the use of the folded style (`>`) very helpful in keeping the templates organized. Refer to the [YAML - Scalars](https://yaml.org/spec/1.2/spec.html) documentation for more information.
+{:.notice}
+
+Check your `configuration.yaml` file for errors (Configuration > Server Controls > Configuration validation), and finally, **reload your HASS**.  Afterwards, navigate to Developers Tools > States and if everything is correct, you should see a new `sensor.template_sun_elevation` entity:
+
+[![HASS template sun elevation](/assets/posts/2021-06-04-smarter-hass/hass-entity-template-sun-elevation.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-06-04-smarter-hass/hass-entity-template-sun-elevation.jpg)
+
+By default, the values of this newly created entity will update as soon as the Sun `elevation` attribute changes. However, it is also possible to configure different **triggers** for **template entities**.  This is particularly relevant for the next topic, namely data sampling.
 
 ## Sampling
-- How the data from each sensor is being collected affects your conclusions
+Devices, sensors, and services measure and transmit data with a certain frequency, which I refer by the term **measurement resolution**.  Such a frequency might be determined by a time-based rule (e.g., every 1 sec) or an event (HTTP request) or a combination of both.  Regardless of the nature of the trigger, the *higher* the measurement resolution, the more frequent the measurement and transmission are.  For example, an [ESP32 Development board](https://www.espressif.com/en/products/devkits) connected to a [BME280 environmental sensor](https://www.bosch-sensortec.com/products/environmental-sensors/humidity-sensors-bme280/) might send a temperature measurement *every 5 minutes* to a MQTT broker.  Therefore, for all intended purposes, the measurement resolution of such a temperature sensor is *at best* 5 minutes.  Now, if a second ESP32 measures and send data *every 1 minute* instead, then the measurement resolution of the latter ESP32 is higher than the former (i.e., we can expect it to send temperature data more frequently).
+
+As mentioned before, in HASS, **template entities** follow state-based updates by default--that is, they update as soon as the data of any of the referenced entities change.  Let's say that over a 20-min window, none of the referenced data changed.  This means that the template entity also didn't change and more importantly, in the DB, there will be a *single data point* over the 20-min window.  However, let's say that over the same 20-min window, one of the referenced data changed twice. This means that the template entity now changed twice and more importantly, in the DB, there will be *three data points* over the 20-min window.  This a very efficient way of storing data but you can probably see how this might affect the usage of analytical tools.
+
+Fortunately, just like we specify triggers for automations, HASS offers the possibility to specify [triggers for template entities](https://www.home-assistant.io/integrations/template/#trigger-based-template-sensors).
+
+- TODOs:
+  - trigger-based template example
+  - schedule-based for consistency
+  - talk about measurement resolution and schedule-based conflict
+  - a note on statistical sampling (representatives) for generalization (e.g., estimating the home weather via multiple sensors at key locations; what and how much they vary; etc)
 
 
 ## Utilities

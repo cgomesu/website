@@ -9,7 +9,7 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Towards a smarter Home Assistant: Getting started on dynamic statistical analysis of devices, sensors, and services - CGomesu</title>
+<!-- begin _includes/seo.html --><title>Towards a smarter Home Assistant: Getting started on the analytical tools and beyond - CGomesu</title>
 <meta name="description" content="A blog and portfolio website built with Jekyll and hosted on Github Pages">
 
 
@@ -19,7 +19,7 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="CGomesu">
-<meta property="og:title" content="Towards a smarter Home Assistant: Getting started on dynamic statistical analysis of devices, sensors, and services">
+<meta property="og:title" content="Towards a smarter Home Assistant: Getting started on the analytical tools and beyond">
 <meta property="og:url" content="/blog/smarter-hass/">
 
 
@@ -184,7 +184,7 @@
     <div class="wrapper">
       <h1 id="page-title" class="page__title" itemprop="headline">
         
-          Towards a smarter Home Assistant: Getting started on dynamic statistical analysis of devices, sensors, and services
+          Towards a smarter Home Assistant: Getting started on the analytical tools and beyond
 
         
       </h1>
@@ -198,7 +198,7 @@
 
 
 
-  23 minute read
+  30 minute read
 
 </p>
       
@@ -337,7 +337,7 @@
 
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Towards a smarter Home Assistant: Getting started on dynamic statistical analysis of devices, sensors, and services">
+    <meta itemprop="headline" content="Towards a smarter Home Assistant: Getting started on the analytical tools and beyond">
     <meta itemprop="description" content="">
     <meta itemprop="datePublished" content="2021-06-04T10:40:00-03:00">
     
@@ -357,7 +357,7 @@
   <li><a href="#prerequisites">Prerequisites</a>
     <ul>
       <li><a href="#hass-core">HASS Core</a></li>
-      <li><a href="#yaml-syntax">YAML syntax</a></li>
+      <li><a href="#hass-configuration-and-the-yaml-syntax">HASS configuration and the YAML syntax</a></li>
       <li><a href="#hass-database">HASS database</a>
         <ul>
           <li><a href="#default-database">Default database</a></li>
@@ -399,7 +399,7 @@
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 
 <h1 id="introduction">Introduction</h1>
-<p><a href="https://www.home-assistant.io/">Home Assistant</a> (HASS) is a free and open-source software (FOSS) that provides a feature-rich environment for managing, controlling, and automating smart home devices, such as light bulbs, blinders, and LED strips.  In addition, it provides a highly customizable system for collecting and organizing a multitude of data (e.g., on/off device states, local temperature, GPS tracking, exchange rates), as provided by <strong>more than a thousand <a href="https://www.home-assistant.io/integrations">integrations</a></strong> with local <a href="https://en.wikipedia.org/wiki/Internet_of_things">Internet of things</a> (IoT) devices (e.g., <a href="https://sonoff.tech/">Sonoff</a>, <a href="https://wyze.com/">Wyze</a>, <a href="https://www.z-wave.com/">Z-Wave</a>), sensors (e.g., micro-controllers or single-board computers connected to sensor modules), and cloud-based services (e.g., weather and financial web APIs).</p>
+<p><a href="https://www.home-assistant.io/">Home Assistant</a> (HASS) is a free and open-source software (FOSS) that provides a feature-rich environment for managing, controlling, and automating smart home devices, such as light bulbs, blinders, and LED strips.  In addition, it provides a highly customizable system for collecting and organizing a multitude of data (e.g., on/off device states, local temperature, GPS tracking, exchange rates), as provided by <strong>more than a thousand <a href="https://www.home-assistant.io/integrations">integrations</a></strong> with <a href="https://en.wikipedia.org/wiki/Internet_of_things">Internet of things</a> (IoT) devices (e.g., <a href="https://sonoff.tech/">Sonoff</a>, <a href="https://wyze.com/">Wyze</a>, <a href="https://www.z-wave.com/">Z-Wave</a>), local sensors (e.g., micro-controllers or single-board computers connected to sensor modules), and cloud-based services (e.g., weather and financial web APIs).</p>
 
 <p><a href="/assets/posts/2021-06-04-smarter-hass/hass-demo.jpg"><img src="/assets/posts/2021-06-04-smarter-hass/hass-demo.jpg" alt="HASS demo frontend" class="PostImage PostImage--large" /></a></p>
 
@@ -417,10 +417,10 @@
 <p>In addition, the same analytical tools can be used to make statistical, data-driven inferences about the <strong>future states</strong> of smart devices and sensors to create what I call <em>inferential automations</em>. Inferential automations determine actions based on abnormal states and measurements, for example, or reliable tendencies over a user-specified period of time:</p>
 
 <ul>
-  <li>if the water level is <em>significantly lower than yesterday</em>, then ___ .</li>
-  <li>if the number of detected cars on my camera is <em>significantly higher than thirty minutes ago</em>, then ___ .</li>
-  <li>if the temperature started <em>decreasing significantly over the last five minutes</em>, then ___ .</li>
-  <li>if the VOC started <em>increasing significantly over the last fifteen minutes</em>, then ___ .</li>
+  <li>if the water level is <em>significantly lower than yesterday</em>, then __ .</li>
+  <li>if the number of detected cars on my camera is <em>significantly higher than thirty minutes ago</em>, then __ .</li>
+  <li>if the temperature started <em>decreasing significantly over the last five minutes</em>, then __ .</li>
+  <li>if the VOC started <em>increasing significantly over the last fifteen minutes</em>, then __ .</li>
 </ul>
 
 <p><a href="/assets/posts/2021-06-04-smarter-hass/voc-plot-linear-fit.jpg"><img src="/assets/posts/2021-06-04-smarter-hass/voc-plot-linear-fit.jpg" alt="VOC plot linear fit" class="PostImage PostImage--large" /></a></p>
@@ -445,7 +445,7 @@
 
 <ol>
   <li>A <a href="#hass-core">HASS <strong>Core</strong></a> instance;</li>
-  <li>Understanding of the <a href="#yaml-syntax"><strong>YAML</strong> syntax</a>;</li>
+  <li>Understanding of <a href="#hass-configuration-and-the-yaml-syntax">the <strong>configuration</strong> files and the <strong>YAML</strong> syntax</a>;</li>
   <li>Understanding the <a href="#hass-database">HASS <strong>database</strong></a>;</li>
   <li>And of course, <a href="#statistics">basic <strong>statistics</strong></a> knowledge.</li>
 </ol>
@@ -467,7 +467,7 @@
 
 <p>Of note, after deploying the HASS container, use a host’s text editor (e.g., <code class="language-plaintext highlighter-rouge">nano</code>, <code class="language-plaintext highlighter-rouge">vi</code>, <code class="language-plaintext highlighter-rouge">vim</code>, <code class="language-plaintext highlighter-rouge">pluma</code>) to edit the <code class="language-plaintext highlighter-rouge">configuration.yaml</code> file and related configuration files.  Whenever you create a new <code class="language-plaintext highlighter-rouge">.yaml</code> file, make sure that the HASS user will have permission to read it at the very least, or you will run into issues.  Finally, in the HASS webUI, your HASS user must be able to access the <a href="https://www.home-assistant.io/docs/tools/dev-tools/"><strong>Developer Tools</strong> &gt; Services</a> tab to check the state of each entity and their attributes.  The default admin user should have access to such a resource.</p>
 
-<h2 id="yaml-syntax">YAML syntax</h2>
+<h2 id="hass-configuration-and-the-yaml-syntax">HASS configuration and the YAML syntax</h2>
 <p>The configuration files in HASS use a human-readable data serialization language called <a href="https://yaml.org/"><strong>YAML</strong></a> (YAML Ain’t Markup Language).  In this guide, we will use YAML to edit and create configuration files for HASS that will customize database settings and new entities to collect data and help with their visualization.</p>
 
 <p>If you are new to YAML, take a few minutes right now to familiarize yourself with it.  The HASS wiki has a straight to the point explanation that I invite everyone to read:</p>
@@ -492,7 +492,21 @@
   <li>Use <code class="language-plaintext highlighter-rouge">!secret</code> and a <code class="language-plaintext highlighter-rouge">secrets.yaml</code> for managing passwords.  (See more in the HASS wiki called <a href="https://www.home-assistant.io/docs/configuration/secrets/">Storing secrets</a>.)</li>
 </ul>
 
-<p>Finally, after making any changes to any YAML file (and saving them), it is necessary to <a href="https://www.home-assistant.io/docs/configuration/#reloading-changes"><strong>reload</strong> the <code class="language-plaintext highlighter-rouge">configuration.yaml</code> file</a>.  If your installation method does not allow for selective reloading, then go ahead and reload the entire HASS.  Keep an eye on the <code class="language-plaintext highlighter-rouge">home-assistant.log</code> file for errors.  This will help you troubleshooting most issues on your own.</p>
+<p>Finally, after making any changes to any YAML file (and saving them), it is necessary to <a href="https://www.home-assistant.io/docs/configuration/#reloading-changes"><strong>reload</strong> the <code class="language-plaintext highlighter-rouge">configuration.yaml</code> file</a>.  If your installation method does not allow for selective reloading, then go ahead and reload the entire HASS.  However, <em>before reloading any configuration file</em>, use the <code class="language-plaintext highlighter-rouge">hass --script check_config</code> script to make sure your <code class="language-plaintext highlighter-rouge">configuration.yaml</code> file is okay, as follows:</p>
+
+<ul>
+  <li>
+    <p>From within the HASS webUI, navigate to <strong>Configuration</strong> &gt; <strong>Server Controls</strong> &gt; Configuration validation.</p>
+
+    <p><a href="/assets/posts/2021-06-04-smarter-hass/hass-config-validation.jpg"><img src="/assets/posts/2021-06-04-smarter-hass/hass-config-validation.jpg" alt="HASS config validation" class="PostImage PostImage--large" /></a></p>
+
+    <p><a href="/assets/posts/2021-06-04-smarter-hass/hass-config-reload.jpg"><img src="/assets/posts/2021-06-04-smarter-hass/hass-config-reload.jpg" alt="HASS config reload" class="PostImage PostImage--large" /></a></p>
+
+    <p class="notice">Alternatively, if running the HASS Docker container, use <code class="language-plaintext highlighter-rouge">docker exec homeassistant python -m homeassistant --script check_config --config /config</code> to run the <code class="language-plaintext highlighter-rouge">check_config</code> script from your host machine.  (This assumes that your HASS container is called <code class="language-plaintext highlighter-rouge">homeassistant</code>. If this is not the case, change it accordingly.)</p>
+  </li>
+</ul>
+
+<p>Always keep an eye on the <code class="language-plaintext highlighter-rouge">home-assistant.log</code> file for errors.  This will greatly help you troubleshooting most issues on your own (e.g., incorrect references or operations in templates).</p>
 
 <h2 id="hass-database">HASS database</h2>
 <p>HASS uses a relational database (DB) management system (RDBMS) based on the <strong>SQL engine</strong> and by default, it creates a <a href="https://www.sqlite.org/index.html"><strong>SQLite DB</strong></a> in <code class="language-plaintext highlighter-rouge">config/home-assistant_v2.db</code> to track events and parameters over time.  If you want to learn more about and dive into the HASS DB, including how to create your own SQL backend, take a look at the two following resources:</p>
@@ -523,7 +537,7 @@
   <li><a href="https://www.home-assistant.io/integrations/recorder/">https://www.home-assistant.io/integrations/recorder/</a></li>
 </ul>
 
-<p>In brief, by default, the HASS DB <strong>keeps historical data up to 10 days</strong> (<code class="language-plaintext highlighter-rouge">purge_keep_days: 10</code>), running an automatic purge of the database every night to prevent the DB from increasing in size indefinitely (<code class="language-plaintext highlighter-rouge">auto_purge: true</code>).  Therefore, <em>if you want to keep data from one or more entities for longer than 10 days</em>, then you must edit the DB default settings.</p>
+<p>In brief, by default, the HASS DB <strong>keeps historical data up to 10 days</strong> (<code class="language-plaintext highlighter-rouge">purge_keep_days: 10</code>), running an automatic purge of the database every night to prevent the DB from increasing in size indefinitely (<code class="language-plaintext highlighter-rouge">auto_purge: true</code>).  Therefore, <em>if you want to keep data from one or more entities for longer than 10 days</em>, then you must edit the DB default settings.  The <code class="language-plaintext highlighter-rouge">include</code> and <code class="language-plaintext highlighter-rouge">exclude</code> filter parameters are particularly useful whenever working with non-default settings, as they help you specify which entities should be tracked.  <a href="https://www.home-assistant.io/integrations/recorder/#common-filtering-examples">Check the HASS wiki Configure Filter for examples</a>.</p>
 
 <p>In addition, as mentioned before, the default DB is stored in your <code class="language-plaintext highlighter-rouge">config/</code> directory and also by default, <strong>changes are committed to the DB every 1 sec</strong> (<code class="language-plaintext highlighter-rouge">commit_interval: 1</code>). This matters because if you are collecting data over a time window lower than 1 sec, then you might want to change the commit interval to <code class="language-plaintext highlighter-rouge">0</code> (zero, or as soon as possible) instead. At this point, it is also important to consider where the DB is being physically stored (SD card, eMMC, HDD, or SSD), owing to <strong>disk I/O</strong> and <strong>wear and tear</strong> considerations.  (More advanced aspects come into play if HASS is not the only application committing to the DB but I trust that if this is your case, then you probably know how to customize the HASS DB accordingly.)</p>
 
@@ -584,30 +598,71 @@
   <li><a href="#integration">Integration</a></li>
 </ol>
 
-<p>The current set of analytical integrations is fairly limited in what it can do.  For the most part, the tools can be used to create summary statistics of the past states and measurements of integrated devices and sensors.  Inference-wise, a lot can be done via <a href="https://www.home-assistant.io/docs/configuration/templating/">templates</a> but moving forward, there is a need for more advanced analytical integrations.  For this reason, at the end of this guide, I added a section about <a href="#development">Development</a> for anyone interested in helping out.  First, however, we need to talk about data.</p>
+<p>The current set of analytical integrations is fairly limited in what it can do.  For the most part, the tools can be used to create summary statistics of the past states and measurements of integrated devices and sensors.  Inference-wise, a lot can be done via <a href="https://www.home-assistant.io/docs/configuration/templating/">templates</a> but moving forward, there is a need for more advanced analytical integrations.  For this reason, at the end of this guide, I added a section about <a href="#development">Development</a> for anyone interested in helping out.  First, however, we need to talk about <a href="#data">Data</a> and <a href="#sampling">Sampling</a>.</p>
 
 <h2 id="data">Data</h2>
-<p>Before delving into any analytical integration, there are at least three things that we need to do. First, we need think about the nature of the data.  For example, consider the default <a href="https://www.home-assistant.io/integrations/sun/">Sun</a> (<code class="language-plaintext highlighter-rouge">sun.sun</code>) entity in HASS:</p>
+<p>Before delving into any analytical integration, there are at least three things that we need to do. First, we need to think about the nature of the data.  For example, consider the default <a href="https://www.home-assistant.io/integrations/sun/">Sun</a> (<code class="language-plaintext highlighter-rouge">sun.sun</code>) entity in HASS:</p>
 
 <p><a href="/assets/posts/2021-06-04-smarter-hass/hass-entity-sun.jpg"><img src="/assets/posts/2021-06-04-smarter-hass/hass-entity-sun.jpg" alt="Sun entity" class="PostImage" /></a></p>
 
-<p>While the <code class="language-plaintext highlighter-rouge">sun.sun</code> <em>state</em> is <strong>discrete</strong> (it’s either <code class="language-plaintext highlighter-rouge">above_horizon</code> or <code class="language-plaintext highlighter-rouge">below_horizon</code>), its <code class="language-plaintext highlighter-rouge">elevation</code> <em>attribute</em> is actually <strong>continuous</strong> (e.g., <code class="language-plaintext highlighter-rouge">35.84</code>° between the sun and the horizon) and therefore, it doesn’t make sense to use the same tools to analyze both of them, does it?  Nonetheless, discrete variables can be transformed into continuous ones (e.g., the sun was <code class="language-plaintext highlighter-rouge">above_horizon</code> for <code class="language-plaintext highlighter-rouge">34.1</code>% of the day), and similarly, continuous variables can be discretised (e.g., the elevation was either <code class="language-plaintext highlighter-rouge">negative</code> or <code class="language-plaintext highlighter-rouge">positive</code> or <code class="language-plaintext highlighter-rouge">zero</code>) in order to better answer our questions of interest.</p>
+<p>While the <code class="language-plaintext highlighter-rouge">sun.sun</code> <em>state</em> is a <strong>discrete</strong> variable (it’s either <code class="language-plaintext highlighter-rouge">above_horizon</code> or <code class="language-plaintext highlighter-rouge">below_horizon</code>), its <code class="language-plaintext highlighter-rouge">elevation</code> <em>attribute</em> is actually <strong>continuous</strong> (e.g., <code class="language-plaintext highlighter-rouge">35.84</code>° between the sun and the horizon) and therefore, it doesn’t make sense to use the same tools to analyze both of them.  Nonetheless, discrete variables can be transformed into continuous ones (e.g., the sun was <code class="language-plaintext highlighter-rouge">above_horizon</code> for <code class="language-plaintext highlighter-rouge">34.1</code>% of the day), and similarly, continuous variables can be discretised (e.g., the elevation is either <code class="language-plaintext highlighter-rouge">negative</code> or <code class="language-plaintext highlighter-rouge">positive</code> or <code class="language-plaintext highlighter-rouge">zero</code>) in order to better answer our questions of interest.</p>
 
-<p>Second, we need to check whether HASS is keeping track of the data.</p>
+<p>Second, we need to check whether HASS is keeping track of the data we need. There are multiple ways of doing that but by far, the easiest method is to navigate to <strong>Developer Tools</strong> &gt; States and then make sure that the entities whose states and attributes we would like to keep track of are being listed there.  (Alternatively, you can open the HASS DB with a SQL browser and look for the entity in the <code class="language-plaintext highlighter-rouge">states</code> Table.)</p>
 
-<p>Third, we need to check how the data are being represented in the DB.</p>
+<p><a href="/assets/posts/2021-06-04-smarter-hass/hass-developer-tools.jpg"><img src="/assets/posts/2021-06-04-smarter-hass/hass-developer-tools.jpg" alt="HASS developer tools" class="PostImage PostImage--large" /></a></p>
 
-<p>In HASS, it is possible to find a list of all entities and their attributes in Developer Tools &gt; States.</p>
+<p>Third, we need to check how the data are being represented in the DB.  As in the previous example, some variables might be an attribute of an existing entity in the HASS DB.  If the <code class="language-plaintext highlighter-rouge">recorder:</code> settings for such entity are fine for the type of analysis you want to automate (e.g., purge every 10 days), then you should be fine.  However, notice that <em>attributes</em> cannot be displayed the same way as the <em>states</em> of an entity in the HASS webUI.  In addition, you might want to <strong>pre-process</strong> the attributes (e.g., <code class="language-plaintext highlighter-rouge">float</code> and then <code class="language-plaintext highlighter-rouge">round(2)</code>) or perform transformations before running the analysis.</p>
 
-<ul>
-  <li>Discrete vs. continuous</li>
-  <li>Examples of sensor data (finance, weather, energy, object detection, gps tracking, etc)</li>
-  <li>Setting up the data used to illustrate the application of inferential automations: Weather data</li>
-</ul>
+<p>For all such a reasons, I always create <strong>new entities</strong> for the variables that will be analyzed. This is accomplished with the <a href="https://www.home-assistant.io/integrations/template/"><code class="language-plaintext highlighter-rouge">template</code> integration</a>.  Per the HASS wiki:</p>
+
+<blockquote>
+  <p>The template integration allows creating entities which derive their values from other data. This is done by specifying templates for properties of an entity, like the name or the state.</p>
+</blockquote>
+
+<p><a href="https://www.home-assistant.io/docs/configuration/templating/#building-templates">Building templates</a> is fairly easy once you get the hang of the syntax.  In short, templates follow the <a href="https://palletsprojects.com/p/jinja"><strong>Jinja2</strong> templating engine</a> and are mainly used to perform mathematical operations (<code class="language-plaintext highlighter-rouge">+</code>, <code class="language-plaintext highlighter-rouge">-</code>, <code class="language-plaintext highlighter-rouge">*</code>, <code class="language-plaintext highlighter-rouge">/</code>) and logic tests (if <code class="language-plaintext highlighter-rouge">true</code> , then __ ) but can also do loops (for <code class="language-plaintext highlighter-rouge">i</code> in <code class="language-plaintext highlighter-rouge">states.sensor</code>), for example.  As a result, templates give users a scripting tool to go beyond the HASS built-in functionalities.</p>
+
+<p>As an example, let’s create an entity to store and round to zero the <code class="language-plaintext highlighter-rouge">sun.sun</code> <code class="language-plaintext highlighter-rouge">elevation</code> attribute.  First, in the <code class="language-plaintext highlighter-rouge">configuration.yaml</code>, <strong>append</strong> (add to the bottom) a reference to the <code class="language-plaintext highlighter-rouge">templates.yaml</code> configuration file:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Templates</span>
+<span class="na">template</span><span class="pi">:</span> <span class="kt">!include</span> <span class="s">templates.yaml</span>
+</code></pre></div></div>
+
+<p>Then, use a text editor to create an empty <code class="language-plaintext highlighter-rouge">templates.yaml</code> file and create a sensor template for the sun elevation, as follows:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Sensor Templates</span>
+<span class="pi">-</span> <span class="na">sensor</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">template</span><span class="nv"> </span><span class="s">sun</span><span class="nv"> </span><span class="s">elevation"</span>
+      <span class="na">unit_of_measurement</span><span class="pi">:</span> <span class="s2">"</span><span class="s">°"</span>
+      <span class="na">state</span><span class="pi">:</span> <span class="pi">&gt;</span>
+        <span class="s">{{ state_attr('sun.sun', 'elevation') | float | round(0) }}</span>
+</code></pre></div></div>
+
+<p>Notice that in <code class="language-plaintext highlighter-rouge">state:</code>, we use <code class="language-plaintext highlighter-rouge">state_attr()</code> to retrieve the <code class="language-plaintext highlighter-rouge">elevation</code> attribute of the <code class="language-plaintext highlighter-rouge">sun.sun</code> entity. Then, we use <code class="language-plaintext highlighter-rouge">float</code> to force the output to a <a href="https://en.wikipedia.org/wiki/Floating-point_arithmetic">floating point number</a>, which ensures that the output is interpreted as a number, and run <code class="language-plaintext highlighter-rouge">round(0)</code> on the numeric output to round the decimals to zero cases.  The result should be an <a href="https://en.wikipedia.org/wiki/Integer">integer</a> of the Sun elevation.  (Alternatively, we could simply use <code class="language-plaintext highlighter-rouge">int</code> to convert the output to an integer, of course.)</p>
+
+<p class="notice">I find the use of the folded style (<code class="language-plaintext highlighter-rouge">&gt;</code>) very helpful in keeping the templates organized. Refer to the <a href="https://yaml.org/spec/1.2/spec.html">YAML - Scalars</a> documentation for more information.</p>
+
+<p>Check your <code class="language-plaintext highlighter-rouge">configuration.yaml</code> file for errors (Configuration &gt; Server Controls &gt; Configuration validation), and finally, <strong>reload your HASS</strong>.  Afterwards, navigate to Developers Tools &gt; States and if everything is correct, you should see a new <code class="language-plaintext highlighter-rouge">sensor.template_sun_elevation</code> entity:</p>
+
+<p><a href="/assets/posts/2021-06-04-smarter-hass/hass-entity-template-sun-elevation.jpg"><img src="/assets/posts/2021-06-04-smarter-hass/hass-entity-template-sun-elevation.jpg" alt="HASS template sun elevation" class="PostImage PostImage--large" /></a></p>
+
+<p>By default, the values of this newly created entity will update as soon as the Sun <code class="language-plaintext highlighter-rouge">elevation</code> attribute changes. However, it is also possible to configure different <strong>triggers</strong> for <strong>template entities</strong>.  This is particularly relevant for the next topic, namely data sampling.</p>
 
 <h2 id="sampling">Sampling</h2>
+<p>Devices, sensors, and services measure and transmit data with a certain frequency, which I refer by the term <strong>measurement resolution</strong>.  Such a frequency might be determined by a time-based rule (e.g., every 1 sec) or an event (HTTP request) or a combination of both.  Regardless of the nature of the trigger, the <em>higher</em> the measurement resolution, the more frequent the measurement and transmission are.  For example, an <a href="https://www.espressif.com/en/products/devkits">ESP32 Development board</a> connected to a <a href="https://www.bosch-sensortec.com/products/environmental-sensors/humidity-sensors-bme280/">BME280 environmental sensor</a> might send a temperature measurement <em>every 5 minutes</em> to a MQTT broker.  Therefore, for all intended purposes, the measurement resolution of such a temperature sensor is <em>at best</em> 5 minutes.  Now, if a second ESP32 measures and send data <em>every 1 minute</em> instead, then the measurement resolution of the latter ESP32 is higher than the former (i.e., we can expect it to send temperature data more frequently).</p>
+
+<p>As mentioned before, in HASS, <strong>template entities</strong> follow state-based updates by default–that is, they update as soon as the data of any of the referenced entities change.  Let’s say that over a 20-min window, none of the referenced data changed.  This means that the template entity also didn’t change and more importantly, in the DB, there will be a <em>single data point</em> over the 20-min window.  However, let’s say that over the same 20-min window, one of the referenced data changed twice. This means that the template entity now changed twice and more importantly, in the DB, there will be <em>three data points</em> over the 20-min window.  This a very efficient way of storing data but you can probably see how this might affect the usage of analytical tools.</p>
+
+<p>Fortunately, just like we specify triggers for automations, HASS offers the possibility to specify <a href="https://www.home-assistant.io/integrations/template/#trigger-based-template-sensors">triggers for template entities</a>.</p>
+
 <ul>
-  <li>How the data from each sensor is being collected affects your conclusions</li>
+  <li>TODOs:
+    <ul>
+      <li>trigger-based template example</li>
+      <li>schedule-based for consistency</li>
+      <li>talk about measurement resolution and schedule-based conflict</li>
+      <li>a note on statistical sampling (representatives) for generalization (e.g., estimating the home weather via multiple sensors at key locations; what and how much they vary; etc)</li>
+    </ul>
+  </li>
 </ul>
 
 <h2 id="utilities">Utilities</h2>
@@ -779,13 +834,13 @@
     <h4 class="page__share-title">Share on</h4>
   
 
-  <a href="mailto:?subject=[cgomesu.com] Towards a smarter Home Assistant: Getting started on dynamic statistical analysis of devices, sensors, and services&amp;body=%2Fblog%2Fsmarter-hass%2F " class="btn btn--inverse" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on E-mail"><i class="fas fa-envelope" aria-hidden="true"></i><span> E-mail</span></a>
+  <a href="mailto:?subject=[cgomesu.com] Towards a smarter Home Assistant: Getting started on the analytical tools and beyond&amp;body=%2Fblog%2Fsmarter-hass%2F " class="btn btn--inverse" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on E-mail"><i class="fas fa-envelope" aria-hidden="true"></i><span> E-mail</span></a>
 
   <a href="https://www.facebook.com/sharer/sharer.php?u=%2Fblog%2Fsmarter-hass%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://www.reddit.com/submit?title=Towards a smarter Home Assistant: Getting started on dynamic statistical analysis of devices, sensors, and services&url=%2Fblog%2Fsmarter-hass%2F" class="btn btn--reddit" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Reddit"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i><span> Reddit</span></a>
+  <a href="https://www.reddit.com/submit?title=Towards a smarter Home Assistant: Getting started on the analytical tools and beyond&url=%2Fblog%2Fsmarter-hass%2F" class="btn btn--reddit" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Reddit"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i><span> Reddit</span></a>
 
-  <a href="https://twitter.com/intent/tweet?text=Towards+a+smarter+Home+Assistant%3A+Getting+started+on+dynamic+statistical+analysis+of+devices%2C+sensors%2C+and+services%20%2Fblog%2Fsmarter-hass%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=Towards+a+smarter+Home+Assistant%3A+Getting+started+on+the+analytical+tools+and+beyond%20%2Fblog%2Fsmarter-hass%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 </section>
 
 
