@@ -1,5 +1,5 @@
 ---
-title: "Towards a smarter Home Assistant: Getting started on the analytical tools and beyond"
+title: "Towards a smarter Home Assistant: Getting started on the analytical tools (and moving beyond)"
 date: 2021-06-04 10:40:00 -0300
 tags: hass iot automation math stats
 header:
@@ -42,7 +42,7 @@ In addition, the same analytical tools can be used to make statistical, data-dri
 
 Unfortunately, according to the HASS website, the [Statistics](https://www.home-assistant.io/integrations/statistics/) and related utilities are currently used by less than 5% of the HASS userbase.  I feel there is much to be explored and gained from the application of **dynamic statistical inferences** in home automation systems.  To mention a few reasons, sensors are susceptible to measurement error and many user-defined events (e.g., Carlos is at home) are multidimensional and frequently determined by more factors than integrated with a home automation system (e.g., my cellphone connected to my home's private network is not a sufficient condition to tell that I'm at home but it does inform about the likelihood that I am at home).  This creates uncertainty about the current and future states of things but fortunately, the uncertainty can be quantified and taken into account by various statistical tools that have already been developed.
 
-Furthermore, the fact that HASS integrations are written in the [Python programming language](https://www.python.org/) makes HASS a prime candidate for exploring the use of statistical inference in home automation systems because many statistical packages are already available in Python and are widely used and well-maintained (e.g., [`numpy`](https://pypi.org/project/numpy/) and [`scipy`](https://pypi.org/project/scipy/)). Therefore, porting new and more sophisticated analytical tools to HASS should be fairly straightforward.  (More on this in the [Development](#development) section).
+Furthermore, the fact that HASS integrations are written in the [Python programming language](https://www.python.org/) makes HASS a prime candidate for exploring the use of statistical inference in home automation systems because many mathematical and statistical packages are already available in Python and are widely used and well-maintained (e.g., [`numpy`](https://pypi.org/project/numpy/) and [`scipy`](https://pypi.org/project/scipy/)). Therefore, porting new and more sophisticated analytical tools to HASS should be fairly straightforward.  (More on this in the [Development](#development) section).
 
 If you find these ideas interesting and want to get started on their implementation in your own personal HASS instances, then read on.  As in my previous guides and tutorials, I tried to unpack and digest as much of the content as possible, the goal being to make it accessible to experts as well as novices.  Check the [Changelog](#changelog) for updates and if you ever get stuck on something or just want to share a few ideas and opinions, feel free to [get in touch with me](/contact).
 
@@ -59,7 +59,7 @@ If you find these ideas interesting and want to get started on their implementat
 The implementation of analytical tools in HASS has the following basic requirements:
 
 1. A [HASS **Core**](#hass-core) instance;
-2. Understanding of [the **configuration** files and the **YAML** syntax](#hass-configuration-and-the-yaml-syntax);
+2. Understanding of [the **configuration** files and the **YAML** syntax](#hass-configuration-files);
 3. Understanding the [HASS **database**](#hass-database);
 4. And of course, [basic **statistics**](#statistics) knowledge.
 
@@ -78,7 +78,7 @@ To create a HASS Docker container, follow the instructions in the **official doc
 
 Of note, after deploying the HASS container, use a host's text editor (e.g., `nano`, `vi`, `vim`, `pluma`) to edit the `configuration.yaml` file and related configuration files.  Whenever you create a new `.yaml` file, make sure that the HASS user will have permission to read it at the very least, or you will run into issues.  Finally, in the HASS webUI, your HASS user must be able to access the [**Developer Tools** > Services](https://www.home-assistant.io/docs/tools/dev-tools/) tab to check the state of each entity and their attributes.  The default admin user should have access to such a resource.
 
-## HASS configuration and the YAML syntax
+## HASS configuration files
 The configuration files in HASS use a human-readable data serialization language called [**YAML**](https://yaml.org/) (YAML Ain't Markup Language).  In this guide, we will use YAML to edit and create configuration files for HASS that will customize database settings and new entities to collect data and help with their visualization.
 
 If you are new to YAML, take a few minutes right now to familiarize yourself with it.  The HASS wiki has a straight to the point explanation that I invite everyone to read:
@@ -144,6 +144,23 @@ In brief, by default, the HASS DB **keeps historical data up to 10 days** (`purg
 In addition, as mentioned before, the default DB is stored in your `config/` directory and also by default, **changes are committed to the DB every 1 sec** (`commit_interval: 1`). This matters because if you are collecting data over a time window lower than 1 sec, then you might want to change the commit interval to `0` (zero, or as soon as possible) instead. At this point, it is also important to consider where the DB is being physically stored (SD card, eMMC, HDD, or SSD), owing to **disk I/O** and **wear and tear** considerations.  (More advanced aspects come into play if HASS is not the only application committing to the DB but I trust that if this is your case, then you probably know how to customize the HASS DB accordingly.)
 
 For advanced users who want to browse and manually add/edit entries from the default (SQLite) `home-assistant_v2.db`, it is possible to use the [SQLite Database Browser](https://sqlitebrowser.org/).  Just keep in mind that the default HASS DB might have permissions (ownership and group membership) that are incompatible with your current host user and therefore, you might be unable even to read the DB without first editing the permissions--in Linux, appending `sudo` to `sqlitebrowser` should give you access no matter what though.
+
+### Resetting entity data in the DB
+In addition to the SQL browser method of editing the HASS DB, HASS allow users to run a [service call](https://www.home-assistant.io/docs/scripts/service-calls/) from within the webUI to manually run a **purge task**. This is particularly useful to run once you are done making changes to a newly created template entity and want to clean any previous (and possibly erroneous) records from the DB.  To remove all the data from a list of entities, do the following:
+
+1. Navigate to **Developer Tools** > States;
+2. Select **Go to YAML mode** and paste the following:
+   ```yaml
+   service: recorder.purge_entities
+   target:
+     entity_id:
+       - sensor.my_template_entity_01
+       - sensor.my_template_entity_02
+   ```
+   in which `sensor.my_template_entity*` are the target template entities you want to purge;
+3. Press **Call Service** to purge their data from the DB. The new data will be collected as soon as an update is triggered (see the [Sampling](#sampling) section).
+
+Of course, there are other `recorder` services available in the Developer Tools > Services tab. Feel free to explore them.
 
 ## Statistics
 
@@ -215,7 +232,7 @@ Then, use a text editor to create an empty `templates.yaml` file and create a se
 
 {% raw %}
 ```yaml
-# Sensor Templates
+# Sensor templates
 - sensor:
     - name: "template sun elevation"
       unit_of_measurement: "°"
@@ -238,16 +255,36 @@ By default, the values of this newly created entity will update as soon as the S
 ## Sampling
 Devices, sensors, and services measure and transmit data with a certain frequency, which I refer by the term **measurement resolution**.  Such a frequency might be determined by a time-based rule (e.g., every 1 sec) or an event (HTTP request) or a combination of both.  Regardless of the nature of the trigger, the *higher* the measurement resolution, the more frequent the measurement and transmission are.  For example, an [ESP32 Development board](https://www.espressif.com/en/products/devkits) connected to a [BME280 environmental sensor](https://www.bosch-sensortec.com/products/environmental-sensors/humidity-sensors-bme280/) might send a temperature measurement *every 5 minutes* to a MQTT broker.  Therefore, for all intended purposes, the measurement resolution of such a temperature sensor is *at best* 5 minutes.  Now, if a second ESP32 measures and send data *every 1 minute* instead, then the measurement resolution of the latter ESP32 is higher than the former (i.e., we can expect it to send temperature data more frequently).
 
-As mentioned before, in HASS, **template entities** follow state-based updates by default--that is, they update as soon as the data of any of the referenced entities change.  Let's say that over a 20-min window, none of the referenced data changed.  This means that the template entity also didn't change and more importantly, in the DB, there will be a *single data point* over the 20-min window.  However, let's say that over the same 20-min window, one of the referenced data changed twice. This means that the template entity now changed twice and more importantly, in the DB, there will be *three data points* over the 20-min window.  This a very efficient way of storing data but you can probably see how this might affect the usage of analytical tools.
+As mentioned before, in HASS, **template entities** follow state-based updates by default--that is, they update as soon as the data of any of the referenced entities change.  Let's say that over a 20-min window, none of the referenced data changed.  This means that the template entity also didn't change and more importantly, in the DB, there will be a *single data point* over the 20-min window.  However, let's say that over the same 20-min window, one of the referenced data changed twice. This means that the template entity now changed twice and more importantly, in the DB, there will be *three data points* over the 20-min window.  This a very efficient way of storing data but you can probably see how this might affect the usage of analytical tools, owing to an inconsistent number of data points over equal time-frames as well as the under-representation of data over time.
 
-Fortunately, just like we specify triggers for automations, HASS offers the possibility to specify [triggers for template entities](https://www.home-assistant.io/integrations/template/#trigger-based-template-sensors).
+Fortunately, just like we specify triggers for automations, HASS offers the possibility to specify [triggers for template entities](https://www.home-assistant.io/integrations/template/#trigger-based-template-sensors).  There's a large variety of triggers that can be used here (e.g, `webhook`, `mqtt`) but for **longitudinal analysis**, the most useful one is the [**time pattern** trigger](https://www.home-assistant.io/docs/automation/trigger#time-pattern-trigger), called `time_pattern`.  Time pattern triggers can be specified for hours (`hours:`), minutes (`minutes:`), and seconds (`seconds:`), and for each one, it's possible to prefix the value with a `/` to match whenever the current value is divisible by the specified value (e.g., `hours: "/2"` will match every 2 hours) or use `*` to match any value (e.g., `minutes: "*"` to match every minute).
 
-- TODOs:
-  - trigger-based template example
-  - schedule-based for consistency
-  - talk about measurement resolution and schedule-based conflict
-  - a note on statistical sampling (representatives) for generalization (e.g., estimating the home weather via multiple sensors at key locations; what and how much they vary; etc)
+To create a time pattern trigger for one or more template entity sensor, simply add a list of time-based `sensor:` and `binary_sensor:` under a `trigger:` configuration in the `templates.yaml` configuration file, as follows:
 
+{% raw %}
+```yaml
+# Time pattern trigger
+- trigger:
+    - platform: time_pattern
+      # Update every 5 minutes
+      minutes: "/5"
+  # Sensor templates
+  sensor:
+    - name: "template sun elevation - time-based"
+      unit_of_measurement: "°"
+      state: >
+        {{ state_attr('sun.sun', 'elevation') | float | round(0) }}
+      attributes:
+        timestamp: >
+          {{ as_timestamp(now()) }}
+```
+{% endraw %}
+
+Of note, the `timestamp:` under `attributes:` forces HASS to create a new entry on the DB (update) whenever the template is triggered.  This keeps the number of data points constant over time and each one of them will have a timestamp as attribute.  (In the DB, you will also see that if the state remained unchanged, it maintains the correct `last_changed` date and updates the `last_updated` variable.)
+
+Also, notice that it does not make sense to use a `time_pattern` trigger rule that has higher resolution than the device's *measurement* resolution because then, there's no chance for a new value to occur and the DB would just repeat the last transmitted measurement.  Ideally, the time pattern should **match the measurement resolution** but to save space, you might want to set a lower time pattern resolution (as in 1:2, or 1:4, and so on).
+
+Finally, there is also the topic of statistical sampling (representativeness) when it comes to making generalizations from a couple of samples (e.g., environmental sensors in my bedroom and kitchen) to a population (temperature and humidity in my entire house).  In this guide, however, we will only make extrapolations about the devices, sensors, and services themselves, rather than any population that they might belong.
 
 ## Utilities
 - Tools to prepare the collected data for inferential automations
