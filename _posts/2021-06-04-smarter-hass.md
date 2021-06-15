@@ -163,10 +163,9 @@ In addition to the SQL browser method of editing the HASS DB, HASS allow users t
 Of course, there are other `recorder` services available in the Developer Tools > Services tab. Feel free to explore them.
 
 ## Statistics
+You don't need to be a mathematician who specialized in statistics to make use of it.  In this guide, we will only make reference to very introductory statistical knowledge, such as measures of central tendency (e.g., mean, median), variability (e.g., variance, standard deviation) and simple (univariate) linear regression (e.g., gradient/slope). Similarly, math-wise, I will briefly talk about first-order derivatives (the ratio of the increment) and integrals (the area under the curve).
 
 [![Humor about stats](/assets/posts/2021-06-04-smarter-hass/humor-stats.png){:.PostImage .PostImage--large}](/assets/posts/2021-06-04-smarter-hass/humor-stats.png)
-
-You don't need to be a mathematician who specialized in statistics to make use of it.  In this guide, we will only make reference to very introductory statistical knowledge, such as measures of central tendency (e.g., mean, median), variability (e.g., variance, standard deviation) and simple (univariate) linear regression (e.g., gradient/slope). Similarly, math-wise, I will briefly talk about first-order derivatives (the ratio of the increment) and integrals (the area under the curve).
 
 The goal in this guide is to present a starting point for more advanced usage of analytical tools in home automation systems.  The possibilities are endless for knowledgeable users (e.g., application of Bayesian methods, dynamic mixed-effects modeling) and how far you will go along these paths is up to you.
 
@@ -253,7 +252,7 @@ Check your `configuration.yaml` file for errors (Configuration > Server Controls
 By default, the values of this newly created entity will update as soon as the Sun `elevation` attribute changes. However, it is also possible to configure different **triggers** for **template entities**.  This is particularly relevant for the next topic, namely data sampling.
 
 ## Sampling
-Devices, sensors, and services measure and transmit data with a certain frequency, which I refer by the term **measurement resolution**.  Such a frequency might be determined by a time-based rule (e.g., every 1 sec) or an event (HTTP request) or a combination of both.  Regardless of the nature of the trigger, the *higher* the measurement resolution, the more frequent the measurement and transmission are.  For example, an [ESP32 Development board](https://www.espressif.com/en/products/devkits) connected to a [BME280 environmental sensor](https://www.bosch-sensortec.com/products/environmental-sensors/humidity-sensors-bme280/) might send a temperature measurement *every 5 minutes* to a MQTT broker.  Therefore, for all intended purposes, the measurement resolution of such a temperature sensor is *at best* 5 minutes.  Now, if a second ESP32 measures and send data *every 1 minute* instead, then the measurement resolution of the latter ESP32 is higher than the former (i.e., we can expect it to send temperature data more frequently).
+Devices, sensors, and services measure and transmit data with a certain frequency, which I refer by the term **measurement resolution**.  Such a resolution might be determined by a time-based rule (e.g., every 1 sec) or an event (HTTP request) or a combination of both.  Regardless of the nature of the trigger, the *higher* the measurement resolution, the more frequent the measurement and transmission are.  For example, an [ESP32 Development board](https://www.espressif.com/en/products/devkits) connected to a [BME280 environmental sensor](https://www.bosch-sensortec.com/products/environmental-sensors/humidity-sensors-bme280/) might send a temperature measurement every 5 minutes to a MQTT broker.  Therefore, for all intended purposes, the measurement resolution of such a temperature sensor is at best 5 minutes.  Now, if a second ESP32 measures and send data *every 1 minute* instead, then the measurement resolution of the latter ESP32 is higher than the former (i.e., we can expect it to send temperature data more frequently).
 
 As mentioned before, in HASS, **template entities** follow state-based updates by default--that is, they update as soon as the data of any of the referenced entities change.  Let's say that over a 20-min window, none of the referenced data changed.  This means that the template entity also didn't change and more importantly, in the DB, there will be a *single data point* over the 20-min window.  However, let's say that over the same 20-min window, one of the referenced data changed twice. This means that the template entity now changed twice and more importantly, in the DB, there will be *three data points* over the 20-min window.  This a very efficient way of storing data but you can probably see how this might affect the usage of analytical tools, owing to an inconsistent number of data points over equal time-frames as well as the under-representation of data over time.
 
@@ -284,22 +283,112 @@ Of note, the `timestamp:` under `attributes:` forces HASS to create a new entry 
 
 Also, notice that it does not make sense to use a `time_pattern` trigger rule that has higher resolution than the device's *measurement* resolution because then, there's no chance for a new value to occur and the DB would just repeat the last transmitted measurement.  Ideally, the time pattern should **match the measurement resolution** but to save space, you might want to set a lower time pattern resolution (as in 1:2, or 1:4, and so on).
 
-Finally, there is also the topic of statistical sampling (representativeness) when it comes to making generalizations from a couple of samples (e.g., environmental sensors in my bedroom and kitchen) to a population (temperature and humidity in my entire house).  In this guide, however, we will only make extrapolations about the devices, sensors, and services themselves, rather than any population that they might belong.
+Beware that depending on how triggers are configured and how many template entities are created, the HASS DB might end up using **a lot of space** and computations are bound to use **ever more CPU (and possibly RAM) resources**, owing to the number of entries in the DB.  Be sure to monitor such resources after configuring your HASS instance; Otherwise, your HASS instance might experience serious problems.
+{:.notice .notice--warning}
+
+Finally, there is the topic of statistical sampling (representativeness) when it comes to making generalizations from a couple of samples (e.g., environmental sensors in my bedroom and kitchen) to a population (temperature and humidity in my entire house).  In this guide, however, we will only make extrapolations about the devices, sensors, and services themselves, rather than any population that they might belong.
 
 ## Utilities
-- Tools to prepare the collected data for inferential automations
-- Each covered utility includes an usage example that anyone can follow along using a fresh or existing HASS instance
+The [**Utility integrations**](https://www.home-assistant.io/integrations/#utility) offer users tools to parse and analyze data from recorded entities.  There are more than 30 different such integrations and they sometimes have overlapping functionalities.  For example, the gradient (ratio of change) over the last two data points can be computed by both the [Trend](https://www.home-assistant.io/integrations/trend/) integration and the [Derivative](https://www.home-assistant.io/integrations/derivative/).  In what follows, I covered only four of the utility integrations that I find most comprehensive and useful, namely:
+
+1. [History Stats](#history-stats)
+2. [Statistics](#statistics-1)
+3. [Integration](#integration)
+4. [Trend](#trend)
+
+Trend is covered last because out of the four, it's the only one that actually makes use of *inferential* tools via the Python package `numpy`. The others provide counting, other mathematical resources, and ways to summarize historical data.  For each utility, I provided a brief description, usage examples to follow along, and reference to the documentation and code.
 
 ### History Stats
-- Counting, compute ratios and state duration over a user-specified time
-- Overview of the doc and configuration
-- Illustrate usage with an example anyone can use and follow along
+The [History Stats](https://www.home-assistant.io/integrations/history_stats/) integration provides useful statistics for discrete variables over a user-specified timespan.  More specifically, this integration can do one of three things depending on the chosen type of sensor:
 
-- Additional content
-  - Codes and docs: 
-    - HASS doc: https://www.home-assistant.io/integrations/history_stats/
-    - HASS Github: https://github.com/home-assistant/core/tree/dev/homeassistant/components/history_stats
-    - Methods defined by the integration itself (no external dependencies)
+- `type: time`: calculate the *amount of hours* that an entity has spent on a given state;
+- `type: ratio`: calculate the *percentage of time* that an entity has spent on a given state;
+- `type: count`: count how many times an entity has changed to a given state.
+
+The use of this integration requires specification of **at least two** of the following time period variables:
+
+- `start:`: It indicates when the time period starts.  Use [time templating](https://www.home-assistant.io/docs/configuration/templating/#time) to specify the time;
+- `end:`: It indicates when the time period ends.  Use [time templating](https://www.home-assistant.io/docs/configuration/templating/#time) to specify the time;
+- `duration:`: It indicates how long the time period lasts.  If `start:` is specified, then how long forwards;  if `end:` is specified, then how long backwards.  The syntax can be either the traditional `HH:MM:SS` format or as follows:
+  ```yaml
+  duration:
+    days: 2
+    hours: 4
+    minutes: 15
+    seconds: 30
+  ```
+
+#### Usage examples
+`history_stats` are defined as a platform (`- platform: history_stats`) under `sensor:` in your `configuration.yaml` file.  To keep things organized, go to the `configuration.yaml` and append a reference to `sensors.yaml`, as follows:
+
+```yaml
+# Sensors
+sensor: !include sensors.yaml
+```
+
+Then using a text editor, create a `sensors.yaml` file where we will configure the following three `history_stats` sensors to consume the data from the default [`weather.home`](https://www.home-assistant.io/integrations/weather/) entity:
+
+1. `sunny yesterday hours`: Number of hours that the `weather.home` entity remained in the `sunny` state *yesterday*;
+2. `cloudy today ratio`: Percentage of time that the `weather.home` entity remained in the `cloudy` state *today*;
+3. `rainy week count`: Number of times that the `weather.home` entity changed to the `rainy` state over the *last seven days*.
+
+The [Meteorologisk institutt (Met.no)](https://www.home-assistant.io/integrations/met/) is the current default meteorological information service used by HASS. This integration's measurement resolution is 1 hour (via cloud polling) and it follows state-based updates (a new entry in the DB is only created if any of the values has changed).
+{:.notice}
+
+To create those three `history_stats` sensor entities, append the following to `sensors.yaml`:
+
+{% raw %}
+```yaml
+# History Stats
+- platform: history_stats
+  name: "sunny yesterday hours"
+  entity_id: weather.home
+  state: "sunny"
+  type: time
+  # end today at 00:00:00
+  end: >
+    {{ now().replace(hour=0, minute=0, second=0) }}
+  # start 24h before the end time
+  duration:
+    hours: 24
+- platform: history_stats
+  name: "cloudy today ratio"
+  entity_id: weather.home
+  state: "cloudy"
+  type: ratio
+  # start today at 00:00:00
+  start: >
+    {{ now().replace(hour=0, minute=0, second=0) }}
+  # end right now
+  end: >
+    {{ now() }}
+- platform: history_stats
+  name: "rainy week count"
+  entity_id: weather.home
+  state: "rainy"
+  type: count
+  # end right now
+  end: >
+    {{ now() }}
+  # start 7 days before the end time
+  duration:
+    days: 7
+```
+{% endraw %}
+
+Now **check your configuration file** and if everything looks good, **restart HASS**.  Afterwards, check your **log** file for related errors and if it all looks good, then head to **Developer Tools** > States and you should now see the three new entities we just created:
+
+[![HASS utility history stats](/assets/posts/2021-06-04-smarter-hass/hass-utility-historystats.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-06-04-smarter-hass/hass-utility-historystats.jpg)
+
+For my example above, it's been cloudy for 2.6% of the time today, we had roughly 10 hours of sunny weather yesterday, and the weather changed to rainy 5 times over the week. 
+
+Because I have not been running HASS and collecting `weather.home` data over this week in a reliable way, the reported metrics can be quite misleading.  For a proper representation of the stats over the configured timespans, make sure to keep your HASS instance running (and the cloud polling is working) for at least as long as the configured timespans.
+{:.notice--warning}
+
+#### Additional references
+- History Stats **documentation**: [https://www.home-assistant.io/integrations/history_stats/](https://www.home-assistant.io/integrations/history_stats/)
+- History Stats **source**: [Github](https://github.com/home-assistant/core/tree/dev/homeassistant/components/history_stats)
+
 
 ### Statistics
 - Multiple, general purpose descriptive statistics
@@ -311,6 +400,15 @@ Finally, there is also the topic of statistical sampling (representativeness) wh
     - HASS doc: https://www.home-assistant.io/integrations/statistics/
     - HASS Github: https://github.com/home-assistant/core/blob/dev/homeassistant/components/statistics/sensor.py
     - Python (statistics core pkg): https://docs.python.org/3/library/statistics.html
+
+### Integration
+- Area under the curve; cumulative measures, such as kWh for energy consumption
+
+- Additional content
+  - Codes and docs:
+    - HASS doc: https://www.home-assistant.io/integrations/integration/
+    - HASS Github: https://github.com/home-assistant/core/blob/dev/homeassistant/components/integration/sensor.py
+    - Methods defined by the integration itself (no external dependencies)
 
 ### Trend
 - Of note, depends on the `numpy` Python pkg.  More specifically, uses the `np.polyfit(time, values, degree=1)` method to estimate the slope of a linear function over a user-speficied time period (gradient).
@@ -324,15 +422,6 @@ Finally, there is also the topic of statistical sampling (representativeness) wh
     - HASS Github: https://github.com/home-assistant/core/blob/dev/homeassistant/components/trend/binary_sensor.py
     - Python (NumPy): https://numpy.org/doc/stable/reference/generated/numpy.polyfit.html
 
-### Integration
-- Area under the curve; cumulative measures, such as kWh for energy consumption
-
-- Additional content
-  - Codes and docs:
-    - HASS doc: https://www.home-assistant.io/integrations/integration/
-    - HASS Github: https://github.com/home-assistant/core/blob/dev/homeassistant/components/integration/sensor.py
-    - Methods defined by the integration itself (no external dependencies)
-
 ## Statistical inference
 - Where your statistics knowledge comes in
 - At the very basic level:
@@ -344,7 +433,8 @@ Finally, there is also the topic of statistical sampling (representativeness) wh
 - Making use of HASS built-in visualization tools
   - Historical plots
   - Filters (state_filter gradients) to create heatmaps
-- Customized plots
+
+#### Customized plots
   - Mini-graph card (https://github.com/kalkih/mini-graph-card)
 
 ## Inferential automations
