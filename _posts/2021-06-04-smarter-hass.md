@@ -1,5 +1,5 @@
 ---
-title: "Towards a smarter Home Assistant: Getting started on the analytical tools (and moving beyond)"
+title: "Towards a smarter Home Assistant: Getting started on the analytical tools and beyond"
 date: 2021-06-04 10:40:00 -0300
 tags: hass iot automation math stats
 header:
@@ -139,7 +139,16 @@ The documentation of the specific `recorder:` variables can be found at the HASS
 
 - [https://www.home-assistant.io/integrations/recorder/](https://www.home-assistant.io/integrations/recorder/)
 
-In brief, by default, the HASS DB **keeps historical data up to 10 days** (`purge_keep_days: 10`), running an automatic purge of the database every night to prevent the DB from increasing in size indefinitely (`auto_purge: true`).  Therefore, *if you want to keep data from one or more entities for longer than 10 days*, then you must edit the DB default settings.  The `include` and `exclude` filter parameters are particularly useful whenever working with non-default settings, as they help you specify which entities should be tracked.  [Check the HASS wiki Configure Filter for examples](https://www.home-assistant.io/integrations/recorder/#common-filtering-examples).
+In brief, by default, the HASS DB **keeps historical data up to 10 days** (`purge_keep_days: 10`), running an automatic purge of the database every night to prevent the DB from increasing in size indefinitely (`auto_purge: true`).  Therefore, *if you want to keep data from one or more entities for longer than 10 days*, then you must edit the DB default settings.  Personally, I prefer to keep data for *two weeks* instead (14 days), so I usually change my `recorder:` configuration to the following in the `configuration.yaml` file:
+
+```yaml
+default_config:
+# Customized DB settings
+recorder:
+  purge_keep_days: 14
+```
+
+The `include` and `exclude` filter parameters are particularly useful whenever working with non-default settings, as they help you specify which entities should be tracked.  [Check the HASS wiki Configure Filter for examples](https://www.home-assistant.io/integrations/recorder/#common-filtering-examples).
 
 In addition, as mentioned before, the default DB is stored in your `config/` directory and also by default, **changes are committed to the DB every 1 sec** (`commit_interval: 1`). This matters because if you are collecting data over a time window lower than 1 sec, then you might want to change the commit interval to `0` (zero, or as soon as possible) instead. At this point, it is also important to consider where the DB is being physically stored (SD card, eMMC, HDD, or SSD), owing to **disk I/O** and **wear and tear** considerations.  (More advanced aspects come into play if HASS is not the only application committing to the DB but I trust that if this is your case, then you probably know how to customize the HASS DB accordingly.)
 
@@ -210,15 +219,17 @@ While the `sun.sun` *state* is a **discrete** variable (it's either `above_horiz
 
 Second, we need to check whether HASS is keeping track of the data we need. There are multiple ways of doing that but by far, the easiest method is to navigate to **Developer Tools** > States and then make sure that the entities whose states and attributes we would like to keep track of are being listed there.  (Alternatively, you can open the HASS DB with a SQL browser and look for the entity in the `states` Table.)
 
-[![HASS developer tools](/assets/posts/2021-06-04-smarter-hass/hass-developer-tools.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-06-04-smarter-hass/hass-developer-tools.jpg)
+[![HASS developer tools states](/assets/posts/2021-06-04-smarter-hass/hass-developer-tools-states.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-06-04-smarter-hass/hass-developer-tools-states.jpg)
 
-Third, we need to check how the data are being represented in the DB.  As in the previous example, some variables might be an attribute of an existing entity in the HASS DB.  If the `recorder:` settings for such entity are fine for the type of analysis you want to automate (e.g., purge every 10 days), then you should be fine.  However, notice that *attributes* cannot be displayed the same way as the *states* of an entity in the HASS webUI.  In addition, you might want to **pre-process** the attributes (e.g., `float` and then `round(2)`) or perform transformations before running the analysis.
+Third, we need to check how the data are being represented in the DB.  As in the previous example, some variables might be an attribute of an existing entity in the HASS DB.  If the `recorder:` settings for such entity are fine for the type of analysis you want to automate (e.g., purge every 10 days), then you are all set.  However, notice that *attributes* cannot be displayed the same way as the *states* of an entity in the HASS webUI.  In addition, you might want to **pre-process** the attributes (e.g., `float` and then `round(2)`) or perform transformations before running the analysis.
 
-For all such a reasons, I always create **new entities** for the variables that will be analyzed. This is accomplished with the [`template` integration](https://www.home-assistant.io/integrations/template/).  Per the HASS wiki:
+For all such reasons, I always create **new entities** for the variables that will be analyzed. This is accomplished with the [`template` integration](https://www.home-assistant.io/integrations/template/).  Per the HASS wiki:
 
 > The template integration allows creating entities which derive their values from other data. This is done by specifying templates for properties of an entity, like the name or the state.
 
-[Building templates](https://www.home-assistant.io/docs/configuration/templating/#building-templates) is fairly easy once you get the hang of the syntax.  In short, templates follow the [**Jinja2** templating engine](https://palletsprojects.com/p/jinja) and are mainly used to perform mathematical operations (`+`, `-`, `*`, `/`) and logic tests (if `true` , then __ ) but can also do loops (for `i` in `states.sensor`), for example.  As a result, templates give users a scripting tool to go beyond the HASS built-in functionalities.
+[Building templates](https://www.home-assistant.io/docs/configuration/templating/#building-templates) is fairly easy once you get the hang of the syntax.  In short, templates follow the [**Jinja2** templating engine](https://palletsprojects.com/p/jinja) and are mainly used to perform mathematical operations (`+`, `-`, `*`, `/`) and logic tests (if __ , then __ ) but can also do loops (for `i` in `states.sensor`, __ ), for example.  As a result, templates give users a scripting tool to go beyond the HASS built-in functionalities.  To test and preview a customized template, use the **Developer Tools** > Template tab:
+
+[![HASS developer tools template](/assets/posts/2021-06-04-smarter-hass/hass-developer-tools-template.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-06-04-smarter-hass/hass-developer-tools-template.jpg)
 
 As an example, let's create an entity to store and round to zero the `sun.sun` `elevation` attribute.  First, in the `configuration.yaml`, **append** (add to the bottom) a reference to the `templates.yaml` configuration file:
 
@@ -286,7 +297,7 @@ Also, notice that it does not make sense to use a `time_pattern` trigger rule th
 Beware that depending on how triggers are configured and how many template entities are created, the HASS DB might end up using **a lot of space** and computations are bound to use **ever more CPU (and possibly RAM) resources**, owing to the number of entries in the DB.  Be sure to monitor such resources after configuring your HASS instance; Otherwise, your HASS instance might experience serious problems.
 {:.notice .notice--warning}
 
-Finally, there is the topic of statistical sampling (representativeness) when it comes to making generalizations from a couple of samples (e.g., environmental sensors in my bedroom and kitchen) to a population (temperature and humidity in my entire house).  In this guide, however, we will only make extrapolations about the devices, sensors, and services themselves, rather than any population that they might belong.
+Finally, there is the topic of statistical sampling (representativeness) when it comes to making generalizations from a couple of samples (e.g., environmental sensors in my bedroom and kitchen) to a population (temperature and humidity in my entire house).  In this guide, however, we will only make extrapolations about the devices, sensors, and services themselves over time, rather than any population that they might belong to.  Nonetheless, extended **service outages**, for example, might comprise summary statistics and inferences.  For proper representation, it is fundamental that your HASS has been running and collecting data for as long as the monitored time period of any statistic (e.g., a sensor that monitors weekly activity won't make sense until your HASS instance has been running and collecting data over at least one week).
 
 ## Utilities
 The [**Utility integrations**](https://www.home-assistant.io/integrations/#utility) offer users tools to parse and analyze data from recorded entities.  There are more than 30 different such integrations and they sometimes have overlapping functionalities.  For example, the gradient (ratio of change) over the last two data points can be computed by both the [Trend](https://www.home-assistant.io/integrations/trend/) integration and the [Derivative](https://www.home-assistant.io/integrations/derivative/).  In what follows, I covered only four of the utility integrations that I find most comprehensive and useful, namely:
@@ -380,26 +391,54 @@ Now **check your configuration file** and if everything looks good, **restart HA
 
 [![HASS utility history stats](/assets/posts/2021-06-04-smarter-hass/hass-utility-historystats.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-06-04-smarter-hass/hass-utility-historystats.jpg)
 
-For my example above, it's been cloudy for 2.6% of the time today, we had roughly 10 hours of sunny weather yesterday, and the weather changed to rainy 5 times over the week. 
+For the example above, it's been cloudy for 2.6% of the time today, we had roughly 10 hours of sunny weather yesterday, and the weather changed to rainy 5 times over the week. 
 
-Because I have not been running HASS and collecting `weather.home` data over this week in a reliable way, the reported metrics can be quite misleading.  For a proper representation of the stats over the configured timespans, make sure to keep your HASS instance running (and the cloud polling is working) for at least as long as the configured timespans.
+Because I have not been running HASS and collecting `weather.home` data over this week in a reliable way, **the reported metrics can be quite misleading**, as noted in the [Sampling](#sampling) section.  For a proper representation of the statistics over the configured timespans, make sure to keep your HASS instance running (and in this case, check that the cloud polling has been working without extended service outages) for at least as long as the configured timespans.
 {:.notice--warning}
 
 #### Additional references
 - History Stats **documentation**: [https://www.home-assistant.io/integrations/history_stats/](https://www.home-assistant.io/integrations/history_stats/)
-- History Stats **source**: [Github](https://github.com/home-assistant/core/tree/dev/homeassistant/components/history_stats)
+- History Stats **source**: [https://github.com/home-assistant/core/tree/dev/homeassistant/components/history_stats](https://github.com/home-assistant/core/tree/dev/homeassistant/components/history_stats)
+
+[back to utilities](#utilities){: .btn .btn--info .btn--small}
 
 
 ### Statistics
-- Multiple, general purpose descriptive statistics
-- Overview of the doc and configuration
-- Illustrate with an example
+The [Statistics](https://www.home-assistant.io/integrations/statistics/) integration is by far the most useful integration for describing the past states and measurements from other entities.  In brief, it consumes the data from another entity and returns the traditional descriptive measures of central tendency (`mean` and `median`) and variability (`variance`, `stdev`, `min_value`, `max_value`), as well as a few other descriptive measures.
 
-- Additional content
-  - Codes and docs:
-    - HASS doc: https://www.home-assistant.io/integrations/statistics/
-    - HASS Github: https://github.com/home-assistant/core/blob/dev/homeassistant/components/statistics/sensor.py
-    - Python (statistics core pkg): https://docs.python.org/3/library/statistics.html
+Similarly to the [History Stats](#history-stats) integration, the Statistics integration has **two time period variables**:
+
+- `sampling_size`: The maximum number of data points to be used within the `max_age` interval in **descending order** (oldest to newest). By default, it is `20`;
+- `max_age`: The maximum age of the oldest data point. This variable is equivalent to `duration:` in the [History Stats](#history-stats) when {% raw %}`end: {{ now() }}`{% endraw %} and similarly, its time syntax can be defined in the traditional `HH:MM:SS` format or the following:
+  ```yaml
+  max_age:
+    days: 3
+    hours: 6
+    minutes: 10
+    seconds: 45
+  ```
+  That is, `max_age` specifies an interval relative to `now()` in which the Statistics integration will collect a maximum number of data points equal to the `sampling_size` (e.g., `20`) in **descending** order. If `max_age` is not specified, then it spans until the last value in the HASS DB for the given `entity_id`.
+
+To illustrate how the specification of time works in this integration, let's suppose we create a template sensor that triggers every **5 min** and **forces an update** (DB entry), such as the `sensor.template_sun_elevation_time_based` from the [Sampling](#sampling) section, and we leave it running for exactly 7 days from now.  Therefore, the HASS DB collects 12 data points *per hour* for this template sensor, 288 data points *per day*, and 2016 data points *per week*.  Now, because the `sampling_size` works in **descending order**, by default, it will compute statistics for the `20` oldest data points, which will range from exactly `7 days old` to `6 days, 22 hours, and 20 minutes old` (or simply from `oldest` until `100 minutes` afterwards).  However, if we also specified the `max_age` to 3 days ago, as follows:
+```yaml
+max_age:
+  days: 3
+```
+then the time-range would instead span from exactly `3 days old` to `2 days, 22 hours, 20 minutes old`.  Finally, because there will be 288 data points per day, if we set `sampling_size: 288` in the last example, then the time-range would instead span from exactly `3 days old` to `2 days old`.
+
+While proper configuration of the `sampling_size` and `max_age` allow for the specification of a variety of different time-ranges, it does require clear understanding of the entity's **measurement resolution** and how it is updated in the DB because otherwise, the computed statistics are bound to misrepresent the desired time-ranges.  I feel the [History Stats](#history-stats) integration is more flexible and precise in its definition of the time-range by using the more intuitive `start:`, `end:`, and `duration:` time variables.  For example, the [time templating](https://www.home-assistant.io/docs/configuration/templating/#time) used in the History Stats integration allows for the specification of any hour of any day (e.g., start yesterday at `00:00:00` and end today at `00:00:00`), whereas such level of precision is not possible in the Statistics integration alone.
+
+#### Usage examples
+*TODO*
+
+#### Additional references
+- Statistics **documentation**: [https://www.home-assistant.io/integrations/statistics/](https://www.home-assistant.io/integrations/statistics/)
+- Statistics **source**: [https://github.com/home-assistant/core/blob/dev/homeassistant/components/statistics/](https://github.com/home-assistant/core/blob/dev/homeassistant/components/statistics/)
+- Statistics noteworthy **dependencies**:
+  - Python `statistics` core pkg: [https://docs.python.org/3/library/statistics.html](https://docs.python.org/3/library/statistics.html)
+
+[back to utilities](#utilities){: .btn .btn--info .btn--small}
+
 
 ### Integration
 - Area under the curve; cumulative measures, such as kWh for energy consumption
@@ -409,6 +448,9 @@ Because I have not been running HASS and collecting `weather.home` data over thi
     - HASS doc: https://www.home-assistant.io/integrations/integration/
     - HASS Github: https://github.com/home-assistant/core/blob/dev/homeassistant/components/integration/sensor.py
     - Methods defined by the integration itself (no external dependencies)
+
+[back to utilities](#utilities){: .btn .btn--info .btn--small}
+
 
 ### Trend
 - Of note, depends on the `numpy` Python pkg.  More specifically, uses the `np.polyfit(time, values, degree=1)` method to estimate the slope of a linear function over a user-speficied time period (gradient).
@@ -421,6 +463,9 @@ Because I have not been running HASS and collecting `weather.home` data over thi
     - HASS doc: https://www.home-assistant.io/integrations/trend/
     - HASS Github: https://github.com/home-assistant/core/blob/dev/homeassistant/components/trend/binary_sensor.py
     - Python (NumPy): https://numpy.org/doc/stable/reference/generated/numpy.polyfit.html
+
+[back to utilities](#utilities){: .btn .btn--info .btn--small}
+
 
 ## Statistical inference
 - Where your statistics knowledge comes in
@@ -436,7 +481,6 @@ Because I have not been running HASS and collecting `weather.home` data over thi
 
 #### Customized plots
   - Mini-graph card (https://github.com/kalkih/mini-graph-card)
-
 ## Inferential automations
 - Automations based on future states
 
