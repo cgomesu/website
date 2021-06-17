@@ -198,7 +198,7 @@
 
 
 
-  48 minute read
+  52 minute read
 
 </p>
       
@@ -385,7 +385,11 @@
               <li><a href="#additional-references-1">Additional references</a></li>
             </ul>
           </li>
-          <li><a href="#trend">Trend</a></li>
+          <li><a href="#trend">Trend</a>
+            <ul>
+              <li><a href="#additional-references-2">Additional references</a></li>
+            </ul>
+          </li>
         </ul>
       </li>
       <li><a href="#statistical-inference">Statistical inference</a>
@@ -882,11 +886,91 @@
 
 <p>Now <strong>check your configuration file</strong> and if everything looks good, <strong>restart HASS</strong>. Afterwards, check your log file for related errors and if it all looks good, then head to <strong>Developer Tools</strong> &gt; States and you should now see the three new entities we just created:</p>
 
-<p><a href="/assets/posts/2021-06-04-smarter-hass/hass-utility-statistics.jpg"><img src="/assets/posts/2021-06-04-smarter-hass/hass-utility-statistics.jpg" alt="HASS utility statistics" class="PostImage PostImage--large" /></a></p>
+<p><a href="/assets/posts/2021-06-04-smarter-hass/hass-utility-statistics-01.jpg"><img src="/assets/posts/2021-06-04-smarter-hass/hass-utility-statistics-01.jpg" alt="HASS utility statistics 01" class="PostImage PostImage--large" /></a></p>
 
 <p>Notice that in <code class="language-plaintext highlighter-rouge">sensor.sun_elevation_one_day_ago</code>, the number of actual data points (<code class="language-plaintext highlighter-rouge">count: 101</code>) is lower than expected for this time-range (<code class="language-plaintext highlighter-rouge">sampling_size: 288</code>).  This happened because my HASS instance has not been collecting the <code class="language-plaintext highlighter-rouge">elevation</code> attribute  data from the <code class="language-plaintext highlighter-rouge">sun.sun</code> entity in a reliable fashion over the last day.  However, in <code class="language-plaintext highlighter-rouge">sensor.sun_elevation_one_hour_ago</code>, the number of actual data points (<code class="language-plaintext highlighter-rouge">count: 12</code>) is indeed equal to the expected (<code class="language-plaintext highlighter-rouge">sampling_size: 12</code>).  (Also, inspection of the <code class="language-plaintext highlighter-rouge">min_age</code> and <code class="language-plaintext highlighter-rouge">max_age</code> is very useful in making sure that the time-rage is the expected one.)</p>
 
 <p>In addition, any <code class="language-plaintext highlighter-rouge">statistics</code> sensor entity shows the <code class="language-plaintext highlighter-rouge">mean</code> as both <strong>state</strong> and <strong>attribute</strong>.  Other descriptive statistics for each <code class="language-plaintext highlighter-rouge">statistics</code> sensor entity are shown only as <strong>attribute</strong>.  In the example, the Sun has increased in elevation from 34° to 36° over the last hour (<code class="language-plaintext highlighter-rouge">min_value: 34</code>, <code class="language-plaintext highlighter-rouge">max_value: 36</code>, <code class="language-plaintext highlighter-rouge">change: 2</code>), with an average of 35.2° above the horizon (<code class="language-plaintext highlighter-rouge">mean: 35.17</code>).</p>
+
+<p>Now, weather data are much less predictable and subject to multiple sources of variability over time than the <code class="language-plaintext highlighter-rouge">sun.sun</code> metrics.  As mentioned before, however, many of the default weather metrics (e.g., <code class="language-plaintext highlighter-rouge">temperature</code>, <code class="language-plaintext highlighter-rouge">humidity</code>, <code class="language-plaintext highlighter-rouge">pressure</code>) are provided as attributes of a state-based, cloud polling entity–namely, the <code class="language-plaintext highlighter-rouge">weather.home</code> entity that by default uses data from the <a href="https://www.home-assistant.io/integrations/met/">Met.no</a> integration.  This poses multiple challenges to the analysis of the <code class="language-plaintext highlighter-rouge">weather.home</code> data over time but just as before, we can fix it by creating <a href="https://www.home-assistant.io/integrations/template/">time-pattern, template sensors</a> for each relevant attribute.  To do so, append the following to the <code class="language-plaintext highlighter-rouge">templates.yaml</code> configuration file:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s">time_pattern</span>
+      <span class="c1"># Update every 1 hour</span>
+      <span class="na">hours</span><span class="pi">:</span> <span class="s2">"</span><span class="s">/1"</span>
+  <span class="c1"># Hourly sensor templates</span>
+  <span class="na">sensor</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">template</span><span class="nv"> </span><span class="s">weather</span><span class="nv"> </span><span class="s">temperature</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">time-based"</span>
+      <span class="na">unit_of_measurement</span><span class="pi">:</span> <span class="s2">"</span><span class="s">C"</span>
+      <span class="na">state</span><span class="pi">:</span> <span class="pi">&gt;</span>
+        <span class="s">{{ state_attr('weather.home', 'temperature') | float | round(1) }}</span>
+      <span class="na">attributes</span><span class="pi">:</span>
+        <span class="na">timestamp</span><span class="pi">:</span> <span class="pi">&gt;</span>
+          <span class="s">{{ as_timestamp(now()) }}</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">template</span><span class="nv"> </span><span class="s">weather</span><span class="nv"> </span><span class="s">humidity</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">time-based"</span>
+      <span class="na">unit_of_measurement</span><span class="pi">:</span> <span class="s2">"</span><span class="s">%"</span>
+      <span class="na">state</span><span class="pi">:</span> <span class="pi">&gt;</span>
+        <span class="s">{{ state_attr('weather.home', 'humidity') | int }}</span>
+      <span class="na">attributes</span><span class="pi">:</span>
+        <span class="na">timestamp</span><span class="pi">:</span> <span class="pi">&gt;</span>
+          <span class="s">{{ as_timestamp(now()) }}</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">template</span><span class="nv"> </span><span class="s">weather</span><span class="nv"> </span><span class="s">pressure</span><span class="nv"> </span><span class="s">-</span><span class="nv"> </span><span class="s">time-based"</span>
+      <span class="na">unit_of_measurement</span><span class="pi">:</span> <span class="s2">"</span><span class="s">hPa"</span>
+      <span class="na">state</span><span class="pi">:</span> <span class="pi">&gt;</span>
+        <span class="s">{{ state_attr('weather.home', 'pressure') | float | round(1) }}</span>
+      <span class="na">attributes</span><span class="pi">:</span>
+        <span class="na">timestamp</span><span class="pi">:</span> <span class="pi">&gt;</span>
+          <span class="s">{{ as_timestamp(now()) }}</span>
+</code></pre></div></div>
+
+<p class="notice">The <code class="language-plaintext highlighter-rouge">time_pattern</code> trigger is every 1 hour because the measurement resolution for the Met.no integration is 1 hour.  Obviously, if this is different for your weather integration, then set it to a different trigger value to match the measurement resolution.</p>
+
+<p><strong>Check your config</strong> and reload your <strong>Template Entities</strong>.  Now <strong>wait</strong> for it to collect enough data points to allow meaningful analysis (at least 2 hours).</p>
+
+<p>Afterwards, we will create the following three <code class="language-plaintext highlighter-rouge">statistics</code> sensors for the new entities which will provide descriptive metrics for each of them over a time period of <em>one day</em>:</p>
+
+<ol>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">weather temperature one day ago</code>: Descriptive measures for the <code class="language-plaintext highlighter-rouge">sensor.template_weather_temperature_time_based</code> over the last one <em>day</em>;</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">weather humidity one day ago</code>: Descriptive measures for the <code class="language-plaintext highlighter-rouge">sensor.template_weather_humidity_time_based</code> over the last one <em>day</em>;</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">weather pressure one day ago</code>: Descriptive measures for the <code class="language-plaintext highlighter-rouge">sensor.template_weather_pressure_time_based</code> over the last one <em>day</em>;</p>
+  </li>
+</ol>
+
+<p>To create those three <code class="language-plaintext highlighter-rouge">statistics</code> sensor entities, append the following to the <code class="language-plaintext highlighter-rouge">sensors.yaml</code>:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s">statistics</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">weather</span><span class="nv"> </span><span class="s">temperature</span><span class="nv"> </span><span class="s">one</span><span class="nv"> </span><span class="s">day</span><span class="nv"> </span><span class="s">ago"</span>
+  <span class="na">entity_id</span><span class="pi">:</span> <span class="s">sensor.template_weather_temperature_time_based</span>
+  <span class="c1"># measurement resolution is 1/hour</span>
+  <span class="na">sampling_size</span><span class="pi">:</span> <span class="m">12</span>
+  <span class="na">max_age</span><span class="pi">:</span>
+    <span class="na">days</span><span class="pi">:</span> <span class="m">1</span>
+<span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s">statistics</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">weather</span><span class="nv"> </span><span class="s">humidity</span><span class="nv"> </span><span class="s">one</span><span class="nv"> </span><span class="s">day</span><span class="nv"> </span><span class="s">ago"</span>
+  <span class="na">entity_id</span><span class="pi">:</span> <span class="s">sensor.template_weather_humidity_time_based</span>
+  <span class="c1"># measurement resolution is 1/hour</span>
+  <span class="na">sampling_size</span><span class="pi">:</span> <span class="m">12</span>
+  <span class="na">max_age</span><span class="pi">:</span>
+    <span class="na">days</span><span class="pi">:</span> <span class="m">1</span>
+<span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s">statistics</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">weather</span><span class="nv"> </span><span class="s">pressure</span><span class="nv"> </span><span class="s">one</span><span class="nv"> </span><span class="s">day</span><span class="nv"> </span><span class="s">ago"</span>
+  <span class="na">entity_id</span><span class="pi">:</span> <span class="s">sensor.template_weather_pressure_time_based</span>
+  <span class="c1"># measurement resolution is 1/hour</span>
+  <span class="na">sampling_size</span><span class="pi">:</span> <span class="m">12</span>
+  <span class="na">max_age</span><span class="pi">:</span>
+    <span class="na">days</span><span class="pi">:</span> <span class="m">1</span>
+</code></pre></div></div>
+
+<p>Once again, check your configuration file and then reload the Statistics Entities. Check your log file and <strong>wait</strong> at least one hour.  Remember that such sensors will only update when the monitored entities also update, which in our case is every 1 hour.  Afterwards, head to <strong>Developer Tools</strong> &gt; States and you should now see the three new entities we just created:</p>
+
+<p><a href="/assets/posts/2021-06-04-smarter-hass/hass-utility-statistics-02.jpg"><img src="/assets/posts/2021-06-04-smarter-hass/hass-utility-statistics-02.jpg" alt="HASS utility statistics 02" class="PostImage PostImage--large" /></a></p>
+
+<p>This examples shows that over the last 24h, the temperature ranged from XXC to XXC, with a mean of XXC and standard deviation of ±XXC.</p>
 
 <h4 id="additional-references-1">Additional references</h4>
 <ul>
@@ -906,18 +990,16 @@
   <li>Of note, depends on the <code class="language-plaintext highlighter-rouge">numpy</code> Python pkg.  More specifically, uses the <code class="language-plaintext highlighter-rouge">np.polyfit(time, values, degree=1)</code> method to estimate the slope of a linear function over a user-speficied time period (gradient).</li>
   <li>Note about the comparison between the Trend utility vs. Derivative: Derivative is just for the last two values over the last two time points; trend can accomplish the same thing for n=2 and can.</li>
   <li>Overview of the doc</li>
-  <li>
-    <p>Illustrate with an example anyone can use and follow along</p>
-  </li>
-  <li>Additional content
+  <li>Illustrate with an example anyone can use and follow along</li>
+</ul>
+
+<h4 id="additional-references-2">Additional references</h4>
+<ul>
+  <li>Trend <strong>documentation</strong>: <a href="https://www.home-assistant.io/integrations/trend/">https://www.home-assistant.io/integrations/trend/</a></li>
+  <li>Trend <strong>source code</strong>: <a href="https://github.com/home-assistant/core/blob/dev/homeassistant/components/trend/">https://github.com/home-assistant/core/blob/dev/homeassistant/components/trend/</a></li>
+  <li>Trend noteworthy <strong>dependencies</strong>:
     <ul>
-      <li>Codes and docs:
-        <ul>
-          <li>HASS doc: https://www.home-assistant.io/integrations/trend/</li>
-          <li>HASS Github: https://github.com/home-assistant/core/blob/dev/homeassistant/components/trend/binary_sensor.py</li>
-          <li>Python (NumPy): https://numpy.org/doc/stable/reference/generated/numpy.polyfit.html</li>
-        </ul>
-      </li>
+      <li>Python <code class="language-plaintext highlighter-rouge">numpy</code> pkg: <a href="https://numpy.org/doc/stable/reference/generated/numpy.polyfit.html">https://numpy.org/doc/stable/reference/generated/numpy.polyfit.html</a></li>
     </ul>
   </li>
 </ul>

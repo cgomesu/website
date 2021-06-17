@@ -453,11 +453,91 @@ To create those two `statistics` sensor entities, append the following to the `s
 
 Now **check your configuration file** and if everything looks good, **restart HASS**. Afterwards, check your log file for related errors and if it all looks good, then head to **Developer Tools** > States and you should now see the three new entities we just created:
 
-[![HASS utility statistics](/assets/posts/2021-06-04-smarter-hass/hass-utility-statistics.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-06-04-smarter-hass/hass-utility-statistics.jpg)
+[![HASS utility statistics 01](/assets/posts/2021-06-04-smarter-hass/hass-utility-statistics-01.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-06-04-smarter-hass/hass-utility-statistics-01.jpg)
 
 Notice that in `sensor.sun_elevation_one_day_ago`, the number of actual data points (`count: 101`) is lower than expected for this time-range (`sampling_size: 288`).  This happened because my HASS instance has not been collecting the `elevation` attribute  data from the `sun.sun` entity in a reliable fashion over the last day.  However, in `sensor.sun_elevation_one_hour_ago`, the number of actual data points (`count: 12`) is indeed equal to the expected (`sampling_size: 12`).  (Also, inspection of the `min_age` and `max_age` is very useful in making sure that the time-rage is the expected one.)
 
 In addition, any `statistics` sensor entity shows the `mean` as both **state** and **attribute**.  Other descriptive statistics for each `statistics` sensor entity are shown only as **attribute**.  In the example, the Sun has increased in elevation from 34° to 36° over the last hour (`min_value: 34`, `max_value: 36`, `change: 2`), with an average of 35.2° above the horizon (`mean: 35.17`).
+
+Now, weather data are much less predictable and subject to multiple sources of variability over time than the `sun.sun` metrics.  As mentioned before, however, many of the default weather metrics (e.g., `temperature`, `humidity`, `pressure`) are provided as attributes of a state-based, cloud polling entity--namely, the `weather.home` entity that by default uses data from the [Met.no](https://www.home-assistant.io/integrations/met/) integration.  This poses multiple challenges to the analysis of the `weather.home` data over time but just as before, we can fix it by creating [time-pattern, template sensors](https://www.home-assistant.io/integrations/template/) for each relevant attribute.  To do so, append the following to the `templates.yaml` configuration file:
+
+{% raw %}
+```yaml
+- trigger:
+    - platform: time_pattern
+      # Update every 1 hour
+      hours: "/1"
+  # Hourly sensor templates
+  sensor:
+    - name: "template weather temperature - time-based"
+      unit_of_measurement: "C"
+      state: >
+        {{ state_attr('weather.home', 'temperature') | float | round(1) }}
+      attributes:
+        timestamp: >
+          {{ as_timestamp(now()) }}
+    - name: "template weather humidity - time-based"
+      unit_of_measurement: "%"
+      state: >
+        {{ state_attr('weather.home', 'humidity') | int }}
+      attributes:
+        timestamp: >
+          {{ as_timestamp(now()) }}
+    - name: "template weather pressure - time-based"
+      unit_of_measurement: "hPa"
+      state: >
+        {{ state_attr('weather.home', 'pressure') | float | round(1) }}
+      attributes:
+        timestamp: >
+          {{ as_timestamp(now()) }}
+```
+{% endraw %}
+
+The `time_pattern` trigger is every 1 hour because the measurement resolution for the Met.no integration is 1 hour.  Obviously, if this is different for your weather integration, then set it to a different trigger value to match the measurement resolution.
+{:.notice}
+
+**Check your config** and reload your **Template Entities**.  Now **wait** for it to collect enough data points to allow meaningful analysis (at least 2 hours).
+
+Afterwards, we will create the following three `statistics` sensors for the new entities which will provide descriptive metrics for each of them over a time period of *one day*:
+
+1. `weather temperature one day ago`: Descriptive measures for the `sensor.template_weather_temperature_time_based` over the last one *day*;
+
+2. `weather humidity one day ago`: Descriptive measures for the `sensor.template_weather_humidity_time_based` over the last one *day*;
+
+3. `weather pressure one day ago`: Descriptive measures for the `sensor.template_weather_pressure_time_based` over the last one *day*;
+
+To create those three `statistics` sensor entities, append the following to the `sensors.yaml`:
+
+
+```yaml
+- platform: statistics
+  name: "weather temperature one day ago"
+  entity_id: sensor.template_weather_temperature_time_based
+  # measurement resolution is 1/hour
+  sampling_size: 12
+  max_age:
+    days: 1
+- platform: statistics
+  name: "weather humidity one day ago"
+  entity_id: sensor.template_weather_humidity_time_based
+  # measurement resolution is 1/hour
+  sampling_size: 12
+  max_age:
+    days: 1
+- platform: statistics
+  name: "weather pressure one day ago"
+  entity_id: sensor.template_weather_pressure_time_based
+  # measurement resolution is 1/hour
+  sampling_size: 12
+  max_age:
+    days: 1
+```
+
+Once again, check your configuration file and then reload the Statistics Entities. Check your log file and **wait** at least one hour.  Remember that such sensors will only update when the monitored entities also update, which in our case is every 1 hour.  Afterwards, head to **Developer Tools** > States and you should now see the three new entities we just created:
+
+[![HASS utility statistics 02](/assets/posts/2021-06-04-smarter-hass/hass-utility-statistics-02.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-06-04-smarter-hass/hass-utility-statistics-02.jpg)
+
+This examples shows that over the last 24h, the temperature ranged from XXC to XXC, with a mean of XXC and standard deviation of ±XXC.
 
 #### Additional references
 - Statistics **documentation**: [https://www.home-assistant.io/integrations/statistics/](https://www.home-assistant.io/integrations/statistics/)
@@ -474,11 +554,11 @@ In addition, any `statistics` sensor entity shows the `mean` as both **state** a
 - Overview of the doc
 - Illustrate with an example anyone can use and follow along
 
-- Additional content
-  - Codes and docs: 
-    - HASS doc: https://www.home-assistant.io/integrations/trend/
-    - HASS Github: https://github.com/home-assistant/core/blob/dev/homeassistant/components/trend/binary_sensor.py
-    - Python (NumPy): https://numpy.org/doc/stable/reference/generated/numpy.polyfit.html
+#### Additional references
+- Trend **documentation**: [https://www.home-assistant.io/integrations/trend/](https://www.home-assistant.io/integrations/trend/)
+- Trend **source code**: [https://github.com/home-assistant/core/blob/dev/homeassistant/components/trend/](https://github.com/home-assistant/core/blob/dev/homeassistant/components/trend/)
+- Trend noteworthy **dependencies**:
+  - Python `numpy` pkg: [https://numpy.org/doc/stable/reference/generated/numpy.polyfit.html](https://numpy.org/doc/stable/reference/generated/numpy.polyfit.html)
 
 [back to utilities](#utilities){: .btn .btn--info .btn--small}
 
