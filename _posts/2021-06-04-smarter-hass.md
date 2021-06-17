@@ -172,16 +172,13 @@ In addition to the SQL browser method of editing the HASS DB, HASS allow users t
 Of course, there are other `recorder` services available in the Developer Tools > Services tab. Feel free to explore them.
 
 ## Statistics
-You don't need to be a mathematician who specialized in statistics to make use of it.  In this guide, we will only make reference to very introductory statistical knowledge, such as measures of central tendency (e.g., mean, median), variability (e.g., variance, standard deviation) and simple (univariate) linear regression (e.g., gradient/slope). Similarly, math-wise, I will briefly talk about first-order derivatives (the ratio of the increment) and integrals (the area under the curve).
+You don't need to be a mathematician who specialized in statistics to make use of it.  In this guide, we will only make reference to very introductory statistical knowledge, such as measures of central tendency (e.g., mean, median), variability (e.g., variance, standard deviation) and simple (univariate) linear regression (e.g., gradient/slope).
 
 [![Humor about stats](/assets/posts/2021-06-04-smarter-hass/humor-stats.png){:.PostImage .PostImage--large}](/assets/posts/2021-06-04-smarter-hass/humor-stats.png)
 
 The goal in this guide is to present a starting point for more advanced usage of analytical tools in home automation systems.  The possibilities are endless for knowledgeable users (e.g., application of Bayesian methods, dynamic mixed-effects modeling) and how far you will go along these paths is up to you.
 
 Fortunately, it doesn't take much to create really good inferential automations for your HASS instances. If you want to refresh your stats knowledge or dig deeper into it, save some time and take a look at the following resources:
-
-- Basic calculus refresher:
-  - *TODO: Embed videos? Series + Derivative + Integration*
 
 - Basic stats refresher:
   - *TODO: Embed videos? Probability + Basic stats*
@@ -300,17 +297,16 @@ Beware that depending on how triggers are configured and how many template entit
 Finally, there is the topic of statistical sampling (representativeness) when it comes to making generalizations from a couple of samples (e.g., environmental sensors in my bedroom and kitchen) to a population (temperature and humidity in my entire house).  In this guide, however, we will only make extrapolations about the devices, sensors, and services themselves over time, rather than any population that they might belong to.  Nonetheless, extended **service outages**, for example, might comprise summary statistics and inferences.  For proper representation, it is fundamental that your HASS has been running and collecting data for as long as the monitored time period of any statistic (e.g., a sensor that monitors weekly activity won't make sense until your HASS instance has been running and collecting data over at least one week).
 
 ## Utilities
-The [**Utility integrations**](https://www.home-assistant.io/integrations/#utility) offer users tools to parse and analyze data from recorded entities.  There are more than 30 different such integrations and they sometimes have overlapping functionalities.  For example, the gradient (ratio of change) over the last two data points can be computed by both the [Trend](https://www.home-assistant.io/integrations/trend/) integration and the [Derivative](https://www.home-assistant.io/integrations/derivative/).  In what follows, I covered only four of the utility integrations that I find most comprehensive and useful, namely:
+The [**Utility integrations**](https://www.home-assistant.io/integrations/#utility) offer users tools to parse and analyze data from recorded entities.  There are more than 30 different such integrations and they sometimes have overlapping functionalities.  For example, the gradient (ratio of change) over the last two data points can be computed by both the [Trend](https://www.home-assistant.io/integrations/trend/) integration and the [Derivative](https://www.home-assistant.io/integrations/derivative/).  In what follows, I covered only three of the utility integrations that I find most comprehensive and useful, namely:
 
 1. [History Stats](#history-stats)
 2. [Statistics](#statistics-1)
-3. [Integration](#integration)
-4. [Trend](#trend)
+3. [Trend](#trend)
 
-Trend is covered last because out of the four, it's the only one that actually makes use of *inferential* tools via the Python package `numpy`. The others provide counting, other mathematical resources, and ways to summarize historical data.  For each utility, I provided a brief description, usage examples to follow along, and reference to the documentation and code.
+Trend is covered last because out of the set, it's the only one that actually makes use of *inferential* tools via the Python package `numpy`. The others provide counting, other mathematical resources, and ways to summarize historical data.  For each utility, I provided a brief description, usage examples to follow along, and reference to the documentation and code.
 
 ### History Stats
-The [History Stats](https://www.home-assistant.io/integrations/history_stats/) integration provides useful statistics for discrete variables over a user-specified timespan.  More specifically, this integration can do one of three things depending on the chosen type of sensor:
+The [History Stats](https://www.home-assistant.io/integrations/history_stats/) integration provides useful statistics for discrete variables over a user-specified time-range.  More specifically, this integration can do one of three things depending on the chosen type of sensor:
 
 - `type: time`: calculate the *amount of hours* that an entity has spent on a given state;
 - `type: ratio`: calculate the *percentage of time* that an entity has spent on a given state;
@@ -393,7 +389,7 @@ Now **check your configuration file** and if everything looks good, **restart HA
 
 For the example above, it's been cloudy for 2.6% of the time today, we had roughly 10 hours of sunny weather yesterday, and the weather changed to rainy 5 times over the week. 
 
-Because I have not been running HASS and collecting `weather.home` data over this week in a reliable way, **the reported metrics can be quite misleading**, as noted in the [Sampling](#sampling) section.  For a proper representation of the statistics over the configured timespans, make sure to keep your HASS instance running (and in this case, check that the cloud polling has been working without extended service outages) for at least as long as the configured timespans.
+Because I have not been running HASS and collecting `weather.home` data over this week in a reliable way, **the reported metrics can be quite misleading**, as noted in the [Sampling](#sampling) section.  For a proper representation of the statistics over the configured time-range, make sure to keep your HASS instance running (and in this case, check that the cloud polling has been working without extended service outages) for at least as long as the configured time-range.
 {:.notice--warning}
 
 #### Additional references
@@ -429,25 +425,45 @@ then the time-range would instead span from exactly `3 days old` to `2 days, 22 
 While proper configuration of the `sampling_size` and `max_age` allow for the specification of a variety of different time-ranges, it does require clear understanding of the entity's **measurement resolution** and how it is updated in the DB because otherwise, the computed statistics are bound to misrepresent the desired time-ranges.  I feel the [History Stats](#history-stats) integration is more flexible and precise in its definition of the time-range by using the more intuitive `start:`, `end:`, and `duration:` time variables.  For example, the [time templating](https://www.home-assistant.io/docs/configuration/templating/#time) used in the History Stats integration allows for the specification of any hour of any day (e.g., start yesterday at `00:00:00` and end today at `00:00:00`), whereas such level of precision is not possible in the Statistics integration alone.
 
 #### Usage examples
-*TODO*
+As before, `statistics` are defined as a platform (`- platform: statistics`) under `sensor:` in your `configuration.yaml` file.  In this example, we will configure two `statistics` sensors to consume the data from the `sensor.template_sun_elevation_time_based` entity:
+
+1. `sun elevation one hour ago`: Descriptive measures for the `sensor.template_sun_elevation_time_based` over the last one *hour*;
+
+2. `sun elevation one day ago`: Descriptive measures for the `sensor.template_sun_elevation_time_based` over the last one *day*.
+
+To create those two `statistics` sensor entities, append the following to the `sensors.yaml`:
+
+```yaml
+# Statistics
+- platform: statistics
+  name: "sun elevation one hour ago"
+  entity_id: sensor.template_sun_elevation_time_based
+  # measurement resolution is 5/min
+  sampling_size: 12
+  max_age:
+    hours: 1
+- platform: statistics
+  name: "sun elevation one day ago"
+  entity_id: sensor.template_sun_elevation_time_based
+  # measurement resolution is 5/min
+  sampling_size: 288
+  max_age:
+    days: 1
+```
+
+Now **check your configuration file** and if everything looks good, **restart HASS**. Afterwards, check your log file for related errors and if it all looks good, then head to **Developer Tools** > States and you should now see the three new entities we just created:
+
+[![HASS utility statistics](/assets/posts/2021-06-04-smarter-hass/hass-utility-statistics.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-06-04-smarter-hass/hass-utility-statistics.jpg)
+
+Notice that in `sensor.sun_elevation_one_day_ago`, the number of actual data points (`count: 101`) is lower than expected for this time-range (`sampling_size: 288`).  This happened because my HASS instance has not been collecting the `elevation` attribute  data from the `sun.sun` entity in a reliable fashion over the last day.  However, in `sensor.sun_elevation_one_hour_ago`, the number of actual data points (`count: 12`) is indeed equal to the expected (`sampling_size: 12`).  (Also, inspection of the `min_age` and `max_age` is very useful in making sure that the time-rage is the expected one.)
+
+In addition, any `statistics` sensor entity shows the `mean` as both **state** and **attribute**.  Other descriptive statistics for each `statistics` sensor entity are shown only as **attribute**.  In the example, the Sun has increased in elevation from 34° to 36° over the last hour (`min_value: 34`, `max_value: 36`, `change: 2`), with an average of 35.2° above the horizon (`mean: 35.17`).
 
 #### Additional references
 - Statistics **documentation**: [https://www.home-assistant.io/integrations/statistics/](https://www.home-assistant.io/integrations/statistics/)
 - Statistics **source**: [https://github.com/home-assistant/core/blob/dev/homeassistant/components/statistics/](https://github.com/home-assistant/core/blob/dev/homeassistant/components/statistics/)
 - Statistics noteworthy **dependencies**:
   - Python `statistics` core pkg: [https://docs.python.org/3/library/statistics.html](https://docs.python.org/3/library/statistics.html)
-
-[back to utilities](#utilities){: .btn .btn--info .btn--small}
-
-
-### Integration
-- Area under the curve; cumulative measures, such as kWh for energy consumption
-
-- Additional content
-  - Codes and docs:
-    - HASS doc: https://www.home-assistant.io/integrations/integration/
-    - HASS Github: https://github.com/home-assistant/core/blob/dev/homeassistant/components/integration/sensor.py
-    - Methods defined by the integration itself (no external dependencies)
 
 [back to utilities](#utilities){: .btn .btn--info .btn--small}
 
