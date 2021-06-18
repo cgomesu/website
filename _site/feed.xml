@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-06-17T15:13:57-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">Towards a smarter Home Assistant: Getting started on the analytical tools and beyond</title><link href="/blog/smarter-hass/" rel="alternate" type="text/html" title="Towards a smarter Home Assistant: Getting started on the analytical tools and beyond" /><published>2021-06-04T10:40:00-03:00</published><updated>2021-06-04T10:40:00-03:00</updated><id>/blog/smarter-hass</id><content type="html" xml:base="/blog/smarter-hass/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
-&lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;June 4th, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-06-18T14:05:04-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">Towards a smarter Home Assistant: Getting started on the analytical tools and beyond</title><link href="/blog/smarter-hass/" rel="alternate" type="text/html" title="Towards a smarter Home Assistant: Getting started on the analytical tools and beyond" /><published>2021-06-04T10:40:00-03:00</published><updated>2021-06-04T10:40:00-03:00</updated><id>/blog/smarter-hass</id><content type="html" xml:base="/blog/smarter-hass/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+&lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;June 4th, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
@@ -35,6 +35,30 @@
 &lt;p&gt;Furthermore, the fact that HASS integrations are written in the &lt;a href=&quot;https://www.python.org/&quot;&gt;Python programming language&lt;/a&gt; makes HASS a prime candidate for exploring the use of statistical inference in home automation systems because many mathematical and statistical packages are already available in Python and are widely used and well-maintained (e.g., &lt;a href=&quot;https://pypi.org/project/numpy/&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;numpy&lt;/code&gt;&lt;/a&gt; and &lt;a href=&quot;https://pypi.org/project/scipy/&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scipy&lt;/code&gt;&lt;/a&gt;). Therefore, porting new and more sophisticated analytical tools to HASS should be fairly straightforward.  (More on this in the &lt;a href=&quot;#development&quot;&gt;Development&lt;/a&gt; section).&lt;/p&gt;
 
 &lt;p&gt;If you find these ideas interesting and want to get started on their implementation in your own personal HASS instances, then read on.  As in my previous guides and tutorials, I tried to unpack and digest as much of the content as possible, the goal being to make it accessible to experts as well as novices.  Check the &lt;a href=&quot;#changelog&quot;&gt;Changelog&lt;/a&gt; for updates and if you ever get stuck on something or just want to share a few ideas and opinions, feel free to &lt;a href=&quot;/contact&quot;&gt;get in touch with me&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;objectives&quot;&gt;Objectives&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Get familiar with the following:
+    &lt;ul&gt;
+      &lt;li&gt;The HASS SQLite database (DB)&lt;/li&gt;
+      &lt;li&gt;YAML syntax&lt;/li&gt;
+      &lt;li&gt;Templating&lt;/li&gt;
+      &lt;li&gt;Data visualization tools&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Learn the specifics about how data are sampled and stored in the HASS DB and how they affect analysis, owing to inconsistent data points and misrepresentation of data over time.&lt;/li&gt;
+  &lt;li&gt;Familiarize yourself with the use of three utility integrations:
+    &lt;ul&gt;
+      &lt;li&gt;History Stats&lt;/li&gt;
+      &lt;li&gt;Statistics&lt;/li&gt;
+      &lt;li&gt;Trend&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Learn how make statistical inferences to create inferential automations.&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
@@ -215,13 +239,12 @@
   &lt;p&gt;&lt;a href=&quot;https://www.home-assistant.io/integrations/&quot;&gt;Integrations&lt;/a&gt; provide the core logic for the functionality in Home Assistant.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;Therefore, the analytical tools covered in this guide are implemented by one or more of the &lt;strong&gt;1800&lt;/strong&gt; integrations that are currently supported by a community of home automation enthusiasts.  More specifically, most of the analytical tools are grouped under &lt;a href=&quot;https://www.home-assistant.io/integrations/#utility&quot;&gt;Utility&lt;/a&gt; integrations and in this guide, I will cover the following four:&lt;/p&gt;
+&lt;p&gt;Therefore, the analytical tools covered in this guide are implemented by one or more of the &lt;strong&gt;1800&lt;/strong&gt; integrations that are currently supported by a community of home automation enthusiasts.  More specifically, most of the analytical tools are grouped under &lt;a href=&quot;https://www.home-assistant.io/integrations/#utility&quot;&gt;Utility&lt;/a&gt; integrations and in this guide, I will only cover the following three:&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;&lt;a href=&quot;#history-stats&quot;&gt;History Stats&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#statistics-1&quot;&gt;Statistics&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#trend&quot;&gt;Trend&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#integration&quot;&gt;Integration&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;The current set of analytical integrations is fairly limited in what it can do.  For the most part, the tools can be used to create summary statistics of the past states and measurements of integrated devices and sensors.  Inference-wise, a lot can be done via &lt;a href=&quot;https://www.home-assistant.io/docs/configuration/templating/&quot;&gt;templates&lt;/a&gt; but moving forward, there is a need for more advanced analytical integrations.  For this reason, at the end of this guide, I added a section about &lt;a href=&quot;#development&quot;&gt;Development&lt;/a&gt; for anyone interested in helping out.  First, however, we need to talk about &lt;a href=&quot;#data&quot;&gt;Data&lt;/a&gt; and &lt;a href=&quot;#sampling&quot;&gt;Sampling&lt;/a&gt;.&lt;/p&gt;
@@ -269,7 +292,7 @@
 
 &lt;p class=&quot;notice&quot;&gt;I find the use of the folded style (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;gt;&lt;/code&gt;) very helpful in keeping the templates organized. Refer to the &lt;a href=&quot;https://yaml.org/spec/1.2/spec.html&quot;&gt;YAML - Scalars&lt;/a&gt; documentation for more information.&lt;/p&gt;
 
-&lt;p&gt;Check your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;configuration.yaml&lt;/code&gt; file for errors (Configuration &amp;gt; Server Controls &amp;gt; Configuration validation), and finally, &lt;strong&gt;reload your HASS&lt;/strong&gt;.  Afterwards, navigate to Developers Tools &amp;gt; States and if everything is correct, you should see a new &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sensor.template_sun_elevation&lt;/code&gt; entity:&lt;/p&gt;
+&lt;p&gt;Check your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;configuration.yaml&lt;/code&gt; file for errors (Configuration &amp;gt; Server Controls &amp;gt; Configuration validation), and finally, &lt;strong&gt;restart your HASS&lt;/strong&gt;.  Afterwards, navigate to Developers Tools &amp;gt; States and if everything is correct, you should see a new &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sensor.template_sun_elevation&lt;/code&gt; entity:&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-06-04-smarter-hass/hass-entity-template-sun-elevation.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-06-04-smarter-hass/hass-entity-template-sun-elevation.jpg&quot; alt=&quot;HASS template sun elevation&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
@@ -471,7 +494,7 @@
     &lt;span class=&quot;na&quot;&gt;days&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Now &lt;strong&gt;check your configuration file&lt;/strong&gt; and if everything looks good, &lt;strong&gt;restart HASS&lt;/strong&gt;. Afterwards, check your log file for related errors and if it all looks good, then head to &lt;strong&gt;Developer Tools&lt;/strong&gt; &amp;gt; States and you should now see the three new entities we just created:&lt;/p&gt;
+&lt;p&gt;Now &lt;strong&gt;check your configuration file&lt;/strong&gt; and if everything looks good, &lt;strong&gt;restart HASS&lt;/strong&gt;. Afterwards, check your log file for related errors and if it all looks good, then head to &lt;strong&gt;Developer Tools&lt;/strong&gt; &amp;gt; States and you should now see the two new entities we just created:&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-06-04-smarter-hass/hass-utility-statistics-01.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-06-04-smarter-hass/hass-utility-statistics-01.jpg&quot; alt=&quot;HASS utility statistics 01&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
@@ -512,7 +535,7 @@
 
 &lt;p class=&quot;notice&quot;&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;time_pattern&lt;/code&gt; trigger is every 1 hour because the measurement resolution for the Met.no integration is 1 hour.  Obviously, if this is different for your weather integration, then set it to a different trigger value to match the measurement resolution.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Check your config&lt;/strong&gt; and reload your &lt;strong&gt;Template Entities&lt;/strong&gt;.  Now &lt;strong&gt;wait&lt;/strong&gt; for it to collect enough data points to allow meaningful analysis (at least 2 hours).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Check your config&lt;/strong&gt; and &lt;strong&gt;restart your HASS&lt;/strong&gt;.  Now &lt;strong&gt;wait&lt;/strong&gt; for it to collect enough data points to allow meaningful analysis (at least 2 hours).&lt;/p&gt;
 
 &lt;p&gt;Afterwards, we will create the following three &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;statistics&lt;/code&gt; sensors for the new entities which will provide descriptive metrics for each of them over a time period of &lt;em&gt;one day&lt;/em&gt;:&lt;/p&gt;
 
@@ -534,30 +557,30 @@
   &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;weather&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;temperature&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;one&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;day&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;ago&quot;&lt;/span&gt;
   &lt;span class=&quot;na&quot;&gt;entity_id&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;sensor.template_weather_temperature_time_based&lt;/span&gt;
   &lt;span class=&quot;c1&quot;&gt;# measurement resolution is 1/hour&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;sampling_size&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;12&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;sampling_size&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;24&lt;/span&gt;
   &lt;span class=&quot;na&quot;&gt;max_age&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
     &lt;span class=&quot;na&quot;&gt;days&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;
 &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;platform&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;statistics&lt;/span&gt;
   &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;weather&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;humidity&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;one&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;day&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;ago&quot;&lt;/span&gt;
   &lt;span class=&quot;na&quot;&gt;entity_id&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;sensor.template_weather_humidity_time_based&lt;/span&gt;
   &lt;span class=&quot;c1&quot;&gt;# measurement resolution is 1/hour&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;sampling_size&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;12&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;sampling_size&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;24&lt;/span&gt;
   &lt;span class=&quot;na&quot;&gt;max_age&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
     &lt;span class=&quot;na&quot;&gt;days&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;
 &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;platform&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;statistics&lt;/span&gt;
   &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;weather&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;pressure&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;one&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;day&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;ago&quot;&lt;/span&gt;
   &lt;span class=&quot;na&quot;&gt;entity_id&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;sensor.template_weather_pressure_time_based&lt;/span&gt;
   &lt;span class=&quot;c1&quot;&gt;# measurement resolution is 1/hour&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;sampling_size&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;12&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;sampling_size&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;24&lt;/span&gt;
   &lt;span class=&quot;na&quot;&gt;max_age&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
     &lt;span class=&quot;na&quot;&gt;days&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Once again, check your configuration file and then reload the Statistics Entities. Check your log file and &lt;strong&gt;wait&lt;/strong&gt; at least one hour.  Remember that such sensors will only update when the monitored entities also update, which in our case is every 1 hour.  Afterwards, head to &lt;strong&gt;Developer Tools&lt;/strong&gt; &amp;gt; States and you should now see the three new entities we just created:&lt;/p&gt;
+&lt;p&gt;Once again, check your configuration file and then restart your HASS. Check your log file and &lt;strong&gt;wait&lt;/strong&gt; at least one hour.  Remember that such sensors will only update when the monitored entities also update, which in our case is every 1 hour.  Afterwards, head to &lt;strong&gt;Developer Tools&lt;/strong&gt; &amp;gt; States and you should now see the three new entities we just created:&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-06-04-smarter-hass/hass-utility-statistics-02.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-06-04-smarter-hass/hass-utility-statistics-02.jpg&quot; alt=&quot;HASS utility statistics 02&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;This examples shows that over the last 24h, the temperature ranged from XXC to XXC, with a mean of XXC and standard deviation of ±XXC.&lt;/p&gt;
+&lt;p&gt;This examples shows that over the last 24h, the temperature ranged from 9.7°C to 13.8°C, with a mean of 11.3°C and standard deviation of ±1.2°C.&lt;/p&gt;
 
 &lt;h4 id=&quot;additional-references-1&quot;&gt;Additional references&lt;/h4&gt;
 &lt;ul&gt;
@@ -573,12 +596,14 @@
 &lt;p&gt;&lt;a href=&quot;#utilities&quot; class=&quot;btn btn--info btn--small&quot;&gt;back to utilities&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;trend&quot;&gt;Trend&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;Of note, depends on the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;numpy&lt;/code&gt; Python pkg.  More specifically, uses the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;np.polyfit(time, values, degree=1)&lt;/code&gt; method to estimate the slope of a linear function over a user-speficied time period (gradient).&lt;/li&gt;
-  &lt;li&gt;Note about the comparison between the Trend utility vs. Derivative: Derivative is just for the last two values over the last two time points; trend can accomplish the same thing for n=2 and can.&lt;/li&gt;
-  &lt;li&gt;Overview of the doc&lt;/li&gt;
-  &lt;li&gt;Illustrate with an example anyone can use and follow along&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;The &lt;a href=&quot;https://www.home-assistant.io/integrations/trend/&quot;&gt;Trend&lt;/a&gt; integration is the only one that depends on an external Python package, namely the &lt;a href=&quot;https://numpy.org&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;numpy&lt;/code&gt;&lt;/a&gt; package, and it does exactly what you’d expect from its name: it provides a trend coefficient for the data set spanning a user-specified time period.  More specifically, this integration fits a &lt;strong&gt;linear&lt;/strong&gt; function to the data points of an entity–via NumPy’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;np.polyfit()&lt;/code&gt; method–and outputs the &lt;strong&gt;slope&lt;/strong&gt; of the function, which is called by &lt;em&gt;gradient&lt;/em&gt;.  As such, it is a very useful integration for any scenario in which we need to know whether the data are &lt;em&gt;increasing&lt;/em&gt; or &lt;em&gt;decreasing&lt;/em&gt; over time.&lt;/p&gt;
+
+&lt;p&gt;The specification of time in this integration is very similar to the &lt;a href=&quot;#statistics-01&quot;&gt;Statistics&lt;/a&gt; integration, except that (a) &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sampling_size&lt;/code&gt; is now called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;max_samples&lt;/code&gt;, (b) &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;max_age&lt;/code&gt; is now called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sample_duration&lt;/code&gt;, and (c) the latter is specified in &lt;em&gt;seconds&lt;/em&gt; instead of using a duration syntax.  Specifically, the time period is specified by the following two time variables:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;max_samples&lt;/code&gt;: Indicates the maximum number of data points&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sample_duration&lt;/code&gt;:&lt;/li&gt;
+&lt;/ol&gt;
 
 &lt;h4 id=&quot;additional-references-2&quot;&gt;Additional references&lt;/h4&gt;
 &lt;ul&gt;
@@ -606,6 +631,19 @@
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;visualizing-inferences&quot;&gt;Visualizing inferences&lt;/h3&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# Sensor templates&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;sensor&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;weather&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;temperature&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;one&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;day&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;ago&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;plus&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;stdev&quot;&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;unit_of_measurement&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;C&quot;&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;{{ (state_attr('sensor.weather_temperature_one_day_ago', 'mean') + state_attr('sensor.weather_temperature_one_day_ago', 'standard_deviation')) | round(1) }}&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;weather&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;temperature&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;one&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;day&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;ago&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;minus&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;stdev&quot;&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;unit_of_measurement&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;C&quot;&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;{{ (state_attr('sensor.weather_temperature_one_day_ago', 'mean') - state_attr('sensor.weather_temperature_one_day_ago', 'standard_deviation')) | round(1) }}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
 &lt;ul&gt;
   &lt;li&gt;Making use of HASS built-in visualization tools
     &lt;ul&gt;

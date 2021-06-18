@@ -198,7 +198,7 @@
 
 
 
-  52 minute read
+  54 minute read
 
 </p>
       
@@ -353,6 +353,7 @@
               <ul class="toc__menu">
   <li><a href="#changelog">Changelog</a></li>
   <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#objectives">Objectives</a></li>
   <li><a href="#outline">Outline</a></li>
   <li><a href="#prerequisites">Prerequisites</a>
     <ul>
@@ -412,7 +413,7 @@
           </aside>
         
         <h1 id="changelog">Changelog</h1>
-<p class="notice notice--info"><strong>June 4th, 2021</strong>: Publication of the original article</p>
+<p class="notice--info"><strong>June 4th, 2021</strong>: Publication of the original article</p>
 
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 
@@ -448,6 +449,30 @@
 <p>Furthermore, the fact that HASS integrations are written in the <a href="https://www.python.org/">Python programming language</a> makes HASS a prime candidate for exploring the use of statistical inference in home automation systems because many mathematical and statistical packages are already available in Python and are widely used and well-maintained (e.g., <a href="https://pypi.org/project/numpy/"><code class="language-plaintext highlighter-rouge">numpy</code></a> and <a href="https://pypi.org/project/scipy/"><code class="language-plaintext highlighter-rouge">scipy</code></a>). Therefore, porting new and more sophisticated analytical tools to HASS should be fairly straightforward.  (More on this in the <a href="#development">Development</a> section).</p>
 
 <p>If you find these ideas interesting and want to get started on their implementation in your own personal HASS instances, then read on.  As in my previous guides and tutorials, I tried to unpack and digest as much of the content as possible, the goal being to make it accessible to experts as well as novices.  Check the <a href="#changelog">Changelog</a> for updates and if you ever get stuck on something or just want to share a few ideas and opinions, feel free to <a href="/contact">get in touch with me</a>.</p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="objectives">Objectives</h1>
+
+<ul>
+  <li>Get familiar with the following:
+    <ul>
+      <li>The HASS SQLite database (DB)</li>
+      <li>YAML syntax</li>
+      <li>Templating</li>
+      <li>Data visualization tools</li>
+    </ul>
+  </li>
+  <li>Learn the specifics about how data are sampled and stored in the HASS DB and how they affect analysis, owing to inconsistent data points and misrepresentation of data over time.</li>
+  <li>Familiarize yourself with the use of three utility integrations:
+    <ul>
+      <li>History Stats</li>
+      <li>Statistics</li>
+      <li>Trend</li>
+    </ul>
+  </li>
+  <li>Learn how make statistical inferences to create inferential automations.</li>
+</ul>
 
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 
@@ -628,13 +653,12 @@
   <p><a href="https://www.home-assistant.io/integrations/">Integrations</a> provide the core logic for the functionality in Home Assistant.</p>
 </blockquote>
 
-<p>Therefore, the analytical tools covered in this guide are implemented by one or more of the <strong>1800</strong> integrations that are currently supported by a community of home automation enthusiasts.  More specifically, most of the analytical tools are grouped under <a href="https://www.home-assistant.io/integrations/#utility">Utility</a> integrations and in this guide, I will cover the following four:</p>
+<p>Therefore, the analytical tools covered in this guide are implemented by one or more of the <strong>1800</strong> integrations that are currently supported by a community of home automation enthusiasts.  More specifically, most of the analytical tools are grouped under <a href="https://www.home-assistant.io/integrations/#utility">Utility</a> integrations and in this guide, I will only cover the following three:</p>
 
 <ol>
   <li><a href="#history-stats">History Stats</a></li>
   <li><a href="#statistics-1">Statistics</a></li>
   <li><a href="#trend">Trend</a></li>
-  <li><a href="#integration">Integration</a></li>
 </ol>
 
 <p>The current set of analytical integrations is fairly limited in what it can do.  For the most part, the tools can be used to create summary statistics of the past states and measurements of integrated devices and sensors.  Inference-wise, a lot can be done via <a href="https://www.home-assistant.io/docs/configuration/templating/">templates</a> but moving forward, there is a need for more advanced analytical integrations.  For this reason, at the end of this guide, I added a section about <a href="#development">Development</a> for anyone interested in helping out.  First, however, we need to talk about <a href="#data">Data</a> and <a href="#sampling">Sampling</a>.</p>
@@ -682,7 +706,7 @@
 
 <p class="notice">I find the use of the folded style (<code class="language-plaintext highlighter-rouge">&gt;</code>) very helpful in keeping the templates organized. Refer to the <a href="https://yaml.org/spec/1.2/spec.html">YAML - Scalars</a> documentation for more information.</p>
 
-<p>Check your <code class="language-plaintext highlighter-rouge">configuration.yaml</code> file for errors (Configuration &gt; Server Controls &gt; Configuration validation), and finally, <strong>reload your HASS</strong>.  Afterwards, navigate to Developers Tools &gt; States and if everything is correct, you should see a new <code class="language-plaintext highlighter-rouge">sensor.template_sun_elevation</code> entity:</p>
+<p>Check your <code class="language-plaintext highlighter-rouge">configuration.yaml</code> file for errors (Configuration &gt; Server Controls &gt; Configuration validation), and finally, <strong>restart your HASS</strong>.  Afterwards, navigate to Developers Tools &gt; States and if everything is correct, you should see a new <code class="language-plaintext highlighter-rouge">sensor.template_sun_elevation</code> entity:</p>
 
 <p><a href="/assets/posts/2021-06-04-smarter-hass/hass-entity-template-sun-elevation.jpg"><img src="/assets/posts/2021-06-04-smarter-hass/hass-entity-template-sun-elevation.jpg" alt="HASS template sun elevation" class="PostImage PostImage--large" /></a></p>
 
@@ -884,7 +908,7 @@
     <span class="na">days</span><span class="pi">:</span> <span class="m">1</span>
 </code></pre></div></div>
 
-<p>Now <strong>check your configuration file</strong> and if everything looks good, <strong>restart HASS</strong>. Afterwards, check your log file for related errors and if it all looks good, then head to <strong>Developer Tools</strong> &gt; States and you should now see the three new entities we just created:</p>
+<p>Now <strong>check your configuration file</strong> and if everything looks good, <strong>restart HASS</strong>. Afterwards, check your log file for related errors and if it all looks good, then head to <strong>Developer Tools</strong> &gt; States and you should now see the two new entities we just created:</p>
 
 <p><a href="/assets/posts/2021-06-04-smarter-hass/hass-utility-statistics-01.jpg"><img src="/assets/posts/2021-06-04-smarter-hass/hass-utility-statistics-01.jpg" alt="HASS utility statistics 01" class="PostImage PostImage--large" /></a></p>
 
@@ -925,7 +949,7 @@
 
 <p class="notice">The <code class="language-plaintext highlighter-rouge">time_pattern</code> trigger is every 1 hour because the measurement resolution for the Met.no integration is 1 hour.  Obviously, if this is different for your weather integration, then set it to a different trigger value to match the measurement resolution.</p>
 
-<p><strong>Check your config</strong> and reload your <strong>Template Entities</strong>.  Now <strong>wait</strong> for it to collect enough data points to allow meaningful analysis (at least 2 hours).</p>
+<p><strong>Check your config</strong> and <strong>restart your HASS</strong>.  Now <strong>wait</strong> for it to collect enough data points to allow meaningful analysis (at least 2 hours).</p>
 
 <p>Afterwards, we will create the following three <code class="language-plaintext highlighter-rouge">statistics</code> sensors for the new entities which will provide descriptive metrics for each of them over a time period of <em>one day</em>:</p>
 
@@ -947,30 +971,30 @@
   <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">weather</span><span class="nv"> </span><span class="s">temperature</span><span class="nv"> </span><span class="s">one</span><span class="nv"> </span><span class="s">day</span><span class="nv"> </span><span class="s">ago"</span>
   <span class="na">entity_id</span><span class="pi">:</span> <span class="s">sensor.template_weather_temperature_time_based</span>
   <span class="c1"># measurement resolution is 1/hour</span>
-  <span class="na">sampling_size</span><span class="pi">:</span> <span class="m">12</span>
+  <span class="na">sampling_size</span><span class="pi">:</span> <span class="m">24</span>
   <span class="na">max_age</span><span class="pi">:</span>
     <span class="na">days</span><span class="pi">:</span> <span class="m">1</span>
 <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s">statistics</span>
   <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">weather</span><span class="nv"> </span><span class="s">humidity</span><span class="nv"> </span><span class="s">one</span><span class="nv"> </span><span class="s">day</span><span class="nv"> </span><span class="s">ago"</span>
   <span class="na">entity_id</span><span class="pi">:</span> <span class="s">sensor.template_weather_humidity_time_based</span>
   <span class="c1"># measurement resolution is 1/hour</span>
-  <span class="na">sampling_size</span><span class="pi">:</span> <span class="m">12</span>
+  <span class="na">sampling_size</span><span class="pi">:</span> <span class="m">24</span>
   <span class="na">max_age</span><span class="pi">:</span>
     <span class="na">days</span><span class="pi">:</span> <span class="m">1</span>
 <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s">statistics</span>
   <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">weather</span><span class="nv"> </span><span class="s">pressure</span><span class="nv"> </span><span class="s">one</span><span class="nv"> </span><span class="s">day</span><span class="nv"> </span><span class="s">ago"</span>
   <span class="na">entity_id</span><span class="pi">:</span> <span class="s">sensor.template_weather_pressure_time_based</span>
   <span class="c1"># measurement resolution is 1/hour</span>
-  <span class="na">sampling_size</span><span class="pi">:</span> <span class="m">12</span>
+  <span class="na">sampling_size</span><span class="pi">:</span> <span class="m">24</span>
   <span class="na">max_age</span><span class="pi">:</span>
     <span class="na">days</span><span class="pi">:</span> <span class="m">1</span>
 </code></pre></div></div>
 
-<p>Once again, check your configuration file and then reload the Statistics Entities. Check your log file and <strong>wait</strong> at least one hour.  Remember that such sensors will only update when the monitored entities also update, which in our case is every 1 hour.  Afterwards, head to <strong>Developer Tools</strong> &gt; States and you should now see the three new entities we just created:</p>
+<p>Once again, check your configuration file and then restart your HASS. Check your log file and <strong>wait</strong> at least one hour.  Remember that such sensors will only update when the monitored entities also update, which in our case is every 1 hour.  Afterwards, head to <strong>Developer Tools</strong> &gt; States and you should now see the three new entities we just created:</p>
 
 <p><a href="/assets/posts/2021-06-04-smarter-hass/hass-utility-statistics-02.jpg"><img src="/assets/posts/2021-06-04-smarter-hass/hass-utility-statistics-02.jpg" alt="HASS utility statistics 02" class="PostImage PostImage--large" /></a></p>
 
-<p>This examples shows that over the last 24h, the temperature ranged from XXC to XXC, with a mean of XXC and standard deviation of ±XXC.</p>
+<p>This examples shows that over the last 24h, the temperature ranged from 9.7°C to 13.8°C, with a mean of 11.3°C and standard deviation of ±1.2°C.</p>
 
 <h4 id="additional-references-1">Additional references</h4>
 <ul>
@@ -986,12 +1010,14 @@
 <p><a href="#utilities" class="btn btn--info btn--small">back to utilities</a></p>
 
 <h3 id="trend">Trend</h3>
-<ul>
-  <li>Of note, depends on the <code class="language-plaintext highlighter-rouge">numpy</code> Python pkg.  More specifically, uses the <code class="language-plaintext highlighter-rouge">np.polyfit(time, values, degree=1)</code> method to estimate the slope of a linear function over a user-speficied time period (gradient).</li>
-  <li>Note about the comparison between the Trend utility vs. Derivative: Derivative is just for the last two values over the last two time points; trend can accomplish the same thing for n=2 and can.</li>
-  <li>Overview of the doc</li>
-  <li>Illustrate with an example anyone can use and follow along</li>
-</ul>
+<p>The <a href="https://www.home-assistant.io/integrations/trend/">Trend</a> integration is the only one that depends on an external Python package, namely the <a href="https://numpy.org"><code class="language-plaintext highlighter-rouge">numpy</code></a> package, and it does exactly what you’d expect from its name: it provides a trend coefficient for the data set spanning a user-specified time period.  More specifically, this integration fits a <strong>linear</strong> function to the data points of an entity–via NumPy’s <code class="language-plaintext highlighter-rouge">np.polyfit()</code> method–and outputs the <strong>slope</strong> of the function, which is called by <em>gradient</em>.  As such, it is a very useful integration for any scenario in which we need to know whether the data are <em>increasing</em> or <em>decreasing</em> over time.</p>
+
+<p>The specification of time in this integration is very similar to the <a href="#statistics-01">Statistics</a> integration, except that (a) <code class="language-plaintext highlighter-rouge">sampling_size</code> is now called <code class="language-plaintext highlighter-rouge">max_samples</code>, (b) <code class="language-plaintext highlighter-rouge">max_age</code> is now called <code class="language-plaintext highlighter-rouge">sample_duration</code>, and (c) the latter is specified in <em>seconds</em> instead of using a duration syntax.  Specifically, the time period is specified by the following two time variables:</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">max_samples</code>: Indicates the maximum number of data points</li>
+  <li><code class="language-plaintext highlighter-rouge">sample_duration</code>:</li>
+</ol>
 
 <h4 id="additional-references-2">Additional references</h4>
 <ul>
@@ -1019,6 +1045,19 @@
 </ul>
 
 <h3 id="visualizing-inferences">Visualizing inferences</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Sensor templates</span>
+<span class="pi">-</span> <span class="na">sensor</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">template</span><span class="nv"> </span><span class="s">weather</span><span class="nv"> </span><span class="s">temperature</span><span class="nv"> </span><span class="s">one</span><span class="nv"> </span><span class="s">day</span><span class="nv"> </span><span class="s">ago</span><span class="nv"> </span><span class="s">plus</span><span class="nv"> </span><span class="s">stdev"</span>
+      <span class="na">unit_of_measurement</span><span class="pi">:</span> <span class="s2">"</span><span class="s">C"</span>
+      <span class="na">state</span><span class="pi">:</span> <span class="pi">&gt;</span>
+        <span class="s">{{ (state_attr('sensor.weather_temperature_one_day_ago', 'mean') + state_attr('sensor.weather_temperature_one_day_ago', 'standard_deviation')) | round(1) }}</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">template</span><span class="nv"> </span><span class="s">weather</span><span class="nv"> </span><span class="s">temperature</span><span class="nv"> </span><span class="s">one</span><span class="nv"> </span><span class="s">day</span><span class="nv"> </span><span class="s">ago</span><span class="nv"> </span><span class="s">minus</span><span class="nv"> </span><span class="s">stdev"</span>
+      <span class="na">unit_of_measurement</span><span class="pi">:</span> <span class="s2">"</span><span class="s">C"</span>
+      <span class="na">state</span><span class="pi">:</span> <span class="pi">&gt;</span>
+        <span class="s">{{ (state_attr('sensor.weather_temperature_one_day_ago', 'mean') - state_attr('sensor.weather_temperature_one_day_ago', 'standard_deviation')) | round(1) }}</span>
+</code></pre></div></div>
+
 <ul>
   <li>Making use of HASS built-in visualization tools
     <ul>

@@ -12,9 +12,9 @@ toc_icon: "list"
 
 # Changelog
 **June 4th, 2021**: Publication of the original article
-{: .notice .notice--info }
+{:.notice--info }
 
-[top](#){: .btn .btn--light-outline .btn--small}
+[top](#){:.btn .btn--light-outline .btn--small}
 
 
 # Introduction
@@ -46,13 +46,29 @@ Furthermore, the fact that HASS integrations are written in the [Python programm
 
 If you find these ideas interesting and want to get started on their implementation in your own personal HASS instances, then read on.  As in my previous guides and tutorials, I tried to unpack and digest as much of the content as possible, the goal being to make it accessible to experts as well as novices.  Check the [Changelog](#changelog) for updates and if you ever get stuck on something or just want to share a few ideas and opinions, feel free to [get in touch with me](/contact).
 
-[top](#){: .btn .btn--light-outline .btn--small}
+[top](#){:.btn .btn--light-outline .btn--small}
+
+# Objectives
+
+- Get familiar with the following:
+  - The HASS SQLite database (DB)
+  - YAML syntax
+  - Templating
+  - Data visualization tools
+- Learn the specifics about how data are sampled and stored in the HASS DB and how they affect analysis, owing to inconsistent data points and misrepresentation of data over time.
+- Familiarize yourself with the use of three utility integrations:
+  - History Stats
+  - Statistics
+  - Trend
+- Learn how make statistical inferences to create inferential automations.
+
+[top](#){:.btn .btn--light-outline .btn--small}
 
 
 # Outline
 - TODO: General picture of the structure
 
-[top](#){: .btn .btn--light-outline .btn--small}
+[top](#){:.btn .btn--light-outline .btn--small}
 
 
 # Prerequisites
@@ -190,7 +206,7 @@ Fortunately, it doesn't take much to create really good inferential automations 
   - Advanced topics:
     - *TODO: Link to papers and books*
 
-[top](#){: .btn .btn--light-outline .btn--small}
+[top](#){:.btn .btn--light-outline .btn--small}
 
 
 # Implementation
@@ -198,12 +214,11 @@ The main functionalities in HASS are extended by the configuration of new **inte
 
 > [Integrations](https://www.home-assistant.io/integrations/) provide the core logic for the functionality in Home Assistant.
 
-Therefore, the analytical tools covered in this guide are implemented by one or more of the **1800** integrations that are currently supported by a community of home automation enthusiasts.  More specifically, most of the analytical tools are grouped under [Utility](https://www.home-assistant.io/integrations/#utility) integrations and in this guide, I will cover the following four:
+Therefore, the analytical tools covered in this guide are implemented by one or more of the **1800** integrations that are currently supported by a community of home automation enthusiasts.  More specifically, most of the analytical tools are grouped under [Utility](https://www.home-assistant.io/integrations/#utility) integrations and in this guide, I will only cover the following three:
 
 1. [History Stats](#history-stats)
 2. [Statistics](#statistics-1)
 3. [Trend](#trend)
-4. [Integration](#integration)
 
 The current set of analytical integrations is fairly limited in what it can do.  For the most part, the tools can be used to create summary statistics of the past states and measurements of integrated devices and sensors.  Inference-wise, a lot can be done via [templates](https://www.home-assistant.io/docs/configuration/templating/) but moving forward, there is a need for more advanced analytical integrations.  For this reason, at the end of this guide, I added a section about [Development](#development) for anyone interested in helping out.  First, however, we need to talk about [Data](#data) and [Sampling](#sampling).
 
@@ -253,7 +268,7 @@ Notice that in `state:`, we use `state_attr()` to retrieve the `elevation` attri
 I find the use of the folded style (`>`) very helpful in keeping the templates organized. Refer to the [YAML - Scalars](https://yaml.org/spec/1.2/spec.html) documentation for more information.
 {:.notice}
 
-Check your `configuration.yaml` file for errors (Configuration > Server Controls > Configuration validation), and finally, **reload your HASS**.  Afterwards, navigate to Developers Tools > States and if everything is correct, you should see a new `sensor.template_sun_elevation` entity:
+Check your `configuration.yaml` file for errors (Configuration > Server Controls > Configuration validation), and finally, **restart your HASS**.  Afterwards, navigate to Developers Tools > States and if everything is correct, you should see a new `sensor.template_sun_elevation` entity:
 
 [![HASS template sun elevation](/assets/posts/2021-06-04-smarter-hass/hass-entity-template-sun-elevation.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-06-04-smarter-hass/hass-entity-template-sun-elevation.jpg)
 
@@ -396,7 +411,7 @@ Because I have not been running HASS and collecting `weather.home` data over thi
 - History Stats **documentation**: [https://www.home-assistant.io/integrations/history_stats/](https://www.home-assistant.io/integrations/history_stats/)
 - History Stats **source**: [https://github.com/home-assistant/core/tree/dev/homeassistant/components/history_stats](https://github.com/home-assistant/core/tree/dev/homeassistant/components/history_stats)
 
-[back to utilities](#utilities){: .btn .btn--info .btn--small}
+[back to utilities](#utilities){:.btn .btn--info .btn--small}
 
 
 ### Statistics
@@ -451,7 +466,7 @@ To create those two `statistics` sensor entities, append the following to the `s
     days: 1
 ```
 
-Now **check your configuration file** and if everything looks good, **restart HASS**. Afterwards, check your log file for related errors and if it all looks good, then head to **Developer Tools** > States and you should now see the three new entities we just created:
+Now **check your configuration file** and if everything looks good, **restart HASS**. Afterwards, check your log file for related errors and if it all looks good, then head to **Developer Tools** > States and you should now see the two new entities we just created:
 
 [![HASS utility statistics 01](/assets/posts/2021-06-04-smarter-hass/hass-utility-statistics-01.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-06-04-smarter-hass/hass-utility-statistics-01.jpg)
 
@@ -496,7 +511,7 @@ Now, weather data are much less predictable and subject to multiple sources of v
 The `time_pattern` trigger is every 1 hour because the measurement resolution for the Met.no integration is 1 hour.  Obviously, if this is different for your weather integration, then set it to a different trigger value to match the measurement resolution.
 {:.notice}
 
-**Check your config** and reload your **Template Entities**.  Now **wait** for it to collect enough data points to allow meaningful analysis (at least 2 hours).
+**Check your config** and **restart your HASS**.  Now **wait** for it to collect enough data points to allow meaningful analysis (at least 2 hours).
 
 Afterwards, we will create the following three `statistics` sensors for the new entities which will provide descriptive metrics for each of them over a time period of *one day*:
 
@@ -508,36 +523,35 @@ Afterwards, we will create the following three `statistics` sensors for the new 
 
 To create those three `statistics` sensor entities, append the following to the `sensors.yaml`:
 
-
 ```yaml
 - platform: statistics
   name: "weather temperature one day ago"
   entity_id: sensor.template_weather_temperature_time_based
   # measurement resolution is 1/hour
-  sampling_size: 12
+  sampling_size: 24
   max_age:
     days: 1
 - platform: statistics
   name: "weather humidity one day ago"
   entity_id: sensor.template_weather_humidity_time_based
   # measurement resolution is 1/hour
-  sampling_size: 12
+  sampling_size: 24
   max_age:
     days: 1
 - platform: statistics
   name: "weather pressure one day ago"
   entity_id: sensor.template_weather_pressure_time_based
   # measurement resolution is 1/hour
-  sampling_size: 12
+  sampling_size: 24
   max_age:
     days: 1
 ```
 
-Once again, check your configuration file and then reload the Statistics Entities. Check your log file and **wait** at least one hour.  Remember that such sensors will only update when the monitored entities also update, which in our case is every 1 hour.  Afterwards, head to **Developer Tools** > States and you should now see the three new entities we just created:
+Once again, check your configuration file and then restart your HASS. Check your log file and **wait** at least one hour.  Remember that such sensors will only update when the monitored entities also update, which in our case is every 1 hour.  Afterwards, head to **Developer Tools** > States and you should now see the three new entities we just created:
 
 [![HASS utility statistics 02](/assets/posts/2021-06-04-smarter-hass/hass-utility-statistics-02.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-06-04-smarter-hass/hass-utility-statistics-02.jpg)
 
-This examples shows that over the last 24h, the temperature ranged from XXC to XXC, with a mean of XXC and standard deviation of ±XXC.
+This examples shows that over the last 24h, the temperature ranged from 9.7°C to 13.8°C, with a mean of 11.3°C and standard deviation of ±1.2°C.
 
 #### Additional references
 - Statistics **documentation**: [https://www.home-assistant.io/integrations/statistics/](https://www.home-assistant.io/integrations/statistics/)
@@ -545,14 +559,17 @@ This examples shows that over the last 24h, the temperature ranged from XXC to X
 - Statistics noteworthy **dependencies**:
   - Python `statistics` core pkg: [https://docs.python.org/3/library/statistics.html](https://docs.python.org/3/library/statistics.html)
 
-[back to utilities](#utilities){: .btn .btn--info .btn--small}
+[back to utilities](#utilities){:.btn .btn--info .btn--small}
 
 
 ### Trend
-- Of note, depends on the `numpy` Python pkg.  More specifically, uses the `np.polyfit(time, values, degree=1)` method to estimate the slope of a linear function over a user-speficied time period (gradient).
-- Note about the comparison between the Trend utility vs. Derivative: Derivative is just for the last two values over the last two time points; trend can accomplish the same thing for n=2 and can.
-- Overview of the doc
-- Illustrate with an example anyone can use and follow along
+The [Trend](https://www.home-assistant.io/integrations/trend/) integration is the only one that depends on an external Python package, namely the [`numpy`](https://numpy.org) package, and it does exactly what you'd expect from its name: it provides a trend coefficient for the data set spanning a user-specified time period.  More specifically, this integration fits a **linear** function to the data points of an entity--via NumPy's `np.polyfit()` method--and outputs the **slope** of the function, which is called by *gradient*.  As such, it is a very useful integration for any scenario in which we need to know whether the data are *increasing* or *decreasing* over time.
+
+The specification of time in this integration is very similar to the [Statistics](#statistics-01) integration, except that (a) `sampling_size` is now called `max_samples`, (b) `max_age` is now called `sample_duration`, and (c) the latter is specified in *seconds* instead of using a duration syntax.  Specifically, the time period is specified by the following two time variables:
+
+1. `max_samples`: Indicates the maximum number of data points
+2. `sample_duration`:
+
 
 #### Additional references
 - Trend **documentation**: [https://www.home-assistant.io/integrations/trend/](https://www.home-assistant.io/integrations/trend/)
@@ -560,7 +577,7 @@ This examples shows that over the last 24h, the temperature ranged from XXC to X
 - Trend noteworthy **dependencies**:
   - Python `numpy` pkg: [https://numpy.org/doc/stable/reference/generated/numpy.polyfit.html](https://numpy.org/doc/stable/reference/generated/numpy.polyfit.html)
 
-[back to utilities](#utilities){: .btn .btn--info .btn--small}
+[back to utilities](#utilities){:.btn .btn--info .btn--small}
 
 
 ## Statistical inference
@@ -571,6 +588,22 @@ This examples shows that over the last 24h, the temperature ranged from XXC to X
 - Notes on sample, power, and null hypothesis testing for robust dynamic predictions
 
 ### Visualizing inferences
+
+{% raw %}
+```yaml
+# Sensor templates
+- sensor:
+    - name: "template weather temperature one day ago plus stdev"
+      unit_of_measurement: "C"
+      state: >
+        {{ (state_attr('sensor.weather_temperature_one_day_ago', 'mean') + state_attr('sensor.weather_temperature_one_day_ago', 'standard_deviation')) | round(1) }}
+    - name: "template weather temperature one day ago minus stdev"
+      unit_of_measurement: "C"
+      state: >
+        {{ (state_attr('sensor.weather_temperature_one_day_ago', 'mean') - state_attr('sensor.weather_temperature_one_day_ago', 'standard_deviation')) | round(1) }}
+```
+{% endraw %}
+
 - Making use of HASS built-in visualization tools
   - Historical plots
   - Filters (state_filter gradients) to create heatmaps
@@ -580,7 +613,7 @@ This examples shows that over the last 24h, the temperature ranged from XXC to X
 ## Inferential automations
 - Automations based on future states
 
-[top](#){: .btn .btn--light-outline .btn--small}
+[top](#){:.btn .btn--light-outline .btn--small}
 
 
 # Development
@@ -593,7 +626,7 @@ This examples shows that over the last 24h, the temperature ranged from XXC to X
   - Genrealized linear models and other common statistical models
   - Endless possibilities for analytic tool development; most require simple porting to the HASS environment because we already have many Python pkgs for statistical analysis (e.g., SciPy)
 
-[top](#){: .btn .btn--light-outline .btn--small}
+[top](#){:.btn .btn--light-outline .btn--small}
 
 
 # Conclusion
@@ -602,5 +635,5 @@ This examples shows that over the last 24h, the temperature ranged from XXC to X
 This is all served via a beautiful and configurable web interface that can be accessed both locally and remotely using either any of the popular web browsers or its official app for [Android](https://play.google.com/store/apps/details?id=io.homeassistant.companion.android) and [iOS](https://apps.apple.com/us/app/home-assistant/id1099568401). 
 
 
-[top](#){: .btn .btn--light-outline .btn--small}
+[top](#){:.btn .btn--light-outline .btn--small}
 
