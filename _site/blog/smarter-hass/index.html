@@ -198,7 +198,7 @@
 
 
 
-  54 minute read
+  59 minute read
 
 </p>
       
@@ -388,6 +388,7 @@
           </li>
           <li><a href="#trend">Trend</a>
             <ul>
+              <li><a href="#usage-examples-2">Usage examples</a></li>
               <li><a href="#additional-references-2">Additional references</a></li>
             </ul>
           </li>
@@ -472,7 +473,10 @@
     </ul>
   </li>
   <li>Learn how make statistical inferences to create inferential automations.</li>
+  <li>Make use of analytical data to improve your current HASS dashboard:</li>
 </ul>
+
+<p><a href="/assets/posts/2021-06-04-smarter-hass/hass-graph-dynamic-temperature.gif"><img src="/assets/posts/2021-06-04-smarter-hass/hass-graph-dynamic-temperature.gif" alt="HASS graph dynamic temperature" class="PostImage PostImage--large" /></a></p>
 
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 
@@ -1015,9 +1019,93 @@
 <p>The specification of time in this integration is very similar to the <a href="#statistics-01">Statistics</a> integration, except that (a) <code class="language-plaintext highlighter-rouge">sampling_size</code> is now called <code class="language-plaintext highlighter-rouge">max_samples</code>, (b) <code class="language-plaintext highlighter-rouge">max_age</code> is now called <code class="language-plaintext highlighter-rouge">sample_duration</code>, and (c) the latter is specified in <em>seconds</em> instead of using a duration syntax.  Specifically, the time period is specified by the following two time variables:</p>
 
 <ol>
-  <li><code class="language-plaintext highlighter-rouge">max_samples</code>: Indicates the maximum number of data points</li>
-  <li><code class="language-plaintext highlighter-rouge">sample_duration</code>:</li>
+  <li><code class="language-plaintext highlighter-rouge">max_samples</code>: The maximum number of data points. By default, it uses the last two data points (<code class="language-plaintext highlighter-rouge">max_samples: 2</code>);</li>
+  <li><code class="language-plaintext highlighter-rouge">sample_duration</code>: The duration (in seconds) of the oldest data point.  By default, it is unconstrained (<code class="language-plaintext highlighter-rouge">sample_duration: 0</code>).</li>
 </ol>
+
+<h4 id="usage-examples-2">Usage examples</h4>
+<p>Contrary to the previous two utilities, a <code class="language-plaintext highlighter-rouge">trend</code> sensor is defined as a platform (<code class="language-plaintext highlighter-rouge">- platform: trend</code>) under <em><code class="language-plaintext highlighter-rouge">binary_sensor:</code></em> in your <code class="language-plaintext highlighter-rouge">configuration.yaml</code> file.  For this reason, first, let’s include a reference to a <code class="language-plaintext highlighter-rouge">binary_sensors.yaml</code> in the <code class="language-plaintext highlighter-rouge">configuration.yaml</code> file, as follows:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Binary sensors</span>
+<span class="na">binary_sensor</span><span class="pi">:</span> <span class="kt">!include</span> <span class="s">binary_sensors.yaml</span>
+</code></pre></div></div>
+
+<p>Then using a text editor, create a <code class="language-plaintext highlighter-rouge">binary_sensors.yaml</code> file where we will configure the following four <code class="language-plaintext highlighter-rouge">trend</code> binary sensors to consume the data from the temperature, humidity, and pressure time-based template sensors, as well as the Sun elevation:</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">trend weather temperature six hours</code>: Gradient of the <code class="language-plaintext highlighter-rouge">sensor.template_weather_temperature_time_based</code> template sensor over the <em>last six hours</em>;</li>
+  <li><code class="language-plaintext highlighter-rouge">trend weather humidity six hours</code>: Gradient of the <code class="language-plaintext highlighter-rouge">sensor.template_weather_humidity_time_based</code> template sensor over the <em>last six hours</em>;</li>
+  <li><code class="language-plaintext highlighter-rouge">trend weather pressure twelve hours</code>: Gradient of the <code class="language-plaintext highlighter-rouge">sensor.template_weather_pressure_time_based</code> template sensor over the <em>last twelve hours</em>;</li>
+  <li><code class="language-plaintext highlighter-rouge">trend sun elevation ten minutes</code>: Gradient of the <code class="language-plaintext highlighter-rouge">sensor.template_sun_elevation_time_based</code> template sensor over the <em>last ten minutes</em>;</li>
+</ol>
+
+<p>To create those <code class="language-plaintext highlighter-rouge">trend</code> entities, append the following to the <code class="language-plaintext highlighter-rouge">binary_sensors.yaml</code> file:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Trend</span>
+<span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s">trend</span>
+  <span class="na">sensors</span><span class="pi">:</span>
+    <span class="na">trend_weather_temperature_six_hours</span><span class="pi">:</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s">sensor.template_weather_temperature_time_based</span>
+      <span class="c1"># resolution is 1/h</span>
+      <span class="na">max_samples</span><span class="pi">:</span> <span class="m">6</span>
+      <span class="c1"># 6 hours in seconds</span>
+      <span class="na">sample_duration</span><span class="pi">:</span> <span class="m">21600</span>
+    <span class="na">trend_weather_humidity_six_hours</span><span class="pi">:</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s">sensor.template_weather_humidity_time_based</span>
+      <span class="c1"># resolution is 1/h</span>
+      <span class="na">max_samples</span><span class="pi">:</span> <span class="m">6</span>
+      <span class="c1"># 6 hours in seconds</span>
+      <span class="na">sample_duration</span><span class="pi">:</span> <span class="m">21600</span>
+    <span class="na">trend_weather_pressure_twelve_hours</span><span class="pi">:</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s">sensor.template_weather_pressure_time_based</span>
+      <span class="c1"># resolution is 1/h</span>
+      <span class="na">max_samples</span><span class="pi">:</span> <span class="m">12</span>
+      <span class="c1"># 12 hours in seconds</span>
+      <span class="na">sample_duration</span><span class="pi">:</span> <span class="m">43200</span>
+    <span class="na">trend_sun_elevation_ten_minutes</span><span class="pi">:</span>
+      <span class="na">entity_id</span><span class="pi">:</span> <span class="s">sensor.template_sun_elevation_time_based</span>
+      <span class="c1"># resolution is 1 every 5 minutes</span>
+      <span class="na">max_samples</span><span class="pi">:</span> <span class="m">2</span>
+      <span class="c1"># 10 minutes in seconds</span>
+      <span class="na">sample_duration</span><span class="pi">:</span> <span class="m">600</span>
+</code></pre></div></div>
+
+<p><strong>Check your configuration file</strong> and if everything looks good, <strong>restart HASS</strong>. Afterwards, check your log file for related errors and if it all looks good, then head to <strong>Developer Tools</strong> &gt; States and you should now see the new trend entities we just created:</p>
+
+<p><a href="/assets/posts/2021-06-04-smarter-hass/hass-utility-trend-01.jpg"><img src="/assets/posts/2021-06-04-smarter-hass/hass-utility-trend-01.jpg" alt="HASS utility trend 01" class="PostImage PostImage--large" /></a></p>
+
+<p>Two noteworthy observations need to be made at this point.  First, notice that this integration does not analyze the data from previously stored entity data but actually stores its own data.  Therefore, it’s necessary to keep it running to collect data from all monitored entities before drawing anything meaningful conclusions from it.  Second, the slope of the linear function that was fit over the data points (<code class="language-plaintext highlighter-rouge">gradient</code>) is reported as an <strong>attribute</strong> and because it uses <em>seconds</em> as time unit, the coefficient refers to the ratio of change over <em>per second</em>.  To make it easier working with <code class="language-plaintext highlighter-rouge">gradient</code>, I usually create a slave entity to output the gradient as its state instead. This is accomplished with <strong>template sensors</strong>.  More specifically, let’s append the following <em>Trend helper entities</em> under our default <strong>Sensor Templates</strong> in the <code class="language-plaintext highlighter-rouge">templates.yaml</code> file:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c1"># Trend helper entities</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">template</span><span class="nv"> </span><span class="s">trend</span><span class="nv"> </span><span class="s">sun</span><span class="nv"> </span><span class="s">elevation</span><span class="nv"> </span><span class="s">ten</span><span class="nv"> </span><span class="s">minutes"</span>
+      <span class="na">unit_of_measurement</span><span class="pi">:</span> <span class="s2">"</span><span class="s">°/h"</span>
+      <span class="c1"># if statement makes sure the gradient is valid</span>
+      <span class="c1"># change the scale from sec to hour</span>
+      <span class="na">state</span><span class="pi">:</span> <span class="pi">&gt;</span>
+        <span class="s">{% if state_attr('binary_sensor.trend_sun_elevation_ten_minutes', 'gradient') is number %}</span>
+           <span class="s">{{ (state_attr('binary_sensor.trend_sun_elevation_ten_minutes', 'gradient') * 3600) | round(1) }}</span>
+        <span class="s">{% endif %}</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">template</span><span class="nv"> </span><span class="s">trend</span><span class="nv"> </span><span class="s">weather</span><span class="nv"> </span><span class="s">temperature</span><span class="nv"> </span><span class="s">six</span><span class="nv"> </span><span class="s">hours"</span>
+      <span class="na">unit_of_measurement</span><span class="pi">:</span> <span class="s2">"</span><span class="s">°/h"</span>
+      <span class="na">state</span><span class="pi">:</span> <span class="pi">&gt;</span>
+        <span class="s">{% if state_attr('binary_sensor.trend_weather_temperature_six_hours', 'gradient') is number %}</span>
+           <span class="s">{{ (state_attr('binary_sensor.trend_weather_temperature_six_hours', 'gradient') * 3600) | round(2) }}</span>
+        <span class="s">{% endif %}</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">template</span><span class="nv"> </span><span class="s">trend</span><span class="nv"> </span><span class="s">weather</span><span class="nv"> </span><span class="s">humidity</span><span class="nv"> </span><span class="s">six</span><span class="nv"> </span><span class="s">hours"</span>
+      <span class="na">unit_of_measurement</span><span class="pi">:</span> <span class="s2">"</span><span class="s">%/h"</span>
+      <span class="na">state</span><span class="pi">:</span> <span class="pi">&gt;</span>
+        <span class="s">{% if state_attr('binary_sensor.trend_weather_humidity_six_hours', 'gradient') is number %}</span>
+           <span class="s">{{ (state_attr('binary_sensor.trend_weather_humidity_six_hours', 'gradient') * 3600) | round(2) }}</span>
+        <span class="s">{% endif %}</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">template</span><span class="nv"> </span><span class="s">trend</span><span class="nv"> </span><span class="s">weather</span><span class="nv"> </span><span class="s">pressure</span><span class="nv"> </span><span class="s">twelve</span><span class="nv"> </span><span class="s">hours"</span>
+      <span class="na">unit_of_measurement</span><span class="pi">:</span> <span class="s2">"</span><span class="s">hPa/h"</span>
+      <span class="na">state</span><span class="pi">:</span> <span class="pi">&gt;</span>
+        <span class="s">{% if state_attr('binary_sensor.trend_weather_pressure_twelve_hours', 'gradient') is number %}</span>
+           <span class="s">{{ (state_attr('binary_sensor.trend_weather_pressure_twelve_hours', 'gradient') * 3600) | round(0) }}</span>
+        <span class="s">{% endif %}</span>
+</code></pre></div></div>
+
+<p><strong>Reload your configuration</strong> and afterwards, HASS will create new <code class="language-plaintext highlighter-rouge">sensor.template_trend_*</code> entities that should contain the converted gradient as their state.</p>
 
 <h4 id="additional-references-2">Additional references</h4>
 <ul>
