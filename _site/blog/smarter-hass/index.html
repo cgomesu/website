@@ -198,7 +198,7 @@
 
 
 
-  59 minute read
+  68 minute read
 
 </p>
       
@@ -392,18 +392,10 @@
               <li><a href="#additional-references-2">Additional references</a></li>
             </ul>
           </li>
+          <li><a href="#visualizing-analytical-data">Visualizing analytical data</a></li>
         </ul>
       </li>
-      <li><a href="#statistical-inference">Statistical inference</a>
-        <ul>
-          <li><a href="#visualizing-inferences">Visualizing inferences</a>
-            <ul>
-              <li><a href="#customized-plots">Customized plots</a></li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li><a href="#inferential-automations">Inferential automations</a></li>
+      <li><a href="#statistical-inference">Statistical inference</a></li>
     </ul>
   </li>
   <li><a href="#development">Development</a></li>
@@ -428,33 +420,23 @@
 <ul>
   <li>How many times has the front door been opened over the last 24hrs and for how long?</li>
   <li>How much energy (kWh) has my uninterrupted power supply used over the last month?</li>
-  <li>What was the average temperature in the living-room during yesterday’s morning, afternoon, and evening?  What about last week?</li>
-  <li>What is the average level of volatile organic compounds (VOC) measured by the <a href="https://www.bosch-sensortec.com/products/environmental-sensors/gas-sensors/bme680/">BME680 sensor</a> in my bedroom?  How much does it change over the day?</li>
+  <li>What was the average temperature in the living-room in the last 24hrs?  How does that compare to the day before?</li>
+  <li>What is the average level of volatile organic compounds (VOC) measured by the <a href="https://www.bosch-sensortec.com/products/environmental-sensors/gas-sensors/bme680/">BME680 sensor</a> in my bedroom in the last thirty minutes?  How much does it change over the day?</li>
 </ul>
 
-<p><a href="/assets/posts/2021-06-04-smarter-hass/voc-plot.jpg"><img src="/assets/posts/2021-06-04-smarter-hass/voc-plot.jpg" alt="VOC plot" class="PostImage PostImage--large" /></a></p>
-
-<p>In addition, the same analytical tools can be used to make statistical, data-driven inferences about the <strong>future states</strong> of smart devices and sensors to create what I call <em>inferential automations</em>. Inferential automations determine actions based on abnormal states and measurements, for example, or reliable tendencies over a user-specified period of time:</p>
-
-<ul>
-  <li>if the water level is <em>significantly lower than yesterday</em>, then __ .</li>
-  <li>if the number of detected cars on my camera is <em>significantly higher than thirty minutes ago</em>, then __ .</li>
-  <li>if the temperature started <em>decreasing significantly over the last five minutes</em>, then __ .</li>
-  <li>if the VOC started <em>increasing significantly over the last fifteen minutes</em>, then __ .</li>
-</ul>
-
-<p><a href="/assets/posts/2021-06-04-smarter-hass/voc-plot-linear-fit.jpg"><img src="/assets/posts/2021-06-04-smarter-hass/voc-plot-linear-fit.jpg" alt="VOC plot linear fit" class="PostImage PostImage--large" /></a></p>
-
-<p>Unfortunately, according to the HASS website, the <a href="https://www.home-assistant.io/integrations/statistics/">Statistics</a> and related utilities are currently used by less than 5% of the HASS userbase.  I feel there is much to be explored and gained from the application of <strong>dynamic statistical inferences</strong> in home automation systems.  To mention a few reasons, sensors are susceptible to measurement error and many user-defined events (e.g., Carlos is at home) are multidimensional and frequently determined by more factors than integrated with a home automation system (e.g., my cellphone connected to my home’s private network is not a sufficient condition to tell that I’m at home but it does inform about the likelihood that I am at home).  This creates uncertainty about the current and future states of things but fortunately, the uncertainty can be quantified and taken into account by various statistical tools that have already been developed.</p>
+<p>Unfortunately, according to the HASS website, the <a href="https://www.home-assistant.io/integrations/statistics/">Statistics</a> and related utilities are currently used by less than 5% of the HASS userbase.  I feel there is much to be explored and gained from the application of <strong>dynamic statistical inferences</strong> in home automation systems.  To mention a few reasons, sensors are susceptible to measurement error and many user-defined events (e.g., Carlos is at home) are multidimensional and frequently determined by more factors than integrated within a home automation system (e.g., my cellphone connected to my home’s private network is not a sufficient condition to tell that I’m at home but it does inform about the likelihood that I am at home).  This creates uncertainty about the current and future states of things but fortunately, the uncertainty can be quantified and taken into account by various statistical tools that have already been developed.</p>
 
 <p>Furthermore, the fact that HASS integrations are written in the <a href="https://www.python.org/">Python programming language</a> makes HASS a prime candidate for exploring the use of statistical inference in home automation systems because many mathematical and statistical packages are already available in Python and are widely used and well-maintained (e.g., <a href="https://pypi.org/project/numpy/"><code class="language-plaintext highlighter-rouge">numpy</code></a> and <a href="https://pypi.org/project/scipy/"><code class="language-plaintext highlighter-rouge">scipy</code></a>). Therefore, porting new and more sophisticated analytical tools to HASS should be fairly straightforward.  (More on this in the <a href="#development">Development</a> section).</p>
 
-<p>If you find these ideas interesting and want to get started on their implementation in your own personal HASS instances, then read on.  As in my previous guides and tutorials, I tried to unpack and digest as much of the content as possible, the goal being to make it accessible to experts as well as novices.  Check the <a href="#changelog">Changelog</a> for updates and if you ever get stuck on something or just want to share a few ideas and opinions, feel free to <a href="/contact">get in touch with me</a>.</p>
+<p>At the very least, the current analytical tools can be used to improve the quality of the information in your current HASS dashboard.  For example, instead of simply displaying the current temperature, the use of analytical tools allow us to set dynamic color thresholds based on the mean and deviations from it (± one standard deviation, then min-max) over the last 24hrs:</p>
+
+<p><a href="/assets/posts/2021-06-04-smarter-hass/hass-graph-dynamic-temperature-01.gif"><img src="/assets/posts/2021-06-04-smarter-hass/hass-graph-dynamic-temperature-01.gif" alt="HASS graph dynamic temperature 01" class="PostImage PostImage--large" /></a></p>
+
+<p>But there’s much more that can be done and accomplished moving forward.  If you find these ideas interesting and want to get started on their implementation in your own personal HASS instances, then read on.  As in my previous guides and tutorials, I tried to unpack and digest as much of the content as possible, the goal being to make it accessible to experts as well as novices.  Check the <a href="#changelog">Changelog</a> for updates and if you ever get stuck on something or just want to share a few ideas and opinions, feel free to <a href="/contact">get in touch with me</a>.</p>
 
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 
 <h1 id="objectives">Objectives</h1>
-
 <ul>
   <li>Get familiar with the following:
     <ul>
@@ -472,11 +454,13 @@
       <li>Trend</li>
     </ul>
   </li>
-  <li>Learn how make statistical inferences to create inferential automations.</li>
-  <li>Make use of analytical data to improve your current HASS dashboard:</li>
+  <li>Make use of analytical data to improve your current HASS dashboard using the following resources (JavaScript):
+    <ul>
+      <li>Mini graph card</li>
+      <li>Lovelace card templater</li>
+    </ul>
+  </li>
 </ul>
-
-<p><a href="/assets/posts/2021-06-04-smarter-hass/hass-graph-dynamic-temperature.gif"><img src="/assets/posts/2021-06-04-smarter-hass/hass-graph-dynamic-temperature.gif" alt="HASS graph dynamic temperature" class="PostImage PostImage--large" /></a></p>
 
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 
@@ -624,7 +608,7 @@
 
 <p>The goal in this guide is to present a starting point for more advanced usage of analytical tools in home automation systems.  The possibilities are endless for knowledgeable users (e.g., application of Bayesian methods, dynamic mixed-effects modeling) and how far you will go along these paths is up to you.</p>
 
-<p>Fortunately, it doesn’t take much to create really good inferential automations for your HASS instances. If you want to refresh your stats knowledge or dig deeper into it, save some time and take a look at the following resources:</p>
+<p>If you want to refresh your stats knowledge or dig deeper into it, save some time and take a look at the following resources:</p>
 
 <ul>
   <li>Basic stats refresher:
@@ -853,7 +837,7 @@
   <li>History Stats <strong>source</strong>: <a href="https://github.com/home-assistant/core/tree/dev/homeassistant/components/history_stats">https://github.com/home-assistant/core/tree/dev/homeassistant/components/history_stats</a></li>
 </ul>
 
-<p><a href="#utilities" class="btn btn--info btn--small">back to utilities</a></p>
+<p><a href="#utilities" class="btn btn--info btn--small">Utilities</a></p>
 
 <h3 id="statistics-1">Statistics</h3>
 <p>The <a href="https://www.home-assistant.io/integrations/statistics/">Statistics</a> integration is by far the most useful integration for describing the past states and measurements from other entities.  In brief, it consumes the data from another entity and returns the traditional descriptive measures of central tendency (<code class="language-plaintext highlighter-rouge">mean</code> and <code class="language-plaintext highlighter-rouge">median</code>) and variability (<code class="language-plaintext highlighter-rouge">variance</code>, <code class="language-plaintext highlighter-rouge">stdev</code>, <code class="language-plaintext highlighter-rouge">min_value</code>, <code class="language-plaintext highlighter-rouge">max_value</code>), as well as a few other descriptive measures.</p>
@@ -1011,7 +995,7 @@
   </li>
 </ul>
 
-<p><a href="#utilities" class="btn btn--info btn--small">back to utilities</a></p>
+<p><a href="#utilities" class="btn btn--info btn--small">Utilities</a></p>
 
 <h3 id="trend">Trend</h3>
 <p>The <a href="https://www.home-assistant.io/integrations/trend/">Trend</a> integration is the only one that depends on an external Python package, namely the <a href="https://numpy.org"><code class="language-plaintext highlighter-rouge">numpy</code></a> package, and it does exactly what you’d expect from its name: it provides a trend coefficient for the data set spanning a user-specified time period.  More specifically, this integration fits a <strong>linear</strong> function to the data points of an entity–via NumPy’s <code class="language-plaintext highlighter-rouge">np.polyfit()</code> method–and outputs the <strong>slope</strong> of the function, which is called by <em>gradient</em>.  As such, it is a very useful integration for any scenario in which we need to know whether the data are <em>increasing</em> or <em>decreasing</em> over time.</p>
@@ -1024,7 +1008,7 @@
 </ol>
 
 <h4 id="usage-examples-2">Usage examples</h4>
-<p>Contrary to the previous two utilities, a <code class="language-plaintext highlighter-rouge">trend</code> sensor is defined as a platform (<code class="language-plaintext highlighter-rouge">- platform: trend</code>) under <em><code class="language-plaintext highlighter-rouge">binary_sensor:</code></em> in your <code class="language-plaintext highlighter-rouge">configuration.yaml</code> file.  For this reason, first, let’s include a reference to a <code class="language-plaintext highlighter-rouge">binary_sensors.yaml</code> in the <code class="language-plaintext highlighter-rouge">configuration.yaml</code> file, as follows:</p>
+<p>Contrary to the previous two utilities, a <code class="language-plaintext highlighter-rouge">trend</code> sensor is defined as a platform (<code class="language-plaintext highlighter-rouge">- platform: trend</code>) under <code class="language-plaintext highlighter-rouge">binary_sensor:</code> in your <code class="language-plaintext highlighter-rouge">configuration.yaml</code> file.  For this reason, first, let’s include a reference to a <code class="language-plaintext highlighter-rouge">binary_sensors.yaml</code> in the <code class="language-plaintext highlighter-rouge">configuration.yaml</code> file, as follows:</p>
 
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Binary sensors</span>
 <span class="na">binary_sensor</span><span class="pi">:</span> <span class="kt">!include</span> <span class="s">binary_sensors.yaml</span>
@@ -1124,9 +1108,212 @@
   </li>
 </ul>
 
-<p><a href="#utilities" class="btn btn--info btn--small">back to utilities</a></p>
+<p><a href="#utilities" class="btn btn--info btn--small">Utilities</a></p>
+
+<h3 id="visualizing-analytical-data">Visualizing analytical data</h3>
+<p>There are many different ways of using and visualizing the analytical data reported with the utilities described in this guide.  Using the default configuration, for example, one might be inclined to display the mean or gradient using a <a href="https://www.home-assistant.io/lovelace/history-graph/">History Graph Card</a>.</p>
+
+<p>In this section, however, we will learn about two dashboard resources that I think are better alternatives to the History Graph Card, namely the <a href="https://github.com/kalkih/mini-graph-card">Mini Graph Card</a> and the <a href="https://github.com/gadgetchnnel/lovelace-card-templater">Lovelace Card Templater</a>. More specifically, we will use the Mini Graph Card within the Lovelace Card Templater to build the following Dashboard card previewed in the <a href="#introduction">Introduction</a>:</p>
+
+<p><a href="/assets/posts/2021-06-04-smarter-hass/hass-graph-dynamic-temperature-01.gif"><img src="/assets/posts/2021-06-04-smarter-hass/hass-graph-dynamic-temperature-01.gif" alt="HASS graph dynamic temperature 01" class="PostImage" /></a></p>
+
+<p>And a few hours later:</p>
+
+<p><a href="/assets/posts/2021-06-04-smarter-hass/hass-graph-dynamic-temperature-02.gif"><img src="/assets/posts/2021-06-04-smarter-hass/hass-graph-dynamic-temperature-02.gif" alt="HASS graph dynamic temperature 02" class="PostImage" /></a></p>
+
+<p>This card displays <strong>six temperature</strong> (Met.no) <strong>metrics</strong> over a 24h time-range:</p>
+
+<ul>
+  <li>The main (colored) line shows the <strong>current temperature</strong>, in which the colors are selected by ever changing (dynamic) thresholds that range from the <em>maximum</em> over the last 24hrs to <em>+1 standard deviation</em> to the <em>mean</em> to <em>-1 standard deviation</em> to the <em>minimum</em>.  Colors were selected from the following <a href="https://coolors.co">palette</a>:</li>
+</ul>
+
+<p><a href="/assets/posts/2021-06-04-smarter-hass/color-palette.jpg"><img src="/assets/posts/2021-06-04-smarter-hass/color-palette.jpg" alt="Color palette" class="PostImage" /></a></p>
+
+<ul>
+  <li>The highest valued shaded area in the background corresponds to the <strong>max temperature</strong> over the last 24hrs;</li>
+  <li>The second highest shaded area corresponds to <strong>plus one standard deviation</strong> from the mean temperature over the last 24hrs;</li>
+  <li>The middle shaded area corresponds to the <strong>mean temperature</strong> over the last 24hrs;</li>
+  <li>The second lowest value shaded area corresponds to <strong>minus one standard deviation</strong> from the mean temperature over the last 24hrs;</li>
+  <li>And finally, the lowest shaded area corresponds to the <strong>min temperature</strong> over the last 24hrs.</li>
+</ul>
+
+<p>The graph therefore provides a visually appealing way of assessing the current temperature relative to its 24hrs distribution, which is much more convenient than inspecting a table of values over time. Next, I will describe how to create the graph step-by-step.</p>
+
+<p>First, make sure you have an entity for each of the six metrics described before.  All such metrics can be obtained from the <strong><a href="#statistics-01">Statistics</a> integration</strong>, which will consume the data from a temperature sensor (e.g., <code class="language-plaintext highlighter-rouge">weather.home</code> via Met.no) and by using custom <strong>template sensors</strong>.  More specifically, make sure your <code class="language-plaintext highlighter-rouge">configuration.yaml</code> file has an <code class="language-plaintext highlighter-rouge">!include</code> for both <code class="language-plaintext highlighter-rouge">sensors.yaml</code> and <code class="language-plaintext highlighter-rouge">templates.yaml</code>, as follows:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Sensors</span>
+<span class="na">sensor</span><span class="pi">:</span> <span class="kt">!include</span> <span class="s">sensors.yaml</span>
+<span class="c1"># Templates</span>
+<span class="na">template</span><span class="pi">:</span> <span class="kt">!include</span> <span class="s">templates.yaml</span>
+</code></pre></div></div>
+
+<p>Then using a text editor, add the following to <code class="language-plaintext highlighter-rouge">templates.yaml</code> to create a <code class="language-plaintext highlighter-rouge">time_pattern</code> triggered entity that extracts and stores the <code class="language-plaintext highlighter-rouge">temperature</code> attribute from <code class="language-plaintext highlighter-rouge">weather.home</code>:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Time pattern trigger</span>
+<span class="pi">-</span> <span class="na">trigger</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s">time_pattern</span>
+      <span class="c1"># Update every 1 hour</span>
+      <span class="na">hours</span><span class="pi">:</span> <span class="s2">"</span><span class="s">/1"</span>
+  <span class="c1"># Hourly sensor templates</span>
+  <span class="na">sensor</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">template</span><span class="nv"> </span><span class="s">weather</span><span class="nv"> </span><span class="s">temperature"</span>
+      <span class="na">unit_of_measurement</span><span class="pi">:</span> <span class="s2">"</span><span class="s">C"</span>
+      <span class="na">state</span><span class="pi">:</span> <span class="pi">&gt;</span>
+        <span class="s">{% if state_attr('weather.home', 'temperature') is number %}</span>
+          <span class="s">{{ state_attr('weather.home', 'temperature') }}</span>
+        <span class="s">{% endif %}</span>
+      <span class="na">attributes</span><span class="pi">:</span>
+        <span class="c1"># Force an update with a timestamp change to ensure proper representation of state values over time</span>
+        <span class="na">timestamp</span><span class="pi">:</span> <span class="pi">&gt;</span>
+          <span class="s">{{ as_timestamp(now()) }}</span>
+</code></pre></div></div>
+
+<p>In your <code class="language-plaintext highlighter-rouge">sensors.yaml</code> file, append the following to create a Statistics sensor for the temperature over the last 24hrs:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Statistics</span>
+<span class="pi">-</span> <span class="na">platform</span><span class="pi">:</span> <span class="s">statistics</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">weather</span><span class="nv"> </span><span class="s">temperature</span><span class="nv"> </span><span class="s">one</span><span class="nv"> </span><span class="s">day"</span>
+  <span class="na">entity_id</span><span class="pi">:</span> <span class="s">sensor.template_weather_temperature</span>
+  <span class="c1"># measurement resolution is 1/hour</span>
+  <span class="na">sampling_size</span><span class="pi">:</span> <span class="m">24</span>
+  <span class="na">max_age</span><span class="pi">:</span>
+    <span class="na">days</span><span class="pi">:</span> <span class="m">1</span>
+</code></pre></div></div>
+
+<p>Now go back to <code class="language-plaintext highlighter-rouge">templates.yaml</code> and add a few helper entities to extract the attributes from the <code class="language-plaintext highlighter-rouge">sensor.weather_temperature_one_day</code> Statistics sensor, as follows:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Sensor Templates</span>
+<span class="pi">-</span> <span class="na">sensor</span><span class="pi">:</span>
+    <span class="c1"># Statistics helper entities</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">template</span><span class="nv"> </span><span class="s">weather</span><span class="nv"> </span><span class="s">temperature</span><span class="nv"> </span><span class="s">one</span><span class="nv"> </span><span class="s">day</span><span class="nv"> </span><span class="s">mean</span><span class="nv"> </span><span class="s">plus</span><span class="nv"> </span><span class="s">stdev"</span>
+      <span class="na">unit_of_measurement</span><span class="pi">:</span> <span class="s2">"</span><span class="s">C"</span>
+      <span class="na">state</span><span class="pi">:</span> <span class="pi">&gt;</span>
+        <span class="s">{% if state_attr('sensor.weather_temperature_one_day', 'mean') is number and state_attr('sensor.weather_temperature_one_day', 'standard_deviation') is number %}</span>
+           <span class="s">{{ (state_attr('sensor.weather_temperature_one_day', 'mean') + state_attr('sensor.weather_temperature_one_day', 'standard_deviation')) | round(1) }}</span>
+        <span class="s">{% endif %}</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">template</span><span class="nv"> </span><span class="s">weather</span><span class="nv"> </span><span class="s">temperature</span><span class="nv"> </span><span class="s">one</span><span class="nv"> </span><span class="s">day</span><span class="nv"> </span><span class="s">mean</span><span class="nv"> </span><span class="s">minus</span><span class="nv"> </span><span class="s">stdev"</span>
+      <span class="na">unit_of_measurement</span><span class="pi">:</span> <span class="s2">"</span><span class="s">C"</span>
+      <span class="na">state</span><span class="pi">:</span> <span class="pi">&gt;</span>
+        <span class="s">{% if state_attr('sensor.weather_temperature_one_day', 'mean') is number and state_attr('sensor.weather_temperature_one_day', 'standard_deviation') is number %}</span>
+           <span class="s">{{ (state_attr('sensor.weather_temperature_one_day', 'mean') - state_attr('sensor.weather_temperature_one_day', 'standard_deviation')) | round(1) }}</span>
+        <span class="s">{% endif %}</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">template</span><span class="nv"> </span><span class="s">weather</span><span class="nv"> </span><span class="s">temperature</span><span class="nv"> </span><span class="s">one</span><span class="nv"> </span><span class="s">day</span><span class="nv"> </span><span class="s">max"</span>
+      <span class="na">unit_of_measurement</span><span class="pi">:</span> <span class="s2">"</span><span class="s">C"</span>
+      <span class="na">state</span><span class="pi">:</span> <span class="pi">&gt;</span>
+        <span class="s">{% if state_attr('sensor.weather_temperature_one_day', 'max_value') is number %}</span>
+           <span class="s">{{ state_attr('sensor.weather_temperature_one_day', 'max_value') | round(1) }}</span>
+        <span class="s">{% endif %}</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">template</span><span class="nv"> </span><span class="s">weather</span><span class="nv"> </span><span class="s">temperature</span><span class="nv"> </span><span class="s">one</span><span class="nv"> </span><span class="s">day</span><span class="nv"> </span><span class="s">min"</span>
+      <span class="na">unit_of_measurement</span><span class="pi">:</span> <span class="s2">"</span><span class="s">C"</span>
+      <span class="na">state</span><span class="pi">:</span> <span class="pi">&gt;</span>
+        <span class="s">{% if state_attr('sensor.weather_temperature_one_day', 'min_value') is number %}</span>
+           <span class="s">{{ state_attr('sensor.weather_temperature_one_day', 'min_value') | round(1) }}</span>
+        <span class="s">{% endif %}</span>
+</code></pre></div></div>
+
+<p class="notice">As before, the <code class="language-plaintext highlighter-rouge">if</code> statements ensure the variables are valid (<code class="language-plaintext highlighter-rouge">is number</code>) before performing mathematical operations with them.</p>
+
+<p>Finally, <strong>check your configuration</strong> and <strong>restart your HASS</strong>.  Now <strong>wait at least one day</strong> because your new entities need to collect data before showing anything meaningful.  But in the meantime, go ahead and install the two JavaScripts to your dashboard:</p>
+
+<ul>
+  <li><a href="https://github.com/kalkih/mini-graph-card#install">Install Mini Card Graph</a></li>
+  <li><a href="https://github.com/gadgetchnnel/lovelace-card-templater#installation">Install Lovelace Card Templater</a></li>
+</ul>
+
+<p>Personally, I prefer to install such resources manually, instead of using the Community Store.  To do so:</p>
+
+<ol>
+  <li>Download their respective <code class="language-plaintext highlighter-rouge">.js</code> scripts to your HASS <code class="language-plaintext highlighter-rouge">config/www/</code> directory;</li>
+  <li>Navigate to Configuration &gt; Lovelace Dashboards &gt; <strong>Resources</strong> and select <strong>add resource</strong>;</li>
+  <li>In the Add new resource window, set the URL to <code class="language-plaintext highlighter-rouge">/local/*.js</code>, in which <code class="language-plaintext highlighter-rouge">*</code> will be the name of the JavaScript (e.g., <code class="language-plaintext highlighter-rouge">/local/mini-graph-card-bundle.js</code>). HASS should automatically detect that the Resource Type is a <code class="language-plaintext highlighter-rouge">JavaScript Module</code> but if doesn’t, then select it;</li>
+  <li>Press <strong>update</strong> and repeat the operation to add as many resources as necessary;</li>
+  <li><strong>Restart your HASS</strong>.</li>
+</ol>
+
+<p>If an entire day has already passed, then you should be able to configure a proper graph card using the JavaScript modules you added to the HASS dashboard, as follows:</p>
+
+<ol>
+  <li>Navigate to Overview &gt; Edit Dashboard and select <strong>add card</strong>;</li>
+  <li>Choose a <strong>Manual card</strong> and in the card configuration, paste the following:</li>
+</ol>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">type</span><span class="pi">:</span> <span class="s">custom:card-templater</span>
+<span class="na">card</span><span class="pi">:</span>
+  <span class="na">type</span><span class="pi">:</span> <span class="s">custom:mini-graph-card</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">Temperature - Met.no</span>
+  <span class="na">hours_to_show</span><span class="pi">:</span> <span class="m">24</span>
+  <span class="na">animate</span><span class="pi">:</span> <span class="no">true</span>
+  <span class="na">align_state</span><span class="pi">:</span> <span class="s">right</span>
+  <span class="na">align_icon</span><span class="pi">:</span> <span class="s">left</span>
+  <span class="na">align_header</span><span class="pi">:</span> <span class="s">left</span>
+  <span class="na">font_size_header</span><span class="pi">:</span> <span class="m">12</span>
+  <span class="na">font_size</span><span class="pi">:</span> <span class="m">80</span>
+  <span class="na">decimals</span><span class="pi">:</span> <span class="m">1</span>
+  <span class="na">line_width</span><span class="pi">:</span> <span class="m">4</span>
+  <span class="na">entities</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">entity</span><span class="pi">:</span> <span class="s">sensor.template_weather_temperature</span>
+      <span class="na">show_fill</span><span class="pi">:</span> <span class="no">false</span>
+      <span class="na">state_adaptive_color</span><span class="pi">:</span> <span class="no">true</span>
+      <span class="na">unit</span><span class="pi">:</span> <span class="s">°C</span>
+    <span class="pi">-</span> <span class="na">entity</span><span class="pi">:</span> <span class="s">sensor.template_weather_temperature_one_day_max</span>
+      <span class="na">show_line</span><span class="pi">:</span> <span class="no">false</span>
+      <span class="na">show_points</span><span class="pi">:</span> <span class="no">false</span>
+      <span class="na">color</span><span class="pi">:</span> <span class="s">white</span>
+    <span class="pi">-</span> <span class="na">entity</span><span class="pi">:</span> <span class="s">sensor.template_weather_temperature_one_day_mean_plus_stdev</span>
+      <span class="na">show_line</span><span class="pi">:</span> <span class="no">false</span>
+      <span class="na">show_points</span><span class="pi">:</span> <span class="no">false</span>
+      <span class="na">color</span><span class="pi">:</span> <span class="s">white</span>
+    <span class="pi">-</span> <span class="na">entity</span><span class="pi">:</span> <span class="s">sensor.weather_temperature_one_day</span>
+      <span class="na">show_line</span><span class="pi">:</span> <span class="no">false</span>
+      <span class="na">show_points</span><span class="pi">:</span> <span class="no">false</span>
+      <span class="na">color</span><span class="pi">:</span> <span class="s">white</span>
+    <span class="pi">-</span> <span class="na">entity</span><span class="pi">:</span> <span class="s">sensor.template_weather_temperature_one_day_mean_minus_stdev</span>
+      <span class="na">show_line</span><span class="pi">:</span> <span class="no">false</span>
+      <span class="na">show_points</span><span class="pi">:</span> <span class="no">false</span>
+      <span class="na">color</span><span class="pi">:</span> <span class="s">white</span>
+    <span class="pi">-</span> <span class="na">entity</span><span class="pi">:</span> <span class="s">sensor.template_weather_temperature_one_day_min</span>
+      <span class="na">show_line</span><span class="pi">:</span> <span class="no">false</span>
+      <span class="na">show_points</span><span class="pi">:</span> <span class="no">false</span>
+      <span class="na">color</span><span class="pi">:</span> <span class="s">white</span>
+  <span class="na">color_thresholds</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">value_template</span><span class="pi">:</span> <span class="s1">'</span><span class="s">{{</span><span class="nv"> </span><span class="s">states("sensor.template_weather_temperature_one_day_min")</span><span class="nv"> </span><span class="s">}}'</span>
+      <span class="na">color</span><span class="pi">:</span> <span class="s1">'</span><span class="s">#0799BA'</span>
+    <span class="pi">-</span> <span class="na">value_template</span><span class="pi">:</span> <span class="s1">'</span><span class="s">{{</span><span class="nv"> </span><span class="s">states("sensor.template_weather_temperature_one_day_mean_minus_stdev")</span><span class="nv"> </span><span class="s">}}'</span>
+      <span class="na">color</span><span class="pi">:</span> <span class="s1">'</span><span class="s">#30BFBF'</span>
+    <span class="pi">-</span> <span class="na">value_template</span><span class="pi">:</span> <span class="s1">'</span><span class="s">{{</span><span class="nv"> </span><span class="s">states("sensor.weather_temperature_one_day")</span><span class="nv"> </span><span class="s">}}'</span>
+      <span class="na">color</span><span class="pi">:</span> <span class="s1">'</span><span class="s">#ECD711'</span>
+    <span class="pi">-</span> <span class="na">value_template</span><span class="pi">:</span> <span class="s1">'</span><span class="s">{{</span><span class="nv"> </span><span class="s">states("sensor.template_weather_temperature_one_day_mean_plus_stdev")</span><span class="nv"> </span><span class="s">}}'</span>
+      <span class="na">color</span><span class="pi">:</span> <span class="s1">'</span><span class="s">#F17D28'</span>
+  <span class="na">show</span><span class="pi">:</span>
+    <span class="na">labels</span><span class="pi">:</span> <span class="no">true</span>
+    <span class="na">legend</span><span class="pi">:</span> <span class="no">false</span>
+    <span class="na">name_adaptive_color</span><span class="pi">:</span> <span class="no">true</span>
+    <span class="na">icon_adaptive_color</span><span class="pi">:</span> <span class="no">true</span>
+<span class="na">entities</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">sensor.weather_temperature_one_day</span>
+  <span class="pi">-</span> <span class="s">sensor.template_weather_temperature_one_day_mean_plus_stdev</span>
+  <span class="pi">-</span> <span class="s">sensor.template_weather_temperature_one_day_mean_minus_stdev</span>
+  <span class="pi">-</span> <span class="s">sensor.template_weather_temperature_one_day_max</span>
+  <span class="pi">-</span> <span class="s">sensor.template_weather_temperature_one_day_min</span>
+</code></pre></div></div>
+
+<p>That is it!  If the values are not showing up correctly, check Developer Tools &gt; States to make sure the entities are there and the states are displaying the correct values.  If you want to reset the entity data, go to Developer Tools &gt; Services, select <code class="language-plaintext highlighter-rouge">recorder.purge_entities</code>, select the entities you want to reset in Targets (e.g., <code class="language-plaintext highlighter-rouge">sensor.weather_temperature_one_day</code>), and press <strong>call service</strong> to purge their data.</p>
+
+<p>Of course, many other options are available using the <strong>Mini Graph Card</strong> and the <strong>Lovelace Card Templater</strong> in combination with the other card options (e.g., <a href="https://www.home-assistant.io/lovelace/entities/">Entities Card</a>, <a href="https://www.home-assistant.io/lovelace/gauge/">Gauge Card</a>).  Feel free to explore them (and let me know about it, too).</p>
 
 <h2 id="statistical-inference">Statistical inference</h2>
+
+<p>In addition, the same analytical tools can be used to make statistical, data-driven inferences about the <strong>future states</strong> of smart devices and sensors to create what I call <em>inferential automations</em>. Inferential automations determine actions based on abnormal states and measurements, for example, or reliable tendencies over a user-specified period of time:</p>
+
+<ul>
+  <li>if the water level is <em>significantly lower than yesterday</em>, then __ .</li>
+  <li>if the number of detected cars on my camera is <em>significantly higher than thirty minutes ago</em>, then __ .</li>
+  <li>if the temperature started <em>decreasing significantly over the last five minutes</em>, then __ .</li>
+  <li>if the VOC started <em>increasing significantly over the last fifteen minutes</em>, then __ .</li>
+</ul>
+
+<p><a href="/assets/posts/2021-06-04-smarter-hass/voc-plot-linear-fit.jpg"><img src="/assets/posts/2021-06-04-smarter-hass/voc-plot-linear-fit.jpg" alt="VOC plot linear fit" class="PostImage PostImage--large" /></a></p>
+
 <ul>
   <li>Where your statistics knowledge comes in</li>
   <li>At the very basic level:
@@ -1136,37 +1323,6 @@
     </ul>
   </li>
   <li>Notes on sample, power, and null hypothesis testing for robust dynamic predictions</li>
-</ul>
-
-<h3 id="visualizing-inferences">Visualizing inferences</h3>
-
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Sensor templates</span>
-<span class="pi">-</span> <span class="na">sensor</span><span class="pi">:</span>
-    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">template</span><span class="nv"> </span><span class="s">weather</span><span class="nv"> </span><span class="s">temperature</span><span class="nv"> </span><span class="s">one</span><span class="nv"> </span><span class="s">day</span><span class="nv"> </span><span class="s">ago</span><span class="nv"> </span><span class="s">plus</span><span class="nv"> </span><span class="s">stdev"</span>
-      <span class="na">unit_of_measurement</span><span class="pi">:</span> <span class="s2">"</span><span class="s">C"</span>
-      <span class="na">state</span><span class="pi">:</span> <span class="pi">&gt;</span>
-        <span class="s">{{ (state_attr('sensor.weather_temperature_one_day_ago', 'mean') + state_attr('sensor.weather_temperature_one_day_ago', 'standard_deviation')) | round(1) }}</span>
-    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">template</span><span class="nv"> </span><span class="s">weather</span><span class="nv"> </span><span class="s">temperature</span><span class="nv"> </span><span class="s">one</span><span class="nv"> </span><span class="s">day</span><span class="nv"> </span><span class="s">ago</span><span class="nv"> </span><span class="s">minus</span><span class="nv"> </span><span class="s">stdev"</span>
-      <span class="na">unit_of_measurement</span><span class="pi">:</span> <span class="s2">"</span><span class="s">C"</span>
-      <span class="na">state</span><span class="pi">:</span> <span class="pi">&gt;</span>
-        <span class="s">{{ (state_attr('sensor.weather_temperature_one_day_ago', 'mean') - state_attr('sensor.weather_temperature_one_day_ago', 'standard_deviation')) | round(1) }}</span>
-</code></pre></div></div>
-
-<ul>
-  <li>Making use of HASS built-in visualization tools
-    <ul>
-      <li>Historical plots</li>
-      <li>Filters (state_filter gradients) to create heatmaps</li>
-    </ul>
-  </li>
-</ul>
-
-<h4 id="customized-plots">Customized plots</h4>
-<ul>
-  <li>Mini-graph card (https://github.com/kalkih/mini-graph-card)
-    <h2 id="inferential-automations">Inferential automations</h2>
-  </li>
-  <li>Automations based on future states</li>
 </ul>
 
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>

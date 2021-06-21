@@ -26,30 +26,22 @@ More often than not, people use HASS to view or modify the **current state and v
 
 - How many times has the front door been opened over the last 24hrs and for how long?
 - How much energy (kWh) has my uninterrupted power supply used over the last month?
-- What was the average temperature in the living-room during yesterday's morning, afternoon, and evening?  What about last week?
-- What is the average level of volatile organic compounds (VOC) measured by the [BME680 sensor](https://www.bosch-sensortec.com/products/environmental-sensors/gas-sensors/bme680/) in my bedroom?  How much does it change over the day?
+- What was the average temperature in the living-room in the last 24hrs?  How does that compare to the day before?
+- What is the average level of volatile organic compounds (VOC) measured by the [BME680 sensor](https://www.bosch-sensortec.com/products/environmental-sensors/gas-sensors/bme680/) in my bedroom in the last thirty minutes?  How much does it change over the day?
 
-[![VOC plot](/assets/posts/2021-06-04-smarter-hass/voc-plot.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-06-04-smarter-hass/voc-plot.jpg)
-
-In addition, the same analytical tools can be used to make statistical, data-driven inferences about the **future states** of smart devices and sensors to create what I call *inferential automations*. Inferential automations determine actions based on abnormal states and measurements, for example, or reliable tendencies over a user-specified period of time:
-
-- if the water level is *significantly lower than yesterday*, then __ .
-- if the number of detected cars on my camera is *significantly higher than thirty minutes ago*, then __ .
-- if the temperature started *decreasing significantly over the last five minutes*, then __ .
-- if the VOC started *increasing significantly over the last fifteen minutes*, then __ .
-
-[![VOC plot linear fit](/assets/posts/2021-06-04-smarter-hass/voc-plot-linear-fit.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-06-04-smarter-hass/voc-plot-linear-fit.jpg)
-
-Unfortunately, according to the HASS website, the [Statistics](https://www.home-assistant.io/integrations/statistics/) and related utilities are currently used by less than 5% of the HASS userbase.  I feel there is much to be explored and gained from the application of **dynamic statistical inferences** in home automation systems.  To mention a few reasons, sensors are susceptible to measurement error and many user-defined events (e.g., Carlos is at home) are multidimensional and frequently determined by more factors than integrated with a home automation system (e.g., my cellphone connected to my home's private network is not a sufficient condition to tell that I'm at home but it does inform about the likelihood that I am at home).  This creates uncertainty about the current and future states of things but fortunately, the uncertainty can be quantified and taken into account by various statistical tools that have already been developed.
+Unfortunately, according to the HASS website, the [Statistics](https://www.home-assistant.io/integrations/statistics/) and related utilities are currently used by less than 5% of the HASS userbase.  I feel there is much to be explored and gained from the application of **dynamic statistical inferences** in home automation systems.  To mention a few reasons, sensors are susceptible to measurement error and many user-defined events (e.g., Carlos is at home) are multidimensional and frequently determined by more factors than integrated within a home automation system (e.g., my cellphone connected to my home's private network is not a sufficient condition to tell that I'm at home but it does inform about the likelihood that I am at home).  This creates uncertainty about the current and future states of things but fortunately, the uncertainty can be quantified and taken into account by various statistical tools that have already been developed.
 
 Furthermore, the fact that HASS integrations are written in the [Python programming language](https://www.python.org/) makes HASS a prime candidate for exploring the use of statistical inference in home automation systems because many mathematical and statistical packages are already available in Python and are widely used and well-maintained (e.g., [`numpy`](https://pypi.org/project/numpy/) and [`scipy`](https://pypi.org/project/scipy/)). Therefore, porting new and more sophisticated analytical tools to HASS should be fairly straightforward.  (More on this in the [Development](#development) section).
 
-If you find these ideas interesting and want to get started on their implementation in your own personal HASS instances, then read on.  As in my previous guides and tutorials, I tried to unpack and digest as much of the content as possible, the goal being to make it accessible to experts as well as novices.  Check the [Changelog](#changelog) for updates and if you ever get stuck on something or just want to share a few ideas and opinions, feel free to [get in touch with me](/contact).
+At the very least, the current analytical tools can be used to improve the quality of the information in your current HASS dashboard.  For example, instead of simply displaying the current temperature, the use of analytical tools allow us to set dynamic color thresholds based on the mean and deviations from it (± one standard deviation, then min-max) over the last 24hrs:
+
+[![HASS graph dynamic temperature 01](/assets/posts/2021-06-04-smarter-hass/hass-graph-dynamic-temperature-01.gif){:.PostImage .PostImage--large}](/assets/posts/2021-06-04-smarter-hass/hass-graph-dynamic-temperature-01.gif)
+
+But there's much more that can be done and accomplished moving forward.  If you find these ideas interesting and want to get started on their implementation in your own personal HASS instances, then read on.  As in my previous guides and tutorials, I tried to unpack and digest as much of the content as possible, the goal being to make it accessible to experts as well as novices.  Check the [Changelog](#changelog) for updates and if you ever get stuck on something or just want to share a few ideas and opinions, feel free to [get in touch with me](/contact).
 
 [top](#){:.btn .btn--light-outline .btn--small}
 
 # Objectives
-
 - Get familiar with the following:
   - The HASS SQLite database (DB)
   - YAML syntax
@@ -60,10 +52,9 @@ If you find these ideas interesting and want to get started on their implementat
   - History Stats
   - Statistics
   - Trend
-- Learn how make statistical inferences to create inferential automations.
-- Make use of analytical data to improve your current HASS dashboard:
-
-[![HASS graph dynamic temperature](/assets/posts/2021-06-04-smarter-hass/hass-graph-dynamic-temperature.gif){:.PostImage .PostImage--large}](/assets/posts/2021-06-04-smarter-hass/hass-graph-dynamic-temperature.gif)
+- Make use of analytical data to improve your current HASS dashboard using the following resources (JavaScript):
+  - Mini graph card
+  - Lovelace card templater
 
 [top](#){:.btn .btn--light-outline .btn--small}
 
@@ -197,7 +188,7 @@ You don't need to be a mathematician who specialized in statistics to make use o
 
 The goal in this guide is to present a starting point for more advanced usage of analytical tools in home automation systems.  The possibilities are endless for knowledgeable users (e.g., application of Bayesian methods, dynamic mixed-effects modeling) and how far you will go along these paths is up to you.
 
-Fortunately, it doesn't take much to create really good inferential automations for your HASS instances. If you want to refresh your stats knowledge or dig deeper into it, save some time and take a look at the following resources:
+If you want to refresh your stats knowledge or dig deeper into it, save some time and take a look at the following resources:
 
 - Basic stats refresher:
   - *TODO: Embed videos? Probability + Basic stats*
@@ -414,7 +405,7 @@ Because I have not been running HASS and collecting `weather.home` data over thi
 - History Stats **documentation**: [https://www.home-assistant.io/integrations/history_stats/](https://www.home-assistant.io/integrations/history_stats/)
 - History Stats **source**: [https://github.com/home-assistant/core/tree/dev/homeassistant/components/history_stats](https://github.com/home-assistant/core/tree/dev/homeassistant/components/history_stats)
 
-[back to utilities](#utilities){:.btn .btn--info .btn--small}
+[Utilities](#utilities){:.btn .btn--info .btn--small}
 
 
 ### Statistics
@@ -562,7 +553,7 @@ This examples shows that over the last 24h, the temperature ranged from 9.7°C t
 - Statistics noteworthy **dependencies**:
   - Python `statistics` core pkg: [https://docs.python.org/3/library/statistics.html](https://docs.python.org/3/library/statistics.html)
 
-[back to utilities](#utilities){:.btn .btn--info .btn--small}
+[Utilities](#utilities){:.btn .btn--info .btn--small}
 
 
 ### Trend
@@ -574,7 +565,7 @@ The specification of time in this integration is very similar to the [Statistics
 2. `sample_duration`: The duration (in seconds) of the oldest data point.  By default, it is unconstrained (`sample_duration: 0`).
 
 #### Usage examples
-Contrary to the previous two utilities, a `trend` sensor is defined as a platform (`- platform: trend`) under *`binary_sensor:`* in your `configuration.yaml` file.  For this reason, first, let's include a reference to a `binary_sensors.yaml` in the `configuration.yaml` file, as follows:
+Contrary to the previous two utilities, a `trend` sensor is defined as a platform (`- platform: trend`) under `binary_sensor:` in your `configuration.yaml` file.  For this reason, first, let's include a reference to a `binary_sensors.yaml` in the `configuration.yaml` file, as follows:
 
 ```yaml
 # Binary sensors
@@ -674,41 +665,221 @@ Now **reload your configuration** and afterwards, HASS will create new `sensor.t
 - Trend noteworthy **dependencies**:
   - Python `numpy` pkg: [https://numpy.org/doc/stable/reference/generated/numpy.polyfit.html](https://numpy.org/doc/stable/reference/generated/numpy.polyfit.html)
 
-[back to utilities](#utilities){:.btn .btn--info .btn--small}
+[Utilities](#utilities){:.btn .btn--info .btn--small}
+
+
+### Visualizing analytical data
+There are many different ways of using and visualizing the analytical data reported with the utilities described in this guide.  Using the default configuration, for example, one might be inclined to display the mean or gradient using a [History Graph Card](https://www.home-assistant.io/lovelace/history-graph/).
+
+In this section, however, we will learn about two dashboard resources that I think are better alternatives to the History Graph Card, namely the [Mini Graph Card](https://github.com/kalkih/mini-graph-card) and the [Lovelace Card Templater](https://github.com/gadgetchnnel/lovelace-card-templater). More specifically, we will use the Mini Graph Card within the Lovelace Card Templater to build the following Dashboard card previewed in the [Introduction](#introduction):
+
+[![HASS graph dynamic temperature 01](/assets/posts/2021-06-04-smarter-hass/hass-graph-dynamic-temperature-01.gif){:.PostImage}](/assets/posts/2021-06-04-smarter-hass/hass-graph-dynamic-temperature-01.gif)
+
+And a few hours later:
+
+[![HASS graph dynamic temperature 02](/assets/posts/2021-06-04-smarter-hass/hass-graph-dynamic-temperature-02.gif){:.PostImage}](/assets/posts/2021-06-04-smarter-hass/hass-graph-dynamic-temperature-02.gif)
+
+This card displays **six temperature** (Met.no) **metrics** over a 24h time-range:
+
+- The main (colored) line shows the **current temperature**, in which the colors are selected by ever changing (dynamic) thresholds that range from the *maximum* over the last 24hrs to *+1 standard deviation* to the *mean* to *-1 standard deviation* to the *minimum*.  Colors were selected from the following [palette](https://coolors.co):
+
+[![Color palette](/assets/posts/2021-06-04-smarter-hass/color-palette.jpg){:.PostImage}](/assets/posts/2021-06-04-smarter-hass/color-palette.jpg)
+
+- The highest valued shaded area in the background corresponds to the **max temperature** over the last 24hrs;
+- The second highest shaded area corresponds to **plus one standard deviation** from the mean temperature over the last 24hrs;
+- The middle shaded area corresponds to the **mean temperature** over the last 24hrs;
+- The second lowest value shaded area corresponds to **minus one standard deviation** from the mean temperature over the last 24hrs;
+- And finally, the lowest shaded area corresponds to the **min temperature** over the last 24hrs.
+
+The graph therefore provides a visually appealing way of assessing the current temperature relative to its 24hrs distribution, which is much more convenient than inspecting a table of values over time. Next, I will describe how to create the graph step-by-step.
+
+First, make sure you have an entity for each of the six metrics described before.  All such metrics can be obtained from the **[Statistics](#statistics-01) integration**, which will consume the data from a temperature sensor (e.g., `weather.home` via Met.no) and by using custom **template sensors**.  More specifically, make sure your `configuration.yaml` file has an `!include` for both `sensors.yaml` and `templates.yaml`, as follows:
+
+```yaml
+# Sensors
+sensor: !include sensors.yaml
+# Templates
+template: !include templates.yaml
+```
+
+Then using a text editor, add the following to `templates.yaml` to create a `time_pattern` triggered entity that extracts and stores the `temperature` attribute from `weather.home`:
+
+{% raw %}
+```yaml
+# Time pattern trigger
+- trigger:
+    - platform: time_pattern
+      # Update every 1 hour
+      hours: "/1"
+  # Hourly sensor templates
+  sensor:
+    - name: "template weather temperature"
+      unit_of_measurement: "C"
+      state: >
+        {% if state_attr('weather.home', 'temperature') is number %}
+          {{ state_attr('weather.home', 'temperature') }}
+        {% endif %}
+      attributes:
+        # Force an update with a timestamp change to ensure proper representation of state values over time
+        timestamp: >
+          {{ as_timestamp(now()) }}
+```
+{% endraw %}
+
+In your `sensors.yaml` file, append the following to create a Statistics sensor for the temperature over the last 24hrs:
+
+{% raw %}
+```yaml
+# Statistics
+- platform: statistics
+  name: "weather temperature one day"
+  entity_id: sensor.template_weather_temperature
+  # measurement resolution is 1/hour
+  sampling_size: 24
+  max_age:
+    days: 1
+```
+{% endraw %}
+
+Now go back to `templates.yaml` and add a few helper entities to extract the attributes from the `sensor.weather_temperature_one_day` Statistics sensor, as follows:
+
+{% raw %}
+```yaml
+# Sensor Templates
+- sensor:
+    # Statistics helper entities
+    - name: "template weather temperature one day mean plus stdev"
+      unit_of_measurement: "C"
+      state: >
+        {% if state_attr('sensor.weather_temperature_one_day', 'mean') is number and state_attr('sensor.weather_temperature_one_day', 'standard_deviation') is number %}
+           {{ (state_attr('sensor.weather_temperature_one_day', 'mean') + state_attr('sensor.weather_temperature_one_day', 'standard_deviation')) | round(1) }}
+        {% endif %}
+    - name: "template weather temperature one day mean minus stdev"
+      unit_of_measurement: "C"
+      state: >
+        {% if state_attr('sensor.weather_temperature_one_day', 'mean') is number and state_attr('sensor.weather_temperature_one_day', 'standard_deviation') is number %}
+           {{ (state_attr('sensor.weather_temperature_one_day', 'mean') - state_attr('sensor.weather_temperature_one_day', 'standard_deviation')) | round(1) }}
+        {% endif %}
+    - name: "template weather temperature one day max"
+      unit_of_measurement: "C"
+      state: >
+        {% if state_attr('sensor.weather_temperature_one_day', 'max_value') is number %}
+           {{ state_attr('sensor.weather_temperature_one_day', 'max_value') | round(1) }}
+        {% endif %}
+    - name: "template weather temperature one day min"
+      unit_of_measurement: "C"
+      state: >
+        {% if state_attr('sensor.weather_temperature_one_day', 'min_value') is number %}
+           {{ state_attr('sensor.weather_temperature_one_day', 'min_value') | round(1) }}
+        {% endif %}
+```
+{% endraw %}
+
+As before, the `if` statements ensure the variables are valid (`is number`) before performing mathematical operations with them.
+{:.notice}
+
+Finally, **check your configuration** and **restart your HASS**.  Now **wait at least one day** because your new entities need to collect data before showing anything meaningful.  But in the meantime, go ahead and install the two JavaScripts to your dashboard:
+
+- [Install Mini Card Graph](https://github.com/kalkih/mini-graph-card#install)
+- [Install Lovelace Card Templater](https://github.com/gadgetchnnel/lovelace-card-templater#installation)
+
+Personally, I prefer to install such resources manually, instead of using the Community Store.  To do so:
+
+1. Download their respective `.js` scripts to your HASS `config/www/` directory;
+2. Navigate to Configuration > Lovelace Dashboards > **Resources** and select **add resource**;
+3. In the Add new resource window, set the URL to `/local/*.js`, in which `*` will be the name of the JavaScript (e.g., `/local/mini-graph-card-bundle.js`). HASS should automatically detect that the Resource Type is a `JavaScript Module` but if doesn't, then select it;
+4. Press **update** and repeat the operation to add as many resources as necessary;
+5. **Restart your HASS**.
+
+If an entire day has already passed, then you should be able to configure a proper graph card using the JavaScript modules you added to the HASS dashboard, as follows:
+
+1. Navigate to Overview > Edit Dashboard and select **add card**;
+2. Choose a **Manual card** and in the card configuration, paste the following:
+
+{% raw %}
+```yaml
+type: custom:card-templater
+card:
+  type: custom:mini-graph-card
+  name: Temperature - Met.no
+  hours_to_show: 24
+  animate: true
+  align_state: right
+  align_icon: left
+  align_header: left
+  font_size_header: 12
+  font_size: 80
+  decimals: 1
+  line_width: 4
+  entities:
+    - entity: sensor.template_weather_temperature
+      show_fill: false
+      state_adaptive_color: true
+      unit: °C
+    - entity: sensor.template_weather_temperature_one_day_max
+      show_line: false
+      show_points: false
+      color: white
+    - entity: sensor.template_weather_temperature_one_day_mean_plus_stdev
+      show_line: false
+      show_points: false
+      color: white
+    - entity: sensor.weather_temperature_one_day
+      show_line: false
+      show_points: false
+      color: white
+    - entity: sensor.template_weather_temperature_one_day_mean_minus_stdev
+      show_line: false
+      show_points: false
+      color: white
+    - entity: sensor.template_weather_temperature_one_day_min
+      show_line: false
+      show_points: false
+      color: white
+  color_thresholds:
+    - value_template: '{{ states("sensor.template_weather_temperature_one_day_min") }}'
+      color: '#0799BA'
+    - value_template: '{{ states("sensor.template_weather_temperature_one_day_mean_minus_stdev") }}'
+      color: '#30BFBF'
+    - value_template: '{{ states("sensor.weather_temperature_one_day") }}'
+      color: '#ECD711'
+    - value_template: '{{ states("sensor.template_weather_temperature_one_day_mean_plus_stdev") }}'
+      color: '#F17D28'
+  show:
+    labels: true
+    legend: false
+    name_adaptive_color: true
+    icon_adaptive_color: true
+entities:
+  - sensor.weather_temperature_one_day
+  - sensor.template_weather_temperature_one_day_mean_plus_stdev
+  - sensor.template_weather_temperature_one_day_mean_minus_stdev
+  - sensor.template_weather_temperature_one_day_max
+  - sensor.template_weather_temperature_one_day_min
+```
+{% endraw %}
+
+That is it!  If the values are not showing up correctly, check Developer Tools > States to make sure the entities are there and the states are displaying the correct values.  If you want to reset the entity data, go to Developer Tools > Services, select `recorder.purge_entities`, select the entities you want to reset in Targets (e.g., `sensor.weather_temperature_one_day`), and press **call service** to purge their data.
+
+Of course, many other options are available using the **Mini Graph Card** and the **Lovelace Card Templater** in combination with the other card options (e.g., [Entities Card](https://www.home-assistant.io/lovelace/entities/), [Gauge Card](https://www.home-assistant.io/lovelace/gauge/)).  Feel free to explore them (and let me know about it, too).
 
 
 ## Statistical inference
+
+In addition, the same analytical tools can be used to make statistical, data-driven inferences about the **future states** of smart devices and sensors to create what I call *inferential automations*. Inferential automations determine actions based on abnormal states and measurements, for example, or reliable tendencies over a user-specified period of time:
+
+- if the water level is *significantly lower than yesterday*, then __ .
+- if the number of detected cars on my camera is *significantly higher than thirty minutes ago*, then __ .
+- if the temperature started *decreasing significantly over the last five minutes*, then __ .
+- if the VOC started *increasing significantly over the last fifteen minutes*, then __ .
+
+[![VOC plot linear fit](/assets/posts/2021-06-04-smarter-hass/voc-plot-linear-fit.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-06-04-smarter-hass/voc-plot-linear-fit.jpg)
+
 - Where your statistics knowledge comes in
 - At the very basic level:
   - Confidence intervals (CI): https://www.statology.org/test-significance-regression-slope/ 
   - Distance from the mean in SD units
 - Notes on sample, power, and null hypothesis testing for robust dynamic predictions
-
-### Visualizing inferences
-
-{% raw %}
-```yaml
-# Sensor templates
-- sensor:
-    - name: "template weather temperature one day ago plus stdev"
-      unit_of_measurement: "C"
-      state: >
-        {{ (state_attr('sensor.weather_temperature_one_day_ago', 'mean') + state_attr('sensor.weather_temperature_one_day_ago', 'standard_deviation')) | round(1) }}
-    - name: "template weather temperature one day ago minus stdev"
-      unit_of_measurement: "C"
-      state: >
-        {{ (state_attr('sensor.weather_temperature_one_day_ago', 'mean') - state_attr('sensor.weather_temperature_one_day_ago', 'standard_deviation')) | round(1) }}
-```
-{% endraw %}
-
-- Making use of HASS built-in visualization tools
-  - Historical plots
-  - Filters (state_filter gradients) to create heatmaps
-
-#### Customized plots
-  - Mini-graph card (https://github.com/kalkih/mini-graph-card)
-## Inferential automations
-- Automations based on future states
 
 [top](#){:.btn .btn--light-outline .btn--small}
 
