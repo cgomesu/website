@@ -586,7 +586,7 @@ Then using a text editor, create a `binary_sensors.yaml` file where we will conf
 1. `trend weather temperature six hours`: Gradient of the `sensor.template_weather_temperature_time_based` template sensor over the *last six hours*;
 2. `trend weather humidity six hours`: Gradient of the `sensor.template_weather_humidity_time_based` template sensor over the *last six hours*;
 3. `trend weather pressure twelve hours`: Gradient of the `sensor.template_weather_pressure_time_based` template sensor over the *last twelve hours*;
-4. `trend sun elevation ten minutes`: Gradient of the `sensor.template_sun_elevation_time_based` template sensor over the *last ten minutes*;
+4. `trend sun elevation twenty minutes`: Gradient of the `sensor.template_sun_elevation_time_based` template sensor over the *last twenty minutes*;
 
 To create those `trend` entities, append the following to the `binary_sensors.yaml` file:
 
@@ -613,12 +613,12 @@ To create those `trend` entities, append the following to the `binary_sensors.ya
       max_samples: 12
       # 12 hours in seconds
       sample_duration: 43200
-    trend_sun_elevation_ten_minutes:
+    trend_sun_elevation_twenty_minutes:
       entity_id: sensor.template_sun_elevation_time_based
       # resolution is 1 every 5 minutes
-      max_samples: 2
-      # 10 minutes in seconds
-      sample_duration: 600
+      max_samples: 4
+      # 20 minutes in seconds
+      sample_duration: 1200
 ```
 {% endraw %}
 
@@ -626,21 +626,23 @@ To create those `trend` entities, append the following to the `binary_sensors.ya
 
 [![HASS utility trend 01](/assets/posts/2021-06-04-smarter-hass/hass-utility-trend-01.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-06-04-smarter-hass/hass-utility-trend-01.jpg)
 
-Two noteworthy observations need to be made at this point.  First, notice that this integration does not analyze the data from previously stored entity data but actually stores its own data.  Therefore, it's necessary to keep it running to collect data from all monitored entities before drawing anything meaningful conclusions from it.  Second, the slope of the linear function that was fit over the data points (`gradient`) is reported as an **attribute** and because it uses *seconds* as time unit, the coefficient refers to the ratio of change over *per second*.  To make it easier working with `gradient`, I usually create a slave entity to output the gradient as its state instead. This is accomplished with **template sensors**.  More specifically, let's append the following *Trend helper entities* under our default **Sensor Templates** in the `templates.yaml` file:
+[![HASS utility trend 02](/assets/posts/2021-06-04-smarter-hass/hass-utility-trend-02.jpg){:.PostImage}](/assets/posts/2021-06-04-smarter-hass/hass-utility-trend-02.jpg)
+
+Two noteworthy observations need to be made at this point.  First, notice that this integration does not analyze the data from previously stored entity data but actually stores its own data.  Therefore, it's necessary to keep it running to collect data from all monitored entities before drawing any meaningful conclusions from it.  Second, the slope of the linear function that was fit over the data points (`gradient`) is reported as an **attribute** and because it uses *seconds* as time unit, the coefficient refers to the ratio of change *per second*.  Therefore, to make it easier working with `gradient`, I usually create a slave entity to output the gradient as its state instead. This is accomplished with **template sensors**.  More specifically, let's append the following *Trend helper entities* under our default (state-based) **Sensor Templates** in the `templates.yaml` file:
 
 {% raw %}
 ```yaml
     # Trend helper entities
-    - name: "template trend sun elevation ten minutes"
+    - name: "template trend sun elevation twenty minutes"
       unit_of_measurement: "°/h"
       # if statement makes sure the gradient is valid
       # change the scale from sec to hour
       state: >
-        {% if state_attr('binary_sensor.trend_sun_elevation_ten_minutes', 'gradient') is number %}
-           {{ (state_attr('binary_sensor.trend_sun_elevation_ten_minutes', 'gradient') * 3600) | round(1) }}
+        {% if state_attr('binary_sensor.trend_sun_elevation_twenty_minutes', 'gradient') is number %}
+           {{ (state_attr('binary_sensor.trend_sun_elevation_twenty_minutes', 'gradient') * 3600) | round(1) }}
         {% endif %}
     - name: "template trend weather temperature six hours"
-      unit_of_measurement: "°/h"
+      unit_of_measurement: "C/h"
       state: >
         {% if state_attr('binary_sensor.trend_weather_temperature_six_hours', 'gradient') is number %}
            {{ (state_attr('binary_sensor.trend_weather_temperature_six_hours', 'gradient') * 3600) | round(2) }}
@@ -660,7 +662,11 @@ Two noteworthy observations need to be made at this point.  First, notice that t
 ```
 {% endraw %}
 
-**Reload your configuration** and afterwards, HASS will create new `sensor.template_trend_*` entities that should contain the converted gradient as their state.
+The `if` statement is used to validate (`is number`) the appropriate variables in the unit conversion and rounding operations.  Otherwise, the template sensor might attempt to perform a mathematical operation on something other than a number, such as when the `gradient` attribute is not yet defined, which would result in an error.
+
+Now **reload your configuration** and afterwards, HASS will create new `sensor.template_trend_*` entities that should contain the converted gradient as their state.
+
+[![HASS utility trend 03](/assets/posts/2021-06-04-smarter-hass/hass-utility-trend-03.jpg){:.PostImage}](/assets/posts/2021-06-04-smarter-hass/hass-utility-trend-03.jpg)
 
 #### Additional references
 - Trend **documentation**: [https://www.home-assistant.io/integrations/trend/](https://www.home-assistant.io/integrations/trend/)

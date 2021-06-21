@@ -1036,7 +1036,7 @@
   <li><code class="language-plaintext highlighter-rouge">trend weather temperature six hours</code>: Gradient of the <code class="language-plaintext highlighter-rouge">sensor.template_weather_temperature_time_based</code> template sensor over the <em>last six hours</em>;</li>
   <li><code class="language-plaintext highlighter-rouge">trend weather humidity six hours</code>: Gradient of the <code class="language-plaintext highlighter-rouge">sensor.template_weather_humidity_time_based</code> template sensor over the <em>last six hours</em>;</li>
   <li><code class="language-plaintext highlighter-rouge">trend weather pressure twelve hours</code>: Gradient of the <code class="language-plaintext highlighter-rouge">sensor.template_weather_pressure_time_based</code> template sensor over the <em>last twelve hours</em>;</li>
-  <li><code class="language-plaintext highlighter-rouge">trend sun elevation ten minutes</code>: Gradient of the <code class="language-plaintext highlighter-rouge">sensor.template_sun_elevation_time_based</code> template sensor over the <em>last ten minutes</em>;</li>
+  <li><code class="language-plaintext highlighter-rouge">trend sun elevation twenty minutes</code>: Gradient of the <code class="language-plaintext highlighter-rouge">sensor.template_sun_elevation_time_based</code> template sensor over the <em>last twenty minutes</em>;</li>
 </ol>
 
 <p>To create those <code class="language-plaintext highlighter-rouge">trend</code> entities, append the following to the <code class="language-plaintext highlighter-rouge">binary_sensors.yaml</code> file:</p>
@@ -1062,31 +1062,33 @@
       <span class="na">max_samples</span><span class="pi">:</span> <span class="m">12</span>
       <span class="c1"># 12 hours in seconds</span>
       <span class="na">sample_duration</span><span class="pi">:</span> <span class="m">43200</span>
-    <span class="na">trend_sun_elevation_ten_minutes</span><span class="pi">:</span>
+    <span class="na">trend_sun_elevation_twenty_minutes</span><span class="pi">:</span>
       <span class="na">entity_id</span><span class="pi">:</span> <span class="s">sensor.template_sun_elevation_time_based</span>
       <span class="c1"># resolution is 1 every 5 minutes</span>
-      <span class="na">max_samples</span><span class="pi">:</span> <span class="m">2</span>
-      <span class="c1"># 10 minutes in seconds</span>
-      <span class="na">sample_duration</span><span class="pi">:</span> <span class="m">600</span>
+      <span class="na">max_samples</span><span class="pi">:</span> <span class="m">4</span>
+      <span class="c1"># 20 minutes in seconds</span>
+      <span class="na">sample_duration</span><span class="pi">:</span> <span class="m">1200</span>
 </code></pre></div></div>
 
 <p><strong>Check your configuration file</strong> and if everything looks good, <strong>restart HASS</strong>. Afterwards, check your log file for related errors and if it all looks good, then head to <strong>Developer Tools</strong> &gt; States and you should now see the new trend entities we just created:</p>
 
 <p><a href="/assets/posts/2021-06-04-smarter-hass/hass-utility-trend-01.jpg"><img src="/assets/posts/2021-06-04-smarter-hass/hass-utility-trend-01.jpg" alt="HASS utility trend 01" class="PostImage PostImage--large" /></a></p>
 
-<p>Two noteworthy observations need to be made at this point.  First, notice that this integration does not analyze the data from previously stored entity data but actually stores its own data.  Therefore, it’s necessary to keep it running to collect data from all monitored entities before drawing anything meaningful conclusions from it.  Second, the slope of the linear function that was fit over the data points (<code class="language-plaintext highlighter-rouge">gradient</code>) is reported as an <strong>attribute</strong> and because it uses <em>seconds</em> as time unit, the coefficient refers to the ratio of change over <em>per second</em>.  To make it easier working with <code class="language-plaintext highlighter-rouge">gradient</code>, I usually create a slave entity to output the gradient as its state instead. This is accomplished with <strong>template sensors</strong>.  More specifically, let’s append the following <em>Trend helper entities</em> under our default <strong>Sensor Templates</strong> in the <code class="language-plaintext highlighter-rouge">templates.yaml</code> file:</p>
+<p><a href="/assets/posts/2021-06-04-smarter-hass/hass-utility-trend-02.jpg"><img src="/assets/posts/2021-06-04-smarter-hass/hass-utility-trend-02.jpg" alt="HASS utility trend 02" class="PostImage" /></a></p>
+
+<p>Two noteworthy observations need to be made at this point.  First, notice that this integration does not analyze the data from previously stored entity data but actually stores its own data.  Therefore, it’s necessary to keep it running to collect data from all monitored entities before drawing any meaningful conclusions from it.  Second, the slope of the linear function that was fit over the data points (<code class="language-plaintext highlighter-rouge">gradient</code>) is reported as an <strong>attribute</strong> and because it uses <em>seconds</em> as time unit, the coefficient refers to the ratio of change <em>per second</em>.  Therefore, to make it easier working with <code class="language-plaintext highlighter-rouge">gradient</code>, I usually create a slave entity to output the gradient as its state instead. This is accomplished with <strong>template sensors</strong>.  More specifically, let’s append the following <em>Trend helper entities</em> under our default (state-based) <strong>Sensor Templates</strong> in the <code class="language-plaintext highlighter-rouge">templates.yaml</code> file:</p>
 
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c1"># Trend helper entities</span>
-    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">template</span><span class="nv"> </span><span class="s">trend</span><span class="nv"> </span><span class="s">sun</span><span class="nv"> </span><span class="s">elevation</span><span class="nv"> </span><span class="s">ten</span><span class="nv"> </span><span class="s">minutes"</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">template</span><span class="nv"> </span><span class="s">trend</span><span class="nv"> </span><span class="s">sun</span><span class="nv"> </span><span class="s">elevation</span><span class="nv"> </span><span class="s">twenty</span><span class="nv"> </span><span class="s">minutes"</span>
       <span class="na">unit_of_measurement</span><span class="pi">:</span> <span class="s2">"</span><span class="s">°/h"</span>
       <span class="c1"># if statement makes sure the gradient is valid</span>
       <span class="c1"># change the scale from sec to hour</span>
       <span class="na">state</span><span class="pi">:</span> <span class="pi">&gt;</span>
-        <span class="s">{% if state_attr('binary_sensor.trend_sun_elevation_ten_minutes', 'gradient') is number %}</span>
-           <span class="s">{{ (state_attr('binary_sensor.trend_sun_elevation_ten_minutes', 'gradient') * 3600) | round(1) }}</span>
+        <span class="s">{% if state_attr('binary_sensor.trend_sun_elevation_twenty_minutes', 'gradient') is number %}</span>
+           <span class="s">{{ (state_attr('binary_sensor.trend_sun_elevation_twenty_minutes', 'gradient') * 3600) | round(1) }}</span>
         <span class="s">{% endif %}</span>
     <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">template</span><span class="nv"> </span><span class="s">trend</span><span class="nv"> </span><span class="s">weather</span><span class="nv"> </span><span class="s">temperature</span><span class="nv"> </span><span class="s">six</span><span class="nv"> </span><span class="s">hours"</span>
-      <span class="na">unit_of_measurement</span><span class="pi">:</span> <span class="s2">"</span><span class="s">°/h"</span>
+      <span class="na">unit_of_measurement</span><span class="pi">:</span> <span class="s2">"</span><span class="s">C/h"</span>
       <span class="na">state</span><span class="pi">:</span> <span class="pi">&gt;</span>
         <span class="s">{% if state_attr('binary_sensor.trend_weather_temperature_six_hours', 'gradient') is number %}</span>
            <span class="s">{{ (state_attr('binary_sensor.trend_weather_temperature_six_hours', 'gradient') * 3600) | round(2) }}</span>
@@ -1105,7 +1107,11 @@
         <span class="s">{% endif %}</span>
 </code></pre></div></div>
 
-<p><strong>Reload your configuration</strong> and afterwards, HASS will create new <code class="language-plaintext highlighter-rouge">sensor.template_trend_*</code> entities that should contain the converted gradient as their state.</p>
+<p>The <code class="language-plaintext highlighter-rouge">if</code> statement is used to validate (<code class="language-plaintext highlighter-rouge">is number</code>) the appropriate variables in the unit conversion and rounding operations.  Otherwise, the template sensor might attempt to perform a mathematical operation on something other than a number, such as when the <code class="language-plaintext highlighter-rouge">gradient</code> attribute is not yet defined, which would result in an error.</p>
+
+<p>Now <strong>reload your configuration</strong> and afterwards, HASS will create new <code class="language-plaintext highlighter-rouge">sensor.template_trend_*</code> entities that should contain the converted gradient as their state.</p>
+
+<p><a href="/assets/posts/2021-06-04-smarter-hass/hass-utility-trend-03.jpg"><img src="/assets/posts/2021-06-04-smarter-hass/hass-utility-trend-03.jpg" alt="HASS utility trend 03" class="PostImage" /></a></p>
 
 <h4 id="additional-references-2">Additional references</h4>
 <ul>
