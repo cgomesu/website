@@ -1,6 +1,6 @@
 ---
 title: "Towards a smarter Home Assistant: Getting started on the analytical tools"
-date: 2021-06-04 10:40:00 -0300
+date: 2021-06-22 15:45:00 -0300
 tags: hass iot automation math stats inference
 header:
   overlay_image: "/assets/posts/2021-06-04-smarter-hass/header.jpg"
@@ -11,7 +11,7 @@ toc_icon: "list"
 ---
 
 # Changelog
-**June 4th, 2021**: Publication of the original article
+**June 22nd, 2021**: Publication of the original article
 {:.notice--info }
 
 [top](#){:.btn .btn--light-outline .btn--small}
