@@ -59,8 +59,11 @@ But there's much more that can be done and accomplished moving forward.  If you 
 
 
 # Outline
-- TODO:
-  - General picture of the structure
+From this point forward, the article was divided into two main parts:
+
+1. (*Optional.*) [**Prerequisites**](#prerequisites): A brief overview of the HASS core installation, configuration files, and database. At the end of this section, there is a few statistics resources for users who want to refresh their stats knowledge.  Advanced users might want to skip this section altogether.  However, at the very least, I suggest to glance over each topic to make sure we are all on the same page.
+
+2. [**Implementation**](#implementation): This is the main part of the article. I started describing in detail the issues pertaining to how data are sampled and stored in the HASS DB. Afterwards, I reviewed three of the current Utility integrations that I find most useful and finally, at the end, I mentioned two JavaScript modules that are useful in visualizing analytical metrics within the HASS dashboard.  (If you came here just to learn how to build a dynamic threshold graph card, feel free to head straight to the section called [Visualizing analytical data](#visualizing-analytical-data).)
 
 [top](#){:.btn .btn--light-outline .btn--small}
 
@@ -73,7 +76,7 @@ The implementation of analytical tools in HASS has the following basic requireme
 3. Understanding the [HASS **database**](#hass-database);
 4. And of course, [basic **statistics**](#statistics) knowledge.
 
-Those four topics are described separately next.  If you are already familiar with them, feel free to skip straight to the main [Implementation](#implementation) section.  However, at the very least, I suggest to glance over each topic to make sure we are all on the same page.
+Those four topics are described separately next.  
 
 ## HASS core
 Structurally, HASS can be divided into three main layers: (a) core; (b) supervisor; and (c) operating system (OS).  The folks at the HASS wiki were kind enough to put together a plethora of [installation methods](https://www.home-assistant.io/installation/) for all sorts of OSes and environments (bare-metal vs. virtual).  For this guide, however, only the most basic layer of the HASS system is needed, namely the **HASS core**, which is available in *any* installation method.

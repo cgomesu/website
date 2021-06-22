@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-06-22T15:24:37-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">Towards a smarter Home Assistant: Getting started on the analytical tools</title><link href="/blog/smarter-hass/" rel="alternate" type="text/html" title="Towards a smarter Home Assistant: Getting started on the analytical tools" /><published>2021-06-04T10:40:00-03:00</published><updated>2021-06-04T10:40:00-03:00</updated><id>/blog/smarter-hass</id><content type="html" xml:base="/blog/smarter-hass/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-06-22T15:43:14-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">Towards a smarter Home Assistant: Getting started on the analytical tools</title><link href="/blog/smarter-hass/" rel="alternate" type="text/html" title="Towards a smarter Home Assistant: Getting started on the analytical tools" /><published>2021-06-04T10:40:00-03:00</published><updated>2021-06-04T10:40:00-03:00</updated><id>/blog/smarter-hass</id><content type="html" xml:base="/blog/smarter-hass/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;June 4th, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
@@ -57,13 +57,16 @@
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;outline&quot;&gt;Outline&lt;/h1&gt;
-&lt;ul&gt;
-  &lt;li&gt;TODO:
-    &lt;ul&gt;
-      &lt;li&gt;General picture of the structure&lt;/li&gt;
-    &lt;/ul&gt;
+&lt;p&gt;From this point forward, the article was divided into two main parts:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;(&lt;em&gt;Optional.&lt;/em&gt;) &lt;a href=&quot;#prerequisites&quot;&gt;&lt;strong&gt;Prerequisites&lt;/strong&gt;&lt;/a&gt;: A brief overview of the HASS core installation, configuration files, and database. At the end of this section, there is a few statistics resources for users who want to refresh their stats knowledge.  Advanced users might want to skip this section altogether.  However, at the very least, I suggest to glance over each topic to make sure we are all on the same page.&lt;/p&gt;
   &lt;/li&gt;
-&lt;/ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;#implementation&quot;&gt;&lt;strong&gt;Implementation&lt;/strong&gt;&lt;/a&gt;: This is the main part of the article. I started describing in detail the issues pertaining to how data are sampled and stored in the HASS DB. Afterwards, I reviewed three of the current Utility integrations that I find most useful and finally, at the end, I mentioned two JavaScript modules that are useful in visualizing analytical metrics within the HASS dashboard.  (If you came here just to learn how to build a dynamic threshold graph card, feel free to head straight to the section called &lt;a href=&quot;#visualizing-analytical-data&quot;&gt;Visualizing analytical data&lt;/a&gt;.)&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
@@ -77,7 +80,7 @@
   &lt;li&gt;And of course, &lt;a href=&quot;#statistics&quot;&gt;basic &lt;strong&gt;statistics&lt;/strong&gt;&lt;/a&gt; knowledge.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;Those four topics are described separately next.  If you are already familiar with them, feel free to skip straight to the main &lt;a href=&quot;#implementation&quot;&gt;Implementation&lt;/a&gt; section.  However, at the very least, I suggest to glance over each topic to make sure we are all on the same page.&lt;/p&gt;
+&lt;p&gt;Those four topics are described separately next.&lt;/p&gt;
 
 &lt;h2 id=&quot;hass-core&quot;&gt;HASS core&lt;/h2&gt;
 &lt;p&gt;Structurally, HASS can be divided into three main layers: (a) core; (b) supervisor; and (c) operating system (OS).  The folks at the HASS wiki were kind enough to put together a plethora of &lt;a href=&quot;https://www.home-assistant.io/installation/&quot;&gt;installation methods&lt;/a&gt; for all sorts of OSes and environments (bare-metal vs. virtual).  For this guide, however, only the most basic layer of the HASS system is needed, namely the &lt;strong&gt;HASS core&lt;/strong&gt;, which is available in &lt;em&gt;any&lt;/em&gt; installation method.&lt;/p&gt;

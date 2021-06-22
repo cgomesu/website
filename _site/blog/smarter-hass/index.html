@@ -198,7 +198,7 @@
 
 
 
-  71 minute read
+  72 minute read
 
 </p>
       
@@ -467,13 +467,16 @@
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 
 <h1 id="outline">Outline</h1>
-<ul>
-  <li>TODO:
-    <ul>
-      <li>General picture of the structure</li>
-    </ul>
+<p>From this point forward, the article was divided into two main parts:</p>
+
+<ol>
+  <li>
+    <p>(<em>Optional.</em>) <a href="#prerequisites"><strong>Prerequisites</strong></a>: A brief overview of the HASS core installation, configuration files, and database. At the end of this section, there is a few statistics resources for users who want to refresh their stats knowledge.  Advanced users might want to skip this section altogether.  However, at the very least, I suggest to glance over each topic to make sure we are all on the same page.</p>
   </li>
-</ul>
+  <li>
+    <p><a href="#implementation"><strong>Implementation</strong></a>: This is the main part of the article. I started describing in detail the issues pertaining to how data are sampled and stored in the HASS DB. Afterwards, I reviewed three of the current Utility integrations that I find most useful and finally, at the end, I mentioned two JavaScript modules that are useful in visualizing analytical metrics within the HASS dashboard.  (If you came here just to learn how to build a dynamic threshold graph card, feel free to head straight to the section called <a href="#visualizing-analytical-data">Visualizing analytical data</a>.)</p>
+  </li>
+</ol>
 
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 
@@ -487,7 +490,7 @@
   <li>And of course, <a href="#statistics">basic <strong>statistics</strong></a> knowledge.</li>
 </ol>
 
-<p>Those four topics are described separately next.  If you are already familiar with them, feel free to skip straight to the main <a href="#implementation">Implementation</a> section.  However, at the very least, I suggest to glance over each topic to make sure we are all on the same page.</p>
+<p>Those four topics are described separately next.</p>
 
 <h2 id="hass-core">HASS core</h2>
 <p>Structurally, HASS can be divided into three main layers: (a) core; (b) supervisor; and (c) operating system (OS).  The folks at the HASS wiki were kind enough to put together a plethora of <a href="https://www.home-assistant.io/installation/">installation methods</a> for all sorts of OSes and environments (bare-metal vs. virtual).  For this guide, however, only the most basic layer of the HASS system is needed, namely the <strong>HASS core</strong>, which is available in <em>any</em> installation method.</p>
