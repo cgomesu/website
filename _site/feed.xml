@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-06-22T12:13:14-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">Towards a smarter Home Assistant: Getting started on the analytical tools</title><link href="/blog/smarter-hass/" rel="alternate" type="text/html" title="Towards a smarter Home Assistant: Getting started on the analytical tools" /><published>2021-06-04T10:40:00-03:00</published><updated>2021-06-04T10:40:00-03:00</updated><id>/blog/smarter-hass</id><content type="html" xml:base="/blog/smarter-hass/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-06-22T15:24:37-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">Towards a smarter Home Assistant: Getting started on the analytical tools</title><link href="/blog/smarter-hass/" rel="alternate" type="text/html" title="Towards a smarter Home Assistant: Getting started on the analytical tools" /><published>2021-06-04T10:40:00-03:00</published><updated>2021-06-04T10:40:00-03:00</updated><id>/blog/smarter-hass</id><content type="html" xml:base="/blog/smarter-hass/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;June 4th, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
@@ -8,16 +8,16 @@
 
 &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-06-04-smarter-hass/hass-demo.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-06-04-smarter-hass/hass-demo.jpg&quot; alt=&quot;HASS demo frontend&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;More often than not, people use HASS to view or modify the &lt;strong&gt;current state and value&lt;/strong&gt; of integrated devices and sensors via manual triggers (e.g., pressing a button to turn off the AC) or automations (e.g., if the temperature is lower than 14°C, then turn on the heat).  However, the &lt;a href=&quot;https://www.home-assistant.io/integrations#utility&quot;&gt;HASS utility integrations&lt;/a&gt; offer users the possibility to go (way) beyond with the help of built-in mathematical and statistical tools.  More specifically, such &lt;strong&gt;analytical tools&lt;/strong&gt; allow users to summarize past states and measurements to answer questions such as:&lt;/p&gt;
+&lt;p&gt;More often than not, people use HASS to view or modify the &lt;strong&gt;current state and value&lt;/strong&gt; of integrated devices and sensors via manual triggers (e.g., pressing a button to turn off the AC) or automations (e.g., if the temperature is lower than 14°C, then turn on the heat).  However, the &lt;a href=&quot;https://www.home-assistant.io/integrations#utility&quot;&gt;HASS utility integrations&lt;/a&gt; offer users the possibility to go beyond with the help of built-in mathematical and statistical tools.  More specifically, such &lt;strong&gt;analytical tools&lt;/strong&gt; allow users to summarize past states and measurements to answer questions such as:&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;How many times has the front door been opened over the last 24hrs and for how long?&lt;/li&gt;
   &lt;li&gt;How much energy (kWh) has my uninterrupted power supply used over the last month?&lt;/li&gt;
-  &lt;li&gt;What was the average temperature in the living-room in the last 24hrs?  How does that compare to the day before?&lt;/li&gt;
+  &lt;li&gt;What was the average temperature in the living-room in the last 24hrs?  How does that compare to 48hrs before?&lt;/li&gt;
   &lt;li&gt;What is the average level of volatile organic compounds (VOC) measured by the &lt;a href=&quot;https://www.bosch-sensortec.com/products/environmental-sensors/gas-sensors/bme680/&quot;&gt;BME680 sensor&lt;/a&gt; in my bedroom in the last thirty minutes?  How much does it change over the day?&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Unfortunately, according to the HASS website, the &lt;a href=&quot;https://www.home-assistant.io/integrations/statistics/&quot;&gt;Statistics&lt;/a&gt; and related utilities are currently used by less than 5% of the HASS userbase.  I feel there is much to be explored and gained from the application of &lt;strong&gt;dynamic statistical inferences&lt;/strong&gt; in home automation systems.  To mention a few reasons, sensors are susceptible to measurement error and many user-defined events (e.g., Carlos is at home) are multidimensional and frequently determined by more factors than integrated within a home automation system (e.g., my cellphone connected to my home’s private network is not a sufficient condition to tell that I’m at home but it does inform about the likelihood that I am at home).  This creates uncertainty about the current and future states of things but fortunately, the uncertainty can be quantified and taken into account by various statistical tools that have already been developed.&lt;/p&gt;
+&lt;p&gt;Unfortunately, according to the HASS website, the &lt;a href=&quot;https://www.home-assistant.io/integrations/statistics/&quot;&gt;Statistics&lt;/a&gt; and related utilities are currently used by less than 5% of the HASS userbase.  I feel there is much to be explored and gained from the application of &lt;strong&gt;dynamic statistical inferences&lt;/strong&gt; in home automation systems.  To mention a few reasons, sensors are susceptible to measurement error and many user-defined events (e.g., Carlos is at home) are multidimensional and frequently determined by more factors than integrated within a home automation system (e.g., my cellphone connected to my home’s private network is not a sufficient condition to tell that I’m at home but it does inform about the likelihood that I am at home).  This creates uncertainty about the current and future states of things but fortunately, this uncertainty can be quantified and taken into account by various statistical tools that have long been developed.&lt;/p&gt;
 
 &lt;p&gt;Furthermore, the fact that HASS integrations are written in the &lt;a href=&quot;https://www.python.org/&quot;&gt;Python programming language&lt;/a&gt; makes HASS a prime candidate for exploring the use of statistical inference in home automation systems because many mathematical and statistical packages are already available in Python and are widely used and well-maintained (e.g., &lt;a href=&quot;https://pypi.org/project/numpy/&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;numpy&lt;/code&gt;&lt;/a&gt; and &lt;a href=&quot;https://pypi.org/project/scipy/&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scipy&lt;/code&gt;&lt;/a&gt;). Therefore, porting new and more sophisticated analytical tools to HASS should be fairly straightforward.  (More on this in the &lt;a href=&quot;#development&quot;&gt;Development&lt;/a&gt; section).&lt;/p&gt;
 
@@ -25,7 +25,7 @@
 
 &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-06-04-smarter-hass/hass-graph-dynamic-temperature-01.gif&quot;&gt;&lt;img src=&quot;/assets/posts/2021-06-04-smarter-hass/hass-graph-dynamic-temperature-01.gif&quot; alt=&quot;HASS graph dynamic temperature 01&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;But there’s much more that can be done and accomplished moving forward.  If you find these ideas interesting and want to get started on their implementation in your own personal HASS instances, then read on.  As in my previous guides and tutorials, I tried to unpack and digest as much of the content as possible, the goal being to make it accessible to experts as well as novices.  Check the &lt;a href=&quot;#changelog&quot;&gt;Changelog&lt;/a&gt; for updates and if you ever get stuck on something or just want to share a few ideas and opinions, feel free to &lt;a href=&quot;/contact&quot;&gt;get in touch with me&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;But there’s much more that can be done and accomplished moving forward.  If you find these ideas interesting and want to get started on their implementation in your own personal HASS, then read on.  As in my previous guides and tutorials, I tried to unpack and digest as much of the content as possible, the goal being to make it accessible to experts as well as novices.  Check the &lt;a href=&quot;#changelog&quot;&gt;Changelog&lt;/a&gt; for updates and if you ever get stuck on something or just want to share a few ideas and opinions, feel free to &lt;a href=&quot;/contact&quot;&gt;get in touch with me&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
@@ -33,23 +33,23 @@
 &lt;ul&gt;
   &lt;li&gt;Get familiar with the following:
     &lt;ul&gt;
-      &lt;li&gt;The HASS SQLite database (DB)&lt;/li&gt;
-      &lt;li&gt;YAML syntax&lt;/li&gt;
-      &lt;li&gt;Templating&lt;/li&gt;
+      &lt;li&gt;The HASS SQLite database (DB);&lt;/li&gt;
+      &lt;li&gt;YAML syntax;&lt;/li&gt;
+      &lt;li&gt;Templating.&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;Learn the specifics about how data are sampled and stored in the HASS DB and how they affect analysis, owing to inconsistent data points and misrepresentation of data over time.&lt;/li&gt;
+  &lt;li&gt;Learn the specifics about how data are sampled and stored in the HASS DB and how they affect analysis, owing to inconsistent data points and misrepresentation of data over time;&lt;/li&gt;
   &lt;li&gt;Familiarize yourself with the use of three utility integrations:
     &lt;ul&gt;
-      &lt;li&gt;History Stats&lt;/li&gt;
-      &lt;li&gt;Statistics&lt;/li&gt;
-      &lt;li&gt;Trend&lt;/li&gt;
+      &lt;li&gt;History Stats;&lt;/li&gt;
+      &lt;li&gt;Statistics;&lt;/li&gt;
+      &lt;li&gt;Trend.&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;Make use of analytical data to improve your current HASS dashboard using the following cards:
     &lt;ul&gt;
-      &lt;li&gt;Mini graph card&lt;/li&gt;
-      &lt;li&gt;Lovelace card templater&lt;/li&gt;
+      &lt;li&gt;Mini graph card;&lt;/li&gt;
+      &lt;li&gt;Lovelace card templater.&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
@@ -58,7 +58,11 @@
 
 &lt;h1 id=&quot;outline&quot;&gt;Outline&lt;/h1&gt;
 &lt;ul&gt;
-  &lt;li&gt;TODO: General picture of the structure&lt;/li&gt;
+  &lt;li&gt;TODO:
+    &lt;ul&gt;
+      &lt;li&gt;General picture of the structure&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
@@ -67,13 +71,13 @@
 &lt;p&gt;The implementation of analytical tools in HASS has the following basic requirements:&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;A &lt;a href=&quot;#hass-core&quot;&gt;HASS &lt;strong&gt;Core&lt;/strong&gt;&lt;/a&gt; instance;&lt;/li&gt;
+  &lt;li&gt;A &lt;a href=&quot;#hass-core&quot;&gt;HASS &lt;strong&gt;core&lt;/strong&gt;&lt;/a&gt; instance;&lt;/li&gt;
   &lt;li&gt;Understanding of &lt;a href=&quot;#hass-configuration-files&quot;&gt;the &lt;strong&gt;configuration&lt;/strong&gt; files and the &lt;strong&gt;YAML&lt;/strong&gt; syntax&lt;/a&gt;;&lt;/li&gt;
   &lt;li&gt;Understanding the &lt;a href=&quot;#hass-database&quot;&gt;HASS &lt;strong&gt;database&lt;/strong&gt;&lt;/a&gt;;&lt;/li&gt;
   &lt;li&gt;And of course, &lt;a href=&quot;#statistics&quot;&gt;basic &lt;strong&gt;statistics&lt;/strong&gt;&lt;/a&gt; knowledge.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;Those four topics are described separately next.  If you are already familiar with them, feel free to skip straight to the main &lt;a href=&quot;#implementation&quot;&gt;Implementation&lt;/a&gt; section.  However, at the very least, I suggest to glance over each topic to make sure we are on the same page before moving on.&lt;/p&gt;
+&lt;p&gt;Those four topics are described separately next.  If you are already familiar with them, feel free to skip straight to the main &lt;a href=&quot;#implementation&quot;&gt;Implementation&lt;/a&gt; section.  However, at the very least, I suggest to glance over each topic to make sure we are all on the same page.&lt;/p&gt;
 
 &lt;h2 id=&quot;hass-core&quot;&gt;HASS core&lt;/h2&gt;
 &lt;p&gt;Structurally, HASS can be divided into three main layers: (a) core; (b) supervisor; and (c) operating system (OS).  The folks at the HASS wiki were kind enough to put together a plethora of &lt;a href=&quot;https://www.home-assistant.io/installation/&quot;&gt;installation methods&lt;/a&gt; for all sorts of OSes and environments (bare-metal vs. virtual).  For this guide, however, only the most basic layer of the HASS system is needed, namely the &lt;strong&gt;HASS core&lt;/strong&gt;, which is available in &lt;em&gt;any&lt;/em&gt; installation method.&lt;/p&gt;
@@ -112,7 +116,7 @@
 &lt;span class=&quot;na&quot;&gt;binary_sensor&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;!include&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;binary_sensors.yaml&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
-  &lt;li&gt;Use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;!secret&lt;/code&gt; and a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;secrets.yaml&lt;/code&gt; for managing passwords.  (See more in the HASS wiki called &lt;a href=&quot;https://www.home-assistant.io/docs/configuration/secrets/&quot;&gt;Storing secrets&lt;/a&gt;.)&lt;/li&gt;
+  &lt;li&gt;Use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;!secret&lt;/code&gt; and a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;secrets.yaml&lt;/code&gt; for managing passwords.  (See more in the HASS wiki called &lt;a href=&quot;https://www.home-assistant.io/docs/configuration/secrets/&quot;&gt;Storing secrets&lt;/a&gt;.)  This is particularly useful if you plan on sharing your configurations.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;Finally, after making any changes to any YAML file (and saving them), it is necessary to &lt;a href=&quot;https://www.home-assistant.io/docs/configuration/#reloading-changes&quot;&gt;&lt;strong&gt;reload&lt;/strong&gt; the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;configuration.yaml&lt;/code&gt; file&lt;/a&gt;.  If your installation method does not allow for selective reloading, then go ahead and reload the entire HASS.  However, &lt;em&gt;before reloading any configuration file&lt;/em&gt;, use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hass --script check_config&lt;/code&gt; script to make sure your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;configuration.yaml&lt;/code&gt; file is okay, as follows:&lt;/p&gt;
@@ -178,7 +182,7 @@
 &lt;p&gt;In addition to the SQL browser method of editing the HASS DB, HASS allow users to run a &lt;a href=&quot;https://www.home-assistant.io/docs/scripts/service-calls/&quot;&gt;service call&lt;/a&gt; from within the webUI to manually run a &lt;strong&gt;purge task&lt;/strong&gt;. This is particularly useful to run once you are done making changes to a newly created template entity and want to clean any previous (and possibly erroneous) records from the DB.  To remove all the data from a list of entities, do the following:&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;Navigate to &lt;strong&gt;Developer Tools&lt;/strong&gt; &amp;gt; States;&lt;/li&gt;
+  &lt;li&gt;Navigate to &lt;strong&gt;Developer Tools&lt;/strong&gt; &amp;gt; Services;&lt;/li&gt;
   &lt;li&gt;Select &lt;strong&gt;Go to YAML mode&lt;/strong&gt; and paste the following:
     &lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;service&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;recorder.purge_entities&lt;/span&gt;
 &lt;span class=&quot;na&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
@@ -288,11 +292,11 @@
 &lt;p&gt;By default, the values of this newly created entity will update as soon as the Sun &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;elevation&lt;/code&gt; attribute changes. However, it is also possible to configure different &lt;strong&gt;triggers&lt;/strong&gt; for &lt;strong&gt;template entities&lt;/strong&gt;.  This is particularly relevant for the next topic, namely data sampling.&lt;/p&gt;
 
 &lt;h2 id=&quot;sampling&quot;&gt;Sampling&lt;/h2&gt;
-&lt;p&gt;Devices, sensors, and services measure and transmit data with a certain frequency, which I refer by the term &lt;strong&gt;measurement resolution&lt;/strong&gt;.  Such a resolution might be determined by a time-based rule (e.g., every 1 sec) or an event (HTTP request) or a combination of both.  Regardless of the nature of the trigger, the &lt;em&gt;higher&lt;/em&gt; the measurement resolution, the more frequent the measurement and transmission are.  For example, an &lt;a href=&quot;https://www.espressif.com/en/products/devkits&quot;&gt;ESP32 Development board&lt;/a&gt; connected to a &lt;a href=&quot;https://www.bosch-sensortec.com/products/environmental-sensors/humidity-sensors-bme280/&quot;&gt;BME280 environmental sensor&lt;/a&gt; might send a temperature measurement every 5 minutes to a MQTT broker.  Therefore, for all intended purposes, the measurement resolution of such a temperature sensor is at best 5 minutes.  Now, if a second ESP32 measures and send data &lt;em&gt;every 1 minute&lt;/em&gt; instead, then the measurement resolution of the latter ESP32 is higher than the former (i.e., we can expect it to send temperature data more frequently).&lt;/p&gt;
+&lt;p&gt;Devices, sensors, and services measure and transmit data with a certain frequency, which I refer by the term &lt;strong&gt;measurement resolution&lt;/strong&gt;.  Such a resolution might be determined by a time-based rule (e.g., every 1 sec) or an event (HTTP request) or a combination of both.  Regardless of the nature of the trigger, the &lt;em&gt;higher&lt;/em&gt; the measurement resolution, the more frequent the observations are.  For example, an &lt;a href=&quot;https://www.espressif.com/en/products/devkits&quot;&gt;ESP32 Development board&lt;/a&gt; connected to a &lt;a href=&quot;https://www.bosch-sensortec.com/products/environmental-sensors/humidity-sensors-bme280/&quot;&gt;BME280 environmental sensor&lt;/a&gt; might send a temperature measurement every 5 minutes to a MQTT broker.  Therefore, for all intended purposes, the measurement resolution of such a temperature sensor is at best 5 minutes.  Now, if a second ESP32 measures and send data &lt;em&gt;every 1 minute&lt;/em&gt; instead, then the measurement resolution of the latter ESP32 is higher than the former (i.e., we can expect it to send temperature data more frequently).&lt;/p&gt;
 
 &lt;p&gt;As mentioned before, in HASS, &lt;strong&gt;template entities&lt;/strong&gt; follow state-based updates by default–that is, they update as soon as the data of any of the referenced entities change.  Let’s say that over a 20-min window, none of the referenced data changed.  This means that the template entity also didn’t change and more importantly, in the DB, there will be a &lt;em&gt;single data point&lt;/em&gt; over the 20-min window.  However, let’s say that over the same 20-min window, one of the referenced data changed twice. This means that the template entity now changed twice and more importantly, in the DB, there will be &lt;em&gt;three data points&lt;/em&gt; over the 20-min window.  This a very efficient way of storing data but you can probably see how this might affect the usage of analytical tools, owing to an inconsistent number of data points over equal time-frames as well as the under-representation of data over time.&lt;/p&gt;
 
-&lt;p&gt;Fortunately, just like we specify triggers for automations, HASS offers the possibility to specify &lt;a href=&quot;https://www.home-assistant.io/integrations/template/#trigger-based-template-sensors&quot;&gt;triggers for template entities&lt;/a&gt;.  There’s a large variety of triggers that can be used here (e.g, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;webhook&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mqtt&lt;/code&gt;) but for &lt;strong&gt;longitudinal analysis&lt;/strong&gt;, the most useful one is the &lt;a href=&quot;https://www.home-assistant.io/docs/automation/trigger#time-pattern-trigger&quot;&gt;&lt;strong&gt;time pattern&lt;/strong&gt; trigger&lt;/a&gt;, called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;time_pattern&lt;/code&gt;.  Time pattern triggers can be specified for hours (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hours:&lt;/code&gt;), minutes (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;minutes:&lt;/code&gt;), and seconds (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;seconds:&lt;/code&gt;), and for each one, it’s possible to prefix the value with a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/&lt;/code&gt; to match whenever the current value is divisible by the specified value (e.g., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hours: &quot;/2&quot;&lt;/code&gt; will match every 2 hours) or use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;*&lt;/code&gt; to match any value (e.g., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;minutes: &quot;*&quot;&lt;/code&gt; to match every minute).&lt;/p&gt;
+&lt;p&gt;Fortunately, just like we specify triggers for automations, HASS offers the possibility to specify &lt;a href=&quot;https://www.home-assistant.io/integrations/template/#trigger-based-template-sensors&quot;&gt;triggers for template entities&lt;/a&gt;.  There’s a large variety of triggers that can be used here (e.g, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;webhook&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mqtt&lt;/code&gt;) but for &lt;strong&gt;longitudinal analysis&lt;/strong&gt;, the most useful one is the &lt;a href=&quot;https://www.home-assistant.io/docs/automation/trigger#time-pattern-trigger&quot;&gt;&lt;strong&gt;time pattern&lt;/strong&gt; trigger&lt;/a&gt;, which is aptly called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;time_pattern&lt;/code&gt;.  Time pattern triggers can be specified for hours (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hours:&lt;/code&gt;), minutes (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;minutes:&lt;/code&gt;), and seconds (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;seconds:&lt;/code&gt;), and for each one, it’s possible to prefix the value with a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/&lt;/code&gt; to match whenever the current value is divisible by the specified value (e.g., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hours: &quot;/2&quot;&lt;/code&gt; will match every 2 hours) or use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;*&lt;/code&gt; to match any value (e.g., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;minutes: &quot;*&quot;&lt;/code&gt; to match every minute).&lt;/p&gt;
 
 &lt;p&gt;To create a time pattern trigger for one or more template entity sensor, simply add a list of time-based &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sensor:&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;binary_sensor:&lt;/code&gt; under a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;trigger:&lt;/code&gt; configuration in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;templates.yaml&lt;/code&gt; configuration file, as follows:&lt;/p&gt;
 
@@ -318,7 +322,7 @@
 
 &lt;p class=&quot;notice notice--warning&quot;&gt;Beware that depending on how triggers are configured and how many template entities are created, the HASS DB might end up using &lt;strong&gt;a lot of space&lt;/strong&gt; and computations are bound to use &lt;strong&gt;ever more CPU (and possibly RAM) resources&lt;/strong&gt;, owing to the number of entries in the DB.  Be sure to monitor such resources after configuring your HASS instance; Otherwise, your HASS instance might experience serious problems.&lt;/p&gt;
 
-&lt;p&gt;Finally, there is the topic of statistical sampling (representativeness) when it comes to making generalizations from a couple of samples (e.g., environmental sensors in my bedroom and kitchen) to a population (temperature and humidity in my entire house).  In this guide, however, we will only make extrapolations about the devices, sensors, and services themselves over time, rather than any population that they might belong to.  Nonetheless, extended &lt;strong&gt;service outages&lt;/strong&gt;, for example, might comprise summary statistics and inferences.  For proper representation, it is fundamental that your HASS has been running and collecting data for as long as the monitored time period of any statistic (e.g., a sensor that monitors weekly activity won’t make sense until your HASS instance has been running and collecting data over at least one week).&lt;/p&gt;
+&lt;p&gt;Finally, there is the topic of statistical sampling (representativeness) when it comes to making generalizations from a couple of samples (e.g., environmental sensors in my bedroom and kitchen) to a population (temperature and humidity in my entire house).  In this guide, however, we will not delve too far into statistical inferences, owing to limitations of the current set of analytical tools.  Nonetheless, extended &lt;strong&gt;service outages&lt;/strong&gt;, for example, might comprise summary statistics.  For proper representation, it is fundamental that your HASS has been running and collecting data for as long as the monitored time period of any statistic.  To put it in simple, a sensor that monitors weekly activity, for example, won’t make sense until your HASS instance has been running and collecting data over at least one week.&lt;/p&gt;
 
 &lt;h2 id=&quot;utilities&quot;&gt;Utilities&lt;/h2&gt;
 &lt;p&gt;The &lt;a href=&quot;https://www.home-assistant.io/integrations/#utility&quot;&gt;&lt;strong&gt;Utility integrations&lt;/strong&gt;&lt;/a&gt; offer users tools to parse and analyze data from recorded entities.  There are more than 30 different such integrations and they sometimes have overlapping functionalities.  For example, the gradient (ratio of change) over the last two data points can be computed by both the &lt;a href=&quot;https://www.home-assistant.io/integrations/trend/&quot;&gt;Trend&lt;/a&gt; integration and the &lt;a href=&quot;https://www.home-assistant.io/integrations/derivative/&quot;&gt;Derivative&lt;/a&gt;.  In what follows, I covered only three of the utility integrations that I find most comprehensive and useful, namely:&lt;/p&gt;
@@ -329,7 +333,7 @@
   &lt;li&gt;&lt;a href=&quot;#trend&quot;&gt;Trend&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;Trend is covered last because out of the set, it’s the only one that actually makes use of &lt;em&gt;inferential&lt;/em&gt; tools via the Python package &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;numpy&lt;/code&gt;. The others provide counting, other mathematical resources, and ways to summarize historical data.  For each utility, I provided a brief description, usage examples to follow along, and reference to the documentation and code.&lt;/p&gt;
+&lt;p&gt;Trend is covered last because out of the set, it’s the only one that actually makes use of inferential tools via the Python package &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;numpy&lt;/code&gt;. The others provide counting, other mathematical resources, and ways of summarize historical data.  For each utility, I provided a brief description, usage examples to follow along, and reference to the documentation and source code.&lt;/p&gt;
 
 &lt;h3 id=&quot;history-stats&quot;&gt;History Stats&lt;/h3&gt;
 &lt;p&gt;The &lt;a href=&quot;https://www.home-assistant.io/integrations/history_stats/&quot;&gt;History Stats&lt;/a&gt; integration provides useful statistics for discrete variables over a user-specified time-range.  More specifically, this integration can do one of three things depending on the chosen type of sensor:&lt;/p&gt;
@@ -414,7 +418,7 @@
 
 &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-06-04-smarter-hass/hass-utility-historystats.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-06-04-smarter-hass/hass-utility-historystats.jpg&quot; alt=&quot;HASS utility history stats&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;For the example above, it’s been cloudy for 2.6% of the time today, we had roughly 10 hours of sunny weather yesterday, and the weather changed to rainy 5 times over the week.&lt;/p&gt;
+&lt;p&gt;In the example above, it’s been cloudy for 2.6% of the time today, we had roughly 10 hours of sunny weather yesterday, and the weather changed to rainy 5 times over the week.&lt;/p&gt;
 
 &lt;p class=&quot;notice--warning&quot;&gt;Because I have not been running HASS and collecting &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;weather.home&lt;/code&gt; data over this week in a reliable way, &lt;strong&gt;the reported metrics can be quite misleading&lt;/strong&gt;, as noted in the &lt;a href=&quot;#sampling&quot;&gt;Sampling&lt;/a&gt; section.  For a proper representation of the statistics over the configured time-range, make sure to keep your HASS instance running (and in this case, check that the cloud polling has been working without extended service outages) for at least as long as the configured time-range.&lt;/p&gt;
 
@@ -427,7 +431,7 @@
 &lt;p&gt;&lt;a href=&quot;#utilities&quot; class=&quot;btn btn--info btn--small&quot;&gt;Utilities&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;statistics-1&quot;&gt;Statistics&lt;/h3&gt;
-&lt;p&gt;The &lt;a href=&quot;https://www.home-assistant.io/integrations/statistics/&quot;&gt;Statistics&lt;/a&gt; integration is by far the most useful integration for describing the past states and measurements from other entities.  In brief, it consumes the data from another entity and returns the traditional descriptive measures of central tendency (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mean&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;median&lt;/code&gt;) and variability (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;variance&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stdev&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;min_value&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;max_value&lt;/code&gt;), as well as a few other descriptive measures.&lt;/p&gt;
+&lt;p&gt;The &lt;a href=&quot;https://www.home-assistant.io/integrations/statistics/&quot;&gt;Statistics&lt;/a&gt; integration is by far the most useful integration for describing the past values from other entities.  In brief, it consumes the data from another entity and returns the traditional descriptive measures of central tendency (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mean&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;median&lt;/code&gt;) and variability (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;variance&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stdev&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;min_value&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;max_value&lt;/code&gt;), as well as a few other descriptive measures.&lt;/p&gt;
 
 &lt;p&gt;Similarly to the &lt;a href=&quot;#history-stats&quot;&gt;History Stats&lt;/a&gt; integration, the Statistics integration has &lt;strong&gt;two time period variables&lt;/strong&gt;:&lt;/p&gt;
 
@@ -450,7 +454,7 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;then the time-range would instead span from exactly &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;3 days old&lt;/code&gt; to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2 days, 22 hours, 20 minutes old&lt;/code&gt;.  Finally, because there will be 288 data points per day, if we set &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sampling_size: 288&lt;/code&gt; in the last example, then the time-range would instead span from exactly &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;3 days old&lt;/code&gt; to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2 days old&lt;/code&gt;.&lt;/p&gt;
 
-&lt;p&gt;While proper configuration of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sampling_size&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;max_age&lt;/code&gt; allow for the specification of a variety of different time-ranges, it does require clear understanding of the entity’s &lt;strong&gt;measurement resolution&lt;/strong&gt; and how it is updated in the DB because otherwise, the computed statistics are bound to misrepresent the desired time-ranges.  I feel the &lt;a href=&quot;#history-stats&quot;&gt;History Stats&lt;/a&gt; integration is more flexible and precise in its definition of the time-range by using the more intuitive &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;start:&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;end:&lt;/code&gt;, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;duration:&lt;/code&gt; time variables.  For example, the &lt;a href=&quot;https://www.home-assistant.io/docs/configuration/templating/#time&quot;&gt;time templating&lt;/a&gt; used in the History Stats integration allows for the specification of any hour of any day (e.g., start yesterday at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;00:00:00&lt;/code&gt; and end today at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;00:00:00&lt;/code&gt;), whereas such level of precision is not possible in the Statistics integration alone.&lt;/p&gt;
+&lt;p&gt;While proper configuration of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sampling_size&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;max_age&lt;/code&gt; allow for the specification of a variety of different time-ranges, it does require clear understanding of the entity’s &lt;strong&gt;measurement resolution&lt;/strong&gt; and how it is updated in the DB because otherwise, the computed statistics are bound to misrepresent the desired time-ranges.  I feel the &lt;a href=&quot;#history-stats&quot;&gt;History Stats&lt;/a&gt; integration is more flexible and precise in its definition of the time-range by using the more intuitive &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;start:&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;end:&lt;/code&gt;, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;duration:&lt;/code&gt; time variables.  For example, the &lt;a href=&quot;https://www.home-assistant.io/docs/configuration/templating/#time&quot;&gt;time templating&lt;/a&gt; used in the History Stats integration allows for the specification of any hour of any day (e.g., start yesterday at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;00:00:00&lt;/code&gt; and end today at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;00:00:00&lt;/code&gt;), whereas such level of precision is not possible with the Statistics integration alone.&lt;/p&gt;
 
 &lt;h4 id=&quot;usage-examples-1&quot;&gt;Usage examples&lt;/h4&gt;
 &lt;p&gt;As before, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;statistics&lt;/code&gt; are defined as a platform (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;- platform: statistics&lt;/code&gt;) under &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sensor:&lt;/code&gt; in your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;configuration.yaml&lt;/code&gt; file.  In this example, we will configure two &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;statistics&lt;/code&gt; sensors to consume the data from the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sensor.template_sun_elevation_time_based&lt;/code&gt; entity:&lt;/p&gt;
@@ -589,13 +593,13 @@
 
 &lt;p&gt;The specification of time in this integration is very similar to the &lt;a href=&quot;#statistics-01&quot;&gt;Statistics&lt;/a&gt; integration, except that (a) &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sampling_size&lt;/code&gt; is now called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;max_samples&lt;/code&gt;, (b) &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;max_age&lt;/code&gt; is now called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sample_duration&lt;/code&gt;, and (c) the latter is specified in &lt;em&gt;seconds&lt;/em&gt; instead of using a duration syntax.  Specifically, the time period is specified by the following two time variables:&lt;/p&gt;
 
-&lt;ol&gt;
+&lt;ul&gt;
   &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;max_samples&lt;/code&gt;: The maximum number of data points. By default, it uses the last two data points (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;max_samples: 2&lt;/code&gt;);&lt;/li&gt;
   &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sample_duration&lt;/code&gt;: The duration (in seconds) of the oldest data point.  By default, it is unconstrained (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sample_duration: 0&lt;/code&gt;).&lt;/li&gt;
-&lt;/ol&gt;
+&lt;/ul&gt;
 
 &lt;h4 id=&quot;usage-examples-2&quot;&gt;Usage examples&lt;/h4&gt;
-&lt;p&gt;Contrary to the previous two utilities, a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;trend&lt;/code&gt; sensor is defined as a platform (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;- platform: trend&lt;/code&gt;) under &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;binary_sensor:&lt;/code&gt; in your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;configuration.yaml&lt;/code&gt; file.  For this reason, first, let’s include a reference to a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;binary_sensors.yaml&lt;/code&gt; in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;configuration.yaml&lt;/code&gt; file, as follows:&lt;/p&gt;
+&lt;p&gt;Contrary to the previous two utilities, a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;trend&lt;/code&gt; sensor is defined as a platform (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;- platform: trend&lt;/code&gt;) under &lt;strong&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;binary_sensor:&lt;/code&gt;&lt;/strong&gt; in your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;configuration.yaml&lt;/code&gt; file.  For this reason, first, let’s include a reference to a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;binary_sensors.yaml&lt;/code&gt; in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;configuration.yaml&lt;/code&gt; file, as follows:&lt;/p&gt;
 
 &lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# Binary sensors&lt;/span&gt;
 &lt;span class=&quot;na&quot;&gt;binary_sensor&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;!include&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;binary_sensors.yaml&lt;/span&gt;
@@ -704,19 +708,39 @@
 
 &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-06-04-smarter-hass/hass-graph-dynamic-temperature-01.gif&quot;&gt;&lt;img src=&quot;/assets/posts/2021-06-04-smarter-hass/hass-graph-dynamic-temperature-01.gif&quot; alt=&quot;HASS graph dynamic temperature 01&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;And a few hours later:&lt;/p&gt;
+&lt;p&gt;And here’s how it has changed a few hours later:&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-06-04-smarter-hass/hass-graph-dynamic-temperature-02.gif&quot;&gt;&lt;img src=&quot;/assets/posts/2021-06-04-smarter-hass/hass-graph-dynamic-temperature-02.gif&quot; alt=&quot;HASS graph dynamic temperature 02&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;This card displays &lt;strong&gt;six temperature&lt;/strong&gt; (Met.no) &lt;strong&gt;metrics&lt;/strong&gt; over a 24h time-range:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;The main (colored) line shows the &lt;strong&gt;current temperature&lt;/strong&gt;, in which the colors are selected by ever changing (dynamic) thresholds that range from the &lt;em&gt;maximum&lt;/em&gt; over the last 24hrs to &lt;em&gt;+1 standard deviation&lt;/em&gt; to the &lt;em&gt;mean&lt;/em&gt; to &lt;em&gt;-1 standard deviation&lt;/em&gt; to the &lt;em&gt;minimum&lt;/em&gt;.  Colors were selected from the following &lt;a href=&quot;https://coolors.co&quot;&gt;palette&lt;/a&gt;:&lt;/li&gt;
-&lt;/ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The main (colored) line shows the &lt;strong&gt;current temperature&lt;/strong&gt;, in which the colors are selected by the following ever changing (dynamic) thresholds:&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-06-04-smarter-hass/color-palette.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-06-04-smarter-hass/color-palette.jpg&quot; alt=&quot;Color palette&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+    &lt;table&gt;
+      &lt;thead&gt;
+        &lt;tr&gt;
+          &lt;th style=&quot;text-align: center&quot;&gt;very high&lt;/th&gt;
+          &lt;th style=&quot;text-align: center&quot;&gt;high&lt;/th&gt;
+          &lt;th style=&quot;text-align: center&quot;&gt;low&lt;/th&gt;
+          &lt;th style=&quot;text-align: center&quot;&gt;very low&lt;/th&gt;
+        &lt;/tr&gt;
+      &lt;/thead&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;max&lt;/em&gt; to (&lt;em&gt;mean&lt;/em&gt; &lt;strong&gt;+&lt;/strong&gt; &lt;em&gt;stdev&lt;/em&gt;)&lt;/td&gt;
+          &lt;td style=&quot;text-align: center&quot;&gt;(&lt;em&gt;mean&lt;/em&gt; &lt;strong&gt;+&lt;/strong&gt; &lt;em&gt;stdev&lt;/em&gt;) to &lt;em&gt;mean&lt;/em&gt;&lt;/td&gt;
+          &lt;td style=&quot;text-align: center&quot;&gt;&lt;em&gt;mean&lt;/em&gt; to (&lt;em&gt;mean&lt;/em&gt; &lt;strong&gt;-&lt;/strong&gt; &lt;em&gt;stdev&lt;/em&gt;)&lt;/td&gt;
+          &lt;td style=&quot;text-align: center&quot;&gt;(&lt;em&gt;mean&lt;/em&gt; &lt;strong&gt;-&lt;/strong&gt; &lt;em&gt;stdev&lt;/em&gt;) to &lt;em&gt;min&lt;/em&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
 
-&lt;ul&gt;
+    &lt;p&gt;And the corresponding colors were selected from the following &lt;a href=&quot;https://coolors.co&quot;&gt;palette&lt;/a&gt; (hex color code shown above the color label):&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-06-04-smarter-hass/color-palette.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-06-04-smarter-hass/color-palette.jpg&quot; alt=&quot;Color palette&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
   &lt;li&gt;The highest valued shaded area in the background corresponds to the &lt;strong&gt;max temperature&lt;/strong&gt; over the last 24hrs;&lt;/li&gt;
   &lt;li&gt;The second highest shaded area corresponds to &lt;strong&gt;plus one standard deviation&lt;/strong&gt; from the mean temperature over the last 24hrs;&lt;/li&gt;
   &lt;li&gt;The middle shaded area corresponds to the &lt;strong&gt;mean temperature&lt;/strong&gt; over the last 24hrs;&lt;/li&gt;
@@ -726,6 +750,7 @@
 
 &lt;p&gt;The graph therefore provides a visually appealing way of assessing the current temperature relative to its 24hrs distribution, which is much more convenient than inspecting a table of values over time. Next, I will describe how to create the graph step-by-step.&lt;/p&gt;
 
+&lt;h3 id=&quot;how-to-temperature-with-dynamic-color-thresholds&quot;&gt;How-to: Temperature with dynamic color thresholds&lt;/h3&gt;
 &lt;p&gt;First, make sure you have an entity for each of the six metrics described before.  All such metrics can be obtained from the &lt;strong&gt;&lt;a href=&quot;#statistics-01&quot;&gt;Statistics&lt;/a&gt; integration&lt;/strong&gt;, which will consume the data from a temperature sensor (e.g., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;weather.home&lt;/code&gt; via Met.no) and by using custom &lt;strong&gt;template sensors&lt;/strong&gt;.  More specifically, make sure your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;configuration.yaml&lt;/code&gt; file has an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;!include&lt;/code&gt; for both &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sensors.yaml&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;templates.yaml&lt;/code&gt;, as follows:&lt;/p&gt;
 
 &lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# Sensors&lt;/span&gt;
@@ -897,7 +922,7 @@
 &lt;h1 id=&quot;development&quot;&gt;Development&lt;/h1&gt;
 &lt;p&gt;In this guide, we’ve seen how the current set of analytical tools can greatly improve the way we &lt;strong&gt;describe&lt;/strong&gt; past and current states.  However, the lack of a flexible and standardized specification of the &lt;em&gt;time variables&lt;/em&gt;, as well as the lack of critical &lt;em&gt;distribution metrics&lt;/em&gt; (e.g., percentile), make the current analytical tools very narrow in scope.  Compare, for example, how the &lt;a href=&quot;#history-stats&quot;&gt;History Stats&lt;/a&gt; and the &lt;a href=&quot;#statistics-1&quot;&gt;Statistics&lt;/a&gt; integration deal with the specification of a time period; or the lack of metrics in the Statistics integration for building &lt;a href=&quot;https://en.wikipedia.org/wiki/Box_plot&quot;&gt;box plots&lt;/a&gt;, which use the same amount of visual space as bar/line plots but are far more informative.&lt;/p&gt;
 
-&lt;p&gt;In addition, statistics is not just about summarizing the past; it is also a tool for making &lt;strong&gt;data-driven inferences&lt;/strong&gt; about the future.  This is a topic that I find largely unexplored in home automation systems and would allow for the creation of what I call &lt;em&gt;inferential automations&lt;/em&gt;.  Inferential automations determine actions based on abnormal states and measurements, for example, or reliable tendencies over a user-specified period of time:&lt;/p&gt;
+&lt;p&gt;In addition, statistics is not just about summarizing the past; it is also a tool for making &lt;strong&gt;data-driven inferences&lt;/strong&gt; about the future.  This is a topic that I find largely unexplored in home automation systems and would allow for the creation of what I call &lt;strong&gt;inferential automations&lt;/strong&gt;.  Inferential automations determine actions based on abnormal states and measurements, for example, or reliable tendencies over a user-specified period of time:&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;if the water level is &lt;em&gt;significantly lower than yesterday&lt;/em&gt;, then __ .&lt;/li&gt;
@@ -921,7 +946,7 @@
 &lt;p&gt;For anyone who might want to help out, the folks at the HASS wiki were very kind to write a super detailed guide about developing new integrations:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://developers.home-assistant.io/docs/development_index/&quot;&gt;&lt;strong&gt;Development Workflow&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://developers.home-assistant.io/docs/development_index/&quot;&gt;Development Workflow&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;a href=&quot;/contact&quot;&gt;Reach out&lt;/a&gt; if you are thinking about development.&lt;/p&gt;
@@ -929,8 +954,9 @@
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;This marks the end of this guide.  My intention was to highlight a few of the currently available &lt;a href=&quot;https://www.home-assistant.io/integrations/#utility&quot;&gt;Utility integrations&lt;/a&gt; because they are rarely used but are fairly easy to implement and incredibly useful.  There are a few gotchas to how data are sampled and stored in HASS, as well as how a few of the reviewed integrations work, which I hope were made verbatim in this guide and will help you decide what is best for your own use-case.&lt;/p&gt;
 
-&lt;p&gt;This is all served via a beautiful and configurable web interface that can be accessed both locally and remotely using either any of the popular web browsers or its official app for &lt;a href=&quot;https://play.google.com/store/apps/details?id=io.homeassistant.companion.android&quot;&gt;Android&lt;/a&gt; and &lt;a href=&quot;https://apps.apple.com/us/app/home-assistant/id1099568401&quot;&gt;iOS&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Moving forward, there is a clear trajectory for implementing what I called &lt;strong&gt;inferential automations&lt;/strong&gt;.  This begins with improving existing &lt;a href=&quot;https://www.home-assistant.io/integrations/#utility&quot;&gt;Utility integrations&lt;/a&gt; and ends with porting advanced analytical Python packages to the HASS environment.  The culmination of this path is the largely unexplored concept of automating the future using data-driven inferences in home automation systems.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="hass" /><category term="iot" /><category term="automation" /><category term="math" /><category term="stats" /><category term="inference" /></entry><entry><title type="html">How to make a chimarrão Gaúcho</title><link href="/blog/chimarrao-gaucho/" rel="alternate" type="text/html" title="How to make a chimarrão Gaúcho" /><published>2021-03-09T12:30:00-03:00</published><updated>2021-03-09T12:30:00-03:00</updated><id>/blog/chimarrao-gaucho</id><content type="html" xml:base="/blog/chimarrao-gaucho/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;Mar 9th, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
