@@ -9,7 +9,7 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Towards a smarter Home Assistant: Getting started on the analytical tools and beyond - CGomesu</title>
+<!-- begin _includes/seo.html --><title>Towards a smarter Home Assistant: Getting started on the analytical tools - CGomesu</title>
 <meta name="description" content="A blog and portfolio website built with Jekyll and hosted on Github Pages">
 
 
@@ -19,7 +19,7 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="CGomesu">
-<meta property="og:title" content="Towards a smarter Home Assistant: Getting started on the analytical tools and beyond">
+<meta property="og:title" content="Towards a smarter Home Assistant: Getting started on the analytical tools">
 <meta property="og:url" content="/blog/smarter-hass/">
 
 
@@ -184,7 +184,7 @@
     <div class="wrapper">
       <h1 id="page-title" class="page__title" itemprop="headline">
         
-          Towards a smarter Home Assistant: Getting started on the analytical tools and beyond
+          Towards a smarter Home Assistant: Getting started on the analytical tools
 
         
       </h1>
@@ -198,7 +198,7 @@
 
 
 
-  68 minute read
+  70 minute read
 
 </p>
       
@@ -337,7 +337,7 @@
 
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Towards a smarter Home Assistant: Getting started on the analytical tools and beyond">
+    <meta itemprop="headline" content="Towards a smarter Home Assistant: Getting started on the analytical tools">
     <meta itemprop="description" content="">
     <meta itemprop="datePublished" content="2021-06-04T10:40:00-03:00">
     
@@ -357,7 +357,7 @@
   <li><a href="#outline">Outline</a></li>
   <li><a href="#prerequisites">Prerequisites</a>
     <ul>
-      <li><a href="#hass-core">HASS Core</a></li>
+      <li><a href="#hass-core">HASS core</a></li>
       <li><a href="#hass-configuration-files">HASS configuration files</a></li>
       <li><a href="#hass-database">HASS database</a>
         <ul>
@@ -392,10 +392,9 @@
               <li><a href="#additional-references-2">Additional references</a></li>
             </ul>
           </li>
-          <li><a href="#visualizing-analytical-data">Visualizing analytical data</a></li>
         </ul>
       </li>
-      <li><a href="#statistical-inference">Statistical inference</a></li>
+      <li><a href="#visualizing-analytical-data">Visualizing analytical data</a></li>
     </ul>
   </li>
   <li><a href="#development">Development</a></li>
@@ -428,7 +427,7 @@
 
 <p>Furthermore, the fact that HASS integrations are written in the <a href="https://www.python.org/">Python programming language</a> makes HASS a prime candidate for exploring the use of statistical inference in home automation systems because many mathematical and statistical packages are already available in Python and are widely used and well-maintained (e.g., <a href="https://pypi.org/project/numpy/"><code class="language-plaintext highlighter-rouge">numpy</code></a> and <a href="https://pypi.org/project/scipy/"><code class="language-plaintext highlighter-rouge">scipy</code></a>). Therefore, porting new and more sophisticated analytical tools to HASS should be fairly straightforward.  (More on this in the <a href="#development">Development</a> section).</p>
 
-<p>At the very least, the current analytical tools can be used to improve the quality of the information in your current HASS dashboard.  For example, instead of simply displaying the current temperature, the use of analytical tools allow us to set dynamic color thresholds based on the mean and deviations from it (± one standard deviation, then min-max) over the last 24hrs:</p>
+<p>At the very least, the current analytical tools can be used to improve the quality of the information in your HASS dashboard.  For example, instead of simply displaying the current temperature, the use of analytical tools allow us to set dynamic color thresholds based on the mean and deviations from it (± one standard deviation, then min-max) over the last 24hrs:</p>
 
 <p><a href="/assets/posts/2021-06-04-smarter-hass/hass-graph-dynamic-temperature-01.gif"><img src="/assets/posts/2021-06-04-smarter-hass/hass-graph-dynamic-temperature-01.gif" alt="HASS graph dynamic temperature 01" class="PostImage PostImage--large" /></a></p>
 
@@ -443,7 +442,6 @@
       <li>The HASS SQLite database (DB)</li>
       <li>YAML syntax</li>
       <li>Templating</li>
-      <li>Data visualization tools</li>
     </ul>
   </li>
   <li>Learn the specifics about how data are sampled and stored in the HASS DB and how they affect analysis, owing to inconsistent data points and misrepresentation of data over time.</li>
@@ -454,7 +452,7 @@
       <li>Trend</li>
     </ul>
   </li>
-  <li>Make use of analytical data to improve your current HASS dashboard using the following resources (JavaScript):
+  <li>Make use of analytical data to improve your current HASS dashboard using the following cards:
     <ul>
       <li>Mini graph card</li>
       <li>Lovelace card templater</li>
@@ -483,8 +481,8 @@
 
 <p>Those four topics are described separately next.  If you are already familiar with them, feel free to skip straight to the main <a href="#implementation">Implementation</a> section.  However, at the very least, I suggest to glance over each topic to make sure we are on the same page before moving on.</p>
 
-<h2 id="hass-core">HASS Core</h2>
-<p>Structurally, HASS can be divided into three main layers: (a) Core; (b) Supervisor; and (c) Operating System (OS).  The folks at the HASS wiki were kind enough to put together a plethora of <a href="https://www.home-assistant.io/installation/">installation methods</a> for all sorts of OSes and environments (bare-metal vs. virtual).  For this guide, however, only the most basic layer of the HASS system is needed, namely the <strong>HASS Core</strong>, which is available in <em>any</em> installation method.</p>
+<h2 id="hass-core">HASS core</h2>
+<p>Structurally, HASS can be divided into three main layers: (a) core; (b) supervisor; and (c) operating system (OS).  The folks at the HASS wiki were kind enough to put together a plethora of <a href="https://www.home-assistant.io/installation/">installation methods</a> for all sorts of OSes and environments (bare-metal vs. virtual).  For this guide, however, only the most basic layer of the HASS system is needed, namely the <strong>HASS core</strong>, which is available in <em>any</em> installation method.</p>
 
 <p>Instead of using an existing HASS instance, I <strong>strongly</strong> recommend to <strong>create a containerized (Docker) HASS instance</strong> for testing purposes.  This will be much safer than playing with an existing HASS instance and its database.</p>
 
@@ -611,26 +609,21 @@
 <p>If you want to refresh your stats knowledge or dig deeper into it, save some time and take a look at the following resources:</p>
 
 <ul>
-  <li>Basic stats refresher:
-    <ul>
-      <li><em>TODO: Embed videos? Probability + Basic stats</em></li>
-    </ul>
-  </li>
   <li>Reading material:
     <ul>
-      <li>Introduction:
-        <ul>
-          <li><em>TODO: Link to papers and books</em></li>
-        </ul>
-      </li>
-      <li>Advanced topics:
-        <ul>
-          <li><em>TODO: Link to papers and books</em></li>
-        </ul>
-      </li>
+      <li><a href="https://www.amazon.com/Statistics-11th-Robert-S-Witte/dp/1119386055">Robert Witte &amp; John Witte’s textbook called <strong>Statistics</strong></a></li>
+      <li><a href="https://www.amazon.com/All-Statistics-Statistical-Inference-Springer-ebook-dp-B00HWUVSJS/dp/B00HWUVSJS/">Larry Wasserman’s textbook called <strong>All of Statistics</strong></a></li>
     </ul>
   </li>
+  <li>Basic stats refresher:</li>
 </ul>
+
+<!-- Courtesy of embedresponsively.com //-->
+<div class="responsive-video-container">
+
+  <iframe src="https://www.youtube-nocookie.com/embed/xxpc-HPKN28" frameborder="0" allowfullscreen=""></iframe>
+
+</div>
 
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 
@@ -1110,7 +1103,7 @@
 
 <p><a href="#utilities" class="btn btn--info btn--small">Utilities</a></p>
 
-<h3 id="visualizing-analytical-data">Visualizing analytical data</h3>
+<h2 id="visualizing-analytical-data">Visualizing analytical data</h2>
 <p>There are many different ways of using and visualizing the analytical data reported with the utilities described in this guide.  Using the default configuration, for example, one might be inclined to display the mean or gradient using a <a href="https://www.home-assistant.io/lovelace/history-graph/">History Graph Card</a>.</p>
 
 <p>In this section, however, we will learn about two dashboard resources that I think are better alternatives to the History Graph Card, namely the <a href="https://github.com/kalkih/mini-graph-card">Mini Graph Card</a> and the <a href="https://github.com/gadgetchnnel/lovelace-card-templater">Lovelace Card Templater</a>. More specifically, we will use the Mini Graph Card within the Lovelace Card Templater to build the following Dashboard card previewed in the <a href="#introduction">Introduction</a>:</p>
@@ -1223,9 +1216,9 @@
 <p>Personally, I prefer to install such resources manually, instead of using the Community Store.  To do so:</p>
 
 <ol>
-  <li>Download their respective <code class="language-plaintext highlighter-rouge">.js</code> scripts to your HASS <code class="language-plaintext highlighter-rouge">config/www/</code> directory;</li>
+  <li><strong>Download</strong> their respective <code class="language-plaintext highlighter-rouge">.js</code> scripts to your HASS <code class="language-plaintext highlighter-rouge">config/www/</code> directory;</li>
   <li>Navigate to Configuration &gt; Lovelace Dashboards &gt; <strong>Resources</strong> and select <strong>add resource</strong>;</li>
-  <li>In the Add new resource window, set the URL to <code class="language-plaintext highlighter-rouge">/local/*.js</code>, in which <code class="language-plaintext highlighter-rouge">*</code> will be the name of the JavaScript (e.g., <code class="language-plaintext highlighter-rouge">/local/mini-graph-card-bundle.js</code>). HASS should automatically detect that the Resource Type is a <code class="language-plaintext highlighter-rouge">JavaScript Module</code> but if doesn’t, then select it;</li>
+  <li>In the <strong>Add new resource</strong> window, set the URL to <code class="language-plaintext highlighter-rouge">/local/MODULE_NAME.js</code>, in which <code class="language-plaintext highlighter-rouge">MODULE_NAME</code> will be the name of the JavaScript module (e.g., for the Mini Graph Card, that would be <code class="language-plaintext highlighter-rouge">/local/mini-graph-card-bundle.js</code>). HASS should automatically detect that the Resource Type is a <code class="language-plaintext highlighter-rouge">JavaScript Module</code> but if doesn’t, then select it;</li>
   <li>Press <strong>update</strong> and repeat the operation to add as many resources as necessary;</li>
   <li><strong>Restart your HASS</strong>.</li>
 </ol>
@@ -1297,13 +1290,20 @@
   <span class="pi">-</span> <span class="s">sensor.template_weather_temperature_one_day_min</span>
 </code></pre></div></div>
 
-<p>That is it!  If the values are not showing up correctly, check Developer Tools &gt; States to make sure the entities are there and the states are displaying the correct values.  If you want to reset the entity data, go to Developer Tools &gt; Services, select <code class="language-plaintext highlighter-rouge">recorder.purge_entities</code>, select the entities you want to reset in Targets (e.g., <code class="language-plaintext highlighter-rouge">sensor.weather_temperature_one_day</code>), and press <strong>call service</strong> to purge their data.</p>
+<p>That is it!  You should now be able to see a graph similar to the following one:</p>
+
+<p><a href="/assets/posts/2021-06-04-smarter-hass/hass-graph-dynamic-temperature-03.jpg"><img src="/assets/posts/2021-06-04-smarter-hass/hass-graph-dynamic-temperature-03.jpg" alt="HASS graph dynamic temperature 03" class="PostImage PostImage--large" /></a></p>
+
+<p>If the values are not showing up correctly, check Developer Tools &gt; States to make sure the entities are there and the states are displaying the correct values.  If you want to reset the entity data, go to Developer Tools &gt; Services, select <code class="language-plaintext highlighter-rouge">recorder.purge_entities</code>, select the entities you want to reset in Targets (e.g., <code class="language-plaintext highlighter-rouge">sensor.weather_temperature_one_day</code>), and press <strong>call service</strong> to purge their data.</p>
 
 <p>Of course, many other options are available using the <strong>Mini Graph Card</strong> and the <strong>Lovelace Card Templater</strong> in combination with the other card options (e.g., <a href="https://www.home-assistant.io/lovelace/entities/">Entities Card</a>, <a href="https://www.home-assistant.io/lovelace/gauge/">Gauge Card</a>).  Feel free to explore them (and let me know about it, too).</p>
 
-<h2 id="statistical-inference">Statistical inference</h2>
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 
-<p>In addition, the same analytical tools can be used to make statistical, data-driven inferences about the <strong>future states</strong> of smart devices and sensors to create what I call <em>inferential automations</em>. Inferential automations determine actions based on abnormal states and measurements, for example, or reliable tendencies over a user-specified period of time:</p>
+<h1 id="development">Development</h1>
+<p>In this guide, we’ve seen how the current set of analytical tools can greatly improve the way we <strong>describe</strong> past and current states.  However, the lack of a flexible and standardized specification of the <em>time variables</em>, as well as the lack of critical <em>distribution metrics</em> (e.g., percentile), make the current analytical tools very narrow in scope.  Compare, for example, how the <a href="#history-stats">History Stats</a> and the <a href="#statistics-1">Statistics</a> integration deal with the specification of a time period; or the lack of metrics in the Statistics integration for building <a href="https://en.wikipedia.org/wiki/Box_plot">box plots</a>, which use the same amount of visual space as bar/line plots but are far more informative.</p>
+
+<p>In addition, statistics is not just about summarizing the past; it is also a tool for making <strong>data-driven inferences</strong> about the future.  This is a topic that I find largely unexplored in home automation systems and would allow for the creation of what I call <em>inferential automations</em>.  Inferential automations determine actions based on abnormal states and measurements, for example, or reliable tendencies over a user-specified period of time:</p>
 
 <ul>
   <li>if the water level is <em>significantly lower than yesterday</em>, then __ .</li>
@@ -1314,39 +1314,23 @@
 
 <p><a href="/assets/posts/2021-06-04-smarter-hass/voc-plot-linear-fit.jpg"><img src="/assets/posts/2021-06-04-smarter-hass/voc-plot-linear-fit.jpg" alt="VOC plot linear fit" class="PostImage PostImage--large" /></a></p>
 
+<p>Sadly, none of the integrations currently enables the use of inferential automations.  The closest we have to such a thing is via the use of the <a href="#trend">Trend</a> integration but even then, we lack the output of fit metrics for proper inference, such as the residuals of the least-square fit.</p>
+
+<p>Of course, there’s a lot that can be done via templating but moving forward, there’s a need for advanced analytical integrations if we want to create inferential automations.  As I pointed out before, HASS integrations are written in the Python programming language, which means we can take advantage of the various analytical packages that are already available in Python, such as:</p>
+
 <ul>
-  <li>Where your statistics knowledge comes in</li>
-  <li>At the very basic level:
-    <ul>
-      <li>Confidence intervals (CI): https://www.statology.org/test-significance-regression-slope/</li>
-      <li>Distance from the mean in SD units</li>
-    </ul>
-  </li>
-  <li>Notes on sample, power, and null hypothesis testing for robust dynamic predictions</li>
+  <li><a href="https://pandas.pydata.org/">Pandas</a></li>
+  <li><a href="https://numpy.org/">NumPy</a></li>
+  <li><a href="https://www.scipy.org/">SciPy</a></li>
 </ul>
 
-<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+<p>For anyone who might want to help out, the folks at the HASS wiki were very kind to write a super detailed guide about developing new integrations:</p>
 
-<h1 id="development">Development</h1>
 <ul>
-  <li>A lot more can be done via templating but consider developing and porting new analytic tools as utility integrations
-    <ul>
-      <li>Develop new integrations: https://developers.home-assistant.io/docs/development_index/</li>
-    </ul>
-  </li>
-  <li>Ideas
-    <ul>
-      <li>Generalized polynomial fits for the Trend utility, instead of the forced linear
-        <ul>
-          <li>default degree = 1 assures backward compatibility</li>
-        </ul>
-      </li>
-      <li>Correlations (linear, rank)</li>
-      <li>Genrealized linear models and other common statistical models</li>
-      <li>Endless possibilities for analytic tool development; most require simple porting to the HASS environment because we already have many Python pkgs for statistical analysis (e.g., SciPy)</li>
-    </ul>
-  </li>
+  <li><a href="https://developers.home-assistant.io/docs/development_index/"><strong>Development Workflow</strong></a></li>
 </ul>
+
+<p><a href="/contact">Reach out</a> if you are thinking about development.</p>
 
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 
@@ -1376,13 +1360,13 @@
     <h4 class="page__share-title">Share on</h4>
   
 
-  <a href="mailto:?subject=[cgomesu.com] Towards a smarter Home Assistant: Getting started on the analytical tools and beyond&amp;body=%2Fblog%2Fsmarter-hass%2F " class="btn btn--inverse" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on E-mail"><i class="fas fa-envelope" aria-hidden="true"></i><span> E-mail</span></a>
+  <a href="mailto:?subject=[cgomesu.com] Towards a smarter Home Assistant: Getting started on the analytical tools&amp;body=%2Fblog%2Fsmarter-hass%2F " class="btn btn--inverse" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on E-mail"><i class="fas fa-envelope" aria-hidden="true"></i><span> E-mail</span></a>
 
   <a href="https://www.facebook.com/sharer/sharer.php?u=%2Fblog%2Fsmarter-hass%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://www.reddit.com/submit?title=Towards a smarter Home Assistant: Getting started on the analytical tools and beyond&url=%2Fblog%2Fsmarter-hass%2F" class="btn btn--reddit" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Reddit"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i><span> Reddit</span></a>
+  <a href="https://www.reddit.com/submit?title=Towards a smarter Home Assistant: Getting started on the analytical tools&url=%2Fblog%2Fsmarter-hass%2F" class="btn btn--reddit" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Reddit"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i><span> Reddit</span></a>
 
-  <a href="https://twitter.com/intent/tweet?text=Towards+a+smarter+Home+Assistant%3A+Getting+started+on+the+analytical+tools+and+beyond%20%2Fblog%2Fsmarter-hass%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=Towards+a+smarter+Home+Assistant%3A+Getting+started+on+the+analytical+tools%20%2Fblog%2Fsmarter-hass%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 </section>
 
 

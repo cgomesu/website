@@ -1,7 +1,7 @@
 ---
-title: "Towards a smarter Home Assistant: Getting started on the analytical tools and beyond"
+title: "Towards a smarter Home Assistant: Getting started on the analytical tools"
 date: 2021-06-04 10:40:00 -0300
-tags: hass iot automation math stats
+tags: hass iot automation math stats inference
 header:
   overlay_image: "/assets/posts/2021-06-04-smarter-hass/header.jpg"
   overlay_filter: "0.6"
@@ -33,7 +33,7 @@ Unfortunately, according to the HASS website, the [Statistics](https://www.home-
 
 Furthermore, the fact that HASS integrations are written in the [Python programming language](https://www.python.org/) makes HASS a prime candidate for exploring the use of statistical inference in home automation systems because many mathematical and statistical packages are already available in Python and are widely used and well-maintained (e.g., [`numpy`](https://pypi.org/project/numpy/) and [`scipy`](https://pypi.org/project/scipy/)). Therefore, porting new and more sophisticated analytical tools to HASS should be fairly straightforward.  (More on this in the [Development](#development) section).
 
-At the very least, the current analytical tools can be used to improve the quality of the information in your current HASS dashboard.  For example, instead of simply displaying the current temperature, the use of analytical tools allow us to set dynamic color thresholds based on the mean and deviations from it (± one standard deviation, then min-max) over the last 24hrs:
+At the very least, the current analytical tools can be used to improve the quality of the information in your HASS dashboard.  For example, instead of simply displaying the current temperature, the use of analytical tools allow us to set dynamic color thresholds based on the mean and deviations from it (± one standard deviation, then min-max) over the last 24hrs:
 
 [![HASS graph dynamic temperature 01](/assets/posts/2021-06-04-smarter-hass/hass-graph-dynamic-temperature-01.gif){:.PostImage .PostImage--large}](/assets/posts/2021-06-04-smarter-hass/hass-graph-dynamic-temperature-01.gif)
 
@@ -46,13 +46,12 @@ But there's much more that can be done and accomplished moving forward.  If you 
   - The HASS SQLite database (DB)
   - YAML syntax
   - Templating
-  - Data visualization tools
 - Learn the specifics about how data are sampled and stored in the HASS DB and how they affect analysis, owing to inconsistent data points and misrepresentation of data over time.
 - Familiarize yourself with the use of three utility integrations:
   - History Stats
   - Statistics
   - Trend
-- Make use of analytical data to improve your current HASS dashboard using the following resources (JavaScript):
+- Make use of analytical data to improve your current HASS dashboard using the following cards:
   - Mini graph card
   - Lovelace card templater
 
@@ -75,8 +74,8 @@ The implementation of analytical tools in HASS has the following basic requireme
 
 Those four topics are described separately next.  If you are already familiar with them, feel free to skip straight to the main [Implementation](#implementation) section.  However, at the very least, I suggest to glance over each topic to make sure we are on the same page before moving on.
 
-## HASS Core
-Structurally, HASS can be divided into three main layers: (a) Core; (b) Supervisor; and (c) Operating System (OS).  The folks at the HASS wiki were kind enough to put together a plethora of [installation methods](https://www.home-assistant.io/installation/) for all sorts of OSes and environments (bare-metal vs. virtual).  For this guide, however, only the most basic layer of the HASS system is needed, namely the **HASS Core**, which is available in *any* installation method.
+## HASS core
+Structurally, HASS can be divided into three main layers: (a) core; (b) supervisor; and (c) operating system (OS).  The folks at the HASS wiki were kind enough to put together a plethora of [installation methods](https://www.home-assistant.io/installation/) for all sorts of OSes and environments (bare-metal vs. virtual).  For this guide, however, only the most basic layer of the HASS system is needed, namely the **HASS core**, which is available in *any* installation method.
 
 Instead of using an existing HASS instance, I **strongly** recommend to **create a containerized (Docker) HASS instance** for testing purposes.  This will be much safer than playing with an existing HASS instance and its database.
 
@@ -190,15 +189,14 @@ The goal in this guide is to present a starting point for more advanced usage of
 
 If you want to refresh your stats knowledge or dig deeper into it, save some time and take a look at the following resources:
 
-- Basic stats refresher:
-  - *TODO: Embed videos? Probability + Basic stats*
-
 - Reading material:
-  - Introduction:
-    - *TODO: Link to papers and books*
+  - [Robert Witte & John Witte's textbook called **Statistics**](https://www.amazon.com/Statistics-11th-Robert-S-Witte/dp/1119386055)
+  - [Larry Wasserman's textbook called **All of Statistics**](https://www.amazon.com/All-Statistics-Statistical-Inference-Springer-ebook-dp-B00HWUVSJS/dp/B00HWUVSJS/)
 
-  - Advanced topics:
-    - *TODO: Link to papers and books*
+- Basic stats refresher:
+
+{% include video id="xxpc-HPKN28" provider="youtube" %}
+{:. text-center}
 
 [top](#){:.btn .btn--light-outline .btn--small}
 
@@ -668,7 +666,7 @@ Now **reload your configuration** and afterwards, HASS will create new `sensor.t
 [Utilities](#utilities){:.btn .btn--info .btn--small}
 
 
-### Visualizing analytical data
+## Visualizing analytical data
 There are many different ways of using and visualizing the analytical data reported with the utilities described in this guide.  Using the default configuration, for example, one might be inclined to display the mean or gradient using a [History Graph Card](https://www.home-assistant.io/lovelace/history-graph/).
 
 In this section, however, we will learn about two dashboard resources that I think are better alternatives to the History Graph Card, namely the [Mini Graph Card](https://github.com/kalkih/mini-graph-card) and the [Lovelace Card Templater](https://github.com/gadgetchnnel/lovelace-card-templater). More specifically, we will use the Mini Graph Card within the Lovelace Card Templater to build the following Dashboard card previewed in the [Introduction](#introduction):
@@ -785,9 +783,9 @@ Finally, **check your configuration** and **restart your HASS**.  Now **wait at 
 
 Personally, I prefer to install such resources manually, instead of using the Community Store.  To do so:
 
-1. Download their respective `.js` scripts to your HASS `config/www/` directory;
+1. **Download** their respective `.js` scripts to your HASS `config/www/` directory;
 2. Navigate to Configuration > Lovelace Dashboards > **Resources** and select **add resource**;
-3. In the Add new resource window, set the URL to `/local/*.js`, in which `*` will be the name of the JavaScript (e.g., `/local/mini-graph-card-bundle.js`). HASS should automatically detect that the Resource Type is a `JavaScript Module` but if doesn't, then select it;
+3. In the **Add new resource** window, set the URL to `/local/MODULE_NAME.js`, in which `MODULE_NAME` will be the name of the JavaScript module (e.g., for the Mini Graph Card, that would be `/local/mini-graph-card-bundle.js`). HASS should automatically detect that the Resource Type is a `JavaScript Module` but if doesn't, then select it;
 4. Press **update** and repeat the operation to add as many resources as necessary;
 5. **Restart your HASS**.
 
@@ -859,14 +857,21 @@ entities:
 ```
 {% endraw %}
 
-That is it!  If the values are not showing up correctly, check Developer Tools > States to make sure the entities are there and the states are displaying the correct values.  If you want to reset the entity data, go to Developer Tools > Services, select `recorder.purge_entities`, select the entities you want to reset in Targets (e.g., `sensor.weather_temperature_one_day`), and press **call service** to purge their data.
+That is it!  You should now be able to see a graph similar to the following one:
+
+[![HASS graph dynamic temperature 03](/assets/posts/2021-06-04-smarter-hass/hass-graph-dynamic-temperature-03.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-06-04-smarter-hass/hass-graph-dynamic-temperature-03.jpg)
+
+If the values are not showing up correctly, check Developer Tools > States to make sure the entities are there and the states are displaying the correct values.  If you want to reset the entity data, go to Developer Tools > Services, select `recorder.purge_entities`, select the entities you want to reset in Targets (e.g., `sensor.weather_temperature_one_day`), and press **call service** to purge their data.
 
 Of course, many other options are available using the **Mini Graph Card** and the **Lovelace Card Templater** in combination with the other card options (e.g., [Entities Card](https://www.home-assistant.io/lovelace/entities/), [Gauge Card](https://www.home-assistant.io/lovelace/gauge/)).  Feel free to explore them (and let me know about it, too).
 
+[top](#){:.btn .btn--light-outline .btn--small}
 
-## Statistical inference
 
-In addition, the same analytical tools can be used to make statistical, data-driven inferences about the **future states** of smart devices and sensors to create what I call *inferential automations*. Inferential automations determine actions based on abnormal states and measurements, for example, or reliable tendencies over a user-specified period of time:
+# Development
+In this guide, we've seen how the current set of analytical tools can greatly improve the way we **describe** past and current states.  However, the lack of a flexible and standardized specification of the *time variables*, as well as the lack of critical *distribution metrics* (e.g., percentile), make the current analytical tools very narrow in scope.  Compare, for example, how the [History Stats](#history-stats) and the [Statistics](#statistics-1) integration deal with the specification of a time period; or the lack of metrics in the Statistics integration for building [box plots](https://en.wikipedia.org/wiki/Box_plot), which use the same amount of visual space as bar/line plots but are far more informative.
+
+In addition, statistics is not just about summarizing the past; it is also a tool for making **data-driven inferences** about the future.  This is a topic that I find largely unexplored in home automation systems and would allow for the creation of what I call *inferential automations*.  Inferential automations determine actions based on abnormal states and measurements, for example, or reliable tendencies over a user-specified period of time:
 
 - if the water level is *significantly lower than yesterday*, then __ .
 - if the number of detected cars on my camera is *significantly higher than thirty minutes ago*, then __ .
@@ -875,24 +880,19 @@ In addition, the same analytical tools can be used to make statistical, data-dri
 
 [![VOC plot linear fit](/assets/posts/2021-06-04-smarter-hass/voc-plot-linear-fit.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-06-04-smarter-hass/voc-plot-linear-fit.jpg)
 
-- Where your statistics knowledge comes in
-- At the very basic level:
-  - Confidence intervals (CI): https://www.statology.org/test-significance-regression-slope/ 
-  - Distance from the mean in SD units
-- Notes on sample, power, and null hypothesis testing for robust dynamic predictions
+Sadly, none of the integrations currently enables the use of inferential automations.  The closest we have to such a thing is via the use of the [Trend](#trend) integration but even then, we lack the output of fit metrics for proper inference, such as the residuals of the least-square fit.  
 
-[top](#){:.btn .btn--light-outline .btn--small}
+Of course, there's a lot that can be done via templating but moving forward, there's a need for advanced analytical integrations if we want to create inferential automations.  As I pointed out before, HASS integrations are written in the Python programming language, which means we can take advantage of the various analytical packages that are already available in Python, such as:
 
+- [Pandas](https://pandas.pydata.org/)
+- [NumPy](https://numpy.org/)
+- [SciPy](https://www.scipy.org/)
 
-# Development
-- A lot more can be done via templating but consider developing and porting new analytic tools as utility integrations
-  - Develop new integrations: https://developers.home-assistant.io/docs/development_index/
-- Ideas
-  - Generalized polynomial fits for the Trend utility, instead of the forced linear
-    - default degree = 1 assures backward compatibility
-  - Correlations (linear, rank)
-  - Genrealized linear models and other common statistical models
-  - Endless possibilities for analytic tool development; most require simple porting to the HASS environment because we already have many Python pkgs for statistical analysis (e.g., SciPy)
+For anyone who might want to help out, the folks at the HASS wiki were very kind to write a super detailed guide about developing new integrations:
+
+- [**Development Workflow**](https://developers.home-assistant.io/docs/development_index/)
+
+[Reach out](/contact) if you are thinking about development.
 
 [top](#){:.btn .btn--light-outline .btn--small}
 
