@@ -10,6 +10,8 @@ toc_label: "Table of Contents"
 toc_icon: "list"
 ---
 # Changelog
+**July 6th, 2021**: Added information about transitioning from OpenWrt 19 (current stable release) to OpenWrt 21 (next stable release) to a new section called [**Bonus content: Moving from OpenWrt 19 to 21**](#bonus-content-moving-from-openwrt-19-to-21).  In brief, the *next* stable release includes changes to the network configuration syntax that are incompatible with this guide.  Once the release version 21 becomes the *current* stable, however, I will update the main guide to reflect those changes.  In the meantime, I added a few references to the OpenWrt forum that should help anyone interested in using version 21 instead of 19.  Thanks to [Steve](https://forum.openwrt.org/u/SteveNewcomb) for testing and sharing his `batman-adv` configuration running on OpenWrt 21.
+{: .notice .notice--info }
 **Feb 17th, 2021**: Per a reader's suggestion (Joshua), I added a [`vi` cheat table](#vi-cheat-table) that has a summary of the main commands, and in the [Mesh node basic config](#mesh-node-basic-config) section, I included additional instructions on how to copy and paste the configuration files from one mesh node to another using `scp`.  (Alternatively, it's also possible to do so using Luci's backup/restore option.)
 {: .notice .notice--info }
 **Jan 9th, 2021**, Update #2: Added instructions on how to automatically upgrade all installed packages with a single command.  This information is in [Updating and installing packages](#updating-and-installing-packages).
@@ -1197,6 +1199,22 @@ If you know of a program that has a GUI and is able to handle such configuration
 If your device has unused **general purpose I/O** pins, it's possible to do all sorts of things with them.  Check the [GPIO documentation](https://openwrt.org/docs/techref/hardware/port.gpio) for examples of how to install new LEDs and buttons, for instance.  ([Your device's OpenWrt page can be very useful as well](https://openwrt.org/toh/tp-link/tl-wr1043nd#gpios).)
 
 Also, if you want to change the functionality of a few of the existing LEDs on your wireless device, check the [LED configuration documentation](https://openwrt.org/docs/guide-user/base-system/led_configuration).  Now that you have new mesh interfaces, you can use the LEDs to blink depending on the status of neighboring nodes, mesh gateways, or WAN connectivity through the mesh, to mention a few examples. (As mentioned before, [your device's OpenWrt page can be very useful here](https://openwrt.org/toh/tp-link/tl-wr1043nd#leds).)
+
+[top](#){: .btn .btn--light-outline .btn--small}
+
+# Bonus content: Moving from OpenWrt 19 to 21
+As mentioned before, this guide was written for the [**current stable** release version of the OpenWrt software](https://openwrt.org/releases/start), namely [version 19](https://openwrt.org/releases/19.07/start). However, the **next stable** version--[OpenWrt 21](https://openwrt.org/releases/21.02/start)--is already available for anyone to try.
+
+There are a few aspects about the configuration syntax that has changed between 19 and 21 that make the instructions from this guide incompatible with 21.  Of note, the **Ethernet network switch** framework is changing from reliance on [`swconfig`](https://openwrt.org/docs/techref/swconfig) to the [**Distributed Switch Architecture** (**DSA**)](https://www.kernel.org/doc/html/latest/networking/dsa/dsa.html), which comes with implications to how switches and bridges are configured in the `/etc/config/network` file.
+
+I've not tested the next stable release yet and likely will not until it becomes the current stable version.  When that happen, my plan is to update the main mesh guide to make it compatible with the release version 21 configuration syntax.  Until then, I recommend reading the following posts for anyone interested in trying to use `batman-adv` with the OpenWrt version 21:
+
+- **rmilecki**'s DSA tutorial:
+  - [Mini tutorial for DSA network config](https://forum.openwrt.org/t/mini-tutorial-for-dsa-network-config/96998)
+- **SteveNewcomb**'s posts about the `batman-adv` configuration:
+  - [Batman (in production with post 19.07 snapshot) not working under 21.02](https://forum.openwrt.org/t/batman-in-production-with-post-19-07-snapshot-not-working-under-21-02)
+  - [How to specify the mac address of a batman mesh member?](https://forum.openwrt.org/t/how-to-specify-the-mac-address-of-a-batman-mesh-member/100164/2)
+
 
 [top](#){: .btn .btn--light-outline .btn--small}
 
