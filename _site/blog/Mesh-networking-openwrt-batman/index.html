@@ -198,7 +198,7 @@
 
 
 
-  94 minute read
+  96 minute read
 
 </p>
       
@@ -428,6 +428,7 @@
     </ul>
   </li>
   <li><a href="#bonus-content-physical-computing">Bonus content: Physical computing</a></li>
+  <li><a href="#bonus-content-moving-from-openwrt-19-to-21">Bonus content: Moving from OpenWrt 19 to 21</a></li>
   <li><a href="#final-remarks">Final remarks</a>
     <ul>
       <li><a href="#other-similar-mesh-solutions">Other similar mesh solutions</a></li>
@@ -439,6 +440,7 @@
           </aside>
         
         <h1 id="changelog">Changelog</h1>
+<p class="notice notice--info"><strong>July 6th, 2021</strong>: Added information about transitioning from OpenWrt 19 (current stable release) to OpenWrt 21 (next stable release) to a new section called <a href="#bonus-content-moving-from-openwrt-19-to-21"><strong>Bonus content: Moving from OpenWrt 19 to 21</strong></a>.  In brief, the <em>next</em> stable release includes changes to the network configuration syntax that are incompatible with this guide.  Once the release version 21 becomes the <em>current</em> stable, however, I will update the main guide to reflect those changes.  In the meantime, I added a few references to the OpenWrt forum that should help anyone interested in using version 21 instead of 19.  Thanks to <a href="https://forum.openwrt.org/u/SteveNewcomb">Steve</a> for testing and sharing his <code class="language-plaintext highlighter-rouge">batman-adv</code> configuration running on OpenWrt 21.</p>
 <p class="notice notice--info"><strong>Feb 17th, 2021</strong>: Per a reader’s suggestion (Joshua), I added a <a href="#vi-cheat-table"><code class="language-plaintext highlighter-rouge">vi</code> cheat table</a> that has a summary of the main commands, and in the <a href="#mesh-node-basic-config">Mesh node basic config</a> section, I included additional instructions on how to copy and paste the configuration files from one mesh node to another using <code class="language-plaintext highlighter-rouge">scp</code>.  (Alternatively, it’s also possible to do so using Luci’s backup/restore option.)</p>
 <p class="notice notice--info"><strong>Jan 9th, 2021</strong>, Update #2: Added instructions on how to automatically upgrade all installed packages with a single command.  This information is in <a href="#updating-and-installing-packages">Updating and installing packages</a>.</p>
 <p class="notice notice--info"><strong>Jan 9th, 2021</strong>, Update #1: Added a new section about <a href="#hardware-specific-configurations">hardware-specific configurations</a> that are sometimes required for enabling the <code class="language-plaintext highlighter-rouge">mesh point</code> mode of operation.</p>
@@ -1723,6 +1725,29 @@ lsmod | grep batman
 <p>If your device has unused <strong>general purpose I/O</strong> pins, it’s possible to do all sorts of things with them.  Check the <a href="https://openwrt.org/docs/techref/hardware/port.gpio">GPIO documentation</a> for examples of how to install new LEDs and buttons, for instance.  (<a href="https://openwrt.org/toh/tp-link/tl-wr1043nd#gpios">Your device’s OpenWrt page can be very useful as well</a>.)</p>
 
 <p>Also, if you want to change the functionality of a few of the existing LEDs on your wireless device, check the <a href="https://openwrt.org/docs/guide-user/base-system/led_configuration">LED configuration documentation</a>.  Now that you have new mesh interfaces, you can use the LEDs to blink depending on the status of neighboring nodes, mesh gateways, or WAN connectivity through the mesh, to mention a few examples. (As mentioned before, <a href="https://openwrt.org/toh/tp-link/tl-wr1043nd#leds">your device’s OpenWrt page can be very useful here</a>.)</p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="bonus-content-moving-from-openwrt-19-to-21">Bonus content: Moving from OpenWrt 19 to 21</h1>
+<p>As mentioned before, this guide was written for the <a href="https://openwrt.org/releases/start"><strong>current stable</strong> release version of the OpenWrt software</a>, namely <a href="https://openwrt.org/releases/19.07/start">version 19</a>. However, the <strong>next stable</strong> version–<a href="https://openwrt.org/releases/21.02/start">OpenWrt 21</a>–is already available for anyone to try.</p>
+
+<p>There are a few aspects about the configuration syntax that has changed between 19 and 21 that make the instructions from this guide incompatible with 21.  Of note, the <strong>Ethernet network switch</strong> framework is changing from reliance on <a href="https://openwrt.org/docs/techref/swconfig"><code class="language-plaintext highlighter-rouge">swconfig</code></a> to the <a href="https://www.kernel.org/doc/html/latest/networking/dsa/dsa.html"><strong>Distributed Switch Architecture</strong> (<strong>DSA</strong>)</a>, which comes with implications to how switches and bridges are configured in the <code class="language-plaintext highlighter-rouge">/etc/config/network</code> file.</p>
+
+<p>I’ve not tested the next stable release yet and likely will not until it becomes the current stable version.  When that happen, my plan is to update the main mesh guide to make it compatible with the release version 21 configuration syntax.  Until then, I recommend reading the following posts for anyone interested in trying to use <code class="language-plaintext highlighter-rouge">batman-adv</code> with the OpenWrt version 21:</p>
+
+<ul>
+  <li><strong>rmilecki</strong>’s DSA tutorial:
+    <ul>
+      <li><a href="https://forum.openwrt.org/t/mini-tutorial-for-dsa-network-config/96998">Mini tutorial for DSA network config</a></li>
+    </ul>
+  </li>
+  <li><strong>SteveNewcomb</strong>’s posts about the <code class="language-plaintext highlighter-rouge">batman-adv</code> configuration:
+    <ul>
+      <li><a href="https://forum.openwrt.org/t/batman-in-production-with-post-19-07-snapshot-not-working-under-21-02">Batman (in production with post 19.07 snapshot) not working under 21.02</a></li>
+      <li><a href="https://forum.openwrt.org/t/how-to-specify-the-mac-address-of-a-batman-mesh-member/100164/2">How to specify the mac address of a batman mesh member?</a></li>
+    </ul>
+  </li>
+</ul>
 
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 

@@ -42,7 +42,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Mesh networking: A guide to using free and open-source software with common hardware",
-        "excerpt":"Changelog Feb 17th, 2021: Per a reader’s suggestion (Joshua), I added a vi cheat table that has a summary of the main commands, and in the Mesh node basic config section, I included additional instructions on how to copy and paste the configuration files from one mesh node to another...","categories": ["blog"],
+        "excerpt":"Changelog July 6th, 2021: Added information about transitioning from OpenWrt 19 (current stable release) to OpenWrt 21 (next stable release) to a new section called Bonus content: Moving from OpenWrt 19 to 21. In brief, the next stable release includes changes to the network configuration syntax that are incompatible with...","categories": ["blog"],
         "tags": ["mesh","adhoc","ieee","wifi","wireless","radio","network","router","openwrt","batman"],
         "url": "/blog/Mesh-networking-openwrt-batman/",
         "teaser": null
