@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-07-06T11:59:05-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">Towards a smarter Home Assistant: Getting started on the analytical tools</title><link href="/blog/smarter-hass/" rel="alternate" type="text/html" title="Towards a smarter Home Assistant: Getting started on the analytical tools" /><published>2021-06-22T15:45:00-03:00</published><updated>2021-06-22T15:45:00-03:00</updated><id>/blog/smarter-hass</id><content type="html" xml:base="/blog/smarter-hass/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-07-16T14:34:15-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">Towards a smarter Home Assistant: Getting started on the analytical tools</title><link href="/blog/smarter-hass/" rel="alternate" type="text/html" title="Towards a smarter Home Assistant: Getting started on the analytical tools" /><published>2021-06-22T15:45:00-03:00</published><updated>2021-06-22T15:45:00-03:00</updated><id>/blog/smarter-hass</id><content type="html" xml:base="/blog/smarter-hass/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;June 22nd, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
@@ -2301,6 +2301,8 @@ pipe:///usr/bin/env streamlink --stdout --default-stream 720p,best --url https:/
 &lt;p&gt;That is it for now.  If you enjoyed or have a few suggestions, &lt;a href=&quot;/contact&quot;&gt;let me know&lt;/a&gt;.  Every once in a while, come back and check the &lt;a href=&quot;#changelog&quot;&gt;changelog&lt;/a&gt; for updates.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="tvhlink" /><category term="streamlink" /><category term="tvheadend" /><category term="github" /><category term="iptv" /><category term="kodi" /><category term="youtube" /><category term="streaming" /><category term="livestream" /></entry><entry><title type="html">Tasmota webcam server for the ESP32-cam</title><link href="/blog/Esp32cam-tasmota-webcam-server/" rel="alternate" type="text/html" title="Tasmota webcam server for the ESP32-cam" /><published>2021-01-15T09:00:00-03:00</published><updated>2021-01-15T09:00:00-03:00</updated><id>/blog/Esp32cam-tasmota-webcam-server</id><content type="html" xml:base="/blog/Esp32cam-tasmota-webcam-server/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+&lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;July 16th, 2021&lt;/strong&gt;: Updated the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;WcResolution&lt;/code&gt; command in the &lt;a href=&quot;#webcam-server-additional-configurations&quot;&gt;Webcam server additional configurations&lt;/a&gt; section to reflect the latest support (firmware &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;9.5.0&lt;/code&gt;) for higher resolutions (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;11&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;12&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;13&lt;/code&gt;).  Thanks to Eric for the heads up!&lt;/p&gt;
+
 &lt;p class=&quot;notice notice--success&quot;&gt;&lt;strong&gt;April 6th, 2021&lt;/strong&gt;, Update #2: Created a bonus content section at the end called &lt;a href=&quot;#bonus-content-firmware-customization&quot;&gt;&lt;strong&gt;Firmware customization&lt;/strong&gt;&lt;/a&gt;. The new section describes how to create a customized Tasmota firmware to use any supported I2C or other peripherals that are not available in the pre-compiled binary. The &lt;em&gt;BME280&lt;/em&gt; sensor–a cheap and very reliable ambient temperature, humidity, and pressure sensor–was used as an example but the same procedure applies for displays and other I2C sensors that you might wish to use with your ESP32-cam board. This provides a very easy way to turn a simple webcam server into a weather station, smoke detector, relay controller, and more.&lt;/p&gt;
 
 &lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;April 6th, 2021&lt;/strong&gt;, Update #1: Added a pinout diagram for the ESP32-cam AI-Thinker board to the &lt;a href=&quot;#hardware&quot;&gt;Hardware&lt;/a&gt; section.&lt;/p&gt;
@@ -2668,6 +2670,21 @@ pipe:///usr/bin/env streamlink --stdout --default-stream 720p,best --url https:/
       &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;10&lt;/code&gt;: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;FRAMESIZE 1024x768&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;11&lt;/code&gt;: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;FRAMESIZE 1280x720&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;12&lt;/code&gt;: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;FRAMESIZE 1280x1024&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;13&lt;/code&gt;: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;FRAMESIZE 1600x1200&lt;/code&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;WcSaturation&lt;/code&gt;&lt;/td&gt;

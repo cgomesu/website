@@ -11,6 +11,9 @@ toc_icon: "list"
 ---
 
 # Changelog
+**July 16th, 2021**: Updated the `WcResolution` command in the [Webcam server additional configurations](#webcam-server-additional-configurations) section to reflect the latest support (firmware `9.5.0`) for higher resolutions (`11`, `12`, `13`).  Thanks to Eric for the heads up!
+{: .notice--info }
+
 **April 6th, 2021**, Update #2: Created a bonus content section at the end called [**Firmware customization**](#bonus-content-firmware-customization). The new section describes how to create a customized Tasmota firmware to use any supported I2C or other peripherals that are not available in the pre-compiled binary. The *BME280* sensor--a cheap and very reliable ambient temperature, humidity, and pressure sensor--was used as an example but the same procedure applies for displays and other I2C sensors that you might wish to use with your ESP32-cam board. This provides a very easy way to turn a simple webcam server into a weather station, smoke detector, relay controller, and more.
 {: .notice .notice--success }
 
@@ -287,6 +290,9 @@ A full list of commands for ESP32 devices can be found at [the official docs pag
 |  |  | `8`: `FRAMESIZE 640x480` |
 |  |  | `9`: `FRAMESIZE 800x600` |
 |  |  | `10`: `FRAMESIZE 1024x768` |
+|  |  | `11`: `FRAMESIZE 1280x720` |
+|  |  | `12`: `FRAMESIZE 1280x1024` |
+|  |  | `13`: `FRAMESIZE 1600x1200` |
 | `WcSaturation` | Image saturation | `-2`, `-1`, `0`, `1`, `2` |
 | `WcStream` | Controls the video streaming | `0`: stop, `1`: start |
 
