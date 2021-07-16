@@ -390,6 +390,8 @@
           </aside>
         
         <h1 id="changelog">Changelog</h1>
+<p class="notice--info"><strong>July 16th, 2021</strong>: Updated the <code class="language-plaintext highlighter-rouge">WcResolution</code> command in the <a href="#webcam-server-additional-configurations">Webcam server additional configurations</a> section to reflect the latest support (firmware <code class="language-plaintext highlighter-rouge">9.5.0</code>) for higher resolutions (<code class="language-plaintext highlighter-rouge">11</code>, <code class="language-plaintext highlighter-rouge">12</code>, <code class="language-plaintext highlighter-rouge">13</code>).  Thanks to Eric for the heads up!</p>
+
 <p class="notice notice--success"><strong>April 6th, 2021</strong>, Update #2: Created a bonus content section at the end called <a href="#bonus-content-firmware-customization"><strong>Firmware customization</strong></a>. The new section describes how to create a customized Tasmota firmware to use any supported I2C or other peripherals that are not available in the pre-compiled binary. The <em>BME280</em> sensor–a cheap and very reliable ambient temperature, humidity, and pressure sensor–was used as an example but the same procedure applies for displays and other I2C sensors that you might wish to use with your ESP32-cam board. This provides a very easy way to turn a simple webcam server into a weather station, smoke detector, relay controller, and more.</p>
 
 <p class="notice notice--info"><strong>April 6th, 2021</strong>, Update #1: Added a pinout diagram for the ESP32-cam AI-Thinker board to the <a href="#hardware">Hardware</a> section.</p>
@@ -757,6 +759,21 @@
       <td style="text-align: center"> </td>
       <td style="text-align: center"> </td>
       <td style="text-align: center"><code class="language-plaintext highlighter-rouge">10</code>: <code class="language-plaintext highlighter-rouge">FRAMESIZE 1024x768</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">11</code>: <code class="language-plaintext highlighter-rouge">FRAMESIZE 1280x720</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">12</code>: <code class="language-plaintext highlighter-rouge">FRAMESIZE 1280x1024</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">13</code>: <code class="language-plaintext highlighter-rouge">FRAMESIZE 1600x1200</code></td>
     </tr>
     <tr>
       <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcSaturation</code></td>
