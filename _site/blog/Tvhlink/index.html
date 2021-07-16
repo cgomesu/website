@@ -198,7 +198,7 @@
 
 
 
-  59 minute read
+  60 minute read
 
 </p>
       
@@ -416,6 +416,8 @@
           </aside>
         
         <h1 id="changelog">Changelog</h1>
+<p class="notice notice--info"><strong>July 16th, 2021</strong>, Update #2: Added information about Twitch streams to the <a href="#conclusion">Conclusion</a> section.</p>
+<p class="notice notice--info"><strong>July 16th, 2021</strong>, Update #1: Updated all Youtube URLs to include the suffix <code class="language-plaintext highlighter-rouge">/live</code>, owing to <a href="https://github.com/streamlink/streamlink/pull/3797">changes to the Youtube plugin for Streamlink</a>.</p>
 <p class="notice notice--info"><strong>Jan 21st, 2021</strong>: Publication of the original article</p>
 
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
@@ -759,7 +761,7 @@
 <p>After installing Streamlink, you should be able to run it by itself with</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>streamlink [OPTIONS] &lt;URL&gt; [STREAM]
 </code></pre></div></div>
-<p>in which <code class="language-plaintext highlighter-rouge">&lt;URL&gt;</code> is a livestreaming channel (e.g., <em>Explore Live Nature Cams</em> Youtube channel: <a href="https://www.youtube.com/channel/UC-2KSeUU5SMCX6XLRD-AEvw">https://www.youtube.com/channel/UC-2KSeUU5SMCX6XLRD-AEvw</a>) or <a href="https://streamlink.github.io/plugin_matrix.html">a parsable website</a> URL; and <code class="language-plaintext highlighter-rouge">[STREAM]</code> is a streaming quality profile (e.g., <code class="language-plaintext highlighter-rouge">worst</code>, <code class="language-plaintext highlighter-rouge">best</code>, <code class="language-plaintext highlighter-rouge">720p</code>, <code class="language-plaintext highlighter-rouge">360p</code>)–if you omit the latter, <code class="language-plaintext highlighter-rouge">streamlink</code> will show a list of all available profiles for the given <code class="language-plaintext highlighter-rouge">&lt;URL&gt;</code>.  You can find a complete list of additional options (<code class="language-plaintext highlighter-rouge">[OPTIONS]</code>) with the <code class="language-plaintext highlighter-rouge">--help</code> usage argument, as follows:</p>
+<p>in which <code class="language-plaintext highlighter-rouge">&lt;URL&gt;</code> is a livestreaming channel (e.g., <em>Explore Live Nature Cams</em> Youtube channel: <a href="https://www.youtube.com/channel/UC-2KSeUU5SMCX6XLRD-AEvw/live">https://www.youtube.com/channel/UC-2KSeUU5SMCX6XLRD-AEvw/live</a>) or <a href="https://streamlink.github.io/plugin_matrix.html">a parsable website</a> URL; and <code class="language-plaintext highlighter-rouge">[STREAM]</code> is a streaming quality profile (e.g., <code class="language-plaintext highlighter-rouge">worst</code>, <code class="language-plaintext highlighter-rouge">best</code>, <code class="language-plaintext highlighter-rouge">720p</code>, <code class="language-plaintext highlighter-rouge">360p</code>)–if you omit the latter, <code class="language-plaintext highlighter-rouge">streamlink</code> will show a list of all available profiles for the given <code class="language-plaintext highlighter-rouge">&lt;URL&gt;</code>.  You can find a complete list of additional options (<code class="language-plaintext highlighter-rouge">[OPTIONS]</code>) with the <code class="language-plaintext highlighter-rouge">--help</code> usage argument, as follows:</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>streamlink --help
 </code></pre></div></div>
 <p>Streamlink is compatible with multiple popular video players, such as <a href="https://videolan.org/">VLC</a> and <a href="https://mpv.io/">MPV</a>.  For a non-exhaustive compatibility list and their transport modes, check the <a href="https://streamlink.github.io/players.html#player-compatibility">official player compatibility table</a>.</p>
@@ -815,7 +817,7 @@
     <p>Then, change the following settings:</p>
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Enabled: Enable
 # EPG scan: Disabled
-# URL: pipe:///usr/bin/env streamlink --stdout --default-stream best --url https://www.youtube.com/user/france24english
+# URL: pipe:///usr/bin/env streamlink --stdout --default-stream best --url https://www.youtube.com/user/france24english/live
 # Mux name: Youtube - France 24 English
 # Channel number: 1
 # Service name: France 24 English
@@ -846,7 +848,7 @@
 2021-01-21 10:55:26.380 mpegts: Youtube - France 24 English in Youtube - tuning on IPTV #1
 2021-01-21 10:55:26.381 subscription: 0001: "scan" subscribing to mux "Youtube - France 24 English", weight: 5, adapter: "IPTV #1", network: "Youtube", service: "Raw PID Subscription"
 2021-01-21 10:55:26.381 spawn: Executing "/usr/bin/env"
-2021-01-21 10:55:27.575 spawn: [cli][info] Found matching plugin youtube for URL https://www.youtube.com/user/france24english
+2021-01-21 10:55:27.575 spawn: [cli][info] Found matching plugin youtube for URL https://www.youtube.com/user/france24english/live
 2021-01-21 10:55:30.524 spawn: [cli][info] Available streams: 144p (worst), 240p, 360p, 480p, 720p, 1080p (best)
 2021-01-21 10:55:30.524 spawn: [cli][info] Opening stream: 1080p (hls)
 2021-01-21 10:55:41.380 mpegts: Youtube - France 24 English in Youtube scan complete
@@ -888,19 +890,19 @@
 <p>Anyone can create and edit <code class="language-plaintext highlighter-rouge">m3u</code> playlists using any simple text editor, such as Pluma, <code class="language-plaintext highlighter-rouge">nano</code>, <code class="language-plaintext highlighter-rouge">vi</code>, Vim, and so on.  For example, open a text editor of your choice and copy and paste the following:</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#EXTM3U
 #EXTINF:-1 tvg-name="France 24 English" tvg-language="English" tvg-country="FR" tvg-logo="https://yt3.ggpht.com/ytc/AAUvwnjQokqv8-b-XLH34XJulaY0W27AzlCmyeEY7TayMw=s176-c-k-c0x00ffffff-no-rj-mo" group-title="News",France 24 English
-pipe:///usr/bin/env streamlink --stdout --default-stream 720p,best --url https://www.youtube.com/user/france24english
+pipe:///usr/bin/env streamlink --stdout --default-stream 720p,best --url https://www.youtube.com/user/france24english/live
 #EXTINF:-1 tvg-name="France 24" tvg-language="French" tvg-country="FR" tvg-logo="https://yt3.ggpht.com/ytc/AAUvwngwSBIFO5UNdycjzkUjIRFEq0n5YWKTOgsfbgKdoQ=s176-c-k-c0x00ffffff-no-rj-mo" group-title="News",France 24
-pipe:///usr/bin/env streamlink --stdout --default-stream 720p,best --url https://www.youtube.com/user/france24
+pipe:///usr/bin/env streamlink --stdout --default-stream 720p,best --url https://www.youtube.com/user/france24/live
 #EXTINF:-1 tvg-name="DW English" tvg-language="English" tvg-country="DE" tvg-logo="https://yt3.ggpht.com/ytc/AAUvwngnDcvUkm6jCn6TEENsvO8bdy60g-T4lCgUWOyemCs=s176-c-k-c0x00ffffff-no-rj-mo" group-title="News",DW English
-pipe:///usr/bin/env streamlink --stdout --default-stream 720p,best --url https://www.youtube.com/user/deutschewelleenglish
+pipe:///usr/bin/env streamlink --stdout --default-stream 720p,best --url https://www.youtube.com/user/deutschewelleenglish/live
 #EXTINF:-1 tvg-name="DW Deutsch" tvg-language="German" tvg-country="DE" tvg-logo="https://yt3.ggpht.com/ytc/AAUvwnhXY-iIvV4naxL4WWuS_JQKOqfjqwSgzMswGp4aJUc=s176-c-k-c0x00ffffff-no-rj-mo" group-title="News",DW Deutsch
-pipe:///usr/bin/env streamlink --stdout --default-stream 720p,best --url https://www.youtube.com/user/deutschewelle
+pipe:///usr/bin/env streamlink --stdout --default-stream 720p,best --url https://www.youtube.com/user/deutschewelle/live
 #EXTINF:-1 tvg-name="Euronews English" tvg-language="English" tvg-country="FR" tvg-logo="https://yt3.ggpht.com/ytc/AAUvwnja_dPZdy_el5IhBkj9BJUAd29fZzSs4-vaws_uPLw=s176-c-k-c0x00ffffff-no-rj-mo" group-title="News",Euronews English
-pipe:///usr/bin/env streamlink --stdout --default-stream 720p,best --url https://www.youtube.com/user/Euronews
+pipe:///usr/bin/env streamlink --stdout --default-stream 720p,best --url https://www.youtube.com/user/Euronews/live
 #EXTINF:-1 tvg-name="Euronews Spanish" tvg-language="Spanish" tvg-country="FR" tvg-logo="https://yt3.ggpht.com/ytc/AAUvwnh8LYxyL6VKfHAGYV0qCJ4hqaWDO5GympC7lRIViw=s176-c-k-c0x00ffffff-no-rj-mo" group-title="News",Euronews Spanish
-pipe:///usr/bin/env streamlink --stdout --default-stream 720p,best --url https://www.youtube.com/user/euronewses
+pipe:///usr/bin/env streamlink --stdout --default-stream 720p,best --url https://www.youtube.com/user/euronewses/live
 #EXTINF:-1 tvg-name="Euronews Portuguese" tvg-language="Portuguese" tvg-country="FR" tvg-logo="https://yt3.ggpht.com/ytc/AAUvwngxE0l-vGHBafT-fP7WfCq_Xo7QfDLATRspf0agKA=s176-c-k-c0x00ffffff-no-rj-mo" group-title="News",Euronews Portuguese
-pipe:///usr/bin/env streamlink --stdout --default-stream 720p,best --url https://www.youtube.com/user/euronewspt
+pipe:///usr/bin/env streamlink --stdout --default-stream 720p,best --url https://www.youtube.com/user/euronewspt/live
 </code></pre></div></div>
 <p>Then, observe that</p>
 
@@ -1123,6 +1125,8 @@ pipe:///usr/bin/env streamlink --stdout --default-stream 720p,best --url https:/
 <p>You have reached the end of this tutorial.  If you have not started configuring your TVH server, this is the perfect time to do so.  I have been using this integration for multiple months now and it has been absolutely great.  I strongly recommend it for any cord-cutters out there and in my opinion, it is a <em>must have</em> if you already have a TVH server up and running.</p>
 
 <p>Streamlink v2.0 made the implementation of Youtube channels so much simpler than before and in my experience, Youtube provides the most reliable 24/7 livestream channels (mostly news, webcams, and music).  I am not a big fan of gaming streams in general, so I don’t ever watch Twitch streams, for example.  But as pointed out previously, Streamlink has plugins able to parse content from many sources other than Youtube and you are welcome to try them out.</p>
+
+<p>Of note, if you are trying to add a <a href="https://www.twitch.tv/">Twitch</a> stream to your TVHlink integration, make sure to use the <code class="language-plaintext highlighter-rouge">--twitch-disable-ads</code> flag in the <code class="language-plaintext highlighter-rouge">pipe://</code> command, per <a href="https://github.com/streamlink/streamlink/issues/3210">recommendation from the Twitch plugin maintainers</a>.  Otherwise, you will likely see a <a href="https://user-images.githubusercontent.com/50534116/124325965-01e21500-db5c-11eb-8390-7c524b887737.png">warning message</a>.  It is also suggested to increase your TVH network timeout settings because the filtering of the initial ad <a href="https://github.com/cgomesu/tvhlink/issues/2">might be incorrectly interpreted as lack of signal</a>, thus causing the stream’s termination.</p>
 
 <p>That is it for now.  If you enjoyed or have a few suggestions, <a href="/contact">let me know</a>.  Every once in a while, come back and check the <a href="#changelog">changelog</a> for updates.</p>
 

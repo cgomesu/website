@@ -60,7 +60,7 @@ var store = [{
         "teaser": null
       },{
         "title": "TVHlink: Livestreams as IPTV channels with TVHeadend and Streamlink",
-        "excerpt":"Changelog Jan 21st, 2021: Publication of the original article top Introduction In my previous post titled Youtube live as IPTV channels for TVHeadend, I mentioned a method for capturing a Youtube livestream and feeding it into a TVHeadend (TVH) server via a Python utility called Streamlink. In this tutorial, I...","categories": ["blog"],
+        "excerpt":"Changelog July 16th, 2021, Update #2: Added information about Twitch streams to the Conclusion section. July 16th, 2021, Update #1: Updated all Youtube URLs to include the suffix /live, owing to changes to the Youtube plugin for Streamlink. Jan 21st, 2021: Publication of the original article top Introduction In my...","categories": ["blog"],
         "tags": ["tvhlink","streamlink","tvheadend","github","iptv","kodi","youtube","streaming","livestream"],
         "url": "/blog/Tvhlink/",
         "teaser": null
