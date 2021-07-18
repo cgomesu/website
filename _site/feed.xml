@@ -1,4 +1,56 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-07-16T15:08:57-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">Towards a smarter Home Assistant: Getting started on the analytical tools</title><link href="/blog/smarter-hass/" rel="alternate" type="text/html" title="Towards a smarter Home Assistant: Getting started on the analytical tools" /><published>2021-06-22T15:45:00-03:00</published><updated>2021-06-22T15:45:00-03:00</updated><id>/blog/smarter-hass</id><content type="html" xml:base="/blog/smarter-hass/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-07-18T13:06:37-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: Cheap, reliable, low-profile, USB-powered ambient sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: Cheap, reliable, low-profile, USB-powered ambient sensor" /><published>2021-07-18T11:20:00-03:00</published><updated>2021-07-18T11:20:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+&lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;July 18th, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;This is the first article of a &lt;em&gt;do it yourself&lt;/em&gt; (DIY) series in which I describe simple electronic projects that make use of an &lt;a href=&quot;#&quot;&gt;ESP32&lt;/a&gt; board running the &lt;a href=&quot;#&quot;&gt;Tasmota&lt;/a&gt; firmware to integrate various modules into an existing home automation system, such as &lt;a href=&quot;#&quot;&gt;Home Assistant&lt;/a&gt;.  In this first iteration of the series, I described how to configure and connect a tiny &lt;a href=&quot;#&quot;&gt;&lt;strong&gt;ESP-01&lt;/strong&gt;&lt;/a&gt; to a &lt;a href=&quot;#&quot;&gt;&lt;strong&gt;BME280&lt;/strong&gt;&lt;/a&gt; to create a cheap, low-power, and low-profile ambient sensor that provides &lt;strong&gt;temperature&lt;/strong&gt;, &lt;strong&gt;humidity&lt;/strong&gt;, and &lt;strong&gt;relative pressure&lt;/strong&gt; measurements to a Home Assistant instance.&lt;/p&gt;
+
+&lt;p&gt;Here is a preview of the ambient sensor:&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Insert preview image&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;The article was organized in a way similar to my previous ones in which I detailed an electronics project. More specifically, it started with a list of the hardware and software components, then at the end, I covered the assembly of it all to create a functional unit.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;todo&quot;&gt;TODO&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;Overview of the ESP01&lt;/li&gt;
+  &lt;li&gt;Motivation for making the sensor&lt;/li&gt;
+  &lt;li&gt;Hardware
+    &lt;ol&gt;
+      &lt;li&gt;ESP01 (add pinout)&lt;/li&gt;
+      &lt;li&gt;BME280&lt;/li&gt;
+      &lt;li&gt;USB adapter for the ESP01 (add pinout)&lt;/li&gt;
+      &lt;li&gt;Female-female jumper wires&lt;/li&gt;
+      &lt;li&gt;Soldering stuff for the BME280 module&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Software
+    &lt;ol&gt;
+      &lt;li&gt;Tasmota and caution about ESP01 storage restrictions&lt;/li&gt;
+      &lt;li&gt;Specific binary for I2C sensors&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Assembly
+    &lt;ol&gt;
+      &lt;li&gt;Flashing + wiring (grounding GPIO0)&lt;/li&gt;
+      &lt;li&gt;Wiring for BME280 modules&lt;/li&gt;
+      &lt;li&gt;Tasmota configuration for I2C&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Home Assistant Integration
+    &lt;ol&gt;
+      &lt;li&gt;Auto&lt;/li&gt;
+      &lt;li&gt;Manual&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Conclusion&lt;/li&gt;
+  &lt;li&gt;Review article&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="diy" /><category term="tasmota" /><category term="sensor" /><category term="hass" /><category term="iot" /><category term="automation" /></entry><entry><title type="html">Towards a smarter Home Assistant: Getting started on the analytical tools</title><link href="/blog/smarter-hass/" rel="alternate" type="text/html" title="Towards a smarter Home Assistant: Getting started on the analytical tools" /><published>2021-06-22T15:45:00-03:00</published><updated>2021-06-22T15:45:00-03:00</updated><id>/blog/smarter-hass</id><content type="html" xml:base="/blog/smarter-hass/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;June 22nd, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
@@ -5404,461 +5456,4 @@ systemctl status pwm-fan.service
 &lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
 &lt;p&gt;This concludes the basics of a cheap, low-profile, and low-power (yet powerful) pfSense white-box.  I’ve never had any issues with this hardware and recommend it to anyone interested in diving into firewalls or just looking for something a bit more advanced than what commercial routers can offer.  If you want to try something different than pfSense, take a look at &lt;a href=&quot;https://opnsense.org/&quot;&gt;OPNsense&lt;/a&gt;–a pfSense fork–for another free and open-source firewall software.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="homelab" /><category term="homeserver" /><category term="firewall" /><category term="network" /></entry><entry><title type="html">Youtube live-streams as IPTV channels for TVHeadend</title><link href="/blog/Youtube-as-IPTV-with-TVH/" rel="alternate" type="text/html" title="Youtube live-streams as IPTV channels for TVHeadend" /><published>2020-05-07T00:00:00-03:00</published><updated>2020-05-07T00:00:00-03:00</updated><id>/blog/Youtube-as-IPTV-with-TVH</id><content type="html" xml:base="/blog/Youtube-as-IPTV-with-TVH/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
-&lt;p class=&quot;notice notice--danger&quot;&gt;&lt;strong&gt;January 21st, 2021&lt;/strong&gt;: &lt;strong&gt;READ THIS&lt;/strong&gt;. This tutorial &lt;strong&gt;has been deprecated&lt;/strong&gt; because I wrote a &lt;strong&gt;new tutorial&lt;/strong&gt; about the integration between Tvheadend and Streamlink, called &lt;strong&gt;&lt;a href=&quot;/blog/Tvhlink/&quot;&gt;TVHlink: Livestreams as IPTV channels with TVHeadend and Streamlink&lt;/a&gt;&lt;/strong&gt;.  The integration has been greatly simplified and is more reliable than before.  In addition, the new tutorial is much more comprehensive than this one.  The new tutorial is self-contained, so you don’t need to read this one first–just skip it altogether.  I will only keep this up for archiving purposes.&lt;/p&gt;
-
-&lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;September 15th, 2020&lt;/strong&gt;: There’s a &lt;a href=&quot;https://github.com/cgomesu/youtube4tvh/releases&quot;&gt;new release of the Youtube4TVH&lt;/a&gt; program that does not require the use of API keys. The section about how to create an API key has been updated accordingly.&lt;/p&gt;
-
-&lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;June 23rd, 2020&lt;/strong&gt;: Moved content from Blogger to my website and converted to markdown.  Fixed typos I found.&lt;/p&gt;
-
-&lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;May 19th, 2020&lt;/strong&gt;: Added info about TVH m3u re-fetch period and youtube4tvh cronjob for streams that change very often.&lt;/p&gt;
-
-&lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;May 14th, 2020&lt;/strong&gt;: Added more info about streamlink install and outdated versions; fixed a few typos.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
-&lt;p&gt;In this guide, we will learn how to feed Youtube live-streams into a TVHeadend (TVH) server as IPTV channels.  This is a fairly advanced guide but I’ll try my best to make it as digestible as possible to any individual with minimal knowledge about selfhosting.  You will need a &lt;strong&gt;Linux distro&lt;/strong&gt; (e.g., Debian, Ubuntu) to follow this guide.  All the software described here is &lt;strong&gt;free and open-source&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;I’m not an expert in any of the topics mentioned here.  If you have suggestions on how to improve something, please leave a comment below stating what could be changed and why it should be changed.&lt;/p&gt;
-
-&lt;p&gt;Youtube4tvh is a utility program I wrote just for this guide.  I welcome anyone who wants to improve it or fork into something more abstract.  If that sounds like something you want to do, please head to &lt;a href=&quot;https://github.com/cgomesu/youtube4tvh&quot;&gt;my Github repo&lt;/a&gt; and hit me up once you’ve done some coding.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;motivation&quot;&gt;Motivation&lt;/h1&gt;
-&lt;p&gt;There are multiple reasons to watch Youtube live-streams as if they were IPTV channels.  Here are a reasons few that come to mind right now:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;It’s free and all programs are open-source;&lt;/li&gt;
-  &lt;li&gt;There is at least one Youtube 24/7 live-stream that you enjoy. Some of my personal favorites, per category:
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;News&lt;/strong&gt;: ABC News AU, Sky News, DW in English, France 24 in English&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;Space&lt;/strong&gt;: NASA TV, Space Videos, Space &amp;amp; The Universe HD&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;Webcam - Nature&lt;/strong&gt;: Cornell Lab of Ornithology Cams, Monterey Bay Aquarium, Explore Oceans, Explore Nature, Volcanoverse&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;Webcam - Other&lt;/strong&gt;: Virtual Railfan, earthTV, I Love You Venice,&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;Radio&lt;/strong&gt;:  BGM channel, Cafe del Mar, Stay See&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;You want to make selected Youtube live-streams available as IPTV channels through a TVH server (TVH -&amp;gt; Streamlink pipe -&amp;gt; Youtube);&lt;/li&gt;
-  &lt;li&gt;You want to keep your streaming services as centralized as possible.  That is, instead of multiple apps, you can manage all of them using a single application (TVH);&lt;/li&gt;
-  &lt;li&gt;You want to take advantage of one of the fastest and most reliable media delivery networks out there (Youtube’s CDN);&lt;/li&gt;
-  &lt;li&gt;You dislike Youtube ads (Streamlink will get rid of them without the need to install any filtering system);&lt;/li&gt;
-  &lt;li&gt;You like how it looks for the client:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;!-- Courtesy of embedresponsively.com //--&gt;
-&lt;div class=&quot;responsive-video-container&quot;&gt;
-
-  &lt;iframe src=&quot;https://www.youtube-nocookie.com/embed/9FSPf5wISUY&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
-
-&lt;/div&gt;
-
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;objectives&quot;&gt;Objectives&lt;/h1&gt;
-&lt;p&gt;By the end of the guide, you’ll have learned how to do the following:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Create a customized Youtube live-stream m3u playlist with the help of youtube4tvh;&lt;/li&gt;
-  &lt;li&gt;Install a TVH server on a Linux machine;&lt;/li&gt;
-  &lt;li&gt;Install Streamlink to pipe live-stream data into a TVH server;&lt;/li&gt;
-  &lt;li&gt;Add a Youtube live-stream m3u playlist to a TVH server as an IPTV auto network;&lt;/li&gt;
-  &lt;li&gt;Configure a TVH server to auto-map muxes to channels using bouquets;&lt;/li&gt;
-  &lt;li&gt;Create a cronjob to automatically update the Youtube live-stream m3u playlist every day at 6am.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;client-server-layout&quot;&gt;Client-server layout&lt;/h1&gt;
-&lt;p&gt;There are three main components to this setup, namely &lt;strong&gt;TVH&lt;/strong&gt;, &lt;strong&gt;Streamlink&lt;/strong&gt;, and &lt;strong&gt;youtube4tvh&lt;/strong&gt;, which are all open-source and free:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/tvheadend/tvheadend&quot;&gt;&lt;strong&gt;TVHeadend&lt;/strong&gt;&lt;/a&gt;: Tvheadend is a TV streaming server for Linux supporting DVB-S, DVB-S2, DVB-C, DVB-T, ATSC, IPTV, SAT&amp;gt;IP and other formats through the unix pipe as input sources.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-05-07-Youtube-as-IPTV-with-TVH/tvh-github.png&quot;&gt;&lt;img src=&quot;/assets/posts/2020-05-07-Youtube-as-IPTV-with-TVH/tvh-github.png&quot; alt=&quot;TVH Github&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-05-07-Youtube-as-IPTV-with-TVH/tvh-webui.png&quot;&gt;&lt;img src=&quot;/assets/posts/2020-05-07-Youtube-as-IPTV-with-TVH/tvh-webui.png&quot; alt=&quot;TVH WebUI&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/streamlink/streamlink&quot;&gt;&lt;strong&gt;Streamlink&lt;/strong&gt;&lt;/a&gt;: Streamlink is a CLI utility which pipes video streams from various services into a video player.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-05-07-Youtube-as-IPTV-with-TVH/streamlink-github.png&quot;&gt;&lt;img src=&quot;/assets/posts/2020-05-07-Youtube-as-IPTV-with-TVH/streamlink-github.png&quot; alt=&quot;Streamlink Github&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/cgomesu/youtube4tvh&quot;&gt;&lt;strong&gt;youtube4tvh&lt;/strong&gt;&lt;/a&gt;: Youtube4tvh is a Python CLI program that uses Youtube API to create (or update) m3u playlists of live-streams that are piped into a TVH server via Streamlink.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-05-07-Youtube-as-IPTV-with-TVH/youtube4tvh-github.png&quot;&gt;&lt;img src=&quot;/assets/posts/2020-05-07-Youtube-as-IPTV-with-TVH/youtube4tvh-github.png&quot; alt=&quot;youtube4tvh Github&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;For this guide, we will assume that such components are related to each other and any clients (any IPTV players, such as VLC, Plex or a Kodi PVR) according to the following layout:&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-05-07-Youtube-as-IPTV-with-TVH/tvh-layout.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-05-07-Youtube-as-IPTV-with-TVH/tvh-layout.jpg&quot; alt=&quot;Client-server layout&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;However, once you’re done with the initial configuration, you can try changing it to accomodate your needs.  For example, you can &lt;a href=&quot;https://tvheadend.org/projects/tvheadend/wiki/VLC_Multicasting&quot;&gt;multicast a live-stream to a TVH server using VLC&lt;/a&gt;.  This will let you use a single connection to Youtube be distributed to multiple clients, instead of creating multiple connections to Youtube–definitely take a look at it if you’re serving a large number of clients with your TVH server.  Also, you might want to pipe the Streamlink data to FFMPEG before sending to TVH, which will let you set custom AV codecs.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;youtube4tvh&quot;&gt;Youtube4tvh&lt;/h1&gt;
-&lt;p&gt;This is a utility program that will let us create and manage m3u playlist of Youtube live-streams.  It can extract information directly from Youtube’s frontend (default) or from Youtube’s API (by using a valid API key).  Be aware that the API keys have daily quotas that this program will reach fairly quickly. For more info, checkout &lt;a href=&quot;https://github.com/cgomesu/youtube4tvh&quot;&gt;the github page&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;create-a-youtube-api-v3&quot;&gt;Create a Youtube API v3&lt;/h2&gt;
-&lt;p&gt;&lt;em&gt;Since the release of &lt;a href=&quot;https://github.com/cgomesu/youtube4tvh/releases&quot;&gt;&lt;strong&gt;v0.1.1&lt;/strong&gt;&lt;/a&gt;, youtube4tvh does not require the use of API keys to run. Therefore, &lt;strong&gt;the use of API keys is now optional&lt;/strong&gt;. If you choose to skip this step, simply omit the&lt;/em&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--apikey&lt;/code&gt; &lt;em&gt;argument when running this utility.&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;You can find instructions on &lt;a href=&quot;https://developers.google.com/youtube/v3/getting-started&quot;&gt;the official page&lt;/a&gt;.  If you don’t want to head there, here is a streamlined version:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;Sing up for or Log into your Google account;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Go to your &lt;a href=&quot;https://console.developers.google.com/apis/&quot;&gt;API dashboard&lt;/a&gt;;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Create a project (top left &amp;gt; new project);&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Give the project a name and create it (this should take a few seconds…);&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Select the project you just created and in the dashboard, go to ‘+ Enable APIs and Services’;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Search for Youtube Data API v3 and enable it;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;It should redirect you to its dashboard but if doesn’t, select Manage;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Select Create Credentials (if you don’t see a button, just go to Credentials in the side menu);&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;It’s going to ask you which API you’re going to use (select Youtube Data API v3), where you’ll be calling it from (Other UI) and what data (Public data). Then select ‘What credentials do I need?’ and it will generate an unrestricted API for the project you created;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;In the side menu, go to Credentials and Edit the API Key you generated;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Under ‘API restrictions’, select Restrict key &amp;gt; Youtube Data API v3 &amp;gt; Save.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;That’s it! Your key is that long string with random letters and numbers in the column labeled &lt;strong&gt;Key&lt;/strong&gt;. Whenever you see a field to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;YOURKEY&lt;/code&gt;, use that one.  Also, you can repeat this process to generate additional keys.  It’s a good idea to do so.&lt;/p&gt;
-
-&lt;h2 id=&quot;install-youtube4tvh&quot;&gt;Install youtube4tvh&lt;/h2&gt;
-&lt;p&gt;Open a terminal window and run the following:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt update
-sudo apt install git python-pip
-cd /opt
-sudo git clone https://github.com/cgomesu/youtube4tvh.git
-cd youtube4tvh
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Install required packages via pip:&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pip install .
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Test the program (change &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;YOURKEY&lt;/code&gt; for your API key)&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd youtube4tvh
-python main.py --apikey=YOURKEY --channelname=&quot;DW News&quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Now, there should be an output.m3u file on the same folder you are (you can &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ls&lt;/code&gt; to list files).&lt;/p&gt;
-
-&lt;p&gt;If you run into permission issues, make sure to use a user with sudo perission.  Also, if your user is not allowed to write to /opt, then run the follwing (changing &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;YOURUSER&lt;/code&gt; for your sudo username):&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo chown -R YOURUSER:sudo /opt/youtube4tvh
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;If everything looks good, go ahead and add permission to execute the streamlink.sh helper script that will pipe data into TVH (if you want to change settings from streamlink, change them in the streamlink.sh file):&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo chmod +x /opt/youtube4tvh/streamlink.sh
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;basic-usage&quot;&gt;Basic usage&lt;/h2&gt;
-&lt;p&gt;This program has two modes of execution, &lt;strong&gt;add&lt;/strong&gt; and &lt;strong&gt;update&lt;/strong&gt;. The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--mode=add&lt;/code&gt; is the default mode and it will create an m3u file if you don’t specify one.  However, if you do provide an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--m3uinput=/path/to/file.m3u&lt;/code&gt;, it will instead append channels to output.m3u. (If &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--m3uinput&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--m3uoutput&lt;/code&gt; are the same, then it appends to itself.)&lt;/p&gt;
-
-&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--mode=update&lt;/code&gt; will parse an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--m3uinput=/path/to/file.m3u&lt;/code&gt; and update all URLs to make sure they are the ones currently available (instead of a broken URL).  This is useful because even though some Youtube channels stream 24/7, they will at times stop and restart the stream, which will cause Youtube to generate a new URL to their live-stream.  The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--mode=update&lt;/code&gt; will make sure your output.m3u is always using the correct URLs.  (Again, if you want to update the same input file, then point both &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--m3uinput&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--m3uoutput&lt;/code&gt; to the same m3u file.)&lt;/p&gt;
-
-&lt;p&gt;First, we will generate a youtube.m3u file with the channel “DW News”.  Afterwards, we will append a couple of additional channels to the youtube.m3u file.  Then, we will create a cronjob to keep our youtube.m3u up-to-date.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Create youtube.m3u file and add the channel “DW News” (change &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;YOURKEY&lt;/code&gt; to your actual API key):&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd /opt/youtube4tvh/youtube4tvh
-python main.py --apikey=YOURKEY --m3uoutput=youtube.m3u --channelname=&quot;DW News&quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Append the channel “France 24 English” to the youtube.m3u file:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python main.py --apikey=YOURKEY --m3uinput=youtube.m3u --m3uoutput=youtube.m3u --channelname=&quot;France 24 English&quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Append the channel “Explore Nature” to the youtube.m3u file:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python main.py --apikey=YOURKEY --m3uinput=youtube.m3u --m3uoutput=youtube.m3u --channelname=&quot;Explore Nature&quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Create a cronjob to update the youtube.m3u file everyday at 6am. First, make a backup or your youtube.m3u file:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cp /opt/youtube4tvh/youtube4tvh/youtube.m3u /opt/youtube4tvh/youtube4tvh/youtube.m3u.backup
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Create a cronjob:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;crontab -e
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Add the following at the bottom&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0 6 * * * /usr/bin/python /opt/youtube4tvh/youtube4tvh/main.py --apikey=YOURKEY --m3uinput=/opt/youtube4tvh/youtube4tvh/youtube.m3u --m3uoutput=/opt/youtube4tvh/youtube4tvh/youtube.m3u --mode=update
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Save and exit (ctrl+x)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;That’s all we need to do with this program.  If you ever feel like adding a new channel to the playlist, you can just repeat the “Append” examples with the new channel instead.&lt;/p&gt;
-
-&lt;p&gt;If you want to remove a channel, you’ll need to manually edit the youtube.m3u file (remove the channel’s #EXTINF row and the one immediately below it, which contains the pipe command).  You can also manually edit the m3u file to add a group-title to the channels (see sample/input.m3u, for example), change their order, etc.  Just use your favorite text editor to do that and when you’re done, save preserving the .m3u extension.&lt;/p&gt;
-
-&lt;h2 id=&quot;recommendations&quot;&gt;Recommendations&lt;/h2&gt;
-&lt;p&gt;Theoretically, the m3u playlists can contain as many streams as you want.  However, as a general rule of thumb, I find it useful to create one m3u playlist for each type of streaming channel–for example, youtube-webcams.m3u, youtube-news.m3u, youtube-radio.m3u, and etc–and then have a unique API key for each of them.  This way, I can run the youtube4tvh cronjob more often, thus reducing the chance of having broken URLs in the m3u file.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;streamlink&quot;&gt;Streamlink&lt;/h1&gt;
-&lt;p&gt;Streamlink is an awesome utility program and if you’ve never used it before, make sure to check their &lt;a href=&quot;https://streamlink.github.io/&quot;&gt;documentation&lt;/a&gt;.  Here, we will only use it to pipe data from Youtube to a TVH server but Streamlink is able to pipe video streams from many other platforms (Twitch, Dailymotion, etc.).&lt;/p&gt;
-
-&lt;p&gt;To install Streamlink, please follow the instructions on &lt;a href=&quot;https://streamlink.github.io/install.html&quot;&gt;the official website&lt;/a&gt;.  Make sure you’re running the latest version afterwards.  You can find the installed version by running &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;streamlink --version&lt;/code&gt;, which should be the same one as the latest version on their &lt;a href=&quot;https://github.com/streamlink/streamlink/releases&quot;&gt;Releases page&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;(It looks like multiple repos are distributing a much older version than the 1.4.1, which is the latest when this article was first posted.  If that’s the case for your distro, take a look at the PyPi and source installation on their Install page.  Uninstall the older version and install via pip and if that doesn’t work, try cloning their git repo and install via setup-tools, very much like the youtube4tvh utility.)&lt;/p&gt;
-
-&lt;p&gt;In &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/opt/youtube4tvh&lt;/code&gt;, you’ll notice a file called &lt;strong&gt;streamlink.sh&lt;/strong&gt;.  That is a helper script that TVH will use to get the video stream from a Youtube URL.  If you open it with a text editor, you’ll see the following:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#!/bin/bash
-####################################################
-################ Streamlink script #################
-####################################################
-# The default version writes the data from the best
-# stream ($1, the first argument) to stdout using a
-# thread pool of size 2 to download HLS segments.
-# Everything else follows default values.
-#
-# Inspired by niwi_niwi's post at
-# https://tvheadend.org/boards/5/topics/35658
-#
-# More info: https://streamlink.github.io/cli.html
-#
-####################################################
-#### Add/modify script according to your needs #####
-streamlink \
---stdout \
---hls-segment-threads 4 \
---hls-live-edge 10 \
-&quot;$1&quot; best
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;The actual command to execute streamlink and its options are all at the bottom.  If you know what you’re doing and want to play with different configurations, go ahead and change the arguments in the streamlink command.  Say, if instead of playing always the ‘best’ stream you want to play the 480p version, then just change it to that (but always leave &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--stdout&lt;/code&gt; or you won’t be able to pipe data to TVH).  Once again, &lt;a href=&quot;https://streamlink.github.io/cli.html&quot;&gt;check the docs&lt;/a&gt; for a comprehensive list of options.&lt;/p&gt;
-
-&lt;p&gt;To test the script, you can simply execute the following (change &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;YOUTUBEURL&lt;/code&gt; for the URL of a Youtube live-stream):&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash streamlink.sh YOUTUBEURL
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;You should see a whole bunch random characters as streamlink outputs the video stream to the terminal.  Hit ctrl+c to terminate the process.  If you have a player, you can run the command above with a pipe to the player.  Using &lt;a href=&quot;https://github.com/videolan/vlc&quot;&gt;&lt;strong&gt;VLC&lt;/strong&gt;&lt;/a&gt;, for example:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash streamlink.sh YOUTUBEURL | vlc -
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;tvh-server&quot;&gt;TVH server&lt;/h1&gt;
-&lt;p&gt;TVH was a game-changer for me.  It offers a centralized system to manage multiple IPTV networks and TV tuners.  I can fully customize how all channels will show up to all my clients and that’s so much better than using multiple (and sometimes shady) applications developed by each IPTV provider.  If a channel is down, I can tell TVH to automatically remove it or remap to another provider.  If the EPG is not working, I can tell TVH to fetch from another source.  If a client does not support a particular type of codec, I can create a profile that uses the codec that works with it.  And all those changes are automatically applied to all clients, without the need to change one by one, because they are all getting data from my TVH server instead of external sources.  (It’s the TVH server that should always do that latter.)&lt;/p&gt;
-
-&lt;h2 id=&quot;installation&quot;&gt;Installation&lt;/h2&gt;
-&lt;p&gt;To install a TVH server, please follow the instructions on &lt;a href=&quot;https://tvheadend.org/projects/tvheadend/wiki/Download&quot;&gt;the official website&lt;/a&gt;.  I strongly suggest you to install from the repo to make it easy to update with a simple &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;apt update&lt;/code&gt; command.  Also, make sure you’re running the latest version of it afterwards.&lt;/p&gt;
-
-&lt;h2 id=&quot;basic-configuration&quot;&gt;Basic configuration&lt;/h2&gt;
-&lt;p&gt;After installing TVH, head to the webUI on &lt;a href=&quot;http://localhost:9981&quot;&gt;http://localhost:9981&lt;/a&gt;.  (If you’re not running a desktop environment on the same machine, access it from another machine on the same network and change localhost for the IP of the machine running the TVH server.  Also, it goes without saying that the machine hosting the TVH server should have a fixed IP address at the local network because all the clients will be pointing to it.)&lt;/p&gt;
-
-&lt;p&gt;If you provided admin credentials for TVH during the installation, it will ask you to identify yourself now.&lt;/p&gt;
-
-&lt;p&gt;TVH will start the wizard the first time you access the webUI but you can just skip it (hit Cancel).&lt;/p&gt;
-
-&lt;p&gt;Notice that there are several tabs in the webUI but many options will not show up if the “View level” is set to Basic, so let’s change the default to &lt;strong&gt;Expert&lt;/strong&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Go to Configuration &amp;gt; General &amp;gt; Base &amp;gt; Server &amp;gt; Set &quot;User interface level&quot; to Expert and hit Save
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Now, let’s configure the Stream profiles to restart on error:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Go to Configuration &amp;gt; Stream &amp;gt; Stream profiles &amp;gt; htsp &amp;gt; Check &quot;restart on error&quot; hit Save
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;(You can repeat that step to all profiles that you’re going to use.  I usually just use htsp for clients and pass for auto-recording.)&lt;/p&gt;
-
-&lt;p&gt;While we’re at it, let’s go ahead and customize the Recording settings as well.  This is all really up to your own preferences but this is what I use that is different from the default configuration:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Go to Configuration &amp;gt; Recording &amp;gt; DVR Profiles &amp;gt; Default profile
-# DVR file retention: 3 days
-# Pre-recording padding: 5 mins
-# Post-recording padding: 5 mins
-# Recording system path: /path/to/my/NAS/media/iptv/recording
-# Maintain free storage space in MiB: 5000
-# File permissions: 0777
-# Filename character set: UTF-8
-# Skip commercials: Unchecked
-# Format string: $c/$t - $c - %F - %R$n.$x
-# Directory permissions: 0777
-# Make subdirectories per channel: Checked
-# Include date in filename: Checked
-# Include time in filename: Checked
-# Remove all unsafe characters from filename: Checked
-# Hit Save
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;We’re done with the basic configuration!  Before moving to the next section, notice that at the bottom of the webUI there’s a bar called &lt;strong&gt;Tvheadend log&lt;/strong&gt; and on the opposite side, there is a button.  Click on it to open the log.  This is very useful to check if there’s any error while you’re making changes to the server.  Keep it open as you change the settings and if you see an error, there’s probably something misconfigured that you should fix before moving on.&lt;/p&gt;
-
-&lt;h2 id=&quot;create-an-iptv-auto-network&quot;&gt;Create an IPTV auto network&lt;/h2&gt;
-&lt;p&gt;We’re now going to create an IPTV network using the youtube.m3u file we created with youtube4tvh.  Open the TVH webUI and do the following:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Go to Configuration &amp;gt; DVB Inputs &amp;gt; Networks &amp;gt; Add
-# Type: IPTV automatic network
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;This will redirect to IPTV settings.  Change the following:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Network name: youtube
-# URL: file:///opt/youtube4tvh/youtube4tvh/youtube.m3u
-# Create bouquet: Checked
-# Channel numbers start from: 1
-# Accept zero value for TSID: Checked
-# Provider network name: youtube
-# Ignore provider's channel numbers: Checked
-# Character set: UTF-8
-# Scan after creation: Unchecked
-# Content character set: UTF-8
-# Service ID: 1
-# Hit Create
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Before we move on, now is a good time to check if streamlink and the helper script are working.  We’re going to force play a few muxes (channels from your youtube.m3u playlist) to make sure that it’s all good before mapping them to actual TV channels.  (You gonna need a player for this step; if you don’t have one, skip it or install VLC).&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Go to Configuration &amp;gt; DVB Inputs &amp;gt; Muxes &amp;gt; Choose a random one and Hit the Play button
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;The selected stream should show up in a few seconds.  If it doesn’t, there’s likely an issue with streamlink or the player or both, in which case you should stop and try to solve it before moving on.&lt;/p&gt;
-
-&lt;h2 id=&quot;mapping-serves-to-channels&quot;&gt;Mapping serves to channels&lt;/h2&gt;
-&lt;p&gt;There are two ways of mapping services to channels.  The standard way is to go to the Services tab and choose Map Selected &amp;gt; Map all services.  This should work very well if your muxes won’t ever change.  However, if they do (as in our case), they won’t be automatically remapped to their channel, and you gonna have to do this mapping process manually once again, multiple times.  We don’t wanna do that.  Fortunately, there’s a second way of mapping services to channels that does so automatically, even if your muxes change, and that’s via &lt;strong&gt;Bouquets&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;Remember that when we created the youtube IPTV network, we selected “Create a bouquet”.  Because of that, there’s now a new entry in Configuration &amp;gt; Channel / EPG &amp;gt; Bouquets &amp;gt; “youtube”.  So, let’s go ahead and edit it a little bit:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Go to Configuration &amp;gt; Channel / EPG &amp;gt; Bouquets &amp;gt; Edit the &quot;youtube&quot; bouquet
-# Enabled: Checked
-# Auto-map to channels: Checked
-# Channel mapping options: Select all
-# Create tags: Create provider name tags, Create network name tags
-# Hit Save
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Wait a few seconds and go to the “Channels” tab and you should see all your channels auto-mapped to their services.  If you make any changes to the youtube.m3u playlist, the bouquet should automatically detect those changes from now on.&lt;/p&gt;
-
-&lt;h2 id=&quot;epg-data&quot;&gt;EPG data&lt;/h2&gt;
-&lt;p&gt;Some of the 24/7 news channels on Youtube (e.g., France 24, DW) actually follow the same eletronic program guide (EPG) as their Cable/Satellite broadcast.  So, if you want, you can add EPG data to their Youtube live-stream.  There’s a fantastic program called &lt;a href=&quot;http://webgrabplus.com/&quot;&gt;&lt;strong&gt;WebGrab+Plus&lt;/strong&gt;&lt;/a&gt; that can do that for you &lt;strong&gt;for free&lt;/strong&gt;, but there’s a learning curve to it and how to feed the data to TVH (netcat or curl).  I’m planning on writing a guide about it in the near future, as I work on a parser for the site.pack folder as well.  But if you don’t feel like diving into that, you can always pay an EPG provider and manually add it to your clients (bad) or try to figure it out how to feed the EPG data to the TVH server (good).&lt;/p&gt;
-
-&lt;h2 id=&quot;creating-and-editing-users&quot;&gt;Creating and editing users&lt;/h2&gt;
-&lt;p&gt;Clients can access TVH using the same credentials as you’ve been using to configure the TVH server (admin access). As a general rule of thumb, however, that’s not a good practice.  Also, if you have multiple clients, it’s nice to know what each one is trying to access on your TVH server.  So, let’s go ahead and create a “client” user:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Go to Configuration &amp;gt; Users &amp;gt; Access Entries &amp;gt; Add
-# Streaming: Select all
-# Video recorder: Basic, HTSP, View All
-# Hit Create
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Now let’s add a password for it:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Go to Configuration &amp;gt; Users &amp;gt; Passwords &amp;gt; Add
-# Enabled: Checked
-# Username: client
-# Password: password
-# Hit Create
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;That’s it!  You can repeat this process as many times as you need and play around with permissions, depending on your use-case.&lt;/p&gt;
-
-&lt;h2 id=&quot;re-fetch-period-and-youtube4tvh-cronjobs&quot;&gt;Re-fetch period and youtube4tvh cronjobs&lt;/h2&gt;
-&lt;p&gt;If you’ve a youtube m3u playlist with channels that are likely to change multiple times during the same day, then it’s a good idea to create a separate playlist for those channels.  Then, when you create a youtube4tvh cronjob for the new m3u playlist, make it run more frequently (e.g., every 5 mins would be &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;*/5 * * * *&lt;/code&gt;) and in the TVH server, add a new IPTV auto network for the new m3u playlist and in its settings, edit the “re-fetch period” to match the cronjob update interval (5); hit save and then restart the TVH server to apply the new settings. If you’ve done it right, the TVH server will now check the m3u playlist at an interval equal to the re-fetch period and update any new/changed mux on it, which will be automatically mapped to a channel in its bouquet.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;tvh-client&quot;&gt;TVH client&lt;/h1&gt;
-&lt;p&gt;There are multiple ways to watch the channels on your TVH server, including directly from the webUI itself (EPG tab &amp;gt; Watch TV).  The one I use is &lt;a href=&quot;https://kodi.tv/download&quot;&gt;&lt;strong&gt;Kodi&lt;/strong&gt;&lt;/a&gt; + &lt;strong&gt;TVH client addon&lt;/strong&gt; because my Kodi clients also access my Plex server.&lt;/p&gt;
-
-&lt;p&gt;You can install Kodi on virtually any single-board computer, such as &lt;a href=&quot;https://www.raspberrypi.org/&quot;&gt;Raspberry Pi&lt;/a&gt; and &lt;a href=&quot;https://www.hardkernel.com/&quot;&gt;Odroid&lt;/a&gt;, and Linux distro.  There are hundreds of guides showing how to install Kodi, so I won’t do that.  Instead, I’ll talk about the &lt;strong&gt;TVH client addon&lt;/strong&gt; for it.&lt;/p&gt;
-
-&lt;h2 id=&quot;install-a-tvh-client-addon-for-kodi&quot;&gt;Install a TVH client addon for Kodi&lt;/h2&gt;
-&lt;p&gt;Open Kodi and try to install via the official repo:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Go to Add-ons &amp;gt; Install from repo &amp;gt; PVR clients
-# Look for Tvheadend HTSP Client and install it
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Now, depending on the distribution, you won’t see the “PVR clients” option.  In this case, you have to manually install the TVH client.  On Debian, for example, you can install it like so:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Open a terminal
-sudo apt update
-sudo apt install kodi-pvr-hts
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;(Another option is to download a .zip of the addon but please do your research first.  Don’t download and install addons from random repos.)  If you didn’t see any error, it means the PVR client is now available on Kodi, so open it (restart it, if it was already open) and then do the following (changing the values to the appropriate ones for your TVH server and client credentials):&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Go to Add-ons &amp;gt; My add-ons &amp;gt; PVR clients &amp;gt; Tvheadend HTSP Client &amp;gt; Configure
-# &amp;gt; Connection Settings
-# IP address: The IP address of the machine hosting your TVH server
-# HTTP port: 9981
-# HTSP port: 9982
-# Username: client
-# Password: password
-# &amp;gt; Streaming settings
-# Profile to use: htsp
-# (If your connection is pretty good, you might want to try enabling predictive tuning
-# but I've had mixed results with it.)
-# Hit OK
-# Restart Kodi
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;If you want to play around, you can create a video profile just for this client and then set the Profile to use it.  This could be a profile that transcodes to a particular AV codec that best fits the client hardware, for example.  Be mindful that whenever you make a change to the addon, you’ll need to restart Kodi to see the changes take effect.&lt;/p&gt;
-
-&lt;p&gt;Test the Kodi client:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Go to TV &amp;gt; Channels &amp;gt; Play random one
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;If everything is working as it should, you should now be able to watch the stream from your Kodi client.  Play around with it and try recording something, too.  Now it’s time to fine-tune your TVH server to best serve your clients.&lt;/p&gt;
-
-&lt;p&gt;You can make further client-side changes in &lt;strong&gt;Kodi’s PVR &amp;amp; Live TV settings menu&lt;/strong&gt;, such as mapping channels to specific numbers, behavior of changing channels, etc.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
-&lt;p&gt;Congratulations for reaching the end of this guide.  As I said before, one of my future projects is to work on a parser for the Webgrab+Plus EPG data and then write a guide on how to implement it using the current setup.&lt;/p&gt;
-
-&lt;p&gt;If you found this useful or have suggestions on how to improve this guide, please leave a comment and I’ll try to reply asap.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="github" /><category term="iptv" /><category term="kodi" /><category term="streamlink" /><category term="tvheadend" /><category term="youtube" /></entry></feed>
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="homelab" /><category term="homeserver" /><category term="firewall" /><category term="network" /></entry></feed>
