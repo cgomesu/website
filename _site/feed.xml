@@ -1,23 +1,58 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-07-18T13:06:37-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: Cheap, reliable, low-profile, USB-powered ambient sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: Cheap, reliable, low-profile, USB-powered ambient sensor" /><published>2021-07-18T11:20:00-03:00</published><updated>2021-07-18T11:20:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-07-28T14:51:48-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: Cheap, reliable, low-profile, USB-powered Tasmota ambient sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: Cheap, reliable, low-profile, USB-powered Tasmota ambient sensor" /><published>2021-07-18T11:20:00-03:00</published><updated>2021-07-18T11:20:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;July 18th, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
-&lt;p&gt;This is the first article of a &lt;em&gt;do it yourself&lt;/em&gt; (DIY) series in which I describe simple electronic projects that make use of an &lt;a href=&quot;#&quot;&gt;ESP32&lt;/a&gt; board running the &lt;a href=&quot;#&quot;&gt;Tasmota&lt;/a&gt; firmware to integrate various modules into an existing home automation system, such as &lt;a href=&quot;#&quot;&gt;Home Assistant&lt;/a&gt;.  In this first iteration of the series, I described how to configure and connect a tiny &lt;a href=&quot;#&quot;&gt;&lt;strong&gt;ESP-01&lt;/strong&gt;&lt;/a&gt; to a &lt;a href=&quot;#&quot;&gt;&lt;strong&gt;BME280&lt;/strong&gt;&lt;/a&gt; to create a cheap, low-power, and low-profile ambient sensor that provides &lt;strong&gt;temperature&lt;/strong&gt;, &lt;strong&gt;humidity&lt;/strong&gt;, and &lt;strong&gt;relative pressure&lt;/strong&gt; measurements to a Home Assistant instance.&lt;/p&gt;
+&lt;p&gt;This is the first article of a &lt;strong&gt;Do It Yourself&lt;/strong&gt; (DIY) series in which I describe simple electronic projects that make use of an &lt;a href=&quot;https://www.espressif.com/en/products/socs/esp8266&quot;&gt;ESP8266&lt;/a&gt;/&lt;a href=&quot;https://www.espressif.com/en/products/socs/esp32&quot;&gt;ESP32&lt;/a&gt; board running the &lt;a href=&quot;https://github.com/arendst/Tasmota&quot;&gt;Tasmota&lt;/a&gt; firmware to integrate various modules into a home automation system, such as &lt;a href=&quot;https://www.home-assistant.io/&quot;&gt;Home Assistant&lt;/a&gt;.  In this first iteration of the series, I described how to wire and configure a &lt;a href=&quot;https://www.bosch-sensortec.com/products/environmental-sensors/humidity-sensors-bme280/&quot;&gt;&lt;strong&gt;BME280&lt;/strong&gt;&lt;/a&gt; to the tiny &lt;a href=&quot;http://www.ai-thinker.com/pro_view-60.html&quot;&gt;&lt;strong&gt;ESP-01&lt;/strong&gt;&lt;/a&gt; (or its successor, the &lt;a href=&quot;http://www.ai-thinker.com/pro_view-88.html&quot;&gt;ESP-01S&lt;/a&gt;) to create a cheap, low-power, and low-profile ambient sensor that provides &lt;strong&gt;temperature&lt;/strong&gt;, &lt;strong&gt;humidity&lt;/strong&gt;, and &lt;strong&gt;relative pressure&lt;/strong&gt; measurements to a Home Assistant instance.&lt;/p&gt;
 
-&lt;p&gt;Here is a preview of the ambient sensor:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Here is a preview of the ambient sensor standalone and attached to a different devices:&lt;/p&gt;
 
-&lt;p&gt;&lt;em&gt;Insert preview image&lt;/em&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-bme280-sensor-01.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-bme280-sensor-01.jpg&quot; alt=&quot;ESP-BME280 sensor 01&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;The article was organized in a way similar to my previous ones in which I detailed an electronics project. More specifically, it started with a list of the hardware and software components, then at the end, I covered the assembly of it all to create a functional unit.&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-bme280-sensor-02.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-bme280-sensor-02.jpg&quot; alt=&quot;ESP-BME280 sensor 02&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-bme280-sensor-03.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-bme280-sensor-03.jpg&quot; alt=&quot;ESP-BME280 sensor 03&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This is a great project for anyone who wants to get started on building their own Internet of Things (IoT) devices.  The article started with my motivation for this particular project.  Next, I talked about the hardware and software components, and finally, at the end, I covered the assembly of it all to create a functional unit.&lt;/p&gt;
+
+&lt;p&gt;Because this is such a low-profile project, I do not ever bother printing a case for it.  However, if you designed a case to house this particular project, &lt;a href=&quot;/contact&quot;&gt;get in touch with me&lt;/a&gt; and I will feature your case here.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
+&lt;h1 id=&quot;motivation&quot;&gt;Motivation&lt;/h1&gt;
+&lt;p&gt;Over the years, I have started noticing that multiple devices spread across many households (e.g., smart TVs, sound systems, wireless routers, PC towers and laptops) had one or more &lt;strong&gt;USB ports&lt;/strong&gt; that could be used to power a few DIY electronic projects.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/device-usb-port-01.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/device-usb-port-01.jpg&quot; alt=&quot;Device with USB port 01&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/device-usb-port-02.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/device-usb-port-02.jpg&quot; alt=&quot;Device with USB port 02&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;However, the most common type of USB port available (&lt;a href=&quot;https://en.wikipedia.org/wiki/USB#USB_2.0&quot;&gt;USB 2.0&lt;/a&gt;) usually delivers a maximum of &lt;em&gt;5V&lt;/em&gt; at &lt;em&gt;500mA&lt;/em&gt;, which constraints the type of projects that could reasonably use such USB ports as power supply. In addition, because interfacing via the USB connection might not always be possible, due to proprietary and closed-source firmware, the DIY project should be able to transmit data wirelessly instead.&lt;/p&gt;
+
+&lt;p&gt;Fortunately, the &lt;strong&gt;ESP-01 WiFi module&lt;/strong&gt; meets all such requirements. Specifically, it requires very little energy to operate safely (roughly 3.3V and at least 300mA) and can be connected to existing USB adapters that have a built-in voltage regulator.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;overview-of-the-esp-01&quot;&gt;Overview of the ESP-01&lt;/h1&gt;
+&lt;p&gt;The &lt;strong&gt;ESP-01&lt;/strong&gt; module is a &lt;strong&gt;cheap&lt;/strong&gt; and very &lt;strong&gt;small&lt;/strong&gt; WiFi module based on the &lt;em&gt;ESP8266&lt;/em&gt; microcontroller by &lt;a href=&quot;#&quot;&gt;ESPRESSIF&lt;/a&gt;. Of note, it &lt;strong&gt;exposes only two GPIO pins&lt;/strong&gt; (other than serial RX and TX) to interface with other devices, it is powered via &lt;strong&gt;3v3 DC&lt;/strong&gt; to the VCC and Ground pins, and has &lt;strong&gt;very limited flash memory&lt;/strong&gt;.  Regarding the latter point, there are actually two versions of the ESP-01 module that differ in flash memory size:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;ESP-01&lt;/strong&gt;: The original version with &lt;strong&gt;512KB&lt;/strong&gt; of flash memory;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;ESP-01S&lt;/strong&gt;: A revised version with &lt;strong&gt;1MB&lt;/strong&gt; of flash memory.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Fortunately, visual inspection of the module can easily indicate which version it is (&lt;a href=&quot;https://www.esp8266.com/viewtopic.php?p=78465#p78465&quot;&gt;image source&lt;/a&gt;):&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp01-version-comparison.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp01-version-comparison.jpg&quot; alt=&quot;ESP-01 comparison&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
 &lt;h1 id=&quot;todo&quot;&gt;TODO&lt;/h1&gt;
 &lt;ol&gt;
-  &lt;li&gt;Overview of the ESP01&lt;/li&gt;
-  &lt;li&gt;Motivation for making the sensor&lt;/li&gt;
+  &lt;li&gt;&lt;del&gt;Overview of the ESP01&lt;/del&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;del&gt;Motivation for making the sensor&lt;/del&gt;&lt;/li&gt;
   &lt;li&gt;Hardware
     &lt;ol&gt;
       &lt;li&gt;ESP01 (add pinout)&lt;/li&gt;
@@ -50,7 +85,7 @@
   &lt;li&gt;Review article&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="diy" /><category term="tasmota" /><category term="sensor" /><category term="hass" /><category term="iot" /><category term="automation" /></entry><entry><title type="html">Towards a smarter Home Assistant: Getting started on the analytical tools</title><link href="/blog/smarter-hass/" rel="alternate" type="text/html" title="Towards a smarter Home Assistant: Getting started on the analytical tools" /><published>2021-06-22T15:45:00-03:00</published><updated>2021-06-22T15:45:00-03:00</updated><id>/blog/smarter-hass</id><content type="html" xml:base="/blog/smarter-hass/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="diy-series" /><category term="tasmota" /><category term="sensor" /><category term="hass" /><category term="iot" /><category term="automation" /><category term="temperature" /></entry><entry><title type="html">Towards a smarter Home Assistant: Getting started on the analytical tools</title><link href="/blog/smarter-hass/" rel="alternate" type="text/html" title="Towards a smarter Home Assistant: Getting started on the analytical tools" /><published>2021-06-22T15:45:00-03:00</published><updated>2021-06-22T15:45:00-03:00</updated><id>/blog/smarter-hass</id><content type="html" xml:base="/blog/smarter-hass/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;June 22nd, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;

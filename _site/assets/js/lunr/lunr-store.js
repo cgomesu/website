@@ -83,9 +83,9 @@ var store = [{
         "url": "/blog/smarter-hass/",
         "teaser": null
       },{
-        "title": "DIY series: Cheap, reliable, low-profile, USB-powered ambient sensor",
-        "excerpt":"Changelog July 18th, 2021: Publication of the original article top Introduction This is the first article of a do it yourself (DIY) series in which I describe simple electronic projects that make use of an ESP32 board running the Tasmota firmware to integrate various modules into an existing home automation...","categories": ["blog"],
-        "tags": ["diy","tasmota","sensor","hass","iot","automation"],
+        "title": "DIY series: Cheap, reliable, low-profile, USB-powered Tasmota ambient sensor",
+        "excerpt":"Changelog July 18th, 2021: Publication of the original article top Introduction This is the first article of a Do It Yourself (DIY) series in which I describe simple electronic projects that make use of an ESP8266/ESP32 board running the Tasmota firmware to integrate various modules into a home automation system,...","categories": ["blog"],
+        "tags": ["diy-series","tasmota","sensor","hass","iot","automation","temperature"],
         "url": "/blog/diy-tasmota-bme280/",
         "teaser": null
       }]
