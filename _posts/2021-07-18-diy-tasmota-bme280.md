@@ -22,11 +22,11 @@ This is the first article of a **Do It Yourself** (DIY) series in which I descri
 
 - Here is a preview of the ambient sensor standalone and attached to a different devices:
   
-  [![ESP-BME280 sensor 01](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-bme280-sensor-01.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-bme280-sensor-01.jpg)
-  
-  [![ESP-BME280 sensor 02](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-bme280-sensor-02.jpg){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-bme280-sensor-02.jpg)
+[![ESP-BME280 sensor 01](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-bme280-sensor-01.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-bme280-sensor-01.jpg)
 
-  [![ESP-BME280 sensor 03](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-bme280-sensor-03.jpg){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-bme280-sensor-03.jpg)
+[![ESP-BME280 sensor 02](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-bme280-sensor-02.jpg){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-bme280-sensor-02.jpg)
+
+[![ESP-BME280 sensor 03](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-bme280-sensor-03.jpg){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-bme280-sensor-03.jpg)
 
 This is a great project for anyone who wants to get started on building their own Internet of Things (IoT) devices.  The article started with my motivation for this particular project.  Next, I talked about the hardware and software components, and finally, at the end, I covered the assembly of it all to create a functional unit.
 
@@ -41,44 +41,77 @@ Over the years, I have started noticing that multiple devices spread across many
 
 [![Device with USB port 02](/assets/posts/2021-07-18-diy-tasmota-bme280/device-usb-port-02.jpg){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/device-usb-port-02.jpg)
 
-However, the most common type of USB port available ([USB 2.0](https://en.wikipedia.org/wiki/USB#USB_2.0)) usually delivers a maximum of *5V* at *500mA*, which constraints the type of projects that could reasonably use such USB ports as power supply. In addition, because interfacing via the USB connection might not always be possible, due to proprietary and closed-source firmware, the DIY project should be able to transmit data wirelessly instead.
+However, the most common type of USB port available ([USB 2.0](https://en.wikipedia.org/wiki/USB#USB_2.0)) usually delivers a maximum of *500mA* at *5V* (2.5W), which constraints the type of projects that could reasonably use such USB ports as power supply. In addition, because interfacing via the USB connection might not always be possible, due to proprietary and closed-source firmware, the DIY project should be able to transmit data wirelessly instead.
 
-Fortunately, the **ESP-01 WiFi module** meets all such requirements. Specifically, it requires very little energy to operate safely (roughly 3.3V and at least 300mA) and can be connected to existing USB adapters that have a built-in voltage regulator.
+Fortunately, the **ESP-01 WiFi module** meets all such requirements. Specifically, it requires very little energy to operate safely (roughly 3.3V and at least 300mA) and can be connected to USB 2.0 ports via USB adapters that have a built-in voltage regulator.
 
 [top](#){:.btn .btn--light-outline .btn--small}
 
 
 # Overview of the ESP-01
-The **ESP-01** module is a **cheap** and very **small** WiFi module based on the *ESP8266* microcontroller by [ESPRESSIF](#). Of note, it **exposes only two GPIO pins** (other than serial RX and TX) to interface with other devices, it is powered via **3v3 DC** to the VCC and Ground pins, and has **very limited flash memory**.  Regarding the latter point, there are actually two versions of the ESP-01 module that differ in flash memory size:
+The **ESP-01** is a cheap and very small WiFi module developed by [Ai-Thinker](http://en.ai-thinker.com/) that is based on the ESP8266EX microcontroller unit (MCU) by [ESPRESSIF](https://www.espressif.com/):
 
-1. **ESP-01**: The original version with **512KB** of flash memory;
-2. **ESP-01S**: A revised version with **1MB** of flash memory.
+[![ESP-01 top](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-top.png){:.PostImage .PostImage--large}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-top.png)
 
-Fortunately, visual inspection of the module can easily indicate which version it is ([image source](https://www.esp8266.com/viewtopic.php?p=78465#p78465)):
+[![ESP-01 bottom](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-bottom.png){:.PostImage .PostImage--large}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-bottom.png)
 
-[![ESP-01 comparison](/assets/posts/2021-07-18-diy-tasmota-bme280/esp01-version-comparison.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp01-version-comparison.jpg)
+[![ESP-01 dimensions and pinout](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-dimensions-pinout.jpg){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-dimensions-pinout.jpg)
+
+[![ESP-01 schematics](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-schematics.jpg){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-schematics.jpg)
+
+Of note, it **exposes only four GPIO pins** to interface with other devices--namely, `URXD`, `UTXD`, `GPIO2` and `GPIO0`--and it is powered via **3v3 DC** to the `VCC` and `GND` pins. Each of the eight exposed pins has specific functions, as suggested by their name:
+
+| Pin # | Name         | Function                      |
+|:-----:|:------------:|:-----------------------------:|
+| `1`   | `GND`        | Ground                        |
+| `2`   | `IO2`        | GPIO, internal pull-up        |
+| `3`   | `IO0`        | GPIO, internal pull-up        |
+| `4`   | `RX`         | UART0, serial RX data         |
+| `5`   | `3V3`/`VCC`  | 3.3V power supply             |
+| `6`   | `RST`        | Reset pin, active low         |
+| `7`   | `EN`/`CH_PD` | Chip enabled pin, active high |
+| `8`   | `TXD`        | UART0, serial TX data         |
+
+In addition, there is no programmable ROM in the SoC, meaning that any software must be stored on the module's SPI flash.  Regarding the latter, there are actually three popular versions of the ESP-01 WiFi module that differ in flash memory size:
+
+1. **ESP-01 Blue**: The original version with **`512KB`** of flash memory;
+2. **ESP-01 Black**: The original version with **`1MB`** of flash memory;
+3. **ESP-01S**: A revised version with **`1MB`** of flash memory.
+
+Fortunately, visual inspection of the module can easily indicate which version it is:
+
+[![ESP-01 comparison 01](/assets/posts/2021-07-18-diy-tasmota-bme280/esp01-version-comparison-01.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp01-version-comparison-01.jpg)
+
+[![ESP-01 comparison 02](/assets/posts/2021-07-18-diy-tasmota-bme280/esp01-version-comparison-02.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp01-version-comparison-02.jpg)
+
+The external SPI flash can be changed for anything up to `16MB`.  However, this requires de/soldering very small components and such procedure won't be covered in this guide.
+
+In fact, Ai-Thinker has developed [many other versions of the ESP-01 module](https://docs.ai-thinker.com/en/%E8%A7%84%E6%A0%BC%E4%B9%A6), such as the [ESP-01E](https://docs.ai-thinker.com/_media/esp8266/docs/esp-01e_product_specification_en.pdf) and [ESP-01F](https://docs.ai-thinker.com/_media/esp8266/docs/esp-01f_product_specification_en.pdf). However, such modules differ in other important aspects, like format and antenna, and for such a reason, they won't be covered here.  If interested, check their official e-commerce website at Alibaba.com ([https://ai-thinker.en.alibaba.com/](https://ai-thinker.en.alibaba.com/)) to learn how to acquire modules not covered here.
+{:.notice--info }
 
 
 # TODO
-1. ~~Overview of the ESP01~~
-2. ~~Motivation for making the sensor~~
-3. Hardware
-   1. ESP01 (add pinout)
-   2. BME280
-   3. USB adapter for the ESP01 (add pinout)
+- ~~Overview of the ESP01~~
+- ~~Motivation for making the sensor~~
+- ~~Overview of the ESP-01~~
+- Hardware
+   1. ESP01 Black or ESP-01S
+   2. BME280 module
+   3. USB adapter for the ESP01 with exposed pins (add pinout)
    4. Female-female jumper wires
-   5. Soldering stuff for the BME280 module
-4. Software
-   1. Tasmota and caution about ESP01 storage restrictions
-   2. Specific binary for I2C sensors
-5. Assembly
+   5. Soldering stuff for the BME280 module (depends on module)
+- Software
+   1. Tasmota sensor binary (includes I2C sensor support)
+   2. Template for the ESP-01
+- Assembly
    1. Flashing + wiring (grounding GPIO0)
    2. Wiring for BME280 modules
    3. Tasmota configuration for I2C
-6. Home Assistant Integration
-   1. Auto
-   2. Manual
-7. Conclusion
-8. Review article
+- Home Assistant Integration
+   1. MQTT
+      1. Auto
+      2. Manual
+- Conclusion
+- Review article
 
 [top](#){:.btn .btn--light-outline .btn--small}

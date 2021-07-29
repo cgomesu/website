@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-07-28T14:51:48-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: Cheap, reliable, low-profile, USB-powered Tasmota ambient sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: Cheap, reliable, low-profile, USB-powered Tasmota ambient sensor" /><published>2021-07-18T11:20:00-03:00</published><updated>2021-07-18T11:20:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-07-29T13:53:37-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: Cheap, reliable, low-profile, USB-powered Tasmota ambient sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: Cheap, reliable, low-profile, USB-powered Tasmota ambient sensor" /><published>2021-07-18T11:20:00-03:00</published><updated>2021-07-18T11:20:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;July 18th, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
@@ -7,16 +7,14 @@
 &lt;p&gt;This is the first article of a &lt;strong&gt;Do It Yourself&lt;/strong&gt; (DIY) series in which I describe simple electronic projects that make use of an &lt;a href=&quot;https://www.espressif.com/en/products/socs/esp8266&quot;&gt;ESP8266&lt;/a&gt;/&lt;a href=&quot;https://www.espressif.com/en/products/socs/esp32&quot;&gt;ESP32&lt;/a&gt; board running the &lt;a href=&quot;https://github.com/arendst/Tasmota&quot;&gt;Tasmota&lt;/a&gt; firmware to integrate various modules into a home automation system, such as &lt;a href=&quot;https://www.home-assistant.io/&quot;&gt;Home Assistant&lt;/a&gt;.  In this first iteration of the series, I described how to wire and configure a &lt;a href=&quot;https://www.bosch-sensortec.com/products/environmental-sensors/humidity-sensors-bme280/&quot;&gt;&lt;strong&gt;BME280&lt;/strong&gt;&lt;/a&gt; to the tiny &lt;a href=&quot;http://www.ai-thinker.com/pro_view-60.html&quot;&gt;&lt;strong&gt;ESP-01&lt;/strong&gt;&lt;/a&gt; (or its successor, the &lt;a href=&quot;http://www.ai-thinker.com/pro_view-88.html&quot;&gt;ESP-01S&lt;/a&gt;) to create a cheap, low-power, and low-profile ambient sensor that provides &lt;strong&gt;temperature&lt;/strong&gt;, &lt;strong&gt;humidity&lt;/strong&gt;, and &lt;strong&gt;relative pressure&lt;/strong&gt; measurements to a Home Assistant instance.&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Here is a preview of the ambient sensor standalone and attached to a different devices:&lt;/p&gt;
-
-    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-bme280-sensor-01.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-bme280-sensor-01.jpg&quot; alt=&quot;ESP-BME280 sensor 01&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-bme280-sensor-02.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-bme280-sensor-02.jpg&quot; alt=&quot;ESP-BME280 sensor 02&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-bme280-sensor-03.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-bme280-sensor-03.jpg&quot; alt=&quot;ESP-BME280 sensor 03&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
+  &lt;li&gt;Here is a preview of the ambient sensor standalone and attached to a different devices:&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-bme280-sensor-01.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-bme280-sensor-01.jpg&quot; alt=&quot;ESP-BME280 sensor 01&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-bme280-sensor-02.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-bme280-sensor-02.jpg&quot; alt=&quot;ESP-BME280 sensor 02&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-bme280-sensor-03.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-bme280-sensor-03.jpg&quot; alt=&quot;ESP-BME280 sensor 03&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;This is a great project for anyone who wants to get started on building their own Internet of Things (IoT) devices.  The article started with my motivation for this particular project.  Next, I talked about the hardware and software components, and finally, at the end, I covered the assembly of it all to create a functional unit.&lt;/p&gt;
 
@@ -31,41 +29,113 @@
 
 &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/device-usb-port-02.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/device-usb-port-02.jpg&quot; alt=&quot;Device with USB port 02&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;However, the most common type of USB port available (&lt;a href=&quot;https://en.wikipedia.org/wiki/USB#USB_2.0&quot;&gt;USB 2.0&lt;/a&gt;) usually delivers a maximum of &lt;em&gt;5V&lt;/em&gt; at &lt;em&gt;500mA&lt;/em&gt;, which constraints the type of projects that could reasonably use such USB ports as power supply. In addition, because interfacing via the USB connection might not always be possible, due to proprietary and closed-source firmware, the DIY project should be able to transmit data wirelessly instead.&lt;/p&gt;
+&lt;p&gt;However, the most common type of USB port available (&lt;a href=&quot;https://en.wikipedia.org/wiki/USB#USB_2.0&quot;&gt;USB 2.0&lt;/a&gt;) usually delivers a maximum of &lt;em&gt;500mA&lt;/em&gt; at &lt;em&gt;5V&lt;/em&gt; (2.5W), which constraints the type of projects that could reasonably use such USB ports as power supply. In addition, because interfacing via the USB connection might not always be possible, due to proprietary and closed-source firmware, the DIY project should be able to transmit data wirelessly instead.&lt;/p&gt;
 
-&lt;p&gt;Fortunately, the &lt;strong&gt;ESP-01 WiFi module&lt;/strong&gt; meets all such requirements. Specifically, it requires very little energy to operate safely (roughly 3.3V and at least 300mA) and can be connected to existing USB adapters that have a built-in voltage regulator.&lt;/p&gt;
+&lt;p&gt;Fortunately, the &lt;strong&gt;ESP-01 WiFi module&lt;/strong&gt; meets all such requirements. Specifically, it requires very little energy to operate safely (roughly 3.3V and at least 300mA) and can be connected to USB 2.0 ports via USB adapters that have a built-in voltage regulator.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;overview-of-the-esp-01&quot;&gt;Overview of the ESP-01&lt;/h1&gt;
-&lt;p&gt;The &lt;strong&gt;ESP-01&lt;/strong&gt; module is a &lt;strong&gt;cheap&lt;/strong&gt; and very &lt;strong&gt;small&lt;/strong&gt; WiFi module based on the &lt;em&gt;ESP8266&lt;/em&gt; microcontroller by &lt;a href=&quot;#&quot;&gt;ESPRESSIF&lt;/a&gt;. Of note, it &lt;strong&gt;exposes only two GPIO pins&lt;/strong&gt; (other than serial RX and TX) to interface with other devices, it is powered via &lt;strong&gt;3v3 DC&lt;/strong&gt; to the VCC and Ground pins, and has &lt;strong&gt;very limited flash memory&lt;/strong&gt;.  Regarding the latter point, there are actually two versions of the ESP-01 module that differ in flash memory size:&lt;/p&gt;
+&lt;p&gt;The &lt;strong&gt;ESP-01&lt;/strong&gt; is a cheap and very small WiFi module developed by &lt;a href=&quot;http://en.ai-thinker.com/&quot;&gt;Ai-Thinker&lt;/a&gt; that is based on the ESP8266EX microcontroller unit (MCU) by &lt;a href=&quot;https://www.espressif.com/&quot;&gt;ESPRESSIF&lt;/a&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-top.png&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-top.png&quot; alt=&quot;ESP-01 top&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-bottom.png&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-bottom.png&quot; alt=&quot;ESP-01 bottom&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-dimensions-pinout.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-dimensions-pinout.jpg&quot; alt=&quot;ESP-01 dimensions and pinout&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-schematics.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-schematics.jpg&quot; alt=&quot;ESP-01 schematics&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Of note, it &lt;strong&gt;exposes only four GPIO pins&lt;/strong&gt; to interface with other devices–namely, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;URXD&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UTXD&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;GPIO2&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;GPIO0&lt;/code&gt;–and it is powered via &lt;strong&gt;3v3 DC&lt;/strong&gt; to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;VCC&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;GND&lt;/code&gt; pins. Each of the eight exposed pins has specific functions, as suggested by their name:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Pin #&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Name&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Function&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;GND&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Ground&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO2&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;GPIO, internal pull-up&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;3&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO0&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;GPIO, internal pull-up&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;4&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RX&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;UART0, serial RX data&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;5&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;3V3&lt;/code&gt;/&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;VCC&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;3.3V power supply&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;6&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RST&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Reset pin, active low&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;7&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;EN&lt;/code&gt;/&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CH_PD&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Chip enabled pin, active high&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;8&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;TXD&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;UART0, serial TX data&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;In addition, there is no programmable ROM in the SoC, meaning that any software must be stored on the module’s SPI flash.  Regarding the latter, there are actually three popular versions of the ESP-01 WiFi module that differ in flash memory size:&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;ESP-01&lt;/strong&gt;: The original version with &lt;strong&gt;512KB&lt;/strong&gt; of flash memory;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;ESP-01S&lt;/strong&gt;: A revised version with &lt;strong&gt;1MB&lt;/strong&gt; of flash memory.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;ESP-01 Blue&lt;/strong&gt;: The original version with &lt;strong&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;512KB&lt;/code&gt;&lt;/strong&gt; of flash memory;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;ESP-01 Black&lt;/strong&gt;: The original version with &lt;strong&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1MB&lt;/code&gt;&lt;/strong&gt; of flash memory;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;ESP-01S&lt;/strong&gt;: A revised version with &lt;strong&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1MB&lt;/code&gt;&lt;/strong&gt; of flash memory.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;Fortunately, visual inspection of the module can easily indicate which version it is (&lt;a href=&quot;https://www.esp8266.com/viewtopic.php?p=78465#p78465&quot;&gt;image source&lt;/a&gt;):&lt;/p&gt;
+&lt;p&gt;Fortunately, visual inspection of the module can easily indicate which version it is:&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp01-version-comparison.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp01-version-comparison.jpg&quot; alt=&quot;ESP-01 comparison&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp01-version-comparison-01.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp01-version-comparison-01.jpg&quot; alt=&quot;ESP-01 comparison 01&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp01-version-comparison-02.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp01-version-comparison-02.jpg&quot; alt=&quot;ESP-01 comparison 02&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The external SPI flash can be changed for anything up to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;16MB&lt;/code&gt;.  However, this requires de/soldering very small components and such procedure won’t be covered in this guide.&lt;/p&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;In fact, Ai-Thinker has developed &lt;a href=&quot;https://docs.ai-thinker.com/en/%E8%A7%84%E6%A0%BC%E4%B9%A6&quot;&gt;many other versions of the ESP-01 module&lt;/a&gt;, such as the &lt;a href=&quot;https://docs.ai-thinker.com/_media/esp8266/docs/esp-01e_product_specification_en.pdf&quot;&gt;ESP-01E&lt;/a&gt; and &lt;a href=&quot;https://docs.ai-thinker.com/_media/esp8266/docs/esp-01f_product_specification_en.pdf&quot;&gt;ESP-01F&lt;/a&gt;. However, such modules differ in other important aspects, like format and antenna, and for such a reason, they won’t be covered here.  If interested, check their official e-commerce website at Alibaba.com (&lt;a href=&quot;https://ai-thinker.en.alibaba.com/&quot;&gt;https://ai-thinker.en.alibaba.com/&lt;/a&gt;) to learn how to acquire modules not covered here.&lt;/p&gt;
 
 &lt;h1 id=&quot;todo&quot;&gt;TODO&lt;/h1&gt;
-&lt;ol&gt;
+&lt;ul&gt;
   &lt;li&gt;&lt;del&gt;Overview of the ESP01&lt;/del&gt;&lt;/li&gt;
   &lt;li&gt;&lt;del&gt;Motivation for making the sensor&lt;/del&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;del&gt;Overview of the ESP-01&lt;/del&gt;&lt;/li&gt;
   &lt;li&gt;Hardware
     &lt;ol&gt;
-      &lt;li&gt;ESP01 (add pinout)&lt;/li&gt;
-      &lt;li&gt;BME280&lt;/li&gt;
-      &lt;li&gt;USB adapter for the ESP01 (add pinout)&lt;/li&gt;
+      &lt;li&gt;ESP01 Black or ESP-01S&lt;/li&gt;
+      &lt;li&gt;BME280 module&lt;/li&gt;
+      &lt;li&gt;USB adapter for the ESP01 with exposed pins (add pinout)&lt;/li&gt;
       &lt;li&gt;Female-female jumper wires&lt;/li&gt;
-      &lt;li&gt;Soldering stuff for the BME280 module&lt;/li&gt;
+      &lt;li&gt;Soldering stuff for the BME280 module (depends on module)&lt;/li&gt;
     &lt;/ol&gt;
   &lt;/li&gt;
   &lt;li&gt;Software
     &lt;ol&gt;
-      &lt;li&gt;Tasmota and caution about ESP01 storage restrictions&lt;/li&gt;
-      &lt;li&gt;Specific binary for I2C sensors&lt;/li&gt;
+      &lt;li&gt;Tasmota sensor binary (includes I2C sensor support)&lt;/li&gt;
+      &lt;li&gt;Template for the ESP-01&lt;/li&gt;
     &lt;/ol&gt;
   &lt;/li&gt;
   &lt;li&gt;Assembly
@@ -77,13 +147,17 @@
   &lt;/li&gt;
   &lt;li&gt;Home Assistant Integration
     &lt;ol&gt;
-      &lt;li&gt;Auto&lt;/li&gt;
-      &lt;li&gt;Manual&lt;/li&gt;
+      &lt;li&gt;MQTT
+        &lt;ol&gt;
+          &lt;li&gt;Auto&lt;/li&gt;
+          &lt;li&gt;Manual&lt;/li&gt;
+        &lt;/ol&gt;
+      &lt;/li&gt;
     &lt;/ol&gt;
   &lt;/li&gt;
   &lt;li&gt;Conclusion&lt;/li&gt;
   &lt;li&gt;Review article&lt;/li&gt;
-&lt;/ol&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="diy-series" /><category term="tasmota" /><category term="sensor" /><category term="hass" /><category term="iot" /><category term="automation" /><category term="temperature" /></entry><entry><title type="html">Towards a smarter Home Assistant: Getting started on the analytical tools</title><link href="/blog/smarter-hass/" rel="alternate" type="text/html" title="Towards a smarter Home Assistant: Getting started on the analytical tools" /><published>2021-06-22T15:45:00-03:00</published><updated>2021-06-22T15:45:00-03:00</updated><id>/blog/smarter-hass</id><content type="html" xml:base="/blog/smarter-hass/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;June 22nd, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
