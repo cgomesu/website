@@ -1,5 +1,5 @@
 ---
-title: "DIY series: Cheap, reliable, low-profile, USB-powered Tasmota ambient sensor"
+title: "DIY series: USB-powered, low-profile, and reliable ESP-01 Tasmota environmental sensor"
 date: 2021-07-18 11:20:00 -0300
 tags: diy-series tasmota sensor hass iot automation temperature
 header:
@@ -44,7 +44,11 @@ Over the years, I have started noticing that multiple devices spread across the 
 
 However, the most common type of USB port available ([USB 2.0](https://en.wikipedia.org/wiki/USB#USB_2.0)) usually delivers a maximum of `500mA` at `5V` (`2.5W`), which constraints the type of projects that could reasonably use such ports as power supply. In addition, because interfacing via the USB connection might not always be possible, owing to proprietary and closed-source firmware, the DIY project should be able to transmit data wirelessly instead.
 
-Fortunately, the **ESP-01 WiFi module** meets all such requirements. Specifically, it requires very little energy to operate safely (`350mA` at roughly `3.3V`) and can be connected to USB 2.0 ports via USB adapters that have a built-in voltage regulator.
+Fortunately, the **ESP-01 WiFi module** meets all such requirements. Specifically, it requires very little energy to operate (about `1W`) and can be connected to USB 2.0 ports via USB adapters that have a built-in voltage regulator.
+
+[![ESP-01 with USB adapter](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-with-usb-adapter.jpg){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-with-usb-adapter.jpg)
+
+Furthermore, because the unit will draw power from standard USB ports, it can be connected to most [power banks](https://duckduckgo.com/?t=ffab&q=usb+power+bank&iax=images&ia=images) to create a mobile/remote ambient sensor.
 
 [top](#){:.btn .btn--light-outline .btn--small}
 
@@ -135,7 +139,7 @@ In fact, Ai-Thinker has developed [many other versions of the ESP-01 module](htt
 {:.notice--info }
 
 ## BME280
-The **BME280** is a low-profile (`2.5 x 2.5 x 0.93 mm³`) and low-power (`3.6 mA` at roughly `3.3V`) environmental sensor developed by [Bosch Sensortec](https://www.bosch-sensortec.com). Specifically, this unit comes with high accuracy sensors for **temperature**, **humidity**, and **pressure**, all protected by a metal-lid.  Of note, it uses [I²C](https://en.wikipedia.org/wiki/I%C2%B2C) and [SPI](https://en.wikipedia.org/wiki/Serial_Peripheral_Interface) interfaces for data communication and is powered by **3v3 DC** (specifically, from `1.71V` to `3.6V`).
+The **BME280** is a low-profile (`2.5 x 2.5 x 0.93 mm³`) and low-power (`3.6 mA` at roughly `3.3V`) environmental sensor developed by [Bosch Sensortec](https://www.bosch-sensortec.com). Specifically, this unit comes with high accuracy sensors for **temperature**, **humidity**, and **pressure**, all protected by a metal-lid.  Of note, it uses [I²C](https://en.wikipedia.org/wiki/I%C2%B2C) and [SPI](https://en.wikipedia.org/wiki/Serial_Peripheral_Interface) interfaces for data communication and is powered by `3v3 DC` (specifically, from `1.71V` to `3.6V`).
 
 [![BME280 01 photo](/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-01.png){:.PostImage .PostImage--large}](/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-01.png)
 
@@ -150,13 +154,21 @@ Bosch Sensortec has made an amazing job at [documenting all aspects about this s
 
 
 # Hardware
-To make a single ESP-01 Tasmota ambient sensor, you will need the following items:
+To make a single ESP-01 Tasmota environmental sensor, you will need the following items:
 
-- [ESP-01 Black](#) or [ESP-01S](#)
+- 01x [ESP-01 Black/ESP-01S](https://www.amazon.com/s?k=esp-01+wifi+module): A single module should cost less than USD$ 5 but if you buy it in packs, you can often find them for even lower values. I recommend buying multiples at once.
+  
+  [![ESP-01 top](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-top.png){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-top.png)
 
-- [USB adapter for the ESP-01 with exposed pins](#)
+- 01x [USB to ESP-01 adapter](https://www.amazon.com/s?k=USB+to+ESP-01): Look for the ones that have **exposed pins** (see figure below) and preferably, that make use of the Silicon Labs [CP2104](https://www.silabs.com/documents/public/data-sheets/cp2104.pdf) (or [CP2102](https://www.silabs.com/documents/public/data-sheets/cp2102.pdf)) chip. More often than not, however, the adapters will make use of a cheaper, and less well-documented chip--namely, a [CH340](https://www.mpja.com/download/35227cpdata.pdf) variation--that might work just fine.
+  
+  [![USB to ESP-01 CP2104 adapter 01](/assets/posts/2021-07-18-diy-tasmota-bme280/usb-to-esp01-cp2104-adapter-01.jpg){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/usb-to-esp01-cp2104-adapter-01.jpg)
 
-- [BME280 module](#)
+  [![USB to ESP-01 CP2104 adapter 02](/assets/posts/2021-07-18-diy-tasmota-bme280/usb-to-esp01-cp2104-adapter-02.jpg){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/usb-to-esp01-cp2104-adapter-02.jpg)
+
+  Notice how the exposed (male) pins are mapped to the female pins (the ones that should be attached to the ESP-01 module). This is fundamental to figuring out how to put the module into *flash mode* and later on, connecting the ESP-01 module to the BME280 module.  The advantage of having exposed pins is that no soldering job is required.
+
+- [BME280 module](https://www.amazon.com/s?k=BME280):
   - Depending on the module, may need soldering kit for headers
 
 - 05x [Female-Female dupont wires](#)

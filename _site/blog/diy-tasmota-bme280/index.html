@@ -9,7 +9,7 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>DIY series: Cheap, reliable, low-profile, USB-powered Tasmota ambient sensor - CGomesu</title>
+<!-- begin _includes/seo.html --><title>DIY series: USB-powered, low-profile, and reliable ESP-01 Tasmota environmental sensor - CGomesu</title>
 <meta name="description" content="A blog and portfolio website built with Jekyll and hosted on Github Pages">
 
 
@@ -19,7 +19,7 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="CGomesu">
-<meta property="og:title" content="DIY series: Cheap, reliable, low-profile, USB-powered Tasmota ambient sensor">
+<meta property="og:title" content="DIY series: USB-powered, low-profile, and reliable ESP-01 Tasmota environmental sensor">
 <meta property="og:url" content="/blog/diy-tasmota-bme280/">
 
 
@@ -184,7 +184,7 @@
     <div class="wrapper">
       <h1 id="page-title" class="page__title" itemprop="headline">
         
-          DIY series: Cheap, reliable, low-profile, USB-powered Tasmota ambient sensor
+          DIY series: USB-powered, low-profile, and reliable ESP-01 Tasmota environmental sensor
 
         
       </h1>
@@ -198,7 +198,7 @@
 
 
 
-  8 minute read
+  9 minute read
 
 </p>
       
@@ -337,7 +337,7 @@
 
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="DIY series: Cheap, reliable, low-profile, USB-powered Tasmota ambient sensor">
+    <meta itemprop="headline" content="DIY series: USB-powered, low-profile, and reliable ESP-01 Tasmota environmental sensor">
     <meta itemprop="description" content="">
     <meta itemprop="datePublished" content="2021-07-18T11:20:00-03:00">
     
@@ -404,7 +404,11 @@
 
 <p>However, the most common type of USB port available (<a href="https://en.wikipedia.org/wiki/USB#USB_2.0">USB 2.0</a>) usually delivers a maximum of <code class="language-plaintext highlighter-rouge">500mA</code> at <code class="language-plaintext highlighter-rouge">5V</code> (<code class="language-plaintext highlighter-rouge">2.5W</code>), which constraints the type of projects that could reasonably use such ports as power supply. In addition, because interfacing via the USB connection might not always be possible, owing to proprietary and closed-source firmware, the DIY project should be able to transmit data wirelessly instead.</p>
 
-<p>Fortunately, the <strong>ESP-01 WiFi module</strong> meets all such requirements. Specifically, it requires very little energy to operate safely (<code class="language-plaintext highlighter-rouge">350mA</code> at roughly <code class="language-plaintext highlighter-rouge">3.3V</code>) and can be connected to USB 2.0 ports via USB adapters that have a built-in voltage regulator.</p>
+<p>Fortunately, the <strong>ESP-01 WiFi module</strong> meets all such requirements. Specifically, it requires very little energy to operate (about <code class="language-plaintext highlighter-rouge">1W</code>) and can be connected to USB 2.0 ports via USB adapters that have a built-in voltage regulator.</p>
+
+<p><a href="/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-with-usb-adapter.jpg"><img src="/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-with-usb-adapter.jpg" alt="ESP-01 with USB adapter" class="PostImage" /></a></p>
+
+<p>Furthermore, because the unit will draw power from standard USB ports, it can be connected to most <a href="https://duckduckgo.com/?t=ffab&amp;q=usb+power+bank&amp;iax=images&amp;ia=images">power banks</a> to create a mobile/remote ambient sensor.</p>
 
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 
@@ -497,7 +501,7 @@
 <p class="notice--info">In fact, Ai-Thinker has developed <a href="https://docs.ai-thinker.com/en/%E8%A7%84%E6%A0%BC%E4%B9%A6">many other versions of the ESP-01 module</a>, such as the <a href="https://docs.ai-thinker.com/_media/esp8266/docs/esp-01e_product_specification_en.pdf">ESP-01E</a> and <a href="https://docs.ai-thinker.com/_media/esp8266/docs/esp-01f_product_specification_en.pdf">ESP-01F</a>. However, such modules differ in other important aspects, like format and antenna, and for such a reason, they won’t be covered here.  If interested, check their official e-commerce website at Alibaba.com (<a href="https://ai-thinker.en.alibaba.com/">https://ai-thinker.en.alibaba.com/</a>) to learn how to acquire modules not covered here.</p>
 
 <h2 id="bme280">BME280</h2>
-<p>The <strong>BME280</strong> is a low-profile (<code class="language-plaintext highlighter-rouge">2.5 x 2.5 x 0.93 mm³</code>) and low-power (<code class="language-plaintext highlighter-rouge">3.6 mA</code> at roughly <code class="language-plaintext highlighter-rouge">3.3V</code>) environmental sensor developed by <a href="https://www.bosch-sensortec.com">Bosch Sensortec</a>. Specifically, this unit comes with high accuracy sensors for <strong>temperature</strong>, <strong>humidity</strong>, and <strong>pressure</strong>, all protected by a metal-lid.  Of note, it uses <a href="https://en.wikipedia.org/wiki/I%C2%B2C">I²C</a> and <a href="https://en.wikipedia.org/wiki/Serial_Peripheral_Interface">SPI</a> interfaces for data communication and is powered by <strong>3v3 DC</strong> (specifically, from <code class="language-plaintext highlighter-rouge">1.71V</code> to <code class="language-plaintext highlighter-rouge">3.6V</code>).</p>
+<p>The <strong>BME280</strong> is a low-profile (<code class="language-plaintext highlighter-rouge">2.5 x 2.5 x 0.93 mm³</code>) and low-power (<code class="language-plaintext highlighter-rouge">3.6 mA</code> at roughly <code class="language-plaintext highlighter-rouge">3.3V</code>) environmental sensor developed by <a href="https://www.bosch-sensortec.com">Bosch Sensortec</a>. Specifically, this unit comes with high accuracy sensors for <strong>temperature</strong>, <strong>humidity</strong>, and <strong>pressure</strong>, all protected by a metal-lid.  Of note, it uses <a href="https://en.wikipedia.org/wiki/I%C2%B2C">I²C</a> and <a href="https://en.wikipedia.org/wiki/Serial_Peripheral_Interface">SPI</a> interfaces for data communication and is powered by <code class="language-plaintext highlighter-rouge">3v3 DC</code> (specifically, from <code class="language-plaintext highlighter-rouge">1.71V</code> to <code class="language-plaintext highlighter-rouge">3.6V</code>).</p>
 
 <p><a href="/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-01.png"><img src="/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-01.png" alt="BME280 01 photo" class="PostImage PostImage--large" /></a></p>
 
@@ -513,16 +517,24 @@
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 
 <h1 id="hardware">Hardware</h1>
-<p>To make a single ESP-01 Tasmota ambient sensor, you will need the following items:</p>
+<p>To make a single ESP-01 Tasmota environmental sensor, you will need the following items:</p>
 
 <ul>
   <li>
-    <p><a href="#">ESP-01 Black</a> or <a href="#">ESP-01S</a></p>
+    <p>01x <a href="https://www.amazon.com/s?k=esp-01+wifi+module">ESP-01 Black/ESP-01S</a>: A single module should cost less than USD$ 5 but if you buy it in packs, you can often find them for even lower values. I recommend buying multiples at once.</p>
+
+    <p><a href="/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-top.png"><img src="/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-top.png" alt="ESP-01 top" class="PostImage" /></a></p>
   </li>
   <li>
-    <p><a href="#">USB adapter for the ESP-01 with exposed pins</a></p>
+    <p>01x <a href="https://www.amazon.com/s?k=USB+to+ESP-01">USB to ESP-01 adapter</a>: Look for the ones that have <strong>exposed pins</strong> (see figure below) and preferably, that make use of the Silicon Labs <a href="https://www.silabs.com/documents/public/data-sheets/cp2104.pdf">CP2104</a> (or <a href="https://www.silabs.com/documents/public/data-sheets/cp2102.pdf">CP2102</a>) chip. More often than not, however, the adapters will make use of a cheaper, and less well-documented chip–namely, a <a href="https://www.mpja.com/download/35227cpdata.pdf">CH340</a> variation–that might work just fine.</p>
+
+    <p><a href="/assets/posts/2021-07-18-diy-tasmota-bme280/usb-to-esp01-cp2104-adapter-01.jpg"><img src="/assets/posts/2021-07-18-diy-tasmota-bme280/usb-to-esp01-cp2104-adapter-01.jpg" alt="USB to ESP-01 CP2104 adapter 01" class="PostImage" /></a></p>
+
+    <p><a href="/assets/posts/2021-07-18-diy-tasmota-bme280/usb-to-esp01-cp2104-adapter-02.jpg"><img src="/assets/posts/2021-07-18-diy-tasmota-bme280/usb-to-esp01-cp2104-adapter-02.jpg" alt="USB to ESP-01 CP2104 adapter 02" class="PostImage" /></a></p>
+
+    <p>Notice how the exposed (male) pins are mapped to the female pins (the ones that should be attached to the ESP-01 module). This is fundamental to figuring out how to put the module into <em>flash mode</em> and later on, connecting the ESP-01 module to the BME280 module.  The advantage of having exposed pins is that no soldering job is required.</p>
   </li>
-  <li><a href="#">BME280 module</a>
+  <li><a href="https://www.amazon.com/s?k=BME280">BME280 module</a>:
     <ul>
       <li>Depending on the module, may need soldering kit for headers</li>
     </ul>
@@ -619,13 +631,13 @@
     <h4 class="page__share-title">Share on</h4>
   
 
-  <a href="mailto:?subject=[cgomesu.com] DIY series: Cheap, reliable, low-profile, USB-powered Tasmota ambient sensor&amp;body=%2Fblog%2Fdiy-tasmota-bme280%2F " class="btn btn--inverse" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on E-mail"><i class="fas fa-envelope" aria-hidden="true"></i><span> E-mail</span></a>
+  <a href="mailto:?subject=[cgomesu.com] DIY series: USB-powered, low-profile, and reliable ESP-01 Tasmota environmental sensor&amp;body=%2Fblog%2Fdiy-tasmota-bme280%2F " class="btn btn--inverse" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on E-mail"><i class="fas fa-envelope" aria-hidden="true"></i><span> E-mail</span></a>
 
   <a href="https://www.facebook.com/sharer/sharer.php?u=%2Fblog%2Fdiy-tasmota-bme280%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://www.reddit.com/submit?title=DIY series: Cheap, reliable, low-profile, USB-powered Tasmota ambient sensor&url=%2Fblog%2Fdiy-tasmota-bme280%2F" class="btn btn--reddit" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Reddit"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i><span> Reddit</span></a>
+  <a href="https://www.reddit.com/submit?title=DIY series: USB-powered, low-profile, and reliable ESP-01 Tasmota environmental sensor&url=%2Fblog%2Fdiy-tasmota-bme280%2F" class="btn btn--reddit" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Reddit"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i><span> Reddit</span></a>
 
-  <a href="https://twitter.com/intent/tweet?text=DIY+series%3A+Cheap%2C+reliable%2C+low-profile%2C+USB-powered+Tasmota+ambient+sensor%20%2Fblog%2Fdiy-tasmota-bme280%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=DIY+series%3A+USB-powered%2C+low-profile%2C+and+reliable+ESP-01+Tasmota+environmental+sensor%20%2Fblog%2Fdiy-tasmota-bme280%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 </section>
 
 
