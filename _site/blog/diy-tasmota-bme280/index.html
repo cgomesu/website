@@ -422,57 +422,55 @@
 
 <p>Of note, it <strong>exposes only four GPIO pins</strong> to interface with other devices–namely, <code class="language-plaintext highlighter-rouge">URXD</code>, <code class="language-plaintext highlighter-rouge">UTXD</code>, <code class="language-plaintext highlighter-rouge">GPIO2</code> and <code class="language-plaintext highlighter-rouge">GPIO0</code>–and it is powered via <strong><code class="language-plaintext highlighter-rouge">3v3 DC</code></strong> to the <code class="language-plaintext highlighter-rouge">VCC</code> and <code class="language-plaintext highlighter-rouge">GND</code> pins. Each of the eight exposed pins has specific functions, as suggested by their name:</p>
 
+<center>
 <table>
-  <thead>
-    <tr>
-      <th style="text-align: center">Pin #</th>
-      <th style="text-align: center">Name</th>
-      <th style="text-align: center">Function</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">1</code></td>
-      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">GND</code></td>
-      <td style="text-align: center">Ground</td>
-    </tr>
-    <tr>
-      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">2</code></td>
-      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">IO2</code></td>
-      <td style="text-align: center">GPIO, internal pull-up</td>
-    </tr>
-    <tr>
-      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">3</code></td>
-      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">IO0</code></td>
-      <td style="text-align: center">GPIO, internal pull-up</td>
-    </tr>
-    <tr>
-      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">4</code></td>
-      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">RX</code></td>
-      <td style="text-align: center">UART0, serial RX data</td>
-    </tr>
-    <tr>
-      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">5</code></td>
-      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">3V3</code>/<code class="language-plaintext highlighter-rouge">VCC</code></td>
-      <td style="text-align: center">3.3V power supply</td>
-    </tr>
-    <tr>
-      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">6</code></td>
-      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">RST</code></td>
-      <td style="text-align: center">Reset pin, active low</td>
-    </tr>
-    <tr>
-      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">7</code></td>
-      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">EN</code>/<code class="language-plaintext highlighter-rouge">CH_PD</code></td>
-      <td style="text-align: center">Chip enabled pin, active high</td>
-    </tr>
-    <tr>
-      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">8</code></td>
-      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">TXD</code></td>
-      <td style="text-align: center">UART0, serial TX data</td>
-    </tr>
-  </tbody>
+   <thead>
+      <th style="text-align: center;">Pin #</th>
+      <th style="text-align: center;">Name</th>
+      <th style="text-align: center;">Function</th>
+   </thead>
+   <tr>
+      <td>1</td>
+      <td>GND</td>
+      <td>Ground</td>
+   </tr>
+   <tr>
+      <td>2</td>
+      <td>IO2</td>
+      <td>GPIO 2, internal pull-up</td>
+   </tr>
+   <tr>
+      <td>3</td>
+      <td>IO0</td>
+      <td>GPIO 0 (zero), internal pull-up</td>
+   </tr>
+   <tr>
+      <td>4</td>
+      <td>RX</td>
+      <td>UART0, serial RX data</td>
+   </tr>
+   <tr>
+      <td>5</td>
+      <td>3v3 / VCC</td>
+      <td>3.3V power supply</td>
+   </tr>
+   <tr>
+      <td>6</td>
+      <td>RST / IO16</td>
+      <td>Reset pin, active low</td>
+   </tr>
+   <tr>
+      <td>7</td>
+      <td>EN / CH_PD</td>
+      <td>Chip enabled pin, active high</td>
+   </tr>
+   <tr>
+      <td>8</td>
+      <td>TX</td>
+      <td>UART0, serial TX data</td>
+   </tr>
 </table>
+</center>
 
 <p>In addition, there is no programmable ROM in the SoC, meaning that any software must be stored on the module’s SPI flash.  Regarding the latter, there are actually three popular versions of the ESP-01 WiFi module that differ in flash memory size:</p>
 

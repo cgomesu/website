@@ -63,16 +63,55 @@ The **ESP-01** is a cheap and very small WiFi module developed by [Ai-Thinker](h
 
 Of note, it **exposes only four GPIO pins** to interface with other devices--namely, `URXD`, `UTXD`, `GPIO2` and `GPIO0`--and it is powered via **`3v3 DC`** to the `VCC` and `GND` pins. Each of the eight exposed pins has specific functions, as suggested by their name:
 
-| Pin # | Name         | Function                      |
-|:-----:|:------------:|:-----------------------------:|
-| `1`   | `GND`        | Ground                        |
-| `2`   | `IO2`        | GPIO, internal pull-up        |
-| `3`   | `IO0`        | GPIO, internal pull-up        |
-| `4`   | `RX`         | UART0, serial RX data         |
-| `5`   | `3V3`/`VCC`  | 3.3V power supply             |
-| `6`   | `RST`        | Reset pin, active low         |
-| `7`   | `EN`/`CH_PD` | Chip enabled pin, active high |
-| `8`   | `TXD`        | UART0, serial TX data         |
+<center>
+<table>
+   <thead>
+      <th style="text-align: center;">Pin #</th>
+      <th style="text-align: center;">Name</th>
+      <th style="text-align: center;">Function</th>
+   </thead>
+   <tr>
+      <td>1</td>
+      <td>GND</td>
+      <td>Ground</td>
+   </tr>
+   <tr>
+      <td>2</td>
+      <td>IO2</td>
+      <td>GPIO 2, internal pull-up</td>
+   </tr>
+   <tr>
+      <td>3</td>
+      <td>IO0</td>
+      <td>GPIO 0 (zero), internal pull-up</td>
+   </tr>
+   <tr>
+      <td>4</td>
+      <td>RX</td>
+      <td>UART0, serial RX data</td>
+   </tr>
+   <tr>
+      <td>5</td>
+      <td>3v3 / VCC</td>
+      <td>3.3V power supply</td>
+   </tr>
+   <tr>
+      <td>6</td>
+      <td>RST / IO16</td>
+      <td>Reset pin, active low</td>
+   </tr>
+   <tr>
+      <td>7</td>
+      <td>EN / CH_PD</td>
+      <td>Chip enabled pin, active high</td>
+   </tr>
+   <tr>
+      <td>8</td>
+      <td>TX</td>
+      <td>UART0, serial TX data</td>
+   </tr>
+</table>
+</center>
 
 In addition, there is no programmable ROM in the SoC, meaning that any software must be stored on the module's SPI flash.  Regarding the latter, there are actually three popular versions of the ESP-01 WiFi module that differ in flash memory size:
 
