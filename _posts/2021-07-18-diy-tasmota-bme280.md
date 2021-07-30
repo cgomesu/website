@@ -20,7 +20,7 @@ toc_icon: "list"
 # Introduction
 This is the first article of a **Do It Yourself** (DIY) series in which I describe simple electronic projects that make use of an [ESP8266](https://www.espressif.com/en/products/socs/esp8266)/[ESP32](https://www.espressif.com/en/products/socs/esp32) board running the [Tasmota](https://github.com/arendst/Tasmota) firmware to integrate various modules into a home automation system, such as [Home Assistant](https://www.home-assistant.io/).  In this first iteration of the series, I described how to wire and configure a [**BME280**](https://www.bosch-sensortec.com/products/environmental-sensors/humidity-sensors-bme280/) to the tiny [**ESP-01**](http://www.ai-thinker.com/pro_view-60.html) (or its successor, the [ESP-01S](http://www.ai-thinker.com/pro_view-88.html)) to create a cheap, low-power, and low-profile ambient sensor that provides **temperature**, **humidity**, and **relative pressure** measurements to a Home Assistant instance.
 
-- Here is a preview of the ambient sensor standalone and attached to a different devices:
+- Here is a preview of the ambient sensor alone and attached to different devices:
   
 [![ESP-BME280 sensor 01](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-bme280-sensor-01.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-bme280-sensor-01.jpg)
 
@@ -36,15 +36,15 @@ Because this is such a low-profile project, I do not ever bother printing a case
 [top](#){:.btn .btn--light-outline .btn--small}
 
 # Motivation
-Over the years, I have started noticing that multiple devices spread across many households (e.g., smart TVs, sound systems, wireless routers, PC towers and laptops) had one or more **USB ports** that could be used to power a few DIY electronic projects.  
+Over the years, I have started noticing that multiple devices spread across the household (e.g., smart TVs, sound systems, wireless routers, PC towers and laptops) had one or more **USB ports** that could be used to power a few DIY electronic projects.  
 
 [![Device with USB port 01](/assets/posts/2021-07-18-diy-tasmota-bme280/device-usb-port-01.jpg){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/device-usb-port-01.jpg)
 
 [![Device with USB port 02](/assets/posts/2021-07-18-diy-tasmota-bme280/device-usb-port-02.jpg){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/device-usb-port-02.jpg)
 
-However, the most common type of USB port available ([USB 2.0](https://en.wikipedia.org/wiki/USB#USB_2.0)) usually delivers a maximum of *500mA* at *5V* (2.5W), which constraints the type of projects that could reasonably use such USB ports as power supply. In addition, because interfacing via the USB connection might not always be possible, due to proprietary and closed-source firmware, the DIY project should be able to transmit data wirelessly instead.
+However, the most common type of USB port available ([USB 2.0](https://en.wikipedia.org/wiki/USB#USB_2.0)) usually delivers a maximum of `500mA` at `5V` (`2.5W`), which constraints the type of projects that could reasonably use such ports as power supply. In addition, because interfacing via the USB connection might not always be possible, owing to proprietary and closed-source firmware, the DIY project should be able to transmit data wirelessly instead.
 
-Fortunately, the **ESP-01 WiFi module** meets all such requirements. Specifically, it requires very little energy to operate safely (roughly 3.3V and at least 300mA) and can be connected to USB 2.0 ports via USB adapters that have a built-in voltage regulator.
+Fortunately, the **ESP-01 WiFi module** meets all such requirements. Specifically, it requires very little energy to operate safely (`350mA` at roughly `3.3V`) and can be connected to USB 2.0 ports via USB adapters that have a built-in voltage regulator.
 
 [top](#){:.btn .btn--light-outline .btn--small}
 
@@ -61,7 +61,7 @@ The **ESP-01** is a cheap and very small WiFi module developed by [Ai-Thinker](h
 
 [![ESP-01 schematics](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-schematics.jpg){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-schematics.jpg)
 
-Of note, it **exposes only four GPIO pins** to interface with other devices--namely, `URXD`, `UTXD`, `GPIO2` and `GPIO0`--and it is powered via **`3v3 DC`** to the `VCC` and `GND` pins. Each of the eight exposed pins has specific functions, as suggested by their name:
+Of note, it **exposes only four GPIO pins** to interface with other devices--namely, `URXD`, `UTXD`, `IO2` and `IO0`--and it is powered via `3v3 DC` to the `VCC` and `GND` pins. Each of the eight exposed pins has specific functions, as suggested by their name:
 
 <center>
 <table>
@@ -87,7 +87,7 @@ Of note, it **exposes only four GPIO pins** to interface with other devices--nam
    </tr>
    <tr>
       <td>4</td>
-      <td>RX</td>
+      <td>URXD</td>
       <td>UART0, serial RX data</td>
    </tr>
    <tr>
@@ -107,7 +107,7 @@ Of note, it **exposes only four GPIO pins** to interface with other devices--nam
    </tr>
    <tr>
       <td>8</td>
-      <td>TX</td>
+      <td>UTXD</td>
       <td>UART0, serial TX data</td>
    </tr>
 </table>
@@ -115,9 +115,9 @@ Of note, it **exposes only four GPIO pins** to interface with other devices--nam
 
 In addition, there is no programmable ROM in the SoC, meaning that any software must be stored on the module's SPI flash.  Regarding the latter, there are actually three popular versions of the ESP-01 WiFi module that differ in flash memory size:
 
-1. **ESP-01 Blue**: The original version with **`512KB`** of flash memory;
-2. **ESP-01 Black**: The original version with **`1MB`** of flash memory;
-3. **ESP-01S**: A revised version with **`1MB`** of flash memory.
+1. **ESP-01 Blue**: The original version with `512KB` of flash memory;
+2. **ESP-01 Black**: The original version with `1MB` of flash memory;
+3. **ESP-01S**: A revised version with `1MB` of flash memory.
 
 Fortunately, visual inspection of the module can easily indicate which version it is:
 
@@ -126,6 +126,10 @@ Fortunately, visual inspection of the module can easily indicate which version i
 [![ESP-01 comparison 02](/assets/posts/2021-07-18-diy-tasmota-bme280/esp01-version-comparison-02.jpg){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp01-version-comparison-02.jpg)
 
 The external SPI flash can be changed for anything up to `16MB`.  However, this requires de/soldering very small components and such procedure won't be covered in this guide.  My recommendation is to simply look for the versions that have at least `1MB` of flash memory, which is just enough for the project described in this article.
+
+For more information, refer to the official documentation:
+- [ESP-01](https://docs.ai-thinker.com/_media/esp8266/docs/esp-01_product_specification_en.pdf)
+- [ESP-01S](https://docs.ai-thinker.com/_media/esp8266/docs/esp-01s_product_specification_en.pdf)
 
 In fact, Ai-Thinker has developed [many other versions of the ESP-01 module](https://docs.ai-thinker.com/en/%E8%A7%84%E6%A0%BC%E4%B9%A6), such as the [ESP-01E](https://docs.ai-thinker.com/_media/esp8266/docs/esp-01e_product_specification_en.pdf) and [ESP-01F](https://docs.ai-thinker.com/_media/esp8266/docs/esp-01f_product_specification_en.pdf). However, such modules differ in other important aspects, like format and antenna, and for such a reason, they won't be covered here.  If interested, check their official e-commerce website at Alibaba.com ([https://ai-thinker.en.alibaba.com/](https://ai-thinker.en.alibaba.com/)) to learn how to acquire modules not covered here.
 {:.notice--info }
@@ -137,7 +141,7 @@ The **BME280** is a low-profile (`2.5 x 2.5 x 0.93 mm³`) and low-power (`3.6 mA
 
 [![BME280 02 dimensions](/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-02.png){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-02.png)
 
-Bosch Sensortec has made a terrific job at [documenting all many aspects about this sensor](https://www.bosch-sensortec.com/products/environmental-sensors/humidity-sensors-bme280/#documents). For quick reference, here are the main docs:
+Bosch Sensortec has made an amazing job at [documenting all aspects about this sensor](https://www.bosch-sensortec.com/products/environmental-sensors/humidity-sensors-bme280/#documents). For quick reference, here are the main docs:
 
 - [Datasheet](https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf)
 - [Handling, soldering and mounting instructions](https://www.bosch-sensortec.com/media/boschsensortec/downloads/handling_soldering_mounting_instructions/bst-bme280-hs006.pdf)
