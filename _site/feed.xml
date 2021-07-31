@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-07-30T13:41:01-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: USB-powered, low-profile, and reliable ESP-01 Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: USB-powered, low-profile, and reliable ESP-01 Tasmota environmental sensor" /><published>2021-07-18T11:20:00-03:00</published><updated>2021-07-18T11:20:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-07-31T14:02:05-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: USB-powered, low-profile, and reliable ESP-01 Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: USB-powered, low-profile, and reliable ESP-01 Tasmota environmental sensor" /><published>2021-07-18T11:20:00-03:00</published><updated>2021-07-18T11:20:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;July 18th, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
@@ -31,7 +31,7 @@
 
 &lt;p&gt;However, the most common type of USB port available (&lt;a href=&quot;https://en.wikipedia.org/wiki/USB#USB_2.0&quot;&gt;USB 2.0&lt;/a&gt;) usually delivers a maximum of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;500mA&lt;/code&gt; at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;5V&lt;/code&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2.5W&lt;/code&gt;), which constraints the type of projects that could reasonably use such ports as power supply. In addition, because interfacing via the USB connection might not always be possible, owing to proprietary and closed-source firmware, the DIY project should be able to transmit data wirelessly instead.&lt;/p&gt;
 
-&lt;p&gt;Fortunately, the &lt;strong&gt;ESP-01 WiFi module&lt;/strong&gt; meets all such requirements. Specifically, it requires very little energy to operate (about &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1W&lt;/code&gt;) and can be connected to USB 2.0 ports via USB adapters that have a built-in voltage regulator.&lt;/p&gt;
+&lt;p&gt;Fortunately, the &lt;strong&gt;ESP-01 WiFi module&lt;/strong&gt; meets all such requirements. Specifically, it requires very little energy to operate (roughly &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.3W&lt;/code&gt; on average, with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1W&lt;/code&gt; peaks) and can be connected to USB 2.0 ports via USB adapters that have a built-in voltage regulator.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-with-usb-adapter.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-with-usb-adapter.jpg&quot; alt=&quot;ESP-01 with USB adapter&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
@@ -103,7 +103,7 @@
 &lt;/table&gt;
 &lt;/center&gt;
 
-&lt;p&gt;In addition, there is no programmable ROM in the SoC, meaning that any software must be stored on the module’s SPI flash.  Regarding the latter, there are actually three popular versions of the ESP-01 WiFi module that differ in flash memory size:&lt;/p&gt;
+&lt;p&gt;In addition, there is no programmable ROM in the SoC, meaning that any software must be stored on the module’s SPI flash.  Regarding the latter, there are actually three popular versions of the ESP-01 WiFi module that have the same format but differ in flash memory size or other minor specs:&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;&lt;strong&gt;ESP-01 Blue&lt;/strong&gt;: The original version with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;512KB&lt;/code&gt; of flash memory;&lt;/li&gt;
@@ -125,7 +125,7 @@
   &lt;li&gt;&lt;a href=&quot;https://docs.ai-thinker.com/_media/esp8266/docs/esp-01s_product_specification_en.pdf&quot;&gt;ESP-01S&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p class=&quot;notice--info&quot;&gt;In fact, Ai-Thinker has developed &lt;a href=&quot;https://docs.ai-thinker.com/en/%E8%A7%84%E6%A0%BC%E4%B9%A6&quot;&gt;many other versions of the ESP-01 module&lt;/a&gt;, such as the &lt;a href=&quot;https://docs.ai-thinker.com/_media/esp8266/docs/esp-01e_product_specification_en.pdf&quot;&gt;ESP-01E&lt;/a&gt; and &lt;a href=&quot;https://docs.ai-thinker.com/_media/esp8266/docs/esp-01f_product_specification_en.pdf&quot;&gt;ESP-01F&lt;/a&gt;. However, such modules differ in other important aspects, like format and antenna, and for such a reason, they won’t be covered here.  If interested, check their official e-commerce website at Alibaba.com (&lt;a href=&quot;https://ai-thinker.en.alibaba.com/&quot;&gt;https://ai-thinker.en.alibaba.com/&lt;/a&gt;) to learn how to acquire modules not covered here.&lt;/p&gt;
+&lt;p class=&quot;notice--info&quot;&gt;In fact, Ai-Thinker has developed &lt;a href=&quot;https://docs.ai-thinker.com/en/%E8%A7%84%E6%A0%BC%E4%B9%A6&quot;&gt;many other versions of the ESP-01 module&lt;/a&gt;, such as the &lt;a href=&quot;https://docs.ai-thinker.com/_media/esp8266/docs/esp-01e_product_specification_en.pdf&quot;&gt;ESP-01E&lt;/a&gt; and &lt;a href=&quot;https://docs.ai-thinker.com/_media/esp8266/docs/esp-01f_product_specification_en.pdf&quot;&gt;ESP-01F&lt;/a&gt;. However, such modules differ in major aspects in comparison to the modules covered here, like format and connectivity, and for such a reason, they won’t be covered in this article.  If interested, check their official e-commerce website at Alibaba.com (&lt;a href=&quot;https://ai-thinker.en.alibaba.com/&quot;&gt;https://ai-thinker.en.alibaba.com/&lt;/a&gt;) to learn how to acquire those less popular modules.&lt;/p&gt;
 
 &lt;h2 id=&quot;bme280&quot;&gt;BME280&lt;/h2&gt;
 &lt;p&gt;The &lt;strong&gt;BME280&lt;/strong&gt; is a low-profile (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2.5 x 2.5 x 0.93 mm³&lt;/code&gt;) and low-power (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;3.6 mA&lt;/code&gt; at roughly &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;3.3V&lt;/code&gt;) environmental sensor developed by &lt;a href=&quot;https://www.bosch-sensortec.com&quot;&gt;Bosch Sensortec&lt;/a&gt;. Specifically, this unit comes with high accuracy sensors for &lt;strong&gt;temperature&lt;/strong&gt;, &lt;strong&gt;humidity&lt;/strong&gt;, and &lt;strong&gt;pressure&lt;/strong&gt;, all protected by a metal-lid.  Of note, it uses &lt;a href=&quot;https://en.wikipedia.org/wiki/I%C2%B2C&quot;&gt;I²C&lt;/a&gt; and &lt;a href=&quot;https://en.wikipedia.org/wiki/Serial_Peripheral_Interface&quot;&gt;SPI&lt;/a&gt; interfaces for data communication and is powered by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;3v3 DC&lt;/code&gt; (specifically, from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1.71V&lt;/code&gt; to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;3.6V&lt;/code&gt;).&lt;/p&gt;
@@ -153,24 +153,59 @@
     &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-top.png&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-top.png&quot; alt=&quot;ESP-01 top&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;01x &lt;a href=&quot;https://www.amazon.com/s?k=USB+to+ESP-01&quot;&gt;USB to ESP-01 adapter&lt;/a&gt;: Look for the ones that have &lt;strong&gt;exposed pins&lt;/strong&gt; (see figure below) and preferably, that make use of the Silicon Labs &lt;a href=&quot;https://www.silabs.com/documents/public/data-sheets/cp2104.pdf&quot;&gt;CP2104&lt;/a&gt; (or &lt;a href=&quot;https://www.silabs.com/documents/public/data-sheets/cp2102.pdf&quot;&gt;CP2102&lt;/a&gt;) chip. More often than not, however, the adapters will make use of a cheaper, and less well-documented chip–namely, a &lt;a href=&quot;https://www.mpja.com/download/35227cpdata.pdf&quot;&gt;CH340&lt;/a&gt; variation–that might work just fine.&lt;/p&gt;
+    &lt;p&gt;01x &lt;a href=&quot;https://www.amazon.com/s?k=USB+to+ESP-01&quot;&gt;USB to ESP-01 adapter&lt;/a&gt;: Look for the ones that have &lt;strong&gt;exposed pins&lt;/strong&gt; (see figure below) and preferably, that make use of the Silicon Labs &lt;a href=&quot;https://www.silabs.com/documents/public/data-sheets/cp2104.pdf&quot;&gt;CP2104&lt;/a&gt; (or &lt;a href=&quot;https://www.silabs.com/documents/public/data-sheets/cp2102.pdf&quot;&gt;CP2102&lt;/a&gt;) chip. More often than not, however, the adapters will make use of a cheaper and less well-documented chip–namely, a &lt;a href=&quot;https://www.mpja.com/download/35227cpdata.pdf&quot;&gt;CH340&lt;/a&gt; variation–which might actually work just as well.&lt;/p&gt;
 
     &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/usb-to-esp01-cp2104-adapter-01.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/usb-to-esp01-cp2104-adapter-01.jpg&quot; alt=&quot;USB to ESP-01 CP2104 adapter 01&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
     &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/usb-to-esp01-cp2104-adapter-02.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/usb-to-esp01-cp2104-adapter-02.jpg&quot; alt=&quot;USB to ESP-01 CP2104 adapter 02&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-    &lt;p&gt;Notice how the exposed (male) pins are mapped to the female pins (the ones that should be attached to the ESP-01 module). This is fundamental to figuring out how to put the module into &lt;em&gt;flash mode&lt;/em&gt; and later on, connecting the ESP-01 module to the BME280 module.  The advantage of having exposed pins is that no soldering job is required.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.amazon.com/s?k=BME280&quot;&gt;BME280 module&lt;/a&gt;:
-    &lt;ul&gt;
-      &lt;li&gt;Depending on the module, may need soldering kit for headers&lt;/li&gt;
-    &lt;/ul&gt;
+    &lt;p&gt;Notice how the exposed male pins are mapped to the female pins in your own adapter. This is fundamental to figuring out how to put the module into &lt;em&gt;flash mode&lt;/em&gt; and later on, how to connect the ESP-01 module to the BME280 module.  The advantage of having exposed pins is that no soldering job is required to interface with the ESP-01 module.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;05x &lt;a href=&quot;#&quot;&gt;Female-Female dupont wires&lt;/a&gt;&lt;/p&gt;
+    &lt;p&gt;01x &lt;a href=&quot;https://www.amazon.com/s?k=BME280&quot;&gt;BME280 module&lt;/a&gt;: You can always &lt;a href=&quot;https://www.alibaba.com/trade/search?SearchText=bme280&quot;&gt;buy just the BME280 sensor itself&lt;/a&gt; and wire it on your own but it’s &lt;em&gt;much&lt;/em&gt; easier to buy a module that contains it instead. The one I used is the one shown in the figures below. More likely than not, you will need to solder the headers to the board (see below). As before, these modules are very cheap, so I recommend to buy multiples.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-module-01.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-module-01.jpg&quot; alt=&quot;BME280 module 01&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-module-02.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-module-02.jpg&quot; alt=&quot;BME280 module 02&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Optional.&lt;/em&gt; 01x &lt;a href=&quot;#&quot;&gt;4x2 header for jumper wires&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Optional.&lt;/em&gt; 01x &lt;a href=&quot;#&quot;&gt;4x1 header for jumper wires&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;05x &lt;a href=&quot;https://www.amazon.com/s?k=female+dupont+wire&quot;&gt;Female-Female DuPont wires&lt;/a&gt;: You cannot go wrong by buying lots of these wires in all three connector combinations.  For this project, however, you will only need five f-f jumpers (or four, if you reuse one).&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/female-dupont.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/female-dupont.jpg&quot; alt=&quot;f-f dupont wires&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;Optional.&lt;/em&gt; &lt;a href=&quot;https://www.amazon.com/s?k=female+dupont+connector+kit&amp;amp;ref=nb_sb_noss&quot;&gt;Female DuPont connector kit&lt;/a&gt;: This is optional but does help securing your connections and make your project look better by housing exposed male pins. I recommend buying a kit with various sizes but for this project, we will only need the following connectors:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;01x &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2x4&lt;/code&gt; female connector for the ESP-01 USB adapter&lt;/p&gt;
+
+        &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/dupont-connector-2x4.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/dupont-connector-2x4.jpg&quot; alt=&quot;dupont connector 2x4&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;01x &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1x4&lt;/code&gt; female connector for the BME280 module&lt;/p&gt;
+
+        &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/dupont-connector-1x4.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/dupont-connector-1x4.jpg&quot; alt=&quot;dupont connector 1x4&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+        &lt;p&gt;You &lt;strong&gt;do not&lt;/strong&gt; need crimping tools for this. Check the following video for this and other tricks when working with DuPont wires:&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- Courtesy of embedresponsively.com //--&gt;
+&lt;div class=&quot;responsive-video-container&quot;&gt;
+
+  &lt;iframe src=&quot;https://www.youtube-nocookie.com/embed/eI3fxTH6f6I&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://www.amazon.com/s?k=soldering+kit&quot;&gt;Basic soldering kit&lt;/a&gt;: This is only required for soldering the headers to the BME280 module. You &lt;strong&gt;do not&lt;/strong&gt; need anything fancy for this at all. If you have a multimeter, always test your connections afterwards.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/soldering-kit.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/soldering-kit.jpg&quot; alt=&quot;soldering kit&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;

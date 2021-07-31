@@ -44,7 +44,7 @@ Over the years, I have started noticing that multiple devices spread across the 
 
 However, the most common type of USB port available ([USB 2.0](https://en.wikipedia.org/wiki/USB#USB_2.0)) usually delivers a maximum of `500mA` at `5V` (`2.5W`), which constraints the type of projects that could reasonably use such ports as power supply. In addition, because interfacing via the USB connection might not always be possible, owing to proprietary and closed-source firmware, the DIY project should be able to transmit data wirelessly instead.
 
-Fortunately, the **ESP-01 WiFi module** meets all such requirements. Specifically, it requires very little energy to operate (about `1W`) and can be connected to USB 2.0 ports via USB adapters that have a built-in voltage regulator.
+Fortunately, the **ESP-01 WiFi module** meets all such requirements. Specifically, it requires very little energy to operate (roughly `.3W` on average, with `1W` peaks) and can be connected to USB 2.0 ports via USB adapters that have a built-in voltage regulator.
 
 [![ESP-01 with USB adapter](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-with-usb-adapter.jpg){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-with-usb-adapter.jpg)
 
@@ -117,7 +117,7 @@ Of note, it **exposes only four GPIO pins** to interface with other devices--nam
 </table>
 </center>
 
-In addition, there is no programmable ROM in the SoC, meaning that any software must be stored on the module's SPI flash.  Regarding the latter, there are actually three popular versions of the ESP-01 WiFi module that differ in flash memory size:
+In addition, there is no programmable ROM in the SoC, meaning that any software must be stored on the module's SPI flash.  Regarding the latter, there are actually three popular versions of the ESP-01 WiFi module that have the same format but differ in flash memory size or other minor specs:
 
 1. **ESP-01 Blue**: The original version with `512KB` of flash memory;
 2. **ESP-01 Black**: The original version with `1MB` of flash memory;
@@ -135,7 +135,7 @@ For more information, refer to the official documentation:
 - [ESP-01](https://docs.ai-thinker.com/_media/esp8266/docs/esp-01_product_specification_en.pdf)
 - [ESP-01S](https://docs.ai-thinker.com/_media/esp8266/docs/esp-01s_product_specification_en.pdf)
 
-In fact, Ai-Thinker has developed [many other versions of the ESP-01 module](https://docs.ai-thinker.com/en/%E8%A7%84%E6%A0%BC%E4%B9%A6), such as the [ESP-01E](https://docs.ai-thinker.com/_media/esp8266/docs/esp-01e_product_specification_en.pdf) and [ESP-01F](https://docs.ai-thinker.com/_media/esp8266/docs/esp-01f_product_specification_en.pdf). However, such modules differ in other important aspects, like format and antenna, and for such a reason, they won't be covered here.  If interested, check their official e-commerce website at Alibaba.com ([https://ai-thinker.en.alibaba.com/](https://ai-thinker.en.alibaba.com/)) to learn how to acquire modules not covered here.
+In fact, Ai-Thinker has developed [many other versions of the ESP-01 module](https://docs.ai-thinker.com/en/%E8%A7%84%E6%A0%BC%E4%B9%A6), such as the [ESP-01E](https://docs.ai-thinker.com/_media/esp8266/docs/esp-01e_product_specification_en.pdf) and [ESP-01F](https://docs.ai-thinker.com/_media/esp8266/docs/esp-01f_product_specification_en.pdf). However, such modules differ in major aspects in comparison to the modules covered here, like format and connectivity, and for such a reason, they won't be covered in this article.  If interested, check their official e-commerce website at Alibaba.com ([https://ai-thinker.en.alibaba.com/](https://ai-thinker.en.alibaba.com/)) to learn how to acquire those less popular modules.
 {:.notice--info }
 
 ## BME280
@@ -160,21 +160,41 @@ To make a single ESP-01 Tasmota environmental sensor, you will need the followin
   
   [![ESP-01 top](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-top.png){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-top.png)
 
-- 01x [USB to ESP-01 adapter](https://www.amazon.com/s?k=USB+to+ESP-01): Look for the ones that have **exposed pins** (see figure below) and preferably, that make use of the Silicon Labs [CP2104](https://www.silabs.com/documents/public/data-sheets/cp2104.pdf) (or [CP2102](https://www.silabs.com/documents/public/data-sheets/cp2102.pdf)) chip. More often than not, however, the adapters will make use of a cheaper, and less well-documented chip--namely, a [CH340](https://www.mpja.com/download/35227cpdata.pdf) variation--that might work just fine.
+- 01x [USB to ESP-01 adapter](https://www.amazon.com/s?k=USB+to+ESP-01): Look for the ones that have **exposed pins** (see figure below) and preferably, that make use of the Silicon Labs [CP2104](https://www.silabs.com/documents/public/data-sheets/cp2104.pdf) (or [CP2102](https://www.silabs.com/documents/public/data-sheets/cp2102.pdf)) chip. More often than not, however, the adapters will make use of a cheaper and less well-documented chip--namely, a [CH340](https://www.mpja.com/download/35227cpdata.pdf) variation--which might actually work just as well.
   
   [![USB to ESP-01 CP2104 adapter 01](/assets/posts/2021-07-18-diy-tasmota-bme280/usb-to-esp01-cp2104-adapter-01.jpg){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/usb-to-esp01-cp2104-adapter-01.jpg)
 
   [![USB to ESP-01 CP2104 adapter 02](/assets/posts/2021-07-18-diy-tasmota-bme280/usb-to-esp01-cp2104-adapter-02.jpg){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/usb-to-esp01-cp2104-adapter-02.jpg)
 
-  Notice how the exposed (male) pins are mapped to the female pins (the ones that should be attached to the ESP-01 module). This is fundamental to figuring out how to put the module into *flash mode* and later on, connecting the ESP-01 module to the BME280 module.  The advantage of having exposed pins is that no soldering job is required.
+  Notice how the exposed male pins are mapped to the female pins in your own adapter. This is fundamental to figuring out how to put the module into *flash mode* and later on, how to connect the ESP-01 module to the BME280 module.  The advantage of having exposed pins is that no soldering job is required to interface with the ESP-01 module.
 
-- [BME280 module](https://www.amazon.com/s?k=BME280):
-  - Depending on the module, may need soldering kit for headers
+- 01x [BME280 module](https://www.amazon.com/s?k=BME280): You can always [buy just the BME280 sensor itself](https://www.alibaba.com/trade/search?SearchText=bme280) and wire it on your own but it's *much* easier to buy a module that contains it instead. The one I used is the one shown in the figures below. More likely than not, you will need to solder the headers to the board (see below). As before, these modules are very cheap, so I recommend to buy multiples.
+  
+  [![BME280 module 01](/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-module-01.jpg){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-module-01.jpg)
 
-- 05x [Female-Female dupont wires](#)
+  [![BME280 module 02](/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-module-02.jpg){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-module-02.jpg)
 
-- *Optional.* 01x [4x2 header for jumper wires](#)
-- *Optional.* 01x [4x1 header for jumper wires](#)
+- 05x [Female-Female DuPont wires](https://www.amazon.com/s?k=female+dupont+wire): You cannot go wrong by buying lots of these wires in all three connector combinations.  For this project, however, you will only need five f-f jumpers (or four, if you reuse one).
+  
+  [![f-f dupont wires](/assets/posts/2021-07-18-diy-tasmota-bme280/female-dupont.jpg){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/female-dupont.jpg)
+
+- *Optional.* [Female DuPont connector kit](https://www.amazon.com/s?k=female+dupont+connector+kit&ref=nb_sb_noss): This is optional but does help securing your connections and make your project look better by housing exposed male pins. I recommend buying a kit with various sizes but for this project, we will only need the following connectors:
+
+  - 01x `2x4` female connector for the ESP-01 USB adapter
+  
+    [![dupont connector 2x4](/assets/posts/2021-07-18-diy-tasmota-bme280/dupont-connector-2x4.jpg){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/dupont-connector-2x4.jpg)
+  
+  - 01x `1x4` female connector for the BME280 module
+
+    [![dupont connector 1x4](/assets/posts/2021-07-18-diy-tasmota-bme280/dupont-connector-1x4.jpg){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/dupont-connector-1x4.jpg)
+
+    You **do not** need crimping tools for this. Check the following video for this and other tricks when working with DuPont wires: 
+    
+    {% include video id="eI3fxTH6f6I" provider="youtube" %}
+
+- [Basic soldering kit](https://www.amazon.com/s?k=soldering+kit): This is only required for soldering the headers to the BME280 module. You **do not** need anything fancy for this at all. If you have a multimeter, always test your connections afterwards.
+  
+  [![soldering kit](/assets/posts/2021-07-18-diy-tasmota-bme280/soldering-kit.jpg){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/soldering-kit.jpg)
 
 [top](#){:.btn .btn--light-outline .btn--small}
 
