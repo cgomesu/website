@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-08-02T11:33:52-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: USB-powered, low-profile, and reliable ESP-01 Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: USB-powered, low-profile, and reliable ESP-01 Tasmota environmental sensor" /><published>2021-07-18T11:20:00-03:00</published><updated>2021-07-18T11:20:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-08-02T13:40:50-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: USB-powered, low-profile, and reliable ESP-01 Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: USB-powered, low-profile, and reliable ESP-01 Tasmota environmental sensor" /><published>2021-07-18T11:20:00-03:00</published><updated>2021-07-18T11:20:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;July 18th, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
@@ -41,7 +41,7 @@
 
 &lt;h1 id=&quot;overview-of-the-main-hardware-components&quot;&gt;Overview of the main hardware components&lt;/h1&gt;
 &lt;h2 id=&quot;esp-01&quot;&gt;ESP-01&lt;/h2&gt;
-&lt;p&gt;The &lt;strong&gt;ESP-01&lt;/strong&gt; is a cheap and very small WiFi module developed by &lt;a href=&quot;http://en.ai-thinker.com/&quot;&gt;Ai-Thinker&lt;/a&gt; that is based on the ESP8266EX microcontroller unit (MCU) by &lt;a href=&quot;https://www.espressif.com/&quot;&gt;ESPRESSIF&lt;/a&gt;:&lt;/p&gt;
+&lt;p&gt;The &lt;strong&gt;ESP-01&lt;/strong&gt; is a cheap and very small WiFi module developed by &lt;a href=&quot;http://en.ai-thinker.com/&quot;&gt;Ai-Thinker&lt;/a&gt; that is based on the ESP8266EX microcontroller unit (MCU) by &lt;a href=&quot;https://www.espressif.com/&quot;&gt;Espressif&lt;/a&gt;:&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-top.png&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-top.png&quot; alt=&quot;ESP-01 top&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
@@ -148,7 +148,7 @@
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;01x &lt;a href=&quot;https://www.amazon.com/s?k=esp-01+wifi+module&quot;&gt;ESP-01 Black/ESP-01S&lt;/a&gt;: A single module should cost less than USD$ 5 but if you buy it in packs, you can often find them for even lower values. I recommend buying multiples at once.&lt;/p&gt;
+    &lt;p&gt;01x &lt;a href=&quot;https://www.amazon.com/s?k=esp-01+wifi+module&quot;&gt;ESP-01 Black/ESP-01S&lt;/a&gt;: These modules are very cheap and useful for simple projects, so I recommend buying multiples at once.&lt;/p&gt;
 
     &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-top.png&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-top.png&quot; alt=&quot;ESP-01 top&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
   &lt;/li&gt;
@@ -162,7 +162,7 @@
     &lt;p&gt;Notice how the exposed male pins are mapped to the female pins in your own adapter. This is fundamental to figuring out how to put the module into &lt;em&gt;flash mode&lt;/em&gt; and later on, how to connect the ESP-01 module to the BME280 module.  The advantage of having exposed pins is that no soldering job is required to interface with the ESP-01 module.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;01x &lt;a href=&quot;https://www.amazon.com/s?k=BME280&quot;&gt;BME280 module&lt;/a&gt;: You can always &lt;a href=&quot;https://www.alibaba.com/trade/search?SearchText=bme280&quot;&gt;buy just the BME280 sensor itself&lt;/a&gt; and wire it on your own but it’s &lt;em&gt;much&lt;/em&gt; easier to buy a module that contains it instead. The one I used is the one shown in the figures below. More likely than not, you will need to solder the headers to the board (see below). As before, these modules are very cheap, so I recommend to buy multiples.&lt;/p&gt;
+    &lt;p&gt;01x &lt;a href=&quot;https://www.amazon.com/s?k=GY-BME280&quot;&gt;GY-BME280 module&lt;/a&gt;: You can always &lt;a href=&quot;https://www.alibaba.com/trade/search?SearchText=bme280&quot;&gt;buy just the BME280 sensor itself&lt;/a&gt; and wire it on your own but it’s &lt;em&gt;much&lt;/em&gt; easier to buy a module that contains it instead. The one I used is the one shown in the figures below. More likely than not, you will need to solder the headers to the board (see below). As before, these modules are very cheap, so I recommend to buy multiples.&lt;/p&gt;
 
     &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-module-01.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-module-01.jpg&quot; alt=&quot;BME280 module 01&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
@@ -208,6 +208,46 @@
   &lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;h2 id=&quot;estimated-cost&quot;&gt;Estimated cost&lt;/h2&gt;
+&lt;p&gt;Estimated cost of the basic hardware components:&lt;/p&gt;
+
+&lt;center&gt;
+&lt;table&gt;
+   &lt;thead&gt;
+      &lt;th style=&quot;text-align: center;&quot;&gt;Hardware&lt;/th&gt;
+      &lt;th style=&quot;text-align: center;&quot;&gt;Quantity&lt;/th&gt;
+      &lt;th style=&quot;text-align: center;&quot;&gt;USD$*&lt;/th&gt;
+   &lt;/thead&gt;
+   &lt;tr&gt;
+      &lt;td&gt;ESP-01 WiFi module&lt;/td&gt;
+      &lt;td&gt;01&lt;/td&gt;
+      &lt;td&gt;1.5&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+      &lt;td&gt;USB to ESP-01 adapter (CP2104)&lt;/td&gt;
+      &lt;td&gt;01&lt;/td&gt;
+      &lt;td&gt;2.5&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+      &lt;td&gt;GY-BME280 module&lt;/td&gt;
+      &lt;td&gt;01&lt;/td&gt;
+      &lt;td&gt;1.5&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+      &lt;td&gt;F-F Dupont&lt;/td&gt;
+      &lt;td&gt;05&lt;/td&gt;
+      &lt;td&gt;0.2&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+      &lt;td&gt;&lt;b&gt;TOTAL&lt;/b&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;b&gt;-&lt;/b&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;b&gt;5.7&lt;/b&gt;&lt;/td&gt;
+   &lt;/tr&gt;
+&lt;/table&gt;
+&lt;/center&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;* Based on &lt;a href=&quot;https://www.aliexpress.com&quot;&gt;AliExpress.com&lt;/a&gt; offers from Chinese stores &lt;strong&gt;without&lt;/strong&gt; including shipping + tax&lt;/p&gt;
+
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;software&quot;&gt;Software&lt;/h1&gt;
@@ -229,9 +269,40 @@
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;assembly&quot;&gt;Assembly&lt;/h1&gt;
-&lt;p&gt;As in my previous tutorials, this article assumes you are running a &lt;strong&gt;Linux&lt;/strong&gt; distribution (e.g., Debian, Ubuntu, Arch, etc.). (The instructions may or may not be compatible with macOS/Windows. If you run into issues, please refer to the official documentation of the software mentioned below.)&lt;/p&gt;
+&lt;p&gt;As in the previous tutorials, this article assumes you are running a &lt;strong&gt;Linux&lt;/strong&gt; distribution (e.g., Debian, Ubuntu, Arch, etc.). The instructions may or may not be compatible with Android, macOS, Windows, or any other Operating System (OS). If you run into issues, please refer to the official documentation of the software mentioned in the &lt;a href=&quot;#software&quot;&gt;Software&lt;/a&gt; section.&lt;/p&gt;
 
-&lt;p&gt;&lt;em&gt;Explain how to put it all together&lt;/em&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;install esptool&lt;/li&gt;
+  &lt;li&gt;connect esp01 to adapter&lt;/li&gt;
+  &lt;li&gt;check flash size&lt;/li&gt;
+  &lt;li&gt;put device into flash mode (ground gpio0)&lt;/li&gt;
+  &lt;li&gt;download tasmota-sensors.bin&lt;/li&gt;
+  &lt;li&gt;flash to device&lt;/li&gt;
+  &lt;li&gt;remove flash mode&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;restart device&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;basic tasmota config
+    &lt;ul&gt;
+      &lt;li&gt;template&lt;/li&gt;
+      &lt;li&gt;time&lt;/li&gt;
+      &lt;li&gt;mqtt&lt;/li&gt;
+      &lt;li&gt;discovery&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;disconnect device&lt;/li&gt;
+  &lt;li&gt;wire BME280 module do the adapter&lt;/li&gt;
+  &lt;li&gt;connect device&lt;/li&gt;
+  &lt;li&gt;configure template
+    &lt;ul&gt;
+      &lt;li&gt;SDA and SDC pins&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;restart device&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;done&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 

@@ -55,7 +55,7 @@ Furthermore, because the unit will draw power from standard USB ports, it can be
 
 # Overview of the main hardware components
 ## ESP-01
-The **ESP-01** is a cheap and very small WiFi module developed by [Ai-Thinker](http://en.ai-thinker.com/) that is based on the ESP8266EX microcontroller unit (MCU) by [ESPRESSIF](https://www.espressif.com/):
+The **ESP-01** is a cheap and very small WiFi module developed by [Ai-Thinker](http://en.ai-thinker.com/) that is based on the ESP8266EX microcontroller unit (MCU) by [Espressif](https://www.espressif.com/):
 
 [![ESP-01 top](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-top.png){:.PostImage .PostImage--large}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-top.png)
 
@@ -156,7 +156,7 @@ Bosch Sensortec has made an amazing job at [documenting all aspects about this s
 # Hardware
 To make a single ESP-01 Tasmota environmental sensor, you will need the following items:
 
-- 01x [ESP-01 Black/ESP-01S](https://www.amazon.com/s?k=esp-01+wifi+module): A single module should cost less than USD$ 5 but if you buy it in packs, you can often find them for even lower values. I recommend buying multiples at once.
+- 01x [ESP-01 Black/ESP-01S](https://www.amazon.com/s?k=esp-01+wifi+module): These modules are very cheap and useful for simple projects, so I recommend buying multiples at once.
   
   [![ESP-01 top](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-top.png){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-top.png)
 
@@ -168,7 +168,7 @@ To make a single ESP-01 Tasmota environmental sensor, you will need the followin
 
   Notice how the exposed male pins are mapped to the female pins in your own adapter. This is fundamental to figuring out how to put the module into *flash mode* and later on, how to connect the ESP-01 module to the BME280 module.  The advantage of having exposed pins is that no soldering job is required to interface with the ESP-01 module.
 
-- 01x [BME280 module](https://www.amazon.com/s?k=BME280): You can always [buy just the BME280 sensor itself](https://www.alibaba.com/trade/search?SearchText=bme280) and wire it on your own but it's *much* easier to buy a module that contains it instead. The one I used is the one shown in the figures below. More likely than not, you will need to solder the headers to the board (see below). As before, these modules are very cheap, so I recommend to buy multiples.
+- 01x [GY-BME280 module](https://www.amazon.com/s?k=GY-BME280): You can always [buy just the BME280 sensor itself](https://www.alibaba.com/trade/search?SearchText=bme280) and wire it on your own but it's *much* easier to buy a module that contains it instead. The one I used is the one shown in the figures below. More likely than not, you will need to solder the headers to the board (see below). As before, these modules are very cheap, so I recommend to buy multiples.
   
   [![BME280 module 01](/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-module-01.jpg){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-module-01.jpg)
 
@@ -196,6 +196,47 @@ To make a single ESP-01 Tasmota environmental sensor, you will need the followin
   
   [![soldering kit](/assets/posts/2021-07-18-diy-tasmota-bme280/soldering-kit.jpg){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/soldering-kit.jpg)
 
+## Estimated cost
+Estimated cost of the basic hardware components:
+
+<center>
+<table>
+   <thead>
+      <th style="text-align: center;">Hardware</th>
+      <th style="text-align: center;">Quantity</th>
+      <th style="text-align: center;">USD$*</th>
+   </thead>
+   <tr>
+      <td>ESP-01 WiFi module</td>
+      <td>01</td>
+      <td>1.5</td>
+   </tr>
+   <tr>
+      <td>USB to ESP-01 adapter (CP2104)</td>
+      <td>01</td>
+      <td>2.5</td>
+   </tr>
+   <tr>
+      <td>GY-BME280 module</td>
+      <td>01</td>
+      <td>1.5</td>
+   </tr>
+   <tr>
+      <td>F-F Dupont</td>
+      <td>05</td>
+      <td>0.2</td>
+   </tr>
+   <tr>
+      <td><b>TOTAL</b></td>
+      <td><b>-</b></td>
+      <td><b>5.7</b></td>
+   </tr>
+</table>
+</center>
+
+\* Based on [AliExpress.com](https://www.aliexpress.com) offers from Chinese stores **without** including shipping + tax
+{: .notice--info }
+
 [top](#){:.btn .btn--light-outline .btn--small}
 
 
@@ -212,9 +253,31 @@ In this tutorial, we will make use of the following applications:
 
 
 # Assembly
-As in my previous tutorials, this article assumes you are running a **Linux** distribution (e.g., Debian, Ubuntu, Arch, etc.). (The instructions may or may not be compatible with macOS/Windows. If you run into issues, please refer to the official documentation of the software mentioned below.)
+As in the previous tutorials, this article assumes you are running a **Linux** distribution (e.g., Debian, Ubuntu, Arch, etc.). The instructions may or may not be compatible with Android, macOS, Windows, or any other Operating System (OS). If you run into issues, please refer to the official documentation of the software mentioned in the [Software](#software) section.
 
-*Explain how to put it all together*
+- install esptool
+- connect esp01 to adapter
+- check flash size
+- put device into flash mode (ground gpio0)
+- download tasmota-sensors.bin
+- flash to device
+- remove flash mode
+- restart device
+
+- basic tasmota config
+  - template
+  - time
+  - mqtt
+  - discovery
+
+- disconnect device
+- wire BME280 module do the adapter
+- connect device
+- configure template
+  - SDA and SDC pins
+- restart device
+
+- done
 
 [top](#){:.btn .btn--light-outline .btn--small}
 

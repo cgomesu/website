@@ -198,7 +198,7 @@
 
 
 
-  12 minute read
+  13 minute read
 
 </p>
       
@@ -360,7 +360,11 @@
       <li><a href="#bme280">BME280</a></li>
     </ul>
   </li>
-  <li><a href="#hardware">Hardware</a></li>
+  <li><a href="#hardware">Hardware</a>
+    <ul>
+      <li><a href="#estimated-cost">Estimated cost</a></li>
+    </ul>
+  </li>
   <li><a href="#software">Software</a></li>
   <li><a href="#assembly">Assembly</a></li>
   <li><a href="#home-assistant-integration">Home assistant integration</a></li>
@@ -414,7 +418,7 @@
 
 <h1 id="overview-of-the-main-hardware-components">Overview of the main hardware components</h1>
 <h2 id="esp-01">ESP-01</h2>
-<p>The <strong>ESP-01</strong> is a cheap and very small WiFi module developed by <a href="http://en.ai-thinker.com/">Ai-Thinker</a> that is based on the ESP8266EX microcontroller unit (MCU) by <a href="https://www.espressif.com/">ESPRESSIF</a>:</p>
+<p>The <strong>ESP-01</strong> is a cheap and very small WiFi module developed by <a href="http://en.ai-thinker.com/">Ai-Thinker</a> that is based on the ESP8266EX microcontroller unit (MCU) by <a href="https://www.espressif.com/">Espressif</a>:</p>
 
 <p><a href="/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-top.png"><img src="/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-top.png" alt="ESP-01 top" class="PostImage PostImage--large" /></a></p>
 
@@ -521,7 +525,7 @@
 
 <ul>
   <li>
-    <p>01x <a href="https://www.amazon.com/s?k=esp-01+wifi+module">ESP-01 Black/ESP-01S</a>: A single module should cost less than USD$ 5 but if you buy it in packs, you can often find them for even lower values. I recommend buying multiples at once.</p>
+    <p>01x <a href="https://www.amazon.com/s?k=esp-01+wifi+module">ESP-01 Black/ESP-01S</a>: These modules are very cheap and useful for simple projects, so I recommend buying multiples at once.</p>
 
     <p><a href="/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-top.png"><img src="/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-top.png" alt="ESP-01 top" class="PostImage" /></a></p>
   </li>
@@ -535,7 +539,7 @@
     <p>Notice how the exposed male pins are mapped to the female pins in your own adapter. This is fundamental to figuring out how to put the module into <em>flash mode</em> and later on, how to connect the ESP-01 module to the BME280 module.  The advantage of having exposed pins is that no soldering job is required to interface with the ESP-01 module.</p>
   </li>
   <li>
-    <p>01x <a href="https://www.amazon.com/s?k=BME280">BME280 module</a>: You can always <a href="https://www.alibaba.com/trade/search?SearchText=bme280">buy just the BME280 sensor itself</a> and wire it on your own but it’s <em>much</em> easier to buy a module that contains it instead. The one I used is the one shown in the figures below. More likely than not, you will need to solder the headers to the board (see below). As before, these modules are very cheap, so I recommend to buy multiples.</p>
+    <p>01x <a href="https://www.amazon.com/s?k=GY-BME280">GY-BME280 module</a>: You can always <a href="https://www.alibaba.com/trade/search?SearchText=bme280">buy just the BME280 sensor itself</a> and wire it on your own but it’s <em>much</em> easier to buy a module that contains it instead. The one I used is the one shown in the figures below. More likely than not, you will need to solder the headers to the board (see below). As before, these modules are very cheap, so I recommend to buy multiples.</p>
 
     <p><a href="/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-module-01.jpg"><img src="/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-module-01.jpg" alt="BME280 module 01" class="PostImage" /></a></p>
 
@@ -581,6 +585,46 @@
   </li>
 </ul>
 
+<h2 id="estimated-cost">Estimated cost</h2>
+<p>Estimated cost of the basic hardware components:</p>
+
+<center>
+<table>
+   <thead>
+      <th style="text-align: center;">Hardware</th>
+      <th style="text-align: center;">Quantity</th>
+      <th style="text-align: center;">USD$*</th>
+   </thead>
+   <tr>
+      <td>ESP-01 WiFi module</td>
+      <td>01</td>
+      <td>1.5</td>
+   </tr>
+   <tr>
+      <td>USB to ESP-01 adapter (CP2104)</td>
+      <td>01</td>
+      <td>2.5</td>
+   </tr>
+   <tr>
+      <td>GY-BME280 module</td>
+      <td>01</td>
+      <td>1.5</td>
+   </tr>
+   <tr>
+      <td>F-F Dupont</td>
+      <td>05</td>
+      <td>0.2</td>
+   </tr>
+   <tr>
+      <td><b>TOTAL</b></td>
+      <td><b>-</b></td>
+      <td><b>5.7</b></td>
+   </tr>
+</table>
+</center>
+
+<p class="notice--info">* Based on <a href="https://www.aliexpress.com">AliExpress.com</a> offers from Chinese stores <strong>without</strong> including shipping + tax</p>
+
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 
 <h1 id="software">Software</h1>
@@ -602,9 +646,40 @@
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 
 <h1 id="assembly">Assembly</h1>
-<p>As in my previous tutorials, this article assumes you are running a <strong>Linux</strong> distribution (e.g., Debian, Ubuntu, Arch, etc.). (The instructions may or may not be compatible with macOS/Windows. If you run into issues, please refer to the official documentation of the software mentioned below.)</p>
+<p>As in the previous tutorials, this article assumes you are running a <strong>Linux</strong> distribution (e.g., Debian, Ubuntu, Arch, etc.). The instructions may or may not be compatible with Android, macOS, Windows, or any other Operating System (OS). If you run into issues, please refer to the official documentation of the software mentioned in the <a href="#software">Software</a> section.</p>
 
-<p><em>Explain how to put it all together</em></p>
+<ul>
+  <li>install esptool</li>
+  <li>connect esp01 to adapter</li>
+  <li>check flash size</li>
+  <li>put device into flash mode (ground gpio0)</li>
+  <li>download tasmota-sensors.bin</li>
+  <li>flash to device</li>
+  <li>remove flash mode</li>
+  <li>
+    <p>restart device</p>
+  </li>
+  <li>basic tasmota config
+    <ul>
+      <li>template</li>
+      <li>time</li>
+      <li>mqtt</li>
+      <li>discovery</li>
+    </ul>
+  </li>
+  <li>disconnect device</li>
+  <li>wire BME280 module do the adapter</li>
+  <li>connect device</li>
+  <li>configure template
+    <ul>
+      <li>SDA and SDC pins</li>
+    </ul>
+  </li>
+  <li>
+    <p>restart device</p>
+  </li>
+  <li>done</li>
+</ul>
 
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 
