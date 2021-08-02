@@ -222,14 +222,14 @@ Estimated cost of the basic hardware components:
       <td>1.5</td>
    </tr>
    <tr>
-      <td>F-F Dupont</td>
+      <td>F-F DuPont 20CM long</td>
       <td>05</td>
-      <td>0.2</td>
+      <td>0.05</td>
    </tr>
    <tr>
       <td><b>TOTAL</b></td>
       <td><b>-</b></td>
-      <td><b>5.7</b></td>
+      <td><b>5.55</b></td>
    </tr>
 </table>
 </center>
