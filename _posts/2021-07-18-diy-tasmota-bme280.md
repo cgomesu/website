@@ -160,7 +160,7 @@ To make a single ESP-01 Tasmota environmental sensor, you will need the followin
   
   [![ESP-01 top](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-top.png){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-top.png)
 
-- 01x [USB to ESP-01 adapter](https://www.amazon.com/s?k=USB+to+ESP-01): Look for the ones that have **exposed pins** (see figure below) and preferably, that make use of the Silicon Labs [CP2104](https://www.silabs.com/documents/public/data-sheets/cp2104.pdf) (or [CP2102](https://www.silabs.com/documents/public/data-sheets/cp2102.pdf)) chip. More often than not, however, the adapters will make use of a cheaper and less well-documented chip--namely, a [CH340](https://www.mpja.com/download/35227cpdata.pdf) variation--which might actually work just as well.
+- 01x [USB to ESP-01 adapter](https://www.amazon.com/s?k=USB+to+ESP-01): Look for the ones that have **exposed pins** (see figure below) and preferably, that make use of the Silicon Labs [CP2104](https://www.silabs.com/documents/public/data-sheets/cp2104.pdf) (or [CP2102](https://www.silabs.com/documents/public/data-sheets/CP2102-9.pdf)) chip. More often than not, however, the adapters will make use of a cheaper and less well-documented chip--namely, a [CH340](https://www.mpja.com/download/35227cpdata.pdf) variation--which might actually work just as well.
   
   [![USB to ESP-01 CP2104 adapter 01](/assets/posts/2021-07-18-diy-tasmota-bme280/usb-to-esp01-cp2104-adapter-01.jpg){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/usb-to-esp01-cp2104-adapter-01.jpg)
 
@@ -200,12 +200,20 @@ To make a single ESP-01 Tasmota environmental sensor, you will need the followin
 
 
 # Software
-*Tasmota info*
+In this tutorial, we will make use of the following applications:
+
+- [Tasmota](https://github.com/arendst/Tasmota) (`tasmota-sensors.bin`)
+  > Alternative firmware for ESP8266 and ESP32 based devices with easy configuration using webUI, OTA updates, automation using timers or rules, expandability and entirely local control over MQTT, HTTP, Serial or KNX.
+
+- [Esptool](https://github.com/espressif/esptool) (`esptool.py`)
+  > A Python-based, open source, platform independent, utility to communicate with the ROM bootloader in Espressif ESP8266 & ESP32 series chips.
 
 [top](#){:.btn .btn--light-outline .btn--small}
 
 
 # Assembly
+As in my previous tutorials, this article assumes you are running a **Linux** distribution (e.g., Debian, Ubuntu, Arch, etc.). (The instructions may or may not be compatible with macOS/Windows. If you run into issues, please refer to the official documentation of the software mentioned below.)
+
 *Explain how to put it all together*
 
 [top](#){:.btn .btn--light-outline .btn--small}
@@ -228,12 +236,12 @@ To make a single ESP-01 Tasmota environmental sensor, you will need the followin
 - ~~Motivation for making the sensor~~
 - ~~Overview of the ESP-01~~
 - ~~Overview of the BME280~~
-- Hardware
-   1. ESP01 Black or ESP-01S
-   2. BME280 module
-   3. USB adapter for the ESP01 with exposed pins (add pinout)
-   4. Female-female jumper wires
-   5. Soldering stuff for the BME280 module (depends on module)
+- ~~Hardware~~
+   1. ~~ESP01 Black or ESP-01S~~
+   2. ~~BME280 module~~
+   3. ~~USB adapter for the ESP01 with exposed pins (add pinout)~~
+   4. ~~Female-female jumper wires~~
+   5. ~~Soldering stuff for the BME280 module (depends on module)~~
 - Software
    1. Tasmota sensor binary (includes I2C sensor support)
    2. Template for the ESP-01

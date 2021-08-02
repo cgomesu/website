@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-07-31T14:02:05-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: USB-powered, low-profile, and reliable ESP-01 Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: USB-powered, low-profile, and reliable ESP-01 Tasmota environmental sensor" /><published>2021-07-18T11:20:00-03:00</published><updated>2021-07-18T11:20:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-08-02T11:33:52-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: USB-powered, low-profile, and reliable ESP-01 Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: USB-powered, low-profile, and reliable ESP-01 Tasmota environmental sensor" /><published>2021-07-18T11:20:00-03:00</published><updated>2021-07-18T11:20:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;July 18th, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
@@ -153,7 +153,7 @@
     &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-top.png&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-top.png&quot; alt=&quot;ESP-01 top&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;01x &lt;a href=&quot;https://www.amazon.com/s?k=USB+to+ESP-01&quot;&gt;USB to ESP-01 adapter&lt;/a&gt;: Look for the ones that have &lt;strong&gt;exposed pins&lt;/strong&gt; (see figure below) and preferably, that make use of the Silicon Labs &lt;a href=&quot;https://www.silabs.com/documents/public/data-sheets/cp2104.pdf&quot;&gt;CP2104&lt;/a&gt; (or &lt;a href=&quot;https://www.silabs.com/documents/public/data-sheets/cp2102.pdf&quot;&gt;CP2102&lt;/a&gt;) chip. More often than not, however, the adapters will make use of a cheaper and less well-documented chip–namely, a &lt;a href=&quot;https://www.mpja.com/download/35227cpdata.pdf&quot;&gt;CH340&lt;/a&gt; variation–which might actually work just as well.&lt;/p&gt;
+    &lt;p&gt;01x &lt;a href=&quot;https://www.amazon.com/s?k=USB+to+ESP-01&quot;&gt;USB to ESP-01 adapter&lt;/a&gt;: Look for the ones that have &lt;strong&gt;exposed pins&lt;/strong&gt; (see figure below) and preferably, that make use of the Silicon Labs &lt;a href=&quot;https://www.silabs.com/documents/public/data-sheets/cp2104.pdf&quot;&gt;CP2104&lt;/a&gt; (or &lt;a href=&quot;https://www.silabs.com/documents/public/data-sheets/CP2102-9.pdf&quot;&gt;CP2102&lt;/a&gt;) chip. More often than not, however, the adapters will make use of a cheaper and less well-documented chip–namely, a &lt;a href=&quot;https://www.mpja.com/download/35227cpdata.pdf&quot;&gt;CH340&lt;/a&gt; variation–which might actually work just as well.&lt;/p&gt;
 
     &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/usb-to-esp01-cp2104-adapter-01.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/usb-to-esp01-cp2104-adapter-01.jpg&quot; alt=&quot;USB to ESP-01 CP2104 adapter 01&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
@@ -211,11 +211,26 @@
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;software&quot;&gt;Software&lt;/h1&gt;
-&lt;p&gt;&lt;em&gt;Tasmota info&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;In this tutorial, we will make use of the following applications:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/arendst/Tasmota&quot;&gt;Tasmota&lt;/a&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmota-sensors.bin&lt;/code&gt;)
+    &lt;blockquote&gt;
+      &lt;p&gt;Alternative firmware for ESP8266 and ESP32 based devices with easy configuration using webUI, OTA updates, automation using timers or rules, expandability and entirely local control over MQTT, HTTP, Serial or KNX.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/espressif/esptool&quot;&gt;Esptool&lt;/a&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;esptool.py&lt;/code&gt;)
+    &lt;blockquote&gt;
+      &lt;p&gt;A Python-based, open source, platform independent, utility to communicate with the ROM bootloader in Espressif ESP8266 &amp;amp; ESP32 series chips.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;assembly&quot;&gt;Assembly&lt;/h1&gt;
+&lt;p&gt;As in my previous tutorials, this article assumes you are running a &lt;strong&gt;Linux&lt;/strong&gt; distribution (e.g., Debian, Ubuntu, Arch, etc.). (The instructions may or may not be compatible with macOS/Windows. If you run into issues, please refer to the official documentation of the software mentioned below.)&lt;/p&gt;
+
 &lt;p&gt;&lt;em&gt;Explain how to put it all together&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
@@ -236,13 +251,13 @@
   &lt;li&gt;&lt;del&gt;Motivation for making the sensor&lt;/del&gt;&lt;/li&gt;
   &lt;li&gt;&lt;del&gt;Overview of the ESP-01&lt;/del&gt;&lt;/li&gt;
   &lt;li&gt;&lt;del&gt;Overview of the BME280&lt;/del&gt;&lt;/li&gt;
-  &lt;li&gt;Hardware
+  &lt;li&gt;&lt;del&gt;Hardware&lt;/del&gt;
     &lt;ol&gt;
-      &lt;li&gt;ESP01 Black or ESP-01S&lt;/li&gt;
-      &lt;li&gt;BME280 module&lt;/li&gt;
-      &lt;li&gt;USB adapter for the ESP01 with exposed pins (add pinout)&lt;/li&gt;
-      &lt;li&gt;Female-female jumper wires&lt;/li&gt;
-      &lt;li&gt;Soldering stuff for the BME280 module (depends on module)&lt;/li&gt;
+      &lt;li&gt;&lt;del&gt;ESP01 Black or ESP-01S&lt;/del&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;del&gt;BME280 module&lt;/del&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;del&gt;USB adapter for the ESP01 with exposed pins (add pinout)&lt;/del&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;del&gt;Female-female jumper wires&lt;/del&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;del&gt;Soldering stuff for the BME280 module (depends on module)&lt;/del&gt;&lt;/li&gt;
     &lt;/ol&gt;
   &lt;/li&gt;
   &lt;li&gt;Software
