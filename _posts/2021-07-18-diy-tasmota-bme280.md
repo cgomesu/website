@@ -253,16 +253,190 @@ In this tutorial, we will make use of the following applications:
 
 
 # Assembly
-As in the previous tutorials, this article assumes you are running a **Linux** distribution (e.g., Debian, Ubuntu, Arch, etc.). The instructions may or may not be compatible with Android, macOS, Windows, or any other Operating System (OS). If you run into issues, please refer to the official documentation of the software mentioned in the [Software](#software) section.
+As in the previous tutorials, this article assumes you are running a **Linux** distribution (e.g., Debian, Ubuntu, Arch, etc.) and your current user (`${USER}`) is in the [`sudo` group](https://en.wikipedia.org/wiki/Sudo). Part of the instructions may or may not be compatible with Android, macOS, Windows, or any other Operating System (OS). If you run into issues, please refer to the official documentation of the software mentioned in the [Software](#software) section.
 
-- install esptool
-- connect esp01 to adapter
-- check flash size
-- put device into flash mode (ground gpio0)
-- download tasmota-sensors.bin
-- flash to device
-- remove flash mode
-- restart device
+## Installing the required packages and fixing user permission
+Before we can flash the Tasmota firmware onto the ESP-01, we will need to install a few packages and configure the permissions of the current Linux user to allow using the USB adapter.
+
+1. Open a terminal and install the required packages:
+
+   ```
+   sudo apt update && sudo apt install wget python3 python3-pip
+   ```
+
+2. Install `esptool.py` via `pip3`:
+
+   ```
+   pip3 install esptool
+   ```
+
+3. Find out if `esptool.py` can be found in your user's `$PATH`, as follows:
+
+   ```
+   whereis esptool.py
+   ```
+
+   Alternatively, when required to run `esptool.py`, instead of `esptool.py OPTIONS`, run as `python3 -m esptool OPTIONS`. If you choose to do this, skip this and the next step.
+   {: .notice }
+
+4. If `esptool.py` was not found, it means your user's `.local/bin` is not in your `$PATH`.  Add it as follows:
+
+   ```
+   echo "export PATH="$HOME/.local/bin:$PATH"" | tee -a "$HOME/.bashrc" > /dev/null
+   ```
+
+5. Connect your ESP-01 to the USB adapter:
+   
+   [![ESP-01 to USB adapter](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-USB-adapter.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-USB-adapter.jpg)
+
+   [![ESP-01 in default mode](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-default-mode.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-default-mode.jpg)
+    
+   Please ignore the tape over the ESP-01 module. Its use is not necessary.
+   {: .notice }
+
+6. Connect the adapter to a USB port on your computer and check the new device in `/dev/`:
+
+   ```
+   ls -l /dev/ttyUSB*
+   ```
+
+7. Add your `$USER` to the same group as `/dev/ttyUSB*` (it's usually `dialout` but if different, change in the command below) and `tty`:
+
+   ```
+   sudo usermod -aG dialout,tty ${USER}
+   ```
+
+8. Log off and back on.  (If you continue to run into permission issues, try rebooting instead.  You can check your user's permissions with `id ${USER}`.)
+
+## Flashing the Tasmota firmware
+We are now ready to flash the Tasmota firmware.  For reference, the official information is available at [https://tasmota.github.io/docs/](https://tasmota.github.io/docs/).
+
+1. Go to `/opt` and create a `Tasmota8266` directory:
+
+   ```
+   cd /opt
+   sudo mkdir Tasmota8266
+   ```
+
+2. Change ownership of the new directory to the current user instead of `root`:
+
+   ```
+   sudo chown ${USER}:${USER} Tasmota8266/
+   ```
+
+3. Download the latest `tasmota-sensors.bin` binary via `wget` to the newly created directory:
+
+   ```
+   wget -P Tasmota8266/ https://ota.tasmota.com/tasmota/release/tasmota-sensors.bin
+   ```
+
+   Alternatively, you can manually download the binary from the [Tasmota Github repo](https://github.com/arendst/Tasmota/releases). However, the above URL usually points to the latest version of the binary.
+   {: .notice }
+
+4. Disconnect your ESP-01 adapter from your computer. Take note of the USB adapter pinout to put your ESP-01 into **flash mode** by grounding the pin `IO0` using a female-to-female DuPont wire, as follows:
+   
+   [![ESP-01 USB adapter pinout](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-USB-adapter-pinout.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-USB-adapter-pinout.jpg)
+
+   Notice that the pinout is flipped vertically when looking the pins from the bottom vs. the top.  For us, it is the top-view pinout that matters because that is where we will connect the DuPont wires.  The pinout for you adapter *might not* be the same, so make sure to double check before moving on. Once you have a good grasp of the your adapter's pinout, go ahead put the ESP-01 into flash mode.
+
+   [![ESP-01 in flash mode](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-flash-mode.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-flash-mode.jpg)
+
+5. Reconnect your ESP-01 adapter to your computer.  Now find the USB port your device is using in `/dev/` and set it to the variable `ESP_PORT`, as follows:
+   
+   **Attention.** While convenient, the following command assumes there is a single USB to serial adapter connected to your computer.  If this is not the case, manually set `ESP_PORT` to whichever port your ESP-01 USB adapter is currently using. You can find the port via `ls /dev/ttyUSB*` and testing one by one until you find the one used by the ESP-01 adapter. Alternatively, simply disconnect all other USB to serial adapters for this procedure and continue.
+   {: .notice--warning }
+
+   ```
+   ESP_PORT=$(ls /dev/ttyUSB*)
+   ```
+
+   Please notice that this only works if you continue to use the **same shell** in which `ESP_PORT` was defined.  If you log off or even close the current terminal, you will have to redefine `ESP_PORT` to keep using it.
+   {: .notice }
+
+   You can check that `ESP_PORT` was correctly defined by `echo`ing it, as follows:
+
+   ```
+   echo $ESP_HOME
+   ```
+
+   which should output something like
+
+   ```
+   /dev/ttyUSB0
+   ```
+
+6. Before flashing the Tasmota firmware, check the SPI flash to make sure it has at least `1MB`:
+
+   ```
+   esptool.py --port $ESP_PORT flash_id
+   ```
+
+   which should show that the `Detected flash size` is at least `1MB`, as in the following example:
+
+   ```
+   esptool.py v3.0
+   Serial port /dev/ttyUSB0
+   Connecting....
+   Detecting chip type... ESP8266
+   Chip is ESP8266EX
+   Features: WiFi
+   Crystal is 26MHz
+   MAC: 2c:f4:32:2d:eb:19
+   Uploading stub...
+   Running stub...
+   Stub running...
+   Manufacturer: 5e
+   Device: 4014
+   Detected flash size: 1MB
+   Hard resetting via RTS pin...
+   ```
+
+7. If everything looks good, erase whatever is currently stored on the SPI flash of the ESP-01 module:
+   
+   **Attention.** The following procedure will **wipe all the data** on the SPI flash of your ESP-01 module. If you have used such a module before and want to backup the image, then first run `esptool.py --port $ESP_PORT read_flash 0x00000 0x100000 /opt/Tasmota8266/backup_esp01_$(date +%d-%m-%y).bin`.  The backup will be in the newly create `Tasmota8266` directory with the current date for future reference. Please notice that this procedure may take a few minutes to complete.
+   {: .notice--warning }
+   
+   ```
+   esptool.py --port $ESP_PORT erase_flash
+   ```
+
+   which should output `Chip erase completed successfully`, as in the following example:
+
+   ```
+   esptool.py v3.0
+   Serial port /dev/ttyUSB0
+   Connecting....
+   Detecting chip type... ESP8266
+   Chip is ESP8266EX
+   Features: WiFi
+   Crystal is 26MHz
+   MAC: 2c:f4:32:2d:eb:19
+   Uploading stub...
+   Running stub...
+   Stub running...
+   Erasing flash (this may take a while)...
+   Chip erase completed successfully in 2.6s
+   Hard resetting via RTS pin...
+   ```
+
+8. Now it is time to flash the Tasmota firmware:
+   
+   ```
+   esptool.py --port $ESP_PORT write_flash -fs 1MB -fm dout 0x0 /opt/Tasmota8266/tasmota-sensors.bin
+   ```
+
+   **Wait** until `esptool.py` is completely done before moving on. Flashing a firmware can take a few minutes to complete but in this case, it shouldn't take more than 30 seconds.
+   {: .notice--danger }
+
+9. When done, disconnect the adapter from your computer and put it back into **default mode** by removing the jumper grounding `IO0`, as follows:
+   
+   [![ESP-01 in default mode](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-default-mode.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-default-mode.jpg)
+
+10. Reconnect your ESP-01 adapter and scan the nearby WiFi networks.  If correctly flashed, you should be able to see a new `tasmota_*` WiFi network created by your ESP-01 WiFi module; if this is not the case, then double check all steps, use a different wire to ground `IO0`, and try again.
+
+If you reached this part, it means your ESP-01 is already running Tasmota (Hurrah!). This is a good opportunity to take a break if you are tired or feel overwhelmed. In the next section, we will learn how to configure the Tasmota firmware over-the-air.
+
+## Basic Tasmota configuration
 
 - basic tasmota config
   - template
@@ -270,14 +444,13 @@ As in the previous tutorials, this article assumes you are running a **Linux** d
   - mqtt
   - discovery
 
-- disconnect device
+## Wiring the GY-BME280 sensor module
+
 - wire BME280 module do the adapter
 - connect device
 - configure template
   - SDA and SDC pins
 - restart device
-
-- done
 
 [top](#){:.btn .btn--light-outline .btn--small}
 

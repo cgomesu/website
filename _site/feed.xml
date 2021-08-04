@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-08-02T13:46:16-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: USB-powered, low-profile, and reliable ESP-01 Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: USB-powered, low-profile, and reliable ESP-01 Tasmota environmental sensor" /><published>2021-07-18T11:20:00-03:00</published><updated>2021-07-18T11:20:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-08-04T16:25:14-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: USB-powered, low-profile, and reliable ESP-01 Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: USB-powered, low-profile, and reliable ESP-01 Tasmota environmental sensor" /><published>2021-07-18T11:20:00-03:00</published><updated>2021-07-18T11:20:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;July 18th, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
@@ -269,19 +269,192 @@
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;assembly&quot;&gt;Assembly&lt;/h1&gt;
-&lt;p&gt;As in the previous tutorials, this article assumes you are running a &lt;strong&gt;Linux&lt;/strong&gt; distribution (e.g., Debian, Ubuntu, Arch, etc.). The instructions may or may not be compatible with Android, macOS, Windows, or any other Operating System (OS). If you run into issues, please refer to the official documentation of the software mentioned in the &lt;a href=&quot;#software&quot;&gt;Software&lt;/a&gt; section.&lt;/p&gt;
+&lt;p&gt;As in the previous tutorials, this article assumes you are running a &lt;strong&gt;Linux&lt;/strong&gt; distribution (e.g., Debian, Ubuntu, Arch, etc.) and your current user (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;${USER}&lt;/code&gt;) is in the &lt;a href=&quot;https://en.wikipedia.org/wiki/Sudo&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sudo&lt;/code&gt; group&lt;/a&gt;. Part of the instructions may or may not be compatible with Android, macOS, Windows, or any other Operating System (OS). If you run into issues, please refer to the official documentation of the software mentioned in the &lt;a href=&quot;#software&quot;&gt;Software&lt;/a&gt; section.&lt;/p&gt;
+
+&lt;h2 id=&quot;installing-the-required-packages-and-fixing-user-permission&quot;&gt;Installing the required packages and fixing user permission&lt;/h2&gt;
+&lt;p&gt;Before we can flash the Tasmota firmware onto the ESP-01, we will need to install a few packages and configure the permissions of the current Linux user to allow using the USB adapter.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Open a terminal and install the required packages:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt update &amp;amp;&amp;amp; sudo apt install wget python3 python3-pip
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Install &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;esptool.py&lt;/code&gt; via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pip3&lt;/code&gt;:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pip3 install esptool
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Find out if &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;esptool.py&lt;/code&gt; can be found in your user’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$PATH&lt;/code&gt;, as follows:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;whereis esptool.py
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p class=&quot;notice&quot;&gt;Alternatively, when required to run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;esptool.py&lt;/code&gt;, instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;esptool.py OPTIONS&lt;/code&gt;, run as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;python3 -m esptool OPTIONS&lt;/code&gt;. If you choose to do this, skip this and the next step.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;esptool.py&lt;/code&gt; was not found, it means your user’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.local/bin&lt;/code&gt; is not in your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$PATH&lt;/code&gt;.  Add it as follows:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;echo &quot;export PATH=&quot;$HOME/.local/bin:$PATH&quot;&quot; | tee -a &quot;$HOME/.bashrc&quot; &amp;gt; /dev/null
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Connect your ESP-01 to the USB adapter:&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-USB-adapter.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-USB-adapter.jpg&quot; alt=&quot;ESP-01 to USB adapter&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-default-mode.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-default-mode.jpg&quot; alt=&quot;ESP-01 in default mode&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p class=&quot;notice&quot;&gt;Please ignore the tape over the ESP-01 module. Its use is not necessary.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Connect the adapter to a USB port on your computer and check the new device in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/dev/&lt;/code&gt;:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ls -l /dev/ttyUSB*
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Add your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$USER&lt;/code&gt; to the same group as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/dev/ttyUSB*&lt;/code&gt; (it’s usually &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dialout&lt;/code&gt; but if different, change in the command below) and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tty&lt;/code&gt;:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo usermod -aG dialout,tty ${USER}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Log off and back on.  (If you continue to run into permission issues, try rebooting instead.  You can check your user’s permissions with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;id ${USER}&lt;/code&gt;.)&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;flashing-the-tasmota-firmware&quot;&gt;Flashing the Tasmota firmware&lt;/h2&gt;
+&lt;p&gt;We are now ready to flash the Tasmota firmware.  For reference, the official information is available at &lt;a href=&quot;https://tasmota.github.io/docs/&quot;&gt;https://tasmota.github.io/docs/&lt;/a&gt;.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Go to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/opt&lt;/code&gt; and create a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Tasmota8266&lt;/code&gt; directory:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd /opt
+sudo mkdir Tasmota8266
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Change ownership of the new directory to the current user instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;root&lt;/code&gt;:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo chown ${USER}:${USER} Tasmota8266/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Download the latest &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmota-sensors.bin&lt;/code&gt; binary via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wget&lt;/code&gt; to the newly created directory:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;wget -P Tasmota8266/ https://ota.tasmota.com/tasmota/release/tasmota-sensors.bin
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p class=&quot;notice&quot;&gt;Alternatively, you can manually download the binary from the &lt;a href=&quot;https://github.com/arendst/Tasmota/releases&quot;&gt;Tasmota Github repo&lt;/a&gt;. However, the above URL usually points to the latest version of the binary.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Disconnect your ESP-01 adapter from your computer. Take note of the USB adapter pinout to put your ESP-01 into &lt;strong&gt;flash mode&lt;/strong&gt; by grounding the pin &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO0&lt;/code&gt; using a female-to-female DuPont wire, as follows:&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-USB-adapter-pinout.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-USB-adapter-pinout.jpg&quot; alt=&quot;ESP-01 USB adapter pinout&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;Notice that the pinout is flipped vertically when looking the pins from the bottom vs. the top.  For us, it is the top-view pinout that matters because that is where we will connect the DuPont wires.  The pinout for you adapter &lt;em&gt;might not&lt;/em&gt; be the same, so make sure to double check before moving on. Once you have a good grasp of the your adapter’s pinout, go ahead put the ESP-01 into flash mode.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-flash-mode.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-flash-mode.jpg&quot; alt=&quot;ESP-01 in flash mode&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Reconnect your ESP-01 adapter to your computer.  Now find the USB port your device is using in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/dev/&lt;/code&gt; and set it to the variable &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ESP_PORT&lt;/code&gt;, as follows:&lt;/p&gt;
+
+    &lt;p class=&quot;notice--warning&quot;&gt;&lt;strong&gt;Attention.&lt;/strong&gt; While convenient, the following command assumes there is a single USB to serial adapter connected to your computer.  If this is not the case, manually set &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ESP_PORT&lt;/code&gt; to whichever port your ESP-01 USB adapter is currently using. You can find the port via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ls /dev/ttyUSB*&lt;/code&gt; and testing one by one until you find the one used by the ESP-01 adapter. Alternatively, simply disconnect all other USB to serial adapters for this procedure and continue.&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ESP_PORT=$(ls /dev/ttyUSB*)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p class=&quot;notice&quot;&gt;Please notice that this only works if you continue to use the &lt;strong&gt;same shell&lt;/strong&gt; in which &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ESP_PORT&lt;/code&gt; was defined.  If you log off or even close the current terminal, you will have to redefine &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ESP_PORT&lt;/code&gt; to keep using it.&lt;/p&gt;
+
+    &lt;p&gt;You can check that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ESP_PORT&lt;/code&gt; was correctly defined by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;echo&lt;/code&gt;ing it, as follows:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;echo $ESP_HOME
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;which should output something like&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/dev/ttyUSB0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Before flashing the Tasmota firmware, check the SPI flash to make sure it has at least &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1MB&lt;/code&gt;:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;esptool.py --port $ESP_PORT flash_id
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;which should show that the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Detected flash size&lt;/code&gt; is at least &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1MB&lt;/code&gt;, as in the following example:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;esptool.py v3.0
+Serial port /dev/ttyUSB0
+Connecting....
+Detecting chip type... ESP8266
+Chip is ESP8266EX
+Features: WiFi
+Crystal is 26MHz
+MAC: 2c:f4:32:2d:eb:19
+Uploading stub...
+Running stub...
+Stub running...
+Manufacturer: 5e
+Device: 4014
+Detected flash size: 1MB
+Hard resetting via RTS pin...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If everything looks good, erase whatever is currently stored on the SPI flash of the ESP-01 module:&lt;/p&gt;
+
+    &lt;p class=&quot;notice--warning&quot;&gt;&lt;strong&gt;Attention.&lt;/strong&gt; The following procedure will &lt;strong&gt;wipe all the data&lt;/strong&gt; on the SPI flash of your ESP-01 module. If you have used such a module before and want to backup the image, then first run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;esptool.py --port $ESP_PORT read_flash 0x00000 0x100000 /opt/Tasmota8266/backup_esp01_$(date +%d-%m-%y).bin&lt;/code&gt;.  The backup will be in the newly create &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Tasmota8266&lt;/code&gt; directory with the current date for future reference. Please notice that this procedure may take a few minutes to complete.&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;esptool.py --port $ESP_PORT erase_flash
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;which should output &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Chip erase completed successfully&lt;/code&gt;, as in the following example:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;esptool.py v3.0
+Serial port /dev/ttyUSB0
+Connecting....
+Detecting chip type... ESP8266
+Chip is ESP8266EX
+Features: WiFi
+Crystal is 26MHz
+MAC: 2c:f4:32:2d:eb:19
+Uploading stub...
+Running stub...
+Stub running...
+Erasing flash (this may take a while)...
+Chip erase completed successfully in 2.6s
+Hard resetting via RTS pin...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Now it is time to flash the Tasmota firmware:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;esptool.py --port $ESP_PORT write_flash -fs 1MB -fm dout 0x0 /opt/Tasmota8266/tasmota-sensors.bin
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p class=&quot;notice--danger&quot;&gt;&lt;strong&gt;Wait&lt;/strong&gt; until &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;esptool.py&lt;/code&gt; is completely done before moving on. Flashing a firmware can take a few minutes to complete but in this case, it shouldn’t take more than 30 seconds.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;When done, disconnect the adapter from your computer and put it back into &lt;strong&gt;default mode&lt;/strong&gt; by removing the jumper grounding &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO0&lt;/code&gt;, as follows:&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-default-mode.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-default-mode.jpg&quot; alt=&quot;ESP-01 in default mode&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Reconnect your ESP-01 adapter and scan the nearby WiFi networks.  If correctly flashed, you should be able to see a new &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmota_*&lt;/code&gt; WiFi network created by your ESP-01 WiFi module; if this is not the case, then double check all steps, use a different wire to ground &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO0&lt;/code&gt;, and try again.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;If you reached this part, it means your ESP-01 is already running Tasmota (Hurrah!). This is a good opportunity to take a break if you are tired or feel overwhelmed. In the next section, we will learn how to configure the Tasmota firmware over-the-air.&lt;/p&gt;
+
+&lt;h2 id=&quot;basic-tasmota-configuration&quot;&gt;Basic Tasmota configuration&lt;/h2&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;install esptool&lt;/li&gt;
-  &lt;li&gt;connect esp01 to adapter&lt;/li&gt;
-  &lt;li&gt;check flash size&lt;/li&gt;
-  &lt;li&gt;put device into flash mode (ground gpio0)&lt;/li&gt;
-  &lt;li&gt;download tasmota-sensors.bin&lt;/li&gt;
-  &lt;li&gt;flash to device&lt;/li&gt;
-  &lt;li&gt;remove flash mode&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;restart device&lt;/p&gt;
-  &lt;/li&gt;
   &lt;li&gt;basic tasmota config
     &lt;ul&gt;
       &lt;li&gt;template&lt;/li&gt;
@@ -290,7 +463,11 @@
       &lt;li&gt;discovery&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;disconnect device&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;wiring-the-gy-bme280-sensor-module&quot;&gt;Wiring the GY-BME280 sensor module&lt;/h2&gt;
+
+&lt;ul&gt;
   &lt;li&gt;wire BME280 module do the adapter&lt;/li&gt;
   &lt;li&gt;connect device&lt;/li&gt;
   &lt;li&gt;configure template
@@ -298,10 +475,7 @@
       &lt;li&gt;SDA and SDC pins&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;restart device&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;done&lt;/li&gt;
+  &lt;li&gt;restart device&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
