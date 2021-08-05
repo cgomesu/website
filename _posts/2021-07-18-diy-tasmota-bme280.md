@@ -246,6 +246,10 @@ In this tutorial, we will make use of the following applications:
 - [Tasmota](https://github.com/arendst/Tasmota) (`tasmota-sensors.bin`)
   > Alternative firmware for ESP8266 and ESP32 based devices with easy configuration using webUI, OTA updates, automation using timers or rules, expandability and entirely local control over MQTT, HTTP, Serial or KNX.
 
+If you have never heard of Tasmota before, check Robbert's ([The Hook Up](https://www.youtube.com/channel/UC2gyzKcHbYfqoXA5xbyGXtQ)) introduction video:
+
+{% include video id="08_GBROKQH0" provider="youtube" %}
+
 - [Esptool](https://github.com/espressif/esptool) (`esptool.py`)
   > A Python-based, open source, platform independent, utility to communicate with the ROM bootloader in Espressif ESP8266 & ESP32 series chips.
 
@@ -276,7 +280,7 @@ Before we can flash the Tasmota firmware onto the ESP-01, we will need to instal
    whereis esptool.py
    ```
 
-   Alternatively, when required to run `esptool.py`, instead of `esptool.py OPTIONS`, run as `python3 -m esptool OPTIONS`. If you choose to do this, skip this and the next step.
+   Alternatively, when required to run `esptool.py`, instead of `esptool.py OPTIONS`, run as `python3 -m esptool OPTIONS`. If you choose to do this, skip the next step.
    {: .notice }
 
 4. If `esptool.py` was not found, it means your user's `.local/bin` is not in your `$PATH`.  Add it as follows:
@@ -311,33 +315,33 @@ Before we can flash the Tasmota firmware onto the ESP-01, we will need to instal
 ## Flashing the Tasmota firmware
 We are now ready to flash the Tasmota firmware.  For reference, the official information is available at [https://tasmota.github.io/docs/](https://tasmota.github.io/docs/).
 
-1. Go to `/opt` and create a `Tasmota8266` directory:
+1. Go to `/opt` and create a `tasmota8266` directory:
 
    ```
    cd /opt
-   sudo mkdir Tasmota8266
+   sudo mkdir tasmota8266
    ```
 
 2. Change ownership of the new directory to the current user instead of `root`:
 
    ```
-   sudo chown ${USER}:${USER} Tasmota8266/
+   sudo chown ${USER}:${USER} tasmota8266/
    ```
 
 3. Download the latest `tasmota-sensors.bin` binary via `wget` to the newly created directory:
 
    ```
-   wget -P Tasmota8266/ https://ota.tasmota.com/tasmota/release/tasmota-sensors.bin
+   wget -P tasmota8266/ https://ota.tasmota.com/tasmota/release/tasmota-sensors.bin
    ```
 
-   Alternatively, you can manually download the binary from the [Tasmota Github repo](https://github.com/arendst/Tasmota/releases). However, the above URL usually points to the latest version of the binary.
+   Alternatively, you can manually download the latest and previous binaries from the [Tasmota Github repo](https://github.com/arendst/Tasmota/releases). The URL above points to the latest version of the `tasmota-sensors` binary.
    {: .notice }
 
 4. Disconnect your ESP-01 adapter from your computer. Take note of the USB adapter pinout to put your ESP-01 into **flash mode** by grounding the pin `IO0` using a female-to-female DuPont wire, as follows:
    
    [![ESP-01 USB adapter pinout](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-USB-adapter-pinout.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-USB-adapter-pinout.jpg)
 
-   Notice that the pinout is flipped vertically when looking the pins from the bottom vs. the top.  For us, it is the top-view pinout that matters because that is where we will connect the DuPont wires.  The pinout for you adapter *might not* be the same, so make sure to double check before moving on. Once you have a good grasp of the your adapter's pinout, go ahead put the ESP-01 into flash mode.
+   Notice that the pinout is flipped vertically when looking the pins from the bottom vs. the top.  For us, it is the top-view pinout that matters because that is where we will connect the DuPont wires.  The pinout for your own adapter **might not** be the same, so make sure to double check before moving on. Once you have a good grasp of the pinout, go ahead put the ESP-01 into flash mode.
 
    [![ESP-01 in flash mode](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-flash-mode.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-flash-mode.jpg)
 
@@ -393,7 +397,7 @@ We are now ready to flash the Tasmota firmware.  For reference, the official inf
 
 7. If everything looks good, erase whatever is currently stored on the SPI flash of the ESP-01 module:
    
-   **Attention.** The following procedure will **wipe all the data** on the SPI flash of your ESP-01 module. If you have used such a module before and want to backup the image, then first run `esptool.py --port $ESP_PORT read_flash 0x00000 0x100000 /opt/Tasmota8266/backup_esp01_$(date +%d-%m-%y).bin`.  The backup will be in the newly create `Tasmota8266` directory with the current date for future reference. Please notice that this procedure may take a few minutes to complete.
+   **Attention.** The following procedure will **wipe all the data** on the SPI flash of your ESP-01 module. If you have used such a module before and want to backup the image, then first run `esptool.py --port $ESP_PORT read_flash 0x00000 0x100000 /opt/tasmota8266/backup_esp01_$(date +%d-%m-%y).bin`.  The backup will be in the newly created `tasmota8266` directory with the current date for future reference. Please notice that this procedure may take a few minutes to complete.
    {: .notice--warning }
    
    ```
@@ -422,27 +426,107 @@ We are now ready to flash the Tasmota firmware.  For reference, the official inf
 8. Now it is time to flash the Tasmota firmware:
    
    ```
-   esptool.py --port $ESP_PORT write_flash -fs 1MB -fm dout 0x0 /opt/Tasmota8266/tasmota-sensors.bin
+   esptool.py --port $ESP_PORT write_flash -fs 1MB -fm dout 0x0 /opt/tasmota8266/tasmota-sensors.bin
    ```
 
-   **Wait** until `esptool.py` is completely done before moving on. Flashing a firmware can take a few minutes to complete but in this case, it shouldn't take more than 30 seconds.
+   **Wait** until `esptool.py` is completely done before moving on. Flashing a firmware can take a few minutes to complete but in this case, it usually does not take more than 30 seconds.
    {: .notice--danger }
 
 9. When done, disconnect the adapter from your computer and put it back into **default mode** by removing the jumper grounding `IO0`, as follows:
    
    [![ESP-01 in default mode](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-default-mode.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-default-mode.jpg)
 
-10. Reconnect your ESP-01 adapter and scan the nearby WiFi networks.  If correctly flashed, you should be able to see a new `tasmota_*` WiFi network created by your ESP-01 WiFi module; if this is not the case, then double check all steps, use a different wire to ground `IO0`, and try again.
+10. Reconnect your ESP-01 adapter and scan the nearby WiFi networks.  If correctly flashed, you should be able to see a new `tasmota_*` WiFi network created by your ESP-01 WiFi module; if this is not the case, then double check all steps, use a different wire to ground `IO0`, and try again.  (If the problem persists, it might be hardware-related. Try a different adapter or ESP-01 or both.)
 
-If you reached this part, it means your ESP-01 is already running Tasmota (Hurrah!). This is a good opportunity to take a break if you are tired or feel overwhelmed. In the next section, we will learn how to configure the Tasmota firmware over-the-air.
+If you reached this part, it means your ESP-01 is already running Tasmota (Hurrah!). This is a good opportunity to take a break if you feel overwhelmed. In the next section, we will learn how to configure the Tasmota firmware over-the-air.
 
 ## Basic Tasmota configuration
+In this section, we will learn how to connect the ESP-01 to a local wireless network, set a default [Template](#) for the device, fix its time, enable the Home Assistant auto-discovery feature, and for advanced usage, configure the MQTT.
 
-- basic tasmota config
-  - template
-  - time
-  - mqtt
-  - discovery
+### Initial WiFi configuration
+After a fresh installation (or rebooting your device multiple times in a short period), the Tasmota firmware automatically creates a wireless access point (WAP) that other devices can connect to.  The WAP is called `tasmota_*`, in which `*` will be a combination of the device's MAC address and random numbers.  To configure the WiFi in your new Tasmota device:
+
+1. Make sure the ESP-01 is powered on in [default mode](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-default-mode.jpg).
+
+2. Use a wifi-capable device (e.g., laptop) and connect to the WAP named `tasmota_*`.
+
+3. The ESP-01 will give your device an IP address, which you can check via `ip a`. Usually, the device's IP address is in the `192.168.4.0/24` pool, which means the Tasmota web UI is at `http://192.168.4.1:80`; Otherwise, the web UI will be at the first address in whichever pool your device connected to after joining the wireless access point created by the Tasmota firmware.
+
+4. Open a web-browser of your choice (e.g., Mozilla Firefox) and navigate to the Tasmota web UI. You should be prompted to change the WiFi settings to allow your ESP-01 to connect to your local WiFi network.  Change the settings, save it, and wait for the ESP-01 to reboot.
+
+5. Navigate to the **DHCP server** of your local network and find the IP address assigned to your ESP-01.  At this point, it's a good idea to assign a static address to it as well.  (If you set a static address, then reboot the ESP-01 before moving on.)
+
+6. Navigate to the Tasmota web UI on your local network to set the additional configurations described in the next section.
+
+### ESP-01 Template
+Tasmota templates are device-specific definitions of how their GPIO pins are assigned and therefore, proper configuration of the template is key if you plan on using the device's GPIO pins. As you will notice, the default template in the `tasmota-sensors.bin` binary is for the [Sonoff Basic](#) device, which won't work for us. The actual template for the ESP-01 can be found at [https://templates.blakadder.com/ESP01.html](https://templates.blakadder.com/ESP01.html).  To change the current Sonoff template to the proper ESP-01 template, do the following:
+
+1. Copy the **ESP-01 template**:
+
+   ```json
+   {"NAME":"ESP01","GPIO":[255,255,255,255,0,0,0,0,0,0,0,0,0],"FLAG":0,"BASE":18}
+   ```
+
+2. From the ESP-01 web UI, go to **Configuration > Configure Other**.
+
+3. Paste the template under **Other parameters > Template**.  Then, check the **Activate** option under the template. Save the settings and wait for the reboot.
+
+4. The device should now be named **ESP01** (or whatever `NAME` was in the template). If everything looks good, go to the next section.
+
+### Timezone
+If you installed a pre-compilled firmware, there is a chance your device is using the incorrect timezone.  To check the current timezone, go to **Console** and type:
+
+```
+timezone
+```
+
+If the timezone does not match yours, you can enter the `timezone` command with a value equal to your region's [standardized time zone](https://upload.wikimedia.org/wikipedia/commons/8/88/World_Time_Zones_Map.png).  For America/Sao_Paulo, for example, that would be `-3`, which can be set in your Tasmota device as follows:
+
+```
+timezone -3
+```
+
+Now if you enter `time` in the console, it should correctly display your current local time.
+
+### Home Assistant discovery protocol
+If you use [Home Assistant](https://www.home-assistant.io/) to manage home devices, the `tasmota-sensors.bin` binary comes with an option to enable the Home Assistant discovery protocol (namely, `SetOption19`). To check the status of the Home Assistant discovery protocol, go to **Console** and type:
+
+```
+setoption19
+```
+
+which should output the following if the protocol is currently disabled:
+
+```
+... CMD: setoption19
+... RSL: RESULT = {"SetOption19":"OFF"}
+```
+
+To **enable** it, simply append `1` (or `on`) to the `setoption19` command, as follows:
+
+```
+setoption19 1
+```
+
+And that is it! Now your Home Assistant should be able to automatically detect the Tasmota device and create entities for each environmental metric once we are done configuring the BME280 sensor. No need to ever touch the `configuration.yaml` of Home Assistant.
+
+For more information about this and other `SetOption` commands, take a look at the official [SetOptions documentation](https://tasmota.github.io/docs/Commands/#setoptions).  For more advanced usage, go to the MQTT configuration in the next section.
+
+### MQTT
+This is good option (and my preferred one) for managing a multitude of home devices, such as the one described in this project.  However, an in-depth explanation about MQTT is beyond the scope of this article. In brief, first, you need to set up a MQTT broker (e.g., [Eclipse Mosquitto MQTT broker](https://mosquitto.org/)). Then, you can configure your Tasmota device to make use of it, as follows:
+
+1. From the ESP-01 web UI, go to **Configuration > Configure Other**.
+
+2. Make sure the **MQTT enable** box is checked; otherwise, check and save it.
+
+3. Now go to **Configuration > Configure MQTT** and configure your Tasmota device to use your running MQTT broker.
+
+   [![ESP-01 MQTT configuration](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-mqtt-configuration.jpg){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-mqtt-configuration.jpg)
+
+4. Hit save when done and that is it!
+
+You can find more information about the MQTT configuration at the official [Tasmota MQTT documentation](https://tasmota.github.io/docs/MQTT/).
+
 
 ## Wiring the GY-BME280 sensor module
 
