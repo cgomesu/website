@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-08-05T12:32:54-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: USB-powered, low-profile, and reliable ESP-01 Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: USB-powered, low-profile, and reliable ESP-01 Tasmota environmental sensor" /><published>2021-07-18T11:20:00-03:00</published><updated>2021-07-18T11:20:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-08-10T14:22:39-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: USB-powered, low-profile, and reliable ESP-01 Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: USB-powered, low-profile, and reliable ESP-01 Tasmota environmental sensor" /><published>2021-07-18T11:20:00-03:00</published><updated>2021-07-18T11:20:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;July 18th, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
@@ -51,14 +51,14 @@
 
 &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-schematics.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-schematics.jpg&quot; alt=&quot;ESP-01 schematics&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;Of note, it &lt;strong&gt;exposes only four GPIO pins&lt;/strong&gt; to interface with other devices–namely, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;URXD&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UTXD&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO2&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO0&lt;/code&gt;–and it is powered via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;3v3 DC&lt;/code&gt; to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;VCC&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;GND&lt;/code&gt; pins. Each of the eight exposed pins has specific functions, as suggested by their name:&lt;/p&gt;
+&lt;p&gt;Of note, it &lt;strong&gt;exposes only four GPIO pins&lt;/strong&gt; to interface with other devices–namely, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;URXD&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UTXD&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO2&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO0&lt;/code&gt;–and it is powered via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;3v3 DC&lt;/code&gt; to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;VCC&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;GND&lt;/code&gt; pins. Each of the &lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-bottom.png&quot;&gt;eight exposed pins&lt;/a&gt; has specific functions, as suggested by their name:&lt;/p&gt;
 
 &lt;center&gt;
 &lt;table&gt;
    &lt;thead&gt;
       &lt;th style=&quot;text-align: center;&quot;&gt;Pin #&lt;/th&gt;
-      &lt;th style=&quot;text-align: center;&quot;&gt;Name&lt;/th&gt;
-      &lt;th style=&quot;text-align: center;&quot;&gt;Function&lt;/th&gt;
+      &lt;th style=&quot;text-align: center;&quot;&gt;Names&lt;/th&gt;
+      &lt;th style=&quot;text-align: center;&quot;&gt;Functions and notes&lt;/th&gt;
    &lt;/thead&gt;
    &lt;tr&gt;
       &lt;td&gt;1&lt;/td&gt;
@@ -77,8 +77,8 @@
    &lt;/tr&gt;
    &lt;tr&gt;
       &lt;td&gt;4&lt;/td&gt;
-      &lt;td&gt;URXD&lt;/td&gt;
-      &lt;td&gt;UART0, serial RX data&lt;/td&gt;
+      &lt;td&gt;URXD / IO3&lt;/td&gt;
+      &lt;td&gt;UART0 - serial RX data, GPIO 3&lt;/td&gt;
    &lt;/tr&gt;
    &lt;tr&gt;
       &lt;td&gt;5&lt;/td&gt;
@@ -97,8 +97,8 @@
    &lt;/tr&gt;
    &lt;tr&gt;
       &lt;td&gt;8&lt;/td&gt;
-      &lt;td&gt;UTXD&lt;/td&gt;
-      &lt;td&gt;UART0, serial TX data&lt;/td&gt;
+      &lt;td&gt;UTXD / IO1&lt;/td&gt;
+      &lt;td&gt;UART0 - serial TX data, GPIO 1&lt;/td&gt;
    &lt;/tr&gt;
 &lt;/table&gt;
 &lt;/center&gt;
@@ -465,10 +465,10 @@ Hard resetting via RTS pin...
 &lt;p&gt;If you reached this part, it means your ESP-01 is already running Tasmota (Hurrah!). This is a good opportunity to take a break if you feel overwhelmed. In the next section, we will learn how to configure the Tasmota firmware over-the-air.&lt;/p&gt;
 
 &lt;h2 id=&quot;basic-tasmota-configuration&quot;&gt;Basic Tasmota configuration&lt;/h2&gt;
-&lt;p&gt;In this section, we will learn how to connect the ESP-01 to a local wireless network, set a default &lt;a href=&quot;#&quot;&gt;Template&lt;/a&gt; for the device, fix its time, enable the Home Assistant auto-discovery feature, and for advanced usage, configure the MQTT.&lt;/p&gt;
+&lt;p&gt;In this section, we will learn how to connect the ESP-01 to a local wireless network, set a default &lt;a href=&quot;https://tasmota.github.io/docs/Templates/&quot;&gt;Template&lt;/a&gt; for the device, fix its time, enable the Home Assistant auto-discovery feature, and for advanced usage, configure the MQTT.&lt;/p&gt;
 
 &lt;h3 id=&quot;initial-wifi-configuration&quot;&gt;Initial WiFi configuration&lt;/h3&gt;
-&lt;p&gt;After a fresh installation (or rebooting your device multiple times in a short period), the Tasmota firmware automatically creates a wireless access point (WAP) that other devices can connect to.  The WAP is called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmota_*&lt;/code&gt;, in which &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;*&lt;/code&gt; will be a combination of the device’s MAC address and random numbers.  To configure the WiFi in your new Tasmota device:&lt;/p&gt;
+&lt;p&gt;After a fresh installation (or &lt;a href=&quot;https://tasmota.github.io/docs/Device-Recovery/#fast-power-cycle-device-recovery&quot;&gt;power cycling your device seven times in a short period&lt;/a&gt;), the Tasmota firmware automatically creates a wireless access point (WAP) that other devices can connect to.  The WAP is called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmota_*&lt;/code&gt;, in which &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;*&lt;/code&gt; will be a combination of the device’s MAC address and random numbers.  To configure the WiFi in your new Tasmota device:&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;
@@ -478,7 +478,7 @@ Hard resetting via RTS pin...
     &lt;p&gt;Use a wifi-capable device (e.g., laptop) and connect to the WAP named &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmota_*&lt;/code&gt;.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;The ESP-01 will give your device an IP address, which you can check via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ip a&lt;/code&gt;. Usually, the device’s IP address is in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.4.0/24&lt;/code&gt; pool, which means the Tasmota web UI is at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://192.168.4.1:80&lt;/code&gt;; Otherwise, the web UI will be at the first address in whichever pool your device connected to after joining the wireless access point created by the Tasmota firmware.&lt;/p&gt;
+    &lt;p&gt;The ESP-01 will give your device an IP address, which you can check via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ip a&lt;/code&gt;. Usually, the device’s IP address is in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.4.0/24&lt;/code&gt; pool, which means the Tasmota web UI is at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://192.168.4.1:80&lt;/code&gt;; Otherwise, the web UI will be at the first address in whichever pool your device connected to after joining the WAP created by the Tasmota firmware.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;Open a web-browser of your choice (e.g., Mozilla Firefox) and navigate to the Tasmota web UI. You should be prompted to change the WiFi settings to allow your ESP-01 to connect to your local WiFi network.  Change the settings, save it, and wait for the ESP-01 to reboot.&lt;/p&gt;
@@ -492,7 +492,7 @@ Hard resetting via RTS pin...
 &lt;/ol&gt;
 
 &lt;h3 id=&quot;esp-01-template&quot;&gt;ESP-01 Template&lt;/h3&gt;
-&lt;p&gt;Tasmota templates are device-specific definitions of how their GPIO pins are assigned and therefore, proper configuration of the template is key if you plan on using the device’s GPIO pins. As you will notice, the default template in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmota-sensors.bin&lt;/code&gt; binary is for the &lt;a href=&quot;#&quot;&gt;Sonoff Basic&lt;/a&gt; device, which won’t work for us. The actual template for the ESP-01 can be found at &lt;a href=&quot;https://templates.blakadder.com/ESP01.html&quot;&gt;https://templates.blakadder.com/ESP01.html&lt;/a&gt;.  To change the current Sonoff template to the proper ESP-01 template, do the following:&lt;/p&gt;
+&lt;p&gt;Tasmota templates are device-specific definitions of how their GPIO pins are assigned and therefore, proper configuration of the template is key if you plan on using the device’s GPIO pins. As you will notice, the default template in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmota-sensors.bin&lt;/code&gt; binary is for the &lt;a href=&quot;https://sonoff.tech/product/diy-smart-switch/basicr2/&quot;&gt;Sonoff Basic&lt;/a&gt; device, which won’t work for us. The actual template for the ESP-01 can be found at &lt;a href=&quot;https://templates.blakadder.com/ESP01.html&quot;&gt;https://templates.blakadder.com/ESP01.html&lt;/a&gt;.  To change the current Sonoff template to the proper ESP-01 template, do the following:&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;
@@ -544,10 +544,10 @@ Hard resetting via RTS pin...
 
 &lt;p&gt;And that is it! Now your Home Assistant should be able to automatically detect the Tasmota device and create entities for each environmental metric once we are done configuring the BME280 sensor. No need to ever touch the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;configuration.yaml&lt;/code&gt; of Home Assistant.&lt;/p&gt;
 
-&lt;p&gt;For more information about this and other &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SetOption&lt;/code&gt; commands, take a look at the official &lt;a href=&quot;https://tasmota.github.io/docs/Commands/#setoptions&quot;&gt;SetOptions documentation&lt;/a&gt;.  For more advanced usage, go to the MQTT configuration in the next section.&lt;/p&gt;
+&lt;p&gt;For more information about this and other &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SetOption&lt;/code&gt; commands, take a look at the official &lt;a href=&quot;https://tasmota.github.io/docs/Commands/#setoptions&quot;&gt;SetOptions documentation&lt;/a&gt;.  For more advanced usage, see the MQTT configuration, which is described next.&lt;/p&gt;
 
 &lt;h3 id=&quot;mqtt&quot;&gt;MQTT&lt;/h3&gt;
-&lt;p&gt;This is good option (and my preferred one) for managing a multitude of home devices, such as the one described in this project.  However, an in-depth explanation about MQTT is beyond the scope of this article. In brief, first, you need to set up a MQTT broker (e.g., &lt;a href=&quot;https://mosquitto.org/&quot;&gt;Eclipse Mosquitto MQTT broker&lt;/a&gt;). Then, you can configure your Tasmota device to make use of it, as follows:&lt;/p&gt;
+&lt;p&gt;This is a good option (and my preferred one) for managing a multitude of home devices, such as the one described in this project.  However, an in-depth explanation about MQTT is beyond the scope of this article. In brief, first, you need to set up a MQTT broker (e.g., &lt;a href=&quot;https://mosquitto.org/&quot;&gt;Eclipse Mosquitto MQTT broker&lt;/a&gt;). Then, you can configure your Tasmota device to make use of it, as follows:&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;
@@ -569,21 +569,48 @@ Hard resetting via RTS pin...
 &lt;p&gt;You can find more information about the MQTT configuration at the official &lt;a href=&quot;https://tasmota.github.io/docs/MQTT/&quot;&gt;Tasmota MQTT documentation&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h2 id=&quot;wiring-the-gy-bme280-sensor-module&quot;&gt;Wiring the GY-BME280 sensor module&lt;/h2&gt;
+&lt;p&gt;The &lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-module-01.jpg&quot;&gt;GY-BME280&lt;/a&gt; module usually comes with four male pin headers that we will connect do the ESP-01 USB adapter using four female-to-female jumper wires. To make use of such module, follow these steps:&lt;/p&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;wire BME280 module do the adapter&lt;/li&gt;
-  &lt;li&gt;connect device&lt;/li&gt;
-  &lt;li&gt;configure template
-    &lt;ul&gt;
-      &lt;li&gt;SDA and SDC pins&lt;/li&gt;
-    &lt;/ul&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Use your soldering kit to solder the headers to the board.  If you have a multimeter, remember to test your connections afterwards.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-module-03.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-module-03.jpg&quot; alt=&quot;BME-280 module 03&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
   &lt;/li&gt;
-  &lt;li&gt;restart device&lt;/li&gt;
-&lt;/ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Grab four female-to-female DuPont wires and connect them to your GY-BME280 module and ESP-01 USB adapter according to the following wiring schematics:&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-bme280-wiring.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-bme280-wiring.jpg&quot; alt=&quot;ESP-01 BME280 wiring&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;In this schematics, we will be using pins &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;TXD&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RXD&lt;/code&gt; to interface with the GY-BME280 module. You could, of course, try one or two of the other GPIO pins–namely, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO0&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO2&lt;/code&gt;.  However, because the state (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;low&lt;/code&gt;/&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;float&lt;/code&gt;/&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;high&lt;/code&gt;) of the latter pins at boot can put the board into specific modes of operation (e.g., when &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO0&lt;/code&gt; is &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;high&lt;/code&gt; at boot, the ESP-01 enters &lt;em&gt;flash mode&lt;/em&gt;) and we will only use the USB port for power, I find it safer to use the serial &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;TXD&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RXD&lt;/code&gt; pins to interface with (I2C) devices when using the ESP-01.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;(Optional.)&lt;/em&gt; If you bought &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1x4&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2x4&lt;/code&gt; female connectors, replace the single connectors by the new ones. (If you are uncertain how to do that, check Adreas Spiess’ video on &lt;a href=&quot;https://youtu.be/eI3fxTH6f6I?t=195&quot;&gt;tricks for working with DuPont wires, at the 3:15 mark&lt;/a&gt;.) At the very least, use a tape to secure the connectors that are next to each other. This makes it harder for them to disconnect by accident.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Once the GY-BME280 module is wired to the ESP-01 USB adapter, connect your adapter to a USB power supply and wait for it to connect to your network. (Of course, make sure it is within reach of a WAP.)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Now we will configure the device’s Template to use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RXD&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;TXD&lt;/code&gt; as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SCL&lt;/code&gt; (serial clock line) and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SDA&lt;/code&gt; (serial data line), respectively. So, navigate to your device’s web UI and go to &lt;strong&gt;Configuration&lt;/strong&gt; &amp;gt; &lt;strong&gt;Configure Template&lt;/strong&gt;. Then, at &lt;strong&gt;GPIO3&lt;/strong&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RXD&lt;/code&gt;), set it to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;I2C SCL&lt;/code&gt;; and at &lt;strong&gt;GPIO1&lt;/strong&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;TXD&lt;/code&gt;), set it to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;I2C SDA&lt;/code&gt;. At the end, your Template should look like the following one:&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-bme280-configuration-01.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-bme280-configuration-01.jpg&quot; alt=&quot;ESP-01 BME280 configuration 01&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;Hit &lt;strong&gt;Save&lt;/strong&gt; and wait for the device to reboot.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If properly configured, your device’s main web UI should now show four metrics from the BME280 sensor, namely temperature, humidity, dew point, and pressure, as in the following example:&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-bme280-configuration-02.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-bme280-configuration-02.jpg&quot; alt=&quot;ESP-01 BME280 configuration 02&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;That is it! Enjoy your new environmental sensor. If you need assistance setting up the integration with Home Assistant, take a look at the next section. Otherwise, skip to the &lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt; for the final remarks about this project.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
-&lt;h1 id=&quot;home-assistant-integration&quot;&gt;Home assistant integration&lt;/h1&gt;
+&lt;h1 id=&quot;home-assistant-integration&quot;&gt;Home Assistant integration&lt;/h1&gt;
+&lt;p&gt;If you enabled &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SetOption19&lt;/code&gt; in your Tasmota device to use the &lt;a href=&quot;#home-assistant-discovery-protocol&quot;&gt;Home Assistant discovery protocol&lt;/a&gt;, Home Assistant should automatically create new entities for the BME280 metrics. However, if you are using &lt;a href=&quot;#MQTT&quot;&gt;MQTT&lt;/a&gt;,&lt;/p&gt;
+
 &lt;p&gt;&lt;em&gt;Describe Discovery and MQTT broker setup and HASS configuration&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
@@ -608,17 +635,17 @@ Hard resetting via RTS pin...
       &lt;li&gt;&lt;del&gt;Soldering stuff for the BME280 module (depends on module)&lt;/del&gt;&lt;/li&gt;
     &lt;/ol&gt;
   &lt;/li&gt;
-  &lt;li&gt;Software
+  &lt;li&gt;&lt;del&gt;Software&lt;/del&gt;
     &lt;ol&gt;
-      &lt;li&gt;Tasmota sensor binary (includes I2C sensor support)&lt;/li&gt;
-      &lt;li&gt;Template for the ESP-01&lt;/li&gt;
+      &lt;li&gt;&lt;del&gt;Tasmota sensor binary (includes I2C sensor support)&lt;/del&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;del&gt;Template for the ESP-01&lt;/del&gt;&lt;/li&gt;
     &lt;/ol&gt;
   &lt;/li&gt;
-  &lt;li&gt;Assembly
+  &lt;li&gt;&lt;del&gt;Assembly&lt;/del&gt;
     &lt;ol&gt;
-      &lt;li&gt;Flashing + wiring (grounding GPIO0)&lt;/li&gt;
-      &lt;li&gt;Wiring for BME280 modules&lt;/li&gt;
-      &lt;li&gt;Tasmota configuration for I2C&lt;/li&gt;
+      &lt;li&gt;&lt;del&gt;Flashing + wiring (grounding GPIO0)&lt;/del&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;del&gt;Wiring for BME280 modules&lt;/del&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;del&gt;Tasmota configuration for I2C&lt;/del&gt;&lt;/li&gt;
     &lt;/ol&gt;
   &lt;/li&gt;
   &lt;li&gt;Home Assistant Integration

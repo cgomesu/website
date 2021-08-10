@@ -65,14 +65,14 @@ The **ESP-01** is a cheap and very small WiFi module developed by [Ai-Thinker](h
 
 [![ESP-01 schematics](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-schematics.jpg){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-schematics.jpg)
 
-Of note, it **exposes only four GPIO pins** to interface with other devices--namely, `URXD`, `UTXD`, `IO2` and `IO0`--and it is powered via `3v3 DC` to the `VCC` and `GND` pins. Each of the eight exposed pins has specific functions, as suggested by their name:
+Of note, it **exposes only four GPIO pins** to interface with other devices--namely, `URXD`, `UTXD`, `IO2` and `IO0`--and it is powered via `3v3 DC` to the `VCC` and `GND` pins. Each of the [eight exposed pins](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-bottom.png) has specific functions, as suggested by their name:
 
 <center>
 <table>
    <thead>
       <th style="text-align: center;">Pin #</th>
-      <th style="text-align: center;">Name</th>
-      <th style="text-align: center;">Function</th>
+      <th style="text-align: center;">Names</th>
+      <th style="text-align: center;">Functions and notes</th>
    </thead>
    <tr>
       <td>1</td>
@@ -91,8 +91,8 @@ Of note, it **exposes only four GPIO pins** to interface with other devices--nam
    </tr>
    <tr>
       <td>4</td>
-      <td>URXD</td>
-      <td>UART0, serial RX data</td>
+      <td>URXD / IO3</td>
+      <td>UART0 - serial RX data, GPIO 3</td>
    </tr>
    <tr>
       <td>5</td>
@@ -111,8 +111,8 @@ Of note, it **exposes only four GPIO pins** to interface with other devices--nam
    </tr>
    <tr>
       <td>8</td>
-      <td>UTXD</td>
-      <td>UART0, serial TX data</td>
+      <td>UTXD / IO1</td>
+      <td>UART0 - serial TX data, GPIO 1</td>
    </tr>
 </table>
 </center>
@@ -441,16 +441,16 @@ We are now ready to flash the Tasmota firmware.  For reference, the official inf
 If you reached this part, it means your ESP-01 is already running Tasmota (Hurrah!). This is a good opportunity to take a break if you feel overwhelmed. In the next section, we will learn how to configure the Tasmota firmware over-the-air.
 
 ## Basic Tasmota configuration
-In this section, we will learn how to connect the ESP-01 to a local wireless network, set a default [Template](#) for the device, fix its time, enable the Home Assistant auto-discovery feature, and for advanced usage, configure the MQTT.
+In this section, we will learn how to connect the ESP-01 to a local wireless network, set a default [Template](https://tasmota.github.io/docs/Templates/) for the device, fix its time, enable the Home Assistant auto-discovery feature, and for advanced usage, configure the MQTT.
 
 ### Initial WiFi configuration
-After a fresh installation (or rebooting your device multiple times in a short period), the Tasmota firmware automatically creates a wireless access point (WAP) that other devices can connect to.  The WAP is called `tasmota_*`, in which `*` will be a combination of the device's MAC address and random numbers.  To configure the WiFi in your new Tasmota device:
+After a fresh installation (or [power cycling your device seven times in a short period](https://tasmota.github.io/docs/Device-Recovery/#fast-power-cycle-device-recovery)), the Tasmota firmware automatically creates a wireless access point (WAP) that other devices can connect to.  The WAP is called `tasmota_*`, in which `*` will be a combination of the device's MAC address and random numbers.  To configure the WiFi in your new Tasmota device:
 
 1. Make sure the ESP-01 is powered on in [default mode](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-default-mode.jpg).
 
 2. Use a wifi-capable device (e.g., laptop) and connect to the WAP named `tasmota_*`.
 
-3. The ESP-01 will give your device an IP address, which you can check via `ip a`. Usually, the device's IP address is in the `192.168.4.0/24` pool, which means the Tasmota web UI is at `http://192.168.4.1:80`; Otherwise, the web UI will be at the first address in whichever pool your device connected to after joining the wireless access point created by the Tasmota firmware.
+3. The ESP-01 will give your device an IP address, which you can check via `ip a`. Usually, the device's IP address is in the `192.168.4.0/24` pool, which means the Tasmota web UI is at `http://192.168.4.1:80`; Otherwise, the web UI will be at the first address in whichever pool your device connected to after joining the WAP created by the Tasmota firmware.
 
 4. Open a web-browser of your choice (e.g., Mozilla Firefox) and navigate to the Tasmota web UI. You should be prompted to change the WiFi settings to allow your ESP-01 to connect to your local WiFi network.  Change the settings, save it, and wait for the ESP-01 to reboot.
 
@@ -459,7 +459,7 @@ After a fresh installation (or rebooting your device multiple times in a short p
 6. Navigate to the Tasmota web UI on your local network to set the additional configurations described in the next section.
 
 ### ESP-01 Template
-Tasmota templates are device-specific definitions of how their GPIO pins are assigned and therefore, proper configuration of the template is key if you plan on using the device's GPIO pins. As you will notice, the default template in the `tasmota-sensors.bin` binary is for the [Sonoff Basic](#) device, which won't work for us. The actual template for the ESP-01 can be found at [https://templates.blakadder.com/ESP01.html](https://templates.blakadder.com/ESP01.html).  To change the current Sonoff template to the proper ESP-01 template, do the following:
+Tasmota templates are device-specific definitions of how their GPIO pins are assigned and therefore, proper configuration of the template is key if you plan on using the device's GPIO pins. As you will notice, the default template in the `tasmota-sensors.bin` binary is for the [Sonoff Basic](https://sonoff.tech/product/diy-smart-switch/basicr2/) device, which won't work for us. The actual template for the ESP-01 can be found at [https://templates.blakadder.com/ESP01.html](https://templates.blakadder.com/ESP01.html).  To change the current Sonoff template to the proper ESP-01 template, do the following:
 
 1. Copy the **ESP-01 template**:
 
@@ -510,10 +510,10 @@ setoption19 1
 
 And that is it! Now your Home Assistant should be able to automatically detect the Tasmota device and create entities for each environmental metric once we are done configuring the BME280 sensor. No need to ever touch the `configuration.yaml` of Home Assistant.
 
-For more information about this and other `SetOption` commands, take a look at the official [SetOptions documentation](https://tasmota.github.io/docs/Commands/#setoptions).  For more advanced usage, go to the MQTT configuration in the next section.
+For more information about this and other `SetOption` commands, take a look at the official [SetOptions documentation](https://tasmota.github.io/docs/Commands/#setoptions).  For more advanced usage, see the MQTT configuration, which is described next.
 
 ### MQTT
-This is good option (and my preferred one) for managing a multitude of home devices, such as the one described in this project.  However, an in-depth explanation about MQTT is beyond the scope of this article. In brief, first, you need to set up a MQTT broker (e.g., [Eclipse Mosquitto MQTT broker](https://mosquitto.org/)). Then, you can configure your Tasmota device to make use of it, as follows:
+This is a good option (and my preferred one) for managing a multitude of home devices, such as the one described in this project.  However, an in-depth explanation about MQTT is beyond the scope of this article. In brief, first, you need to set up a MQTT broker (e.g., [Eclipse Mosquitto MQTT broker](https://mosquitto.org/)). Then, you can configure your Tasmota device to make use of it, as follows:
 
 1. From the ESP-01 web UI, go to **Configuration > Configure Other**.
 
@@ -529,17 +529,40 @@ You can find more information about the MQTT configuration at the official [Tasm
 
 
 ## Wiring the GY-BME280 sensor module
+The [GY-BME280](/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-module-01.jpg) module usually comes with four male pin headers that we will connect do the ESP-01 USB adapter using four female-to-female jumper wires. To make use of such module, follow these steps:
 
-- wire BME280 module do the adapter
-- connect device
-- configure template
-  - SDA and SDC pins
-- restart device
+1. Use your soldering kit to solder the headers to the board.  If you have a multimeter, remember to test your connections afterwards.
+   
+   [![BME-280 module 03](/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-module-03.jpg){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-module-03.jpg)
+
+2. Grab four female-to-female DuPont wires and connect them to your GY-BME280 module and ESP-01 USB adapter according to the following wiring schematics:
+   
+   [![ESP-01 BME280 wiring](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-bme280-wiring.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-bme280-wiring.jpg)
+
+   In this schematics, we will be using pins `TXD` and `RXD` to interface with the GY-BME280 module. You could, of course, try one or two of the other GPIO pins--namely, `IO0` and `IO2`.  However, because the state (`low`/`float`/`high`) of the latter pins at boot can put the board into specific modes of operation (e.g., when `IO0` is `high` at boot, the ESP-01 enters *flash mode*) and we will only use the USB port for power, I find it safer to use the serial `TXD` and `RXD` pins to interface with (I2C) devices when using the ESP-01.
+
+3. *(Optional.)* If you bought `1x4` and `2x4` female connectors, replace the single connectors by the new ones. (If you are uncertain how to do that, check Adreas Spiess' video on [tricks for working with DuPont wires, at the 3:15 mark](https://youtu.be/eI3fxTH6f6I?t=195).) At the very least, use a tape to secure the connectors that are next to each other. This makes it harder for them to disconnect by accident.
+
+4. Once the GY-BME280 module is wired to the ESP-01 USB adapter, connect your adapter to a USB power supply and wait for it to connect to your network. (Of course, make sure it is within reach of a WAP.)
+
+5. Now we will configure the device's Template to use the `RXD` and `TXD` as `SCL` (serial clock line) and `SDA` (serial data line), respectively. So, navigate to your device's web UI and go to **Configuration** > **Configure Template**. Then, at **GPIO3** (`RXD`), set it to `I2C SCL`; and at **GPIO1** (`TXD`), set it to `I2C SDA`. At the end, your Template should look like the following one:
+   
+   [![ESP-01 BME280 configuration 01](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-bme280-configuration-01.jpg){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-bme280-configuration-01.jpg)
+
+   Hit **Save** and wait for the device to reboot.
+
+6. If properly configured, your device's main web UI should now show four metrics from the BME280 sensor, namely temperature, humidity, dew point, and pressure, as in the following example:
+
+  [![ESP-01 BME280 configuration 02](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-bme280-configuration-02.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-bme280-configuration-02.jpg)
+
+That is it! Enjoy your new environmental sensor. If you need assistance setting up the integration with Home Assistant, take a look at the next section. Otherwise, skip to the [Conclusion](#conclusion) for the final remarks about this project.
 
 [top](#){:.btn .btn--light-outline .btn--small}
 
 
-# Home assistant integration
+# Home Assistant integration
+If you enabled `SetOption19` in your Tasmota device to use the [Home Assistant discovery protocol](#home-assistant-discovery-protocol), Home Assistant should automatically create new entities for the BME280 metrics. However, if you are using [MQTT](#MQTT),
+
 *Describe Discovery and MQTT broker setup and HASS configuration*
 
 [top](#){:.btn .btn--light-outline .btn--small}
@@ -562,13 +585,13 @@ You can find more information about the MQTT configuration at the official [Tasm
    3. ~~USB adapter for the ESP01 with exposed pins (add pinout)~~
    4. ~~Female-female jumper wires~~
    5. ~~Soldering stuff for the BME280 module (depends on module)~~
-- Software
-   1. Tasmota sensor binary (includes I2C sensor support)
-   2. Template for the ESP-01
-- Assembly
-   1. Flashing + wiring (grounding GPIO0)
-   2. Wiring for BME280 modules
-   3. Tasmota configuration for I2C
+- ~~Software~~
+   1. ~~Tasmota sensor binary (includes I2C sensor support)~~
+   2. ~~Template for the ESP-01~~
+- ~~Assembly~~
+   1. ~~Flashing + wiring (grounding GPIO0)~~
+   2. ~~Wiring for BME280 modules~~
+   3. ~~Tasmota configuration for I2C~~
 - Home Assistant Integration
    1. MQTT
       1. Auto
