@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-08-10T14:22:39-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: USB-powered, low-profile, and reliable ESP-01 Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: USB-powered, low-profile, and reliable ESP-01 Tasmota environmental sensor" /><published>2021-07-18T11:20:00-03:00</published><updated>2021-07-18T11:20:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-08-11T15:23:10-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: USB-powered, low-profile, and reliable ESP-01 Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: USB-powered, low-profile, and reliable ESP-01 Tasmota environmental sensor" /><published>2021-07-18T11:20:00-03:00</published><updated>2021-07-18T11:20:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;July 18th, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
@@ -276,12 +276,24 @@
       &lt;p&gt;A Python-based, open source, platform independent, utility to communicate with the ROM bootloader in Espressif ESP8266 &amp;amp; ESP32 series chips.&lt;/p&gt;
     &lt;/blockquote&gt;
   &lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Optional.&lt;/em&gt; &lt;a href=&quot;https://www.docker.com/&quot;&gt;Docker - Community Edition&lt;/a&gt;
+    &lt;blockquote&gt;
+      &lt;p&gt;Docker is a set of platform as a service products that use OS-level virtualization to deliver software in packages called containers.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Optional.&lt;/em&gt; &lt;a href=&quot;https://mosquitto.org/&quot;&gt;Eclipse Mosquitto MQTT broker&lt;/a&gt;
+    &lt;blockquote&gt;
+      &lt;p&gt;Eclipse Mosquitto is an open source message broker that implements the MQTT protocol versions 5.0, 3.1.1 and 3.1. Mosquitto is lightweight and is suitable for use on all devices from low power single board computers to full servers.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;assembly&quot;&gt;Assembly&lt;/h1&gt;
 &lt;p&gt;As in the previous tutorials, this article assumes you are running a &lt;strong&gt;Linux&lt;/strong&gt; distribution (e.g., Debian, Ubuntu, Arch, etc.) and your current user (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;${USER}&lt;/code&gt;) is in the &lt;a href=&quot;https://en.wikipedia.org/wiki/Sudo&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sudo&lt;/code&gt; group&lt;/a&gt;. Part of the instructions may or may not be compatible with Android, macOS, Windows, or any other Operating System (OS). If you run into issues, please refer to the official documentation of the software mentioned in the &lt;a href=&quot;#software&quot;&gt;Software&lt;/a&gt; section.&lt;/p&gt;
+
+&lt;p&gt;The &lt;a href=&quot;#mqtt&quot;&gt;Docker and MQTT broker implementation&lt;/a&gt; are both optional because Tasmota offers multiple ways to interact with the device without every using the MQTT messaging protocol. In addition, most MQTT brokers offer alternative installation methods to the containerized method described here.  That said, I strongly recommend making use of MQTT if you use home automation systems (e.g., &lt;a href=&quot;https://www.home-assistant.io/&quot;&gt;Home Assistant&lt;/a&gt;, &lt;a href=&quot;https://www.openhab.org/&quot;&gt;OpenHAB&lt;/a&gt;) or have multiple Tasmota devices.&lt;/p&gt;
 
 &lt;h2 id=&quot;installing-the-required-packages-and-fixing-user-permission&quot;&gt;Installing the required packages and fixing user permission&lt;/h2&gt;
 &lt;p&gt;Before we can flash the Tasmota firmware onto the ESP-01, we will need to install a few packages and configure the permissions of the current Linux user to allow using the USB adapter.&lt;/p&gt;
@@ -465,7 +477,7 @@ Hard resetting via RTS pin...
 &lt;p&gt;If you reached this part, it means your ESP-01 is already running Tasmota (Hurrah!). This is a good opportunity to take a break if you feel overwhelmed. In the next section, we will learn how to configure the Tasmota firmware over-the-air.&lt;/p&gt;
 
 &lt;h2 id=&quot;basic-tasmota-configuration&quot;&gt;Basic Tasmota configuration&lt;/h2&gt;
-&lt;p&gt;In this section, we will learn how to connect the ESP-01 to a local wireless network, set a default &lt;a href=&quot;https://tasmota.github.io/docs/Templates/&quot;&gt;Template&lt;/a&gt; for the device, fix its time, enable the Home Assistant auto-discovery feature, and for advanced usage, configure the MQTT.&lt;/p&gt;
+&lt;p&gt;In this section, we will learn how to connect the ESP-01 to a local wireless network, set a default &lt;a href=&quot;https://tasmota.github.io/docs/Templates/&quot;&gt;Template&lt;/a&gt; for the device, fix its time, and configure its MQTT client.&lt;/p&gt;
 
 &lt;h3 id=&quot;initial-wifi-configuration&quot;&gt;Initial WiFi configuration&lt;/h3&gt;
 &lt;p&gt;After a fresh installation (or &lt;a href=&quot;https://tasmota.github.io/docs/Device-Recovery/#fast-power-cycle-device-recovery&quot;&gt;power cycling your device seven times in a short period&lt;/a&gt;), the Tasmota firmware automatically creates a wireless access point (WAP) that other devices can connect to.  The WAP is called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmota_*&lt;/code&gt;, in which &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;*&lt;/code&gt; will be a combination of the device’s MAC address and random numbers.  To configure the WiFi in your new Tasmota device:&lt;/p&gt;
@@ -525,29 +537,123 @@ Hard resetting via RTS pin...
 
 &lt;p&gt;Now if you enter &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;time&lt;/code&gt; in the console, it should correctly display your current local time.&lt;/p&gt;
 
-&lt;h3 id=&quot;home-assistant-discovery-protocol&quot;&gt;Home Assistant discovery protocol&lt;/h3&gt;
-&lt;p&gt;If you use &lt;a href=&quot;https://www.home-assistant.io/&quot;&gt;Home Assistant&lt;/a&gt; to manage home devices, the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmota-sensors.bin&lt;/code&gt; binary comes with an option to enable the Home Assistant discovery protocol (namely, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SetOption19&lt;/code&gt;). To check the status of the Home Assistant discovery protocol, go to &lt;strong&gt;Console&lt;/strong&gt; and type:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;setoption19
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;which should output the following if the protocol is currently disabled:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;... CMD: setoption19
-... RSL: RESULT = {&quot;SetOption19&quot;:&quot;OFF&quot;}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;To &lt;strong&gt;enable&lt;/strong&gt; it, simply append &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1&lt;/code&gt; (or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;on&lt;/code&gt;) to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;setoption19&lt;/code&gt; command, as follows:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;setoption19 1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;And that is it! Now your Home Assistant should be able to automatically detect the Tasmota device and create entities for each environmental metric once we are done configuring the BME280 sensor. No need to ever touch the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;configuration.yaml&lt;/code&gt; of Home Assistant.&lt;/p&gt;
-
-&lt;p&gt;For more information about this and other &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SetOption&lt;/code&gt; commands, take a look at the official &lt;a href=&quot;https://tasmota.github.io/docs/Commands/#setoptions&quot;&gt;SetOptions documentation&lt;/a&gt;.  For more advanced usage, see the MQTT configuration, which is described next.&lt;/p&gt;
-
 &lt;h3 id=&quot;mqtt&quot;&gt;MQTT&lt;/h3&gt;
-&lt;p&gt;This is a good option (and my preferred one) for managing a multitude of home devices, such as the one described in this project.  However, an in-depth explanation about MQTT is beyond the scope of this article. In brief, first, you need to set up a MQTT broker (e.g., &lt;a href=&quot;https://mosquitto.org/&quot;&gt;Eclipse Mosquitto MQTT broker&lt;/a&gt;). Then, you can configure your Tasmota device to make use of it, as follows:&lt;/p&gt;
+&lt;p&gt;It is possible to interact with a Tasmota device in multiple ways (e.g., HTTP requests, web UI console, serial) but &lt;strong&gt;MQTT&lt;/strong&gt; offers a reliable and widely supported messaging protocol for managing this and many other devices using a single server/broker. If you are new to MQTT, the &lt;a href=&quot;https://www.hivemq.com&quot;&gt;HiveMQ&lt;/a&gt; wrote a series of articles about the MQTT basics, its main features and other related resources that I invite everyone to read:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.hivemq.com/mqtt-essentials/&quot;&gt;https://www.hivemq.com/mqtt-essentials/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;There are many options when it comes to &lt;a href=&quot;https://mqtt.org/software/&quot;&gt;MQTT software&lt;/a&gt;. Here, I will show how to install and configure the &lt;a href=&quot;https://mosquitto.org/&quot;&gt;Eclipse Mosquitto MQTT broker&lt;/a&gt; on a Docker container.  The MQTT broker will be configured to use client authentication (username and password) on the default listener port (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1883&lt;/code&gt;) and persist its &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;data&lt;/code&gt;, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;log&lt;/code&gt; directories. The configuration of the Tasmota MQTT client can be found at the end of this sub-section.&lt;/p&gt;
+
+&lt;h4 id=&quot;mqtt-broker-configuration&quot;&gt;MQTT broker configuration&lt;/h4&gt;
+&lt;p&gt;If you already have a running MQTT broker instance, skip to the next section to &lt;a href=&quot;#tasmota-mqtt-client-configuration&quot;&gt;configure the Tasmota MQTT client&lt;/a&gt;; Otherwise, to &lt;strong&gt;install and configure the Mosquitto MQTT broker in a Docker container&lt;/strong&gt;, follow these steps:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Install &lt;a href=&quot;https://docs.docker.com/get-docker/&quot;&gt;Docker Engine&lt;/a&gt; on your OS. Here’s a quick reference to two popular Linux distributions:
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://docs.docker.com/engine/install/debian/&quot;&gt;Install on Debian&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://docs.docker.com/engine/install/ubuntu/&quot;&gt;Install on Ubuntu&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;p class=&quot;notice&quot;&gt;&lt;em&gt;Optional&lt;/em&gt;. Afterwards, install &lt;a href=&quot;https://documentation.portainer.io/v2.0/deploy/ceinstalldocker/&quot;&gt;Portainer - Community Edition&lt;/a&gt; to manage your Docker containers.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Create a local directory in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/opt&lt;/code&gt; of your host machine to store permanently the contents of the Mosquitto &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;data&lt;/code&gt;, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;log&lt;/code&gt; container directories:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd /opt
+sudo mkdir mosquitto mosquitto/config mosquitto/data mosquitto/log
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Create an empty &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pwd.txt&lt;/code&gt; passwords file in the newly created &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config&lt;/code&gt; dir:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo touch /opt/mosquitto/config/pwd.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Create and edit a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mosquitto.conf&lt;/code&gt; configuration file for the MQTT broker in the same dir:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo -e /opt/mosquitto/config/mosquitto.conf
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;and paste the following, which disables anonymous access, enables user credentials by pointing &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;password_file&lt;/code&gt; to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pwd.txt&lt;/code&gt; file, and sets a custom location for the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mosquito.db&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mosquito.log&lt;/code&gt; files:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;per_listener_settings true
+allow_anonymous false
+
+listener 1883
+
+persistence true
+persistence_location /mosquitto/data
+
+log_dest file /mosquitto/log/mosquitto.log
+password_file /mosquitto/config/pwd.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Now we are ready to install the MQTT broker container. Pull the official &lt;a href=&quot;https://hub.docker.com/_/eclipse-mosquitto/&quot;&gt;Eclipse Mosquitto broker Docker container&lt;/a&gt;:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker pull eclipse-mosquitto
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;And run it in detached mode (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-d&lt;/code&gt;) with the name &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mosquitto&lt;/code&gt; and the option to always restart unless stopped (other options are to map ports and volumes between host and container, per the structure of the local directories and files we created):&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run -d \
+  --name mosquitto \
+  --restart=unless-stopped \
+  -p 1883:1883 \
+  -v /opt/mosquitto/config:/mosquitto/config \
+  -v /opt/mosquitto/data:/mosquitto/data \
+  -v /opt/mosquitto/log:/mosquitto/log \
+  eclipse-mosquitto
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p class=&quot;notice--warning&quot;&gt;If you run into permission issues while running Docker with your current user, make sure to add your user (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;${USER}&lt;/code&gt;) to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;docker&lt;/code&gt; group (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sudo usermod -aG docker ${USER}&lt;/code&gt;). Then, log out and back in to try again. Alternatively, append &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sudo&lt;/code&gt; to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;docker&lt;/code&gt; command. You can find this and other post-installation steps in the official &lt;a href=&quot;https://docs.docker.com/engine/install/linux-postinstall/&quot;&gt;Post-installation steps for Linux&lt;/a&gt;.&lt;/p&gt;
+
+    &lt;p&gt;Before moving on, make sure the container is running:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker ps
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;And the log files are not showing any error messages:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker logs mosquitto
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If the container is running without any issues, then let’s  start a shell inside the container to edit the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pwd.file&lt;/code&gt; password file using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mosquitto_passwd&lt;/code&gt; utility:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker exec -it mosquitto /bin/sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;And now we will create (a) a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmota&lt;/code&gt; user with password &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;password123&lt;/code&gt; and (b) a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hass&lt;/code&gt; user with password &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;123password&lt;/code&gt;:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mosquitto_passwd -b /mosquitto/config/pwd.txt tasmota &quot;password123&quot;
+mosquitto_passwd -b /mosquitto/config/pwd.txt hass &quot;123password&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p class=&quot;notice--warning&quot;&gt;Of course, feel free to use whichever username and password you feel appropriate for your use-case.  Keep in mind that unless you configure your broker and client to use encryption, these credentials are communicated in plain text over the network, which is fine if only running it locally.&lt;/p&gt;
+
+    &lt;p&gt;When done, exit the shell inside the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mosquitto&lt;/code&gt; container:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;exit   
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Restart the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mosquitto&lt;/code&gt; container to enable the new user credentials:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker restart mosquitto   
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;And we are done with the MQTT broker installation and configuration!&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;For information about additional options, such as setting up access control to restrict user access to specific topics, check the official &lt;a href=&quot;https://mosquitto.org/documentation/&quot;&gt;Mosquitto documentation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;tasmota-mqtt-client-configuration&quot;&gt;Tasmota MQTT client configuration&lt;/h4&gt;
+&lt;p&gt;With an up and running MQTT broker, you can configure the Tasmota MQTT client as follows:&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;
@@ -557,12 +663,24 @@ Hard resetting via RTS pin...
     &lt;p&gt;Make sure the &lt;strong&gt;MQTT enable&lt;/strong&gt; box is checked; otherwise, check and save it.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Now go to &lt;strong&gt;Configuration &amp;gt; Configure MQTT&lt;/strong&gt; and configure your Tasmota device to use your running MQTT broker.&lt;/p&gt;
+    &lt;p&gt;Now go to &lt;strong&gt;Configuration &amp;gt; Configure MQTT&lt;/strong&gt; and configure your Tasmota device to use your MQTT broker. The specifics of these settings will depend on how your MQTT broker was configured. If you followed the instructions in the previous section, then your Tasmota MQTT client settings should look similar to the following (but change the host &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.10.30&lt;/code&gt; address to the one running your MQTT broker):&lt;/p&gt;
 
     &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-mqtt-configuration.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-mqtt-configuration.jpg&quot; alt=&quot;ESP-01 MQTT configuration&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Hit save when done and that is it!&lt;/p&gt;
+    &lt;p&gt;Hit save when done and wait for the device to reboot. If successfully configured, the Console in the web UI should show something like the following:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;... MQT: Attempting connection...
+... MQT: Connected
+... MQT: tele/tasmota_2DEB19/LWT = Online (retained)
+... MQT: tele/tasmota_2DEB19/INFO1 = {&quot;Info1&quot;:{&quot;Module&quot;:&quot;ESP01&quot;,&quot;Version&quot;:&quot;9.5.0(sensors)&quot;,&quot;FallbackTopic&quot;:&quot;cmnd/DVES_2DEB19_fb/&quot;,&quot;GroupTopic&quot;:&quot;cmnd/tasmotas/&quot;}}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;And if you followed the instructions in the previous section, you can also check the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/opt/mosquitto/log/mosquitto.log&lt;/code&gt; file, which should show something like the following:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;...: New connection from 192.168.10.103:57321 on port 1883.
+...: New client connected from 192.168.10.103:57321 as DVES_2DEB19 (p2, c1, k30, u'tasmota').
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
 &lt;/ol&gt;
 
@@ -602,14 +720,14 @@ Hard resetting via RTS pin...
   &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-bme280-configuration-02.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-bme280-configuration-02.jpg&quot; alt=&quot;ESP-01 BME280 configuration 02&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-bme280-configuration-02.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-bme280-configuration-02.jpg&quot; alt=&quot;ESP-01 BME280 configuration 02&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;That is it! Enjoy your new environmental sensor. If you need assistance setting up the integration with Home Assistant, take a look at the next section. Otherwise, skip to the &lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt; for the final remarks about this project.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;home-assistant-integration&quot;&gt;Home Assistant integration&lt;/h1&gt;
-&lt;p&gt;If you enabled &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SetOption19&lt;/code&gt; in your Tasmota device to use the &lt;a href=&quot;#home-assistant-discovery-protocol&quot;&gt;Home Assistant discovery protocol&lt;/a&gt;, Home Assistant should automatically create new entities for the BME280 metrics. However, if you are using &lt;a href=&quot;#MQTT&quot;&gt;MQTT&lt;/a&gt;,&lt;/p&gt;
+&lt;p&gt;If you enabled &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SetOption19&lt;/code&gt; in your Tasmota device to use the &lt;a href=&quot;#home-assistant-discovery-protocol&quot;&gt;Home Assistant discovery protocol&lt;/a&gt; and your device is connected to the same network as your Home Assistant, then Home Assistant should automatically detect and create new entities for the BME280 metrics from your Tasmota device. However, if you are using &lt;a href=&quot;#MQTT&quot;&gt;MQTT&lt;/a&gt;,&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;Describe Discovery and MQTT broker setup and HASS configuration&lt;/em&gt;&lt;/p&gt;
 
