@@ -198,7 +198,7 @@
 
 
 
-  38 minute read
+  39 minute read
 
 </p>
       
@@ -388,7 +388,6 @@
   </li>
   <li><a href="#home-assistant-integration">Home Assistant integration</a></li>
   <li><a href="#conclusion">Conclusion</a></li>
-  <li><a href="#todo">TODO</a></li>
 </ul>
 
             </nav>
@@ -672,7 +671,7 @@
       <p>A Python-based, open source, platform independent, utility to communicate with the ROM bootloader in Espressif ESP8266 &amp; ESP32 series chips.</p>
     </blockquote>
   </li>
-  <li><em>Optional.</em> <a href="https://www.docker.com/">Docker - Community Edition</a>
+  <li><em>Optional.</em> <a href="https://www.docker.com/">Docker</a>
     <blockquote>
       <p>Docker is a set of platform as a service products that use OS-level virtualization to deliver software in packages called containers.</p>
     </blockquote>
@@ -1018,7 +1017,7 @@ password_file /mosquitto/config/pwd.txt
 </code></pre></div>    </div>
   </li>
   <li>
-    <p>If the container is running without any issues, then let’s  start a shell inside the container to edit the <code class="language-plaintext highlighter-rouge">pwd.file</code> password file using <code class="language-plaintext highlighter-rouge">mosquitto_passwd</code> utility:</p>
+    <p>If the container is running without any issues, then let’s  start a shell inside the container to edit the <code class="language-plaintext highlighter-rouge">pwd.txt</code> password file using <code class="language-plaintext highlighter-rouge">mosquitto_passwd</code> utility:</p>
 
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker exec -it mosquitto /bin/sh
 </code></pre></div>    </div>
@@ -1123,9 +1122,35 @@ mosquitto_passwd -b /mosquitto/config/pwd.txt hass "123password"
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 
 <h1 id="home-assistant-integration">Home Assistant integration</h1>
-<p>If you enabled <code class="language-plaintext highlighter-rouge">SetOption19</code> in your Tasmota device to use the <a href="#home-assistant-discovery-protocol">Home Assistant discovery protocol</a> and your device is connected to the same network as your Home Assistant, then Home Assistant should automatically detect and create new entities for the BME280 metrics from your Tasmota device. However, if you are using <a href="#MQTT">MQTT</a>,</p>
+<p>The easiest way to integrate Tasmota devices to Home Assistant is via the official <a href="https://www.home-assistant.io/integrations/tasmota/">Tasmota integration</a>. To make use of such integration, follow these steps:</p>
 
-<p><em>Describe Discovery and MQTT broker setup and HASS configuration</em></p>
+<ol>
+  <li>
+    <p>Go to the Home Assistant web UI, then navigate to <strong>Configuration</strong> &gt; <strong>Integrations</strong> &gt; <strong>Add integration</strong>.  This will open a new window with a search box.  Type <code class="language-plaintext highlighter-rouge">mqtt</code> and select the integration.</p>
+  </li>
+  <li>
+    <p>Configure the <a href="https://www.home-assistant.io/integrations/mqtt/">MQTT integration</a> to make use of your MQTT broker. If you followed the <a href="#mqtt-broker-configuration">MQTT broker configuration</a> guide, then use the username <code class="language-plaintext highlighter-rouge">hass</code> with password <code class="language-plaintext highlighter-rouge">123password</code> to authenticate your Home Assistant in the MQTT broker. If configured correctly, you should see the MQTT integration listed in the Integrations tab of your Home Assistant Configuration window.</p>
+  </li>
+  <li>
+    <p>Now, navigate once again to <strong>Configuration</strong> &gt; <strong>Integrations</strong> &gt; <strong>Add integration</strong> and search for <code class="language-plaintext highlighter-rouge">tasmota</code> and select the integration.</p>
+  </li>
+  <li>
+    <p>Leave the discovery prefix to the default topic (<code class="language-plaintext highlighter-rouge">tasmota/discovery</code>) and hit <strong>submit</strong> to enable to Tasmota integration. If configured correctly, you should see your ESP01 listed in the next window and optionally, you can select an Area that it belongs to.</p>
+
+    <p><a href="/assets/posts/2021-07-18-diy-tasmota-bme280/hass-tasmota-integration-01.jpg"><img src="/assets/posts/2021-07-18-diy-tasmota-bme280/hass-tasmota-integration-01.jpg" alt="HASS Tasmota integration 01" class="PostImage PostImage--large" /></a></p>
+  </li>
+  <li>
+    <p>That is it! Home Assistant should now be able to automatically detect and create entities for all your BME280 environmental metrics.</p>
+
+    <p><a href="/assets/posts/2021-07-18-diy-tasmota-bme280/hass-tasmota-integration-02.jpg"><img src="/assets/posts/2021-07-18-diy-tasmota-bme280/hass-tasmota-integration-02.jpg" alt="HASS Tasmota integration 02" class="PostImage PostImage--large" /></a></p>
+
+    <p><a href="/assets/posts/2021-07-18-diy-tasmota-bme280/hass-tasmota-integration-03.jpg"><img src="/assets/posts/2021-07-18-diy-tasmota-bme280/hass-tasmota-integration-03.jpg" alt="HASS Tasmota integration 03" class="PostImage" /></a></p>
+  </li>
+</ol>
+
+<p class="notice--danger">Of note, the use of the <code class="language-plaintext highlighter-rouge">SetOption19</code> (MQTT discovery) in Tasmota devices is currently <a href="https://tasmota.github.io/docs/Home-Assistant/"><strong>deprecated</strong></a>. For this reason, it is disabled by default in the latest firmware (<code class="language-plaintext highlighter-rouge">setoption19 0</code>) and therefore, I won’t mention its use here.</p>
+
+<p>For this and other options to integrate your Tasmota device to Home Assistant or other home automation systems, check the <a href="https://tasmota.github.io/docs/Integrations/">Integrations in the Tasmota documentation</a>.</p>
 
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 
@@ -1134,49 +1159,6 @@ mosquitto_passwd -b /mosquitto/config/pwd.txt hass "123password"
 
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 
-<h1 id="todo">TODO</h1>
-<ul>
-  <li><del>Overview of the ESP01</del></li>
-  <li><del>Motivation for making the sensor</del></li>
-  <li><del>Overview of the ESP-01</del></li>
-  <li><del>Overview of the BME280</del></li>
-  <li><del>Hardware</del>
-    <ol>
-      <li><del>ESP01 Black or ESP-01S</del></li>
-      <li><del>BME280 module</del></li>
-      <li><del>USB adapter for the ESP01 with exposed pins (add pinout)</del></li>
-      <li><del>Female-female jumper wires</del></li>
-      <li><del>Soldering stuff for the BME280 module (depends on module)</del></li>
-    </ol>
-  </li>
-  <li><del>Software</del>
-    <ol>
-      <li><del>Tasmota sensor binary (includes I2C sensor support)</del></li>
-      <li><del>Template for the ESP-01</del></li>
-    </ol>
-  </li>
-  <li><del>Assembly</del>
-    <ol>
-      <li><del>Flashing + wiring (grounding GPIO0)</del></li>
-      <li><del>Wiring for BME280 modules</del></li>
-      <li><del>Tasmota configuration for I2C</del></li>
-    </ol>
-  </li>
-  <li>Home Assistant Integration
-    <ol>
-      <li>MQTT
-        <ol>
-          <li>Auto</li>
-          <li>Manual</li>
-        </ol>
-      </li>
-    </ol>
-  </li>
-  <li>Conclusion</li>
-  <li>Review article</li>
-</ul>
-
-<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 
         
       </section>

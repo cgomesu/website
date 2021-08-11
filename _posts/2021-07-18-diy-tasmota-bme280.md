@@ -253,7 +253,7 @@ If you have never heard of Tasmota before, check Robbert's ([The Hook Up](https:
 - [Esptool](https://github.com/espressif/esptool) (`esptool.py`)
   > A Python-based, open source, platform independent, utility to communicate with the ROM bootloader in Espressif ESP8266 & ESP32 series chips.
 
-- *Optional.* [Docker - Community Edition](https://www.docker.com/)
+- *Optional.* [Docker](https://www.docker.com/)
   > Docker is a set of platform as a service products that use OS-level virtualization to deliver software in packages called containers.
 
 - *Optional.* [Eclipse Mosquitto MQTT broker](https://mosquitto.org/)
@@ -581,7 +581,7 @@ If you already have a running MQTT broker instance, skip to the next section to 
    docker logs mosquitto
    ```
 
-6. If the container is running without any issues, then let's  start a shell inside the container to edit the `pwd.file` password file using `mosquitto_passwd` utility:
+6. If the container is running without any issues, then let's  start a shell inside the container to edit the `pwd.txt` password file using `mosquitto_passwd` utility:
    
    ```
    docker exec -it mosquitto /bin/sh
@@ -676,9 +676,28 @@ That is it! Enjoy your new environmental sensor. If you need assistance setting 
 
 
 # Home Assistant integration
-If you enabled `SetOption19` in your Tasmota device to use the [Home Assistant discovery protocol](#home-assistant-discovery-protocol) and your device is connected to the same network as your Home Assistant, then Home Assistant should automatically detect and create new entities for the BME280 metrics from your Tasmota device. However, if you are using [MQTT](#MQTT),
+The easiest way to integrate Tasmota devices to Home Assistant is via the official [Tasmota integration](https://www.home-assistant.io/integrations/tasmota/). To make use of such integration, follow these steps:
 
-*Describe Discovery and MQTT broker setup and HASS configuration*
+1. Go to the Home Assistant web UI, then navigate to **Configuration** > **Integrations** > **Add integration**.  This will open a new window with a search box.  Type `mqtt` and select the integration.
+
+2. Configure the [MQTT integration](https://www.home-assistant.io/integrations/mqtt/) to make use of your MQTT broker. If you followed the [MQTT broker configuration](#mqtt-broker-configuration) guide, then use the username `hass` with password `123password` to authenticate your Home Assistant in the MQTT broker. If configured correctly, you should see the MQTT integration listed in the Integrations tab of your Home Assistant Configuration window.
+
+3. Now, navigate once again to **Configuration** > **Integrations** > **Add integration** and search for `tasmota` and select the integration.
+
+4. Leave the discovery prefix to the default topic (`tasmota/discovery`) and hit **submit** to enable to Tasmota integration. If configured correctly, you should see your ESP01 listed in the next window and optionally, you can select an Area that it belongs to.
+   
+   [![HASS Tasmota integration 01](/assets/posts/2021-07-18-diy-tasmota-bme280/hass-tasmota-integration-01.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-07-18-diy-tasmota-bme280/hass-tasmota-integration-01.jpg)
+
+5. That is it! Home Assistant should now be able to automatically detect and create entities for all your BME280 environmental metrics.
+   
+   [![HASS Tasmota integration 02](/assets/posts/2021-07-18-diy-tasmota-bme280/hass-tasmota-integration-02.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-07-18-diy-tasmota-bme280/hass-tasmota-integration-02.jpg)
+
+   [![HASS Tasmota integration 03](/assets/posts/2021-07-18-diy-tasmota-bme280/hass-tasmota-integration-03.jpg){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/hass-tasmota-integration-03.jpg)
+
+Of note, the use of the `SetOption19` (MQTT discovery) in Tasmota devices is currently [**deprecated**](https://tasmota.github.io/docs/Home-Assistant/). For this reason, it is disabled by default in the latest firmware (`setoption19 0`) and therefore, I won't mention its use here.
+{:.notice--danger}
+
+For this and other options to integrate your Tasmota device to Home Assistant or other home automation systems, check the [Integrations in the Tasmota documentation](https://tasmota.github.io/docs/Integrations/).
 
 [top](#){:.btn .btn--light-outline .btn--small}
 
@@ -688,30 +707,3 @@ If you enabled `SetOption19` in your Tasmota device to use the [Home Assistant d
 
 [top](#){:.btn .btn--light-outline .btn--small}
 
-
-# TODO
-- ~~Overview of the ESP01~~
-- ~~Motivation for making the sensor~~
-- ~~Overview of the ESP-01~~
-- ~~Overview of the BME280~~
-- ~~Hardware~~
-   1. ~~ESP01 Black or ESP-01S~~
-   2. ~~BME280 module~~
-   3. ~~USB adapter for the ESP01 with exposed pins (add pinout)~~
-   4. ~~Female-female jumper wires~~
-   5. ~~Soldering stuff for the BME280 module (depends on module)~~
-- ~~Software~~
-   1. ~~Tasmota sensor binary (includes I2C sensor support)~~
-   2. ~~Template for the ESP-01~~
-- ~~Assembly~~
-   1. ~~Flashing + wiring (grounding GPIO0)~~
-   2. ~~Wiring for BME280 modules~~
-   3. ~~Tasmota configuration for I2C~~
-- Home Assistant Integration
-   1. MQTT
-      1. Auto
-      2. Manual
-- Conclusion
-- Review article
-
-[top](#){:.btn .btn--light-outline .btn--small}

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-08-11T15:23:10-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: USB-powered, low-profile, and reliable ESP-01 Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: USB-powered, low-profile, and reliable ESP-01 Tasmota environmental sensor" /><published>2021-07-18T11:20:00-03:00</published><updated>2021-07-18T11:20:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-08-11T20:51:55-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: USB-powered, low-profile, and reliable ESP-01 Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: USB-powered, low-profile, and reliable ESP-01 Tasmota environmental sensor" /><published>2021-07-18T11:20:00-03:00</published><updated>2021-07-18T11:20:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;July 18th, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
@@ -276,7 +276,7 @@
       &lt;p&gt;A Python-based, open source, platform independent, utility to communicate with the ROM bootloader in Espressif ESP8266 &amp;amp; ESP32 series chips.&lt;/p&gt;
     &lt;/blockquote&gt;
   &lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Optional.&lt;/em&gt; &lt;a href=&quot;https://www.docker.com/&quot;&gt;Docker - Community Edition&lt;/a&gt;
+  &lt;li&gt;&lt;em&gt;Optional.&lt;/em&gt; &lt;a href=&quot;https://www.docker.com/&quot;&gt;Docker&lt;/a&gt;
     &lt;blockquote&gt;
       &lt;p&gt;Docker is a set of platform as a service products that use OS-level virtualization to deliver software in packages called containers.&lt;/p&gt;
     &lt;/blockquote&gt;
@@ -622,7 +622,7 @@ password_file /mosquitto/config/pwd.txt
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;If the container is running without any issues, then let’s  start a shell inside the container to edit the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pwd.file&lt;/code&gt; password file using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mosquitto_passwd&lt;/code&gt; utility:&lt;/p&gt;
+    &lt;p&gt;If the container is running without any issues, then let’s  start a shell inside the container to edit the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pwd.txt&lt;/code&gt; password file using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mosquitto_passwd&lt;/code&gt; utility:&lt;/p&gt;
 
     &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker exec -it mosquitto /bin/sh
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
@@ -727,58 +727,40 @@ mosquitto_passwd -b /mosquitto/config/pwd.txt hass &quot;123password&quot;
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;home-assistant-integration&quot;&gt;Home Assistant integration&lt;/h1&gt;
-&lt;p&gt;If you enabled &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SetOption19&lt;/code&gt; in your Tasmota device to use the &lt;a href=&quot;#home-assistant-discovery-protocol&quot;&gt;Home Assistant discovery protocol&lt;/a&gt; and your device is connected to the same network as your Home Assistant, then Home Assistant should automatically detect and create new entities for the BME280 metrics from your Tasmota device. However, if you are using &lt;a href=&quot;#MQTT&quot;&gt;MQTT&lt;/a&gt;,&lt;/p&gt;
+&lt;p&gt;The easiest way to integrate Tasmota devices to Home Assistant is via the official &lt;a href=&quot;https://www.home-assistant.io/integrations/tasmota/&quot;&gt;Tasmota integration&lt;/a&gt;. To make use of such integration, follow these steps:&lt;/p&gt;
 
-&lt;p&gt;&lt;em&gt;Describe Discovery and MQTT broker setup and HASS configuration&lt;/em&gt;&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Go to the Home Assistant web UI, then navigate to &lt;strong&gt;Configuration&lt;/strong&gt; &amp;gt; &lt;strong&gt;Integrations&lt;/strong&gt; &amp;gt; &lt;strong&gt;Add integration&lt;/strong&gt;.  This will open a new window with a search box.  Type &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mqtt&lt;/code&gt; and select the integration.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Configure the &lt;a href=&quot;https://www.home-assistant.io/integrations/mqtt/&quot;&gt;MQTT integration&lt;/a&gt; to make use of your MQTT broker. If you followed the &lt;a href=&quot;#mqtt-broker-configuration&quot;&gt;MQTT broker configuration&lt;/a&gt; guide, then use the username &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hass&lt;/code&gt; with password &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;123password&lt;/code&gt; to authenticate your Home Assistant in the MQTT broker. If configured correctly, you should see the MQTT integration listed in the Integrations tab of your Home Assistant Configuration window.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Now, navigate once again to &lt;strong&gt;Configuration&lt;/strong&gt; &amp;gt; &lt;strong&gt;Integrations&lt;/strong&gt; &amp;gt; &lt;strong&gt;Add integration&lt;/strong&gt; and search for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmota&lt;/code&gt; and select the integration.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Leave the discovery prefix to the default topic (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmota/discovery&lt;/code&gt;) and hit &lt;strong&gt;submit&lt;/strong&gt; to enable to Tasmota integration. If configured correctly, you should see your ESP01 listed in the next window and optionally, you can select an Area that it belongs to.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/hass-tasmota-integration-01.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/hass-tasmota-integration-01.jpg&quot; alt=&quot;HASS Tasmota integration 01&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;That is it! Home Assistant should now be able to automatically detect and create entities for all your BME280 environmental metrics.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/hass-tasmota-integration-02.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/hass-tasmota-integration-02.jpg&quot; alt=&quot;HASS Tasmota integration 02&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/hass-tasmota-integration-03.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/hass-tasmota-integration-03.jpg&quot; alt=&quot;HASS Tasmota integration 03&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p class=&quot;notice--danger&quot;&gt;Of note, the use of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SetOption19&lt;/code&gt; (MQTT discovery) in Tasmota devices is currently &lt;a href=&quot;https://tasmota.github.io/docs/Home-Assistant/&quot;&gt;&lt;strong&gt;deprecated&lt;/strong&gt;&lt;/a&gt;. For this reason, it is disabled by default in the latest firmware (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;setoption19 0&lt;/code&gt;) and therefore, I won’t mention its use here.&lt;/p&gt;
+
+&lt;p&gt;For this and other options to integrate your Tasmota device to Home Assistant or other home automation systems, check the &lt;a href=&quot;https://tasmota.github.io/docs/Integrations/&quot;&gt;Integrations in the Tasmota documentation&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;Final remarks about the unit and its usage&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;todo&quot;&gt;TODO&lt;/h1&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;del&gt;Overview of the ESP01&lt;/del&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;del&gt;Motivation for making the sensor&lt;/del&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;del&gt;Overview of the ESP-01&lt;/del&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;del&gt;Overview of the BME280&lt;/del&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;del&gt;Hardware&lt;/del&gt;
-    &lt;ol&gt;
-      &lt;li&gt;&lt;del&gt;ESP01 Black or ESP-01S&lt;/del&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;del&gt;BME280 module&lt;/del&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;del&gt;USB adapter for the ESP01 with exposed pins (add pinout)&lt;/del&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;del&gt;Female-female jumper wires&lt;/del&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;del&gt;Soldering stuff for the BME280 module (depends on module)&lt;/del&gt;&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;del&gt;Software&lt;/del&gt;
-    &lt;ol&gt;
-      &lt;li&gt;&lt;del&gt;Tasmota sensor binary (includes I2C sensor support)&lt;/del&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;del&gt;Template for the ESP-01&lt;/del&gt;&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;del&gt;Assembly&lt;/del&gt;
-    &lt;ol&gt;
-      &lt;li&gt;&lt;del&gt;Flashing + wiring (grounding GPIO0)&lt;/del&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;del&gt;Wiring for BME280 modules&lt;/del&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;del&gt;Tasmota configuration for I2C&lt;/del&gt;&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Home Assistant Integration
-    &lt;ol&gt;
-      &lt;li&gt;MQTT
-        &lt;ol&gt;
-          &lt;li&gt;Auto&lt;/li&gt;
-          &lt;li&gt;Manual&lt;/li&gt;
-        &lt;/ol&gt;
-      &lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Conclusion&lt;/li&gt;
-  &lt;li&gt;Review article&lt;/li&gt;
-&lt;/ul&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="diy-series" /><category term="tasmota" /><category term="sensor" /><category term="hass" /><category term="iot" /><category term="automation" /><category term="temperature" /></entry><entry><title type="html">Towards a smarter Home Assistant: Getting started on the analytical tools</title><link href="/blog/smarter-hass/" rel="alternate" type="text/html" title="Towards a smarter Home Assistant: Getting started on the analytical tools" /><published>2021-06-22T15:45:00-03:00</published><updated>2021-06-22T15:45:00-03:00</updated><id>/blog/smarter-hass</id><content type="html" xml:base="/blog/smarter-hass/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;June 22nd, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
