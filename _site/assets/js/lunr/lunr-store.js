@@ -54,7 +54,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Tasmota webcam server for the ESP32-cam",
-        "excerpt":"Changelog July 16th, 2021: Updated the WcResolution command in the Webcam server additional configurations section to reflect the latest support (firmware 9.5.0) for higher resolutions (11, 12, 13). Thanks to Eric for the heads up! April 6th, 2021, Update #2: Created a bonus content section at the end called Firmware...","categories": ["blog"],
+        "excerpt":"Changelog August 12th, 2021, Update #3: Made minor changes to a few commands to improve readability. August 12th, 2021, Update #2: Per a user suggestion (Tobias), the Flashing Tasmota32 webcam server section has been updated. Specifically, the baud rate in the esptool-py utility (-b) has been omitted to use the...","categories": ["blog"],
         "tags": ["iot","esp32","tasmota","mqtt","cam","webcam","surveillance","wifi","wireless","network"],
         "url": "/blog/Esp32cam-tasmota-webcam-server/",
         "teaser": null

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-08-12T13:19:14-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: ESP-01 Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: ESP-01 Tasmota environmental sensor" /><published>2021-08-12T13:00:00-03:00</published><updated>2021-08-12T13:00:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-08-12T16:05:20-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: ESP-01 Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: ESP-01 Tasmota environmental sensor" /><published>2021-08-12T13:00:00-03:00</published><updated>2021-08-12T13:00:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;August 12th, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
@@ -3070,15 +3070,21 @@ pipe:///usr/bin/env streamlink --stdout --default-stream 720p,best --url https:/
 &lt;p&gt;That is it for now.  If you enjoyed or have a few suggestions, &lt;a href=&quot;/contact&quot;&gt;let me know&lt;/a&gt;.  Every once in a while, come back and check the &lt;a href=&quot;#changelog&quot;&gt;changelog&lt;/a&gt; for updates.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="tvhlink" /><category term="streamlink" /><category term="tvheadend" /><category term="github" /><category term="iptv" /><category term="kodi" /><category term="youtube" /><category term="streaming" /><category term="livestream" /></entry><entry><title type="html">Tasmota webcam server for the ESP32-cam</title><link href="/blog/Esp32cam-tasmota-webcam-server/" rel="alternate" type="text/html" title="Tasmota webcam server for the ESP32-cam" /><published>2021-01-15T09:00:00-03:00</published><updated>2021-01-15T09:00:00-03:00</updated><id>/blog/Esp32cam-tasmota-webcam-server</id><content type="html" xml:base="/blog/Esp32cam-tasmota-webcam-server/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+&lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;August 12th, 2021&lt;/strong&gt;, Update #3: Made minor changes to a few commands to improve readability.&lt;/p&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;August 12th, 2021&lt;/strong&gt;, Update #2: Per a user suggestion (Tobias), the &lt;a href=&quot;#flashing-tasmota32-webcam-server&quot;&gt;Flashing Tasmota32 webcam server&lt;/a&gt; section has been updated. Specifically, the baud rate in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;esptool-py&lt;/code&gt; utility (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-b&lt;/code&gt;) has been omitted to use the default value (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;115200&lt;/code&gt;), which seems to work fine with the ESP32-cam module and most adapters.  However, if you run into issues, try the previous value when flashing the Tasmota32-webcam binaries (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-b 921600&lt;/code&gt;).&lt;/p&gt;
+
+&lt;p class=&quot;notice--warning&quot;&gt;&lt;strong&gt;August 12th, 2021&lt;/strong&gt;, Update #1: There has been changes to the location of the binary files because they moved from the &lt;a href=&quot;https://github.com/arendst/Tasmota&quot;&gt;Tasmota&lt;/a&gt; repository to the new &lt;a href=&quot;https://github.com/arendst/Tasmota-firmware&quot;&gt;Tasmota-firmware&lt;/a&gt; repository, which currently has a single branch (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main&lt;/code&gt;).  The location of the necessary binaries to flash the Tasmota32-webcam firmware via the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;esptool.py&lt;/code&gt; utility was changed accordingly in the &lt;a href=&quot;#flashing-tasmota32-webcam-server&quot;&gt;Flashing Tasmota32 webcam server&lt;/a&gt; section. (It seems that changes are still being made to the organization of such files, so if the URLs do not work, check the new repo directly.)&lt;/p&gt;
+
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;July 16th, 2021&lt;/strong&gt;: Updated the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;WcResolution&lt;/code&gt; command in the &lt;a href=&quot;#webcam-server-additional-configurations&quot;&gt;Webcam server additional configurations&lt;/a&gt; section to reflect the latest support (firmware &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;9.5.0&lt;/code&gt;) for higher resolutions (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;11&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;12&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;13&lt;/code&gt;).  Thanks to Eric for the heads up!&lt;/p&gt;
 
-&lt;p class=&quot;notice notice--success&quot;&gt;&lt;strong&gt;April 6th, 2021&lt;/strong&gt;, Update #2: Created a bonus content section at the end called &lt;a href=&quot;#bonus-content-firmware-customization&quot;&gt;&lt;strong&gt;Firmware customization&lt;/strong&gt;&lt;/a&gt;. The new section describes how to create a customized Tasmota firmware to use any supported I2C or other peripherals that are not available in the pre-compiled binary. The &lt;em&gt;BME280&lt;/em&gt; sensor–a cheap and very reliable ambient temperature, humidity, and pressure sensor–was used as an example but the same procedure applies for displays and other I2C sensors that you might wish to use with your ESP32-cam board. This provides a very easy way to turn a simple webcam server into a weather station, smoke detector, relay controller, and more.&lt;/p&gt;
+&lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;April 6th, 2021&lt;/strong&gt;, Update #2: Created a bonus content section at the end called &lt;a href=&quot;#bonus-content-firmware-customization&quot;&gt;&lt;strong&gt;Firmware customization&lt;/strong&gt;&lt;/a&gt;. The new section describes how to create a customized Tasmota firmware to use any supported I2C or other peripherals that are not available in the pre-compiled binary. The &lt;em&gt;BME280&lt;/em&gt; sensor–a cheap and very reliable ambient temperature, humidity, and pressure sensor–was used as an example but the same procedure applies for displays and other I2C sensors that you might wish to use with your ESP32-cam board. This provides a very easy way to turn a simple webcam server into a weather station, smoke detector, relay controller, and more.&lt;/p&gt;
 
-&lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;April 6th, 2021&lt;/strong&gt;, Update #1: Added a pinout diagram for the ESP32-cam AI-Thinker board to the &lt;a href=&quot;#hardware&quot;&gt;Hardware&lt;/a&gt; section.&lt;/p&gt;
+&lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;April 6th, 2021&lt;/strong&gt;, Update #1: Added a pinout diagram for the ESP32-cam AI-Thinker board to the &lt;a href=&quot;#hardware&quot;&gt;Hardware&lt;/a&gt; section.&lt;/p&gt;
 
-&lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;Jan 26th, 2021&lt;/strong&gt;: Added an alternative source for the Tasmota32 binaries to the &lt;a href=&quot;#flashing-tasmota32-webcam-server&quot;&gt;Flashing Tasmota32 webcam server&lt;/a&gt; section.  I few individuals reported issues flashing the latest (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;firmware&lt;/code&gt; branch) binaries, so I added a reference to the more stable (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;release-firmware&lt;/code&gt; branch) binaries instead.  A list of currently active branches can be found in the official Github repo’s &lt;a href=&quot;https://github.com/arendst/Tasmota/branches/active&quot;&gt;active branches&lt;/a&gt; website.&lt;/p&gt;
+&lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;Jan 26th, 2021&lt;/strong&gt;: Added an alternative source for the Tasmota32 binaries to the &lt;a href=&quot;#flashing-tasmota32-webcam-server&quot;&gt;Flashing Tasmota32 webcam server&lt;/a&gt; section.  I few individuals reported issues flashing the latest (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;firmware&lt;/code&gt; branch) binaries, so I added a reference to the more stable (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;release-firmware&lt;/code&gt; branch) binaries instead.  A list of currently active branches can be found in the official Github repo’s &lt;a href=&quot;https://github.com/arendst/Tasmota/branches/active&quot;&gt;active branches&lt;/a&gt; website.&lt;/p&gt;
 
-&lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;Jan 16th, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
+&lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;Jan 16th, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
@@ -3186,19 +3192,30 @@ pipe:///usr/bin/env streamlink --stdout --default-stream 720p,best --url https:/
 &lt;p&gt;Before we can flash the Tasmota32 webcam server onto the ESP32-cam, we will need to install a few packages and configure the permissions of our Linux user.&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;Open a terminal and install the required packages:
-    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt update &amp;amp;&amp;amp; sudo apt install wget python3 python3-pip
+  &lt;li&gt;
+    &lt;p&gt;Open a terminal and install the required packages:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt update
+sudo apt install wget python3 python3-pip
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
-  &lt;li&gt;Install &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;esptool.py&lt;/code&gt; via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pip3&lt;/code&gt;:
+  &lt;li&gt;
+    &lt;p&gt;Install &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;esptool.py&lt;/code&gt; via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pip3&lt;/code&gt;:&lt;/p&gt;
+
     &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pip3 install esptool
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
-  &lt;li&gt;Find out if &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;esptool.py&lt;/code&gt; can be found in your user’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$PATH&lt;/code&gt;. (Alternatively, when required to run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;esptool.py&lt;/code&gt;, instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;esptool.py OPTIONS&lt;/code&gt;, run as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;python3 -m esptool OPTIONS&lt;/code&gt;. If you choose to do this, skip this and the next step.)
+  &lt;li&gt;
+    &lt;p&gt;Find out if &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;esptool.py&lt;/code&gt; can be found in your user’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$PATH&lt;/code&gt;.&lt;/p&gt;
+
     &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;whereis esptool.py
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p class=&quot;notice&quot;&gt;Alternatively, when required to run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;esptool.py&lt;/code&gt;, instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;esptool.py OPTIONS&lt;/code&gt;, run as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;python3 -m esptool OPTIONS&lt;/code&gt;. If you choose to do this, skip the next step.&lt;/p&gt;
   &lt;/li&gt;
-  &lt;li&gt;If &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;esptool.py&lt;/code&gt; was not found, it means your user’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.local/bin&lt;/code&gt; is not in your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$PATH&lt;/code&gt;.  Add it as follows:
+  &lt;li&gt;
+    &lt;p&gt;If &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;esptool.py&lt;/code&gt; was not found, it means your user’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.local/bin&lt;/code&gt; is not in your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$PATH&lt;/code&gt;.  Add it as follows:&lt;/p&gt;
+
     &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;echo &quot;export PATH=&quot;$HOME/.local/bin:$PATH&quot;&quot; | tee -a &quot;$HOME/.bashrc&quot; &amp;gt; /dev/null
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
@@ -3209,62 +3226,118 @@ pipe:///usr/bin/env streamlink --stdout --default-stream 720p,best --url https:/
 
     &lt;p class=&quot;notice notice--warning&quot;&gt;&lt;strong&gt;Attention.&lt;/strong&gt; Make sure your USB to TTL adapter has &lt;strong&gt;VCC in 5V mode&lt;/strong&gt; and in the ESP32, the VCC cable is connected to the 5V pin.  Double check the wiring before moving on.&lt;/p&gt;
   &lt;/li&gt;
-  &lt;li&gt;Connect the adapter to a USB port on your computer and check the new device in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/dev/&lt;/code&gt;:
+  &lt;li&gt;
+    &lt;p&gt;Connect the adapter to a USB port on your computer and check the new device in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/dev/&lt;/code&gt;:&lt;/p&gt;
+
     &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ls -l /dev/ttyUSB*
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
-  &lt;li&gt;Add your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$USER&lt;/code&gt; to the same group as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/dev/ttyUSB*&lt;/code&gt; (it’s usually &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dialout&lt;/code&gt; but if different, change in the command below) and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tty&lt;/code&gt;:
-    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo usermod -a -G dialout ${USER} &amp;amp;&amp;amp; sudo usermod -a -G tty ${USER}
+  &lt;li&gt;
+    &lt;p&gt;Add your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$USER&lt;/code&gt; to the same group as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/dev/ttyUSB*&lt;/code&gt; (it’s usually &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dialout&lt;/code&gt; but if different, change in the command below) and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tty&lt;/code&gt;:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo usermod -aG dialout,tty ${USER}
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
-  &lt;li&gt;Log off and back on.  (If you continue to run into permission issues, try rebooting instead.  You can check your user’s permissions with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;id ${USER}&lt;/code&gt;.)&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Log off and back on.  (If you continue to run into permission issues, try rebooting instead.  You can check your user’s permissions with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;id ${USER}&lt;/code&gt;.)&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;h2 id=&quot;flashing-tasmota32-webcam-server&quot;&gt;Flashing Tasmota32 webcam server&lt;/h2&gt;
 &lt;p&gt;We are now ready to flash the Tasmota firmware.  For reference, the official information is available at &lt;a href=&quot;https://tasmota.github.io/docs/ESP32&quot;&gt;https://tasmota.github.io/docs/ESP32&lt;/a&gt;.&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;Create a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Tasmota32&lt;/code&gt; dir in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/opt&lt;/code&gt;:
-    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd /opt &amp;amp;&amp;amp; sudo mkdir Tasmota32
+  &lt;li&gt;
+    &lt;p&gt;Create a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmota32&lt;/code&gt; dir in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/opt&lt;/code&gt;:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd /opt
+sudo mkdir tasmota32
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Download the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmota32-webcam.bin&lt;/code&gt; binary and the needed ESP32 Tasmota binaries from the official Github repo via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wget&lt;/code&gt;.  The most stable binaries are available in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;release-firmware&lt;/code&gt; branch and can be downloaded via the following command:&lt;/p&gt;
+    &lt;p&gt;Change ownership of the new directory to the current user instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;root&lt;/code&gt;:&lt;/p&gt;
 
-    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo wget -P Tasmota32/ https://github.com/arendst/Tasmota/raw/release-firmware/firmware/tasmota32/tasmota32-webcam.bin https://github.com/arendst/Tasmota/raw/release-firmware/firmware/tasmota32/ESP32_needed_files/boot_app0.bin https://github.com/arendst/Tasmota/raw/release-firmware/firmware/tasmota32/ESP32_needed_files/bootloader_dout_40m.bin https://github.com/arendst/Tasmota/raw/release-firmware/firmware/tasmota32/ESP32_needed_files/partitions.bin 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-
-    &lt;p&gt;However, if you want to try the latest (development) binaries, then download the binaries from the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;firmware&lt;/code&gt; branch via the following command:&lt;/p&gt;
-
-    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo wget -P Tasmota32/ https://github.com/arendst/Tasmota/raw/firmware/firmware/tasmota32/tasmota32-webcam.bin https://github.com/arendst/Tasmota/raw/firmware/firmware/tasmota32/ESP32_needed_files/boot_app0.bin https://github.com/arendst/Tasmota/raw/firmware/firmware/tasmota32/ESP32_needed_files/bootloader_dout_40m.bin https://github.com/arendst/Tasmota/raw/firmware/firmware/tasmota32/ESP32_needed_files/partitions.bin 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-
-    &lt;p&gt;My recommendation is to try the latest (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;firmware&lt;/code&gt;) first. Then, if you run into issues, go back to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;release-firmware&lt;/code&gt;.  You can find a list of active branches at &lt;a href=&quot;https://github.com/arendst/Tasmota/branches/active&quot;&gt;https://github.com/arendst/Tasmota/branches/active&lt;/a&gt;.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Change ownership to your user instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;root&lt;/code&gt;:
-    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo chown -R ${USER} Tasmota32/
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo chown ${USER}:${USER} tasmota32/
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Make sure your ESP32-cam is still connected to your computer in &lt;strong&gt;flash mode&lt;/strong&gt; (GPIO0-GND jumper).&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Erase the current firmware (or whatever data) from your ESP32-cam. Change &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--port /dev/ttyUSB&lt;/code&gt; to the port your device is connected to, which you can find via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ls -l /dev/ttyUSB*&lt;/code&gt;. For example, if your device is &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/dev/ttyUSB0&lt;/code&gt;, then use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--port /dev/ttyUSB0&lt;/code&gt; in the options of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;esptool.py&lt;/code&gt; utility.
-    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;esptool.py --port /dev/ttyUSB erase_flash
+    &lt;p&gt;Download the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmota32-webcam.bin&lt;/code&gt; binary and the needed ESP32 Tasmota binaries from the official Github repo via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wget&lt;/code&gt;.  (&lt;em&gt;The following was updated on August 12th, 2021.&lt;/em&gt;) The binaries are now available in a different repository than &lt;a href=&quot;https://github.com/arendst/Tasmota&quot;&gt;before&lt;/a&gt;, namely &lt;a href=&quot;https://github.com/arendst/Tasmota-firmware&quot;&gt;arendst/Tasmota-firmware&lt;/a&gt;, and currently, the new repository has a single branch (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main&lt;/code&gt;). There are two versions of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmota32-wecam.bin&lt;/code&gt;, one from the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;release&lt;/code&gt; and another from the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;development&lt;/code&gt; portions of the Tasmota32 project. My advice is to try the release first, then development if you have any issues.&lt;/p&gt;
+
+    &lt;p&gt;To download the &lt;strong&gt;stable release&lt;/strong&gt; binaries, use the following command:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;wget -P /opt/tasmota32/ \
+  https://ota.tasmota.com/tasmota32/release/tasmota32-webcam.bin \
+  https://github.com/arendst/Tasmota-firmware/raw/main/static/esp32/boot_app0.bin \
+  https://github.com/arendst/Tasmota-firmware/raw/main/static/esp32/bootloader_dout_40m.bin \
+  https://github.com/arendst/Tasmota-firmware/raw/main/static/esp32/partitions.bin
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;&lt;strong&gt;Alternatively&lt;/strong&gt;, to download the &lt;strong&gt;development&lt;/strong&gt; binaries, use the following command:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;wget -P /opt/tasmota32/ \
+  https://ota.tasmota.com/tasmota32/tasmota32-webcam.bin \
+  https://github.com/arendst/Tasmota-firmware/raw/main/static/esp32/boot_app0.bin \
+  https://github.com/arendst/Tasmota-firmware/raw/main/static/esp32/bootloader_dout_40m.bin \
+  https://github.com/arendst/Tasmota-firmware/raw/main/static/esp32/partitions.bin
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Wait until &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;esptool.py&lt;/code&gt; is done&lt;/strong&gt;. Then, press the &lt;strong&gt;reset button on the ESP32-cam&lt;/strong&gt;.  Now, check that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/dev/ttyUSB&lt;/code&gt; is available again.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Flash the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmota32-webcam.bin&lt;/code&gt; webcam server binary and the required Tasmota binaries to the ESP32-cam. (As before, change &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--port&lt;/code&gt; before running the command.)
-    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;esptool.py --chip esp32 --port /dev/ttyUSB --baud 921600 --before default_reset --after hard_reset write_flash -z --flash_mode dout --flash_freq 40m --flash_size detect 0x1000 /opt/Tasmota32/bootloader_dout_40m.bin 0x8000 /opt/Tasmota32/partitions.bin 0xe000 /opt/Tasmota32/boot_app0.bin 0x10000 /opt/Tasmota32/tasmota32-webcam.bin
+    &lt;p&gt;Make sure your ESP32-cam is connected to your computer in &lt;a href=&quot;/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-wiring-flash-mode.jpg&quot;&gt;flash mode&lt;/a&gt; (GPIO0-GND jumper).  Now find the USB port your device is using in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/dev/&lt;/code&gt; and set it to the environmental variable &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ESP_PORT&lt;/code&gt;, as follows:&lt;/p&gt;
+
+    &lt;p class=&quot;notice--warning&quot;&gt;&lt;strong&gt;Attention.&lt;/strong&gt; While convenient, the following command assumes there is a single USB to serial adapter connected to your computer.  If this is not the case, manually set &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ESP_PORT&lt;/code&gt; to whichever port your USB adapter is currently using. You can find the port via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ls /dev/ttyUSB*&lt;/code&gt; and testing one by one until you find the one used by the adapter. Alternatively, simply disconnect all other USB to serial adapters for this procedure and continue.&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ESP_PORT=$(ls /dev/ttyUSB*)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p class=&quot;notice&quot;&gt;Please notice that this only works if you continue to use the &lt;strong&gt;same shell&lt;/strong&gt; in which &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ESP_PORT&lt;/code&gt; was defined.  If you log off or even close the current terminal, you will have to redefine &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ESP_PORT&lt;/code&gt; to keep using it.&lt;/p&gt;
+
+    &lt;p&gt;You can check that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ESP_PORT&lt;/code&gt; was correctly defined by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;echo&lt;/code&gt;ing it, as follows:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;echo $ESP_HOME
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;which should output something like this:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/dev/ttyUSB0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Erase the current firmware (or whatever data) from your ESP32-cam.&lt;/p&gt;
+
+    &lt;p class=&quot;notice--warning&quot;&gt;&lt;strong&gt;Attention.&lt;/strong&gt; The following procedure will &lt;strong&gt;wipe all the data&lt;/strong&gt; on the ESP32-cam.&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;esptool.py --port $ESP_PORT erase_flash
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p class=&quot;notice--danger&quot;&gt;&lt;strong&gt;Wait&lt;/strong&gt; until &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;esptool.py&lt;/code&gt; is done. Then, press the &lt;strong&gt;reset button on the ESP32-cam&lt;/strong&gt;.  Now, check that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$ESP_PORT&lt;/code&gt; is available again.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Flash the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmota32-webcam.bin&lt;/code&gt; webcam server binary and the required Tasmota binaries to the ESP32-cam.&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;esptool.py --chip esp32 \
+  --port $ESP_PORT \
+  --before default_reset \
+  --after hard_reset write_flash \
+  -z \
+  --flash_mode dout \
+  --flash_freq 40m \
+  --flash_size detect \
+  0x1000 /opt/tasmota32/bootloader_dout_40m.bin \
+  0x8000 /opt/tasmota32/partitions.bin \
+  0xe000 /opt/tasmota32/boot_app0.bin \
+  0x10000 /opt/tasmota32/tasmota32-webcam.bin
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p class=&quot;notice--danger&quot;&gt;&lt;strong&gt;Wait&lt;/strong&gt; until &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;esptool.py&lt;/code&gt; is completely done before moving on. Flashing a firmware can take a few minutes to complete.  If you experience issues while flashing, try a different baud rate (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-b&lt;/code&gt;) than the default &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;115200&lt;/code&gt;, such as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-b 921600&lt;/code&gt;. The &lt;a href=&quot;https://tasmota.github.io/docs/FAQ/#flashing&quot;&gt;Tasmota FAQ&lt;/a&gt; can help with this and other issues.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;&lt;strong&gt;Wait until &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;esptool.py&lt;/code&gt; is done&lt;/strong&gt;. Then, &lt;strong&gt;remove the flash mode (GPIO0-GND) jumper&lt;/strong&gt; from the ESP32-cam.&lt;/p&gt;
 
     &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-wiring-nonflash-mode.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-wiring-nonflash-mode.jpg&quot; alt=&quot;ESP32cam nonflash mode&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
   &lt;/li&gt;
-  &lt;li&gt;Now &lt;strong&gt;press the reset button&lt;/strong&gt; on your ESP32-cam.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Now &lt;strong&gt;press the reset button&lt;/strong&gt; on your ESP32-cam.&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
@@ -3291,7 +3364,9 @@ pipe:///usr/bin/env streamlink --stdout --default-stream 720p,best --url https:/
 &lt;p&gt;Tasmota templates are device-specific definitions of how their GPIO pins are assigned. As mentioned before, there are multiple ESP32-cam boards out there with different definitions.  In my case, I’m using the &lt;strong&gt;AI-Thinker cam&lt;/strong&gt; module and therefore, I should configure the Tasmota32 webcam server to use the &lt;a href=&quot;https://tasmota.github.io/docs/ESP32/#aithinker-cam&quot;&gt;AITHINKER CAM template&lt;/a&gt; instead of the default one.  (If your ESP32-cam is different, then check &lt;a href=&quot;https://tasmota.github.io/docs/ESP32/&quot;&gt;https://tasmota.github.io/docs/ESP32/&lt;/a&gt; for the appropriate template and use that one instead of the AITHINKER CAM.)&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;Copy the &lt;strong&gt;AITHINKER CAM template&lt;/strong&gt;:
+  &lt;li&gt;
+    &lt;p&gt;Copy the &lt;strong&gt;AITHINKER CAM template&lt;/strong&gt;:&lt;/p&gt;
+
     &lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;NAME&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;AITHINKER CAM&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;GPIO&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4992&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5088&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5089&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5090&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5091&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5184&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5152&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5120&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5024&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5056&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4928&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5094&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5095&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5092&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5093&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;FLAG&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;BASE&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
@@ -3307,14 +3382,18 @@ pipe:///usr/bin/env streamlink --stdout --default-stream 720p,best --url https:/
   &lt;li&gt;
     &lt;p&gt;The MJPEG stream should be accessible at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://DEVICE_IP:81/stream&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://DEVICE_IP:81/cam.mjpeg&lt;/code&gt;.&lt;/p&gt;
   &lt;/li&gt;
-  &lt;li&gt;A single snapshot can be obtained at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://DEVICE_IP:80/snapshot.jpg&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;A single snapshot can be obtained at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://DEVICE_IP:80/snapshot.jpg&lt;/code&gt;.&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;h2 id=&quot;auto-enabling-the-webcam-server-at-boot&quot;&gt;Auto-enabling the webcam server at boot&lt;/h2&gt;
 &lt;p&gt;If your board is like mine, the stream does not initialize on its own at boot–it requires a request to get webUI to initialize the stream.  This will happen whenever you try to visit the device’s webUI.  However, if you want to automatically initialize the webserver and video stream at boot, we can do so using Tasmota’s &lt;strong&gt;&lt;a href=&quot;https://tasmota.github.io/docs/Rules/&quot;&gt;rules&lt;/a&gt;&lt;/strong&gt;.  More specifically, we will add &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Rule1&lt;/code&gt; that tells the ESP32-cam to start the stream once Tasmota is fully initialized (i.e., after wifi and MQTT are connected, if configured).&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;Copy the following rule:
+  &lt;li&gt;
+    &lt;p&gt;Copy the following rule:&lt;/p&gt;
+
     &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Rule1 ON System#Boot DO WcInit ENDON
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
@@ -3324,15 +3403,21 @@ pipe:///usr/bin/env streamlink --stdout --default-stream 720p,best --url https:/
   &lt;li&gt;
     &lt;p&gt;Paste the rule in the &lt;strong&gt;enter command&lt;/strong&gt; box and press enter.&lt;/p&gt;
   &lt;/li&gt;
-  &lt;li&gt;To enable &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Rule1&lt;/code&gt;, enter the following command:
+  &lt;li&gt;
+    &lt;p&gt;To enable &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Rule1&lt;/code&gt;, enter the following command:&lt;/p&gt;
+
     &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Rule1 1
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
-  &lt;li&gt;Restart the ESP32-cam with the following command:
+  &lt;li&gt;
+    &lt;p&gt;Restart the ESP32-cam with the following command:&lt;/p&gt;
+
     &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Restart 1
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
-  &lt;li&gt;Once it comes back on, check the console if &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RULE 1&lt;/code&gt; was executed.  It should show something similar to the following if the rule is working as expected:
+  &lt;li&gt;
+    &lt;p&gt;Once it comes back on, check the console if &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RULE 1&lt;/code&gt; was executed.  It should show something similar to the following if the rule is working as expected:&lt;/p&gt;
+
     &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;... RUL: SYSTEM#BOOT performs &quot;WcInit&quot;
 ... SRC: Rule
 ... CMD: Group 0, Index 1, Command &quot;WCINIT&quot;, Data &quot;&quot;
@@ -3343,7 +3428,9 @@ pipe:///usr/bin/env streamlink --stdout --default-stream 720p,best --url https:/
 ... RSL: stat/tasmota_***/RESULT = {&quot;WCInit&quot;:&quot;Done&quot;}
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
-  &lt;li&gt;The MJPEG stream should now be accessible at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://DEVICE_IP:81/stream&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://DEVICE_IP:81/cam.mjpeg&lt;/code&gt; without ever accessing the webUI’s main page.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The MJPEG stream should now be accessible at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://DEVICE_IP:81/stream&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://DEVICE_IP:81/cam.mjpeg&lt;/code&gt; without ever accessing the webUI’s main page.&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;By the way, &lt;strong&gt;rules&lt;/strong&gt; are a great way to program your Tasmota device indepedently of any automation server. Make sure to read about &lt;a href=&quot;https://tasmota.github.io/docs/Rules/&quot;&gt;how to add or modify rules&lt;/a&gt; and &lt;a href=&quot;https://tasmota.github.io/docs/Commands/#rules&quot;&gt;the list of available rule commands&lt;/a&gt;.&lt;/p&gt;
@@ -3469,21 +3556,27 @@ pipe:///usr/bin/env streamlink --stdout --default-stream 720p,best --url https:/
 &lt;/table&gt;
 
 &lt;p&gt;For example, to set the stream resolution to 800x600, go to the &lt;strong&gt;Console&lt;/strong&gt; and enter the following command :&lt;/p&gt;
+
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;WcResolution 9
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Alternatively, it’s possible to send commands via HTTP.  The previous example via web-browser: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://DEVICE_IP/cm?cmnd=WcResolution%209&lt;/code&gt;.  If using a terminal, you can send via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;curl&lt;/code&gt;, as follows:&lt;/p&gt;
+
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl http://DEVICE_IP/cm?cmnd=WcResolution%209
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
 &lt;p&gt;which should reply with a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;json&lt;/code&gt; parsable by utilities such as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jq&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;Finally, the &lt;strong&gt;flash LED&lt;/strong&gt; is controlled by &lt;strong&gt;GPIO4&lt;/strong&gt; and the &lt;strong&gt;red LED&lt;/strong&gt; is controlled by &lt;strong&gt;GPIO33&lt;/strong&gt;. Their state can be changed programatically as well.&lt;/p&gt;
 
 &lt;h2 id=&quot;fixing-the-timezone&quot;&gt;Fixing the timezone&lt;/h2&gt;
 &lt;p&gt;If you installed a pre-compilled firmware, there’s a chance your device is using the incorrect timezone.  To check the current timezone, go to &lt;strong&gt;Console&lt;/strong&gt; and type&lt;/p&gt;
+
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;timezone
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
 &lt;p&gt;and to change it, enter the command with a value equal to your region’s &lt;a href=&quot;https://upload.wikimedia.org/wikipedia/commons/8/88/World_Time_Zones_Map.png&quot;&gt;standardized time zone&lt;/a&gt;.  For America/Sao_Paulo, for example, that would be &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-3&lt;/code&gt;, which can be set in your Tasmota device as follows&lt;/p&gt;
+
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;timezone -3
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
@@ -3528,7 +3621,12 @@ pipe:///usr/bin/env streamlink --stdout --default-stream 720p,best --url https:/
 
 &lt;p&gt;Then, run the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmocompiler&lt;/code&gt; container, as follows:&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run --rm --name tasmocompiler -p 3000:3000 -e DEBUG=server,git,compile benzino77/tasmocompiler
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run \
+  --rm \
+  --name tasmocompiler \
+  -p 3000:3000 \
+  -e DEBUG=server,git,compile \
+  benzino77/tasmocompiler
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-run.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-run.jpg&quot; alt=&quot;tasmocompiler run&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
