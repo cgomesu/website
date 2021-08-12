@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-08-11T20:51:55-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: USB-powered, low-profile, and reliable ESP-01 Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: USB-powered, low-profile, and reliable ESP-01 Tasmota environmental sensor" /><published>2021-07-18T11:20:00-03:00</published><updated>2021-07-18T11:20:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-08-12T12:38:53-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: Mini USB powered Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: Mini USB powered Tasmota environmental sensor" /><published>2021-07-18T11:20:00-03:00</published><updated>2021-07-18T11:20:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;July 18th, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
-&lt;p&gt;This is the first article of a &lt;strong&gt;Do It Yourself&lt;/strong&gt; (DIY) series in which I describe simple electronic projects that make use of an &lt;a href=&quot;https://www.espressif.com/en/products/socs/esp8266&quot;&gt;ESP8266&lt;/a&gt;/&lt;a href=&quot;https://www.espressif.com/en/products/socs/esp32&quot;&gt;ESP32&lt;/a&gt; board running the &lt;a href=&quot;https://github.com/arendst/Tasmota&quot;&gt;Tasmota&lt;/a&gt; firmware to integrate various modules into a home automation system, such as &lt;a href=&quot;https://www.home-assistant.io/&quot;&gt;Home Assistant&lt;/a&gt;.  In this first iteration of the series, I described how to wire and configure a &lt;a href=&quot;https://www.bosch-sensortec.com/products/environmental-sensors/humidity-sensors-bme280/&quot;&gt;&lt;strong&gt;BME280&lt;/strong&gt;&lt;/a&gt; to the tiny &lt;a href=&quot;http://www.ai-thinker.com/pro_view-60.html&quot;&gt;&lt;strong&gt;ESP-01&lt;/strong&gt;&lt;/a&gt; (or its successor, the &lt;a href=&quot;http://www.ai-thinker.com/pro_view-88.html&quot;&gt;ESP-01S&lt;/a&gt;) to create a cheap, low-power, and low-profile ambient sensor that provides &lt;strong&gt;temperature&lt;/strong&gt;, &lt;strong&gt;humidity&lt;/strong&gt;, and &lt;strong&gt;relative pressure&lt;/strong&gt; measurements to a Home Assistant instance.&lt;/p&gt;
+&lt;p&gt;This is the first article of a &lt;strong&gt;Do It Yourself&lt;/strong&gt; (DIY) series in which I describe simple electronic projects that make use of an &lt;a href=&quot;https://www.espressif.com/en/products/socs/esp8266&quot;&gt;ESP8266&lt;/a&gt;/&lt;a href=&quot;https://www.espressif.com/en/products/socs/esp32&quot;&gt;ESP32&lt;/a&gt; board running the &lt;a href=&quot;https://github.com/arendst/Tasmota&quot;&gt;Tasmota&lt;/a&gt; firmware to integrate various modules into a home automation system, such as &lt;a href=&quot;https://www.home-assistant.io/&quot;&gt;Home Assistant&lt;/a&gt;.  In this first iteration of the series, I described how to wire and configure a &lt;a href=&quot;https://www.bosch-sensortec.com/products/environmental-sensors/humidity-sensors-bme280/&quot;&gt;&lt;strong&gt;BME280&lt;/strong&gt;&lt;/a&gt; to the tiny &lt;a href=&quot;http://www.ai-thinker.com/pro_view-60.html&quot;&gt;&lt;strong&gt;ESP-01&lt;/strong&gt;&lt;/a&gt; (or its successor, the &lt;a href=&quot;http://www.ai-thinker.com/pro_view-88.html&quot;&gt;ESP-01S&lt;/a&gt;) to create a cheap (less than US$6), low-power (less than 1W), and low-profile (less than 5cm long) environmental sensor that provides &lt;strong&gt;temperature&lt;/strong&gt;, &lt;strong&gt;humidity&lt;/strong&gt;, and &lt;strong&gt;relative pressure&lt;/strong&gt; measurements to home automation systems via &lt;a href=&quot;https://en.wikipedia.org/wiki/MQTT&quot;&gt;MQTT&lt;/a&gt;.&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Here is a preview of the ambient sensor alone and attached to different devices:&lt;/li&gt;
@@ -35,7 +35,7 @@
 
 &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-with-usb-adapter.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-with-usb-adapter.jpg&quot; alt=&quot;ESP-01 with USB adapter&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;Furthermore, because the unit will draw power from standard USB ports, it can be connected to most &lt;a href=&quot;https://duckduckgo.com/?t=ffab&amp;amp;q=usb+power+bank&amp;amp;iax=images&amp;amp;ia=images&quot;&gt;power banks&lt;/a&gt; to create a mobile/remote ambient sensor.&lt;/p&gt;
+&lt;p&gt;Furthermore, because the unit will draw power from standard USB ports, it can be connected to most &lt;a href=&quot;https://duckduckgo.com/?q=usb+power+bank&amp;amp;ia=images&quot;&gt;power banks&lt;/a&gt; to create a mobile/remote ambient sensor.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
@@ -117,7 +117,7 @@
 
 &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp01-version-comparison-02.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp01-version-comparison-02.jpg&quot; alt=&quot;ESP-01 comparison 02&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;The external SPI flash can be changed for anything up to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;16MB&lt;/code&gt;.  However, this requires de/soldering very small components and such procedure won’t be covered in this guide.  My recommendation is to simply look for the versions that have at least &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1MB&lt;/code&gt; of flash memory, which is just enough for the project described in this article.&lt;/p&gt;
+&lt;p&gt;The external SPI flash can be changed for anything up to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;16MB&lt;/code&gt;.  However, this requires de/soldering very small components and such procedure won’t be covered in this guide (but see &lt;a href=&quot;https://www.youtube.com/watch?v=xyc1gCjguRU&quot;&gt;Andreas Spiess’ video #34&lt;/a&gt; for reference).  My recommendation is to simply look for the versions that have at least &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1MB&lt;/code&gt; of flash memory, which is just enough for the project described in this article.&lt;/p&gt;
 
 &lt;p&gt;For more information, refer to the official documentation:&lt;/p&gt;
 &lt;ul&gt;
@@ -153,13 +153,13 @@
     &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-top.png&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-top.png&quot; alt=&quot;ESP-01 top&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;01x &lt;a href=&quot;https://www.amazon.com/s?k=USB+to+ESP-01&quot;&gt;USB to ESP-01 adapter&lt;/a&gt;: Look for the ones that have &lt;strong&gt;exposed pins&lt;/strong&gt; (see figure below) and preferably, that make use of the Silicon Labs &lt;a href=&quot;https://www.silabs.com/documents/public/data-sheets/cp2104.pdf&quot;&gt;CP2104&lt;/a&gt; (or &lt;a href=&quot;https://www.silabs.com/documents/public/data-sheets/CP2102-9.pdf&quot;&gt;CP2102&lt;/a&gt;) chip. More often than not, however, the adapters will make use of a cheaper and less well-documented chip–namely, a &lt;a href=&quot;https://www.mpja.com/download/35227cpdata.pdf&quot;&gt;CH340&lt;/a&gt; variation–which might actually work just as well.&lt;/p&gt;
+    &lt;p&gt;01x &lt;a href=&quot;https://www.amazon.com/s?k=USB+to+ESP-01&quot;&gt;USB to ESP-01 adapter&lt;/a&gt;: Look for the ones that have &lt;strong&gt;exposed pins&lt;/strong&gt; (see figure below) and preferably, that make use of the Silicon Labs &lt;a href=&quot;https://www.silabs.com/documents/public/data-sheets/cp2104.pdf&quot;&gt;CP2104&lt;/a&gt; (or &lt;a href=&quot;https://www.silabs.com/documents/public/data-sheets/CP2102-9.pdf&quot;&gt;CP2102&lt;/a&gt;) chip. More often than not, however, the adapters will make use of a cheaper and less well-documented chip–namely, a &lt;a href=&quot;https://www.mpja.com/download/35227cpdata.pdf&quot;&gt;CH340&lt;/a&gt; variation–which might actually work just as well but I have never used them for this same project.&lt;/p&gt;
 
     &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/usb-to-esp01-cp2104-adapter-01.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/usb-to-esp01-cp2104-adapter-01.jpg&quot; alt=&quot;USB to ESP-01 CP2104 adapter 01&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
     &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/usb-to-esp01-cp2104-adapter-02.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/usb-to-esp01-cp2104-adapter-02.jpg&quot; alt=&quot;USB to ESP-01 CP2104 adapter 02&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-    &lt;p&gt;Notice how the exposed male pins are mapped to the female pins in your own adapter. This is fundamental to figuring out how to put the module into &lt;em&gt;flash mode&lt;/em&gt; and later on, how to connect the ESP-01 module to the BME280 module.  The advantage of having exposed pins is that no soldering job is required to interface with the ESP-01 module.&lt;/p&gt;
+    &lt;p&gt;Notice how the exposed male pins are mapped onto the female pins in your own adapter. This is fundamental to figuring out how to put the module into &lt;em&gt;flash mode&lt;/em&gt; and later on, how to connect the ESP-01 module to the BME280 module.  The advantage of having exposed pins is that no soldering job is required to interface with the ESP-01 module. There are many other options for interfacing and powering an ESP-01 module via USB connections and some provide even cheaper solutions than the one shown here but be prepared to spend time soldering multiple components then.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;01x &lt;a href=&quot;https://www.amazon.com/s?k=GY-BME280&quot;&gt;GY-BME280 module&lt;/a&gt;: You can always &lt;a href=&quot;https://www.alibaba.com/trade/search?SearchText=bme280&quot;&gt;buy just the BME280 sensor itself&lt;/a&gt; and wire it on your own but it’s &lt;em&gt;much&lt;/em&gt; easier to buy a module that contains it instead. The one I used is the one shown in the figures below. More likely than not, you will need to solder the headers to the board (see below). As before, these modules are very cheap, so I recommend to buy multiples.&lt;/p&gt;
@@ -169,7 +169,7 @@
     &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-module-02.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-module-02.jpg&quot; alt=&quot;BME280 module 02&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;05x &lt;a href=&quot;https://www.amazon.com/s?k=female+dupont+wire&quot;&gt;Female-Female DuPont wires&lt;/a&gt;: You cannot go wrong by buying lots of these wires in all three connector combinations.  For this project, however, you will only need five f-f jumpers (or four, if you reuse one).&lt;/p&gt;
+    &lt;p&gt;05x &lt;a href=&quot;https://www.amazon.com/s?k=female+dupont+wire&quot;&gt;Female-Female DuPont/jumper wires&lt;/a&gt;: You cannot go wrong by buying lots of these wires in all three connector combinations.  For this project, however, you will only need five f-f jumpers (or four, if you reuse one).&lt;/p&gt;
 
     &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/female-dupont.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/female-dupont.jpg&quot; alt=&quot;f-f dupont wires&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
   &lt;/li&gt;
@@ -462,7 +462,7 @@ Hard resetting via RTS pin...
     &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;esptool.py --port $ESP_PORT write_flash -fs 1MB -fm dout 0x0 /opt/tasmota8266/tasmota-sensors.bin
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
 
-    &lt;p class=&quot;notice--danger&quot;&gt;&lt;strong&gt;Wait&lt;/strong&gt; until &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;esptool.py&lt;/code&gt; is completely done before moving on. Flashing a firmware can take a few minutes to complete but in this case, it usually does not take more than 30 seconds.&lt;/p&gt;
+    &lt;p class=&quot;notice--danger&quot;&gt;&lt;strong&gt;Wait&lt;/strong&gt; until &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;esptool.py&lt;/code&gt; is completely done before moving on. Flashing a firmware can take a few minutes to complete but in this case, it usually does not take more than 30 seconds.  If you experience issues while flashing, try a different baud rate (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-b&lt;/code&gt;) than the default &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;115200&lt;/code&gt;, such as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-b 921600&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-b 74880&lt;/code&gt;. The &lt;a href=&quot;https://tasmota.github.io/docs/FAQ/#flashing&quot;&gt;Tasmota FAQ&lt;/a&gt; can help with this and other issues.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;When done, disconnect the adapter from your computer and put it back into &lt;strong&gt;default mode&lt;/strong&gt; by removing the jumper grounding &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO0&lt;/code&gt;, as follows:&lt;/p&gt;
@@ -470,17 +470,17 @@ Hard resetting via RTS pin...
     &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-default-mode.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-default-mode.jpg&quot; alt=&quot;ESP-01 in default mode&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Reconnect your ESP-01 adapter and scan the nearby WiFi networks.  If correctly flashed, you should be able to see a new &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmota_*&lt;/code&gt; WiFi network created by your ESP-01 WiFi module; if this is not the case, then double check all steps, use a different wire to ground &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO0&lt;/code&gt;, and try again.  (If the problem persists, it might be hardware-related. Try a different adapter or ESP-01 or both.)&lt;/p&gt;
+    &lt;p&gt;Reconnect your ESP-01 adapter and scan the nearby WiFi networks.  If correctly flashed, you should be able to see a new &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmota_*&lt;/code&gt; WiFi network created by your ESP-01 WiFi module; if this is not the case, then double check all steps, use a different wire to ground &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO0&lt;/code&gt;, and try again.  (If the problem persists, it might be hardware-related.  Try a different adapter or ESP-01 or both.)&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;If you reached this part, it means your ESP-01 is already running Tasmota (Hurrah!). This is a good opportunity to take a break if you feel overwhelmed. In the next section, we will learn how to configure the Tasmota firmware over-the-air.&lt;/p&gt;
+&lt;p&gt;If you reached this part, it means your ESP-01 is already running Tasmota (Hurrah!).  In the next section, we will learn how to configure the Tasmota firmware over-the-air.&lt;/p&gt;
 
 &lt;h2 id=&quot;basic-tasmota-configuration&quot;&gt;Basic Tasmota configuration&lt;/h2&gt;
 &lt;p&gt;In this section, we will learn how to connect the ESP-01 to a local wireless network, set a default &lt;a href=&quot;https://tasmota.github.io/docs/Templates/&quot;&gt;Template&lt;/a&gt; for the device, fix its time, and configure its MQTT client.&lt;/p&gt;
 
 &lt;h3 id=&quot;initial-wifi-configuration&quot;&gt;Initial WiFi configuration&lt;/h3&gt;
-&lt;p&gt;After a fresh installation (or &lt;a href=&quot;https://tasmota.github.io/docs/Device-Recovery/#fast-power-cycle-device-recovery&quot;&gt;power cycling your device seven times in a short period&lt;/a&gt;), the Tasmota firmware automatically creates a wireless access point (WAP) that other devices can connect to.  The WAP is called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmota_*&lt;/code&gt;, in which &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;*&lt;/code&gt; will be a combination of the device’s MAC address and random numbers.  To configure the WiFi in your new Tasmota device:&lt;/p&gt;
+&lt;p&gt;After a fresh installation (or &lt;a href=&quot;https://tasmota.github.io/docs/Device-Recovery/#fast-power-cycle-device-recovery&quot;&gt;power cycling your device seven times in a short period&lt;/a&gt;), the Tasmota firmware automatically creates a wireless access point (WAP) that other devices can connect to.  The WAP is called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmota_*&lt;/code&gt;, in which &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;*&lt;/code&gt; will be a combination of the device’s MAC address and random numbers.  To configure the WiFi in your new Tasmota device, do as follows:&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;
@@ -514,7 +514,7 @@ Hard resetting via RTS pin...
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;From the ESP-01 web UI, go to &lt;strong&gt;Configuration &amp;gt; Configure Other&lt;/strong&gt;.&lt;/p&gt;
+    &lt;p&gt;From the Tasmota web UI, go to &lt;strong&gt;Configuration &amp;gt; Configure Other&lt;/strong&gt;.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;Paste the template under &lt;strong&gt;Other parameters &amp;gt; Template&lt;/strong&gt;.  Then, check the &lt;strong&gt;Activate&lt;/strong&gt; option under the template. Save the settings and wait for the reboot.&lt;/p&gt;
@@ -544,7 +544,7 @@ Hard resetting via RTS pin...
   &lt;li&gt;&lt;a href=&quot;https://www.hivemq.com/mqtt-essentials/&quot;&gt;https://www.hivemq.com/mqtt-essentials/&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;There are many options when it comes to &lt;a href=&quot;https://mqtt.org/software/&quot;&gt;MQTT software&lt;/a&gt;. Here, I will show how to install and configure the &lt;a href=&quot;https://mosquitto.org/&quot;&gt;Eclipse Mosquitto MQTT broker&lt;/a&gt; on a Docker container.  The MQTT broker will be configured to use client authentication (username and password) on the default listener port (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1883&lt;/code&gt;) and persist its &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;data&lt;/code&gt;, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;log&lt;/code&gt; directories. The configuration of the Tasmota MQTT client can be found at the end of this sub-section.&lt;/p&gt;
+&lt;p&gt;There are many options when it comes to &lt;a href=&quot;https://mqtt.org/software/&quot;&gt;MQTT software&lt;/a&gt;. Here, I will show how to install and configure the &lt;a href=&quot;https://mosquitto.org/&quot;&gt;Eclipse Mosquitto MQTT broker&lt;/a&gt; on a Docker container.  The MQTT broker will be configured to use client authentication (username and password) on the default listener port (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1883&lt;/code&gt;) and persist its &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;data&lt;/code&gt;, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;log&lt;/code&gt; directories.&lt;/p&gt;
 
 &lt;h4 id=&quot;mqtt-broker-configuration&quot;&gt;MQTT broker configuration&lt;/h4&gt;
 &lt;p&gt;If you already have a running MQTT broker instance, skip to the next section to &lt;a href=&quot;#tasmota-mqtt-client-configuration&quot;&gt;configure the Tasmota MQTT client&lt;/a&gt;; Otherwise, to &lt;strong&gt;install and configure the Mosquitto MQTT broker in a Docker container&lt;/strong&gt;, follow these steps:&lt;/p&gt;
@@ -586,7 +586,6 @@ listener 1883
 
 persistence true
 persistence_location /mosquitto/data
-
 log_dest file /mosquitto/log/mosquitto.log
 password_file /mosquitto/config/pwd.txt
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
@@ -597,7 +596,7 @@ password_file /mosquitto/config/pwd.txt
     &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker pull eclipse-mosquitto
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
 
-    &lt;p&gt;And run it in detached mode (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-d&lt;/code&gt;) with the name &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mosquitto&lt;/code&gt; and the option to always restart unless stopped (other options are to map ports and volumes between host and container, per the structure of the local directories and files we created):&lt;/p&gt;
+    &lt;p&gt;Then, run it in detached mode (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-d&lt;/code&gt;) with the name &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mosquitto&lt;/code&gt; and the option to always restart unless stopped (other options are to map ports and volumes between host and container, per the structure of the local directories and files we created):&lt;/p&gt;
 
     &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run -d \
   --name mosquitto \
@@ -622,7 +621,7 @@ password_file /mosquitto/config/pwd.txt
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;If the container is running without any issues, then let’s  start a shell inside the container to edit the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pwd.txt&lt;/code&gt; password file using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mosquitto_passwd&lt;/code&gt; utility:&lt;/p&gt;
+    &lt;p&gt;If the container is running without any issues, then let’s  start a shell inside the container to edit the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pwd.txt&lt;/code&gt; password file using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mosquitto_passwd&lt;/code&gt; utility:&lt;/p&gt;
 
     &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker exec -it mosquitto /bin/sh
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
@@ -657,7 +656,7 @@ mosquitto_passwd -b /mosquitto/config/pwd.txt hass &quot;123password&quot;
 
 &lt;ol&gt;
   &lt;li&gt;
-    &lt;p&gt;From the ESP-01 web UI, go to &lt;strong&gt;Configuration &amp;gt; Configure Other&lt;/strong&gt;.&lt;/p&gt;
+    &lt;p&gt;From the Tasmota web UI, go to &lt;strong&gt;Configuration &amp;gt; Configure Other&lt;/strong&gt;.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;Make sure the &lt;strong&gt;MQTT enable&lt;/strong&gt; box is checked; otherwise, check and save it.&lt;/p&gt;
@@ -722,7 +721,7 @@ mosquitto_passwd -b /mosquitto/config/pwd.txt hass &quot;123password&quot;
 
 &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-bme280-configuration-02.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-bme280-configuration-02.jpg&quot; alt=&quot;ESP-01 BME280 configuration 02&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;That is it! Enjoy your new environmental sensor. If you need assistance setting up the integration with Home Assistant, take a look at the next section. Otherwise, skip to the &lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt; for the final remarks about this project.&lt;/p&gt;
+&lt;p&gt;That is it! Enjoy your new IoT environmental sensor. If you need assistance setting up the integration with Home Assistant, take a look at the next section (there’s also a reference for other home automation systems). Otherwise, skip to the &lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt; for the final remarks about this project.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
@@ -745,7 +744,7 @@ mosquitto_passwd -b /mosquitto/config/pwd.txt hass &quot;123password&quot;
     &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/hass-tasmota-integration-01.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/hass-tasmota-integration-01.jpg&quot; alt=&quot;HASS Tasmota integration 01&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;That is it! Home Assistant should now be able to automatically detect and create entities for all your BME280 environmental metrics.&lt;/p&gt;
+    &lt;p&gt;That is it! Home Assistant should now be able to automatically detect and create entities for all your BME280 environmental metrics from the current device as well as any new ones.&lt;/p&gt;
 
     &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/hass-tasmota-integration-02.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/hass-tasmota-integration-02.jpg&quot; alt=&quot;HASS Tasmota integration 02&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
@@ -762,7 +761,7 @@ mosquitto_passwd -b /mosquitto/config/pwd.txt hass &quot;123password&quot;
 &lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
 &lt;p&gt;&lt;em&gt;Final remarks about the unit and its usage&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="diy-series" /><category term="tasmota" /><category term="sensor" /><category term="hass" /><category term="iot" /><category term="automation" /><category term="temperature" /></entry><entry><title type="html">Towards a smarter Home Assistant: Getting started on the analytical tools</title><link href="/blog/smarter-hass/" rel="alternate" type="text/html" title="Towards a smarter Home Assistant: Getting started on the analytical tools" /><published>2021-06-22T15:45:00-03:00</published><updated>2021-06-22T15:45:00-03:00</updated><id>/blog/smarter-hass</id><content type="html" xml:base="/blog/smarter-hass/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="diy-series" /><category term="tasmota" /><category term="sensor" /><category term="hass" /><category term="iot" /><category term="automation" /><category term="temperature" /><category term="esp-01" /><category term="bme280" /></entry><entry><title type="html">Towards a smarter Home Assistant: Getting started on the analytical tools</title><link href="/blog/smarter-hass/" rel="alternate" type="text/html" title="Towards a smarter Home Assistant: Getting started on the analytical tools" /><published>2021-06-22T15:45:00-03:00</published><updated>2021-06-22T15:45:00-03:00</updated><id>/blog/smarter-hass</id><content type="html" xml:base="/blog/smarter-hass/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;June 22nd, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;

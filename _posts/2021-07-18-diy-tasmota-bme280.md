@@ -1,7 +1,7 @@
 ---
-title: "DIY series: USB-powered, low-profile, and reliable ESP-01 Tasmota environmental sensor"
+title: "DIY series: Mini USB powered Tasmota environmental sensor"
 date: 2021-07-18 11:20:00 -0300
-tags: diy-series tasmota sensor hass iot automation temperature
+tags: diy-series tasmota sensor hass iot automation temperature esp-01 bme280
 header:
   overlay_image: "/assets/posts/2021-07-18-diy-tasmota-bme280/header.jpg"
   overlay_filter: "0.6"
@@ -18,7 +18,7 @@ toc_icon: "list"
 
 
 # Introduction
-This is the first article of a **Do It Yourself** (DIY) series in which I describe simple electronic projects that make use of an [ESP8266](https://www.espressif.com/en/products/socs/esp8266)/[ESP32](https://www.espressif.com/en/products/socs/esp32) board running the [Tasmota](https://github.com/arendst/Tasmota) firmware to integrate various modules into a home automation system, such as [Home Assistant](https://www.home-assistant.io/).  In this first iteration of the series, I described how to wire and configure a [**BME280**](https://www.bosch-sensortec.com/products/environmental-sensors/humidity-sensors-bme280/) to the tiny [**ESP-01**](http://www.ai-thinker.com/pro_view-60.html) (or its successor, the [ESP-01S](http://www.ai-thinker.com/pro_view-88.html)) to create a cheap, low-power, and low-profile ambient sensor that provides **temperature**, **humidity**, and **relative pressure** measurements to a Home Assistant instance.
+This is the first article of a **Do It Yourself** (DIY) series in which I describe simple electronic projects that make use of an [ESP8266](https://www.espressif.com/en/products/socs/esp8266)/[ESP32](https://www.espressif.com/en/products/socs/esp32) board running the [Tasmota](https://github.com/arendst/Tasmota) firmware to integrate various modules into a home automation system, such as [Home Assistant](https://www.home-assistant.io/).  In this first iteration of the series, I described how to wire and configure a [**BME280**](https://www.bosch-sensortec.com/products/environmental-sensors/humidity-sensors-bme280/) to the tiny [**ESP-01**](http://www.ai-thinker.com/pro_view-60.html) (or its successor, the [ESP-01S](http://www.ai-thinker.com/pro_view-88.html)) to create a cheap (less than US$6), low-power (less than 1W), and low-profile (less than 5cm long) environmental sensor that provides **temperature**, **humidity**, and **relative pressure** measurements to home automation systems via [MQTT](https://en.wikipedia.org/wiki/MQTT).
 
 - Here is a preview of the ambient sensor alone and attached to different devices:
   
@@ -48,7 +48,7 @@ Fortunately, the **ESP-01 WiFi module** meets all such requirements. Specificall
 
 [![ESP-01 with USB adapter](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-with-usb-adapter.jpg){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-with-usb-adapter.jpg)
 
-Furthermore, because the unit will draw power from standard USB ports, it can be connected to most [power banks](https://duckduckgo.com/?t=ffab&q=usb+power+bank&iax=images&ia=images) to create a mobile/remote ambient sensor.
+Furthermore, because the unit will draw power from standard USB ports, it can be connected to most [power banks](https://duckduckgo.com/?q=usb+power+bank&ia=images) to create a mobile/remote ambient sensor.
 
 [top](#){:.btn .btn--light-outline .btn--small}
 
@@ -129,7 +129,7 @@ Fortunately, visual inspection of the module can easily indicate which version i
 
 [![ESP-01 comparison 02](/assets/posts/2021-07-18-diy-tasmota-bme280/esp01-version-comparison-02.jpg){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp01-version-comparison-02.jpg)
 
-The external SPI flash can be changed for anything up to `16MB`.  However, this requires de/soldering very small components and such procedure won't be covered in this guide.  My recommendation is to simply look for the versions that have at least `1MB` of flash memory, which is just enough for the project described in this article.
+The external SPI flash can be changed for anything up to `16MB`.  However, this requires de/soldering very small components and such procedure won't be covered in this guide (but see [Andreas Spiess' video #34](https://www.youtube.com/watch?v=xyc1gCjguRU) for reference).  My recommendation is to simply look for the versions that have at least `1MB` of flash memory, which is just enough for the project described in this article.
 
 For more information, refer to the official documentation:
 - [ESP-01](https://docs.ai-thinker.com/_media/esp8266/docs/esp-01_product_specification_en.pdf)
@@ -160,13 +160,13 @@ To make a single ESP-01 Tasmota environmental sensor, you will need the followin
   
   [![ESP-01 top](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-top.png){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-top.png)
 
-- 01x [USB to ESP-01 adapter](https://www.amazon.com/s?k=USB+to+ESP-01): Look for the ones that have **exposed pins** (see figure below) and preferably, that make use of the Silicon Labs [CP2104](https://www.silabs.com/documents/public/data-sheets/cp2104.pdf) (or [CP2102](https://www.silabs.com/documents/public/data-sheets/CP2102-9.pdf)) chip. More often than not, however, the adapters will make use of a cheaper and less well-documented chip--namely, a [CH340](https://www.mpja.com/download/35227cpdata.pdf) variation--which might actually work just as well.
+- 01x [USB to ESP-01 adapter](https://www.amazon.com/s?k=USB+to+ESP-01): Look for the ones that have **exposed pins** (see figure below) and preferably, that make use of the Silicon Labs [CP2104](https://www.silabs.com/documents/public/data-sheets/cp2104.pdf) (or [CP2102](https://www.silabs.com/documents/public/data-sheets/CP2102-9.pdf)) chip. More often than not, however, the adapters will make use of a cheaper and less well-documented chip--namely, a [CH340](https://www.mpja.com/download/35227cpdata.pdf) variation--which might actually work just as well but I have never used them for this same project.
   
   [![USB to ESP-01 CP2104 adapter 01](/assets/posts/2021-07-18-diy-tasmota-bme280/usb-to-esp01-cp2104-adapter-01.jpg){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/usb-to-esp01-cp2104-adapter-01.jpg)
 
   [![USB to ESP-01 CP2104 adapter 02](/assets/posts/2021-07-18-diy-tasmota-bme280/usb-to-esp01-cp2104-adapter-02.jpg){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/usb-to-esp01-cp2104-adapter-02.jpg)
 
-  Notice how the exposed male pins are mapped to the female pins in your own adapter. This is fundamental to figuring out how to put the module into *flash mode* and later on, how to connect the ESP-01 module to the BME280 module.  The advantage of having exposed pins is that no soldering job is required to interface with the ESP-01 module.
+  Notice how the exposed male pins are mapped onto the female pins in your own adapter. This is fundamental to figuring out how to put the module into *flash mode* and later on, how to connect the ESP-01 module to the BME280 module.  The advantage of having exposed pins is that no soldering job is required to interface with the ESP-01 module. There are many other options for interfacing and powering an ESP-01 module via USB connections and some provide even cheaper solutions than the one shown here but be prepared to spend time soldering multiple components then.
 
 - 01x [GY-BME280 module](https://www.amazon.com/s?k=GY-BME280): You can always [buy just the BME280 sensor itself](https://www.alibaba.com/trade/search?SearchText=bme280) and wire it on your own but it's *much* easier to buy a module that contains it instead. The one I used is the one shown in the figures below. More likely than not, you will need to solder the headers to the board (see below). As before, these modules are very cheap, so I recommend to buy multiples.
   
@@ -174,7 +174,7 @@ To make a single ESP-01 Tasmota environmental sensor, you will need the followin
 
   [![BME280 module 02](/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-module-02.jpg){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-module-02.jpg)
 
-- 05x [Female-Female DuPont wires](https://www.amazon.com/s?k=female+dupont+wire): You cannot go wrong by buying lots of these wires in all three connector combinations.  For this project, however, you will only need five f-f jumpers (or four, if you reuse one).
+- 05x [Female-Female DuPont/jumper wires](https://www.amazon.com/s?k=female+dupont+wire): You cannot go wrong by buying lots of these wires in all three connector combinations.  For this project, however, you will only need five f-f jumpers (or four, if you reuse one).
   
   [![f-f dupont wires](/assets/posts/2021-07-18-diy-tasmota-bme280/female-dupont.jpg){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/female-dupont.jpg)
 
@@ -437,22 +437,22 @@ We are now ready to flash the Tasmota firmware.  For reference, the official inf
    esptool.py --port $ESP_PORT write_flash -fs 1MB -fm dout 0x0 /opt/tasmota8266/tasmota-sensors.bin
    ```
 
-   **Wait** until `esptool.py` is completely done before moving on. Flashing a firmware can take a few minutes to complete but in this case, it usually does not take more than 30 seconds.
+   **Wait** until `esptool.py` is completely done before moving on. Flashing a firmware can take a few minutes to complete but in this case, it usually does not take more than 30 seconds.  If you experience issues while flashing, try a different baud rate (`-b`) than the default `115200`, such as `-b 921600` or `-b 74880`. The [Tasmota FAQ](https://tasmota.github.io/docs/FAQ/#flashing) can help with this and other issues.
    {: .notice--danger }
 
 9. When done, disconnect the adapter from your computer and put it back into **default mode** by removing the jumper grounding `IO0`, as follows:
    
    [![ESP-01 in default mode](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-default-mode.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-default-mode.jpg)
 
-10. Reconnect your ESP-01 adapter and scan the nearby WiFi networks.  If correctly flashed, you should be able to see a new `tasmota_*` WiFi network created by your ESP-01 WiFi module; if this is not the case, then double check all steps, use a different wire to ground `IO0`, and try again.  (If the problem persists, it might be hardware-related. Try a different adapter or ESP-01 or both.)
+10. Reconnect your ESP-01 adapter and scan the nearby WiFi networks.  If correctly flashed, you should be able to see a new `tasmota_*` WiFi network created by your ESP-01 WiFi module; if this is not the case, then double check all steps, use a different wire to ground `IO0`, and try again.  (If the problem persists, it might be hardware-related.  Try a different adapter or ESP-01 or both.)
 
-If you reached this part, it means your ESP-01 is already running Tasmota (Hurrah!). This is a good opportunity to take a break if you feel overwhelmed. In the next section, we will learn how to configure the Tasmota firmware over-the-air.
+If you reached this part, it means your ESP-01 is already running Tasmota (Hurrah!).  In the next section, we will learn how to configure the Tasmota firmware over-the-air.
 
 ## Basic Tasmota configuration
 In this section, we will learn how to connect the ESP-01 to a local wireless network, set a default [Template](https://tasmota.github.io/docs/Templates/) for the device, fix its time, and configure its MQTT client.
 
 ### Initial WiFi configuration
-After a fresh installation (or [power cycling your device seven times in a short period](https://tasmota.github.io/docs/Device-Recovery/#fast-power-cycle-device-recovery)), the Tasmota firmware automatically creates a wireless access point (WAP) that other devices can connect to.  The WAP is called `tasmota_*`, in which `*` will be a combination of the device's MAC address and random numbers.  To configure the WiFi in your new Tasmota device:
+After a fresh installation (or [power cycling your device seven times in a short period](https://tasmota.github.io/docs/Device-Recovery/#fast-power-cycle-device-recovery)), the Tasmota firmware automatically creates a wireless access point (WAP) that other devices can connect to.  The WAP is called `tasmota_*`, in which `*` will be a combination of the device's MAC address and random numbers.  To configure the WiFi in your new Tasmota device, do as follows:
 
 1. Make sure the ESP-01 is powered on in [default mode](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-default-mode.jpg).
 
@@ -475,7 +475,7 @@ Tasmota templates are device-specific definitions of how their GPIO pins are ass
    {"NAME":"ESP01","GPIO":[255,255,255,255,0,0,0,0,0,0,0,0,0],"FLAG":0,"BASE":18}
    ```
 
-2. From the ESP-01 web UI, go to **Configuration > Configure Other**.
+2. From the Tasmota web UI, go to **Configuration > Configure Other**.
 
 3. Paste the template under **Other parameters > Template**.  Then, check the **Activate** option under the template. Save the settings and wait for the reboot.
 
@@ -501,7 +501,7 @@ It is possible to interact with a Tasmota device in multiple ways (e.g., HTTP re
 
 - [https://www.hivemq.com/mqtt-essentials/](https://www.hivemq.com/mqtt-essentials/)
 
-There are many options when it comes to [MQTT software](https://mqtt.org/software/). Here, I will show how to install and configure the [Eclipse Mosquitto MQTT broker](https://mosquitto.org/) on a Docker container.  The MQTT broker will be configured to use client authentication (username and password) on the default listener port (`1883`) and persist its `config`, `data`, and `log` directories. The configuration of the Tasmota MQTT client can be found at the end of this sub-section. 
+There are many options when it comes to [MQTT software](https://mqtt.org/software/). Here, I will show how to install and configure the [Eclipse Mosquitto MQTT broker](https://mosquitto.org/) on a Docker container.  The MQTT broker will be configured to use client authentication (username and password) on the default listener port (`1883`) and persist its `config`, `data`, and `log` directories.
 
 #### MQTT broker configuration
 If you already have a running MQTT broker instance, skip to the next section to [configure the Tasmota MQTT client](#tasmota-mqtt-client-configuration); Otherwise, to **install and configure the Mosquitto MQTT broker in a Docker container**, follow these steps:
@@ -542,7 +542,6 @@ If you already have a running MQTT broker instance, skip to the next section to 
 
    persistence true
    persistence_location /mosquitto/data
-
    log_dest file /mosquitto/log/mosquitto.log
    password_file /mosquitto/config/pwd.txt
    ```
@@ -553,7 +552,7 @@ If you already have a running MQTT broker instance, skip to the next section to 
    docker pull eclipse-mosquitto
    ```
 
-   And run it in detached mode (`-d`) with the name `mosquitto` and the option to always restart unless stopped (other options are to map ports and volumes between host and container, per the structure of the local directories and files we created):
+   Then, run it in detached mode (`-d`) with the name `mosquitto` and the option to always restart unless stopped (other options are to map ports and volumes between host and container, per the structure of the local directories and files we created):
 
    ```
    docker run -d \
@@ -581,7 +580,7 @@ If you already have a running MQTT broker instance, skip to the next section to 
    docker logs mosquitto
    ```
 
-6. If the container is running without any issues, then let's  start a shell inside the container to edit the `pwd.txt` password file using `mosquitto_passwd` utility:
+6. If the container is running without any issues, then let's  start a shell inside the container to edit the `pwd.txt` password file using the `mosquitto_passwd` utility:
    
    ```
    docker exec -it mosquitto /bin/sh
@@ -616,7 +615,7 @@ For information about additional options, such as setting up access control to r
 #### Tasmota MQTT client configuration
 With an up and running MQTT broker, you can configure the Tasmota MQTT client as follows:
 
-1. From the ESP-01 web UI, go to **Configuration > Configure Other**.
+1. From the Tasmota web UI, go to **Configuration > Configure Other**.
 
 2. Make sure the **MQTT enable** box is checked; otherwise, check and save it.
 
@@ -670,7 +669,7 @@ The [GY-BME280](/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-module-01.jpg
 
   [![ESP-01 BME280 configuration 02](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-bme280-configuration-02.jpg){:.PostImage}](/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-bme280-configuration-02.jpg)
 
-That is it! Enjoy your new environmental sensor. If you need assistance setting up the integration with Home Assistant, take a look at the next section. Otherwise, skip to the [Conclusion](#conclusion) for the final remarks about this project.
+That is it! Enjoy your new IoT environmental sensor. If you need assistance setting up the integration with Home Assistant, take a look at the next section (there's also a reference for other home automation systems). Otherwise, skip to the [Conclusion](#conclusion) for the final remarks about this project.
 
 [top](#){:.btn .btn--light-outline .btn--small}
 
@@ -688,7 +687,7 @@ The easiest way to integrate Tasmota devices to Home Assistant is via the offici
    
    [![HASS Tasmota integration 01](/assets/posts/2021-07-18-diy-tasmota-bme280/hass-tasmota-integration-01.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-07-18-diy-tasmota-bme280/hass-tasmota-integration-01.jpg)
 
-5. That is it! Home Assistant should now be able to automatically detect and create entities for all your BME280 environmental metrics.
+5. That is it! Home Assistant should now be able to automatically detect and create entities for all your BME280 environmental metrics from the current device as well as any new ones.
    
    [![HASS Tasmota integration 02](/assets/posts/2021-07-18-diy-tasmota-bme280/hass-tasmota-integration-02.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-07-18-diy-tasmota-bme280/hass-tasmota-integration-02.jpg)
 

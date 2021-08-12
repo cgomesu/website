@@ -83,9 +83,9 @@ var store = [{
         "url": "/blog/smarter-hass/",
         "teaser": null
       },{
-        "title": "DIY series: USB-powered, low-profile, and reliable ESP-01 Tasmota environmental sensor",
+        "title": "DIY series: Mini USB powered Tasmota environmental sensor",
         "excerpt":"Changelog July 18th, 2021: Publication of the original article top Introduction This is the first article of a Do It Yourself (DIY) series in which I describe simple electronic projects that make use of an ESP8266/ESP32 board running the Tasmota firmware to integrate various modules into a home automation system,...","categories": ["blog"],
-        "tags": ["diy-series","tasmota","sensor","hass","iot","automation","temperature"],
+        "tags": ["diy-series","tasmota","sensor","hass","iot","automation","temperature","esp-01","bme280"],
         "url": "/blog/diy-tasmota-bme280/",
         "teaser": null
       }]
