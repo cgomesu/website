@@ -1,6 +1,6 @@
 ---
 title: "DIY series: Mini USB powered Tasmota environmental sensor"
-date: 2021-07-18 11:20:00 -0300
+date: 2021-08-12 13:00:00 -0300
 tags: diy-series tasmota sensor hass iot automation temperature esp-01 bme280
 header:
   overlay_image: "/assets/posts/2021-07-18-diy-tasmota-bme280/header.jpg"
@@ -11,7 +11,7 @@ toc_icon: "list"
 ---
 
 # Changelog
-**July 18th, 2021**: Publication of the original article
+**August 12th, 2021**: Publication of the original article
 {:.notice--info }
 
 [top](#){:.btn .btn--light-outline .btn--small}
@@ -702,7 +702,9 @@ For this and other options to integrate your Tasmota device to Home Assistant or
 
 
 # Conclusion
-*Final remarks about the unit and its usage*
+In this article, we learned how to integrate the small and cheap **ESP-01 WiFi module** with the reliable **BME280 sensor** to create a USB powered and low-profile **Tasmota environmental sensor**.  Its BME280 sensor can be used to provide accurate measures of temperature, humidity, and pressure in different parts of the household, which can all be monitored via a home automation system of choice, such as Home Assistant.
+
+The project requires very little soldering and can be assembled in a matter of minutes and for these reasons, it's a very good project for anyone who wants to get started on making their own IoT devices.  As usual, check the [Changelog](#changelog) for updates and if you ever get stuck on something or just want to share a few ideas and opinions, feel free to [get in touch with me](/contact).
 
 [top](#){:.btn .btn--light-outline .btn--small}
 
