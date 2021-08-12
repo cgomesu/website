@@ -251,8 +251,8 @@ We are now ready to flash the Tasmota firmware.  For reference, the official inf
    esptool.py --chip esp32 \
      --port $ESP_PORT \
      --before default_reset \
-     --after hard_reset write_flash \
-     -z \
+     --after hard_reset \
+     write_flash -z \
      --flash_mode dout \
      --flash_freq 40m \
      --flash_size detect \

@@ -637,8 +637,8 @@ sudo mkdir tasmota32
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>esptool.py --chip esp32 \
   --port $ESP_PORT \
   --before default_reset \
-  --after hard_reset write_flash \
-  -z \
+  --after hard_reset \
+  write_flash -z \
   --flash_mode dout \
   --flash_freq 40m \
   --flash_size detect \
