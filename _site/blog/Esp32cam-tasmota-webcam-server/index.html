@@ -198,7 +198,7 @@
 
 
 
-  33 minute read
+  37 minute read
 
 </p>
       
@@ -390,15 +390,21 @@
           </aside>
         
         <h1 id="changelog">Changelog</h1>
+<p class="notice--info"><strong>August 12th, 2021</strong>, Update #3: Made minor changes to a few commands to improve readability.</p>
+
+<p class="notice--info"><strong>August 12th, 2021</strong>, Update #2: Per a user suggestion (Tobias), the <a href="#flashing-tasmota32-webcam-server">Flashing Tasmota32 webcam server</a> section has been updated. Specifically, the baud rate in the <code class="language-plaintext highlighter-rouge">esptool-py</code> utility (<code class="language-plaintext highlighter-rouge">-b</code>) has been omitted to use the default value (<code class="language-plaintext highlighter-rouge">115200</code>), which seems to work fine with the ESP32-cam module and most adapters.  However, if you run into issues, try the previous value when flashing the Tasmota32-webcam binaries (<code class="language-plaintext highlighter-rouge">-b 921600</code>).</p>
+
+<p class="notice--warning"><strong>August 12th, 2021</strong>, Update #1: There has been changes to the location of the binary files because they moved from the <a href="https://github.com/arendst/Tasmota">Tasmota</a> repository to the new <a href="https://github.com/arendst/Tasmota-firmware">Tasmota-firmware</a> repository, which currently has a single branch (<code class="language-plaintext highlighter-rouge">main</code>).  The location of the necessary binaries to flash the Tasmota32-webcam firmware via the <code class="language-plaintext highlighter-rouge">esptool.py</code> utility was changed accordingly in the <a href="#flashing-tasmota32-webcam-server">Flashing Tasmota32 webcam server</a> section. (It seems that changes are still being made to the organization of such files, so if the URLs do not work, check the new repo directly.)</p>
+
 <p class="notice--info"><strong>July 16th, 2021</strong>: Updated the <code class="language-plaintext highlighter-rouge">WcResolution</code> command in the <a href="#webcam-server-additional-configurations">Webcam server additional configurations</a> section to reflect the latest support (firmware <code class="language-plaintext highlighter-rouge">9.5.0</code>) for higher resolutions (<code class="language-plaintext highlighter-rouge">11</code>, <code class="language-plaintext highlighter-rouge">12</code>, <code class="language-plaintext highlighter-rouge">13</code>).  Thanks to Eric for the heads up!</p>
 
-<p class="notice notice--success"><strong>April 6th, 2021</strong>, Update #2: Created a bonus content section at the end called <a href="#bonus-content-firmware-customization"><strong>Firmware customization</strong></a>. The new section describes how to create a customized Tasmota firmware to use any supported I2C or other peripherals that are not available in the pre-compiled binary. The <em>BME280</em> sensor–a cheap and very reliable ambient temperature, humidity, and pressure sensor–was used as an example but the same procedure applies for displays and other I2C sensors that you might wish to use with your ESP32-cam board. This provides a very easy way to turn a simple webcam server into a weather station, smoke detector, relay controller, and more.</p>
+<p class="notice--info"><strong>April 6th, 2021</strong>, Update #2: Created a bonus content section at the end called <a href="#bonus-content-firmware-customization"><strong>Firmware customization</strong></a>. The new section describes how to create a customized Tasmota firmware to use any supported I2C or other peripherals that are not available in the pre-compiled binary. The <em>BME280</em> sensor–a cheap and very reliable ambient temperature, humidity, and pressure sensor–was used as an example but the same procedure applies for displays and other I2C sensors that you might wish to use with your ESP32-cam board. This provides a very easy way to turn a simple webcam server into a weather station, smoke detector, relay controller, and more.</p>
 
-<p class="notice notice--info"><strong>April 6th, 2021</strong>, Update #1: Added a pinout diagram for the ESP32-cam AI-Thinker board to the <a href="#hardware">Hardware</a> section.</p>
+<p class="notice--info"><strong>April 6th, 2021</strong>, Update #1: Added a pinout diagram for the ESP32-cam AI-Thinker board to the <a href="#hardware">Hardware</a> section.</p>
 
-<p class="notice notice--info"><strong>Jan 26th, 2021</strong>: Added an alternative source for the Tasmota32 binaries to the <a href="#flashing-tasmota32-webcam-server">Flashing Tasmota32 webcam server</a> section.  I few individuals reported issues flashing the latest (<code class="language-plaintext highlighter-rouge">firmware</code> branch) binaries, so I added a reference to the more stable (<code class="language-plaintext highlighter-rouge">release-firmware</code> branch) binaries instead.  A list of currently active branches can be found in the official Github repo’s <a href="https://github.com/arendst/Tasmota/branches/active">active branches</a> website.</p>
+<p class="notice--info"><strong>Jan 26th, 2021</strong>: Added an alternative source for the Tasmota32 binaries to the <a href="#flashing-tasmota32-webcam-server">Flashing Tasmota32 webcam server</a> section.  I few individuals reported issues flashing the latest (<code class="language-plaintext highlighter-rouge">firmware</code> branch) binaries, so I added a reference to the more stable (<code class="language-plaintext highlighter-rouge">release-firmware</code> branch) binaries instead.  A list of currently active branches can be found in the official Github repo’s <a href="https://github.com/arendst/Tasmota/branches/active">active branches</a> website.</p>
 
-<p class="notice notice--info"><strong>Jan 16th, 2021</strong>: Publication of the original article</p>
+<p class="notice--info"><strong>Jan 16th, 2021</strong>: Publication of the original article</p>
 
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 
@@ -506,19 +512,30 @@
 <p>Before we can flash the Tasmota32 webcam server onto the ESP32-cam, we will need to install a few packages and configure the permissions of our Linux user.</p>
 
 <ol>
-  <li>Open a terminal and install the required packages:
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt update &amp;&amp; sudo apt install wget python3 python3-pip
+  <li>
+    <p>Open a terminal and install the required packages:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt update
+sudo apt install wget python3 python3-pip
 </code></pre></div>    </div>
   </li>
-  <li>Install <code class="language-plaintext highlighter-rouge">esptool.py</code> via <code class="language-plaintext highlighter-rouge">pip3</code>:
+  <li>
+    <p>Install <code class="language-plaintext highlighter-rouge">esptool.py</code> via <code class="language-plaintext highlighter-rouge">pip3</code>:</p>
+
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip3 install esptool
 </code></pre></div>    </div>
   </li>
-  <li>Find out if <code class="language-plaintext highlighter-rouge">esptool.py</code> can be found in your user’s <code class="language-plaintext highlighter-rouge">$PATH</code>. (Alternatively, when required to run <code class="language-plaintext highlighter-rouge">esptool.py</code>, instead of <code class="language-plaintext highlighter-rouge">esptool.py OPTIONS</code>, run as <code class="language-plaintext highlighter-rouge">python3 -m esptool OPTIONS</code>. If you choose to do this, skip this and the next step.)
+  <li>
+    <p>Find out if <code class="language-plaintext highlighter-rouge">esptool.py</code> can be found in your user’s <code class="language-plaintext highlighter-rouge">$PATH</code>.</p>
+
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>whereis esptool.py
 </code></pre></div>    </div>
+
+    <p class="notice">Alternatively, when required to run <code class="language-plaintext highlighter-rouge">esptool.py</code>, instead of <code class="language-plaintext highlighter-rouge">esptool.py OPTIONS</code>, run as <code class="language-plaintext highlighter-rouge">python3 -m esptool OPTIONS</code>. If you choose to do this, skip the next step.</p>
   </li>
-  <li>If <code class="language-plaintext highlighter-rouge">esptool.py</code> was not found, it means your user’s <code class="language-plaintext highlighter-rouge">.local/bin</code> is not in your <code class="language-plaintext highlighter-rouge">$PATH</code>.  Add it as follows:
+  <li>
+    <p>If <code class="language-plaintext highlighter-rouge">esptool.py</code> was not found, it means your user’s <code class="language-plaintext highlighter-rouge">.local/bin</code> is not in your <code class="language-plaintext highlighter-rouge">$PATH</code>.  Add it as follows:</p>
+
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo "export PATH="$HOME/.local/bin:$PATH"" | tee -a "$HOME/.bashrc" &gt; /dev/null
 </code></pre></div>    </div>
   </li>
@@ -529,62 +546,118 @@
 
     <p class="notice notice--warning"><strong>Attention.</strong> Make sure your USB to TTL adapter has <strong>VCC in 5V mode</strong> and in the ESP32, the VCC cable is connected to the 5V pin.  Double check the wiring before moving on.</p>
   </li>
-  <li>Connect the adapter to a USB port on your computer and check the new device in <code class="language-plaintext highlighter-rouge">/dev/</code>:
+  <li>
+    <p>Connect the adapter to a USB port on your computer and check the new device in <code class="language-plaintext highlighter-rouge">/dev/</code>:</p>
+
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls -l /dev/ttyUSB*
 </code></pre></div>    </div>
   </li>
-  <li>Add your <code class="language-plaintext highlighter-rouge">$USER</code> to the same group as <code class="language-plaintext highlighter-rouge">/dev/ttyUSB*</code> (it’s usually <code class="language-plaintext highlighter-rouge">dialout</code> but if different, change in the command below) and <code class="language-plaintext highlighter-rouge">tty</code>:
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo usermod -a -G dialout ${USER} &amp;&amp; sudo usermod -a -G tty ${USER}
+  <li>
+    <p>Add your <code class="language-plaintext highlighter-rouge">$USER</code> to the same group as <code class="language-plaintext highlighter-rouge">/dev/ttyUSB*</code> (it’s usually <code class="language-plaintext highlighter-rouge">dialout</code> but if different, change in the command below) and <code class="language-plaintext highlighter-rouge">tty</code>:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo usermod -aG dialout,tty ${USER}
 </code></pre></div>    </div>
   </li>
-  <li>Log off and back on.  (If you continue to run into permission issues, try rebooting instead.  You can check your user’s permissions with <code class="language-plaintext highlighter-rouge">id ${USER}</code>.)</li>
+  <li>
+    <p>Log off and back on.  (If you continue to run into permission issues, try rebooting instead.  You can check your user’s permissions with <code class="language-plaintext highlighter-rouge">id ${USER}</code>.)</p>
+  </li>
 </ol>
 
 <h2 id="flashing-tasmota32-webcam-server">Flashing Tasmota32 webcam server</h2>
 <p>We are now ready to flash the Tasmota firmware.  For reference, the official information is available at <a href="https://tasmota.github.io/docs/ESP32">https://tasmota.github.io/docs/ESP32</a>.</p>
 
 <ol>
-  <li>Create a <code class="language-plaintext highlighter-rouge">Tasmota32</code> dir in <code class="language-plaintext highlighter-rouge">/opt</code>:
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd /opt &amp;&amp; sudo mkdir Tasmota32
+  <li>
+    <p>Create a <code class="language-plaintext highlighter-rouge">tasmota32</code> dir in <code class="language-plaintext highlighter-rouge">/opt</code>:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd /opt
+sudo mkdir tasmota32
 </code></pre></div>    </div>
   </li>
   <li>
-    <p>Download the <code class="language-plaintext highlighter-rouge">tasmota32-webcam.bin</code> binary and the needed ESP32 Tasmota binaries from the official Github repo via <code class="language-plaintext highlighter-rouge">wget</code>.  The most stable binaries are available in the <code class="language-plaintext highlighter-rouge">release-firmware</code> branch and can be downloaded via the following command:</p>
+    <p>Change ownership of the new directory to the current user instead of <code class="language-plaintext highlighter-rouge">root</code>:</p>
 
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo wget -P Tasmota32/ https://github.com/arendst/Tasmota/raw/release-firmware/firmware/tasmota32/tasmota32-webcam.bin https://github.com/arendst/Tasmota/raw/release-firmware/firmware/tasmota32/ESP32_needed_files/boot_app0.bin https://github.com/arendst/Tasmota/raw/release-firmware/firmware/tasmota32/ESP32_needed_files/bootloader_dout_40m.bin https://github.com/arendst/Tasmota/raw/release-firmware/firmware/tasmota32/ESP32_needed_files/partitions.bin 
-</code></pre></div>    </div>
-
-    <p>However, if you want to try the latest (development) binaries, then download the binaries from the <code class="language-plaintext highlighter-rouge">firmware</code> branch via the following command:</p>
-
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo wget -P Tasmota32/ https://github.com/arendst/Tasmota/raw/firmware/firmware/tasmota32/tasmota32-webcam.bin https://github.com/arendst/Tasmota/raw/firmware/firmware/tasmota32/ESP32_needed_files/boot_app0.bin https://github.com/arendst/Tasmota/raw/firmware/firmware/tasmota32/ESP32_needed_files/bootloader_dout_40m.bin https://github.com/arendst/Tasmota/raw/firmware/firmware/tasmota32/ESP32_needed_files/partitions.bin 
-</code></pre></div>    </div>
-
-    <p>My recommendation is to try the latest (<code class="language-plaintext highlighter-rouge">firmware</code>) first. Then, if you run into issues, go back to <code class="language-plaintext highlighter-rouge">release-firmware</code>.  You can find a list of active branches at <a href="https://github.com/arendst/Tasmota/branches/active">https://github.com/arendst/Tasmota/branches/active</a>.</p>
-  </li>
-  <li>Change ownership to your user instead of <code class="language-plaintext highlighter-rouge">root</code>:
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo chown -R ${USER} Tasmota32/
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo chown ${USER}:${USER} tasmota32/
 </code></pre></div>    </div>
   </li>
   <li>
-    <p>Make sure your ESP32-cam is still connected to your computer in <strong>flash mode</strong> (GPIO0-GND jumper).</p>
-  </li>
-  <li>Erase the current firmware (or whatever data) from your ESP32-cam. Change <code class="language-plaintext highlighter-rouge">--port /dev/ttyUSB</code> to the port your device is connected to, which you can find via <code class="language-plaintext highlighter-rouge">ls -l /dev/ttyUSB*</code>. For example, if your device is <code class="language-plaintext highlighter-rouge">/dev/ttyUSB0</code>, then use <code class="language-plaintext highlighter-rouge">--port /dev/ttyUSB0</code> in the options of the <code class="language-plaintext highlighter-rouge">esptool.py</code> utility.
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>esptool.py --port /dev/ttyUSB erase_flash
+    <p>Download the <code class="language-plaintext highlighter-rouge">tasmota32-webcam.bin</code> binary and the needed ESP32 Tasmota binaries from the official Github repo via <code class="language-plaintext highlighter-rouge">wget</code>.  (<em>The following was updated on August 12th, 2021.</em>) The binaries are now available in a different repository than <a href="https://github.com/arendst/Tasmota">before</a>, namely <a href="https://github.com/arendst/Tasmota-firmware">arendst/Tasmota-firmware</a>, and currently, the new repository has a single branch (<code class="language-plaintext highlighter-rouge">main</code>). There are two versions of the <code class="language-plaintext highlighter-rouge">tasmota32-wecam.bin</code>, one from the <code class="language-plaintext highlighter-rouge">release</code> and another from the <code class="language-plaintext highlighter-rouge">development</code> portions of the Tasmota32 project. My advice is to try the release first, then development if you have any issues.</p>
+
+    <p>To download the <strong>stable release</strong> binaries, use the following command:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget -P /opt/tasmota32/ \
+  https://ota.tasmota.com/tasmota32/release/tasmota32-webcam.bin \
+  https://github.com/arendst/Tasmota-firmware/raw/main/static/esp32/boot_app0.bin \
+  https://github.com/arendst/Tasmota-firmware/raw/main/static/esp32/bootloader_dout_40m.bin \
+  https://github.com/arendst/Tasmota-firmware/raw/main/static/esp32/partitions.bin
+</code></pre></div>    </div>
+
+    <p><strong>Alternatively</strong>, to download the <strong>development</strong> binaries, use the following command:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget -P /opt/tasmota32/ \
+  https://ota.tasmota.com/tasmota32/tasmota32-webcam.bin \
+  https://github.com/arendst/Tasmota-firmware/raw/main/static/esp32/boot_app0.bin \
+  https://github.com/arendst/Tasmota-firmware/raw/main/static/esp32/bootloader_dout_40m.bin \
+  https://github.com/arendst/Tasmota-firmware/raw/main/static/esp32/partitions.bin
 </code></pre></div>    </div>
   </li>
   <li>
-    <p><strong>Wait until <code class="language-plaintext highlighter-rouge">esptool.py</code> is done</strong>. Then, press the <strong>reset button on the ESP32-cam</strong>.  Now, check that <code class="language-plaintext highlighter-rouge">/dev/ttyUSB</code> is available again.</p>
-  </li>
-  <li>Flash the <code class="language-plaintext highlighter-rouge">tasmota32-webcam.bin</code> webcam server binary and the required Tasmota binaries to the ESP32-cam. (As before, change <code class="language-plaintext highlighter-rouge">--port</code> before running the command.)
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>esptool.py --chip esp32 --port /dev/ttyUSB --baud 921600 --before default_reset --after hard_reset write_flash -z --flash_mode dout --flash_freq 40m --flash_size detect 0x1000 /opt/Tasmota32/bootloader_dout_40m.bin 0x8000 /opt/Tasmota32/partitions.bin 0xe000 /opt/Tasmota32/boot_app0.bin 0x10000 /opt/Tasmota32/tasmota32-webcam.bin
+    <p>Make sure your ESP32-cam is connected to your computer in <a href="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-wiring-flash-mode.jpg">flash mode</a> (GPIO0-GND jumper).  Now find the USB port your device is using in <code class="language-plaintext highlighter-rouge">/dev/</code> and set it to the environmental variable <code class="language-plaintext highlighter-rouge">ESP_PORT</code>, as follows:</p>
+
+    <p class="notice--warning"><strong>Attention.</strong> While convenient, the following command assumes there is a single USB to serial adapter connected to your computer.  If this is not the case, manually set <code class="language-plaintext highlighter-rouge">ESP_PORT</code> to whichever port your USB adapter is currently using. You can find the port via <code class="language-plaintext highlighter-rouge">ls /dev/ttyUSB*</code> and testing one by one until you find the one used by the adapter. Alternatively, simply disconnect all other USB to serial adapters for this procedure and continue.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ESP_PORT=$(ls /dev/ttyUSB*)
 </code></pre></div>    </div>
+
+    <p class="notice">Please notice that this only works if you continue to use the <strong>same shell</strong> in which <code class="language-plaintext highlighter-rouge">ESP_PORT</code> was defined.  If you log off or even close the current terminal, you will have to redefine <code class="language-plaintext highlighter-rouge">ESP_PORT</code> to keep using it.</p>
+
+    <p>You can check that <code class="language-plaintext highlighter-rouge">ESP_PORT</code> was correctly defined by <code class="language-plaintext highlighter-rouge">echo</code>ing it, as follows:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo $ESP_HOME
+</code></pre></div>    </div>
+
+    <p>which should output something like this:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/dev/ttyUSB0
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Erase the current firmware (or whatever data) from your ESP32-cam.</p>
+
+    <p class="notice--warning"><strong>Attention.</strong> The following procedure will <strong>wipe all the data</strong> on the ESP32-cam.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>esptool.py --port $ESP_PORT erase_flash
+</code></pre></div>    </div>
+
+    <p class="notice--danger"><strong>Wait</strong> until <code class="language-plaintext highlighter-rouge">esptool.py</code> is done. Then, press the <strong>reset button on the ESP32-cam</strong>.  Now, check that <code class="language-plaintext highlighter-rouge">$ESP_PORT</code> is available again.</p>
+  </li>
+  <li>
+    <p>Flash the <code class="language-plaintext highlighter-rouge">tasmota32-webcam.bin</code> webcam server binary and the required Tasmota binaries to the ESP32-cam.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>esptool.py --chip esp32 \
+  --port $ESP_PORT \
+  --before default_reset \
+  --after hard_reset write_flash \
+  -z \
+  --flash_mode dout \
+  --flash_freq 40m \
+  --flash_size detect \
+  0x1000 /opt/tasmota32/bootloader_dout_40m.bin \
+  0x8000 /opt/tasmota32/partitions.bin \
+  0xe000 /opt/tasmota32/boot_app0.bin \
+  0x10000 /opt/tasmota32/tasmota32-webcam.bin
+</code></pre></div>    </div>
+
+    <p class="notice--danger"><strong>Wait</strong> until <code class="language-plaintext highlighter-rouge">esptool.py</code> is completely done before moving on. Flashing a firmware can take a few minutes to complete.  If you experience issues while flashing, try a different baud rate (<code class="language-plaintext highlighter-rouge">-b</code>) than the default <code class="language-plaintext highlighter-rouge">115200</code>, such as <code class="language-plaintext highlighter-rouge">-b 921600</code>. The <a href="https://tasmota.github.io/docs/FAQ/#flashing">Tasmota FAQ</a> can help with this and other issues.</p>
   </li>
   <li>
     <p><strong>Wait until <code class="language-plaintext highlighter-rouge">esptool.py</code> is done</strong>. Then, <strong>remove the flash mode (GPIO0-GND) jumper</strong> from the ESP32-cam.</p>
 
     <p><a href="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-wiring-nonflash-mode.jpg"><img src="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-wiring-nonflash-mode.jpg" alt="ESP32cam nonflash mode" class="PostImage PostImage--large" /></a></p>
   </li>
-  <li>Now <strong>press the reset button</strong> on your ESP32-cam.</li>
+  <li>
+    <p>Now <strong>press the reset button</strong> on your ESP32-cam.</p>
+  </li>
 </ol>
 
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
@@ -611,7 +684,9 @@
 <p>Tasmota templates are device-specific definitions of how their GPIO pins are assigned. As mentioned before, there are multiple ESP32-cam boards out there with different definitions.  In my case, I’m using the <strong>AI-Thinker cam</strong> module and therefore, I should configure the Tasmota32 webcam server to use the <a href="https://tasmota.github.io/docs/ESP32/#aithinker-cam">AITHINKER CAM template</a> instead of the default one.  (If your ESP32-cam is different, then check <a href="https://tasmota.github.io/docs/ESP32/">https://tasmota.github.io/docs/ESP32/</a> for the appropriate template and use that one instead of the AITHINKER CAM.)</p>
 
 <ol>
-  <li>Copy the <strong>AITHINKER CAM template</strong>:
+  <li>
+    <p>Copy the <strong>AITHINKER CAM template</strong>:</p>
+
     <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="nl">"NAME"</span><span class="p">:</span><span class="s2">"AITHINKER CAM"</span><span class="p">,</span><span class="nl">"GPIO"</span><span class="p">:[</span><span class="mi">4992</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">5088</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">5089</span><span class="p">,</span><span class="mi">5090</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">5091</span><span class="p">,</span><span class="mi">5184</span><span class="p">,</span><span class="mi">5152</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">5120</span><span class="p">,</span><span class="mi">5024</span><span class="p">,</span><span class="mi">5056</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">4928</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">5094</span><span class="p">,</span><span class="mi">5095</span><span class="p">,</span><span class="mi">5092</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">5093</span><span class="p">],</span><span class="nl">"FLAG"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nl">"BASE"</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span><span class="w">
 </span></code></pre></div>    </div>
   </li>
@@ -627,14 +702,18 @@
   <li>
     <p>The MJPEG stream should be accessible at <code class="language-plaintext highlighter-rouge">http://DEVICE_IP:81/stream</code> or <code class="language-plaintext highlighter-rouge">http://DEVICE_IP:81/cam.mjpeg</code>.</p>
   </li>
-  <li>A single snapshot can be obtained at <code class="language-plaintext highlighter-rouge">http://DEVICE_IP:80/snapshot.jpg</code>.</li>
+  <li>
+    <p>A single snapshot can be obtained at <code class="language-plaintext highlighter-rouge">http://DEVICE_IP:80/snapshot.jpg</code>.</p>
+  </li>
 </ol>
 
 <h2 id="auto-enabling-the-webcam-server-at-boot">Auto-enabling the webcam server at boot</h2>
 <p>If your board is like mine, the stream does not initialize on its own at boot–it requires a request to get webUI to initialize the stream.  This will happen whenever you try to visit the device’s webUI.  However, if you want to automatically initialize the webserver and video stream at boot, we can do so using Tasmota’s <strong><a href="https://tasmota.github.io/docs/Rules/">rules</a></strong>.  More specifically, we will add <code class="language-plaintext highlighter-rouge">Rule1</code> that tells the ESP32-cam to start the stream once Tasmota is fully initialized (i.e., after wifi and MQTT are connected, if configured).</p>
 
 <ol>
-  <li>Copy the following rule:
+  <li>
+    <p>Copy the following rule:</p>
+
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Rule1 ON System#Boot DO WcInit ENDON
 </code></pre></div>    </div>
   </li>
@@ -644,15 +723,21 @@
   <li>
     <p>Paste the rule in the <strong>enter command</strong> box and press enter.</p>
   </li>
-  <li>To enable <code class="language-plaintext highlighter-rouge">Rule1</code>, enter the following command:
+  <li>
+    <p>To enable <code class="language-plaintext highlighter-rouge">Rule1</code>, enter the following command:</p>
+
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Rule1 1
 </code></pre></div>    </div>
   </li>
-  <li>Restart the ESP32-cam with the following command:
+  <li>
+    <p>Restart the ESP32-cam with the following command:</p>
+
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Restart 1
 </code></pre></div>    </div>
   </li>
-  <li>Once it comes back on, check the console if <code class="language-plaintext highlighter-rouge">RULE 1</code> was executed.  It should show something similar to the following if the rule is working as expected:
+  <li>
+    <p>Once it comes back on, check the console if <code class="language-plaintext highlighter-rouge">RULE 1</code> was executed.  It should show something similar to the following if the rule is working as expected:</p>
+
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>... RUL: SYSTEM#BOOT performs "WcInit"
 ... SRC: Rule
 ... CMD: Group 0, Index 1, Command "WCINIT", Data ""
@@ -663,7 +748,9 @@
 ... RSL: stat/tasmota_***/RESULT = {"WCInit":"Done"}
 </code></pre></div>    </div>
   </li>
-  <li>The MJPEG stream should now be accessible at <code class="language-plaintext highlighter-rouge">http://DEVICE_IP:81/stream</code> or <code class="language-plaintext highlighter-rouge">http://DEVICE_IP:81/cam.mjpeg</code> without ever accessing the webUI’s main page.</li>
+  <li>
+    <p>The MJPEG stream should now be accessible at <code class="language-plaintext highlighter-rouge">http://DEVICE_IP:81/stream</code> or <code class="language-plaintext highlighter-rouge">http://DEVICE_IP:81/cam.mjpeg</code> without ever accessing the webUI’s main page.</p>
+  </li>
 </ol>
 
 <p>By the way, <strong>rules</strong> are a great way to program your Tasmota device indepedently of any automation server. Make sure to read about <a href="https://tasmota.github.io/docs/Rules/">how to add or modify rules</a> and <a href="https://tasmota.github.io/docs/Commands/#rules">the list of available rule commands</a>.</p>
@@ -789,21 +876,27 @@
 </table>
 
 <p>For example, to set the stream resolution to 800x600, go to the <strong>Console</strong> and enter the following command :</p>
+
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>WcResolution 9
 </code></pre></div></div>
 
 <p>Alternatively, it’s possible to send commands via HTTP.  The previous example via web-browser: <code class="language-plaintext highlighter-rouge">http://DEVICE_IP/cm?cmnd=WcResolution%209</code>.  If using a terminal, you can send via <code class="language-plaintext highlighter-rouge">curl</code>, as follows:</p>
+
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl http://DEVICE_IP/cm?cmnd=WcResolution%209
 </code></pre></div></div>
+
 <p>which should reply with a <code class="language-plaintext highlighter-rouge">json</code> parsable by utilities such as <code class="language-plaintext highlighter-rouge">jq</code>.</p>
 
 <p>Finally, the <strong>flash LED</strong> is controlled by <strong>GPIO4</strong> and the <strong>red LED</strong> is controlled by <strong>GPIO33</strong>. Their state can be changed programatically as well.</p>
 
 <h2 id="fixing-the-timezone">Fixing the timezone</h2>
 <p>If you installed a pre-compilled firmware, there’s a chance your device is using the incorrect timezone.  To check the current timezone, go to <strong>Console</strong> and type</p>
+
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>timezone
 </code></pre></div></div>
+
 <p>and to change it, enter the command with a value equal to your region’s <a href="https://upload.wikimedia.org/wikipedia/commons/8/88/World_Time_Zones_Map.png">standardized time zone</a>.  For America/Sao_Paulo, for example, that would be <code class="language-plaintext highlighter-rouge">-3</code>, which can be set in your Tasmota device as follows</p>
+
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>timezone -3
 </code></pre></div></div>
 
@@ -848,7 +941,12 @@
 
 <p>Then, run the <code class="language-plaintext highlighter-rouge">tasmocompiler</code> container, as follows:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run --rm --name tasmocompiler -p 3000:3000 -e DEBUG=server,git,compile benzino77/tasmocompiler
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run \
+  --rm \
+  --name tasmocompiler \
+  -p 3000:3000 \
+  -e DEBUG=server,git,compile \
+  benzino77/tasmocompiler
 </code></pre></div></div>
 
 <p><a href="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-run.jpg"><img src="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-run.jpg" alt="tasmocompiler run" class="PostImage PostImage--large" /></a></p>
