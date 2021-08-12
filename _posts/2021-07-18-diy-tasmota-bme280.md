@@ -1,5 +1,5 @@
 ---
-title: "DIY series: Mini USB powered Tasmota environmental sensor"
+title: "DIY series: ESP-01 Tasmota environmental sensor"
 date: 2021-08-12 13:00:00 -0300
 tags: diy-series tasmota sensor hass iot automation temperature esp-01 bme280
 header:
