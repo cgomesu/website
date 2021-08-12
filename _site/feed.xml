@@ -1,4 +1,769 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-07-16T15:08:57-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">Towards a smarter Home Assistant: Getting started on the analytical tools</title><link href="/blog/smarter-hass/" rel="alternate" type="text/html" title="Towards a smarter Home Assistant: Getting started on the analytical tools" /><published>2021-06-22T15:45:00-03:00</published><updated>2021-06-22T15:45:00-03:00</updated><id>/blog/smarter-hass</id><content type="html" xml:base="/blog/smarter-hass/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-08-12T13:08:46-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: ESP-01 Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: ESP-01 Tasmota environmental sensor" /><published>2021-08-12T13:00:00-03:00</published><updated>2021-08-12T13:00:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+&lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;August 12th, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;This is the first article of a &lt;strong&gt;Do It Yourself&lt;/strong&gt; (DIY) series in which I describe simple electronic projects that make use of an &lt;a href=&quot;https://www.espressif.com/en/products/socs/esp8266&quot;&gt;ESP8266&lt;/a&gt;/&lt;a href=&quot;https://www.espressif.com/en/products/socs/esp32&quot;&gt;ESP32&lt;/a&gt; board running the &lt;a href=&quot;https://github.com/arendst/Tasmota&quot;&gt;Tasmota&lt;/a&gt; firmware to integrate various modules into a home automation system, such as &lt;a href=&quot;https://www.home-assistant.io/&quot;&gt;Home Assistant&lt;/a&gt;.  In this first iteration of the series, I described how to wire and configure a &lt;a href=&quot;https://www.bosch-sensortec.com/products/environmental-sensors/humidity-sensors-bme280/&quot;&gt;&lt;strong&gt;BME280&lt;/strong&gt;&lt;/a&gt; to the tiny &lt;a href=&quot;http://www.ai-thinker.com/pro_view-60.html&quot;&gt;&lt;strong&gt;ESP-01&lt;/strong&gt;&lt;/a&gt; (or its successor, the &lt;a href=&quot;http://www.ai-thinker.com/pro_view-88.html&quot;&gt;ESP-01S&lt;/a&gt;) to create a cheap (less than US$6), low-power (less than 1W), and low-profile (less than 5cm long) environmental sensor that provides &lt;strong&gt;temperature&lt;/strong&gt;, &lt;strong&gt;humidity&lt;/strong&gt;, and &lt;strong&gt;relative pressure&lt;/strong&gt; measurements to home automation systems via &lt;a href=&quot;https://en.wikipedia.org/wiki/MQTT&quot;&gt;MQTT&lt;/a&gt;.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Here is a preview of the ambient sensor alone and attached to different devices:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-bme280-sensor-01.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-bme280-sensor-01.jpg&quot; alt=&quot;ESP-BME280 sensor 01&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-bme280-sensor-02.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-bme280-sensor-02.jpg&quot; alt=&quot;ESP-BME280 sensor 02&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-bme280-sensor-03.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-bme280-sensor-03.jpg&quot; alt=&quot;ESP-BME280 sensor 03&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;This is a great project for anyone who wants to get started on building their own Internet of Things (IoT) devices.  The article started with my motivation for this particular project.  Next, I talked about the hardware and software components, and finally, at the end, I covered the assembly of it all to create a functional unit.&lt;/p&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;Because this is such a low-profile project, I do not ever bother printing a case for it.  However, if you designed a case to house this particular project, &lt;a href=&quot;/contact&quot;&gt;get in touch with me&lt;/a&gt; and I will feature your case here.  But please &lt;a href=&quot;https://www.bosch-sensortec.com/media/boschsensortec/downloads/handling_soldering_mounting_instructions/bst-bme280-hs006.pdf&quot;&gt;observe the official mounting instructions for the BME280 sensor&lt;/a&gt; before printing your case because the heat generated by the ESP-01 and its USB adapter can affect the sensors.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;motivation&quot;&gt;Motivation&lt;/h1&gt;
+&lt;p&gt;Over the years, I have started noticing that multiple devices spread across the household (e.g., smart TVs, sound systems, wireless routers, PC towers and laptops) had one or more &lt;strong&gt;USB ports&lt;/strong&gt; that could be used to power a few DIY electronic projects.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/device-usb-port-01.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/device-usb-port-01.jpg&quot; alt=&quot;Device with USB port 01&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/device-usb-port-02.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/device-usb-port-02.jpg&quot; alt=&quot;Device with USB port 02&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;However, the most common type of USB port available (&lt;a href=&quot;https://en.wikipedia.org/wiki/USB#USB_2.0&quot;&gt;USB 2.0&lt;/a&gt;) usually delivers a maximum of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;500mA&lt;/code&gt; at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;5V&lt;/code&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2.5W&lt;/code&gt;), which constraints the type of projects that could reasonably use such ports as power supply. In addition, because interfacing via the USB connection might not always be possible, owing to proprietary and closed-source firmware, the DIY project should be able to transmit data wirelessly instead.&lt;/p&gt;
+
+&lt;p&gt;Fortunately, the &lt;strong&gt;ESP-01 WiFi module&lt;/strong&gt; meets all such requirements. Specifically, it requires very little energy to operate (roughly &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.3W&lt;/code&gt; on average, with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1W&lt;/code&gt; peaks) and can be connected to USB 2.0 ports via USB adapters that have a built-in voltage regulator.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-with-usb-adapter.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-with-usb-adapter.jpg&quot; alt=&quot;ESP-01 with USB adapter&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Furthermore, because the unit will draw power from standard USB ports, it can be connected to most &lt;a href=&quot;https://duckduckgo.com/?q=usb+power+bank&amp;amp;ia=images&quot;&gt;power banks&lt;/a&gt; to create a mobile/remote ambient sensor.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;overview-of-the-main-hardware-components&quot;&gt;Overview of the main hardware components&lt;/h1&gt;
+&lt;h2 id=&quot;esp-01&quot;&gt;ESP-01&lt;/h2&gt;
+&lt;p&gt;The &lt;strong&gt;ESP-01&lt;/strong&gt; is a cheap and very small WiFi module developed by &lt;a href=&quot;http://en.ai-thinker.com/&quot;&gt;Ai-Thinker&lt;/a&gt; that is based on the ESP8266EX microcontroller unit (MCU) by &lt;a href=&quot;https://www.espressif.com/&quot;&gt;Espressif&lt;/a&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-top.png&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-top.png&quot; alt=&quot;ESP-01 top&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-bottom.png&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-bottom.png&quot; alt=&quot;ESP-01 bottom&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-dimensions-pinout.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-dimensions-pinout.jpg&quot; alt=&quot;ESP-01 dimensions and pinout&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-schematics.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-schematics.jpg&quot; alt=&quot;ESP-01 schematics&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Of note, it &lt;strong&gt;exposes only four GPIO pins&lt;/strong&gt; to interface with other devices–namely, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;URXD&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UTXD&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO2&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO0&lt;/code&gt;–and it is powered via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;3v3 DC&lt;/code&gt; to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;VCC&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;GND&lt;/code&gt; pins. Each of the &lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-bottom.png&quot;&gt;eight exposed pins&lt;/a&gt; has specific functions, as suggested by their name:&lt;/p&gt;
+
+&lt;center&gt;
+&lt;table&gt;
+   &lt;thead&gt;
+      &lt;th style=&quot;text-align: center;&quot;&gt;Pin #&lt;/th&gt;
+      &lt;th style=&quot;text-align: center;&quot;&gt;Names&lt;/th&gt;
+      &lt;th style=&quot;text-align: center;&quot;&gt;Functions and notes&lt;/th&gt;
+   &lt;/thead&gt;
+   &lt;tr&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;GND&lt;/td&gt;
+      &lt;td&gt;Ground&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;IO2&lt;/td&gt;
+      &lt;td&gt;GPIO 2, internal pull-up&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+      &lt;td&gt;3&lt;/td&gt;
+      &lt;td&gt;IO0&lt;/td&gt;
+      &lt;td&gt;GPIO 0 (zero), internal pull-up&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+      &lt;td&gt;4&lt;/td&gt;
+      &lt;td&gt;URXD / IO3&lt;/td&gt;
+      &lt;td&gt;UART0 - serial RX data, GPIO 3&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+      &lt;td&gt;5&lt;/td&gt;
+      &lt;td&gt;3v3 / VCC&lt;/td&gt;
+      &lt;td&gt;3.3V power supply&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+      &lt;td&gt;6&lt;/td&gt;
+      &lt;td&gt;RST / IO16&lt;/td&gt;
+      &lt;td&gt;Reset pin, active low&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+      &lt;td&gt;7&lt;/td&gt;
+      &lt;td&gt;EN / CH_PD&lt;/td&gt;
+      &lt;td&gt;Chip enabled pin, active high&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+      &lt;td&gt;8&lt;/td&gt;
+      &lt;td&gt;UTXD / IO1&lt;/td&gt;
+      &lt;td&gt;UART0 - serial TX data, GPIO 1&lt;/td&gt;
+   &lt;/tr&gt;
+&lt;/table&gt;
+&lt;/center&gt;
+
+&lt;p&gt;In addition, there is no programmable ROM in the SoC, meaning that any software must be stored on the module’s SPI flash.  Regarding the latter, there are actually three popular versions of the ESP-01 WiFi module that have the same format but differ in flash memory size or other minor specs:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;ESP-01 Blue&lt;/strong&gt;: The original version with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;512KB&lt;/code&gt; of flash memory;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;ESP-01 Black&lt;/strong&gt;: The original version with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1MB&lt;/code&gt; of flash memory;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;ESP-01S&lt;/strong&gt;: A revised version with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1MB&lt;/code&gt; of flash memory.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Fortunately, visual inspection of the module can easily indicate which version it is:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp01-version-comparison-01.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp01-version-comparison-01.jpg&quot; alt=&quot;ESP-01 comparison 01&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp01-version-comparison-02.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp01-version-comparison-02.jpg&quot; alt=&quot;ESP-01 comparison 02&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The external SPI flash can be changed for anything up to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;16MB&lt;/code&gt;.  However, this requires de/soldering very small components and such procedure won’t be covered in this guide (but see &lt;a href=&quot;https://www.youtube.com/watch?v=xyc1gCjguRU&quot;&gt;Andreas Spiess’ video #34&lt;/a&gt; for reference).  My recommendation is to simply look for the versions that have at least &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1MB&lt;/code&gt; of flash memory, which is just enough for the project described in this article.&lt;/p&gt;
+
+&lt;p&gt;For more information, refer to the official documentation:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.ai-thinker.com/_media/esp8266/docs/esp-01_product_specification_en.pdf&quot;&gt;ESP-01&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.ai-thinker.com/_media/esp8266/docs/esp-01s_product_specification_en.pdf&quot;&gt;ESP-01S&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;In fact, Ai-Thinker has developed &lt;a href=&quot;https://docs.ai-thinker.com/en/%E8%A7%84%E6%A0%BC%E4%B9%A6&quot;&gt;many other versions of the ESP-01 module&lt;/a&gt;, such as the &lt;a href=&quot;https://docs.ai-thinker.com/_media/esp8266/docs/esp-01e_product_specification_en.pdf&quot;&gt;ESP-01E&lt;/a&gt; and &lt;a href=&quot;https://docs.ai-thinker.com/_media/esp8266/docs/esp-01f_product_specification_en.pdf&quot;&gt;ESP-01F&lt;/a&gt;. However, such modules differ in major aspects in comparison to the modules covered here, like format and connectivity, and for such a reason, they won’t be covered in this article.  If interested, check their official e-commerce website at Alibaba.com (&lt;a href=&quot;https://ai-thinker.en.alibaba.com/&quot;&gt;https://ai-thinker.en.alibaba.com/&lt;/a&gt;) to learn how to acquire those less popular modules.&lt;/p&gt;
+
+&lt;h2 id=&quot;bme280&quot;&gt;BME280&lt;/h2&gt;
+&lt;p&gt;The &lt;strong&gt;BME280&lt;/strong&gt; is a low-profile (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2.5 x 2.5 x 0.93 mm³&lt;/code&gt;) and low-power (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;3.6 mA&lt;/code&gt; at roughly &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;3.3V&lt;/code&gt;) environmental sensor developed by &lt;a href=&quot;https://www.bosch-sensortec.com&quot;&gt;Bosch Sensortec&lt;/a&gt;. Specifically, this unit comes with high accuracy sensors for &lt;strong&gt;temperature&lt;/strong&gt;, &lt;strong&gt;humidity&lt;/strong&gt;, and &lt;strong&gt;pressure&lt;/strong&gt;, all protected by a metal-lid.  Of note, it uses &lt;a href=&quot;https://en.wikipedia.org/wiki/I%C2%B2C&quot;&gt;I²C&lt;/a&gt; and &lt;a href=&quot;https://en.wikipedia.org/wiki/Serial_Peripheral_Interface&quot;&gt;SPI&lt;/a&gt; interfaces for data communication and is powered by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;3v3 DC&lt;/code&gt; (specifically, from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1.71V&lt;/code&gt; to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;3.6V&lt;/code&gt;).&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-01.png&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-01.png&quot; alt=&quot;BME280 01 photo&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-02.png&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-02.png&quot; alt=&quot;BME280 02 dimensions&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Bosch Sensortec has made an amazing job at &lt;a href=&quot;https://www.bosch-sensortec.com/products/environmental-sensors/humidity-sensors-bme280/#documents&quot;&gt;documenting all aspects about this sensor&lt;/a&gt;. For quick reference, here are the main docs:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf&quot;&gt;Datasheet&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.bosch-sensortec.com/media/boschsensortec/downloads/handling_soldering_mounting_instructions/bst-bme280-hs006.pdf&quot;&gt;Handling, soldering and mounting instructions&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;hardware&quot;&gt;Hardware&lt;/h1&gt;
+&lt;p&gt;To make a single ESP-01 Tasmota environmental sensor, you will need the following items:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;01x &lt;a href=&quot;https://www.amazon.com/s?k=esp-01+wifi+module&quot;&gt;ESP-01 Black/ESP-01S&lt;/a&gt;: These modules are very cheap and useful for simple projects, so I recommend buying multiples at once.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-top.png&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-top.png&quot; alt=&quot;ESP-01 top&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;01x &lt;a href=&quot;https://www.amazon.com/s?k=USB+to+ESP-01&quot;&gt;USB to ESP-01 adapter&lt;/a&gt;: Look for the ones that have &lt;strong&gt;exposed pins&lt;/strong&gt; (see figure below) and preferably, that make use of the Silicon Labs &lt;a href=&quot;https://www.silabs.com/documents/public/data-sheets/cp2104.pdf&quot;&gt;CP2104&lt;/a&gt; (or &lt;a href=&quot;https://www.silabs.com/documents/public/data-sheets/CP2102-9.pdf&quot;&gt;CP2102&lt;/a&gt;) chip. More often than not, however, the adapters will make use of a cheaper and less well-documented chip–namely, a &lt;a href=&quot;https://www.mpja.com/download/35227cpdata.pdf&quot;&gt;CH340&lt;/a&gt; variation–which might actually work just as well but I have never used them for this same project.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/usb-to-esp01-cp2104-adapter-01.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/usb-to-esp01-cp2104-adapter-01.jpg&quot; alt=&quot;USB to ESP-01 CP2104 adapter 01&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/usb-to-esp01-cp2104-adapter-02.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/usb-to-esp01-cp2104-adapter-02.jpg&quot; alt=&quot;USB to ESP-01 CP2104 adapter 02&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;Notice how the exposed male pins are mapped onto the female pins in your own adapter. This is fundamental to figuring out how to put the module into &lt;em&gt;flash mode&lt;/em&gt; and later on, how to connect the ESP-01 module to the BME280 module.  The advantage of having exposed pins is that no soldering job is required to interface with the ESP-01 module. There are many other options for interfacing and powering an ESP-01 module via USB connections and some provide even cheaper solutions than the one shown here but be prepared to spend time soldering multiple components then.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;01x &lt;a href=&quot;https://www.amazon.com/s?k=GY-BME280&quot;&gt;GY-BME280 module&lt;/a&gt;: You can always &lt;a href=&quot;https://www.alibaba.com/trade/search?SearchText=bme280&quot;&gt;buy just the BME280 sensor itself&lt;/a&gt; and wire it on your own but it’s &lt;em&gt;much&lt;/em&gt; easier to buy a module that contains it instead. The one I used is the one shown in the figures below. More likely than not, you will need to solder the headers to the board (see below). As before, these modules are very cheap, so I recommend to buy multiples.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-module-01.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-module-01.jpg&quot; alt=&quot;BME280 module 01&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-module-02.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-module-02.jpg&quot; alt=&quot;BME280 module 02&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;05x &lt;a href=&quot;https://www.amazon.com/s?k=female+dupont+wire&quot;&gt;Female-Female DuPont/jumper wires&lt;/a&gt;: You cannot go wrong by buying lots of these wires in all three connector combinations.  For this project, however, you will only need five f-f jumpers (or four, if you reuse one).&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/female-dupont.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/female-dupont.jpg&quot; alt=&quot;f-f dupont wires&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;Optional.&lt;/em&gt; &lt;a href=&quot;https://www.amazon.com/s?k=female+dupont+connector+kit&amp;amp;ref=nb_sb_noss&quot;&gt;Female DuPont connector kit&lt;/a&gt;: This is optional but does help securing your connections and make your project look better by housing exposed male pins. I recommend buying a kit with various sizes but for this project, we will only need the following connectors:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;01x &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2x4&lt;/code&gt; female connector for the ESP-01 USB adapter&lt;/p&gt;
+
+        &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/dupont-connector-2x4.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/dupont-connector-2x4.jpg&quot; alt=&quot;dupont connector 2x4&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;01x &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1x4&lt;/code&gt; female connector for the BME280 module&lt;/p&gt;
+
+        &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/dupont-connector-1x4.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/dupont-connector-1x4.jpg&quot; alt=&quot;dupont connector 1x4&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+        &lt;p&gt;You &lt;strong&gt;do not&lt;/strong&gt; need crimping tools for this. Check the following video for this and other tricks when working with DuPont wires:&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- Courtesy of embedresponsively.com //--&gt;
+&lt;div class=&quot;responsive-video-container&quot;&gt;
+
+  &lt;iframe src=&quot;https://www.youtube-nocookie.com/embed/eI3fxTH6f6I&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://www.amazon.com/s?k=soldering+kit&quot;&gt;Basic soldering kit&lt;/a&gt;: This is only required for soldering the headers to the BME280 module. You &lt;strong&gt;do not&lt;/strong&gt; need anything fancy for this at all. If you have a multimeter, always test your connections afterwards.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/soldering-kit.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/soldering-kit.jpg&quot; alt=&quot;soldering kit&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;estimated-cost&quot;&gt;Estimated cost&lt;/h2&gt;
+&lt;p&gt;Estimated cost of the basic hardware components:&lt;/p&gt;
+
+&lt;center&gt;
+&lt;table&gt;
+   &lt;thead&gt;
+      &lt;th style=&quot;text-align: center;&quot;&gt;Hardware&lt;/th&gt;
+      &lt;th style=&quot;text-align: center;&quot;&gt;Quantity&lt;/th&gt;
+      &lt;th style=&quot;text-align: center;&quot;&gt;USD$*&lt;/th&gt;
+   &lt;/thead&gt;
+   &lt;tr&gt;
+      &lt;td&gt;ESP-01 WiFi module&lt;/td&gt;
+      &lt;td&gt;01&lt;/td&gt;
+      &lt;td&gt;1.5&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+      &lt;td&gt;USB to ESP-01 adapter (CP2104)&lt;/td&gt;
+      &lt;td&gt;01&lt;/td&gt;
+      &lt;td&gt;2.5&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+      &lt;td&gt;GY-BME280 module&lt;/td&gt;
+      &lt;td&gt;01&lt;/td&gt;
+      &lt;td&gt;1.5&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+      &lt;td&gt;F-F DuPont 20CM long&lt;/td&gt;
+      &lt;td&gt;05&lt;/td&gt;
+      &lt;td&gt;0.05&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+      &lt;td&gt;&lt;b&gt;TOTAL&lt;/b&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;b&gt;-&lt;/b&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;b&gt;5.55&lt;/b&gt;&lt;/td&gt;
+   &lt;/tr&gt;
+&lt;/table&gt;
+&lt;/center&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;* Based on &lt;a href=&quot;https://www.aliexpress.com&quot;&gt;AliExpress.com&lt;/a&gt; offers from Chinese stores &lt;strong&gt;without&lt;/strong&gt; including shipping + tax&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;software&quot;&gt;Software&lt;/h1&gt;
+&lt;p&gt;In this tutorial, we will make use of the following applications:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/arendst/Tasmota&quot;&gt;Tasmota&lt;/a&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmota-sensors.bin&lt;/code&gt;)
+    &lt;blockquote&gt;
+      &lt;p&gt;Alternative firmware for ESP8266 and ESP32 based devices with easy configuration using webUI, OTA updates, automation using timers or rules, expandability and entirely local control over MQTT, HTTP, Serial or KNX.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If you have never heard of Tasmota before, check Robbert’s (&lt;a href=&quot;https://www.youtube.com/channel/UC2gyzKcHbYfqoXA5xbyGXtQ&quot;&gt;The Hook Up&lt;/a&gt;) introduction video:&lt;/p&gt;
+
+&lt;!-- Courtesy of embedresponsively.com //--&gt;
+&lt;div class=&quot;responsive-video-container&quot;&gt;
+
+  &lt;iframe src=&quot;https://www.youtube-nocookie.com/embed/08_GBROKQH0&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/espressif/esptool&quot;&gt;Esptool&lt;/a&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;esptool.py&lt;/code&gt;)
+    &lt;blockquote&gt;
+      &lt;p&gt;A Python-based, open source, platform independent, utility to communicate with the ROM bootloader in Espressif ESP8266 &amp;amp; ESP32 series chips.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Optional.&lt;/em&gt; &lt;a href=&quot;https://www.docker.com/&quot;&gt;Docker&lt;/a&gt;
+    &lt;blockquote&gt;
+      &lt;p&gt;Docker is a set of platform as a service products that use OS-level virtualization to deliver software in packages called containers.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Optional.&lt;/em&gt; &lt;a href=&quot;https://mosquitto.org/&quot;&gt;Eclipse Mosquitto MQTT broker&lt;/a&gt;
+    &lt;blockquote&gt;
+      &lt;p&gt;Eclipse Mosquitto is an open source message broker that implements the MQTT protocol versions 5.0, 3.1.1 and 3.1. Mosquitto is lightweight and is suitable for use on all devices from low power single board computers to full servers.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;assembly&quot;&gt;Assembly&lt;/h1&gt;
+&lt;p&gt;As in the previous tutorials, this article assumes you are running a &lt;strong&gt;Linux&lt;/strong&gt; distribution (e.g., Debian, Ubuntu, Arch, etc.) and your current user (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;${USER}&lt;/code&gt;) is in the &lt;a href=&quot;https://en.wikipedia.org/wiki/Sudo&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sudo&lt;/code&gt; group&lt;/a&gt;. Part of the instructions may or may not be compatible with Android, macOS, Windows, or any other Operating System (OS). If you run into issues, please refer to the official documentation of the software mentioned in the &lt;a href=&quot;#software&quot;&gt;Software&lt;/a&gt; section.&lt;/p&gt;
+
+&lt;p&gt;The &lt;a href=&quot;#mqtt&quot;&gt;Docker and MQTT broker implementation&lt;/a&gt; are both optional because Tasmota offers multiple ways to interact with the device without every using the MQTT messaging protocol. In addition, most MQTT brokers offer alternative installation methods to the containerized method described here.  That said, I strongly recommend making use of MQTT if you use home automation systems (e.g., &lt;a href=&quot;https://www.home-assistant.io/&quot;&gt;Home Assistant&lt;/a&gt;, &lt;a href=&quot;https://www.openhab.org/&quot;&gt;OpenHAB&lt;/a&gt;) or have multiple Tasmota devices.&lt;/p&gt;
+
+&lt;h2 id=&quot;installing-the-required-packages-and-fixing-user-permission&quot;&gt;Installing the required packages and fixing user permission&lt;/h2&gt;
+&lt;p&gt;Before we can flash the Tasmota firmware onto the ESP-01, we will need to install a few packages and configure the permissions of the current Linux user to allow using the USB adapter.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Open a terminal and install the required packages:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt update &amp;amp;&amp;amp; sudo apt install wget python3 python3-pip
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Install &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;esptool.py&lt;/code&gt; via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pip3&lt;/code&gt;:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pip3 install esptool
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Find out if &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;esptool.py&lt;/code&gt; can be found in your user’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$PATH&lt;/code&gt;, as follows:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;whereis esptool.py
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p class=&quot;notice&quot;&gt;Alternatively, when required to run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;esptool.py&lt;/code&gt;, instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;esptool.py OPTIONS&lt;/code&gt;, run as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;python3 -m esptool OPTIONS&lt;/code&gt;. If you choose to do this, skip the next step.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;esptool.py&lt;/code&gt; was not found, it means your user’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.local/bin&lt;/code&gt; is not in your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$PATH&lt;/code&gt;.  Add it as follows:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;echo &quot;export PATH=&quot;$HOME/.local/bin:$PATH&quot;&quot; | tee -a &quot;$HOME/.bashrc&quot; &amp;gt; /dev/null
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Connect your ESP-01 to the USB adapter:&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-USB-adapter.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-USB-adapter.jpg&quot; alt=&quot;ESP-01 to USB adapter&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-default-mode.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-default-mode.jpg&quot; alt=&quot;ESP-01 in default mode&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p class=&quot;notice&quot;&gt;Please ignore the tape over the ESP-01 module. Its use is not necessary.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Connect the adapter to a USB port on your computer and check the new device in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/dev/&lt;/code&gt;:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ls -l /dev/ttyUSB*
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Add your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$USER&lt;/code&gt; to the same group as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/dev/ttyUSB*&lt;/code&gt; (it’s usually &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dialout&lt;/code&gt; but if different, change in the command below) and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tty&lt;/code&gt;:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo usermod -aG dialout,tty ${USER}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Log off and back on.  (If you continue to run into permission issues, try rebooting instead.  You can check your user’s permissions with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;id ${USER}&lt;/code&gt;.)&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;flashing-the-tasmota-firmware&quot;&gt;Flashing the Tasmota firmware&lt;/h2&gt;
+&lt;p&gt;We are now ready to flash the Tasmota firmware.  For reference, the official information is available at &lt;a href=&quot;https://tasmota.github.io/docs/&quot;&gt;https://tasmota.github.io/docs/&lt;/a&gt;.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Go to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/opt&lt;/code&gt; and create a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmota8266&lt;/code&gt; directory:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd /opt
+sudo mkdir tasmota8266
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Change ownership of the new directory to the current user instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;root&lt;/code&gt;:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo chown ${USER}:${USER} tasmota8266/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Download the latest &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmota-sensors.bin&lt;/code&gt; binary via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wget&lt;/code&gt; to the newly created directory:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;wget -P tasmota8266/ https://ota.tasmota.com/tasmota/release/tasmota-sensors.bin
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p class=&quot;notice&quot;&gt;Alternatively, you can manually download the latest and previous binaries from the &lt;a href=&quot;https://github.com/arendst/Tasmota/releases&quot;&gt;Tasmota Github repo&lt;/a&gt;. The URL above points to the latest version of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmota-sensors&lt;/code&gt; binary.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Disconnect your ESP-01 adapter from your computer. Take note of the USB adapter pinout to put your ESP-01 into &lt;strong&gt;flash mode&lt;/strong&gt; by grounding the pin &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO0&lt;/code&gt; using a female-to-female DuPont wire, as follows:&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-USB-adapter-pinout.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-USB-adapter-pinout.jpg&quot; alt=&quot;ESP-01 USB adapter pinout&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;Notice that the pinout is flipped vertically when looking the pins from the bottom vs. the top.  For us, it is the top-view pinout that matters because that is where we will connect the DuPont wires.  The pinout for your own adapter &lt;strong&gt;might not&lt;/strong&gt; be the same, so make sure to double check before moving on. Once you have a good grasp of the pinout, go ahead put the ESP-01 into flash mode.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-flash-mode.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-flash-mode.jpg&quot; alt=&quot;ESP-01 in flash mode&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Reconnect your ESP-01 adapter to your computer.  Now find the USB port your device is using in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/dev/&lt;/code&gt; and set it to the variable &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ESP_PORT&lt;/code&gt;, as follows:&lt;/p&gt;
+
+    &lt;p class=&quot;notice--warning&quot;&gt;&lt;strong&gt;Attention.&lt;/strong&gt; While convenient, the following command assumes there is a single USB to serial adapter connected to your computer.  If this is not the case, manually set &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ESP_PORT&lt;/code&gt; to whichever port your ESP-01 USB adapter is currently using. You can find the port via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ls /dev/ttyUSB*&lt;/code&gt; and testing one by one until you find the one used by the ESP-01 adapter. Alternatively, simply disconnect all other USB to serial adapters for this procedure and continue.&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ESP_PORT=$(ls /dev/ttyUSB*)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p class=&quot;notice&quot;&gt;Please notice that this only works if you continue to use the &lt;strong&gt;same shell&lt;/strong&gt; in which &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ESP_PORT&lt;/code&gt; was defined.  If you log off or even close the current terminal, you will have to redefine &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ESP_PORT&lt;/code&gt; to keep using it.&lt;/p&gt;
+
+    &lt;p&gt;You can check that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ESP_PORT&lt;/code&gt; was correctly defined by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;echo&lt;/code&gt;ing it, as follows:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;echo $ESP_HOME
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;which should output something like&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/dev/ttyUSB0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Before flashing the Tasmota firmware, check the SPI flash to make sure it has at least &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1MB&lt;/code&gt;:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;esptool.py --port $ESP_PORT flash_id
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;which should show that the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Detected flash size&lt;/code&gt; is at least &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1MB&lt;/code&gt;, as in the following example:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;esptool.py v3.0
+Serial port /dev/ttyUSB0
+Connecting....
+Detecting chip type... ESP8266
+Chip is ESP8266EX
+Features: WiFi
+Crystal is 26MHz
+MAC: 2c:f4:32:2d:eb:19
+Uploading stub...
+Running stub...
+Stub running...
+Manufacturer: 5e
+Device: 4014
+Detected flash size: 1MB
+Hard resetting via RTS pin...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If everything looks good, erase whatever is currently stored on the SPI flash of the ESP-01 module:&lt;/p&gt;
+
+    &lt;p class=&quot;notice--warning&quot;&gt;&lt;strong&gt;Attention.&lt;/strong&gt; The following procedure will &lt;strong&gt;wipe all the data&lt;/strong&gt; on the SPI flash of your ESP-01 module. If you have used such a module before and want to backup the image, then first run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;esptool.py --port $ESP_PORT read_flash 0x00000 0x100000 /opt/tasmota8266/backup_esp01_$(date +%d-%m-%y).bin&lt;/code&gt;.  The backup will be in the newly created &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmota8266&lt;/code&gt; directory with the current date for future reference. Please notice that this procedure may take a few minutes to complete.&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;esptool.py --port $ESP_PORT erase_flash
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;which should output &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Chip erase completed successfully&lt;/code&gt;, as in the following example:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;esptool.py v3.0
+Serial port /dev/ttyUSB0
+Connecting....
+Detecting chip type... ESP8266
+Chip is ESP8266EX
+Features: WiFi
+Crystal is 26MHz
+MAC: 2c:f4:32:2d:eb:19
+Uploading stub...
+Running stub...
+Stub running...
+Erasing flash (this may take a while)...
+Chip erase completed successfully in 2.6s
+Hard resetting via RTS pin...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Now it is time to flash the Tasmota firmware:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;esptool.py --port $ESP_PORT write_flash -fs 1MB -fm dout 0x0 /opt/tasmota8266/tasmota-sensors.bin
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p class=&quot;notice--danger&quot;&gt;&lt;strong&gt;Wait&lt;/strong&gt; until &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;esptool.py&lt;/code&gt; is completely done before moving on. Flashing a firmware can take a few minutes to complete but in this case, it usually does not take more than 30 seconds.  If you experience issues while flashing, try a different baud rate (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-b&lt;/code&gt;) than the default &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;115200&lt;/code&gt;, such as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-b 921600&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-b 74880&lt;/code&gt;. The &lt;a href=&quot;https://tasmota.github.io/docs/FAQ/#flashing&quot;&gt;Tasmota FAQ&lt;/a&gt; can help with this and other issues.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;When done, disconnect the adapter from your computer and put it back into &lt;strong&gt;default mode&lt;/strong&gt; by removing the jumper grounding &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO0&lt;/code&gt;, as follows:&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-default-mode.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-default-mode.jpg&quot; alt=&quot;ESP-01 in default mode&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Reconnect your ESP-01 adapter and scan the nearby WiFi networks.  If correctly flashed, you should be able to see a new &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmota_*&lt;/code&gt; WiFi network created by your ESP-01 WiFi module; if this is not the case, then double check all steps, use a different wire to ground &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO0&lt;/code&gt;, and try again.  (If the problem persists, it might be hardware-related.  Try a different adapter or ESP-01 or both.)&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;If you reached this part, it means your ESP-01 is already running Tasmota (Hurrah!).  In the next section, we will learn how to configure the Tasmota firmware over-the-air.&lt;/p&gt;
+
+&lt;h2 id=&quot;basic-tasmota-configuration&quot;&gt;Basic Tasmota configuration&lt;/h2&gt;
+&lt;p&gt;In this section, we will learn how to connect the ESP-01 to a local wireless network, set a default &lt;a href=&quot;https://tasmota.github.io/docs/Templates/&quot;&gt;Template&lt;/a&gt; for the device, fix its time, and configure its MQTT client.&lt;/p&gt;
+
+&lt;h3 id=&quot;initial-wifi-configuration&quot;&gt;Initial WiFi configuration&lt;/h3&gt;
+&lt;p&gt;After a fresh installation (or &lt;a href=&quot;https://tasmota.github.io/docs/Device-Recovery/#fast-power-cycle-device-recovery&quot;&gt;power cycling your device seven times in a short period&lt;/a&gt;), the Tasmota firmware automatically creates a wireless access point (WAP) that other devices can connect to.  The WAP is called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmota_*&lt;/code&gt;, in which &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;*&lt;/code&gt; will be a combination of the device’s MAC address and random numbers.  To configure the WiFi in your new Tasmota device, do as follows:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Make sure the ESP-01 is powered on in &lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-default-mode.jpg&quot;&gt;default mode&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Use a wifi-capable device (e.g., laptop) and connect to the WAP named &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmota_*&lt;/code&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The ESP-01 will give your device an IP address, which you can check via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ip a&lt;/code&gt;. Usually, the device’s IP address is in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.4.0/24&lt;/code&gt; pool, which means the Tasmota web UI is at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://192.168.4.1:80&lt;/code&gt;; Otherwise, the web UI will be at the first address in whichever pool your device connected to after joining the WAP created by the Tasmota firmware.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Open a web-browser of your choice (e.g., Mozilla Firefox) and navigate to the Tasmota web UI. You should be prompted to change the WiFi settings to allow your ESP-01 to connect to your local WiFi network.  Change the settings, save it, and wait for the ESP-01 to reboot.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Navigate to the &lt;strong&gt;DHCP server&lt;/strong&gt; of your local network and find the IP address assigned to your ESP-01.  At this point, it’s a good idea to assign a static address to it as well.  (If you set a static address, then reboot the ESP-01 before moving on.)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Navigate to the Tasmota web UI on your local network to set the additional configurations described in the next section.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;esp-01-template&quot;&gt;ESP-01 Template&lt;/h3&gt;
+&lt;p&gt;Tasmota templates are device-specific definitions of how their GPIO pins are assigned and therefore, proper configuration of the template is key if you plan on using the device’s GPIO pins. As you will notice, the default template in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmota-sensors.bin&lt;/code&gt; binary is for the &lt;a href=&quot;https://sonoff.tech/product/diy-smart-switch/basicr2/&quot;&gt;Sonoff Basic&lt;/a&gt; device, which won’t work for us. The actual template for the ESP-01 can be found at &lt;a href=&quot;https://templates.blakadder.com/ESP01.html&quot;&gt;https://templates.blakadder.com/ESP01.html&lt;/a&gt;.  To change the current Sonoff template to the proper ESP-01 template, do the following:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Copy the &lt;strong&gt;ESP-01 template&lt;/strong&gt;:&lt;/p&gt;
+
+    &lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;NAME&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ESP01&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;GPIO&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;FLAG&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;BASE&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;18&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;From the Tasmota web UI, go to &lt;strong&gt;Configuration &amp;gt; Configure Other&lt;/strong&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Paste the template under &lt;strong&gt;Other parameters &amp;gt; Template&lt;/strong&gt;.  Then, check the &lt;strong&gt;Activate&lt;/strong&gt; option under the template. Save the settings and wait for the reboot.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The device should now be named &lt;strong&gt;ESP01&lt;/strong&gt; (or whatever &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;NAME&lt;/code&gt; was in the template). If everything looks good, go to the next section.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;timezone&quot;&gt;Timezone&lt;/h3&gt;
+&lt;p&gt;If you installed a pre-compilled firmware, there is a chance your device is using the incorrect timezone.  To check the current timezone, go to &lt;strong&gt;Console&lt;/strong&gt; and type:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;timezone
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If the timezone does not match yours, you can enter the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;timezone&lt;/code&gt; command with a value equal to your region’s &lt;a href=&quot;https://upload.wikimedia.org/wikipedia/commons/8/88/World_Time_Zones_Map.png&quot;&gt;standardized time zone&lt;/a&gt;.  For America/Sao_Paulo, for example, that would be &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-3&lt;/code&gt;, which can be set in your Tasmota device as follows:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;timezone -3
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now if you enter &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;time&lt;/code&gt; in the console, it should correctly display your current local time.&lt;/p&gt;
+
+&lt;h3 id=&quot;mqtt&quot;&gt;MQTT&lt;/h3&gt;
+&lt;p&gt;It is possible to interact with a Tasmota device in multiple ways (e.g., HTTP requests, web UI console, serial) but &lt;strong&gt;MQTT&lt;/strong&gt; offers a reliable and widely supported messaging protocol for managing this and many other devices using a single server/broker. If you are new to MQTT, the &lt;a href=&quot;https://www.hivemq.com&quot;&gt;HiveMQ&lt;/a&gt; wrote a series of articles about the MQTT basics, its main features and other related resources that I invite everyone to read:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.hivemq.com/mqtt-essentials/&quot;&gt;https://www.hivemq.com/mqtt-essentials/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;There are many options when it comes to &lt;a href=&quot;https://mqtt.org/software/&quot;&gt;MQTT software&lt;/a&gt;. Here, I will show how to install and configure the &lt;a href=&quot;https://mosquitto.org/&quot;&gt;Eclipse Mosquitto MQTT broker&lt;/a&gt; on a Docker container.  The MQTT broker will be configured to use client authentication (username and password) on the default listener port (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1883&lt;/code&gt;) and persist its &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;data&lt;/code&gt;, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;log&lt;/code&gt; directories.&lt;/p&gt;
+
+&lt;h4 id=&quot;mqtt-broker-configuration&quot;&gt;MQTT broker configuration&lt;/h4&gt;
+&lt;p&gt;If you already have a running MQTT broker instance, skip to the next section to &lt;a href=&quot;#tasmota-mqtt-client-configuration&quot;&gt;configure the Tasmota MQTT client&lt;/a&gt;; Otherwise, to &lt;strong&gt;install and configure the Mosquitto MQTT broker in a Docker container&lt;/strong&gt;, follow these steps:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Install &lt;a href=&quot;https://docs.docker.com/get-docker/&quot;&gt;Docker Engine&lt;/a&gt; on your OS. Here’s a quick reference to two popular Linux distributions:
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://docs.docker.com/engine/install/debian/&quot;&gt;Install on Debian&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://docs.docker.com/engine/install/ubuntu/&quot;&gt;Install on Ubuntu&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;p class=&quot;notice&quot;&gt;&lt;em&gt;Optional&lt;/em&gt;. Afterwards, install &lt;a href=&quot;https://documentation.portainer.io/v2.0/deploy/ceinstalldocker/&quot;&gt;Portainer - Community Edition&lt;/a&gt; to manage your Docker containers.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Create a local directory in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/opt&lt;/code&gt; of your host machine to store permanently the contents of the Mosquitto &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;data&lt;/code&gt;, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;log&lt;/code&gt; container directories:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd /opt
+sudo mkdir mosquitto mosquitto/config mosquitto/data mosquitto/log
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Create an empty &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pwd.txt&lt;/code&gt; passwords file in the newly created &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config&lt;/code&gt; dir:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo touch /opt/mosquitto/config/pwd.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Create and edit a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mosquitto.conf&lt;/code&gt; configuration file for the MQTT broker in the same dir:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo -e /opt/mosquitto/config/mosquitto.conf
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;and paste the following, which disables anonymous access, enables user credentials by pointing &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;password_file&lt;/code&gt; to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pwd.txt&lt;/code&gt; file, and sets a custom location for the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mosquito.db&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mosquito.log&lt;/code&gt; files:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;per_listener_settings true
+allow_anonymous false
+
+listener 1883
+
+persistence true
+persistence_location /mosquitto/data
+log_dest file /mosquitto/log/mosquitto.log
+password_file /mosquitto/config/pwd.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Now we are ready to install the MQTT broker container. Pull the official &lt;a href=&quot;https://hub.docker.com/_/eclipse-mosquitto/&quot;&gt;Eclipse Mosquitto broker Docker container&lt;/a&gt;:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker pull eclipse-mosquitto
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;Then, run it in detached mode (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-d&lt;/code&gt;) with the name &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mosquitto&lt;/code&gt; and the option to always restart unless stopped (other options are to map ports and volumes between host and container, per the structure of the local directories and files we created):&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run -d \
+  --name mosquitto \
+  --restart=unless-stopped \
+  -p 1883:1883 \
+  -v /opt/mosquitto/config:/mosquitto/config \
+  -v /opt/mosquitto/data:/mosquitto/data \
+  -v /opt/mosquitto/log:/mosquitto/log \
+  eclipse-mosquitto
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p class=&quot;notice--warning&quot;&gt;If you run into permission issues while running Docker with your current user, make sure to add your user (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;${USER}&lt;/code&gt;) to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;docker&lt;/code&gt; group (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sudo usermod -aG docker ${USER}&lt;/code&gt;). Then, log out and back in to try again. Alternatively, append &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sudo&lt;/code&gt; to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;docker&lt;/code&gt; command. You can find this and other post-installation steps in the official &lt;a href=&quot;https://docs.docker.com/engine/install/linux-postinstall/&quot;&gt;Post-installation steps for Linux&lt;/a&gt;.&lt;/p&gt;
+
+    &lt;p&gt;Before moving on, make sure the container is running:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker ps
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;And the log files are not showing any error messages:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker logs mosquitto
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If the container is running without any issues, then let’s  start a shell inside the container to edit the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pwd.txt&lt;/code&gt; password file using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mosquitto_passwd&lt;/code&gt; utility:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker exec -it mosquitto /bin/sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;And now we will create (a) a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmota&lt;/code&gt; user with password &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;password123&lt;/code&gt; and (b) a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hass&lt;/code&gt; user with password &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;123password&lt;/code&gt;:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mosquitto_passwd -b /mosquitto/config/pwd.txt tasmota &quot;password123&quot;
+mosquitto_passwd -b /mosquitto/config/pwd.txt hass &quot;123password&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p class=&quot;notice--warning&quot;&gt;Of course, feel free to use whichever username and password you feel appropriate for your use-case.  Keep in mind that unless you configure your broker and client to use encryption, these credentials are communicated in plain text over the network, which is fine if only running it locally.&lt;/p&gt;
+
+    &lt;p&gt;When done, exit the shell inside the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mosquitto&lt;/code&gt; container:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;exit   
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Restart the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mosquitto&lt;/code&gt; container to enable the new user credentials:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker restart mosquitto   
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;And we are done with the MQTT broker installation and configuration!&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;For information about additional options, such as setting up access control to restrict user access to specific topics, check the official &lt;a href=&quot;https://mosquitto.org/documentation/&quot;&gt;Mosquitto documentation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;tasmota-mqtt-client-configuration&quot;&gt;Tasmota MQTT client configuration&lt;/h4&gt;
+&lt;p&gt;With an up and running MQTT broker, you can configure the Tasmota MQTT client as follows:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;From the Tasmota web UI, go to &lt;strong&gt;Configuration &amp;gt; Configure Other&lt;/strong&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Make sure the &lt;strong&gt;MQTT enable&lt;/strong&gt; box is checked; otherwise, check and save it.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Now go to &lt;strong&gt;Configuration &amp;gt; Configure MQTT&lt;/strong&gt; and configure your Tasmota device to use your MQTT broker. The specifics of these settings will depend on how your MQTT broker was configured. If you followed the instructions in the previous section, then your Tasmota MQTT client settings should look similar to the following (but change the host &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.10.30&lt;/code&gt; address to the one running your MQTT broker):&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-mqtt-configuration.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-mqtt-configuration.jpg&quot; alt=&quot;ESP-01 MQTT configuration&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Hit save when done and wait for the device to reboot. If successfully configured, the Console in the web UI should show something like the following:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;... MQT: Attempting connection...
+... MQT: Connected
+... MQT: tele/tasmota_2DEB19/LWT = Online (retained)
+... MQT: tele/tasmota_2DEB19/INFO1 = {&quot;Info1&quot;:{&quot;Module&quot;:&quot;ESP01&quot;,&quot;Version&quot;:&quot;9.5.0(sensors)&quot;,&quot;FallbackTopic&quot;:&quot;cmnd/DVES_2DEB19_fb/&quot;,&quot;GroupTopic&quot;:&quot;cmnd/tasmotas/&quot;}}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;And if you followed the instructions in the previous section, you can also check the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/opt/mosquitto/log/mosquitto.log&lt;/code&gt; file, which should show something like the following:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;...: New connection from 192.168.10.103:57321 on port 1883.
+...: New client connected from 192.168.10.103:57321 as DVES_2DEB19 (p2, c1, k30, u'tasmota').
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;You can find more information about the MQTT configuration at the official &lt;a href=&quot;https://tasmota.github.io/docs/MQTT/&quot;&gt;Tasmota MQTT documentation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;wiring-the-gy-bme280-sensor-module&quot;&gt;Wiring the GY-BME280 sensor module&lt;/h2&gt;
+&lt;p&gt;The &lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-module-01.jpg&quot;&gt;GY-BME280&lt;/a&gt; module usually comes with four male pin headers that we will connect do the ESP-01 USB adapter using four female-to-female jumper wires. To make use of such module, follow these steps:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Use your soldering kit to solder the headers to the board.  If you have a multimeter, remember to test your connections afterwards.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-module-03.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/bme280-module-03.jpg&quot; alt=&quot;BME-280 module 03&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Grab four female-to-female DuPont wires and connect them to your GY-BME280 module and ESP-01 USB adapter according to the following wiring schematics:&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-bme280-wiring.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-bme280-wiring.jpg&quot; alt=&quot;ESP-01 BME280 wiring&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;In this schematics, we will be using pins &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;TXD&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RXD&lt;/code&gt; to interface with the GY-BME280 module. You could, of course, try one or two of the other GPIO pins–namely, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO0&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO2&lt;/code&gt;.  However, because the state (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;low&lt;/code&gt;/&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;float&lt;/code&gt;/&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;high&lt;/code&gt;) of the latter pins at boot can put the board into specific modes of operation (e.g., when &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IO0&lt;/code&gt; is &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;high&lt;/code&gt; at boot, the ESP-01 enters &lt;em&gt;flash mode&lt;/em&gt;) and we will only use the USB port for power, I find it safer to use the serial &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;TXD&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RXD&lt;/code&gt; pins to interface with (I2C) devices when using the ESP-01.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;(Optional.)&lt;/em&gt; If you bought &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1x4&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2x4&lt;/code&gt; female connectors, replace the single connectors by the new ones. (If you are uncertain how to do that, check Adreas Spiess’ video on &lt;a href=&quot;https://youtu.be/eI3fxTH6f6I?t=195&quot;&gt;tricks for working with DuPont wires, at the 3:15 mark&lt;/a&gt;.) At the very least, use a tape to secure the connectors that are next to each other. This makes it harder for them to disconnect by accident.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Once the GY-BME280 module is wired to the ESP-01 USB adapter, connect your adapter to a USB power supply and wait for it to connect to your network. (Of course, make sure it is within reach of a WAP.)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Now we will configure the device’s Template to use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RXD&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;TXD&lt;/code&gt; as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SCL&lt;/code&gt; (serial clock line) and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SDA&lt;/code&gt; (serial data line), respectively. So, navigate to your device’s web UI and go to &lt;strong&gt;Configuration&lt;/strong&gt; &amp;gt; &lt;strong&gt;Configure Template&lt;/strong&gt;. Then, at &lt;strong&gt;GPIO3&lt;/strong&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RXD&lt;/code&gt;), set it to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;I2C SCL&lt;/code&gt;; and at &lt;strong&gt;GPIO1&lt;/strong&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;TXD&lt;/code&gt;), set it to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;I2C SDA&lt;/code&gt;. At the end, your Template should look like the following one:&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-bme280-configuration-01.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-bme280-configuration-01.jpg&quot; alt=&quot;ESP-01 BME280 configuration 01&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;Hit &lt;strong&gt;Save&lt;/strong&gt; and wait for the device to reboot.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If properly configured, your device’s main web UI should now show four metrics from the BME280 sensor, namely temperature, humidity, dew point, and pressure, as in the following example:&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-bme280-configuration-02.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/esp-01-bme280-configuration-02.jpg&quot; alt=&quot;ESP-01 BME280 configuration 02&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;That is it! Enjoy your new IoT environmental sensor. If you need assistance setting up the integration with Home Assistant, take a look at the next section (there’s also a reference for other home automation systems). Otherwise, skip to the &lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt; for the final remarks about this project.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;home-assistant-integration&quot;&gt;Home Assistant integration&lt;/h1&gt;
+&lt;p&gt;The easiest way to integrate Tasmota devices to Home Assistant is via the official &lt;a href=&quot;https://www.home-assistant.io/integrations/tasmota/&quot;&gt;Tasmota integration&lt;/a&gt;. To make use of such integration, follow these steps:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Go to the Home Assistant web UI, then navigate to &lt;strong&gt;Configuration&lt;/strong&gt; &amp;gt; &lt;strong&gt;Integrations&lt;/strong&gt; &amp;gt; &lt;strong&gt;Add integration&lt;/strong&gt;.  This will open a new window with a search box.  Type &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mqtt&lt;/code&gt; and select the integration.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Configure the &lt;a href=&quot;https://www.home-assistant.io/integrations/mqtt/&quot;&gt;MQTT integration&lt;/a&gt; to make use of your MQTT broker. If you followed the &lt;a href=&quot;#mqtt-broker-configuration&quot;&gt;MQTT broker configuration&lt;/a&gt; guide, then use the username &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hass&lt;/code&gt; with password &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;123password&lt;/code&gt; to authenticate your Home Assistant in the MQTT broker. If configured correctly, you should see the MQTT integration listed in the Integrations tab of your Home Assistant Configuration window.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Now, navigate once again to &lt;strong&gt;Configuration&lt;/strong&gt; &amp;gt; &lt;strong&gt;Integrations&lt;/strong&gt; &amp;gt; &lt;strong&gt;Add integration&lt;/strong&gt; and search for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmota&lt;/code&gt; and select the integration.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Leave the discovery prefix to the default topic (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tasmota/discovery&lt;/code&gt;) and hit &lt;strong&gt;submit&lt;/strong&gt; to enable to Tasmota integration. If configured correctly, you should see your ESP01 listed in the next window and optionally, you can select an Area that it belongs to.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/hass-tasmota-integration-01.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/hass-tasmota-integration-01.jpg&quot; alt=&quot;HASS Tasmota integration 01&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;That is it! Home Assistant should now be able to automatically detect and create entities for all your BME280 environmental metrics from the current device as well as any new ones.&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/hass-tasmota-integration-02.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/hass-tasmota-integration-02.jpg&quot; alt=&quot;HASS Tasmota integration 02&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/hass-tasmota-integration-03.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2021-07-18-diy-tasmota-bme280/hass-tasmota-integration-03.jpg&quot; alt=&quot;HASS Tasmota integration 03&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p class=&quot;notice--danger&quot;&gt;Of note, the use of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SetOption19&lt;/code&gt; (MQTT discovery) in Tasmota devices is currently &lt;a href=&quot;https://tasmota.github.io/docs/Home-Assistant/&quot;&gt;&lt;strong&gt;deprecated&lt;/strong&gt;&lt;/a&gt;. For this reason, it is disabled by default in the latest firmware (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;setoption19 0&lt;/code&gt;) and therefore, I won’t mention its use here.&lt;/p&gt;
+
+&lt;p&gt;For this and other options to integrate your Tasmota device to Home Assistant or other home automation systems, check the &lt;a href=&quot;https://tasmota.github.io/docs/Integrations/&quot;&gt;Integrations in the Tasmota documentation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;In this article, we learned how to integrate the small and cheap &lt;strong&gt;ESP-01 WiFi module&lt;/strong&gt; with the reliable &lt;strong&gt;BME280 sensor&lt;/strong&gt; to create a USB powered and low-profile &lt;strong&gt;Tasmota environmental sensor&lt;/strong&gt;.  Its BME280 sensor can be used to provide accurate measures of temperature, humidity, and pressure in different parts of the household, which can all be monitored via a home automation system of choice, such as Home Assistant.&lt;/p&gt;
+
+&lt;p&gt;The project requires very little soldering and can be assembled in a matter of minutes and for these reasons, it’s a very good project for anyone who wants to get started on making their own IoT devices.  As usual, check the &lt;a href=&quot;#changelog&quot;&gt;Changelog&lt;/a&gt; for updates and if you ever get stuck on something or just want to share a few ideas and opinions, feel free to &lt;a href=&quot;/contact&quot;&gt;get in touch with me&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="diy-series" /><category term="tasmota" /><category term="sensor" /><category term="hass" /><category term="iot" /><category term="automation" /><category term="temperature" /><category term="esp-01" /><category term="bme280" /></entry><entry><title type="html">Towards a smarter Home Assistant: Getting started on the analytical tools</title><link href="/blog/smarter-hass/" rel="alternate" type="text/html" title="Towards a smarter Home Assistant: Getting started on the analytical tools" /><published>2021-06-22T15:45:00-03:00</published><updated>2021-06-22T15:45:00-03:00</updated><id>/blog/smarter-hass</id><content type="html" xml:base="/blog/smarter-hass/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;June 22nd, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
@@ -5404,461 +6169,4 @@ systemctl status pwm-fan.service
 &lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
 &lt;p&gt;This concludes the basics of a cheap, low-profile, and low-power (yet powerful) pfSense white-box.  I’ve never had any issues with this hardware and recommend it to anyone interested in diving into firewalls or just looking for something a bit more advanced than what commercial routers can offer.  If you want to try something different than pfSense, take a look at &lt;a href=&quot;https://opnsense.org/&quot;&gt;OPNsense&lt;/a&gt;–a pfSense fork–for another free and open-source firewall software.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="homelab" /><category term="homeserver" /><category term="firewall" /><category term="network" /></entry><entry><title type="html">Youtube live-streams as IPTV channels for TVHeadend</title><link href="/blog/Youtube-as-IPTV-with-TVH/" rel="alternate" type="text/html" title="Youtube live-streams as IPTV channels for TVHeadend" /><published>2020-05-07T00:00:00-03:00</published><updated>2020-05-07T00:00:00-03:00</updated><id>/blog/Youtube-as-IPTV-with-TVH</id><content type="html" xml:base="/blog/Youtube-as-IPTV-with-TVH/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
-&lt;p class=&quot;notice notice--danger&quot;&gt;&lt;strong&gt;January 21st, 2021&lt;/strong&gt;: &lt;strong&gt;READ THIS&lt;/strong&gt;. This tutorial &lt;strong&gt;has been deprecated&lt;/strong&gt; because I wrote a &lt;strong&gt;new tutorial&lt;/strong&gt; about the integration between Tvheadend and Streamlink, called &lt;strong&gt;&lt;a href=&quot;/blog/Tvhlink/&quot;&gt;TVHlink: Livestreams as IPTV channels with TVHeadend and Streamlink&lt;/a&gt;&lt;/strong&gt;.  The integration has been greatly simplified and is more reliable than before.  In addition, the new tutorial is much more comprehensive than this one.  The new tutorial is self-contained, so you don’t need to read this one first–just skip it altogether.  I will only keep this up for archiving purposes.&lt;/p&gt;
-
-&lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;September 15th, 2020&lt;/strong&gt;: There’s a &lt;a href=&quot;https://github.com/cgomesu/youtube4tvh/releases&quot;&gt;new release of the Youtube4TVH&lt;/a&gt; program that does not require the use of API keys. The section about how to create an API key has been updated accordingly.&lt;/p&gt;
-
-&lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;June 23rd, 2020&lt;/strong&gt;: Moved content from Blogger to my website and converted to markdown.  Fixed typos I found.&lt;/p&gt;
-
-&lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;May 19th, 2020&lt;/strong&gt;: Added info about TVH m3u re-fetch period and youtube4tvh cronjob for streams that change very often.&lt;/p&gt;
-
-&lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;May 14th, 2020&lt;/strong&gt;: Added more info about streamlink install and outdated versions; fixed a few typos.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
-&lt;p&gt;In this guide, we will learn how to feed Youtube live-streams into a TVHeadend (TVH) server as IPTV channels.  This is a fairly advanced guide but I’ll try my best to make it as digestible as possible to any individual with minimal knowledge about selfhosting.  You will need a &lt;strong&gt;Linux distro&lt;/strong&gt; (e.g., Debian, Ubuntu) to follow this guide.  All the software described here is &lt;strong&gt;free and open-source&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;I’m not an expert in any of the topics mentioned here.  If you have suggestions on how to improve something, please leave a comment below stating what could be changed and why it should be changed.&lt;/p&gt;
-
-&lt;p&gt;Youtube4tvh is a utility program I wrote just for this guide.  I welcome anyone who wants to improve it or fork into something more abstract.  If that sounds like something you want to do, please head to &lt;a href=&quot;https://github.com/cgomesu/youtube4tvh&quot;&gt;my Github repo&lt;/a&gt; and hit me up once you’ve done some coding.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;motivation&quot;&gt;Motivation&lt;/h1&gt;
-&lt;p&gt;There are multiple reasons to watch Youtube live-streams as if they were IPTV channels.  Here are a reasons few that come to mind right now:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;It’s free and all programs are open-source;&lt;/li&gt;
-  &lt;li&gt;There is at least one Youtube 24/7 live-stream that you enjoy. Some of my personal favorites, per category:
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;News&lt;/strong&gt;: ABC News AU, Sky News, DW in English, France 24 in English&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;Space&lt;/strong&gt;: NASA TV, Space Videos, Space &amp;amp; The Universe HD&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;Webcam - Nature&lt;/strong&gt;: Cornell Lab of Ornithology Cams, Monterey Bay Aquarium, Explore Oceans, Explore Nature, Volcanoverse&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;Webcam - Other&lt;/strong&gt;: Virtual Railfan, earthTV, I Love You Venice,&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;Radio&lt;/strong&gt;:  BGM channel, Cafe del Mar, Stay See&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;You want to make selected Youtube live-streams available as IPTV channels through a TVH server (TVH -&amp;gt; Streamlink pipe -&amp;gt; Youtube);&lt;/li&gt;
-  &lt;li&gt;You want to keep your streaming services as centralized as possible.  That is, instead of multiple apps, you can manage all of them using a single application (TVH);&lt;/li&gt;
-  &lt;li&gt;You want to take advantage of one of the fastest and most reliable media delivery networks out there (Youtube’s CDN);&lt;/li&gt;
-  &lt;li&gt;You dislike Youtube ads (Streamlink will get rid of them without the need to install any filtering system);&lt;/li&gt;
-  &lt;li&gt;You like how it looks for the client:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;!-- Courtesy of embedresponsively.com //--&gt;
-&lt;div class=&quot;responsive-video-container&quot;&gt;
-
-  &lt;iframe src=&quot;https://www.youtube-nocookie.com/embed/9FSPf5wISUY&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
-
-&lt;/div&gt;
-
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;objectives&quot;&gt;Objectives&lt;/h1&gt;
-&lt;p&gt;By the end of the guide, you’ll have learned how to do the following:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Create a customized Youtube live-stream m3u playlist with the help of youtube4tvh;&lt;/li&gt;
-  &lt;li&gt;Install a TVH server on a Linux machine;&lt;/li&gt;
-  &lt;li&gt;Install Streamlink to pipe live-stream data into a TVH server;&lt;/li&gt;
-  &lt;li&gt;Add a Youtube live-stream m3u playlist to a TVH server as an IPTV auto network;&lt;/li&gt;
-  &lt;li&gt;Configure a TVH server to auto-map muxes to channels using bouquets;&lt;/li&gt;
-  &lt;li&gt;Create a cronjob to automatically update the Youtube live-stream m3u playlist every day at 6am.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;client-server-layout&quot;&gt;Client-server layout&lt;/h1&gt;
-&lt;p&gt;There are three main components to this setup, namely &lt;strong&gt;TVH&lt;/strong&gt;, &lt;strong&gt;Streamlink&lt;/strong&gt;, and &lt;strong&gt;youtube4tvh&lt;/strong&gt;, which are all open-source and free:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/tvheadend/tvheadend&quot;&gt;&lt;strong&gt;TVHeadend&lt;/strong&gt;&lt;/a&gt;: Tvheadend is a TV streaming server for Linux supporting DVB-S, DVB-S2, DVB-C, DVB-T, ATSC, IPTV, SAT&amp;gt;IP and other formats through the unix pipe as input sources.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-05-07-Youtube-as-IPTV-with-TVH/tvh-github.png&quot;&gt;&lt;img src=&quot;/assets/posts/2020-05-07-Youtube-as-IPTV-with-TVH/tvh-github.png&quot; alt=&quot;TVH Github&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-05-07-Youtube-as-IPTV-with-TVH/tvh-webui.png&quot;&gt;&lt;img src=&quot;/assets/posts/2020-05-07-Youtube-as-IPTV-with-TVH/tvh-webui.png&quot; alt=&quot;TVH WebUI&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/streamlink/streamlink&quot;&gt;&lt;strong&gt;Streamlink&lt;/strong&gt;&lt;/a&gt;: Streamlink is a CLI utility which pipes video streams from various services into a video player.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-05-07-Youtube-as-IPTV-with-TVH/streamlink-github.png&quot;&gt;&lt;img src=&quot;/assets/posts/2020-05-07-Youtube-as-IPTV-with-TVH/streamlink-github.png&quot; alt=&quot;Streamlink Github&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/cgomesu/youtube4tvh&quot;&gt;&lt;strong&gt;youtube4tvh&lt;/strong&gt;&lt;/a&gt;: Youtube4tvh is a Python CLI program that uses Youtube API to create (or update) m3u playlists of live-streams that are piped into a TVH server via Streamlink.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-05-07-Youtube-as-IPTV-with-TVH/youtube4tvh-github.png&quot;&gt;&lt;img src=&quot;/assets/posts/2020-05-07-Youtube-as-IPTV-with-TVH/youtube4tvh-github.png&quot; alt=&quot;youtube4tvh Github&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;For this guide, we will assume that such components are related to each other and any clients (any IPTV players, such as VLC, Plex or a Kodi PVR) according to the following layout:&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-05-07-Youtube-as-IPTV-with-TVH/tvh-layout.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-05-07-Youtube-as-IPTV-with-TVH/tvh-layout.jpg&quot; alt=&quot;Client-server layout&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;However, once you’re done with the initial configuration, you can try changing it to accomodate your needs.  For example, you can &lt;a href=&quot;https://tvheadend.org/projects/tvheadend/wiki/VLC_Multicasting&quot;&gt;multicast a live-stream to a TVH server using VLC&lt;/a&gt;.  This will let you use a single connection to Youtube be distributed to multiple clients, instead of creating multiple connections to Youtube–definitely take a look at it if you’re serving a large number of clients with your TVH server.  Also, you might want to pipe the Streamlink data to FFMPEG before sending to TVH, which will let you set custom AV codecs.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;youtube4tvh&quot;&gt;Youtube4tvh&lt;/h1&gt;
-&lt;p&gt;This is a utility program that will let us create and manage m3u playlist of Youtube live-streams.  It can extract information directly from Youtube’s frontend (default) or from Youtube’s API (by using a valid API key).  Be aware that the API keys have daily quotas that this program will reach fairly quickly. For more info, checkout &lt;a href=&quot;https://github.com/cgomesu/youtube4tvh&quot;&gt;the github page&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;create-a-youtube-api-v3&quot;&gt;Create a Youtube API v3&lt;/h2&gt;
-&lt;p&gt;&lt;em&gt;Since the release of &lt;a href=&quot;https://github.com/cgomesu/youtube4tvh/releases&quot;&gt;&lt;strong&gt;v0.1.1&lt;/strong&gt;&lt;/a&gt;, youtube4tvh does not require the use of API keys to run. Therefore, &lt;strong&gt;the use of API keys is now optional&lt;/strong&gt;. If you choose to skip this step, simply omit the&lt;/em&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--apikey&lt;/code&gt; &lt;em&gt;argument when running this utility.&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;You can find instructions on &lt;a href=&quot;https://developers.google.com/youtube/v3/getting-started&quot;&gt;the official page&lt;/a&gt;.  If you don’t want to head there, here is a streamlined version:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;Sing up for or Log into your Google account;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Go to your &lt;a href=&quot;https://console.developers.google.com/apis/&quot;&gt;API dashboard&lt;/a&gt;;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Create a project (top left &amp;gt; new project);&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Give the project a name and create it (this should take a few seconds…);&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Select the project you just created and in the dashboard, go to ‘+ Enable APIs and Services’;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Search for Youtube Data API v3 and enable it;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;It should redirect you to its dashboard but if doesn’t, select Manage;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Select Create Credentials (if you don’t see a button, just go to Credentials in the side menu);&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;It’s going to ask you which API you’re going to use (select Youtube Data API v3), where you’ll be calling it from (Other UI) and what data (Public data). Then select ‘What credentials do I need?’ and it will generate an unrestricted API for the project you created;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;In the side menu, go to Credentials and Edit the API Key you generated;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Under ‘API restrictions’, select Restrict key &amp;gt; Youtube Data API v3 &amp;gt; Save.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;That’s it! Your key is that long string with random letters and numbers in the column labeled &lt;strong&gt;Key&lt;/strong&gt;. Whenever you see a field to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;YOURKEY&lt;/code&gt;, use that one.  Also, you can repeat this process to generate additional keys.  It’s a good idea to do so.&lt;/p&gt;
-
-&lt;h2 id=&quot;install-youtube4tvh&quot;&gt;Install youtube4tvh&lt;/h2&gt;
-&lt;p&gt;Open a terminal window and run the following:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt update
-sudo apt install git python-pip
-cd /opt
-sudo git clone https://github.com/cgomesu/youtube4tvh.git
-cd youtube4tvh
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Install required packages via pip:&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pip install .
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Test the program (change &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;YOURKEY&lt;/code&gt; for your API key)&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd youtube4tvh
-python main.py --apikey=YOURKEY --channelname=&quot;DW News&quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Now, there should be an output.m3u file on the same folder you are (you can &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ls&lt;/code&gt; to list files).&lt;/p&gt;
-
-&lt;p&gt;If you run into permission issues, make sure to use a user with sudo perission.  Also, if your user is not allowed to write to /opt, then run the follwing (changing &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;YOURUSER&lt;/code&gt; for your sudo username):&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo chown -R YOURUSER:sudo /opt/youtube4tvh
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;If everything looks good, go ahead and add permission to execute the streamlink.sh helper script that will pipe data into TVH (if you want to change settings from streamlink, change them in the streamlink.sh file):&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo chmod +x /opt/youtube4tvh/streamlink.sh
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;basic-usage&quot;&gt;Basic usage&lt;/h2&gt;
-&lt;p&gt;This program has two modes of execution, &lt;strong&gt;add&lt;/strong&gt; and &lt;strong&gt;update&lt;/strong&gt;. The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--mode=add&lt;/code&gt; is the default mode and it will create an m3u file if you don’t specify one.  However, if you do provide an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--m3uinput=/path/to/file.m3u&lt;/code&gt;, it will instead append channels to output.m3u. (If &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--m3uinput&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--m3uoutput&lt;/code&gt; are the same, then it appends to itself.)&lt;/p&gt;
-
-&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--mode=update&lt;/code&gt; will parse an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--m3uinput=/path/to/file.m3u&lt;/code&gt; and update all URLs to make sure they are the ones currently available (instead of a broken URL).  This is useful because even though some Youtube channels stream 24/7, they will at times stop and restart the stream, which will cause Youtube to generate a new URL to their live-stream.  The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--mode=update&lt;/code&gt; will make sure your output.m3u is always using the correct URLs.  (Again, if you want to update the same input file, then point both &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--m3uinput&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--m3uoutput&lt;/code&gt; to the same m3u file.)&lt;/p&gt;
-
-&lt;p&gt;First, we will generate a youtube.m3u file with the channel “DW News”.  Afterwards, we will append a couple of additional channels to the youtube.m3u file.  Then, we will create a cronjob to keep our youtube.m3u up-to-date.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Create youtube.m3u file and add the channel “DW News” (change &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;YOURKEY&lt;/code&gt; to your actual API key):&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd /opt/youtube4tvh/youtube4tvh
-python main.py --apikey=YOURKEY --m3uoutput=youtube.m3u --channelname=&quot;DW News&quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Append the channel “France 24 English” to the youtube.m3u file:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python main.py --apikey=YOURKEY --m3uinput=youtube.m3u --m3uoutput=youtube.m3u --channelname=&quot;France 24 English&quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Append the channel “Explore Nature” to the youtube.m3u file:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python main.py --apikey=YOURKEY --m3uinput=youtube.m3u --m3uoutput=youtube.m3u --channelname=&quot;Explore Nature&quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Create a cronjob to update the youtube.m3u file everyday at 6am. First, make a backup or your youtube.m3u file:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cp /opt/youtube4tvh/youtube4tvh/youtube.m3u /opt/youtube4tvh/youtube4tvh/youtube.m3u.backup
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Create a cronjob:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;crontab -e
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Add the following at the bottom&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0 6 * * * /usr/bin/python /opt/youtube4tvh/youtube4tvh/main.py --apikey=YOURKEY --m3uinput=/opt/youtube4tvh/youtube4tvh/youtube.m3u --m3uoutput=/opt/youtube4tvh/youtube4tvh/youtube.m3u --mode=update
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Save and exit (ctrl+x)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;That’s all we need to do with this program.  If you ever feel like adding a new channel to the playlist, you can just repeat the “Append” examples with the new channel instead.&lt;/p&gt;
-
-&lt;p&gt;If you want to remove a channel, you’ll need to manually edit the youtube.m3u file (remove the channel’s #EXTINF row and the one immediately below it, which contains the pipe command).  You can also manually edit the m3u file to add a group-title to the channels (see sample/input.m3u, for example), change their order, etc.  Just use your favorite text editor to do that and when you’re done, save preserving the .m3u extension.&lt;/p&gt;
-
-&lt;h2 id=&quot;recommendations&quot;&gt;Recommendations&lt;/h2&gt;
-&lt;p&gt;Theoretically, the m3u playlists can contain as many streams as you want.  However, as a general rule of thumb, I find it useful to create one m3u playlist for each type of streaming channel–for example, youtube-webcams.m3u, youtube-news.m3u, youtube-radio.m3u, and etc–and then have a unique API key for each of them.  This way, I can run the youtube4tvh cronjob more often, thus reducing the chance of having broken URLs in the m3u file.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;streamlink&quot;&gt;Streamlink&lt;/h1&gt;
-&lt;p&gt;Streamlink is an awesome utility program and if you’ve never used it before, make sure to check their &lt;a href=&quot;https://streamlink.github.io/&quot;&gt;documentation&lt;/a&gt;.  Here, we will only use it to pipe data from Youtube to a TVH server but Streamlink is able to pipe video streams from many other platforms (Twitch, Dailymotion, etc.).&lt;/p&gt;
-
-&lt;p&gt;To install Streamlink, please follow the instructions on &lt;a href=&quot;https://streamlink.github.io/install.html&quot;&gt;the official website&lt;/a&gt;.  Make sure you’re running the latest version afterwards.  You can find the installed version by running &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;streamlink --version&lt;/code&gt;, which should be the same one as the latest version on their &lt;a href=&quot;https://github.com/streamlink/streamlink/releases&quot;&gt;Releases page&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;(It looks like multiple repos are distributing a much older version than the 1.4.1, which is the latest when this article was first posted.  If that’s the case for your distro, take a look at the PyPi and source installation on their Install page.  Uninstall the older version and install via pip and if that doesn’t work, try cloning their git repo and install via setup-tools, very much like the youtube4tvh utility.)&lt;/p&gt;
-
-&lt;p&gt;In &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/opt/youtube4tvh&lt;/code&gt;, you’ll notice a file called &lt;strong&gt;streamlink.sh&lt;/strong&gt;.  That is a helper script that TVH will use to get the video stream from a Youtube URL.  If you open it with a text editor, you’ll see the following:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#!/bin/bash
-####################################################
-################ Streamlink script #################
-####################################################
-# The default version writes the data from the best
-# stream ($1, the first argument) to stdout using a
-# thread pool of size 2 to download HLS segments.
-# Everything else follows default values.
-#
-# Inspired by niwi_niwi's post at
-# https://tvheadend.org/boards/5/topics/35658
-#
-# More info: https://streamlink.github.io/cli.html
-#
-####################################################
-#### Add/modify script according to your needs #####
-streamlink \
---stdout \
---hls-segment-threads 4 \
---hls-live-edge 10 \
-&quot;$1&quot; best
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;The actual command to execute streamlink and its options are all at the bottom.  If you know what you’re doing and want to play with different configurations, go ahead and change the arguments in the streamlink command.  Say, if instead of playing always the ‘best’ stream you want to play the 480p version, then just change it to that (but always leave &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--stdout&lt;/code&gt; or you won’t be able to pipe data to TVH).  Once again, &lt;a href=&quot;https://streamlink.github.io/cli.html&quot;&gt;check the docs&lt;/a&gt; for a comprehensive list of options.&lt;/p&gt;
-
-&lt;p&gt;To test the script, you can simply execute the following (change &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;YOUTUBEURL&lt;/code&gt; for the URL of a Youtube live-stream):&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash streamlink.sh YOUTUBEURL
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;You should see a whole bunch random characters as streamlink outputs the video stream to the terminal.  Hit ctrl+c to terminate the process.  If you have a player, you can run the command above with a pipe to the player.  Using &lt;a href=&quot;https://github.com/videolan/vlc&quot;&gt;&lt;strong&gt;VLC&lt;/strong&gt;&lt;/a&gt;, for example:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash streamlink.sh YOUTUBEURL | vlc -
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;tvh-server&quot;&gt;TVH server&lt;/h1&gt;
-&lt;p&gt;TVH was a game-changer for me.  It offers a centralized system to manage multiple IPTV networks and TV tuners.  I can fully customize how all channels will show up to all my clients and that’s so much better than using multiple (and sometimes shady) applications developed by each IPTV provider.  If a channel is down, I can tell TVH to automatically remove it or remap to another provider.  If the EPG is not working, I can tell TVH to fetch from another source.  If a client does not support a particular type of codec, I can create a profile that uses the codec that works with it.  And all those changes are automatically applied to all clients, without the need to change one by one, because they are all getting data from my TVH server instead of external sources.  (It’s the TVH server that should always do that latter.)&lt;/p&gt;
-
-&lt;h2 id=&quot;installation&quot;&gt;Installation&lt;/h2&gt;
-&lt;p&gt;To install a TVH server, please follow the instructions on &lt;a href=&quot;https://tvheadend.org/projects/tvheadend/wiki/Download&quot;&gt;the official website&lt;/a&gt;.  I strongly suggest you to install from the repo to make it easy to update with a simple &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;apt update&lt;/code&gt; command.  Also, make sure you’re running the latest version of it afterwards.&lt;/p&gt;
-
-&lt;h2 id=&quot;basic-configuration&quot;&gt;Basic configuration&lt;/h2&gt;
-&lt;p&gt;After installing TVH, head to the webUI on &lt;a href=&quot;http://localhost:9981&quot;&gt;http://localhost:9981&lt;/a&gt;.  (If you’re not running a desktop environment on the same machine, access it from another machine on the same network and change localhost for the IP of the machine running the TVH server.  Also, it goes without saying that the machine hosting the TVH server should have a fixed IP address at the local network because all the clients will be pointing to it.)&lt;/p&gt;
-
-&lt;p&gt;If you provided admin credentials for TVH during the installation, it will ask you to identify yourself now.&lt;/p&gt;
-
-&lt;p&gt;TVH will start the wizard the first time you access the webUI but you can just skip it (hit Cancel).&lt;/p&gt;
-
-&lt;p&gt;Notice that there are several tabs in the webUI but many options will not show up if the “View level” is set to Basic, so let’s change the default to &lt;strong&gt;Expert&lt;/strong&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Go to Configuration &amp;gt; General &amp;gt; Base &amp;gt; Server &amp;gt; Set &quot;User interface level&quot; to Expert and hit Save
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Now, let’s configure the Stream profiles to restart on error:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Go to Configuration &amp;gt; Stream &amp;gt; Stream profiles &amp;gt; htsp &amp;gt; Check &quot;restart on error&quot; hit Save
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;(You can repeat that step to all profiles that you’re going to use.  I usually just use htsp for clients and pass for auto-recording.)&lt;/p&gt;
-
-&lt;p&gt;While we’re at it, let’s go ahead and customize the Recording settings as well.  This is all really up to your own preferences but this is what I use that is different from the default configuration:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Go to Configuration &amp;gt; Recording &amp;gt; DVR Profiles &amp;gt; Default profile
-# DVR file retention: 3 days
-# Pre-recording padding: 5 mins
-# Post-recording padding: 5 mins
-# Recording system path: /path/to/my/NAS/media/iptv/recording
-# Maintain free storage space in MiB: 5000
-# File permissions: 0777
-# Filename character set: UTF-8
-# Skip commercials: Unchecked
-# Format string: $c/$t - $c - %F - %R$n.$x
-# Directory permissions: 0777
-# Make subdirectories per channel: Checked
-# Include date in filename: Checked
-# Include time in filename: Checked
-# Remove all unsafe characters from filename: Checked
-# Hit Save
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;We’re done with the basic configuration!  Before moving to the next section, notice that at the bottom of the webUI there’s a bar called &lt;strong&gt;Tvheadend log&lt;/strong&gt; and on the opposite side, there is a button.  Click on it to open the log.  This is very useful to check if there’s any error while you’re making changes to the server.  Keep it open as you change the settings and if you see an error, there’s probably something misconfigured that you should fix before moving on.&lt;/p&gt;
-
-&lt;h2 id=&quot;create-an-iptv-auto-network&quot;&gt;Create an IPTV auto network&lt;/h2&gt;
-&lt;p&gt;We’re now going to create an IPTV network using the youtube.m3u file we created with youtube4tvh.  Open the TVH webUI and do the following:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Go to Configuration &amp;gt; DVB Inputs &amp;gt; Networks &amp;gt; Add
-# Type: IPTV automatic network
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;This will redirect to IPTV settings.  Change the following:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Network name: youtube
-# URL: file:///opt/youtube4tvh/youtube4tvh/youtube.m3u
-# Create bouquet: Checked
-# Channel numbers start from: 1
-# Accept zero value for TSID: Checked
-# Provider network name: youtube
-# Ignore provider's channel numbers: Checked
-# Character set: UTF-8
-# Scan after creation: Unchecked
-# Content character set: UTF-8
-# Service ID: 1
-# Hit Create
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Before we move on, now is a good time to check if streamlink and the helper script are working.  We’re going to force play a few muxes (channels from your youtube.m3u playlist) to make sure that it’s all good before mapping them to actual TV channels.  (You gonna need a player for this step; if you don’t have one, skip it or install VLC).&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Go to Configuration &amp;gt; DVB Inputs &amp;gt; Muxes &amp;gt; Choose a random one and Hit the Play button
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;The selected stream should show up in a few seconds.  If it doesn’t, there’s likely an issue with streamlink or the player or both, in which case you should stop and try to solve it before moving on.&lt;/p&gt;
-
-&lt;h2 id=&quot;mapping-serves-to-channels&quot;&gt;Mapping serves to channels&lt;/h2&gt;
-&lt;p&gt;There are two ways of mapping services to channels.  The standard way is to go to the Services tab and choose Map Selected &amp;gt; Map all services.  This should work very well if your muxes won’t ever change.  However, if they do (as in our case), they won’t be automatically remapped to their channel, and you gonna have to do this mapping process manually once again, multiple times.  We don’t wanna do that.  Fortunately, there’s a second way of mapping services to channels that does so automatically, even if your muxes change, and that’s via &lt;strong&gt;Bouquets&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;Remember that when we created the youtube IPTV network, we selected “Create a bouquet”.  Because of that, there’s now a new entry in Configuration &amp;gt; Channel / EPG &amp;gt; Bouquets &amp;gt; “youtube”.  So, let’s go ahead and edit it a little bit:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Go to Configuration &amp;gt; Channel / EPG &amp;gt; Bouquets &amp;gt; Edit the &quot;youtube&quot; bouquet
-# Enabled: Checked
-# Auto-map to channels: Checked
-# Channel mapping options: Select all
-# Create tags: Create provider name tags, Create network name tags
-# Hit Save
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Wait a few seconds and go to the “Channels” tab and you should see all your channels auto-mapped to their services.  If you make any changes to the youtube.m3u playlist, the bouquet should automatically detect those changes from now on.&lt;/p&gt;
-
-&lt;h2 id=&quot;epg-data&quot;&gt;EPG data&lt;/h2&gt;
-&lt;p&gt;Some of the 24/7 news channels on Youtube (e.g., France 24, DW) actually follow the same eletronic program guide (EPG) as their Cable/Satellite broadcast.  So, if you want, you can add EPG data to their Youtube live-stream.  There’s a fantastic program called &lt;a href=&quot;http://webgrabplus.com/&quot;&gt;&lt;strong&gt;WebGrab+Plus&lt;/strong&gt;&lt;/a&gt; that can do that for you &lt;strong&gt;for free&lt;/strong&gt;, but there’s a learning curve to it and how to feed the data to TVH (netcat or curl).  I’m planning on writing a guide about it in the near future, as I work on a parser for the site.pack folder as well.  But if you don’t feel like diving into that, you can always pay an EPG provider and manually add it to your clients (bad) or try to figure it out how to feed the EPG data to the TVH server (good).&lt;/p&gt;
-
-&lt;h2 id=&quot;creating-and-editing-users&quot;&gt;Creating and editing users&lt;/h2&gt;
-&lt;p&gt;Clients can access TVH using the same credentials as you’ve been using to configure the TVH server (admin access). As a general rule of thumb, however, that’s not a good practice.  Also, if you have multiple clients, it’s nice to know what each one is trying to access on your TVH server.  So, let’s go ahead and create a “client” user:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Go to Configuration &amp;gt; Users &amp;gt; Access Entries &amp;gt; Add
-# Streaming: Select all
-# Video recorder: Basic, HTSP, View All
-# Hit Create
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Now let’s add a password for it:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Go to Configuration &amp;gt; Users &amp;gt; Passwords &amp;gt; Add
-# Enabled: Checked
-# Username: client
-# Password: password
-# Hit Create
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;That’s it!  You can repeat this process as many times as you need and play around with permissions, depending on your use-case.&lt;/p&gt;
-
-&lt;h2 id=&quot;re-fetch-period-and-youtube4tvh-cronjobs&quot;&gt;Re-fetch period and youtube4tvh cronjobs&lt;/h2&gt;
-&lt;p&gt;If you’ve a youtube m3u playlist with channels that are likely to change multiple times during the same day, then it’s a good idea to create a separate playlist for those channels.  Then, when you create a youtube4tvh cronjob for the new m3u playlist, make it run more frequently (e.g., every 5 mins would be &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;*/5 * * * *&lt;/code&gt;) and in the TVH server, add a new IPTV auto network for the new m3u playlist and in its settings, edit the “re-fetch period” to match the cronjob update interval (5); hit save and then restart the TVH server to apply the new settings. If you’ve done it right, the TVH server will now check the m3u playlist at an interval equal to the re-fetch period and update any new/changed mux on it, which will be automatically mapped to a channel in its bouquet.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;tvh-client&quot;&gt;TVH client&lt;/h1&gt;
-&lt;p&gt;There are multiple ways to watch the channels on your TVH server, including directly from the webUI itself (EPG tab &amp;gt; Watch TV).  The one I use is &lt;a href=&quot;https://kodi.tv/download&quot;&gt;&lt;strong&gt;Kodi&lt;/strong&gt;&lt;/a&gt; + &lt;strong&gt;TVH client addon&lt;/strong&gt; because my Kodi clients also access my Plex server.&lt;/p&gt;
-
-&lt;p&gt;You can install Kodi on virtually any single-board computer, such as &lt;a href=&quot;https://www.raspberrypi.org/&quot;&gt;Raspberry Pi&lt;/a&gt; and &lt;a href=&quot;https://www.hardkernel.com/&quot;&gt;Odroid&lt;/a&gt;, and Linux distro.  There are hundreds of guides showing how to install Kodi, so I won’t do that.  Instead, I’ll talk about the &lt;strong&gt;TVH client addon&lt;/strong&gt; for it.&lt;/p&gt;
-
-&lt;h2 id=&quot;install-a-tvh-client-addon-for-kodi&quot;&gt;Install a TVH client addon for Kodi&lt;/h2&gt;
-&lt;p&gt;Open Kodi and try to install via the official repo:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Go to Add-ons &amp;gt; Install from repo &amp;gt; PVR clients
-# Look for Tvheadend HTSP Client and install it
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Now, depending on the distribution, you won’t see the “PVR clients” option.  In this case, you have to manually install the TVH client.  On Debian, for example, you can install it like so:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Open a terminal
-sudo apt update
-sudo apt install kodi-pvr-hts
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;(Another option is to download a .zip of the addon but please do your research first.  Don’t download and install addons from random repos.)  If you didn’t see any error, it means the PVR client is now available on Kodi, so open it (restart it, if it was already open) and then do the following (changing the values to the appropriate ones for your TVH server and client credentials):&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Go to Add-ons &amp;gt; My add-ons &amp;gt; PVR clients &amp;gt; Tvheadend HTSP Client &amp;gt; Configure
-# &amp;gt; Connection Settings
-# IP address: The IP address of the machine hosting your TVH server
-# HTTP port: 9981
-# HTSP port: 9982
-# Username: client
-# Password: password
-# &amp;gt; Streaming settings
-# Profile to use: htsp
-# (If your connection is pretty good, you might want to try enabling predictive tuning
-# but I've had mixed results with it.)
-# Hit OK
-# Restart Kodi
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;If you want to play around, you can create a video profile just for this client and then set the Profile to use it.  This could be a profile that transcodes to a particular AV codec that best fits the client hardware, for example.  Be mindful that whenever you make a change to the addon, you’ll need to restart Kodi to see the changes take effect.&lt;/p&gt;
-
-&lt;p&gt;Test the Kodi client:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Go to TV &amp;gt; Channels &amp;gt; Play random one
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;If everything is working as it should, you should now be able to watch the stream from your Kodi client.  Play around with it and try recording something, too.  Now it’s time to fine-tune your TVH server to best serve your clients.&lt;/p&gt;
-
-&lt;p&gt;You can make further client-side changes in &lt;strong&gt;Kodi’s PVR &amp;amp; Live TV settings menu&lt;/strong&gt;, such as mapping channels to specific numbers, behavior of changing channels, etc.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
-&lt;p&gt;Congratulations for reaching the end of this guide.  As I said before, one of my future projects is to work on a parser for the Webgrab+Plus EPG data and then write a guide on how to implement it using the current setup.&lt;/p&gt;
-
-&lt;p&gt;If you found this useful or have suggestions on how to improve this guide, please leave a comment and I’ll try to reply asap.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="github" /><category term="iptv" /><category term="kodi" /><category term="streamlink" /><category term="tvheadend" /><category term="youtube" /></entry></feed>
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="homelab" /><category term="homeserver" /><category term="firewall" /><category term="network" /></entry></feed>
