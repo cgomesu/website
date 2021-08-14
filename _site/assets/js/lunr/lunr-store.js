@@ -78,7 +78,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Towards a smarter Home Assistant: Getting started on the analytical tools",
-        "excerpt":"Changelog June 22nd, 2021: Publication of the original article top Introduction Home Assistant (HASS) is a free and open-source software (FOSS) that provides a feature-rich environment for managing, controlling, and automating smart home devices, such as light bulbs, blinders, and LED strips. In addition, it provides a highly customizable system...","categories": ["blog"],
+        "excerpt":"Changelog August 14th, 2021, Update #2: My pull request to add quantiles to the attributes of the Statistics integration was approved and now we have access to an additional (and more informative) distribution metric. The Statistics section was updated to reflect such change. August 14th, 2021, Update #1: Release 2021.8.0...","categories": ["blog"],
         "tags": ["hass","iot","automation","math","stats","inference"],
         "url": "/blog/smarter-hass/",
         "teaser": null
