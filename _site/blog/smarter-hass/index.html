@@ -198,7 +198,7 @@
 
 
 
-  72 minute read
+  76 minute read
 
 </p>
       
@@ -363,6 +363,7 @@
         <ul>
           <li><a href="#default-database">Default database</a></li>
           <li><a href="#resetting-entity-data-in-the-db">Resetting entity data in the DB</a></li>
+          <li><a href="#long-term-statistics">Long-term statistics</a></li>
         </ul>
       </li>
       <li><a href="#statistics">Statistics</a></li>
@@ -409,6 +410,10 @@
           </aside>
         
         <h1 id="changelog">Changelog</h1>
+<p class="notice--info"><strong>August 14th, 2021</strong>, Update #2: <a href="https://github.com/home-assistant/core/pull/52189">My pull request</a> to add <a href="https://en.wikipedia.org/wiki/Quantile">quantiles</a> to the attributes of the Statistics integration was approved and now we have access to an additional (and more informative) distribution metric. The <a href="#statistics-1">Statistics</a> section was updated to reflect such change.</p>
+
+<p class="notice--success"><strong>August 14th, 2021</strong>, Update #1: <a href="https://www.home-assistant.io/blog/2021/08/04/release-20218/">Release 2021.8.0</a> has introduced a new feature for sensors called <a href="https://developers.home-assistant.io/docs/core/entity/sensor/#long-term-statistics"><strong>long-term statistics</strong></a>. A new sub-section called <a href="#long-term-statistics">Long-term statistics</a> was added to the <a href="#hass-database">HASS database</a> section that describes its relation to the <code class="language-plaintext highlighter-rouge">states</code> table and how to implement it.  The same release also introduced the <a href="https://www.home-assistant.io/lovelace/statistics-graph/">Statistics Graph Card</a>, which provide a nice way of visualizing long-term statistics.</p>
+
 <p class="notice--info"><strong>June 22nd, 2021</strong>: Publication of the original article</p>
 
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
@@ -609,6 +614,24 @@
 </ol>
 
 <p>Of course, there are other <code class="language-plaintext highlighter-rouge">recorder</code> services available in the Developer Tools &gt; Services tab. Feel free to explore them.</p>
+
+<h3 id="long-term-statistics">Long-term statistics</h3>
+<p><a href="https://www.home-assistant.io/blog/2021/08/04/release-20218/">Release 2021.8.0</a> has introduced a new feature for sensors called <a href="https://developers.home-assistant.io/docs/core/entity/sensor/#long-term-statistics"><strong>long-term statistics</strong></a>. In brief, sensor data (e.g., the state value and the sensor attributes) are stored on the <code class="language-plaintext highlighter-rouge">states</code> table of the HASS DB.  Now, however, sensors that <strong>opt-in</strong> for long-term statistics have three summary statistics (<code class="language-plaintext highlighter-rouge">mean</code>, <code class="language-plaintext highlighter-rouge">min</code>, and <code class="language-plaintext highlighter-rouge">max</code>) stored on a new table of the HASS DB, called <code class="language-plaintext highlighter-rouge">statistics</code>. The <code class="language-plaintext highlighter-rouge">statistics</code> data are unaffected by the <code class="language-plaintext highlighter-rouge">recorder</code> configuration in the <code class="language-plaintext highlighter-rouge">configuration.yaml</code> file and therefore, it allows users to keep summary statistics for longer than the <code class="language-plaintext highlighter-rouge">recorder</code> configuration allows to keep data in the <code class="language-plaintext highlighter-rouge">states</code> table.</p>
+
+<p>The summary statistics are stored on an <strong>hourly</strong> basis. That is, if a sensor has stored five data points between 2PM and 3PM, then for each summary statistic, there will be a single data point for the 2-3PM time window that summarize the five data points in the <code class="language-plaintext highlighter-rouge">states</code> table.  Therefore, making use of such a feature only makes sense if your sensor stores more than a single data point per hour.</p>
+
+<p>Currently, there are two types of long-term statistics that are stored on the <code class="language-plaintext highlighter-rouge">statistics</code> table of the HASS DB, all of which <strong>must include</strong> the <code class="language-plaintext highlighter-rouge">state_class: measurement</code> property and thus must refer to <strong>present time</strong> measurement (e.g., current temperature, current humidity):</p>
+
+<ol>
+  <li>
+    <p><strong>Metered</strong> entities: Apply to any sensor that has cumulative values <em>until a reset point</em>, such as energy consumption meters. All such sensors <strong>must include</strong> the <a href="https://developers.home-assistant.io/docs/core/entity/sensor/#properties"><code class="language-plaintext highlighter-rouge">last_reset</code></a> property, which specifies a <code class="language-plaintext highlighter-rouge">datetime</code> in which the values reset.</p>
+  </li>
+  <li>
+    <p><strong>Value</strong> entities: Apply to any non-cumulative sensor that belongs to a supported <a href="https://developers.home-assistant.io/docs/core/entity/sensor/#available-device-classes">device class</a>.  Naturally, all such sensors <strong>must include</strong> the <a href="https://developers.home-assistant.io/docs/core/entity/sensor/#properties"><code class="language-plaintext highlighter-rouge">device_class</code></a> property.</p>
+  </li>
+</ol>
+
+<p>Many integrations are currently configured to store summary statistics on the <code class="language-plaintext highlighter-rouge">statistics</code> table of the HASS DB, so you might now need to manually configure anything at all.  However, support for long-term statistics is still quite limited. As far as I can tell, the only other feature that makes use of the data in the <code class="language-plaintext highlighter-rouge">statistics</code> table is the new <a href="https://www.home-assistant.io/lovelace/statistics-graph/">Statistics Card Graph</a>, which is mentioned later on in the <a href="#visualizing-analytical-data">Visualizing analytical data</a> section.</p>
 
 <h2 id="statistics">Statistics</h2>
 <p>You don’t need to be a mathematician who specialized in statistics to make use of it.  In this guide, we will only make reference to very introductory statistical knowledge, such as measures of central tendency (e.g., mean, median), variability (e.g., variance, standard deviation) and simple (univariate) linear regression (e.g., gradient/slope).</p>
@@ -844,7 +867,7 @@
 <p><a href="#utilities" class="btn btn--info btn--small">Utilities</a></p>
 
 <h3 id="statistics-1">Statistics</h3>
-<p>The <a href="https://www.home-assistant.io/integrations/statistics/">Statistics</a> integration is by far the most useful integration for describing the past values from other entities.  In brief, it consumes the data from another entity and returns the traditional descriptive measures of central tendency (<code class="language-plaintext highlighter-rouge">mean</code> and <code class="language-plaintext highlighter-rouge">median</code>) and variability (<code class="language-plaintext highlighter-rouge">variance</code>, <code class="language-plaintext highlighter-rouge">stdev</code>, <code class="language-plaintext highlighter-rouge">min_value</code>, <code class="language-plaintext highlighter-rouge">max_value</code>), as well as a few other descriptive measures.</p>
+<p>The <a href="https://www.home-assistant.io/integrations/statistics/">Statistics</a> integration is by far the most useful integration for describing the past values from other entities.  In brief, it consumes the data from another entity and returns the traditional descriptive measures of central tendency (<code class="language-plaintext highlighter-rouge">mean</code> and <code class="language-plaintext highlighter-rouge">median</code>) and variability (<code class="language-plaintext highlighter-rouge">quantiles</code>, <code class="language-plaintext highlighter-rouge">variance</code>, <code class="language-plaintext highlighter-rouge">standard_deviation</code>, <code class="language-plaintext highlighter-rouge">min_value</code>, <code class="language-plaintext highlighter-rouge">max_value</code>), as well as a few other descriptive measures.</p>
 
 <p>Similarly to the <a href="#history-stats">History Stats</a> integration, the Statistics integration has <strong>two time period variables</strong>:</p>
 
@@ -1117,6 +1140,8 @@
 <h2 id="visualizing-analytical-data">Visualizing analytical data</h2>
 <p>There are many different ways of using and visualizing the analytical data reported with the utilities described in this guide.  Using the default configuration, for example, one might be inclined to display the mean or gradient using a <a href="https://www.home-assistant.io/lovelace/history-graph/">History Graph Card</a>.</p>
 
+<p class="notice--info">Of note, if one or more of your sensors make use of the <a href="#long-term-statistics">long-term statistics</a> feature, then the new <a href="https://www.home-assistant.io/lovelace/statistics-graph/">Statistics Graph Card</a> is the only way of visualizing their long-term summary data. The remaining part of this section describes visualization resources for sensor data stored on the <code class="language-plaintext highlighter-rouge">states</code> table of the HASS DB, instead of the <code class="language-plaintext highlighter-rouge">statistics</code> table.</p>
+
 <p>In this section, however, we will learn about two dashboard resources that I think are better alternatives to the History Graph Card, namely the <a href="https://github.com/kalkih/mini-graph-card">Mini Graph Card</a> and the <a href="https://github.com/gadgetchnnel/lovelace-card-templater">Lovelace Card Templater</a>. More specifically, we will use the Mini Graph Card within the Lovelace Card Templater to build the following Dashboard card previewed in the <a href="#introduction">Introduction</a>:</p>
 
 <p><a href="/assets/posts/2021-06-04-smarter-hass/hass-graph-dynamic-temperature-01.gif"><img src="/assets/posts/2021-06-04-smarter-hass/hass-graph-dynamic-temperature-01.gif" alt="HASS graph dynamic temperature 01" class="PostImage" /></a></p>
@@ -1333,7 +1358,7 @@
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 
 <h1 id="development">Development</h1>
-<p>In this guide, we’ve seen how the current set of analytical tools can greatly improve the way we <strong>describe</strong> past and current states.  However, the lack of a flexible and standardized specification of the <em>time variables</em>, as well as the lack of critical <em>distribution metrics</em> (e.g., percentile), make the current analytical tools very narrow in scope.  Compare, for example, how the <a href="#history-stats">History Stats</a> and the <a href="#statistics-1">Statistics</a> integration deal with the specification of a time period; or the lack of metrics in the Statistics integration for building <a href="https://en.wikipedia.org/wiki/Box_plot">box plots</a>, which use the same amount of visual space as bar/line plots but are far more informative.</p>
+<p>In this guide, we’ve seen how the current set of analytical tools can greatly improve the way we <strong>describe</strong> past and current states.  (<em>The following was changed on August 14th, 2021, in connection with the addition of quantiles to the Statistics integration.</em>)  However, the lack of a flexible and standardized specification of the <em>time variables</em> make the current analytical tools very narrow in scope.  Compare, for example, how the <a href="#history-stats">History Stats</a> and the <a href="#statistics-1">Statistics</a> integration deal with the specification of a time period.</p>
 
 <p>In addition, statistics is not just about summarizing the past; it is also a tool for making <strong>data-driven inferences</strong> about the future.  This is a topic that I find largely unexplored in home automation systems and would allow for the creation of what I call <strong>inferential automations</strong>.  Inferential automations determine actions based on abnormal states and measurements, for example, or reliable tendencies over a user-specified period of time:</p>
 
