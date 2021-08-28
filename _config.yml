@@ -90,14 +90,16 @@ author:
   avatar           : /assets/img/profile/profile-00.jpg # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "I'm a scientist, psychologist, math modeler, programmer, mtg player, free knowledge supporter, sbc fanatic, and electronics hobbyist."
   location         : "Brazil"
-  email            : 
+  btc              : "bc1qht8gllqv4fkq9kcdc5gckwpkzyv28df4kcppft"
+  ltc              : "LhuGAPBw4vihKC49r1WdvXmxk8dkZtwnB7"
+  email            : #Use main e-mail in links
   links:
     - label: "Main e-mail"
       icon: "fas fa-fw fa-envelope-square"
       url: "mailto:me@cgomesu.com"
-    - label: "Academic E-mail"
-      icon: "fas fa-fw fa-envelope-square"
-      # url: "mailto:cf365@cornell.edu"
+    - label: "Donations"
+      icon: "fas fa-fw fa-donate"
+      url: "/donations"
     - label: "https://cgomesu.com"
       icon: "fas fa-fw fa-link"
       url: "https://cgomesu.com"
