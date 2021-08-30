@@ -27,7 +27,6 @@ feature_row:
     url: "https://www.reddit.com/message/compose/?to=cgomesu"
     btn_label: "Send Message"
     btn_class: "btn--inverse"
-notice: "Test"
 ---
 ***
 {% include feature_row %}
