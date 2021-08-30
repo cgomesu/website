@@ -15,12 +15,17 @@ intro:
 {% include feature_row id="intro" type="center" %}
 
 - **Bitcoin** (SegWit) address:
+  
+  ![BTC SegWit 01 QR code](/assets/img/site/bitcoin-segwit-01.png){:.PostImage}
+
   ```
   bc1qht8gllqv4fkq9kcdc5gckwpkzyv28df4kcppft
   ```
 
 - **Litecoin** address:
+  
+  ![LTC 01 QR code](/assets/img/site/litecoin-01.png){:.PostImage}
+
   ```
   LhuGAPBw4vihKC49r1WdvXmxk8dkZtwnB7
   ```
-
