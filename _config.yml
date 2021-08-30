@@ -90,8 +90,6 @@ author:
   avatar           : /assets/img/profile/profile-00.jpg # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "I'm a scientist, psychologist, math modeler, programmer, mtg player, free knowledge supporter, sbc fanatic, and electronics hobbyist."
   location         : "Brazil"
-  btc              : "bc1qht8gllqv4fkq9kcdc5gckwpkzyv28df4kcppft"
-  ltc              : "LhuGAPBw4vihKC49r1WdvXmxk8dkZtwnB7"
   email            : #Use main e-mail in links
   links:
     - label: "Main e-mail"
@@ -103,18 +101,6 @@ author:
     - label: "https://cgomesu.com"
       icon: "fas fa-fw fa-link"
       url: "https://cgomesu.com"
-    - label: "Twitter"
-      icon: "fab fa-fw fa-twitter-square"
-      # url: "https://twitter.com/"
-    - label: "Facebook"
-      icon: "fab fa-fw fa-facebook-square"
-      # url: "https://facebook.com/"
-    - label: "GitHub"
-      icon: "fab fa-fw fa-github"
-      # url: "https://github.com/cgomesu/"
-    - label: "Instagram"
-      icon: "fab fa-fw fa-instagram"
-      # url: "https://instagram.com/"
 
 # Site Footer
 footer:
