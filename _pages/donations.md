@@ -13,19 +13,20 @@ intro:
 ---
 ***
 {% include feature_row id="intro" type="center" %}
+{% assign author = page.author | default: page.authors[0] | default: site.author %}
+{% assign author = site.data.authors[author] | default: author %}
 
 - **Bitcoin** (SegWit) address:
   
-  ![BTC SegWit 01 QR code](/assets/img/site/bitcoin-segwit-01.png){:.PostImage}
-
   ```
-  bc1qht8gllqv4fkq9kcdc5gckwpkzyv28df4kcppft
+  {{ author.btc }}
   ```
+  [![BTC SegWit 01 QR code](/assets/img/site/bitcoin-segwit-01.png){:.PostImage}](bitcoin:{{ author.btc }})
 
 - **Litecoin** address:
-  
-  ![LTC 01 QR code](/assets/img/site/litecoin-01.png){:.PostImage}
 
   ```
-  LhuGAPBw4vihKC49r1WdvXmxk8dkZtwnB7
-  ```
+  {{ author.ltc }}
+  ```  
+  [![LTC 01 QR code](/assets/img/site/litecoin-01.png){:.PostImage}](litecoin:{{ author.ltc }})
+
