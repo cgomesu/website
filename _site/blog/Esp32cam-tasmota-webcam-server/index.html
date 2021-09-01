@@ -645,6 +645,8 @@ sudo mkdir tasmota32
 </code></pre></div>    </div>
 
     <p class="notice--danger"><strong>Wait</strong> until <code class="language-plaintext highlighter-rouge">esptool.py</code> is completely done before moving on. Flashing a firmware can take a few minutes to complete.  If you experience issues while flashing, try a different baud rate (<code class="language-plaintext highlighter-rouge">-b</code>) than the default <code class="language-plaintext highlighter-rouge">115200</code>, such as <code class="language-plaintext highlighter-rouge">-b 921600</code>. The <a href="https://tasmota.github.io/docs/FAQ/#flashing">Tasmota FAQ</a> can help with this and other issues.</p>
+
+    <p class="notice">If <code class="language-plaintext highlighter-rouge">esptool.py</code> hangs at <code class="language-plaintext highlighter-rouge">Connecting...</code>, then press the <strong>Restart</strong> button (<code class="language-plaintext highlighter-rouge">RST</code>) on your ESP-cam module.</p>
   </li>
   <li>
     <p><strong>Wait until <code class="language-plaintext highlighter-rouge">esptool.py</code> is done</strong>. Then, <strong>remove the flash mode (GPIO0-GND) jumper</strong> from the ESP32-cam.</p>

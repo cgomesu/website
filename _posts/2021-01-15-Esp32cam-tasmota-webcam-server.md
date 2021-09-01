@@ -265,6 +265,9 @@ We are now ready to flash the Tasmota firmware.  For reference, the official inf
    **Wait** until `esptool.py` is completely done before moving on. Flashing a firmware can take a few minutes to complete.  If you experience issues while flashing, try a different baud rate (`-b`) than the default `115200`, such as `-b 921600`. The [Tasmota FAQ](https://tasmota.github.io/docs/FAQ/#flashing) can help with this and other issues.
    {: .notice--danger }
 
+   If `esptool.py` hangs at `Connecting...`, then press the **Restart** button (`RST`) on your ESP-cam module.
+   {: .notice }
+
 8. **Wait until `esptool.py` is done**. Then, **remove the flash mode (GPIO0-GND) jumper** from the ESP32-cam.
    
    [![ESP32cam nonflash mode](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-wiring-nonflash-mode.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-wiring-nonflash-mode.jpg)
