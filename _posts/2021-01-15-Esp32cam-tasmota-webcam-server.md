@@ -11,6 +11,9 @@ toc_icon: "list"
 ---
 
 # Changelog
+**September 1st, 2021**: Fixed a few typos (e.g., `ESP_HOME` instead of `ESP_PORT`) and updated the AITHINKER CAM template in [Updating the template](#updating-the-template).  Also, added minor notes to help troubleshooting issues when flashing the latest firmware.
+{: .notice--success }
+
 **August 12th, 2021**, Update #3: Made minor changes to a few commands to improve readability.
 {: .notice--info }
 
