@@ -11,7 +11,10 @@ toc_icon: "list"
 ---
 
 # Changelog
-**September 1st, 2021**: Fixed a few typos (e.g., `ESP_HOME` instead of `ESP_PORT`) and updated the AITHINKER CAM template in [Updating the template](#updating-the-template).  Also, added minor notes to help troubleshooting issues when flashing the latest firmware.
+**September 1st, 2021**, Update #2: Updated the [Standalone wiring](#standalone-wiring) section to recommend a power supply able to deliver at least 1A instead of the 400mA previously suggested. At boot and when scanning for WiFi networks, the module can use more than 400mA, which might cause it to become unreliable if the power supply is unable to deliver more than that.
+{: .notice }
+
+**September 1st, 2021**, Update #1: Fixed a few typos (e.g., `ESP_HOME` instead of `ESP_PORT`) and updated the AITHINKER CAM template in [Updating the template](#updating-the-template).  Also, added minor notes to help troubleshooting issues when flashing the latest firmware.
 {: .notice--success }
 
 **August 12th, 2021**, Update #3: Made minor changes to a few commands to improve readability.
@@ -283,6 +286,9 @@ We are now ready to flash the Tasmota firmware.  For reference, the official inf
 # Configuration
 By default, the Tasmota firmware will create a wireless access point for your ESP32-cam. 
 
+If you cannot find the Tasmota wireless access point, it is possible that the USB adapter is unable to provide enough power to operate the WiFi features in a reliable way.  In this case, check the [Standalone wiring](#standalone-wiring) section and use a power supply able to deliver at least 1A at 5V.
+{:.notice}
+
 1. Use a wifi-capable device (e.g., laptop) and connect to it. The ESP32-cam will give your device an IP address, which you can check via `ip a`. Usually, the device's IP address is in the `192.168.4.0/24` pool, which means the ESP32-cam webUI is at `192.168.4.1:80`; Otherwise, the webUI will be at the first addr in whichever pool your device connected to after joining the wireless access point created by the Tasmota firmware.
 
 2. Open a web-browser of your choice and navigate to the ESP32-cam webUI. You should be prompted to change the wifi settings to allow your ESP32-cam to connect to your local wifi network.  Change the settings, save it, and wait for the ESP32-cam to reboot.
@@ -419,7 +425,7 @@ timezone -3
 You can now capture the live stream of your ESP32-cam at either `http://DEVICE_IP:81/stream` or `http://DEVICE_IP:81/cam.mjpeg`, and a single snapshot at `http://DEVICE_IP:80/snapshot.jpg`.  Such URLs can be easily fed into most camera surveillance servers, such as [MotionEye](https://github.com/ccrisan/motioneye/), [Shinobi](https://shinobi.video/), [ZoneMinder](https://www.zoneminder.com/), or [iSpy](https://www.ispyconnect.com/).  As mentioned before, the Tasmota32 webcam server can be configure to connect to a **[MQTT server](https://mqtt.org/)** (see **Configuration** > **Configure MQTT**) and then integrated with most home automation servers, such as [HomeAssistant](https://www.home-assistant.io/), [OpenHAB](https://www.openhab.org/), or one based on [NodeRed](https://nodered.org/)'s flow programming.
 
 ## Standalone wiring
-If you bought a USB to DIP adapter, you can now power your ESP32-cam independent of your USB to TTL/serial adapter using a cheap **5V (at least 400mA) USB power supply**, such as an old cellphone charger, as follows:
+If you bought a USB to DIP adapter, you can now power your ESP32-cam independent of your USB to TTL/serial adapter using a cheap **5V USB power supply** that is able to deliver at least **1A** (of note, **500mA** should work as well but it might be unreliable), such as an old cellphone charger, as follows:
 
 [![ESP32cam standalone mode](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-wiring-standalone-mode.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-wiring-standalone-mode.jpg)
 

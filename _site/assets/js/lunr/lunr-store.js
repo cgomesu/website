@@ -54,7 +54,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Tasmota webcam server for the ESP32-cam",
-        "excerpt":"Changelog September 1st, 2021: Fixed a few typos (e.g., ESP_HOME instead of ESP_PORT) and updated the AITHINKER CAM template in Updating the template. Also, added minor notes to help troubleshooting issues when flashing the latest firmware. August 12th, 2021, Update #3: Made minor changes to a few commands to improve...","categories": ["blog"],
+        "excerpt":"Changelog September 1st, 2021, Update #2: Updated the Standalone wiring section to recommend a power supply able to deliver at least 1A instead of the 400mA previously suggested. At boot and when scanning for WiFi networks, the module can use more than 400mA, which might cause it to become unreliable...","categories": ["blog"],
         "tags": ["iot","esp32","tasmota","mqtt","cam","webcam","surveillance","wifi","wireless","network"],
         "url": "/blog/Esp32cam-tasmota-webcam-server/",
         "teaser": null
