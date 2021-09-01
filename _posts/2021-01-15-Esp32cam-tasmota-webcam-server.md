@@ -11,7 +11,7 @@ toc_icon: "list"
 ---
 
 # Changelog
-**September 1st, 2021**, Update #3: Extended the information about the flash and red LEDs at the end of the [Webcam server additional configurationsPermalink](#webcam-server-additional-configurations) section.
+**September 1st, 2021**, Update #3: Extended the information about the flash and red LEDs at the end of the [Webcam server additional configurations](#webcam-server-additional-configurations) section.
 {: .notice }
 
 **September 1st, 2021**, Update #2: Updated the [Standalone wiring](#standalone-wiring) section to recommend a power supply able to deliver at least 1A instead of the 400mA previously suggested. At boot and when scanning for WiFi networks, the module can use more than 400mA, which might cause it to become unreliable if the power supply is unable to deliver more than that.
@@ -406,10 +406,10 @@ curl http://DEVICE_IP/cm?cmnd=WcResolution%209
 
 which should reply with a `json` parsable by utilities such as `jq`.
 
-Finally, the **flash LED** is controlled by **GPIO4** and the **red LED** is controlled by **GPIO33**. Their state can be changed programmatically as well.  (*Updated in September 1st, 2021.*) As of release `9.5.0`, the default stable release already creates a `PWM` component for the **flash LED**, which allows to turn it `on` and `off`, as well as control its intensity, and it also creates a `LedLink_i` component for the **red LED**, which blinks whenever the ESP32-cam is not connected to a wireless network, as a physical marker of lack of connectivity.
+Finally, the **flash LED** is controlled by **GPIO4** and the **red LED** is controlled by **GPIO33**. Their state can be changed programmatically as well.  (*Updated in September 1st, 2021.*) As of release `9.5.0`, the default stable release automatically creates a `PWM` component for the **flash LED**, which allows to turn it `on` and `off`, as well as control its intensity, and it also creates a `LedLink_i` component for the **red LED**, which blinks whenever the ESP32-cam is not connected to a wireless network, as a physical marker of lack of connectivity.
 
 ## Fixing the timezone
-If you installed a pre-compilled firmware, there's a chance your device is using the incorrect timezone.  To check the current timezone, go to **Console** and type
+If you installed a pre-compiled firmware, there's a chance your device is using the incorrect timezone.  To check the current timezone, go to **Console** and type
 
 ```
 timezone
