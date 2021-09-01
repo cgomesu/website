@@ -224,7 +224,7 @@ We are now ready to flash the Tasmota firmware.  For reference, the official inf
    You can check that `ESP_PORT` was correctly defined by `echo`ing it, as follows:
 
    ```
-   echo $ESP_HOME
+   echo $ESP_PORT
    ```
 
    which should output something like this:
