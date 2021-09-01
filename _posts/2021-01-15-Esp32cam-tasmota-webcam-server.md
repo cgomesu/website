@@ -291,15 +291,18 @@ By default, the Tasmota firmware will create a wireless access point for your ES
 ## Updating the template
 Tasmota templates are device-specific definitions of how their GPIO pins are assigned. As mentioned before, there are multiple ESP32-cam boards out there with different definitions.  In my case, I'm using the **AI-Thinker cam** module and therefore, I should configure the Tasmota32 webcam server to use the [AITHINKER CAM template](https://tasmota.github.io/docs/ESP32/#aithinker-cam) instead of the default one.  (If your ESP32-cam is different, then check [https://tasmota.github.io/docs/ESP32/](https://tasmota.github.io/docs/ESP32/) for the appropriate template and use that one instead of the AITHINKER CAM.)
 
-1. Copy the **AITHINKER CAM template**:
+1. Copy the **AITHINKER CAM template** (*Updated in September 1st, 2021*):
 
    ```json
-   {"NAME":"AITHINKER CAM","GPIO":[4992,1,1,1,1,5088,1,1,1,1,1,1,1,1,5089,5090,0,5091,5184,5152,0,5120,5024,5056,0,0,0,0,4928,1,5094,5095,5092,0,0,5093],"FLAG":0,"BASE":1}
+   {"NAME":"AITHINKER CAM","GPIO":[4992,1,672,1,416,5088,1,1,1,6720,736,704,1,1,5089,5090,0,5091,5184,5152,0,5120,5024,5056,0,0,0,0,4928,576,5094,5095,5092,0,0,5093],"FLAG":0,"BASE":2}
    ```
 
 2. From the ESP32-cam webUI, go to **Configuration > Configure > Configure other**.
 
 3. Paste the template under **Other parameters > Template**; **Check Activate**; Save it and wait for the reboot.
+   
+   If you lose connection to the ESP-cam afterwards, it is very likely that the AITHINKER CAM template has changed since the last time this article was updated.  In this case, put the ESP-cam in **flash mode** and flash the Tasmota32-webcam firmware once again.  Then, when updating the **Template**, use the one from [https://tasmota.github.io/docs/ESP32/#aithinker-cam](https://tasmota.github.io/docs/ESP32/#aithinker-cam) instead of the one mentioned before.
+   {:.notice}
 
 4. The device should now be named 'AITHINKER CAM' (or whaterver NAME was in the template).
 
