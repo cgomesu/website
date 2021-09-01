@@ -54,7 +54,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Tasmota webcam server for the ESP32-cam",
-        "excerpt":"Changelog September 1st, 2021, Update #2: Updated the Standalone wiring section to recommend a power supply able to deliver at least 1A instead of the 400mA previously suggested. At boot and when scanning for WiFi networks, the module can use more than 400mA, which might cause it to become unreliable...","categories": ["blog"],
+        "excerpt":"Changelog September 1st, 2021, Update #3: Extended the information about the flash and red LEDs at the end of the Webcam server additional configurationsPermalink section. September 1st, 2021, Update #2: Updated the Standalone wiring section to recommend a power supply able to deliver at least 1A instead of the 400mA...","categories": ["blog"],
         "tags": ["iot","esp32","tasmota","mqtt","cam","webcam","surveillance","wifi","wireless","network"],
         "url": "/blog/Esp32cam-tasmota-webcam-server/",
         "teaser": null

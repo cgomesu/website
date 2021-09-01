@@ -386,6 +386,8 @@
           </aside>
         
         <h1 id="changelog">Changelog</h1>
+<p class="notice"><strong>September 1st, 2021</strong>, Update #3: Extended the information about the flash and red LEDs at the end of the <a href="#webcam-server-additional-configurations">Webcam server additional configurationsPermalink</a> section.</p>
+
 <p class="notice"><strong>September 1st, 2021</strong>, Update #2: Updated the <a href="#standalone-wiring">Standalone wiring</a> section to recommend a power supply able to deliver at least 1A instead of the 400mA previously suggested. At boot and when scanning for WiFi networks, the module can use more than 400mA, which might cause it to become unreliable if the power supply is unable to deliver more than that.</p>
 
 <p class="notice--success"><strong>September 1st, 2021</strong>, Update #1: Fixed a few typos (e.g., <code class="language-plaintext highlighter-rouge">ESP_HOME</code> instead of <code class="language-plaintext highlighter-rouge">ESP_PORT</code>) and updated the AITHINKER CAM template in <a href="#updating-the-template">Updating the template</a>.  Also, added minor notes to help troubleshooting issues when flashing the latest firmware.</p>
@@ -893,7 +895,7 @@ sudo mkdir tasmota32
 
 <p>which should reply with a <code class="language-plaintext highlighter-rouge">json</code> parsable by utilities such as <code class="language-plaintext highlighter-rouge">jq</code>.</p>
 
-<p>Finally, the <strong>flash LED</strong> is controlled by <strong>GPIO4</strong> and the <strong>red LED</strong> is controlled by <strong>GPIO33</strong>. Their state can be changed programatically as well.</p>
+<p>Finally, the <strong>flash LED</strong> is controlled by <strong>GPIO4</strong> and the <strong>red LED</strong> is controlled by <strong>GPIO33</strong>. Their state can be changed programmatically as well.  (<em>Updated in September 1st, 2021.</em>) As of release <code class="language-plaintext highlighter-rouge">9.5.0</code>, the default stable release already creates a <code class="language-plaintext highlighter-rouge">PWM</code> component for the <strong>flash LED</strong>, which allows to turn it <code class="language-plaintext highlighter-rouge">on</code> and <code class="language-plaintext highlighter-rouge">off</code>, as well as control its intensity, and it also creates a <code class="language-plaintext highlighter-rouge">LedLink_i</code> component for the <strong>red LED</strong>, which blinks whenever the ESP32-cam is not connected to a wireless network, as a physical marker of lack of connectivity.</p>
 
 <h2 id="fixing-the-timezone">Fixing the timezone</h2>
 <p>If you installed a pre-compilled firmware, there’s a chance your device is using the incorrect timezone.  To check the current timezone, go to <strong>Console</strong> and type</p>
