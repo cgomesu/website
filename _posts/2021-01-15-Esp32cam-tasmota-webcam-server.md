@@ -303,7 +303,7 @@ If you cannot find the Tasmota wireless access point, it is possible that the US
 ## Updating the template
 Tasmota templates are device-specific definitions of how their GPIO pins are assigned. As mentioned before, there are multiple ESP32-cam boards out there with different definitions.  In my case, I'm using the **AI-Thinker cam** module and therefore, I should configure the Tasmota32 webcam server to use the [AITHINKER CAM template](https://tasmota.github.io/docs/ESP32/#aithinker-cam) instead of the default one.  (If your ESP32-cam is different, then check [https://tasmota.github.io/docs/ESP32/](https://tasmota.github.io/docs/ESP32/) for the appropriate template and use that one instead of the AITHINKER CAM.)
 
-1. Copy the **AITHINKER CAM template** (*Updated in September 1st, 2021*):
+1. Copy the **AITHINKER CAM template** (*Updated on September 1st, 2021*):
 
    ```json
    {"NAME":"AITHINKER CAM","GPIO":[4992,1,672,1,416,5088,1,1,1,6720,736,704,1,1,5089,5090,0,5091,5184,5152,0,5120,5024,5056,0,0,0,0,4928,576,5094,5095,5092,0,0,5093],"FLAG":0,"BASE":2}
@@ -406,7 +406,7 @@ curl http://DEVICE_IP/cm?cmnd=WcResolution%209
 
 which should reply with a `json` parsable by utilities such as `jq`.
 
-Finally, the **flash LED** is controlled by **GPIO4** and the **red LED** is controlled by **GPIO33**. Their state can be changed programmatically as well.  (*Updated in September 1st, 2021.*) As of release `9.5.0`, the default stable release automatically creates a `PWM` component for the **flash LED**, which allows to turn it `on` and `off`, as well as control its intensity, and it also creates a `LedLink_i` component for the **red LED**, which blinks whenever the ESP32-cam is not connected to a wireless network, as a physical marker of lack of connectivity.
+Finally, the **flash LED** is controlled by **GPIO4** and the **red LED** is controlled by **GPIO33**. Their state can be changed programmatically as well.  (*Updated on September 1st, 2021.*) As of release `9.5.0`, the default stable release automatically creates a `PWM` component for the **flash LED**, which allows to turn it `on` and `off`, as well as control its intensity, and it also creates a `LedLink_i` component for the **red LED**, which blinks whenever the ESP32-cam is not connected to a wireless network, as a physical marker of lack of connectivity.
 
 ## Fixing the timezone
 If you installed a pre-compiled firmware, there's a chance your device is using the incorrect timezone.  To check the current timezone, go to **Console** and type
