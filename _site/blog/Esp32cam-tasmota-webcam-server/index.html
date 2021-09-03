@@ -200,7 +200,7 @@
 
 
 
-  39 minute read
+  41 minute read
 
 </p>
       
@@ -362,6 +362,7 @@
     <ul>
       <li><a href="#updating-the-template">Updating the template</a></li>
       <li><a href="#auto-enabling-the-webcam-server-at-boot">Auto-enabling the webcam server at boot</a></li>
+      <li><a href="#rtsp-server">RTSP server</a></li>
       <li><a href="#webcam-server-additional-configurations">Webcam server additional configurations</a></li>
       <li><a href="#fixing-the-timezone">Fixing the timezone</a></li>
     </ul>
@@ -386,11 +387,13 @@
           </aside>
         
         <h1 id="changelog">Changelog</h1>
-<p class="notice"><strong>September 1st, 2021</strong>, Update #3: Extended the information about the flash and red LEDs at the end of the <a href="#webcam-server-additional-configurations">Webcam server additional configurations</a> section.</p>
+<p class="notice--success"><strong>September 3rd, 2021</strong>: Included a new section called <a href="#rtsp-server">RTSP server</a> that describes how to enable and access the video stream via the Real Time Streaming Protocol (<code class="language-plaintext highlighter-rouge">rtsp://</code>).  Also made a few related changes to the table in <a href="#webcam-server-additional-configurations">Webcam server additional configurations</a>.</p>
 
-<p class="notice"><strong>September 1st, 2021</strong>, Update #2: Updated the <a href="#standalone-wiring">Standalone wiring</a> section to recommend a power supply able to deliver at least 1A instead of the 400mA previously suggested. At boot and when scanning for WiFi networks, the module can use more than 400mA, which might cause it to become unreliable if the power supply is unable to deliver more than that.</p>
+<p class="notice--info"><strong>September 1st, 2021</strong>, Update #3: Extended the information about the flash and red LEDs at the end of the <a href="#webcam-server-additional-configurations">Webcam server additional configurations</a> section.</p>
 
-<p class="notice--success"><strong>September 1st, 2021</strong>, Update #1: Fixed a few typos (e.g., <code class="language-plaintext highlighter-rouge">ESP_HOME</code> instead of <code class="language-plaintext highlighter-rouge">ESP_PORT</code>) and updated the AITHINKER CAM template in <a href="#updating-the-template">Updating the template</a>.  Also, added minor notes to help troubleshooting issues when flashing the latest firmware.</p>
+<p class="notice--info"><strong>September 1st, 2021</strong>, Update #2: Updated the <a href="#standalone-wiring">Standalone wiring</a> section to recommend a power supply able to deliver at least 1A instead of the 400mA previously suggested. At boot and when scanning for WiFi networks, the module can use more than 400mA, which might cause it to become unreliable if the power supply is unable to deliver more than that.</p>
+
+<p class="notice--info"><strong>September 1st, 2021</strong>, Update #1: Fixed a few typos (e.g., <code class="language-plaintext highlighter-rouge">ESP_HOME</code> instead of <code class="language-plaintext highlighter-rouge">ESP_PORT</code>) and updated the AITHINKER CAM template in <a href="#updating-the-template">Updating the template</a>.  Also, added minor notes to help troubleshooting issues when flashing the latest firmware.</p>
 
 <p class="notice--info"><strong>August 12th, 2021</strong>, Update #3: Made minor changes to a few commands to improve readability.</p>
 
@@ -763,6 +766,31 @@ sudo mkdir tasmota32
 
 <p>By the way, <strong>rules</strong> are a great way to program your Tasmota device indepedently of any automation server. Make sure to read about <a href="https://tasmota.github.io/docs/Rules/">how to add or modify rules</a> and <a href="https://tasmota.github.io/docs/Commands/#rules">the list of available rule commands</a>.</p>
 
+<h2 id="rtsp-server">RTSP server</h2>
+<p>As of release <code class="language-plaintext highlighter-rouge">9.5.0</code>, it is possible to use <a href="https://en.wikipedia.org/wiki/Real_Time_Streaming_Protocol">Real Time Streaming Protocol (RTSP)</a> to access the video streaming from the ESP32-cam module running the Tasmota32-webcam firmware.  (Thanks to <a href="https://github.com/gemu2015">@gemu2015</a> for the initial implementation and <a href="https://github.com/arendst/Tasmota/pull/9575">pull request</a>.)  To do so, follow these steps:</p>
+
+<ol>
+  <li>
+    <p>Navigate to the ESP32-cam webUI and then go to the <strong>Console</strong>.</p>
+  </li>
+  <li>
+    <p><strong>Enable the RTSP server</strong> by entering the following command:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>WcRtsp 1
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Now, the video stream should be accessible via RTSP using the following address:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rtsp://DEVICE_IP:8554/mjpeg/1
+</code></pre></div>    </div>
+
+    <p class="notice">Remember to change <code class="language-plaintext highlighter-rouge">DEVICE_IP</code> for the IP address of your ESP32-cam.</p>
+  </li>
+</ol>
+
+<p>Currently, the RTSP server only needs to be enabled once.  So, contrary to <code class="language-plaintext highlighter-rouge">WcInit</code>, we won’t need to write a new rule to re-enable it at boot.  Of note, the RTSP server is independent of the HTTP one.  In addition, I’ve only tested it with VLC and <a href="https://github.com/arendst/Tasmota/issues/9293#issuecomment-720108532">there are reports of compatibility issues with other players</a>.</p>
+
 <h2 id="webcam-server-additional-configurations">Webcam server additional configurations</h2>
 <p>A full list of commands for ESP32 devices can be found at <a href="https://tasmota.github.io/docs/Commands/#esp32">the official docs page</a>.  However, by the time I finished writing this, many of the commands that are specific to the Tasmota32 webcam server binary were gone… I’m not sure what happened there.  For this reason, I’ve decided to post here all the additional commands (<code class="language-plaintext highlighter-rouge">wc</code>) that I’m aware of (in alphabetical order):</p>
 
@@ -775,6 +803,11 @@ sudo mkdir tasmota32
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">Wc</code></td>
+      <td style="text-align: center">Displays all the current webcam settings</td>
+      <td style="text-align: center">-</td>
+    </tr>
     <tr>
       <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcBrightness</code></td>
       <td style="text-align: center">Image brightness</td>
@@ -792,8 +825,8 @@ sudo mkdir tasmota32
     </tr>
     <tr>
       <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcInit</code></td>
-      <td style="text-align: center">Initializes the webcam server</td>
-      <td style="text-align: center"> </td>
+      <td style="text-align: center">Initializes the HTTP webcam server</td>
+      <td style="text-align: center">-</td>
     </tr>
     <tr>
       <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WCMirror</code></td>
@@ -869,6 +902,11 @@ sudo mkdir tasmota32
       <td style="text-align: center"> </td>
       <td style="text-align: center"> </td>
       <td style="text-align: center"><code class="language-plaintext highlighter-rouge">13</code>: <code class="language-plaintext highlighter-rouge">FRAMESIZE 1600x1200</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcRtsp</code></td>
+      <td style="text-align: center">RTSP server</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">0</code>: disable, <code class="language-plaintext highlighter-rouge">1</code>: enable</td>
     </tr>
     <tr>
       <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcSaturation</code></td>

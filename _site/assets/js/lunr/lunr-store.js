@@ -54,7 +54,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Tasmota webcam server for the ESP32-cam",
-        "excerpt":"Changelog September 1st, 2021, Update #3: Extended the information about the flash and red LEDs at the end of the Webcam server additional configurations section. September 1st, 2021, Update #2: Updated the Standalone wiring section to recommend a power supply able to deliver at least 1A instead of the 400mA...","categories": ["blog"],
+        "excerpt":"Changelog September 3rd, 2021: Included a new section called RTSP server that describes how to enable and access the video stream via the Real Time Streaming Protocol (rtsp://). Also made a few related changes to the table in Webcam server additional configurations. September 1st, 2021, Update #3: Extended the information...","categories": ["blog"],
         "tags": ["iot","esp32","tasmota","mqtt","cam","webcam","surveillance","wifi","wireless","network"],
         "url": "/blog/Esp32cam-tasmota-webcam-server/",
         "teaser": null
