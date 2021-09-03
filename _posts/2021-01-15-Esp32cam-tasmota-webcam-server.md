@@ -11,14 +11,17 @@ toc_icon: "list"
 ---
 
 # Changelog
+**September 3rd, 2021**: Included a new section called [RTSP server](#rtsp-server) that describes how to enable and access the video stream via the Real Time Streaming Protocol (`rtsp://`).  Also made a few related changes to the table in [Webcam server additional configurations](#webcam-server-additional-configurations).
+{: .notice--success }
+
 **September 1st, 2021**, Update #3: Extended the information about the flash and red LEDs at the end of the [Webcam server additional configurations](#webcam-server-additional-configurations) section.
-{: .notice }
+{: .notice--info }
 
 **September 1st, 2021**, Update #2: Updated the [Standalone wiring](#standalone-wiring) section to recommend a power supply able to deliver at least 1A instead of the 400mA previously suggested. At boot and when scanning for WiFi networks, the module can use more than 400mA, which might cause it to become unreliable if the power supply is unable to deliver more than that.
-{: .notice }
+{: .notice--info }
 
 **September 1st, 2021**, Update #1: Fixed a few typos (e.g., `ESP_HOME` instead of `ESP_PORT`) and updated the AITHINKER CAM template in [Updating the template](#updating-the-template).  Also, added minor notes to help troubleshooting issues when flashing the latest firmware.
-{: .notice--success }
+{: .notice--info }
 
 **August 12th, 2021**, Update #3: Made minor changes to a few commands to improve readability.
 {: .notice--info }
@@ -364,15 +367,38 @@ If your board is like mine, the stream does not initialize on its own at boot--i
 
 By the way, **rules** are a great way to program your Tasmota device indepedently of any automation server. Make sure to read about [how to add or modify rules](https://tasmota.github.io/docs/Rules/) and [the list of available rule commands](https://tasmota.github.io/docs/Commands/#rules).
 
+## RTSP server
+As of release `9.5.0`, it is possible to use [Real Time Streaming Protocol (RTSP)](https://en.wikipedia.org/wiki/Real_Time_Streaming_Protocol) to access the video streaming from the ESP32-cam module running the Tasmota32-webcam firmware.  (Thanks to [@gemu2015](https://github.com/gemu2015) for the initial implementation and [pull request](https://github.com/arendst/Tasmota/pull/9575).)  To do so, follow these steps:
+
+1. Navigate to the ESP32-cam webUI and then go to the **Console**.
+
+2. **Enable the RTSP server** by entering the following command:
+   
+   ```
+   WcRtsp 1
+   ```
+
+3. Now, the video stream should be accessible via RTSP using the following address:
+   
+   ```
+   rtsp://DEVICE_IP:8554/mjpeg/1
+   ```
+
+   Remember to change `DEVICE_IP` for the IP address of your ESP32-cam.
+   {:.notice}
+
+Currently, the RTSP server only needs to be enabled once.  So, contrary to `WcInit`, we won't need to write a new rule to re-enable it at boot.  Of note, the RTSP server is independent of the HTTP one.  In addition, I've only tested it with VLC and [there are reports of compatibility issues with other players](https://github.com/arendst/Tasmota/issues/9293#issuecomment-720108532).
+
 ## Webcam server additional configurations
 A full list of commands for ESP32 devices can be found at [the official docs page](https://tasmota.github.io/docs/Commands/#esp32).  However, by the time I finished writing this, many of the commands that are specific to the Tasmota32 webcam server binary were gone... I'm not sure what happened there.  For this reason, I've decided to post here all the additional commands (`wc`) that I'm aware of (in alphabetical order):
 
 | Command | Definition | Values |
 |:---:|:---:|:---:|
+| `Wc` | Displays all the current webcam settings | - |
 | `WcBrightness` | Image brightness | `-2`, `-1`, `0`, `1`, `2` |
 | `WcContrast` | Image contrast | `-2`, `-1`, `0`, `1`, `2` |
 | `WCFlip` | Flips the image vertically | `1`, `0` |
-| `WcInit` | Initializes the webcam server | |
+| `WcInit` | Initializes the HTTP webcam server | - |
 | `WCMirror` | Flips the image horizontally | `1`, `0` |
 | `WcResolution` | Image resolution | `0`: `FRAMESIZE 96x96` |
 |  |  | `1`: `FRAMESIZE 160x120` |
@@ -388,6 +414,7 @@ A full list of commands for ESP32 devices can be found at [the official docs pag
 |  |  | `11`: `FRAMESIZE 1280x720` |
 |  |  | `12`: `FRAMESIZE 1280x1024` |
 |  |  | `13`: `FRAMESIZE 1600x1200` |
+| `WcRtsp` | RTSP server | `0`: disable, `1`: enable |
 | `WcSaturation` | Image saturation | `-2`, `-1`, `0`, `1`, `2` |
 | `WcStream` | Controls the video streaming | `0`: stop, `1`: start |
 

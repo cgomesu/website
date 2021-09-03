@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-02T08:46:36-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: ESP-01 Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: ESP-01 Tasmota environmental sensor" /><published>2021-08-12T13:00:00-03:00</published><updated>2021-08-12T13:00:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-03T11:51:13-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: ESP-01 Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: ESP-01 Tasmota environmental sensor" /><published>2021-08-12T13:00:00-03:00</published><updated>2021-08-12T13:00:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;August 12th, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
@@ -3094,11 +3094,13 @@ pipe:///usr/bin/env streamlink --stdout --default-stream 720p,best --url https:/
 &lt;p&gt;That is it for now.  If you enjoyed or have a few suggestions, &lt;a href=&quot;/contact&quot;&gt;let me know&lt;/a&gt;.  Every once in a while, come back and check the &lt;a href=&quot;#changelog&quot;&gt;changelog&lt;/a&gt; for updates.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="tvhlink" /><category term="streamlink" /><category term="tvheadend" /><category term="github" /><category term="iptv" /><category term="kodi" /><category term="youtube" /><category term="streaming" /><category term="livestream" /></entry><entry><title type="html">Tasmota webcam server for the ESP32-cam</title><link href="/blog/Esp32cam-tasmota-webcam-server/" rel="alternate" type="text/html" title="Tasmota webcam server for the ESP32-cam" /><published>2021-01-15T09:00:00-03:00</published><updated>2021-01-15T09:00:00-03:00</updated><id>/blog/Esp32cam-tasmota-webcam-server</id><content type="html" xml:base="/blog/Esp32cam-tasmota-webcam-server/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
-&lt;p class=&quot;notice&quot;&gt;&lt;strong&gt;September 1st, 2021&lt;/strong&gt;, Update #3: Extended the information about the flash and red LEDs at the end of the &lt;a href=&quot;#webcam-server-additional-configurations&quot;&gt;Webcam server additional configurations&lt;/a&gt; section.&lt;/p&gt;
+&lt;p class=&quot;notice--success&quot;&gt;&lt;strong&gt;September 3rd, 2021&lt;/strong&gt;: Included a new section called &lt;a href=&quot;#rtsp-server&quot;&gt;RTSP server&lt;/a&gt; that describes how to enable and access the video stream via the Real Time Streaming Protocol (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rtsp://&lt;/code&gt;).  Also made a few related changes to the table in &lt;a href=&quot;#webcam-server-additional-configurations&quot;&gt;Webcam server additional configurations&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p class=&quot;notice&quot;&gt;&lt;strong&gt;September 1st, 2021&lt;/strong&gt;, Update #2: Updated the &lt;a href=&quot;#standalone-wiring&quot;&gt;Standalone wiring&lt;/a&gt; section to recommend a power supply able to deliver at least 1A instead of the 400mA previously suggested. At boot and when scanning for WiFi networks, the module can use more than 400mA, which might cause it to become unreliable if the power supply is unable to deliver more than that.&lt;/p&gt;
+&lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;September 1st, 2021&lt;/strong&gt;, Update #3: Extended the information about the flash and red LEDs at the end of the &lt;a href=&quot;#webcam-server-additional-configurations&quot;&gt;Webcam server additional configurations&lt;/a&gt; section.&lt;/p&gt;
 
-&lt;p class=&quot;notice--success&quot;&gt;&lt;strong&gt;September 1st, 2021&lt;/strong&gt;, Update #1: Fixed a few typos (e.g., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ESP_HOME&lt;/code&gt; instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ESP_PORT&lt;/code&gt;) and updated the AITHINKER CAM template in &lt;a href=&quot;#updating-the-template&quot;&gt;Updating the template&lt;/a&gt;.  Also, added minor notes to help troubleshooting issues when flashing the latest firmware.&lt;/p&gt;
+&lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;September 1st, 2021&lt;/strong&gt;, Update #2: Updated the &lt;a href=&quot;#standalone-wiring&quot;&gt;Standalone wiring&lt;/a&gt; section to recommend a power supply able to deliver at least 1A instead of the 400mA previously suggested. At boot and when scanning for WiFi networks, the module can use more than 400mA, which might cause it to become unreliable if the power supply is unable to deliver more than that.&lt;/p&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;September 1st, 2021&lt;/strong&gt;, Update #1: Fixed a few typos (e.g., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ESP_HOME&lt;/code&gt; instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ESP_PORT&lt;/code&gt;) and updated the AITHINKER CAM template in &lt;a href=&quot;#updating-the-template&quot;&gt;Updating the template&lt;/a&gt;.  Also, added minor notes to help troubleshooting issues when flashing the latest firmware.&lt;/p&gt;
 
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;August 12th, 2021&lt;/strong&gt;, Update #3: Made minor changes to a few commands to improve readability.&lt;/p&gt;
 
@@ -3471,6 +3473,31 @@ sudo mkdir tasmota32
 
 &lt;p&gt;By the way, &lt;strong&gt;rules&lt;/strong&gt; are a great way to program your Tasmota device indepedently of any automation server. Make sure to read about &lt;a href=&quot;https://tasmota.github.io/docs/Rules/&quot;&gt;how to add or modify rules&lt;/a&gt; and &lt;a href=&quot;https://tasmota.github.io/docs/Commands/#rules&quot;&gt;the list of available rule commands&lt;/a&gt;.&lt;/p&gt;
 
+&lt;h2 id=&quot;rtsp-server&quot;&gt;RTSP server&lt;/h2&gt;
+&lt;p&gt;As of release &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;9.5.0&lt;/code&gt;, it is possible to use &lt;a href=&quot;https://en.wikipedia.org/wiki/Real_Time_Streaming_Protocol&quot;&gt;Real Time Streaming Protocol (RTSP)&lt;/a&gt; to access the video streaming from the ESP32-cam module running the Tasmota32-webcam firmware.  (Thanks to &lt;a href=&quot;https://github.com/gemu2015&quot;&gt;@gemu2015&lt;/a&gt; for the initial implementation and &lt;a href=&quot;https://github.com/arendst/Tasmota/pull/9575&quot;&gt;pull request&lt;/a&gt;.)  To do so, follow these steps:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Navigate to the ESP32-cam webUI and then go to the &lt;strong&gt;Console&lt;/strong&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Enable the RTSP server&lt;/strong&gt; by entering the following command:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;WcRtsp 1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Now, the video stream should be accessible via RTSP using the following address:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rtsp://DEVICE_IP:8554/mjpeg/1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p class=&quot;notice&quot;&gt;Remember to change &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DEVICE_IP&lt;/code&gt; for the IP address of your ESP32-cam.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Currently, the RTSP server only needs to be enabled once.  So, contrary to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;WcInit&lt;/code&gt;, we won’t need to write a new rule to re-enable it at boot.  Of note, the RTSP server is independent of the HTTP one.  In addition, I’ve only tested it with VLC and &lt;a href=&quot;https://github.com/arendst/Tasmota/issues/9293#issuecomment-720108532&quot;&gt;there are reports of compatibility issues with other players&lt;/a&gt;.&lt;/p&gt;
+
 &lt;h2 id=&quot;webcam-server-additional-configurations&quot;&gt;Webcam server additional configurations&lt;/h2&gt;
 &lt;p&gt;A full list of commands for ESP32 devices can be found at &lt;a href=&quot;https://tasmota.github.io/docs/Commands/#esp32&quot;&gt;the official docs page&lt;/a&gt;.  However, by the time I finished writing this, many of the commands that are specific to the Tasmota32 webcam server binary were gone… I’m not sure what happened there.  For this reason, I’ve decided to post here all the additional commands (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wc&lt;/code&gt;) that I’m aware of (in alphabetical order):&lt;/p&gt;
 
@@ -3483,6 +3510,11 @@ sudo mkdir tasmota32
     &lt;/tr&gt;
   &lt;/thead&gt;
   &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Wc&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Displays all the current webcam settings&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;-&lt;/td&gt;
+    &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;WcBrightness&lt;/code&gt;&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;Image brightness&lt;/td&gt;
@@ -3500,8 +3532,8 @@ sudo mkdir tasmota32
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;WcInit&lt;/code&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Initializes the webcam server&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Initializes the HTTP webcam server&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;-&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;WCMirror&lt;/code&gt;&lt;/td&gt;
@@ -3577,6 +3609,11 @@ sudo mkdir tasmota32
       &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;13&lt;/code&gt;: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;FRAMESIZE 1600x1200&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;WcRtsp&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;RTSP server&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0&lt;/code&gt;: disable, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1&lt;/code&gt;: enable&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;WcSaturation&lt;/code&gt;&lt;/td&gt;
