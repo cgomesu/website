@@ -11,8 +11,11 @@ toc_icon: "list"
 ---
 
 # Changelog
+**September 3rd, 2021**: Added information about buying linen/reusable teabags as a filter solution to the [Items](#items) section.  Also included a note about cleaning the *bomba* every so often.
+{: .notice--info }
+
 **Mar 9th, 2021**: Publication of the original article
-{: .notice .notice--info }
+{: .notice--info }
 
 [top](#){: .btn .btn--light-outline .btn--small}
 
@@ -167,6 +170,9 @@ To make a *chimarrão Gaúcho*, you will need the following ingredients and uten
 
   [![Wooden Bomba](/assets/posts/2021-02-25-chimarrao-gaucho/bomba-wooden.jpg){:.PostImage}](/assets/posts/2021-02-25-chimarrao-gaucho/bomba-wooden.jpg)
 
+  Regardless of the *bomba* used, make sure to clean inside of it every once in a while.  It can get pretty dirty in there and if your *bomba* does not allow you to properly clean it, then that is a good reason to use a different one.
+  {:.notice--warning}
+
 * 01x [**Portable and insulated beverage dispenser**](https://www.amazon.com/s?k=portable+insulated+beverage+dispenser): Anything that can hold at least 1l (52oz) of hot water will do.  Make sure there is enough space to serve your *cuia*--prefer the ones with a dispenser at the top, instead of bottom, for example.
   
   [![Insulated Beverage Dispenser](/assets/posts/2021-02-25-chimarrao-gaucho/hot-water-dispenser.jpg){:.PostImage}](/assets/posts/2021-02-25-chimarrao-gaucho/hot-water-dispenser.jpg)
@@ -177,9 +183,11 @@ To make a *chimarrão Gaúcho*, you will need the following ingredients and uten
   
   [![Spoon](/assets/posts/2021-02-25-chimarrao-gaucho/spoon.jpg){:.PostImage}](/assets/posts/2021-02-25-chimarrao-gaucho/spoon.jpg)
 
-* (Optional.) External filters for the *bomba*: If you dislike when an ocasional mate leaf passes the *bomba* filter, or your *chimarrão* clogs too often, you might want to try an external filter for your *bomba*.  These filters are reusable (usually between 2-3 weeks) and are tied around the filter head of your *bomba*.  This is **required if using straws without a built-in filter**, such as common wooden straws.
+* (Optional.) External filters for the *bomba*: If you dislike when an occasional mate leaf passes the *bomba* filter, or your *chimarrão* clogs too often, you might want to try an external filter for your *bomba*.  In the US, UK, and other English-speaking territories, they are usually referred to as **linen/reusable teabags** and they can be found in [most market places out there](https://www.walmart.com/search/?query=reusable%20Tea%20Bags&cat_id=976759).  If you cannot find them, buy a tea brand that makes use of them, then remove the tea from one of them and use the bag.  
   
   [![External Filter](/assets/posts/2021-02-25-chimarrao-gaucho/bomba-filter.jpg){:.PostImage}](/assets/posts/2021-02-25-chimarrao-gaucho/bomba-filter.jpg)
+
+  These filters are reusable (usually between 2-3 weeks) and are tied around the filter head of your *bomba*.  This is **required if using straws without a built-in filter**, such as common wooden straws.
 
 * (Optional.) Herbs/teas: If you ever get bored with the taste of plain *chimarrão*, you might want to make its flavor a little bit more complex by adding tea to the water or mixing herbs with your yerba mate.  Here are a few herbs/teas that are often mixed with *chimarrão*:
   
