@@ -42,7 +42,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Mesh networking: A guide to using free and open-source software with common hardware",
-        "excerpt":"Changelog July 6th, 2021: Added information about transitioning from OpenWrt 19 (current stable release) to OpenWrt 21 (next stable release) to a new section called Bonus content: Moving from OpenWrt 19 to 21. In brief, the next stable release includes changes to the network configuration syntax that are incompatible with...","categories": ["blog"],
+        "excerpt":"Changelog September 16th, 2021: Updated information about transitioning from OpenWrt 19 (current stable release) to OpenWrt 21 (next stable release) in the section Bonus content: Moving from OpenWrt 19 to 21. OpenWrt has officially started rolling out version 21 with the release of the OpenWrt 21.02. I’m currently testing the...","categories": ["blog"],
         "tags": ["mesh","adhoc","ieee","wifi","wireless","radio","network","router","openwrt","batman"],
         "url": "/blog/Mesh-networking-openwrt-batman/",
         "teaser": null
