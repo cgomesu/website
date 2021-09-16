@@ -10,6 +10,8 @@ toc_label: "Table of Contents"
 toc_icon: "list"
 ---
 # Changelog
+**September 16th, 2021**: Updated the information about OpenWrt 21 in the section [**Bonus content: Moving from OpenWrt 19 to 21**](#bonus-content-moving-from-openwrt-19-to-21).  In brief, DSA support is still very limited and OpenWrt has officially started rolling out version 21 with the [release of OpenWrt 21.02](https://openwrt.org/releases/21.02/notes-21.02.0). I'm currently testing the new version and network configuration on a few devices and once I get everything running as well as it was in version 19, I will update the entire article to reflect the new (and current) configuration.  It is, of course, still possible to download and use [the latest OpenWrt 19 images](https://downloads.openwrt.org/releases/19.07.8/targets/), which should be just fine for a long time still.  However, if you want to make use of OpenWrt 21, then read the aforementioned bonus section for guidance on the syntax changes and updated hardware requirements.
+{: .notice--success }
 **July 6th, 2021**: Added information about transitioning from OpenWrt 19 (current stable release) to OpenWrt 21 (next stable release) to a new section called [**Bonus content: Moving from OpenWrt 19 to 21**](#bonus-content-moving-from-openwrt-19-to-21).  In brief, the *next* stable release includes changes to the network configuration syntax that are incompatible with this guide.  Once the release version 21 becomes the *current* stable, however, I will update the main guide to reflect those changes.  In the meantime, I added a few references to the OpenWrt forum that should help anyone interested in using version 21 instead of 19.  Thanks to [Steve](https://forum.openwrt.org/u/SteveNewcomb) for testing and sharing his `batman-adv` configuration running on OpenWrt 21.
 {: .notice .notice--info }
 **Feb 17th, 2021**: Per a reader's suggestion (Joshua), I added a [`vi` cheat table](#vi-cheat-table) that has a summary of the main commands, and in the [Mesh node basic config](#mesh-node-basic-config) section, I included additional instructions on how to copy and paste the configuration files from one mesh node to another using `scp`.  (Alternatively, it's also possible to do so using Luci's backup/restore option.)
@@ -1203,18 +1205,34 @@ Also, if you want to change the functionality of a few of the existing LEDs on y
 [top](#){: .btn .btn--light-outline .btn--small}
 
 # Bonus content: Moving from OpenWrt 19 to 21
-As mentioned before, this guide was written for the [**current stable** release version of the OpenWrt software](https://openwrt.org/releases/start), namely [version 19](https://openwrt.org/releases/19.07/start). However, the **next stable** version--[OpenWrt 21](https://openwrt.org/releases/21.02/start)--is already available for anyone to try.
+When this guide was first written, [OpenWrt 19](https://openwrt.org/releases/19.07/start) was the **current stable** release version.  However, as of September 4th, OpenWrt 19 transitioned to **old stable** and [**OpenWrt 21**](https://openwrt.org/releases/21.02/start) is now the current stable release.  For one, this means that most device pages (e.g., [TP-Link Archer C7 AC1750](https://openwrt.org/toh/tp-link/archer_c7)) have been updated to link to the OpenWrt 21 firmware binaries.  However, it is still possible to download and use the latest version of the OpenWrt 19 binaries (`19.07.8`), which should be just fine for now.  To still use OpenWrt 19, follow these steps: 
 
-There are a few aspects about the configuration syntax that has changed between 19 and 21 that make the instructions from this guide incompatible with 21.  Of note, the **Ethernet network switch** framework is changing from reliance on [`swconfig`](https://openwrt.org/docs/techref/swconfig) to the [**Distributed Switch Architecture** (**DSA**)](https://www.kernel.org/doc/html/latest/networking/dsa/dsa.html), which comes with implications to how switches and bridges are configured in the `/etc/config/network` file.
+1. Find the target for your device in the device's page.  For instance, for the [TP-Link Archer C7 AC1750](https://openwrt.org/toh/tp-link/archer_c7), the target is *ath79/generic*;
+2. Navigate to the root of the available targets for the [latest version of the OpenWrt 19 release (`19.07.8`)](https://downloads.openwrt.org/releases/19.07.8/targets/);
+3. Navigate to the root of your device's target (e.g., for the C7, that would be [*ath79*](https://downloads.openwrt.org/releases/19.07.8/targets/ath79/) > [*generic*](https://downloads.openwrt.org/releases/19.07.8/targets/ath79/generic/));
+4. And finally, search for the **binary for your device and model version**, download it, check the hash, and flash it onto your device, as instructed on the device's page.
+   
+   Remember to use `*-factory.bin` if your device is still running the original firmware, and `*-sysupgrade.bin` if your devices is already running OpenWrt.
+   {:.notice--warning}
 
-I've not tested the next stable release yet and likely will not until it becomes the current stable version.  When that happen, my plan is to update the main mesh guide to make it compatible with the release version 21 configuration syntax.  Until then, I recommend reading the following posts for anyone interested in trying to use `batman-adv` with the OpenWrt version 21:
+This same procedure can be used with [*any* of the still available releases](https://downloads.openwrt.org/releases/). Making use of OpenWrt 19 means that the (tested) instructions in this guide are fully compatible with it.  However, it is generally a good idea to run the latest release version for multiple reasons, security being the main one.  For this reason, I've started upgrading a few of my devices to use OpenWrt 21 instead of 19 and once I'm done testing, I will update this guide in its entirety to reflect the configuration used in OpenWrt 21.  (This should happen before the end of October.)  In the meantime, here are a few notes about OpenWrt 21:
 
-- **rmilecki**'s DSA tutorial:
-  - [Mini tutorial for DSA network config](https://forum.openwrt.org/t/mini-tutorial-for-dsa-network-config/96998)
-- **SteveNewcomb**'s posts about the `batman-adv` configuration:
+- Thanks to **SteveNewcomb**, we have known for many months that `batman-adv` also works under OpenWrt 21.  For reference, here are two of his forum posts that detail the specifics of his devices and configuration:
   - [Batman (in production with post 19.07 snapshot) not working under 21.02](https://forum.openwrt.org/t/batman-in-production-with-post-19-07-snapshot-not-working-under-21-02)
   - [How to specify the mac address of a batman mesh member?](https://forum.openwrt.org/t/how-to-specify-the-mac-address-of-a-batman-mesh-member/100164/2)
 
+- OpenWrt 21 introduces initial support for the [**Distributed Switch Architecture** (**DSA**)](https://www.kernel.org/doc/html/latest/networking/dsa/dsa.html).  This only applies to [a very limited number of devices though](https://openwrt.org/releases/21.02/notes-21.02.0#initial_dsa_support).  If you have one of such devices, then make sure to read **rmilecki**'s [mini tutorial for DSA network configuration](https://forum.openwrt.org/t/mini-tutorial-for-dsa-network-config/96998).
+
+- The [hardware requirements to run OpenWrt 21](https://openwrt.org/releases/21.02/notes-21.02.0#increased_minimum_hardware_requirements8_mb_flash_64_mb_ram) has increased to `8 MB` of flash memory and `64 MB` of RAM.
+
+- There is a small but important [change in the configuration **syntax**](https://openwrt.org/releases/21.02/notes-21.02.0#new_network_configuration_syntax_and_boardjson_change) in `/etc/config/network`, namely:
+  1. The option `ifname` is now called `device` in all `config interface` stanzas;
+  2. The option `ifname` is now called `ports` in all `config device` stanzas of type `bridge`.
+
+  Fortunately, it seems that the **old syntax** (as the one shown in this guide) is **still supported** but if you are using LuCI, you will run into compatibility issues and will be prompted to update.  For a template, [check an example of the new UCI syntax](https://openwrt.org/releases/21.02/notes-21.02.0#new_uci_syntax).
+  {:.notice--warning}
+
+There many other changes in the new stable release.  Please check the [**OpenWrt 21.02.0 release notes**](https://openwrt.org/releases/21.02/notes-21.02.0) for other highlights and additional instructions.
 
 [top](#){: .btn .btn--light-outline .btn--small}
 
