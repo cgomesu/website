@@ -200,7 +200,7 @@
 
 
 
-  22 minute read
+  28 minute read
 
 </p>
       
@@ -375,7 +375,11 @@
           </aside>
         
         <h1 id="changelog">Changelog</h1>
-<p class="notice notice--info"><strong>Feb 1st, 2021</strong>: Publication of the original article</p>
+<p class="notice--success"><strong>September 25th, 2021, Update #2</strong>: Changed the instructions in the <a href="#webserver-configuration">Webserver Configuration</a> section from BusyBox HTTPD to the more reliable Apache2 alternative.  This is motivated by unreliable results when using BusyBox.</p>
+
+<p class="notice--success"><strong>September 25th, 2021, Update #1</strong>: Updated the <code class="language-plaintext highlighter-rouge">curl</code> commands to escape double quotation marks (<code class="language-plaintext highlighter-rouge">"</code>) in the <code class="language-plaintext highlighter-rouge">-d</code> (HTTP POST data) argument.  I also made other minor changes to improve command execution (e.g., setting up environmental variables for <code class="language-plaintext highlighter-rouge">IP_SONOFF</code> and <code class="language-plaintext highlighter-rouge">IP_HOST</code>), fix typos, and improve readability.</p>
+
+<p class="notice--info"><strong>February 1st, 2021</strong>: Publication of the original article</p>
 
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 
@@ -388,9 +392,9 @@
 
 <p>In this tutorial, I will describe how to flash the <code class="language-plaintext highlighter-rouge">tasmota-lite.bin</code> binary onto <strong>Sonoff Mini</strong> relays and any other <strong>Sonoff device that can operate in DIY mode</strong>.  This will be done OTA (wirelessly) using only <code class="language-plaintext highlighter-rouge">curl</code> to send <code class="language-plaintext highlighter-rouge">POST</code> requests and then either the BusyBox HTTP Daemon (<code class="language-plaintext highlighter-rouge">busybox httpd</code>) or a common webserver application (e.g., Apache, Nginx) to create a simple webserver to serve the Tasmota binary to the local network. There is no need to install and run any other application, executable, or whatever.  Software-wise, we just need a terminal and web-browser.</p>
 
-<p class="notice notice--warning"><strong>DISCLAIMER</strong>.The procedure described in this tutorial is <strong>one-way</strong>.  That is, once flashed the Tasmota firmware, it is <strong>not possible to go back</strong> to the original ITEAD firmware.</p>
+<p class="notice--warning"><strong>DISCLAIMER</strong>.The procedure described in this tutorial is <strong>one-way</strong>.  That is, once flashed the Tasmota firmware, it is <strong>not possible to go back</strong> to the original ITEAD firmware.</p>
 
-<p class="notice notice--danger"><strong>ATTENTION</strong>. From this part and on, the tutorial describes procedures that involve working with <strong>mains power</strong>.  If you have not taken the necessary time to learn how to work with it safely, <strong>stop right now</strong> and ask for someone knowledgeable to assist and teach you.  <strong>Do not take this warning lightly</strong>.  Mains power can kill you or set your house on fire or both (or worse).  <strong>Be safe</strong>.</p>
+<p class="notice--danger"><strong>ATTENTION</strong>. From this part and on, the tutorial describes procedures that involve working with <strong>mains power</strong>.  If you have not taken the necessary time to learn how to work with it safely, <strong>stop right now</strong> and ask for someone knowledgeable to assist and teach you.  <strong>Do not take this warning lightly</strong>.  Mains power can kill you or set your house on fire or both (or worse).  <strong>Be safe</strong>.</p>
 
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 
@@ -410,9 +414,9 @@
       <li>
         <p>Version <code class="language-plaintext highlighter-rouge">3.5</code> or higher</p>
 
-        <p class="notice notice--info">If running version <code class="language-plaintext highlighter-rouge">3.3</code> or <code class="language-plaintext highlighter-rouge">3.4</code>, you can try the <a href="https://github.com/itead/Sonoff_Devices_DIY_Tools/blob/master/SONOFF%20DIY%20MODE%20Protocol%20Doc%20v1.4.md#diy-mode-description">protocol v<code class="language-plaintext highlighter-rouge">1.4</code> documentation</a> instead. The procedure does not require soldering but you need to open the device to connect the OTA jumper manually.  The interaction with the RESTful API is the same as described here, so come back to follow the procedure for flashing Tasmota OTA with <code class="language-plaintext highlighter-rouge">curl</code>.</p>
+        <p class="notice--info">If running version <code class="language-plaintext highlighter-rouge">3.3</code> or <code class="language-plaintext highlighter-rouge">3.4</code>, you can try the <a href="https://github.com/itead/Sonoff_Devices_DIY_Tools/blob/master/SONOFF%20DIY%20MODE%20Protocol%20Doc%20v1.4.md#diy-mode-description">protocol v<code class="language-plaintext highlighter-rouge">1.4</code> documentation</a> instead. The procedure does not require soldering but you need to open the device to connect the OTA jumper manually.  The interaction with the RESTful API is the same as described here, so come back to follow the procedure for flashing Tasmota OTA with <code class="language-plaintext highlighter-rouge">curl</code>.</p>
 
-        <p class="notice notice--info">Alternatively, if running an outdated version, install the EWeLink app, create a bogus acount, update the firmware to latest, uninstall the app, come back and follow this guide.</p>
+        <p class="notice--info">Alternatively, if running an outdated version, install the EWeLink app, create a bogus acount, update the firmware to latest, uninstall the app, come back and follow this guide.</p>
       </li>
     </ul>
   </li>
@@ -474,19 +478,35 @@ Password: 12345678
 
     <p>In the meantime, tell your laptop/PC to <strong>join the same local network</strong> you configured in the Sonoff device webUI;</p>
   </li>
-  <li><strong>Go to your DHCP server</strong> and find out which IP address it assigned to the Sonoff device on the local network.  From now on, I will refer to its local IP address as <code class="language-plaintext highlighter-rouge">IP_SONOFF</code>.  Change it too its actual IP addr before running any command.</li>
+  <li>
+    <p><strong>Go to your DHCP server</strong> and find out which IP address it assigned to the Sonoff device on the local network.  <strong>Open a terminal</strong> and assign the IP address to the environmental variable <code class="language-plaintext highlighter-rouge">IP_SONOFF</code>. For example, if your Sonoff device was assigned IPv4 address <code class="language-plaintext highlighter-rouge">192.168.10.150</code>, then enter the following:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>IP_SONOFF='192.168.10.150'
+</code></pre></div>    </div>
+
+    <p>and check that it was corretly assigned by <code class="language-plaintext highlighter-rouge">echo</code>ing the environmental variable <code class="language-plaintext highlighter-rouge">$IP_SONOFF</code>, as follows:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo $IP_SONOFF
+</code></pre></div>    </div>
+
+    <p class="notice--warning">Please notice that this only works if you continue to use the <strong>same shell</strong> in which <code class="language-plaintext highlighter-rouge">IP_SONOFF</code> was defined.  If you log off or even close the current terminal, you will have to redefine <code class="language-plaintext highlighter-rouge">IP_SONOFF</code> to keep using it.</p>
+
+    <p class="notice">Alternatively, simply change every instance of <code class="language-plaintext highlighter-rouge">$IP_SONOFF</code> in the commands below for the actual IP assigned to your Sonoff device.</p>
+  </li>
 </ol>
 
 <h2 id="interacting-with-the-restful-api">Interacting with the RESTful API</h2>
 <ol>
-  <li>Now, we will start using <code class="language-plaintext highlighter-rouge">curl</code> to send <code class="language-plaintext highlighter-rouge">POST</code> requests and pipe the output to <code class="language-plaintext highlighter-rouge">jq</code> to parse the <code class="language-plaintext highlighter-rouge">json</code> output.  Later on, we will use <code class="language-plaintext highlighter-rouge">wget</code> to download the Tasmota binary from its latest release.  To make sure all utlities are installed on your distro and you are running their latest version, <strong>open a terminal</strong> and run the following command:
+  <li>
+    <p>Now, we will start using <code class="language-plaintext highlighter-rouge">curl</code> to send <code class="language-plaintext highlighter-rouge">POST</code> requests and pipe the output to <code class="language-plaintext highlighter-rouge">jq</code> to parse the <code class="language-plaintext highlighter-rouge">json</code> output.  Later on, we will use <code class="language-plaintext highlighter-rouge">wget</code> to download the Tasmota binary from its latest release.  To make sure all utlities are installed on your distro and you are running their latest version, run the following command:</p>
+
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt update &amp;&amp; sudo apt install curl jq wget -y
 </code></pre></div>    </div>
 
-    <p class="notice notice--info">If not using an <code class="language-plaintext highlighter-rouge">apt</code> based distro, simply adapt the code to use your package manager instead.</p>
+    <p class="notice--info">If not using an <code class="language-plaintext highlighter-rouge">apt</code> based distro, simply adapt the code to use your package manager instead.</p>
   </li>
   <li>Let’s check that the Sonoff device’s API is working and <strong>get information</strong> about it, as follows:
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -v -H "Content-Type: application/json" -d "{"data": {}}" IP_SONOFF:8081/zeroconf/info | jq '.'
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -v -H "Content-Type: application/json" -d "{\"data\":{}}" $IP_SONOFF:8081/zeroconf/info | jq '.'
 </code></pre></div>    </div>
     <p>which should output something like this:</p>
     <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
@@ -506,14 +526,21 @@ Password: 12345678
      </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>    </div>
+
+    <p class="notice--info">Please notice that this and the other <code class="language-plaintext highlighter-rouge">curl</code> commands may take a few seconds to finish executing.</p>
   </li>
-  <li>Of note, check that <code class="language-plaintext highlighter-rouge">otaUnlock</code> is <code class="language-plaintext highlighter-rouge">false</code>, which means that currently, it is not possible to flash a custom firmware OTA.  To enable it, we need to <strong>set <code class="language-plaintext highlighter-rouge">otaUnlock</code> to <code class="language-plaintext highlighter-rouge">true</code></strong>, as follows:
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -v -H "Content-Type: application/json" -d "{"data": {}}" IP_SONOFF:8081/zeroconf/ota_unlock | jq '.'
+  <li>
+    <p>Of note, check that <code class="language-plaintext highlighter-rouge">otaUnlock</code> is <code class="language-plaintext highlighter-rouge">false</code>, which means that currently, it is not possible to flash a custom firmware OTA.  To enable it, we need to <strong>set <code class="language-plaintext highlighter-rouge">otaUnlock</code> to <code class="language-plaintext highlighter-rouge">true</code></strong>, as follows:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -v -H "Content-Type: application/json" -d "{\"data\":{}}" $IP_SONOFF:8081/zeroconf/ota_unlock | jq '.'
 </code></pre></div>    </div>
     <p>and we can now verify that OTA is unlocked by getting the device’s info once again, as follows:</p>
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -v -H "Content-Type: application/json" -d "{"data": {}}" IP_SONOFF:8081/zeroconf/info | jq '.'
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -v -H "Content-Type: application/json" -d "{\"data\":{}}" $IP_SONOFF:8081/zeroconf/info | jq '.'
 </code></pre></div>    </div>
+
     <p>which should indicate that <code class="language-plaintext highlighter-rouge">otaUnlock</code> is now <code class="language-plaintext highlighter-rouge">true</code>:</p>
+
     <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
  </span><span class="nl">"seq"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
  </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
@@ -531,63 +558,127 @@ Password: 12345678
      </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>    </div>
+
     <p>If you are not seeing this, review your steps until now.  You can still reset the device powering it OFF and back ON, and the device should come back in DIY mode once again (test with the first <code class="language-plaintext highlighter-rouge">curl</code> command, for example).</p>
   </li>
-  <li><strong>Download the latest <code class="language-plaintext highlighter-rouge">tasmota-lite.bin</code> binary</strong> from the Tasmota Github repository to your user’s <code class="language-plaintext highlighter-rouge">Downloads/tasmota</code> directory, as follows:
+  <li>
+    <p><strong>Download the latest <code class="language-plaintext highlighter-rouge">tasmota-lite.bin</code> binary</strong> from the Tasmota Github repository to your user’s <code class="language-plaintext highlighter-rouge">Downloads/tasmota</code> directory, as follows:</p>
+
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir /home/${USER}/Downloads/tasmota
 wget -P /home/${USER}/Downloads/tasmota $(curl -s https://api.github.com/repos/arendst/Tasmota/releases/latest | grep '\"browser_download_url.*tasmota-lite.bin\"' | cut -d '"' -f 4)
 </code></pre></div>    </div>
+
     <p>This should write a <code class="language-plaintext highlighter-rouge">tasmota-lite.bin</code> file onto your user’s <code class="language-plaintext highlighter-rouge">Downloads/tasmota/</code> directory. If it does not, please <a href="/contact">let me know about it</a> and in the meantime, try downloading the file manually from the <a href="https://github.com/arendst/Tasmota/releases">Tasmota Github repo</a>.</p>
   </li>
-  <li>Check the <code class="language-plaintext highlighter-rouge">tasmota-lite.bin</code> SHA256 signature and save it to file <code class="language-plaintext highlighter-rouge">tasmota-lite-sha256.txt</code>, as follows:
+  <li>
+    <p>Check the <code class="language-plaintext highlighter-rouge">tasmota-lite.bin</code> SHA256 signature and save it to file <code class="language-plaintext highlighter-rouge">tasmota-lite-sha256.txt</code>, as follows:</p>
+
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> sha256sum "/home/${USER}/Downloads/tasmota/tasmota-lite.bin" &gt; "/home/${USER}/Downloads/tasmota/tasmota-lite-sha256.txt"
 </code></pre></div>    </div>
-    <p><strong>Take note of the signature</strong> and paste it whenever I refer to <code class="language-plaintext highlighter-rouge">BIN_SHA256</code>.  You can find the signature with the following command (or just open the text file and copy the first string):</p>
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> cat "/home/${USER}/Downloads/tasmota/tasmota-lite-sha256sum.txt" | cut -d ' ' -f 1
-</code></pre></div>    </div>
+
     <p>This signature is used to check the firmware integrity after the Sonoff device is done downloading it from a webserver. This is done to prevent the device from flashing a corrupted firmware, for example, because a corrupted file will likely yield a different SHA256 signature.</p>
+
+    <p>To make it easier later on, let’s create an environmental variable called <code class="language-plaintext highlighter-rouge">BIN_SHA256</code> that contains the signature, as follows:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> BIN_SHA256=$(cat "/home/${USER}/Downloads/tasmota/tasmota-lite-sha256.txt" | cut -d ' ' -f 1)
+</code></pre></div>    </div>
+
+    <p>and make sure it’s correctly set up by <code class="language-plaintext highlighter-rouge">echo</code>ing it:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> echo $BIN_SHA256
+</code></pre></div>    </div>
   </li>
 </ol>
 
 <h2 id="webserver-configuration">Webserver configuration</h2>
 <p>The webserver has a few peculiar requirements (e.g., needs to accept the <code class="language-plaintext highlighter-rouge">Ranges</code> header, run in <code class="language-plaintext highlighter-rouge">http</code> instead of <code class="language-plaintext highlighter-rouge">https</code>) that does not allow us to point to Tasmota’s OTA website, Github releases, or any other official source of the Tasmota firmware binary. Fortunately, we can run a webserver on the local network that satisfies all requirements by the ITEAD firmware and in my experience, the easiest way to do that is to either use the <strong>BusyBox HTTP Daemon</strong> or run an <strong>Apache</strong> webserver–or lighttp or Nginx, for instance, but <strong>do not</strong> try Python’s <code class="language-plaintext highlighter-rouge">http.server</code> or PHP because they do not accept partial content.</p>
 
-<p>BusyBox and Apache are the easiest applications to get up and running because they often come pre-installed in several Linux distros, such as Debian, which means that all you need to do is run a simple command or enable a systemd service that controls the webserver application.  Here, I will focus on the former (<code class="language-plaintext highlighter-rouge">busybox</code>) rather than the latter (<code class="language-plaintext highlighter-rouge">apache2</code>) because in my opinion, BusyBox makes this step rather trivial.</p>
-
-<p>If you have never heard of <a href="https://www.busybox.net/">BusyBox</a> before, it is a sort of Swiss Army knife for Linux, Android, and many other POSIX environments.  It encapsulates multiple Unix utilities into a single and small executable, and for this reason, it is often used in resource limited applications (e.g., routers/modems, other embedded systems, cellphones).  Here, we will take advantage of one of its utilities, namely the <strong><a href="https://openwrt.org/docs/guide-user/services/webserver/http.httpd">HTTP Daemon</a></strong>, to create a minimal webserver to serve the <code class="language-plaintext highlighter-rouge">tasmota-lite.bin</code> firmware to the Sonoff device.</p>
+<p>(<em>Updated in September 25th, 2021.</em>) When I first published this tutorial, I included instructions for BusyBox.  Since then, however, I have had mixed results with it and  switched to using Apache instead.  More specifically, to create a minimal webserver using Apache to serve the <code class="language-plaintext highlighter-rouge">tasmota-lite.bin</code> firmware file to the Sonoff device, follow these steps:</p>
 
 <ol>
-  <li>First, make sure you have <code class="language-plaintext highlighter-rouge">busybox</code> <strong>installed</strong>, as follows:
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> sudo apt update &amp;&amp; sudo apt install busybox -y
+  <li>
+    <p>First, make sure you have <code class="language-plaintext highlighter-rouge">apache2</code> <strong>installed</strong>:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> sudo apt update &amp;&amp; sudo apt install apache2 -y
 </code></pre></div>    </div>
 
-    <p class="notice notice--info">If not using an <code class="language-plaintext highlighter-rouge">apt</code> based distro, simply adapt the code to use your package manager instead.</p>
-  </li>
-  <li>Then, <strong>create a webserver</strong> with your user’s <code class="language-plaintext highlighter-rouge">Downloads/tasmota</code> directory as root and using port <code class="language-plaintext highlighter-rouge">2020</code>:
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>busybox httpd -p 2020 -h "/home/${USER}/Downloads/tasmota/"
-</code></pre></div>    </div>
-
-    <p class="notice notice--warning">If you are running a <strong>firewall</strong> on your laptop/PC, make sure to allow incoming TCP/UDP to port <code class="language-plaintext highlighter-rouge">2020</code> as well.  Otherwise, other devices on your local network won’t be able to access the webserver you just created.</p>
+    <p class="notice--info">If not using an <code class="language-plaintext highlighter-rouge">apt</code> based distro, simply adapt the code to use your package manager instead.</p>
   </li>
   <li>
-    <p>Find the local <strong>IP address of your laptop/PC</strong> with <code class="language-plaintext highlighter-rouge">ip a</code> (e.g., <code class="language-plaintext highlighter-rouge">192.168.1.100</code>).  The address should be reachable by the Sonoff device (e.g., it is on the same subnet).  From this point forward, I will refer to the host IP address by <code class="language-plaintext highlighter-rouge">IP_HOST</code>.</p>
+    <p>By default, Apache should automatically create, enable, and start a default webserver at your device’s port <code class="language-plaintext highlighter-rouge">80</code>. To make sure this is the case, check <code class="language-plaintext highlighter-rouge">systemctl</code> for the status of the <code class="language-plaintext highlighter-rouge">apache2</code> service:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl status apache2
+</code></pre></div>    </div>
+
+    <p>which should show the following if the service is running without issues:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>● apache2.service - The Apache HTTP Server
+Loaded: loaded (/lib/systemd/system/apache2.service; enabled; vendor preset: enabled)
+Active: active (running) since Sat 2021-09-25 12:00:10 -03; 3h 23min ago
+  Docs: https://httpd.apache.org/docs/2.4/
+ Main PID: 9393 (apache2)
+ Tasks: 55 (limit: 4915)
+Memory: 22.1M
+CGroup: /system.slice/apache2.service
+        ├─9393 /usr/sbin/apache2 -k start
+        ├─9394 /usr/sbin/apache2 -k start
+        └─9395 /usr/sbin/apache2 -k start
+</code></pre></div>    </div>
+
+    <p class="notice">You can also type <code class="language-plaintext highlighter-rouge">sudo service apache2 status</code> to check for the status of the apache2 service.</p>
+
+    <p class="notice">If the service is not running, try starting it manually via <code class="language-plaintext highlighter-rouge">sudo systemctl start apache2</code>. If you run into issues, it is possible that there is another service already using the default port <code class="language-plaintext highlighter-rouge">80</code>.  Stop the other service and start <code class="language-plaintext highlighter-rouge">apache2</code>.</p>
+
+    <p class="notice--warning">If you are running a <strong>firewall</strong> on your laptop/PC, make sure to allow incoming TCP/UDP to port <code class="language-plaintext highlighter-rouge">80</code> as well.  Otherwise, other devices on your local network won’t be able to access the webserver.</p>
   </li>
-  <li><em>Optional.</em> Using another wifi capable device, test that the <code class="language-plaintext highlighter-rouge">tasmota-lite-bin</code> file is <strong>available to the local network</strong> by typing the following on a web-browser:
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://IP_HOST:2020/tasmota-lite.bin
+  <li>
+    <p>If the webserver is running without issues, then copy the contents of your <code class="language-plaintext highlighter-rouge">/home/${USER}/Downloads/tasmota/</code> directory to the root of the Apache webserver, as follows:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo cp /home/${USER}/Downloads/tasmota/* /var/www/html/
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Find the local <strong>IP address of your laptop/PC</strong> with <code class="language-plaintext highlighter-rouge">ip a</code> (e.g., <code class="language-plaintext highlighter-rouge">192.168.10.100</code>).  The address should be reachable by the Sonoff device (e.g., it is on the same subnet).  Then, assign its IP address to the environmental variable <code class="language-plaintext highlighter-rouge">$IP_HOST</code>, just like we did with <code class="language-plaintext highlighter-rouge">IP_SONOFF</code>, as follows (use your host’s actual IP address instead of the one in this example, of course):</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>IP_HOST='192.168.10.100'
+</code></pre></div>    </div>
+
+    <p>and check that it was corretly assigned by <code class="language-plaintext highlighter-rouge">echo</code>ing it:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo $IP_HOST
+</code></pre></div>    </div>
+
+    <p class="notice">Alternatively, simply change every instance of <code class="language-plaintext highlighter-rouge">$IP_HOST</code> in the commands below for the actual IP assigned to your host device.</p>
+  </li>
+  <li>
+    <p><em>Optional.</em> Using another wifi capable device, test that the <code class="language-plaintext highlighter-rouge">tasmota-lite-bin</code> file is <strong>available to the local network</strong> by typing the output of the following command on a web-browser:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo "http://$IP_HOST/tasmota-lite.bin"
 </code></pre></div>    </div>
 
     <p>If correctly configured, the device should be able to download the binary.  Otherwise, review your steps.</p>
   </li>
+  <li>
+    <p><em>Optional</em>. By default, Apache creates log files in the <code class="language-plaintext highlighter-rouge">/var/log/apache2/</code> dir that keep track of various messages that are relevant for managing the webserver. The <code class="language-plaintext highlighter-rouge">access.log</code> file is particularly useful for keeping track of HTTP requests to the webserver, which allow us to tell when the Sonoff device starts and stops requesting the <code class="language-plaintext highlighter-rouge">tasmota-lite.bin</code> file. To monitor such a file, open <em>another</em> terminal and then enter the following command:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo tail -f /var/log/apache2/access.log
+</code></pre></div>    </div>
+
+    <p>Minimize this terminal and come back to check it after sending the <code class="language-plaintext highlighter-rouge">curl</code> <code class="language-plaintext highlighter-rouge">POST</code> command to flash the firmware over the air.  This will tell you whether the Sonoff device was correctly configured and is trying to download the firmware file from your local Apache webserver.</p>
+  </li>
 </ol>
 
-<p class="notice notice--info">If you would like to use one of the most common webservers, such as Apache, Lighttpd, and Nginx, install any one of them using your system’s package manager and then <em>copy the files in your user’s</em> <code class="language-plaintext highlighter-rouge">Downloads/tasmota</code> <em>dir to the webserver’s root</em>, which by default is usually on <code class="language-plaintext highlighter-rouge">/var/www/html</code>.</p>
+<p class="notice--info">If you would like to use another common webserver, such as Lighttpd or Nginx, install any one of them using your system’s package manager and then <em>copy the files in your user’s</em> <code class="language-plaintext highlighter-rouge">Downloads/tasmota</code> <em>dir to the webserver’s root</em>, which by default is usually on <code class="language-plaintext highlighter-rouge">/var/www/html</code> but might change depending on the application used and Linux distribution.</p>
 
 <h2 id="flashing-the-tasmota-firmware">Flashing the Tasmota firmware</h2>
 <ol>
-  <li>Flash the <code class="language-plaintext highlighter-rouge">tasmota-lite.bin</code> binary onto the Sonoff device via a <code class="language-plaintext highlighter-rouge">curl</code> <code class="language-plaintext highlighter-rouge">POST</code>: (Change <code class="language-plaintext highlighter-rouge">IP_HOST</code>, <code class="language-plaintext highlighter-rouge">BIN_SHA256</code>, and <code class="language-plaintext highlighter-rouge">IP_SONOFF</code> <strong>before running the command</strong>.  Double check everything to make sure it is correct as well.)
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -v -H "Content-Type: application/json" -d '{"data": {"downloadUrl": "http://IP_HOST:2020/tasmota-lite.bin", "sha256sum": "BIN_SHA256"}}' IP_SONOFF:8081/zeroconf/ota_flash | jq '.'
+  <li>
+    <p>Flash the <code class="language-plaintext highlighter-rouge">tasmota-lite.bin</code> binary onto the Sonoff device via a <code class="language-plaintext highlighter-rouge">curl</code> <code class="language-plaintext highlighter-rouge">POST</code>. (If you did not create environmental variables for <code class="language-plaintext highlighter-rouge">IP_HOST</code>, <code class="language-plaintext highlighter-rouge">BIN_SHA256</code>, and <code class="language-plaintext highlighter-rouge">IP_SONOFF</code>, make sure to change them in the command below <strong>before running it</strong>.  Double check everything to make sure there are no errors–for example, you can <code class="language-plaintext highlighter-rouge">echo</code> the entire <code class="language-plaintext highlighter-rouge">curl</code> command before executing it by wrapping it around double quotation marks (<code class="language-plaintext highlighter-rouge">"</code>) to make sure your shell environment is making the appropriate substitutions.)</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -v -H "Content-Type: application/json" -d "{\"data\":{\"downloadUrl\":\"http://$IP_HOST/tasmota-lite.bin\",\"sha256sum\":\"$BIN_SHA256\"}}" $IP_SONOFF:8081/zeroconf/ota_flash | jq '.'
 </code></pre></div>    </div>
-    <p>You should get an HTTP response fairly quickly.  The following codes indicate that there was an <strong>error</strong> and you should review your steps until now:</p>
+
+    <p>You should get an HTTP <code class="language-plaintext highlighter-rouge">OK</code> response (<code class="language-plaintext highlighter-rouge">200</code>) fairly quickly.  If you do not, the following codes indicate that there was an <strong>error</strong> and you should review your steps until now:</p>
 
     <ul>
       <li><strong>403</strong>: The operation failed and the OTA function was not unlocked.</li>
@@ -598,11 +689,39 @@ wget -P /home/${USER}/Downloads/tasmota $(curl -s https://api.github.com/repos/a
     </ul>
   </li>
   <li>
-    <p><strong>Wait 2 minutes</strong> or so.</p>
-  </li>
-  <li>Once the device is done flashing the new firmware, <strong>open a web-browser</strong> and try reaching the Tasmota webUI at the following URL:
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>IP_SONOFF:80
+    <p><em>Optional.</em> Once the <code class="language-plaintext highlighter-rouge">curl</code> connection is closed, monitor Apache’s <code class="language-plaintext highlighter-rouge">access.log</code> for <code class="language-plaintext highlighter-rouge">GET</code> requests coming from the Sonoff device, as follows:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo tail -f /var/log/apache2/access.log
 </code></pre></div>    </div>
+
+    <p>which should show messages similar to the following if your Sonoff device has successfully managed to reach and request the <code class="language-plaintext highlighter-rouge">tasmota-lite.bin</code> from the Apache webserver:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...
+192.168.10.150 - - [25/Sep/2021:12:51:30 -0300] "GET /tasmota-lite.bin?deviceid=10011b78f7&amp;ts=5748438&amp;sign=e177370169c2051e73f82c2cd3874da6d333e46ef597da91dc543cc573586b04 HTTP/1.1" 206 4399 "-" "itead-device"
+192.168.10.150 - - [25/Sep/2021:12:51:30 -0300] "GET /tasmota-lite.bin?deviceid=10011b78f7&amp;ts=1576460931&amp;sign=c2029fdd9d52ed2272c085ba79ffd5a88f11e94c8385f41bb68630de3c7b39b5 HTTP/1.1" 206 4399 "-" "itead-device"
+192.168.10.150 - - [25/Sep/2021:12:51:30 -0300] "GET /tasmota-lite.bin?deviceid=10011b78f7&amp;ts=1267998018&amp;sign=3489ad84677930d5f8a1b398582afe8e702b2e77e57eee189254571d6968e619 HTTP/1.1" 206 4399 "-" "itead-device"
+192.168.10.150 - - [25/Sep/2021:12:51:30 -0300] "GET /tasmota-lite.bin?deviceid=10011b78f7&amp;ts=1287998487&amp;sign=10bba3c35c1ba79c49282cddb38dddfb75fc633810a4eec9f7612b76e0ddcbb2 HTTP/1.1" 206 4399 "-" "itead-device"
+192.168.10.150 - - [25/Sep/2021:12:51:30 -0300] "GET /tasmota-lite.bin?deviceid=10011b78f7&amp;ts=1883570151&amp;sign=459b191580a1d9a2312dee51350592c5255d2cda9b0b96f26b9357dff0ab102f HTTP/1.1" 206 4399 "-" "itead-device"
+...
+</code></pre></div>    </div>
+
+    <p>and once the webserver stops receiving <code class="language-plaintext highlighter-rouge">GET</code> requests, you know that it will then start flashing the firmware onto the device’s memory.</p>
+  </li>
+  <li>
+    <p><strong>Wait</strong> for at least 2 minutes. When done, the Tasmota firmware should create a public wireless access point (WAP) with SSID called <code class="language-plaintext highlighter-rouge">tasmota_*</code>.  Use a wifi-capable device and connect to the WAP.</p>
+  </li>
+  <li>
+    <p>Once connected, Tasmota will give your device an IP address, which you can check via <code class="language-plaintext highlighter-rouge">ip a</code>. Usually, the device’s IP address is in the <code class="language-plaintext highlighter-rouge">192.168.4.0/24</code> pool, which means the Tasmota webUI is at <code class="language-plaintext highlighter-rouge">http://192.168.4.1:80</code>.  (Otherwise, the webUI will be at the first address in whichever pool your device connected to after joining the WAP created by the Tasmota firmware.)</p>
+  </li>
+  <li>
+    <p>Open a web browser of your choice and navigate to the Tasmota webUI. You should be prompted to change the wifi settings to allow your Tasmota to connect to your local wifi network.  Change the settings, save it, and wait for the Tasmota to reboot.</p>
+  </li>
+  <li>
+    <p>After reboot, <strong>reconnect to your local network</strong>, open a web browser, and try reaching the Tasmota webUI at the output of the following command:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo "http://$IP_SONOFF:80"
+</code></pre></div>    </div>
+
     <p>If corretcly installed, you will be greeted by the following Tasmota webUI:</p>
 
     <p><a href="/assets/posts/2021-01-30-ota-tasmota-sonoff/sonoff-webui.jpg"><img src="/assets/posts/2021-01-30-ota-tasmota-sonoff/sonoff-webui.jpg" alt="Sonoff webUI" class="PostImage" /></a></p>
@@ -630,16 +749,22 @@ wget -P /home/${USER}/Downloads/tasmota $(curl -s https://api.github.com/repos/a
 </ol>
 
 <ul>
-  <li><a href="https://www.itead.cc/sonoff-basicr3-wifi-diy-smart-switch.html">Sonoff Basic R3</a>:
+  <li>
+    <p><a href="https://www.itead.cc/sonoff-basicr3-wifi-diy-smart-switch.html">Sonoff Basic R3</a>:</p>
+
     <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="p">{</span><span class="nl">"NAME"</span><span class="p">:</span><span class="s2">"Sonoff Basic"</span><span class="p">,</span><span class="nl">"GPIO"</span><span class="p">:[</span><span class="mi">17</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">21</span><span class="p">,</span><span class="mi">56</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="nl">"FLAG"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nl">"BASE"</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span><span class="w">
 </span></code></pre></div>    </div>
   </li>
-  <li><a href="https://www.itead.cc/sonoff-rfr3.html">Sonoff RF R3</a>
+  <li>
+    <p><a href="https://www.itead.cc/sonoff-rfr3.html">Sonoff RF R3</a></p>
+
     <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="p">{</span><span class="nl">"NAME"</span><span class="p">:</span><span class="s2">"Sonoff RF"</span><span class="p">,</span><span class="nl">"GPIO"</span><span class="p">:[</span><span class="mi">17</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">21</span><span class="p">,</span><span class="mi">56</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="nl">"FLAG"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nl">"BASE"</span><span class="p">:</span><span class="mi">2</span><span class="p">}</span><span class="w">
 </span></code></pre></div>    </div>
   </li>
-  <li><a href="https://www.itead.cc/sonoff-mini.html">Sonoff Mini</a>
-    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="nl">"NAME"</span><span class="p">:</span><span class="s2">"Sonoff Mini"</span><span class="p">,</span><span class="nl">"GPIO"</span><span class="p">:[</span><span class="mi">17</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">21</span><span class="p">,</span><span class="mi">56</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">],</span><span class="nl">"FLAG"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nl">"BASE"</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span><span class="w">
+  <li>
+    <p><a href="https://www.itead.cc/sonoff-mini.html">Sonoff Mini</a></p>
+
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="p">{</span><span class="nl">"NAME"</span><span class="p">:</span><span class="s2">"Sonoff Mini"</span><span class="p">,</span><span class="nl">"GPIO"</span><span class="p">:[</span><span class="mi">17</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">21</span><span class="p">,</span><span class="mi">56</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">],</span><span class="nl">"FLAG"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nl">"BASE"</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span><span class="w">
 </span></code></pre></div>    </div>
   </li>
 </ul>
@@ -658,9 +783,12 @@ wget -P /home/${USER}/Downloads/tasmota $(curl -s https://api.github.com/repos/a
 
 <h2 id="fixing-the-timezone">Fixing the timezone</h2>
 <p>If you installed a pre-compilled firmware, there’s a chance your device is using the incorrect timezone.  To check the current timezone, go to the webUI main page and then <strong>Console</strong>. Now, type the following:</p>
+
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>timezone
 </code></pre></div></div>
+
 <p>and if that is incorrect, to change it, enter the same <code class="language-plaintext highlighter-rouge">timezone</code> command with a value equal to your region’s <a href="https://upload.wikimedia.org/wikipedia/commons/8/88/World_Time_Zones_Map.png">standardized time zone</a> timezone.  For America/Sao_Paulo, for example, that would be <code class="language-plaintext highlighter-rouge">-3</code>, which can be set in your Tasmota device as follows</p>
+
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>timezone -3
 </code></pre></div></div>
 
