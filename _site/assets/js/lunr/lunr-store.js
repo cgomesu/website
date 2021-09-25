@@ -42,7 +42,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Mesh networking: A guide to using free and open-source software with common hardware",
-        "excerpt":"Changelog September 16th, 2021: Updated information about transitioning from OpenWrt 19 (current stable release) to OpenWrt 21 (next stable release) in the section Bonus content: Moving from OpenWrt 19 to 21. OpenWrt has officially started rolling out version 21 with the release of the OpenWrt 21.02. I’m currently testing the...","categories": ["blog"],
+        "excerpt":"Changelog September 16th, 2021: Updated the information about OpenWrt 21 in the section Bonus content: Moving from OpenWrt 19 to 21. In brief, DSA support is still very limited and OpenWrt has officially started rolling out version 21 with the release of OpenWrt 21.02. I’m currently testing the new version...","categories": ["blog"],
         "tags": ["mesh","adhoc","ieee","wifi","wireless","radio","network","router","openwrt","batman"],
         "url": "/blog/Mesh-networking-openwrt-batman/",
         "teaser": null
@@ -66,7 +66,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Flashing Tasmota firmware onto Sonoff devices over-the-air: \"How-to\" using just a terminal and web-browser",
-        "excerpt":"Changelog Feb 1st, 2021: Publication of the original article top Introduction Sonoff devices are very popular home-automation devices developed by a Chinese company called ITEAD. By default, they are controlled by a closed-source application developed by ITEAD–called EWeLink–that can be installed onto iOS and Android cellphones, for example, making use...","categories": ["blog"],
+        "excerpt":"Changelog September 25th, 2021, Update #2: Changed the instructions in the Webserver Configuration section from BusyBox HTTPD to the more reliable Apache2 alternative. This is motivated by unreliable results when using BusyBox. September 25th, 2021, Update #1: Updated the curl commands to escape double quotation marks (\") in the -d...","categories": ["blog"],
         "tags": ["iot","tasmota","sonoff","wireless","automation","firmware"],
         "url": "/blog/ota-tasmota-sonoff/",
         "teaser": null
