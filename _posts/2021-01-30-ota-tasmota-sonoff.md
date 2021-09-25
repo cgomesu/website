@@ -365,6 +365,18 @@ If you would like to use another common webserver, such as Lighttpd or Nginx, in
 
    and then, see the next section for the basic settings; Otherwise, review your steps and try reflashing the firmware.
 
+7. If everything looks fine with your new Tasmota device, go ahead and stop and disable the local Apache webserver:
+   
+   ```
+   sudo systemctl stop apache2 && sudo systemctl disable apache2
+   ```
+
+   and remove the `tasmota*` files from the root of the `/var/www/html/` directory:
+
+   ```
+   sudo rm /var/www/html/tasmota*
+   ```
+
 [top](#){: .btn .btn--light-outline .btn--small}
 
 

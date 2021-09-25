@@ -200,7 +200,7 @@
 
 
 
-  28 minute read
+  29 minute read
 
 </p>
       
@@ -727,6 +727,17 @@ CGroup: /system.slice/apache2.service
     <p><a href="/assets/posts/2021-01-30-ota-tasmota-sonoff/sonoff-webui.jpg"><img src="/assets/posts/2021-01-30-ota-tasmota-sonoff/sonoff-webui.jpg" alt="Sonoff webUI" class="PostImage" /></a></p>
 
     <p>and then, see the next section for the basic settings; Otherwise, review your steps and try reflashing the firmware.</p>
+  </li>
+  <li>
+    <p>If everything looks fine with your new Tasmota device, go ahead and stop and disable the local Apache webserver:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo systemctl stop apache2 &amp;&amp; sudo systemctl disable apache2
+</code></pre></div>    </div>
+
+    <p>and remove the <code class="language-plaintext highlighter-rouge">tasmota*</code> files from the root of the <code class="language-plaintext highlighter-rouge">/var/www/html/</code> directory:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo rm /var/www/html/tasmota*
+</code></pre></div>    </div>
   </li>
 </ol>
 
