@@ -200,7 +200,7 @@
 
 
 
-  101 minute read
+  103 minute read
 
 </p>
       
@@ -378,6 +378,7 @@
           <li><a href="#ath10k-modules">ath10k modules</a></li>
         </ul>
       </li>
+      <li><a href="#useful-hardware-resources">Useful hardware resources</a></li>
     </ul>
   </li>
   <li><a href="#software">Software</a>
@@ -611,7 +612,7 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
 
 <p><a href="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/tplink-tl-wdr4300-back.jpg"><img src="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/tplink-tl-wdr4300-back.jpg" alt="TL-WDR4300 back" class="PostImage" /></a></p>
 
-<p>This is a cheap, Atheros-based <em>dual-band</em> router that satisfies the <a href="https://openwrt.org/releases/21.02/notes-21.02.0#increased_minimum_hardware_requirements8_mb_flash_64_mb_ram">minimum hardware requirements imposed by OpenWrt 21</a>–namely, at least <code class="language-plaintext highlighter-rouge">8MB</code> of flash memory and <code class="language-plaintext highlighter-rouge">64MB</code> of RAM.  However, the general ideas presented here should apply to <strong>any wireless device</strong> that meets the following criteria:</p>
+<p>This is a low-end, Atheros-based <em>dual-band</em> router that satisfies the <a href="https://openwrt.org/releases/21.02/notes-21.02.0#increased_minimum_hardware_requirements8_mb_flash_64_mb_ram">minimum hardware requirements imposed by OpenWrt 21</a>–namely, at least <code class="language-plaintext highlighter-rouge">8MB</code> of flash memory and <code class="language-plaintext highlighter-rouge">64MB</code> of RAM.  However, the general ideas presented here should apply to <strong>any wireless device</strong> that meets the following criteria:</p>
 
 <ol>
   <li>Compatible with the latest OpenWRT version. Refer to their <a href="https://openwrt.org/toh/start"><strong>Hardware List</strong></a>;</li>
@@ -625,7 +626,7 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
   </li>
 </ol>
 
-<p>Now, if you’re looking for devices to buy and experiment on, my suggestion is to look for dual-band wireless routers to allow a better segmentation of the wireless networks.  If you can afford spending more for a mesh node, look for tri-band devices.  Netgear and Linksys have solid options that are compatible with OpenWrt. For example, the Linksys WRT1900AC (v1/v2) dual-band wireless router would make for a good mesh node:</p>
+<p>Now, if you’re looking for devices to buy and experiment on, my suggestion is to look for high-end dual-band wireless routers to allow a better segmentation of the wireless networks.  If you can afford spending more for a mesh node, look for tri-band devices.  Netgear and Linksys have solid options that are compatible with OpenWrt. For example, the Linksys WRT1900AC (v1/v2) dual-band wireless router would make for a good mesh node:</p>
 
 <p><a href="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/linksys-wrt1900ac.jpg"><img src="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/linksys-wrt1900ac.jpg" alt="Linksys WRT1900AC" class="PostImage PostImage--large" /></a></p>
 
@@ -639,12 +640,10 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
 
 <p><a href="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/AWUS036NH.jpg"><img src="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/AWUS036NH.jpg" alt="Alfa AWUS036NH" class="PostImage" /></a></p>
 
-<p>All that said, most home users will be just fine with a cheapo, used, old, and single-band router.  For a brand reference, TP-Link has good and affordable devices that can be used in a mesh networking project without issues.  If you’re new to this, start from here (small, simple) and think about efficiency over power.  You don’t need to drive a Lamborghini to get a snack at the grocery store.</p>
+<p>All that said, most home users will be just fine with a cheapo, used, old, and single-band router.  For a brand reference, TP-Link has good and affordable devices that can be used in a mesh networking project without issues.  If you’re new to this, start from here (small, simple) and think about efficiency over power.  You don’t need to drive a Lamborghini to get a snack at the grocery store. For additional resources, skip to the section called <a href="#useful-hardware-resources">Useful hardware resources</a> down below.</p>
 
 <h2 id="hardware-specific-configurations">Hardware-specific configurations</h2>
 <p>Every once in a while, I run into hardware that is capable of operating in <code class="language-plaintext highlighter-rouge">mesh point</code> mode but the default OpenWrt firmware uses a module for the wireless adapter that is loaded with incompatible parameters.  Here is a list of a few of the known ones and their solution.</p>
-
-<p class="notice--warning">Please notice that the following configurations applied to an older version of the OpenWrt firmware–namely, <strong>OpenWrt 19</strong>–and might not apply to the latest release versions.  Always test your device using the default module configuration first.</p>
 
 <h3 id="ath9k-modules">ath9k modules</h3>
 <p>If your device uses the <code class="language-plaintext highlighter-rouge">ath9k</code> module, there’s a chance that you’ll need to enable the <code class="language-plaintext highlighter-rouge">nohwcrypt</code> parameter of the module to use the mesh <em>with encryption</em>.  First, however, try without changing the default module parameters.  After rulling out possible typos in the network and wireless configuration files, try the following:</p>
@@ -738,6 +737,23 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
         </tr>
       </tbody>
     </table>
+  </li>
+</ul>
+
+<h2 id="useful-hardware-resources">Useful hardware resources</h2>
+<p>These are a few resources that I’ve used in the past that you might find useful when looking for mesh compatible devices:</p>
+
+<ul>
+  <li><strong>OpenWrt</strong>:
+    <ul>
+      <li><a href="https://openwrt.org/toh/buyerguide">Buyers’ Guide</a></li>
+      <li><a href="https://openwrt.org/toh/views/toh_extended_all">Extended Table of Hardware</a></li>
+    </ul>
+  </li>
+  <li><strong>Linux Wireless wiki</strong>:
+    <ul>
+      <li>The wiki has a list of <a href="https://wireless.wiki.kernel.org/en/users/drivers">existing Linux wireless <em>drivers</em></a> that mention whether it supports <code class="language-plaintext highlighter-rouge">mesh point</code> or not.  To search for specific <em>devices</em>, my recommendation is to (a) open the page of a driver that supports mesh (e.g., <a href="https://wireless.wiki.kernel.org/en/users/drivers/ath10k">ath10k</a>), then (b) look for <a href="https://wireless.wiki.kernel.org/en/users/drivers/ath10k#supported_devices">supported devices</a> under it, and finally, (c) go to OpenWrt’s <a href="https://openwrt.org/toh/views/toh_extended_all">Extended Table of Hardware</a> and in <strong>WLAN Hardware</strong>, enter a supported device found on the Linux Wireless wiki (e.g., <code class="language-plaintext highlighter-rouge">QCA9880</code>). This will <a href="https://openwrt.org/toh/views/toh_extended_all?dataflt%5BWLAN+Hardware*%7E%5D=QCA9880">create a filter</a> to show only devices that contain the given hardware and should provide you a starting point for further research.</li>
+    </ul>
   </li>
 </ul>
 
@@ -897,6 +913,8 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
 
 <p><a href="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/segmentation.jpg"><img src="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/segmentation.jpg" alt="Segmentation" class="PostImage PostImage--large" /></a></p>
 
+<p class="notice--info">Segmentation of mesh vs. non-mesh traffic <strong>is not a requirement</strong> but an option that greatly improves performance. If your mesh devices do not support dual-band, simply assign the same radio for both mesh and non-mesh wireless interfaces.</p>
+
 <p>First, however, we will start with the aspects that are common to all topologies, such as planning the mesh network, and the installation and basic configuration of OpenWrt mesh nodes.  Then, we will move to the specifics of each of the aforementioned mesh network topologies.  Finally, we end the section with a slightly more complex scenario to illustrate how to create <strong>mesh VLANs</strong> with <code class="language-plaintext highlighter-rouge">batman-adv</code> and a very brief introduction to using <code class="language-plaintext highlighter-rouge">batman-adv</code> on other Linux distros.</p>
 
 <p><a href="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-mesh-vlans.jpg"><img src="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-mesh-vlans.jpg" alt="Topology - Mesh VLANs" class="PostImage PostImage--large" /></a></p>
@@ -925,7 +943,7 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
 <p>If you’re new to this, the folks at OpenWrt were kind enough to provide a plethora of instructions on <a href="https://openwrt.org/docs/guide-user/installation/start">how to install and uninstall OpenWrt</a> and even put together an <a href="https://openwrt.org/docs/guide-user/installation/generic.flashing#installation_checklist"><strong>installation checklist</strong></a>.  At the very least, do the following:</p>
 
 <ol>
-  <li>Look for your device’s <strong>model and version</strong> in the <a href="https://openwrt.org/toh/start"><strong>Table of Hardware</strong></a> and open its <strong>Device Page</strong> (e.g., <a href="https://openwrt.org/toh/tp-link/tl-wr1043nd">TP-Link TL-WR1043ND</a>);</li>
+  <li>Look for your device’s <strong>model and version</strong> in the <a href="https://openwrt.org/toh/start"><strong>Table of Hardware</strong></a> and open its <strong>Device Page</strong> (e.g., <a href="https://openwrt.org/toh/tp-link/tl-wdr4300_v1">TP-Link TL-WDR4300</a>);</li>
   <li>Double check that the <strong>model and version</strong> match your device’s <strong>model and version</strong> in the <strong>Supported Versions</strong> table;</li>
   <li>In the <strong>Installation</strong> table, you will find a column called <em>Firmware OpenWrt Install URL</em> and another one called <em>Firmware OpenWrt Upgrade URL</em>. If your device is <strong>still running the original firmware</strong>, then download the binary from the <em>Firmware OpenWrt <strong>Install</strong> URL</em> column; otherwise, download the binary from the <em>Firmware OpenWrt <strong>Upgrade</strong> URL</em> column.  Both files should have a <code class="language-plaintext highlighter-rouge">.bin</code> extension;</li>
   <li>Regardless of the binary file downloaded, <a href="https://openwrt.org/docs/guide-quick-start/verify_firmware_checksum"><strong>verify its checksum</strong></a> afterwards;</li>

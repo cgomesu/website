@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-10-03T14:44:31-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: ESP-01 Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: ESP-01 Tasmota environmental sensor" /><published>2021-08-12T13:00:00-03:00</published><updated>2021-08-12T13:00:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-10-03T16:20:05-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: ESP-01 Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: ESP-01 Tasmota environmental sensor" /><published>2021-08-12T13:00:00-03:00</published><updated>2021-08-12T13:00:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;August 12th, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
@@ -4743,7 +4743,7 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
 
 &lt;p&gt;&lt;a href=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/tplink-tl-wdr4300-back.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/tplink-tl-wdr4300-back.jpg&quot; alt=&quot;TL-WDR4300 back&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;This is a cheap, Atheros-based &lt;em&gt;dual-band&lt;/em&gt; router that satisfies the &lt;a href=&quot;https://openwrt.org/releases/21.02/notes-21.02.0#increased_minimum_hardware_requirements8_mb_flash_64_mb_ram&quot;&gt;minimum hardware requirements imposed by OpenWrt 21&lt;/a&gt;–namely, at least &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;8MB&lt;/code&gt; of flash memory and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;64MB&lt;/code&gt; of RAM.  However, the general ideas presented here should apply to &lt;strong&gt;any wireless device&lt;/strong&gt; that meets the following criteria:&lt;/p&gt;
+&lt;p&gt;This is a low-end, Atheros-based &lt;em&gt;dual-band&lt;/em&gt; router that satisfies the &lt;a href=&quot;https://openwrt.org/releases/21.02/notes-21.02.0#increased_minimum_hardware_requirements8_mb_flash_64_mb_ram&quot;&gt;minimum hardware requirements imposed by OpenWrt 21&lt;/a&gt;–namely, at least &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;8MB&lt;/code&gt; of flash memory and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;64MB&lt;/code&gt; of RAM.  However, the general ideas presented here should apply to &lt;strong&gt;any wireless device&lt;/strong&gt; that meets the following criteria:&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;Compatible with the latest OpenWRT version. Refer to their &lt;a href=&quot;https://openwrt.org/toh/start&quot;&gt;&lt;strong&gt;Hardware List&lt;/strong&gt;&lt;/a&gt;;&lt;/li&gt;
@@ -4757,7 +4757,7 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
   &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;Now, if you’re looking for devices to buy and experiment on, my suggestion is to look for dual-band wireless routers to allow a better segmentation of the wireless networks.  If you can afford spending more for a mesh node, look for tri-band devices.  Netgear and Linksys have solid options that are compatible with OpenWrt. For example, the Linksys WRT1900AC (v1/v2) dual-band wireless router would make for a good mesh node:&lt;/p&gt;
+&lt;p&gt;Now, if you’re looking for devices to buy and experiment on, my suggestion is to look for high-end dual-band wireless routers to allow a better segmentation of the wireless networks.  If you can afford spending more for a mesh node, look for tri-band devices.  Netgear and Linksys have solid options that are compatible with OpenWrt. For example, the Linksys WRT1900AC (v1/v2) dual-band wireless router would make for a good mesh node:&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/linksys-wrt1900ac.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/linksys-wrt1900ac.jpg&quot; alt=&quot;Linksys WRT1900AC&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
@@ -4771,12 +4771,10 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
 
 &lt;p&gt;&lt;a href=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/AWUS036NH.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/AWUS036NH.jpg&quot; alt=&quot;Alfa AWUS036NH&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;All that said, most home users will be just fine with a cheapo, used, old, and single-band router.  For a brand reference, TP-Link has good and affordable devices that can be used in a mesh networking project without issues.  If you’re new to this, start from here (small, simple) and think about efficiency over power.  You don’t need to drive a Lamborghini to get a snack at the grocery store.&lt;/p&gt;
+&lt;p&gt;All that said, most home users will be just fine with a cheapo, used, old, and single-band router.  For a brand reference, TP-Link has good and affordable devices that can be used in a mesh networking project without issues.  If you’re new to this, start from here (small, simple) and think about efficiency over power.  You don’t need to drive a Lamborghini to get a snack at the grocery store. For additional resources, skip to the section called &lt;a href=&quot;#useful-hardware-resources&quot;&gt;Useful hardware resources&lt;/a&gt; down below.&lt;/p&gt;
 
 &lt;h2 id=&quot;hardware-specific-configurations&quot;&gt;Hardware-specific configurations&lt;/h2&gt;
 &lt;p&gt;Every once in a while, I run into hardware that is capable of operating in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mesh point&lt;/code&gt; mode but the default OpenWrt firmware uses a module for the wireless adapter that is loaded with incompatible parameters.  Here is a list of a few of the known ones and their solution.&lt;/p&gt;
-
-&lt;p class=&quot;notice--warning&quot;&gt;Please notice that the following configurations applied to an older version of the OpenWrt firmware–namely, &lt;strong&gt;OpenWrt 19&lt;/strong&gt;–and might not apply to the latest release versions.  Always test your device using the default module configuration first.&lt;/p&gt;
 
 &lt;h3 id=&quot;ath9k-modules&quot;&gt;ath9k modules&lt;/h3&gt;
 &lt;p&gt;If your device uses the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ath9k&lt;/code&gt; module, there’s a chance that you’ll need to enable the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nohwcrypt&lt;/code&gt; parameter of the module to use the mesh &lt;em&gt;with encryption&lt;/em&gt;.  First, however, try without changing the default module parameters.  After rulling out possible typos in the network and wireless configuration files, try the following:&lt;/p&gt;
@@ -4870,6 +4868,23 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
         &lt;/tr&gt;
       &lt;/tbody&gt;
     &lt;/table&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;useful-hardware-resources&quot;&gt;Useful hardware resources&lt;/h2&gt;
+&lt;p&gt;These are a few resources that I’ve used in the past that you might find useful when looking for mesh compatible devices:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;OpenWrt&lt;/strong&gt;:
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://openwrt.org/toh/buyerguide&quot;&gt;Buyers’ Guide&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://openwrt.org/toh/views/toh_extended_all&quot;&gt;Extended Table of Hardware&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Linux Wireless wiki&lt;/strong&gt;:
+    &lt;ul&gt;
+      &lt;li&gt;The wiki has a list of &lt;a href=&quot;https://wireless.wiki.kernel.org/en/users/drivers&quot;&gt;existing Linux wireless &lt;em&gt;drivers&lt;/em&gt;&lt;/a&gt; that mention whether it supports &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mesh point&lt;/code&gt; or not.  To search for specific &lt;em&gt;devices&lt;/em&gt;, my recommendation is to (a) open the page of a driver that supports mesh (e.g., &lt;a href=&quot;https://wireless.wiki.kernel.org/en/users/drivers/ath10k&quot;&gt;ath10k&lt;/a&gt;), then (b) look for &lt;a href=&quot;https://wireless.wiki.kernel.org/en/users/drivers/ath10k#supported_devices&quot;&gt;supported devices&lt;/a&gt; under it, and finally, (c) go to OpenWrt’s &lt;a href=&quot;https://openwrt.org/toh/views/toh_extended_all&quot;&gt;Extended Table of Hardware&lt;/a&gt; and in &lt;strong&gt;WLAN Hardware&lt;/strong&gt;, enter a supported device found on the Linux Wireless wiki (e.g., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;QCA9880&lt;/code&gt;). This will &lt;a href=&quot;https://openwrt.org/toh/views/toh_extended_all?dataflt%5BWLAN+Hardware*%7E%5D=QCA9880&quot;&gt;create a filter&lt;/a&gt; to show only devices that contain the given hardware and should provide you a starting point for further research.&lt;/li&gt;
+    &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
@@ -5029,6 +5044,8 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
 
 &lt;p&gt;&lt;a href=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/segmentation.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/segmentation.jpg&quot; alt=&quot;Segmentation&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
+&lt;p class=&quot;notice--info&quot;&gt;Segmentation of mesh vs. non-mesh traffic &lt;strong&gt;is not a requirement&lt;/strong&gt; but an option that greatly improves performance. If your mesh devices do not support dual-band, simply assign the same radio for both mesh and non-mesh wireless interfaces.&lt;/p&gt;
+
 &lt;p&gt;First, however, we will start with the aspects that are common to all topologies, such as planning the mesh network, and the installation and basic configuration of OpenWrt mesh nodes.  Then, we will move to the specifics of each of the aforementioned mesh network topologies.  Finally, we end the section with a slightly more complex scenario to illustrate how to create &lt;strong&gt;mesh VLANs&lt;/strong&gt; with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt; and a very brief introduction to using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt; on other Linux distros.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-mesh-vlans.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-mesh-vlans.jpg&quot; alt=&quot;Topology - Mesh VLANs&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
@@ -5057,7 +5074,7 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
 &lt;p&gt;If you’re new to this, the folks at OpenWrt were kind enough to provide a plethora of instructions on &lt;a href=&quot;https://openwrt.org/docs/guide-user/installation/start&quot;&gt;how to install and uninstall OpenWrt&lt;/a&gt; and even put together an &lt;a href=&quot;https://openwrt.org/docs/guide-user/installation/generic.flashing#installation_checklist&quot;&gt;&lt;strong&gt;installation checklist&lt;/strong&gt;&lt;/a&gt;.  At the very least, do the following:&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;Look for your device’s &lt;strong&gt;model and version&lt;/strong&gt; in the &lt;a href=&quot;https://openwrt.org/toh/start&quot;&gt;&lt;strong&gt;Table of Hardware&lt;/strong&gt;&lt;/a&gt; and open its &lt;strong&gt;Device Page&lt;/strong&gt; (e.g., &lt;a href=&quot;https://openwrt.org/toh/tp-link/tl-wr1043nd&quot;&gt;TP-Link TL-WR1043ND&lt;/a&gt;);&lt;/li&gt;
+  &lt;li&gt;Look for your device’s &lt;strong&gt;model and version&lt;/strong&gt; in the &lt;a href=&quot;https://openwrt.org/toh/start&quot;&gt;&lt;strong&gt;Table of Hardware&lt;/strong&gt;&lt;/a&gt; and open its &lt;strong&gt;Device Page&lt;/strong&gt; (e.g., &lt;a href=&quot;https://openwrt.org/toh/tp-link/tl-wdr4300_v1&quot;&gt;TP-Link TL-WDR4300&lt;/a&gt;);&lt;/li&gt;
   &lt;li&gt;Double check that the &lt;strong&gt;model and version&lt;/strong&gt; match your device’s &lt;strong&gt;model and version&lt;/strong&gt; in the &lt;strong&gt;Supported Versions&lt;/strong&gt; table;&lt;/li&gt;
   &lt;li&gt;In the &lt;strong&gt;Installation&lt;/strong&gt; table, you will find a column called &lt;em&gt;Firmware OpenWrt Install URL&lt;/em&gt; and another one called &lt;em&gt;Firmware OpenWrt Upgrade URL&lt;/em&gt;. If your device is &lt;strong&gt;still running the original firmware&lt;/strong&gt;, then download the binary from the &lt;em&gt;Firmware OpenWrt &lt;strong&gt;Install&lt;/strong&gt; URL&lt;/em&gt; column; otherwise, download the binary from the &lt;em&gt;Firmware OpenWrt &lt;strong&gt;Upgrade&lt;/strong&gt; URL&lt;/em&gt; column.  Both files should have a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.bin&lt;/code&gt; extension;&lt;/li&gt;
   &lt;li&gt;Regardless of the binary file downloaded, &lt;a href=&quot;https://openwrt.org/docs/guide-quick-start/verify_firmware_checksum&quot;&gt;&lt;strong&gt;verify its checksum&lt;/strong&gt;&lt;/a&gt; afterwards;&lt;/li&gt;
