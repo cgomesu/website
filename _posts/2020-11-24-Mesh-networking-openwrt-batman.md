@@ -10,18 +10,20 @@ toc_label: "Table of Contents"
 toc_icon: "list"
 ---
 # Changelog
-**September 16th, 2021**: Updated the information about OpenWrt 21 in the section [**Bonus content: Moving from OpenWrt 19 to 21**](#bonus-content-moving-from-openwrt-19-to-21).  In brief, DSA support is still very limited and OpenWrt has officially started rolling out version 21 with the [release of OpenWrt 21.02](https://openwrt.org/releases/21.02/notes-21.02.0). I'm currently testing the new version and network configuration on a few devices and once I get everything running as well as it was in version 19, I will update the entire article to reflect the new (and current) configuration.  It is, of course, still possible to download and use [the latest OpenWrt 19 images](https://downloads.openwrt.org/releases/19.07.8/targets/), which should be just fine for a long time still.  However, if you want to make use of OpenWrt 21, then read the aforementioned bonus section for guidance on the syntax changes and updated hardware requirements.
+**October XX, 2021**: Major updates to make the guide compatible with OpenWrt 21.\*.
 {: .notice--success }
+**September 16th, 2021**: Updated the information about OpenWrt 21 in the section [**Bonus content: Moving from OpenWrt 19 to 21**](#bonus-content-moving-from-openwrt-19-to-21).  In brief, DSA support is still very limited and OpenWrt has officially started rolling out version 21 with the [release of OpenWrt 21.02](https://openwrt.org/releases/21.02/notes-21.02.0). I'm currently testing the new version and network configuration on a few devices and once I get everything running as well as it was in version 19, I will update the entire article to reflect the new (and current) configuration.  It is, of course, still possible to download and use [the latest OpenWrt 19 images](https://downloads.openwrt.org/releases/19.07.8/targets/), which should be just fine for a long time still.  However, if you want to make use of OpenWrt 21, then read the aforementioned bonus section for guidance on the syntax changes and updated hardware requirements.
+{: .notice--info }
 **July 6th, 2021**: Added information about transitioning from OpenWrt 19 (current stable release) to OpenWrt 21 (next stable release) to a new section called [**Bonus content: Moving from OpenWrt 19 to 21**](#bonus-content-moving-from-openwrt-19-to-21).  In brief, the *next* stable release includes changes to the network configuration syntax that are incompatible with this guide.  Once the release version 21 becomes the *current* stable, however, I will update the main guide to reflect those changes.  In the meantime, I added a few references to the OpenWrt forum that should help anyone interested in using version 21 instead of 19.  Thanks to [Steve](https://forum.openwrt.org/u/SteveNewcomb) for testing and sharing his `batman-adv` configuration running on OpenWrt 21.
-{: .notice .notice--info }
+{: .notice--info }
 **Feb 17th, 2021**: Per a reader's suggestion (Joshua), I added a [`vi` cheat table](#vi-cheat-table) that has a summary of the main commands, and in the [Mesh node basic config](#mesh-node-basic-config) section, I included additional instructions on how to copy and paste the configuration files from one mesh node to another using `scp`.  (Alternatively, it's also possible to do so using Luci's backup/restore option.)
-{: .notice .notice--info }
+{: .notice--info }
 **Jan 9th, 2021**, Update #2: Added instructions on how to automatically upgrade all installed packages with a single command.  This information is in [Updating and installing packages](#updating-and-installing-packages).
-{: .notice .notice--info }
+{: .notice--info }
 **Jan 9th, 2021**, Update #1: Added a new section about [hardware-specific configurations](#hardware-specific-configurations) that are sometimes required for enabling the `mesh point` mode of operation.
-{: .notice .notice--info }
+{: .notice--info }
 **Dec 7th, 2020**: Publication of the original guide
-{: .notice .notice--info }
+{: .notice--info }
 
 [top](#){: .btn .btn--light-outline .btn--small}
 
@@ -50,8 +52,9 @@ My intention with this tutorial is to help closing the gap between concept and i
 3. Configure OpenWrt devices to play one of three possible roles in the network: (a) mesh node, (b) mesh + bridge node, or (c) mesh + gateway node.
 4. Install and configure the Kernel module `batman-adv` on an OpenWrt device using the `opkg` package manager.
 5. Use `batctl` to test, debug, and monitor connectivity within the mesh.
-6. Add encryption to the mesh network with the package `wpad-mesh-openssl`.
-7. Use VLANs to create `default`, `iot`, and `guest` networks within the mesh using `batman-adv`.
+6. Use two radios to segment mesh (5Ghz) from non-mesh (2.4Ghz) wireless communication.
+7. Add encryption to the mesh network with the package `wpad-mesh-openssl`.
+8. Use VLANs to create `default`, `iot`, and `guest` networks within the mesh using `batman-adv`.
 
 [top](#){: .btn .btn--light-outline .btn--small}
 
@@ -143,14 +146,18 @@ It goes without saying that if you want to dive deep into `batman-adv`, you shou
 # Hardware
 Unless otherwise specified, all mesh nodes used in the various implementations had the following hardware:
 
-* **Device**: [TP-Link WR-1043ND](https://www.tp-link.com/us/home-networking/wifi-router/tl-wr1043nd/) v1.8
-* **Architecture**: Atheros AR9132 rev 2
+* **Device**: [TP-Link TL-WDR4300](https://www.tp-link.com/us/home-networking/wifi-router/tl-wr1043nd/) v1.0 - v1.7
+  * **SoC**: Atheros AR9344
+  * **WLAN Hardware**: Dual-band (Atheros AR9344, Atheros AR9580)
+  * **CPU**: `560 Mhz`
+  * **Flash memory**: `8 MB`
+  * **RAM**: `128 MB`
 
-[![TP-Link 1043nd](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/tplink-wr1043nd.jpg){:.PostImage}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/tplink-wr1043nd.jpg)
+[![TL-WDR4300 front](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/tplink-tl-wdr4300-front.jpg){:.PostImage}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/tplink-tl-wdr4300-front.jpg)
 
-This was mainly a matter of convenience--I had a few lying around and they are very, very cheap--and because the examples in the OpenWrt documentation often refer to them as well, so the community support is good.
+[![TL-WDR4300 back](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/tplink-tl-wdr4300-back.jpg){:.PostImage}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/tplink-tl-wdr4300-back.jpg)
 
-However, the general ideas presented here should apply to **any wireless device** that meets the following criteria:
+This is a cheap, Atheros-based *dual-band* router that satisfies the [minimum hardware requirements imposed by OpenWrt 21](https://openwrt.org/releases/21.02/notes-21.02.0#increased_minimum_hardware_requirements8_mb_flash_64_mb_ram)--namely, at least `8MB` of flash memory and `64MB` of RAM.  However, the general ideas presented here should apply to **any wireless device** that meets the following criteria:
 
 1. Compatible with the latest OpenWRT version. Refer to their [**Hardware List**](https://openwrt.org/toh/start);
 2. Has access to a radio that supports the **mesh point** (**802.11s**) mode of operation. If you already have OpenWrt installed on a wireless device, you can type `iw list` and search for `mesh point` under **Supported interface modes**, or simply check if the following command outputs `* mesh point` below the name of a detected radio (e.g., `phy0`, `phy1`):
@@ -175,10 +182,13 @@ As mentioned before, even if the existing/on-board radio of your SBC/laptop/PC/s
 
 [![Alfa AWUS036NH](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/AWUS036NH.jpg){:.PostImage}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/AWUS036NH.jpg) 
 
-**All that said**, most home users will be **just fine with a cheapo, used, old, single-band router**.  For a brand reference, TP-Link has good and affordable devices that can be used in a mesh networking project without issues.  If you're new to this, start from here (small, simple) and think about efficiency over power.  You don't need to drive a Lamborghini to get a snack at the grocery store.
+All that said, most home users will be just fine with a cheapo, used, old, and single-band router.  For a brand reference, TP-Link has good and affordable devices that can be used in a mesh networking project without issues.  If you're new to this, start from here (small, simple) and think about efficiency over power.  You don't need to drive a Lamborghini to get a snack at the grocery store.
 
 ## Hardware-specific configurations
 Every once in a while, I run into hardware that is capable of operating in `mesh point` mode but the default OpenWrt firmware uses a module for the wireless adapter that is loaded with incompatible parameters.  Here is a list of a few of the known ones and their solution.
+
+Please notice that the following configurations applied to an older version of the OpenWrt firmware--namely, **OpenWrt 19**--and might not apply to the latest release versions.  Always test your device using the default module configuration first.
+{: .notice--warning }
 
 ### ath9k modules
 If your device uses the `ath9k` module, there's a chance that you'll need to enable the `nohwcrypt` parameter of the module to use the mesh *with encryption*.  First, however, try without changing the default module parameters.  After rulling out possible typos in the network and wireless configuration files, try the following:
@@ -193,9 +203,9 @@ If your device uses the `ath9k` module, there's a chance that you'll need to ena
 
 * Known affected devices:
 
-  | brand | model | version |
-  |:---:|:---:|:---:|
-  | TP-Link | WR-1043-ND | 1.8 |
+  | brand | model | version | OpenWrt release |
+  |:---:|:---:|:---:|:---:|
+  | TP-Link | WR-1043-ND | 1.8 | 19.07 |
 
 ### ath10k modules
 I've noticed that radio devices that use the `ath10k` module and more specifically, the ones using `ath10k-firmware-qca988x-ct`, are not able to operate in `mesh point` mode by default.  If you check the syslog, you'll notice that there will be a few messages stating that the `ath10k` module must be loaded with `rawmode=1` to allow mesh.  However, I've tried that before without much success.  Instead, my current recommendation to get `mesh point` working with the **QCA988x** is the following (**Internet connection required** to download packages via `opkg`):
@@ -211,10 +221,12 @@ I've noticed that radio devices that use the `ath10k` module and more specifical
 
 * Known affected devices:
 
-  | brand | model | version |
-  |:---:|:---:|:---:|
-  | TP-Link | Archer C7 | 2.0 |
-  | TP-Link | Archer C7 (US) | 2.0 |
+  | brand | model | version | OpenWrt release |
+  |:---:|:---:|:---:|:---:|
+  | TP-Link | Archer C7 | 2.0 | 19.07 |
+  | TP-Link | Archer C7 US | 2.0 | 19.07 |
+  | TP-Link | Archer C7 | 4.0 | 19.07 |
+  | TP-Link | Archer C7 | 5.0 | 19.07 |
 
 
 [top](#){: .btn .btn--light-outline .btn--small}
@@ -225,13 +237,13 @@ Unless otherwise specified, all mesh nodes were running the following software:
 [![OpenWrt default SSH welcome](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/openwrt-ssh-welcome.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/openwrt-ssh-welcome.jpg) 
 
 * **Operating System**:
-	* **Firmware**: OpenWrt 19.07.4 r11208-ce6496d796
-	* **Linux kernel**: 4.14.195
+	* **Firmware**: OpenWrt `21.02.0`, `r16279-5cc0535800`
+	* **Linux kernel**: `5.4.143`
 
 * **Packages mentioned in the tutorial**:
-	* [`batctl-default`](https://openwrt.org/packages/pkgdata/batctl-default): 2019.2-7
-	* [`kmod-batman-adv`](https://openwrt.org/packages/pkgdata/kmod-batman-adv): 4.14.195+2019.2-9
-	* [`wpad-mesh-openssl`](https://openwrt.org/packages/pkgdata/wpad-mesh-openssl): 2019-08-08-ca8c2bd2-4
+	* [`batctl-full`](https://openwrt.org/packages/pkgdata/batctl-default): 2021.1-1
+	* [`kmod-batman-adv`](https://openwrt.org/packages/pkgdata/kmod-batman-adv): 5.4.143+2021.1-4
+	* [`wpad-mesh-wolfssl`](https://openwrt.org/packages/pkgdata/wpad-mesh-wolfssl): 2020-06-08-5a8b3662-35
 
 To find out the version of all installed packages, type 
 
@@ -247,12 +259,12 @@ opkg list-installed | grep bat
 
 Huge differences in firmware, kernel, or package versions *might* make the implementation of a mesh network a little bit different than the way it was explained here.  Of note, devices running the `batman-adv` **version 2019.0-2 and older** are certainly incompatible with the instructions found in this tutorial, the reason being that the module was modified after then to better integrate with the [network interface daemon](https://openwrt.org/docs/techref/netifd).  Fortunately, the implementation using old modules is just a simple as with the latest one. [Check what the B.A.T.M.A.N. wiki has to say about it](https://www.open-mesh.org/projects/batman-adv/wiki/Batman-adv-openwrt-config#Batman-adv-20190-2-and-older).  However, it's worth mentioning that with old batman modules, changes to `/etc/config/network` will likely require a reboot instead of simply reloading `/etc/init.d/network`.
 
-Also, I've noticed that when installing `kmod-batman-adv`, the package manager will install a minimal version of `batctl`, called `batctl-tiny`, that lacks some of the options mentioned here (e.g., `batctl n` and `batnctl o`).  However, if you install `batctl` first and then `kmod-batman-adv`, the package manager will preserve `batctl-default`, which is the package used in this tutorial and that has all the options referred to in the [batctl man page](https://downloads.open-mesh.org/batman/manpages/batctl.8.html).
+Also, I've noticed that when installing `kmod-batman-adv`, the package manager will install a minimal version of `batctl`, called `batctl-tiny`, that lacks some of the options mentioned here (e.g., `batctl n` and `batnctl o`).  However, if you install `batctl` first and then `kmod-batman-adv`, the package manager will preserve `batctl-default`, which has most of the `batctl` features.  In this tutorial, however, we will use the `batctl-full` package that contains all features referred to in the [batctl man page](https://downloads.open-mesh.org/batman/manpages/batctl.8.html).
 
-Finally, the installation of `wpad-mesh-openssl` will conflict with the already installed `wpad-basic` package.  This means **you have to remove the latter before installing the former**.  To remove the `wpad-basic` package, simply type
+Finally, the installation of `wpad-mesh-wolfssl` will conflict with the already installed `wpad-basic-wolfssl` package (or any other `wpad-basic*` package).  This means **you have to remove the latter before installing the former**.  To remove the `wpad-basic-wolfssl` or any other conflicting package, simply type
 
 ```
-opkg remove wpad-basic
+opkg remove wpad-basic*
 ```
 
 ## VI text editor
@@ -326,6 +338,10 @@ In this section, we will see how to configure **four mesh nodes** in **three dif
 
 [![Topology - Gateway-Gateway](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-gateway-gateway.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-gateway-gateway.jpg)
 
+In all such cases, we will use the **5Ghz** radio exclusively for *mesh* wireless traffic, while the more widely compatible **2.4Ghz** radio will be used for *non-mesh* wireless traffic:
+
+[![Segmentation](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/segmentation.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/segmentation.jpg)
+
 First, however, we will start with the aspects that are common to all topologies, such as planning the mesh network, and the installation and basic configuration of OpenWrt mesh nodes.  Then, we will move to the specifics of each of the aforementioned mesh network topologies.  Finally, we end the section with a slightly more complex scenario to illustrate how to create **mesh VLANs** with `batman-adv` and a very brief introduction to using `batman-adv` on other Linux distros.
 
 [![Topology - Mesh VLANs](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-mesh-vlans.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-mesh-vlans.jpg)
@@ -382,7 +398,7 @@ and keep a record of the device's name and its MAC address--if there are multipl
 (*Optional*: [Configure key-based authentication](https://openwrt.org/docs/guide-user/security/dropbear.public-key.auth) and [disable password login](https://openwrt.org/docs/guide-user/base-system/dropbear). Reboot and check that `ssh` access methods are correctly configured.)  
 
 From this point forward, we will start editing files using `vi`.  If you've not read the [section about how to use `vi`](#vi-text-editor) yet, this is a good time to do so.
-{: .notice .notice--warning }
+{: .notice--warning }
 
 ### Default config for the hardware
 Regardless of the hardware, **before doing anything related to the mesh network**, always take your time and **study the default configuration** found in `/etc/config/`.  For reference, I usually go over the following:
@@ -442,7 +458,7 @@ Make sure there are no error messages and if there are, troubleshoot them before
 Remove the connection that gave your device temporary access to the Internet.  Then, **reboot** (type `reboot` in the terminal) and restart the SSH session with your laptop/PC still connected to the device via cable.
 
 If you're using the **TP-Link WR1043ND v1.x** in your mesh project, take a look at my previous note about the [ath9k module](#ath9k-modules) in the [hardware section](#hardware).  In brief, if you have issues running the mesh with encryption, then you have to enable the `nohwcrypt` parameter of the `ath9k` module.
-{: .notice .notice--warning }
+{: .notice--warning }
 
 ## Mesh node basic config
 It is time to configure the basics of our mesh network and nodes.  To do so, we will edit multiple files in `/etc/config/` but first, let's find out the capabilities of the detected radios in our wireless device, as follows
@@ -579,7 +595,7 @@ config wifi-iface 'wmesh'
 ```
 
 The comments are just for educational purpose. Feel free to remove them in your device's config file.
-{: .notice .notice--info }
+{: .notice--info }
 
 Because all mesh nodes must operate on the same channel, use the same authentication, etc., multiple config options are often dictated by the "lowest common denominator" across all mesh nodes--that is, the best possible config that will work with **all nodes**, not just the ones with the best hardware and software available.  For example, not all devices will necessarily be able to use SAE because it's very new and therefore, won't be able to connect to mesh networks that use it. Instead, you might want to set encryption to something like `psk2+aes`, which should be good enough for most devices out there. So, keep that in mind when configuring your mesh nodes.
 
@@ -649,7 +665,7 @@ scp -r ./config/* root@IP_NEW_MESH_NODE:/etc/config/
 ```
 
 Because we're starting SSH sessions with *different machines* using the *same IP addr* (`192.168.1.1`), it's quite possible that your SSH client will complaint about the authenticity of the host at `192.168.1.1`.  To get rid of this message, simply remove the relevant entry in your user's `known_hosts` file or delete it altogether.  On Linux distros, such file can be found at `~/.ssh/known_hosts`--that is, the `ssh` folder for your current user.
-{: .notice .notice--warning }
+{: .notice--warning }
 
 Afterwards, `ssh` into one of the configured mesh nodes and type 
 
@@ -730,7 +746,7 @@ First, let's configure our **mesh gateway**.
 Get one of the [pre-configured mesh nodes](#mesh-node-basic-config) that has at the very least two ethernet ports, a LAN port and a WAN port.  (This, of course, is not required for a gateway device because [there are multiple ways to connect to WAN](https://openwrt.org/docs/guide-user/network/wan/internet.connection) but having separate physical ports makes the explanation much simpler to follow.  If that is not your case, just adapt to whatever interfaces you have configured that play the role of default `lan` and `wan`.)  
 
 If you've configured this node as a [dumb access point](https://openwrt.org/docs/guide-user/network/wifi/dumbap) to temporarily give it access to the Internet while updating and installing packages, undo the configuration before proceeding because we will use both the `firewall` and `dhcp` config files in the gateway configuration.  
-{: .notice .notice--warning }
+{: .notice--warning }
 
 Connect your laptop/PC to the mesh node via cable using the LAN port--this way, the mesh node's IP address should still be `192.168.1.1`.  Then, `ssh` into the mesh node and let's take a look at the `/etc/config/network`, as follows
 
@@ -1126,7 +1142,7 @@ which now should show the new interfaces we created (e.g, `bat0.1@bat0`) and the
 If everything looks good, we're done with the gateway configuration!  We're now ready to tell our bridges which VLAN ID to join with their standard interfaces.
 
 You don't need to use **interface names** such as `lan_bat0_1`; they can be whatever you find intuitive.  However, whatever you choose, **keep them short**--that is, less than 14 characters long--or you'll start experiencing config issues.
-{: .notice .notice--danger }
+{: .notice--danger }
 
 ### Mesh bridge with VLAN configuration
 Here, we'll also configure the bridges **the same way** as in the gateway-bridge example. However, each bridge device will bridge **a different VLAN ID**--namely, either `bat0.1` or `bat0.2` or `bat0.5`--with its default `lan`, instead of bridging `bat0` with its default `lan`.

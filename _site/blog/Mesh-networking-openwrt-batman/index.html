@@ -200,7 +200,7 @@
 
 
 
-  100 minute read
+  101 minute read
 
 </p>
       
@@ -436,12 +436,13 @@
           </aside>
         
         <h1 id="changelog">Changelog</h1>
-<p class="notice--success"><strong>September 16th, 2021</strong>: Updated the information about OpenWrt 21 in the section <a href="#bonus-content-moving-from-openwrt-19-to-21"><strong>Bonus content: Moving from OpenWrt 19 to 21</strong></a>.  In brief, DSA support is still very limited and OpenWrt has officially started rolling out version 21 with the <a href="https://openwrt.org/releases/21.02/notes-21.02.0">release of OpenWrt 21.02</a>. I’m currently testing the new version and network configuration on a few devices and once I get everything running as well as it was in version 19, I will update the entire article to reflect the new (and current) configuration.  It is, of course, still possible to download and use <a href="https://downloads.openwrt.org/releases/19.07.8/targets/">the latest OpenWrt 19 images</a>, which should be just fine for a long time still.  However, if you want to make use of OpenWrt 21, then read the aforementioned bonus section for guidance on the syntax changes and updated hardware requirements.</p>
-<p class="notice notice--info"><strong>July 6th, 2021</strong>: Added information about transitioning from OpenWrt 19 (current stable release) to OpenWrt 21 (next stable release) to a new section called <a href="#bonus-content-moving-from-openwrt-19-to-21"><strong>Bonus content: Moving from OpenWrt 19 to 21</strong></a>.  In brief, the <em>next</em> stable release includes changes to the network configuration syntax that are incompatible with this guide.  Once the release version 21 becomes the <em>current</em> stable, however, I will update the main guide to reflect those changes.  In the meantime, I added a few references to the OpenWrt forum that should help anyone interested in using version 21 instead of 19.  Thanks to <a href="https://forum.openwrt.org/u/SteveNewcomb">Steve</a> for testing and sharing his <code class="language-plaintext highlighter-rouge">batman-adv</code> configuration running on OpenWrt 21.</p>
-<p class="notice notice--info"><strong>Feb 17th, 2021</strong>: Per a reader’s suggestion (Joshua), I added a <a href="#vi-cheat-table"><code class="language-plaintext highlighter-rouge">vi</code> cheat table</a> that has a summary of the main commands, and in the <a href="#mesh-node-basic-config">Mesh node basic config</a> section, I included additional instructions on how to copy and paste the configuration files from one mesh node to another using <code class="language-plaintext highlighter-rouge">scp</code>.  (Alternatively, it’s also possible to do so using Luci’s backup/restore option.)</p>
-<p class="notice notice--info"><strong>Jan 9th, 2021</strong>, Update #2: Added instructions on how to automatically upgrade all installed packages with a single command.  This information is in <a href="#updating-and-installing-packages">Updating and installing packages</a>.</p>
-<p class="notice notice--info"><strong>Jan 9th, 2021</strong>, Update #1: Added a new section about <a href="#hardware-specific-configurations">hardware-specific configurations</a> that are sometimes required for enabling the <code class="language-plaintext highlighter-rouge">mesh point</code> mode of operation.</p>
-<p class="notice notice--info"><strong>Dec 7th, 2020</strong>: Publication of the original guide</p>
+<p class="notice--success"><strong>October XX, 2021</strong>: Major updates to make the guide compatible with OpenWrt 21.*.</p>
+<p class="notice--info"><strong>September 16th, 2021</strong>: Updated the information about OpenWrt 21 in the section <a href="#bonus-content-moving-from-openwrt-19-to-21"><strong>Bonus content: Moving from OpenWrt 19 to 21</strong></a>.  In brief, DSA support is still very limited and OpenWrt has officially started rolling out version 21 with the <a href="https://openwrt.org/releases/21.02/notes-21.02.0">release of OpenWrt 21.02</a>. I’m currently testing the new version and network configuration on a few devices and once I get everything running as well as it was in version 19, I will update the entire article to reflect the new (and current) configuration.  It is, of course, still possible to download and use <a href="https://downloads.openwrt.org/releases/19.07.8/targets/">the latest OpenWrt 19 images</a>, which should be just fine for a long time still.  However, if you want to make use of OpenWrt 21, then read the aforementioned bonus section for guidance on the syntax changes and updated hardware requirements.</p>
+<p class="notice--info"><strong>July 6th, 2021</strong>: Added information about transitioning from OpenWrt 19 (current stable release) to OpenWrt 21 (next stable release) to a new section called <a href="#bonus-content-moving-from-openwrt-19-to-21"><strong>Bonus content: Moving from OpenWrt 19 to 21</strong></a>.  In brief, the <em>next</em> stable release includes changes to the network configuration syntax that are incompatible with this guide.  Once the release version 21 becomes the <em>current</em> stable, however, I will update the main guide to reflect those changes.  In the meantime, I added a few references to the OpenWrt forum that should help anyone interested in using version 21 instead of 19.  Thanks to <a href="https://forum.openwrt.org/u/SteveNewcomb">Steve</a> for testing and sharing his <code class="language-plaintext highlighter-rouge">batman-adv</code> configuration running on OpenWrt 21.</p>
+<p class="notice--info"><strong>Feb 17th, 2021</strong>: Per a reader’s suggestion (Joshua), I added a <a href="#vi-cheat-table"><code class="language-plaintext highlighter-rouge">vi</code> cheat table</a> that has a summary of the main commands, and in the <a href="#mesh-node-basic-config">Mesh node basic config</a> section, I included additional instructions on how to copy and paste the configuration files from one mesh node to another using <code class="language-plaintext highlighter-rouge">scp</code>.  (Alternatively, it’s also possible to do so using Luci’s backup/restore option.)</p>
+<p class="notice--info"><strong>Jan 9th, 2021</strong>, Update #2: Added instructions on how to automatically upgrade all installed packages with a single command.  This information is in <a href="#updating-and-installing-packages">Updating and installing packages</a>.</p>
+<p class="notice--info"><strong>Jan 9th, 2021</strong>, Update #1: Added a new section about <a href="#hardware-specific-configurations">hardware-specific configurations</a> that are sometimes required for enabling the <code class="language-plaintext highlighter-rouge">mesh point</code> mode of operation.</p>
+<p class="notice--info"><strong>Dec 7th, 2020</strong>: Publication of the original guide</p>
 
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 
@@ -473,6 +474,7 @@
   <li>Configure OpenWrt devices to play one of three possible roles in the network: (a) mesh node, (b) mesh + bridge node, or (c) mesh + gateway node.</li>
   <li>Install and configure the Kernel module <code class="language-plaintext highlighter-rouge">batman-adv</code> on an OpenWrt device using the <code class="language-plaintext highlighter-rouge">opkg</code> package manager.</li>
   <li>Use <code class="language-plaintext highlighter-rouge">batctl</code> to test, debug, and monitor connectivity within the mesh.</li>
+  <li>Use two radios to segment mesh (5Ghz) from non-mesh (2.4Ghz) wireless communication.</li>
   <li>Add encryption to the mesh network with the package <code class="language-plaintext highlighter-rouge">wpad-mesh-openssl</code>.</li>
   <li>Use VLANs to create <code class="language-plaintext highlighter-rouge">default</code>, <code class="language-plaintext highlighter-rouge">iot</code>, and <code class="language-plaintext highlighter-rouge">guest</code> networks within the mesh using <code class="language-plaintext highlighter-rouge">batman-adv</code>.</li>
 </ol>
@@ -594,15 +596,22 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
 <p>Unless otherwise specified, all mesh nodes used in the various implementations had the following hardware:</p>
 
 <ul>
-  <li><strong>Device</strong>: <a href="https://www.tp-link.com/us/home-networking/wifi-router/tl-wr1043nd/">TP-Link WR-1043ND</a> v1.8</li>
-  <li><strong>Architecture</strong>: Atheros AR9132 rev 2</li>
+  <li><strong>Device</strong>: <a href="https://www.tp-link.com/us/home-networking/wifi-router/tl-wr1043nd/">TP-Link TL-WDR4300</a> v1.0 - v1.7
+    <ul>
+      <li><strong>SoC</strong>: Atheros AR9344</li>
+      <li><strong>WLAN Hardware</strong>: Dual-band (Atheros AR9344, Atheros AR9580)</li>
+      <li><strong>CPU</strong>: <code class="language-plaintext highlighter-rouge">560 Mhz</code></li>
+      <li><strong>Flash memory</strong>: <code class="language-plaintext highlighter-rouge">8 MB</code></li>
+      <li><strong>RAM</strong>: <code class="language-plaintext highlighter-rouge">128 MB</code></li>
+    </ul>
+  </li>
 </ul>
 
-<p><a href="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/tplink-wr1043nd.jpg"><img src="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/tplink-wr1043nd.jpg" alt="TP-Link 1043nd" class="PostImage" /></a></p>
+<p><a href="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/tplink-tl-wdr4300-front.jpg"><img src="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/tplink-tl-wdr4300-front.jpg" alt="TL-WDR4300 front" class="PostImage" /></a></p>
 
-<p>This was mainly a matter of convenience–I had a few lying around and they are very, very cheap–and because the examples in the OpenWrt documentation often refer to them as well, so the community support is good.</p>
+<p><a href="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/tplink-tl-wdr4300-back.jpg"><img src="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/tplink-tl-wdr4300-back.jpg" alt="TL-WDR4300 back" class="PostImage" /></a></p>
 
-<p>However, the general ideas presented here should apply to <strong>any wireless device</strong> that meets the following criteria:</p>
+<p>This is a cheap, Atheros-based <em>dual-band</em> router that satisfies the <a href="https://openwrt.org/releases/21.02/notes-21.02.0#increased_minimum_hardware_requirements8_mb_flash_64_mb_ram">minimum hardware requirements imposed by OpenWrt 21</a>–namely, at least <code class="language-plaintext highlighter-rouge">8MB</code> of flash memory and <code class="language-plaintext highlighter-rouge">64MB</code> of RAM.  However, the general ideas presented here should apply to <strong>any wireless device</strong> that meets the following criteria:</p>
 
 <ol>
   <li>Compatible with the latest OpenWRT version. Refer to their <a href="https://openwrt.org/toh/start"><strong>Hardware List</strong></a>;</li>
@@ -630,10 +639,12 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
 
 <p><a href="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/AWUS036NH.jpg"><img src="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/AWUS036NH.jpg" alt="Alfa AWUS036NH" class="PostImage" /></a></p>
 
-<p><strong>All that said</strong>, most home users will be <strong>just fine with a cheapo, used, old, single-band router</strong>.  For a brand reference, TP-Link has good and affordable devices that can be used in a mesh networking project without issues.  If you’re new to this, start from here (small, simple) and think about efficiency over power.  You don’t need to drive a Lamborghini to get a snack at the grocery store.</p>
+<p>All that said, most home users will be just fine with a cheapo, used, old, and single-band router.  For a brand reference, TP-Link has good and affordable devices that can be used in a mesh networking project without issues.  If you’re new to this, start from here (small, simple) and think about efficiency over power.  You don’t need to drive a Lamborghini to get a snack at the grocery store.</p>
 
 <h2 id="hardware-specific-configurations">Hardware-specific configurations</h2>
 <p>Every once in a while, I run into hardware that is capable of operating in <code class="language-plaintext highlighter-rouge">mesh point</code> mode but the default OpenWrt firmware uses a module for the wireless adapter that is loaded with incompatible parameters.  Here is a list of a few of the known ones and their solution.</p>
+
+<p class="notice--warning">Please notice that the following configurations applied to an older version of the OpenWrt firmware–namely, <strong>OpenWrt 19</strong>–and might not apply to the latest release versions.  Always test your device using the default module configuration first.</p>
 
 <h3 id="ath9k-modules">ath9k modules</h3>
 <p>If your device uses the <code class="language-plaintext highlighter-rouge">ath9k</code> module, there’s a chance that you’ll need to enable the <code class="language-plaintext highlighter-rouge">nohwcrypt</code> parameter of the module to use the mesh <em>with encryption</em>.  First, however, try without changing the default module parameters.  After rulling out possible typos in the network and wireless configuration files, try the following:</p>
@@ -658,6 +669,7 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
           <th style="text-align: center">brand</th>
           <th style="text-align: center">model</th>
           <th style="text-align: center">version</th>
+          <th style="text-align: center">OpenWrt release</th>
         </tr>
       </thead>
       <tbody>
@@ -665,6 +677,7 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
           <td style="text-align: center">TP-Link</td>
           <td style="text-align: center">WR-1043-ND</td>
           <td style="text-align: center">1.8</td>
+          <td style="text-align: center">19.07</td>
         </tr>
       </tbody>
     </table>
@@ -695,6 +708,7 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
           <th style="text-align: center">brand</th>
           <th style="text-align: center">model</th>
           <th style="text-align: center">version</th>
+          <th style="text-align: center">OpenWrt release</th>
         </tr>
       </thead>
       <tbody>
@@ -702,11 +716,25 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
           <td style="text-align: center">TP-Link</td>
           <td style="text-align: center">Archer C7</td>
           <td style="text-align: center">2.0</td>
+          <td style="text-align: center">19.07</td>
         </tr>
         <tr>
           <td style="text-align: center">TP-Link</td>
-          <td style="text-align: center">Archer C7 (US)</td>
+          <td style="text-align: center">Archer C7 US</td>
           <td style="text-align: center">2.0</td>
+          <td style="text-align: center">19.07</td>
+        </tr>
+        <tr>
+          <td style="text-align: center">TP-Link</td>
+          <td style="text-align: center">Archer C7</td>
+          <td style="text-align: center">4.0</td>
+          <td style="text-align: center">19.07</td>
+        </tr>
+        <tr>
+          <td style="text-align: center">TP-Link</td>
+          <td style="text-align: center">Archer C7</td>
+          <td style="text-align: center">5.0</td>
+          <td style="text-align: center">19.07</td>
         </tr>
       </tbody>
     </table>
@@ -723,15 +751,15 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
 <ul>
   <li><strong>Operating System</strong>:
     <ul>
-      <li><strong>Firmware</strong>: OpenWrt 19.07.4 r11208-ce6496d796</li>
-      <li><strong>Linux kernel</strong>: 4.14.195</li>
+      <li><strong>Firmware</strong>: OpenWrt <code class="language-plaintext highlighter-rouge">21.02.0</code>, <code class="language-plaintext highlighter-rouge">r16279-5cc0535800</code></li>
+      <li><strong>Linux kernel</strong>: <code class="language-plaintext highlighter-rouge">5.4.143</code></li>
     </ul>
   </li>
   <li><strong>Packages mentioned in the tutorial</strong>:
     <ul>
-      <li><a href="https://openwrt.org/packages/pkgdata/batctl-default"><code class="language-plaintext highlighter-rouge">batctl-default</code></a>: 2019.2-7</li>
-      <li><a href="https://openwrt.org/packages/pkgdata/kmod-batman-adv"><code class="language-plaintext highlighter-rouge">kmod-batman-adv</code></a>: 4.14.195+2019.2-9</li>
-      <li><a href="https://openwrt.org/packages/pkgdata/wpad-mesh-openssl"><code class="language-plaintext highlighter-rouge">wpad-mesh-openssl</code></a>: 2019-08-08-ca8c2bd2-4</li>
+      <li><a href="https://openwrt.org/packages/pkgdata/batctl-default"><code class="language-plaintext highlighter-rouge">batctl-full</code></a>: 2021.1-1</li>
+      <li><a href="https://openwrt.org/packages/pkgdata/kmod-batman-adv"><code class="language-plaintext highlighter-rouge">kmod-batman-adv</code></a>: 5.4.143+2021.1-4</li>
+      <li><a href="https://openwrt.org/packages/pkgdata/wpad-mesh-wolfssl"><code class="language-plaintext highlighter-rouge">wpad-mesh-wolfssl</code></a>: 2020-06-08-5a8b3662-35</li>
     </ul>
   </li>
 </ul>
@@ -748,11 +776,11 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
 
 <p>Huge differences in firmware, kernel, or package versions <em>might</em> make the implementation of a mesh network a little bit different than the way it was explained here.  Of note, devices running the <code class="language-plaintext highlighter-rouge">batman-adv</code> <strong>version 2019.0-2 and older</strong> are certainly incompatible with the instructions found in this tutorial, the reason being that the module was modified after then to better integrate with the <a href="https://openwrt.org/docs/techref/netifd">network interface daemon</a>.  Fortunately, the implementation using old modules is just a simple as with the latest one. <a href="https://www.open-mesh.org/projects/batman-adv/wiki/Batman-adv-openwrt-config#Batman-adv-20190-2-and-older">Check what the B.A.T.M.A.N. wiki has to say about it</a>.  However, it’s worth mentioning that with old batman modules, changes to <code class="language-plaintext highlighter-rouge">/etc/config/network</code> will likely require a reboot instead of simply reloading <code class="language-plaintext highlighter-rouge">/etc/init.d/network</code>.</p>
 
-<p>Also, I’ve noticed that when installing <code class="language-plaintext highlighter-rouge">kmod-batman-adv</code>, the package manager will install a minimal version of <code class="language-plaintext highlighter-rouge">batctl</code>, called <code class="language-plaintext highlighter-rouge">batctl-tiny</code>, that lacks some of the options mentioned here (e.g., <code class="language-plaintext highlighter-rouge">batctl n</code> and <code class="language-plaintext highlighter-rouge">batnctl o</code>).  However, if you install <code class="language-plaintext highlighter-rouge">batctl</code> first and then <code class="language-plaintext highlighter-rouge">kmod-batman-adv</code>, the package manager will preserve <code class="language-plaintext highlighter-rouge">batctl-default</code>, which is the package used in this tutorial and that has all the options referred to in the <a href="https://downloads.open-mesh.org/batman/manpages/batctl.8.html">batctl man page</a>.</p>
+<p>Also, I’ve noticed that when installing <code class="language-plaintext highlighter-rouge">kmod-batman-adv</code>, the package manager will install a minimal version of <code class="language-plaintext highlighter-rouge">batctl</code>, called <code class="language-plaintext highlighter-rouge">batctl-tiny</code>, that lacks some of the options mentioned here (e.g., <code class="language-plaintext highlighter-rouge">batctl n</code> and <code class="language-plaintext highlighter-rouge">batnctl o</code>).  However, if you install <code class="language-plaintext highlighter-rouge">batctl</code> first and then <code class="language-plaintext highlighter-rouge">kmod-batman-adv</code>, the package manager will preserve <code class="language-plaintext highlighter-rouge">batctl-default</code>, which has most of the <code class="language-plaintext highlighter-rouge">batctl</code> features.  In this tutorial, however, we will use the <code class="language-plaintext highlighter-rouge">batctl-full</code> package that contains all features referred to in the <a href="https://downloads.open-mesh.org/batman/manpages/batctl.8.html">batctl man page</a>.</p>
 
-<p>Finally, the installation of <code class="language-plaintext highlighter-rouge">wpad-mesh-openssl</code> will conflict with the already installed <code class="language-plaintext highlighter-rouge">wpad-basic</code> package.  This means <strong>you have to remove the latter before installing the former</strong>.  To remove the <code class="language-plaintext highlighter-rouge">wpad-basic</code> package, simply type</p>
+<p>Finally, the installation of <code class="language-plaintext highlighter-rouge">wpad-mesh-wolfssl</code> will conflict with the already installed <code class="language-plaintext highlighter-rouge">wpad-basic-wolfssl</code> package (or any other <code class="language-plaintext highlighter-rouge">wpad-basic*</code> package).  This means <strong>you have to remove the latter before installing the former</strong>.  To remove the <code class="language-plaintext highlighter-rouge">wpad-basic-wolfssl</code> or any other conflicting package, simply type</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>opkg remove wpad-basic
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>opkg remove wpad-basic*
 </code></pre></div></div>
 
 <h2 id="vi-text-editor">VI text editor</h2>
@@ -865,6 +893,10 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
 
 <p><a href="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-gateway-gateway.jpg"><img src="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-gateway-gateway.jpg" alt="Topology - Gateway-Gateway" class="PostImage PostImage--large" /></a></p>
 
+<p>In all such cases, we will use the <strong>5Ghz</strong> radio exclusively for <em>mesh</em> wireless traffic, while the more widely compatible <strong>2.4Ghz</strong> radio will be used for <em>non-mesh</em> wireless traffic:</p>
+
+<p><a href="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/segmentation.jpg"><img src="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/segmentation.jpg" alt="Segmentation" class="PostImage PostImage--large" /></a></p>
+
 <p>First, however, we will start with the aspects that are common to all topologies, such as planning the mesh network, and the installation and basic configuration of OpenWrt mesh nodes.  Then, we will move to the specifics of each of the aforementioned mesh network topologies.  Finally, we end the section with a slightly more complex scenario to illustrate how to create <strong>mesh VLANs</strong> with <code class="language-plaintext highlighter-rouge">batman-adv</code> and a very brief introduction to using <code class="language-plaintext highlighter-rouge">batman-adv</code> on other Linux distros.</p>
 
 <p><a href="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-mesh-vlans.jpg"><img src="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-mesh-vlans.jpg" alt="Topology - Mesh VLANs" class="PostImage PostImage--large" /></a></p>
@@ -923,7 +955,7 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
 
 <p>(<em>Optional</em>: <a href="https://openwrt.org/docs/guide-user/security/dropbear.public-key.auth">Configure key-based authentication</a> and <a href="https://openwrt.org/docs/guide-user/base-system/dropbear">disable password login</a>. Reboot and check that <code class="language-plaintext highlighter-rouge">ssh</code> access methods are correctly configured.)</p>
 
-<p class="notice notice--warning">From this point forward, we will start editing files using <code class="language-plaintext highlighter-rouge">vi</code>.  If you’ve not read the <a href="#vi-text-editor">section about how to use <code class="language-plaintext highlighter-rouge">vi</code></a> yet, this is a good time to do so.</p>
+<p class="notice--warning">From this point forward, we will start editing files using <code class="language-plaintext highlighter-rouge">vi</code>.  If you’ve not read the <a href="#vi-text-editor">section about how to use <code class="language-plaintext highlighter-rouge">vi</code></a> yet, this is a good time to do so.</p>
 
 <h3 id="default-config-for-the-hardware">Default config for the hardware</h3>
 <p>Regardless of the hardware, <strong>before doing anything related to the mesh network</strong>, always take your time and <strong>study the default configuration</strong> found in <code class="language-plaintext highlighter-rouge">/etc/config/</code>.  For reference, I usually go over the following:</p>
@@ -981,7 +1013,7 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
 
 <p>Remove the connection that gave your device temporary access to the Internet.  Then, <strong>reboot</strong> (type <code class="language-plaintext highlighter-rouge">reboot</code> in the terminal) and restart the SSH session with your laptop/PC still connected to the device via cable.</p>
 
-<p class="notice notice--warning">If you’re using the <strong>TP-Link WR1043ND v1.x</strong> in your mesh project, take a look at my previous note about the <a href="#ath9k-modules">ath9k module</a> in the <a href="#hardware">hardware section</a>.  In brief, if you have issues running the mesh with encryption, then you have to enable the <code class="language-plaintext highlighter-rouge">nohwcrypt</code> parameter of the <code class="language-plaintext highlighter-rouge">ath9k</code> module.</p>
+<p class="notice--warning">If you’re using the <strong>TP-Link WR1043ND v1.x</strong> in your mesh project, take a look at my previous note about the <a href="#ath9k-modules">ath9k module</a> in the <a href="#hardware">hardware section</a>.  In brief, if you have issues running the mesh with encryption, then you have to enable the <code class="language-plaintext highlighter-rouge">nohwcrypt</code> parameter of the <code class="language-plaintext highlighter-rouge">ath9k</code> module.</p>
 
 <h2 id="mesh-node-basic-config">Mesh node basic config</h2>
 <p>It is time to configure the basics of our mesh network and nodes.  To do so, we will edit multiple files in <code class="language-plaintext highlighter-rouge">/etc/config/</code> but first, let’s find out the capabilities of the detected radios in our wireless device, as follows</p>
@@ -1116,7 +1148,7 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
 #       option disabled 1		#uncomment to disable
 </code></pre></div></div>
 
-<p class="notice notice--info">The comments are just for educational purpose. Feel free to remove them in your device’s config file.</p>
+<p class="notice--info">The comments are just for educational purpose. Feel free to remove them in your device’s config file.</p>
 
 <p>Because all mesh nodes must operate on the same channel, use the same authentication, etc., multiple config options are often dictated by the “lowest common denominator” across all mesh nodes–that is, the best possible config that will work with <strong>all nodes</strong>, not just the ones with the best hardware and software available.  For example, not all devices will necessarily be able to use SAE because it’s very new and therefore, won’t be able to connect to mesh networks that use it. Instead, you might want to set encryption to something like <code class="language-plaintext highlighter-rouge">psk2+aes</code>, which should be good enough for most devices out there. So, keep that in mind when configuring your mesh nodes.</p>
 
@@ -1178,7 +1210,7 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scp -r ./config/* root@IP_NEW_MESH_NODE:/etc/config/
 </code></pre></div></div>
 
-<p class="notice notice--warning">Because we’re starting SSH sessions with <em>different machines</em> using the <em>same IP addr</em> (<code class="language-plaintext highlighter-rouge">192.168.1.1</code>), it’s quite possible that your SSH client will complaint about the authenticity of the host at <code class="language-plaintext highlighter-rouge">192.168.1.1</code>.  To get rid of this message, simply remove the relevant entry in your user’s <code class="language-plaintext highlighter-rouge">known_hosts</code> file or delete it altogether.  On Linux distros, such file can be found at <code class="language-plaintext highlighter-rouge">~/.ssh/known_hosts</code>–that is, the <code class="language-plaintext highlighter-rouge">ssh</code> folder for your current user.</p>
+<p class="notice--warning">Because we’re starting SSH sessions with <em>different machines</em> using the <em>same IP addr</em> (<code class="language-plaintext highlighter-rouge">192.168.1.1</code>), it’s quite possible that your SSH client will complaint about the authenticity of the host at <code class="language-plaintext highlighter-rouge">192.168.1.1</code>.  To get rid of this message, simply remove the relevant entry in your user’s <code class="language-plaintext highlighter-rouge">known_hosts</code> file or delete it altogether.  On Linux distros, such file can be found at <code class="language-plaintext highlighter-rouge">~/.ssh/known_hosts</code>–that is, the <code class="language-plaintext highlighter-rouge">ssh</code> folder for your current user.</p>
 
 <p>Afterwards, <code class="language-plaintext highlighter-rouge">ssh</code> into one of the configured mesh nodes and type</p>
 
@@ -1252,7 +1284,7 @@ f0:f3:00:00:00:00 node04
 
 <p>Get one of the <a href="#mesh-node-basic-config">pre-configured mesh nodes</a> that has at the very least two ethernet ports, a LAN port and a WAN port.  (This, of course, is not required for a gateway device because <a href="https://openwrt.org/docs/guide-user/network/wan/internet.connection">there are multiple ways to connect to WAN</a> but having separate physical ports makes the explanation much simpler to follow.  If that is not your case, just adapt to whatever interfaces you have configured that play the role of default <code class="language-plaintext highlighter-rouge">lan</code> and <code class="language-plaintext highlighter-rouge">wan</code>.)</p>
 
-<p class="notice notice--warning">If you’ve configured this node as a <a href="https://openwrt.org/docs/guide-user/network/wifi/dumbap">dumb access point</a> to temporarily give it access to the Internet while updating and installing packages, undo the configuration before proceeding because we will use both the <code class="language-plaintext highlighter-rouge">firewall</code> and <code class="language-plaintext highlighter-rouge">dhcp</code> config files in the gateway configuration.</p>
+<p class="notice--warning">If you’ve configured this node as a <a href="https://openwrt.org/docs/guide-user/network/wifi/dumbap">dumb access point</a> to temporarily give it access to the Internet while updating and installing packages, undo the configuration before proceeding because we will use both the <code class="language-plaintext highlighter-rouge">firewall</code> and <code class="language-plaintext highlighter-rouge">dhcp</code> config files in the gateway configuration.</p>
 
 <p>Connect your laptop/PC to the mesh node via cable using the LAN port–this way, the mesh node’s IP address should still be <code class="language-plaintext highlighter-rouge">192.168.1.1</code>.  Then, <code class="language-plaintext highlighter-rouge">ssh</code> into the mesh node and let’s take a look at the <code class="language-plaintext highlighter-rouge">/etc/config/network</code>, as follows</p>
 
@@ -1639,7 +1671,7 @@ f0:f3:00:00:00:00 node04
 
 <p>If everything looks good, we’re done with the gateway configuration!  We’re now ready to tell our bridges which VLAN ID to join with their standard interfaces.</p>
 
-<p class="notice notice--danger">You don’t need to use <strong>interface names</strong> such as <code class="language-plaintext highlighter-rouge">lan_bat0_1</code>; they can be whatever you find intuitive.  However, whatever you choose, <strong>keep them short</strong>–that is, less than 14 characters long–or you’ll start experiencing config issues.</p>
+<p class="notice--danger">You don’t need to use <strong>interface names</strong> such as <code class="language-plaintext highlighter-rouge">lan_bat0_1</code>; they can be whatever you find intuitive.  However, whatever you choose, <strong>keep them short</strong>–that is, less than 14 characters long–or you’ll start experiencing config issues.</p>
 
 <h3 id="mesh-bridge-with-vlan-configuration">Mesh bridge with VLAN configuration</h3>
 <p>Here, we’ll also configure the bridges <strong>the same way</strong> as in the gateway-bridge example. However, each bridge device will bridge <strong>a different VLAN ID</strong>–namely, either <code class="language-plaintext highlighter-rouge">bat0.1</code> or <code class="language-plaintext highlighter-rouge">bat0.2</code> or <code class="language-plaintext highlighter-rouge">bat0.5</code>–with its default <code class="language-plaintext highlighter-rouge">lan</code>, instead of bridging <code class="language-plaintext highlighter-rouge">bat0</code> with its default <code class="language-plaintext highlighter-rouge">lan</code>.</p>
