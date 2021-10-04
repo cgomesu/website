@@ -1316,34 +1316,55 @@ Also, if you want to change the functionality of a few of the existing LEDs on y
 [top](#){: .btn .btn--light-outline .btn--small}
 
 # Bonus content: Moving from OpenWrt 19 to 21
-When this guide was first written, [OpenWrt 19](https://openwrt.org/releases/19.07/start) was the **current stable** release version.  However, as of September 4th, OpenWrt 19 transitioned to **old stable** and [**OpenWrt 21**](https://openwrt.org/releases/21.02/start) is now the current stable release.  For one, this means that most device pages (e.g., [TP-Link Archer C7 AC1750](https://openwrt.org/toh/tp-link/archer_c7)) have been updated to link to the OpenWrt 21 firmware binaries.  However, it is still possible to download and use the latest version of the OpenWrt 19 binaries (`19.07.8`), which should be just fine for now.  To still use OpenWrt 19, follow these steps: 
+If you just found this guide, you can safely ignore the content in this section because the entire article **has been updated** to make it compatible with OpenWrt 21.02, which is now the **current stable release**.  However, if you're currently running OpenWrt 19.07 and want to upgrade to 21.02, then read on.
+{:.notice--warning}
 
-1. Find the target for your device in the device's page.  For instance, for the [TP-Link Archer C7 AC1750](https://openwrt.org/toh/tp-link/archer_c7), the target is *ath79/generic*;
-2. Navigate to the root of the available targets for the [latest version of the OpenWrt 19 release (`19.07.8`)](https://downloads.openwrt.org/releases/19.07.8/targets/);
-3. Navigate to the root of your device's target (e.g., for the C7, that would be [*ath79*](https://downloads.openwrt.org/releases/19.07.8/targets/ath79/) > [*generic*](https://downloads.openwrt.org/releases/19.07.8/targets/ath79/generic/));
-4. And finally, search for the **binary for your device and model version**, download it, check the hash, and flash it onto your device, as instructed on the device's page.
-   
-   Remember to use `*-factory.bin` if your device is still running the original firmware, and `*-sysupgrade.bin` if your devices is already running OpenWrt.
-   {:.notice--warning}
+When this guide was first written, [OpenWrt 19.07](https://openwrt.org/releases/19.07/start) was the current stable release version.  However, as of September 4th, OpenWrt 19.07 transitioned to old stable and [**OpenWrt 21.02**](https://openwrt.org/releases/21.02/start) is now the current stable release.  For one, this means that most device pages (e.g., [TP-Link Archer C7 AC1750](https://openwrt.org/toh/tp-link/archer_c7)) have been updated to link to the OpenWrt 21.02 firmware binaries. 
 
-This same procedure can be used with [*any* of the still available releases](https://downloads.openwrt.org/releases/). Making use of OpenWrt 19 means that the (tested) instructions in this guide are fully compatible with it.  However, it is generally a good idea to run the latest release version for multiple reasons, security being the main one.  For this reason, I've started upgrading a few of my devices to use OpenWrt 21 instead of 19 and once I'm done testing, I will update this guide in its entirety to reflect the configuration used in OpenWrt 21.  (This should happen before the end of October.)  In the meantime, here are a few notes about OpenWrt 21:
+Of course, it is still possible to download and use the latest version of the OpenWrt 19.07 binaries (`19.07.8`) by looking for your device's target at [releases/19.07.8/targets](https://downloads.openwrt.org/releases/19.07.8/targets/).  However, it is generally a good idea to run the latest release version for multiple reasons, **security being the main one**.  Nonetheless, OpenWrt 21.02 introduces **new hardware requirements** and **changes to the network syntax** that you should not overlook before making the transition.  More specifically:
 
-- Thanks to **SteveNewcomb**, we have known for many months that `batman-adv` also works under OpenWrt 21.  For reference, here are two of his forum posts that detail the specifics of his devices and configuration:
+  - OpenWrt 21.02 introduces initial support for the [**Distributed Switch Architecture** (**DSA**)](https://www.kernel.org/doc/html/latest/networking/dsa/dsa.html).  Currently, however, this only applies to [a very limited number of devices](https://openwrt.org/releases/21.02/notes-21.02.0#initial_dsa_support).  If you have one of such devices, then make sure to read **rmilecki**'s [mini tutorial for DSA network configuration](https://forum.openwrt.org/t/mini-tutorial-for-dsa-network-config/96998) because the syntax is a little bit different than the one used in this guide.
+
+  - The [hardware requirements to run OpenWrt 21.02](https://openwrt.org/releases/21.02/notes-21.02.0#increased_minimum_hardware_requirements8_mb_flash_64_mb_ram) has increased to `8 MB` of flash memory and `64 MB` of RAM.  In the first version of this guide, I used the **TP-Link TL-WR1043ND (v1)** as an example of mesh node hardware, which has `8MB` of flash memory and `32MB` of RAM.  At first, I tried to use OpenWrt 21.02 but the system became **too unstable** with it, even after making several changes to the firmware images (e.g., removing LuCI altogether and adding `zram` support).  This is what prompted me to change the device in the examples to the **TP-Link TL-WD4300**, which is also a *low-end* router but it has `128MB` of RAM instead and importantly, it is a *dual-band* router that allows better segmentation of mesh vs non-mesh wireless traffic. 
+
+  - There is a small but important [change in the configuration **syntax**](https://openwrt.org/releases/21.02/notes-21.02.0#new_network_configuration_syntax_and_boardjson_change) in `/etc/config/network`, namely:
+    1. The option `ifname` is now called `device` in all `config interface` stanzas;
+    2. The option `ifname` is now called `ports` in all `config device` stanzas of type `bridge`.
+
+    Fortunately, it seems that the **old syntax** (as in the first version of this guide) **is still supported** but if you are using LuCI, you will run into compatibility issues and will be prompted to update.  To update it, take a closer look at the examples in the current version of the guide, which have been all updated to make them compatible with the network syntax introduced by OpenWrt 21.02.
+
+  - There many other changes in OpenWrt 21.02 but from my experience so far, none of them are as relevant as the ones mentioned before.  For other highlights and additional information, please check the [official OpenWrt 21.02.0 release notes](https://openwrt.org/releases/21.02/notes-21.02.0).
+
+Upgrading the firmware is as easy as it has always been: (a) go to the device's OpenWrt page, (b) download the new `*-sysupgrade.bin` binary, and then (c) flash it onto your device via LuCI.  If you're only using the terminal, first SSH into your device and make sure it has enough free memory by typing:
+
+```
+free
+```
+
+which should output something like this:
+
+```
+              total        used        free      shared  buff/cache   available
+Mem:          27064       16168        6004         304        4892        8368
+Swap:         13308         768       12540
+```
+
+and if the amount of `free` in the `Mem:` row is higher than the size of the binary, then copy the new binary to the root of the `/tmp/` directory via `scp` (or any other method) and run `sysupgrade` to upgrade your firmware to the latest release, as follows:
+
+```
+sysupgrade -v -n /tmp/*-sysupgrade.bin
+```
+
+**Importantly**, owing to changes in the network syntax, I strongly recommend to discard all configuration files when making the transition.  When upgrading via LuCI, make sure to deselect the option to preserve configuration, and similarly, when upgrading via `sysupgrade`, add the `-n` argument command, as mentioned before. This, of course, means you will lose connection to the device if you are running the upgrade via a wireless connection, so make sure to use a cable for this particular operation.  
+
+If the configuration files in `/etc/config/` have been extensively edited, make sure to make a backup of them before running the upgrade.
+{:.notice--warning}
+
+In addition, remember that the various packages supporting the use of `batman-adv` do not come with pre-built (default) images, which means that you won't be able to connect to your mesh node after an upgrade if you are relying on the mesh network to reach it.  If you do not want to reinstall all such packages (or cannot physically reach the nodes), check the updated section about [OpenWrt installation and initial configuration](#openwrt-installation-and-initial-configuration), which now features instructions on how to build customized images with pre-installed mesh packages.  Building your own images also means you can create default versions for all `/etc/config/` files (see `FILES=""` usage in the `make image` command) but **use caution with such feature** to avoid (soft) bricking your device.  At the very least, use only configurations you have already tested and that will work independently of any other node.
+
+Lastly, I would like to thank [SteveNewcomb](https://forum.openwrt.org/u/stevenewcomb) for testing--and letting me know about--`batman-adv` under the OpenWrt 21.02 release candidates.  For reference, here are two of his forum posts that detail the specifics of his devices and configuration:
   - [Batman (in production with post 19.07 snapshot) not working under 21.02](https://forum.openwrt.org/t/batman-in-production-with-post-19-07-snapshot-not-working-under-21-02)
   - [How to specify the mac address of a batman mesh member?](https://forum.openwrt.org/t/how-to-specify-the-mac-address-of-a-batman-mesh-member/100164/2)
-
-- OpenWrt 21 introduces initial support for the [**Distributed Switch Architecture** (**DSA**)](https://www.kernel.org/doc/html/latest/networking/dsa/dsa.html).  This only applies to [a very limited number of devices though](https://openwrt.org/releases/21.02/notes-21.02.0#initial_dsa_support).  If you have one of such devices, then make sure to read **rmilecki**'s [mini tutorial for DSA network configuration](https://forum.openwrt.org/t/mini-tutorial-for-dsa-network-config/96998).
-
-- The [hardware requirements to run OpenWrt 21](https://openwrt.org/releases/21.02/notes-21.02.0#increased_minimum_hardware_requirements8_mb_flash_64_mb_ram) has increased to `8 MB` of flash memory and `64 MB` of RAM.
-
-- There is a small but important [change in the configuration **syntax**](https://openwrt.org/releases/21.02/notes-21.02.0#new_network_configuration_syntax_and_boardjson_change) in `/etc/config/network`, namely:
-  1. The option `ifname` is now called `device` in all `config interface` stanzas;
-  2. The option `ifname` is now called `ports` in all `config device` stanzas of type `bridge`.
-
-  Fortunately, it seems that the **old syntax** (as the one shown in this guide) is **still supported** but if you are using LuCI, you will run into compatibility issues and will be prompted to update.  For a template, [check an example of the new UCI syntax](https://openwrt.org/releases/21.02/notes-21.02.0#new_uci_syntax).
-  {:.notice--warning}
-
-There many other changes in the new stable release.  Please check the [**OpenWrt 21.02.0 release notes**](https://openwrt.org/releases/21.02/notes-21.02.0) for other highlights and additional instructions.
 
 [top](#){: .btn .btn--light-outline .btn--small}
 

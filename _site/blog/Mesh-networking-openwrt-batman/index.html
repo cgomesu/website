@@ -200,7 +200,7 @@
 
 
 
-  109 minute read
+  112 minute read
 
 </p>
       
@@ -1878,33 +1878,18 @@ lsmod | grep batman
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 
 <h1 id="bonus-content-moving-from-openwrt-19-to-21">Bonus content: Moving from OpenWrt 19 to 21</h1>
-<p>When this guide was first written, <a href="https://openwrt.org/releases/19.07/start">OpenWrt 19</a> was the <strong>current stable</strong> release version.  However, as of September 4th, OpenWrt 19 transitioned to <strong>old stable</strong> and <a href="https://openwrt.org/releases/21.02/start"><strong>OpenWrt 21</strong></a> is now the current stable release.  For one, this means that most device pages (e.g., <a href="https://openwrt.org/toh/tp-link/archer_c7">TP-Link Archer C7 AC1750</a>) have been updated to link to the OpenWrt 21 firmware binaries.  However, it is still possible to download and use the latest version of the OpenWrt 19 binaries (<code class="language-plaintext highlighter-rouge">19.07.8</code>), which should be just fine for now.  To still use OpenWrt 19, follow these steps:</p>
+<p class="notice--warning">If you just found this guide, you can safely ignore the content in this section because the entire article <strong>has been updated</strong> to make it compatible with OpenWrt 21.02, which is now the <strong>current stable release</strong>.  However, if you’re currently running OpenWrt 19.07 and want to upgrade to 21.02, then read on.</p>
 
-<ol>
-  <li>Find the target for your device in the device’s page.  For instance, for the <a href="https://openwrt.org/toh/tp-link/archer_c7">TP-Link Archer C7 AC1750</a>, the target is <em>ath79/generic</em>;</li>
-  <li>Navigate to the root of the available targets for the <a href="https://downloads.openwrt.org/releases/19.07.8/targets/">latest version of the OpenWrt 19 release (<code class="language-plaintext highlighter-rouge">19.07.8</code>)</a>;</li>
-  <li>Navigate to the root of your device’s target (e.g., for the C7, that would be <a href="https://downloads.openwrt.org/releases/19.07.8/targets/ath79/"><em>ath79</em></a> &gt; <a href="https://downloads.openwrt.org/releases/19.07.8/targets/ath79/generic/"><em>generic</em></a>);</li>
-  <li>
-    <p>And finally, search for the <strong>binary for your device and model version</strong>, download it, check the hash, and flash it onto your device, as instructed on the device’s page.</p>
+<p>When this guide was first written, <a href="https://openwrt.org/releases/19.07/start">OpenWrt 19.07</a> was the current stable release version.  However, as of September 4th, OpenWrt 19.07 transitioned to old stable and <a href="https://openwrt.org/releases/21.02/start"><strong>OpenWrt 21.02</strong></a> is now the current stable release.  For one, this means that most device pages (e.g., <a href="https://openwrt.org/toh/tp-link/archer_c7">TP-Link Archer C7 AC1750</a>) have been updated to link to the OpenWrt 21.02 firmware binaries.</p>
 
-    <p class="notice--warning">Remember to use <code class="language-plaintext highlighter-rouge">*-factory.bin</code> if your device is still running the original firmware, and <code class="language-plaintext highlighter-rouge">*-sysupgrade.bin</code> if your devices is already running OpenWrt.</p>
-  </li>
-</ol>
-
-<p>This same procedure can be used with <a href="https://downloads.openwrt.org/releases/"><em>any</em> of the still available releases</a>. Making use of OpenWrt 19 means that the (tested) instructions in this guide are fully compatible with it.  However, it is generally a good idea to run the latest release version for multiple reasons, security being the main one.  For this reason, I’ve started upgrading a few of my devices to use OpenWrt 21 instead of 19 and once I’m done testing, I will update this guide in its entirety to reflect the configuration used in OpenWrt 21.  (This should happen before the end of October.)  In the meantime, here are a few notes about OpenWrt 21:</p>
+<p>Of course, it is still possible to download and use the latest version of the OpenWrt 19.07 binaries (<code class="language-plaintext highlighter-rouge">19.07.8</code>) by looking for your device’s target at <a href="https://downloads.openwrt.org/releases/19.07.8/targets/">releases/19.07.8/targets</a>.  However, it is generally a good idea to run the latest release version for multiple reasons, <strong>security being the main one</strong>.  Nonetheless, OpenWrt 21.02 introduces <strong>new hardware requirements</strong> and <strong>changes to the network syntax</strong> that you should not overlook before making the transition.  More specifically:</p>
 
 <ul>
-  <li>Thanks to <strong>SteveNewcomb</strong>, we have known for many months that <code class="language-plaintext highlighter-rouge">batman-adv</code> also works under OpenWrt 21.  For reference, here are two of his forum posts that detail the specifics of his devices and configuration:
-    <ul>
-      <li><a href="https://forum.openwrt.org/t/batman-in-production-with-post-19-07-snapshot-not-working-under-21-02">Batman (in production with post 19.07 snapshot) not working under 21.02</a></li>
-      <li><a href="https://forum.openwrt.org/t/how-to-specify-the-mac-address-of-a-batman-mesh-member/100164/2">How to specify the mac address of a batman mesh member?</a></li>
-    </ul>
+  <li>
+    <p>OpenWrt 21.02 introduces initial support for the <a href="https://www.kernel.org/doc/html/latest/networking/dsa/dsa.html"><strong>Distributed Switch Architecture</strong> (<strong>DSA</strong>)</a>.  Currently, however, this only applies to <a href="https://openwrt.org/releases/21.02/notes-21.02.0#initial_dsa_support">a very limited number of devices</a>.  If you have one of such devices, then make sure to read <strong>rmilecki</strong>’s <a href="https://forum.openwrt.org/t/mini-tutorial-for-dsa-network-config/96998">mini tutorial for DSA network configuration</a> because the syntax is a little bit different than the one used in this guide.</p>
   </li>
   <li>
-    <p>OpenWrt 21 introduces initial support for the <a href="https://www.kernel.org/doc/html/latest/networking/dsa/dsa.html"><strong>Distributed Switch Architecture</strong> (<strong>DSA</strong>)</a>.  This only applies to <a href="https://openwrt.org/releases/21.02/notes-21.02.0#initial_dsa_support">a very limited number of devices though</a>.  If you have one of such devices, then make sure to read <strong>rmilecki</strong>’s <a href="https://forum.openwrt.org/t/mini-tutorial-for-dsa-network-config/96998">mini tutorial for DSA network configuration</a>.</p>
-  </li>
-  <li>
-    <p>The <a href="https://openwrt.org/releases/21.02/notes-21.02.0#increased_minimum_hardware_requirements8_mb_flash_64_mb_ram">hardware requirements to run OpenWrt 21</a> has increased to <code class="language-plaintext highlighter-rouge">8 MB</code> of flash memory and <code class="language-plaintext highlighter-rouge">64 MB</code> of RAM.</p>
+    <p>The <a href="https://openwrt.org/releases/21.02/notes-21.02.0#increased_minimum_hardware_requirements8_mb_flash_64_mb_ram">hardware requirements to run OpenWrt 21.02</a> has increased to <code class="language-plaintext highlighter-rouge">8 MB</code> of flash memory and <code class="language-plaintext highlighter-rouge">64 MB</code> of RAM.  In the first version of this guide, I used the <strong>TP-Link TL-WR1043ND (v1)</strong> as an example of mesh node hardware, which has <code class="language-plaintext highlighter-rouge">8MB</code> of flash memory and <code class="language-plaintext highlighter-rouge">32MB</code> of RAM.  At first, I tried to use OpenWrt 21.02 but the system became <strong>too unstable</strong> with it, even after making several changes to the firmware images (e.g., removing LuCI altogether and adding <code class="language-plaintext highlighter-rouge">zram</code> support).  This is what prompted me to change the device in the examples to the <strong>TP-Link TL-WD4300</strong>, which is also a <em>low-end</em> router but it has <code class="language-plaintext highlighter-rouge">128MB</code> of RAM instead and importantly, it is a <em>dual-band</em> router that allows better segmentation of mesh vs non-mesh wireless traffic.</p>
   </li>
   <li>There is a small but important <a href="https://openwrt.org/releases/21.02/notes-21.02.0#new_network_configuration_syntax_and_boardjson_change">change in the configuration <strong>syntax</strong></a> in <code class="language-plaintext highlighter-rouge">/etc/config/network</code>, namely:
     <ol>
@@ -1912,11 +1897,39 @@ lsmod | grep batman
       <li>The option <code class="language-plaintext highlighter-rouge">ifname</code> is now called <code class="language-plaintext highlighter-rouge">ports</code> in all <code class="language-plaintext highlighter-rouge">config device</code> stanzas of type <code class="language-plaintext highlighter-rouge">bridge</code>.</li>
     </ol>
 
-    <p class="notice--warning">Fortunately, it seems that the <strong>old syntax</strong> (as the one shown in this guide) is <strong>still supported</strong> but if you are using LuCI, you will run into compatibility issues and will be prompted to update.  For a template, <a href="https://openwrt.org/releases/21.02/notes-21.02.0#new_uci_syntax">check an example of the new UCI syntax</a>.</p>
+    <p>Fortunately, it seems that the <strong>old syntax</strong> (as in the first version of this guide) <strong>is still supported</strong> but if you are using LuCI, you will run into compatibility issues and will be prompted to update.  To update it, take a closer look at the examples in the current version of the guide, which have been all updated to make them compatible with the network syntax introduced by OpenWrt 21.02.</p>
   </li>
+  <li>There many other changes in OpenWrt 21.02 but from my experience so far, none of them are as relevant as the ones mentioned before.  For other highlights and additional information, please check the <a href="https://openwrt.org/releases/21.02/notes-21.02.0">official OpenWrt 21.02.0 release notes</a>.</li>
 </ul>
 
-<p>There many other changes in the new stable release.  Please check the <a href="https://openwrt.org/releases/21.02/notes-21.02.0"><strong>OpenWrt 21.02.0 release notes</strong></a> for other highlights and additional instructions.</p>
+<p>Upgrading the firmware is as easy as it has always been: (a) go to the device’s OpenWrt page, (b) download the new <code class="language-plaintext highlighter-rouge">*-sysupgrade.bin</code> binary, and then (c) flash it onto your device via LuCI.  If you’re only using the terminal, first SSH into your device and make sure it has enough free memory by typing:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>free
+</code></pre></div></div>
+
+<p>which should output something like this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>              total        used        free      shared  buff/cache   available
+Mem:          27064       16168        6004         304        4892        8368
+Swap:         13308         768       12540
+</code></pre></div></div>
+
+<p>and if the amount of <code class="language-plaintext highlighter-rouge">free</code> in the <code class="language-plaintext highlighter-rouge">Mem:</code> row is higher than the size of the binary, then copy the new binary to the root of the <code class="language-plaintext highlighter-rouge">/tmp/</code> directory via <code class="language-plaintext highlighter-rouge">scp</code> (or any other method) and run <code class="language-plaintext highlighter-rouge">sysupgrade</code> to upgrade your firmware to the latest release, as follows:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sysupgrade -v -n /tmp/*-sysupgrade.bin
+</code></pre></div></div>
+
+<p><strong>Importantly</strong>, owing to changes in the network syntax, I strongly recommend to discard all configuration files when making the transition.  When upgrading via LuCI, make sure to deselect the option to preserve configuration, and similarly, when upgrading via <code class="language-plaintext highlighter-rouge">sysupgrade</code>, add the <code class="language-plaintext highlighter-rouge">-n</code> argument command, as mentioned before. This, of course, means you will lose connection to the device if you are running the upgrade via a wireless connection, so make sure to use a cable for this particular operation.</p>
+
+<p class="notice--warning">If the configuration files in <code class="language-plaintext highlighter-rouge">/etc/config/</code> have been extensively edited, make sure to make a backup of them before running the upgrade.</p>
+
+<p>In addition, remember that the various packages supporting the use of <code class="language-plaintext highlighter-rouge">batman-adv</code> do not come with pre-built (default) images, which means that you won’t be able to connect to your mesh node after an upgrade if you are relying on the mesh network to reach it.  If you do not want to reinstall all such packages (or cannot physically reach the nodes), check the updated section about <a href="#openwrt-installation-and-initial-configuration">OpenWrt installation and initial configuration</a>, which now features instructions on how to build customized images with pre-installed mesh packages.  Building your own images also means you can create default versions for all <code class="language-plaintext highlighter-rouge">/etc/config/</code> files (see <code class="language-plaintext highlighter-rouge">FILES=""</code> usage in the <code class="language-plaintext highlighter-rouge">make image</code> command) but <strong>use caution with such feature</strong> to avoid (soft) bricking your device.  At the very least, use only configurations you have already tested and that will work independently of any other node.</p>
+
+<p>Lastly, I would like to thank <a href="https://forum.openwrt.org/u/stevenewcomb">SteveNewcomb</a> for testing–and letting me know about–<code class="language-plaintext highlighter-rouge">batman-adv</code> under the OpenWrt 21.02 release candidates.  For reference, here are two of his forum posts that detail the specifics of his devices and configuration:</p>
+<ul>
+  <li><a href="https://forum.openwrt.org/t/batman-in-production-with-post-19-07-snapshot-not-working-under-21-02">Batman (in production with post 19.07 snapshot) not working under 21.02</a></li>
+  <li><a href="https://forum.openwrt.org/t/how-to-specify-the-mac-address-of-a-batman-mesh-member/100164/2">How to specify the mac address of a batman mesh member?</a></li>
+</ul>
 
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 
