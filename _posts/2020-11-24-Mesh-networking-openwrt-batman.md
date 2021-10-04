@@ -372,16 +372,102 @@ The examples in this tutorial are simple *by design*--they were created to illus
 ## OpenWrt installation and initial configuration
 Now that you have the hardware, the first thing to do is to install OpenWrt.  Flashing a default OpenWrt image onto a ***compatible device* is a very easy and safe procedure** because it's been tested multiple times.  (For extra safety precautions, you might want to search the Web for your device + OpenWrt to see if there's any indexed forum post or comment regarding installation issues and bugs, for example.)  
 
-If you're new to this, the folks at OpenWrt were kind enough to provide a plethora of instructions on [how to install and uninstall OpenWrt](https://openwrt.org/docs/guide-user/installation/start) and even put together an [**installation checklist**](https://openwrt.org/docs/guide-user/installation/generic.flashing#installation_checklist).  At the very least, do the following:
+If you're **new to all this**, the folks at OpenWrt were kind enough to provide a plethora of instructions on [how to install and uninstall OpenWrt](https://openwrt.org/docs/guide-user/installation/start) and even put together an [**installation checklist**](https://openwrt.org/docs/guide-user/installation/generic.flashing#installation_checklist).  At the very least, do the following:
 
 1. Look for your device's **model and version** in the [**Table of Hardware**](https://openwrt.org/toh/start) and open its **Device Page** (e.g., [TP-Link TL-WDR4300](https://openwrt.org/toh/tp-link/tl-wdr4300_v1));
 2. Double check that the **model and version** match your device's **model and version** in the **Supported Versions** table;
 3. In the **Installation** table, you will find a column called *Firmware OpenWrt Install URL* and another one called *Firmware OpenWrt Upgrade URL*. If your device is **still running the original firmware**, then download the binary from the *Firmware OpenWrt **Install** URL* column; otherwise, download the binary from the *Firmware OpenWrt **Upgrade** URL* column.  Both files should have a `.bin` extension;
 4. Regardless of the binary file downloaded, [**verify its checksum**](https://openwrt.org/docs/guide-quick-start/verify_firmware_checksum) afterwards;
 5. Disconnect your laptop/PC from any access point or switch, and connect your laptop/PC directly to the device's ethernet port. 
-6. Open your device's web UI, go to its Settings and/or find the **Firmware Upgrade** option. Then, select the downloaded OpenWrt binary, and let it do its thing. Once it's done, the device will reboot with OpenWrt installed. (You should be able to reach it at `192.168.1.1` if connected to a LAN port.)
+6. Open your device's web UI, go to its Settings and/or find the **Firmware Upgrade** option. Then, select the downloaded OpenWrt binary, and let it do its thing. Once it's done, the device will reboot with OpenWrt installed. 
+7. You should now be able to reach your new OpenWrt device at `192.168.1.1` if connected to a LAN port. (Remember that all wireless interfaces are disabled by default, so you can only reach it via cable.)
 
-If you can reach the OpenWrt web UI, then you've successfully installed OpenWrt and it's now time to configure it.  
+If you chose to follow these steps and have successfully flashed the default OpenWrt firmware onto your device, then go ahead and skip to the [Initial configuration](#initial-configuration) section.  The remaining part of this section is meant for advanced users who want to customize their image files.
+{:.notice--success}
+
+If you're an **experienced user**, you can use [OpenWrt's Image Builder](https://openwrt.org/docs/guide-user/additional-software/imagebuilder) to create a customized image that contains all the necessary packages and configuration files by default.  This can save you a lot of time by letting you skip either partially or completely the remaining configuration instructions, depending on the level of specification of the `make image` build command.  
+
+To build a custom image file, first [install the dependencies](https://openwrt.org/docs/guide-user/additional-software/imagebuilder#prerequisites) for your Linux distribution.  Afterwards, follow these steps to download the image builder:
+
+1. Find the target for your device in the device's OpenWrt page.  For instance, for the [TP-Link TL-WDR4300 v1](https://openwrt.org/toh/tp-link/tl-wdr4300_v1), the target is *ath79/generic*;
+2. Navigate to the root of the available targets for the latest version of the OpenWrt 21 release (e.g., [`21.02.0`](https://downloads.openwrt.org/releases/21.02.0/targets/));
+3. Navigate to the root of your device's target (e.g., for the TL-WDR4300, that would be [*ath79*](https://downloads.openwrt.org/releases/21.02.0/targets/ath79/) > [*generic*](https://downloads.openwrt.org/releases/21.02.0/targets/ath79/generic/));
+4. Go to the **Supplementary Files** table at the bottom;
+5. Download the image builder `.tar.xz` file (e.g., [openwrt-imagebuilder-21.02.0-ath79-generic.Linux-x86_64.tar.xz](https://downloads.openwrt.org/releases/21.02.0/targets/ath79/generic/openwrt-imagebuilder-21.02.0-ath79-generic.Linux-x86_64.tar.xz)) and check its hash afterwards:
+
+    ```
+    sha256sum openwrt-imagebuilder-*.tar.xz
+    ```
+
+6. If everything looks good, extract the image builder: 
+    
+    ```
+    tar -xvf openwrt-imagebuilder-*.tar.xz
+    ```
+
+7. Enter the image builder directory to start using `make` and then search for your device's `PROFILE` name (e.g., `tplink_tl-wdr4300-v1`), as follows:
+    
+    ```
+    cd openwrt-imagebuilder-*
+    make info
+    ```
+
+    For long lists, you might want to filter the output via `grep`.  For example, to show only entries that contain `wdr4300`, run `make info | grep -i wdr4300`.
+    {:.notice--info}
+
+8. Build customized images for your device's profile. (See below for a table with a list of specific packages to add and to remove if you want to enable batman mesh support by default.)  For example, to build images for the **TL-WDR4300 (v1)** *without* pppoe and IPv6 support and *with* a minimal LuCI and `batman-adv` mesh support, run the following `make image` command:
+    
+    ```
+    make image PROFILE=tplink_tl-wdr4300-v1 \
+      PACKAGES="uhttpd uhttpd-mod-ubus libiwinfo-lua luci-base luci-app-firewall luci-mod-admin-full luci-theme-bootstrap \
+      -ppp -ppp-mod-pppoe \
+      -ip6tables -odhcp6c -kmod-ipv6 -kmod-ip6tables -odhcpd-ipv6only \
+      -wpad-basic-wolfssl wpad-mesh-wolfssl \
+      batctl-full kmod-batman-adv" \
+      CONFIG_IPV6=n
+    ```
+
+    Notice that the prefix `-` is meant to inform that the package should be *removed* from the default image of the chosen `PROFILE`. In addition, the inclusion of `CONFIG_IPV6=n` is optional and only used here to completely disable the IPv6 configuration in the example.  Other [build configuration variables](https://openwrt.org/docs/guide-user/additional-software/saving_space#modifying_build_configuration_variables) are also optional and can be modified by adding them to the `make image` command.  For more detailed information, run `make help`.
+    {:.notice--info}
+
+    This will prompt your system to start downloading the required packages and then start building the firmware.  **Be patient** because this operation can take several minutes.
+
+9. Once the builder is done **without any errors**, navigate to the subdirectory `./bin/targets/<target>` that contains the built image files, in which `<target>` is the device's target.  For the TL-WDR4300, for instance, the target is `ath79/generic`, which means the built files are at `./bin/targets/ath79/generic` and you can navigate to it from the image builder root directory as follows:
+    
+    ```
+    cd ./bin/targets/ath79/generic
+    ```
+
+    Of note, the `.manifest` file contains a list of installed packages, which is useful if you need to double check which packages a given image contains by default.
+    {:.notice--info} 
+
+10. Personally, I like to copy all generated files to a location outside the image builder.  To create a new location for the built images in your user's Downloads directory, do as follows (suggested structure is `openwrt-custom-images/<release>/<device>`):
+    
+    ```
+    mkdir ~/Downloads/openwrt-custom-images \
+      ~/Downloads/openwrt-custom-images/21.02 \
+      ~/Downloads/openwrt-custom-images/21.02/tl-wdr4300_v1
+    ```
+
+    Then copy all generated files to the new directory outside the image builder:
+
+    ```
+    cp ./* ~/Downloads/openwrt-custom-images/21.02/tl-wdr4300_v1/
+    ```
+
+    Now you can safely go back to the root of the image builder directory and run `make clean` to delete all generated files.  This is good practice if building multiple images with different features.
+
+11. From this part forward, the procedure is the same as outline before for the **default installation procedures**. 
+
+Lastly, to save additional firmware space and RAM, [follow the OpenWrt recommendation](https://openwrt.org/docs/guide-user/additional-software/saving_space) and at the end of the package list, add the following to enable `batman-adv` and include support for mesh encryption (e.g., use `sae` to authenticate mesh nodes):
+
+| action | package |
+|:---:|:---:|
+| remove mesh encryption conflict | `-wpad-basic-wolfssl` |
+| add mesh encryption | `wpad-mesh-wolfssl` |
+| add the full batctl | `batctl-full` |
+| add batman-adv | `kmod-batman-adv` |
+
 
 ### Initial configuration
 As mentioned before, we **will not use the web UI** in this tutorial, even if the OpenWrt image you're using has LuCI installed by default.  Instead, we will access our device and configure it using only **SSH**.  So, open a terminal and `ssh` into your OpenWrt device, as follows

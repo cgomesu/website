@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-10-03T16:20:05-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: ESP-01 Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: ESP-01 Tasmota environmental sensor" /><published>2021-08-12T13:00:00-03:00</published><updated>2021-08-12T13:00:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-10-04T15:41:23-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: ESP-01 Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: ESP-01 Tasmota environmental sensor" /><published>2021-08-12T13:00:00-03:00</published><updated>2021-08-12T13:00:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;August 12th, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
@@ -5071,7 +5071,7 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
 &lt;h2 id=&quot;openwrt-installation-and-initial-configuration&quot;&gt;OpenWrt installation and initial configuration&lt;/h2&gt;
 &lt;p&gt;Now that you have the hardware, the first thing to do is to install OpenWrt.  Flashing a default OpenWrt image onto a &lt;strong&gt;&lt;em&gt;compatible device&lt;/em&gt; is a very easy and safe procedure&lt;/strong&gt; because it’s been tested multiple times.  (For extra safety precautions, you might want to search the Web for your device + OpenWrt to see if there’s any indexed forum post or comment regarding installation issues and bugs, for example.)&lt;/p&gt;
 
-&lt;p&gt;If you’re new to this, the folks at OpenWrt were kind enough to provide a plethora of instructions on &lt;a href=&quot;https://openwrt.org/docs/guide-user/installation/start&quot;&gt;how to install and uninstall OpenWrt&lt;/a&gt; and even put together an &lt;a href=&quot;https://openwrt.org/docs/guide-user/installation/generic.flashing#installation_checklist&quot;&gt;&lt;strong&gt;installation checklist&lt;/strong&gt;&lt;/a&gt;.  At the very least, do the following:&lt;/p&gt;
+&lt;p&gt;If you’re &lt;strong&gt;new to all this&lt;/strong&gt;, the folks at OpenWrt were kind enough to provide a plethora of instructions on &lt;a href=&quot;https://openwrt.org/docs/guide-user/installation/start&quot;&gt;how to install and uninstall OpenWrt&lt;/a&gt; and even put together an &lt;a href=&quot;https://openwrt.org/docs/guide-user/installation/generic.flashing#installation_checklist&quot;&gt;&lt;strong&gt;installation checklist&lt;/strong&gt;&lt;/a&gt;.  At the very least, do the following:&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;Look for your device’s &lt;strong&gt;model and version&lt;/strong&gt; in the &lt;a href=&quot;https://openwrt.org/toh/start&quot;&gt;&lt;strong&gt;Table of Hardware&lt;/strong&gt;&lt;/a&gt; and open its &lt;strong&gt;Device Page&lt;/strong&gt; (e.g., &lt;a href=&quot;https://openwrt.org/toh/tp-link/tl-wdr4300_v1&quot;&gt;TP-Link TL-WDR4300&lt;/a&gt;);&lt;/li&gt;
@@ -5079,10 +5079,112 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
   &lt;li&gt;In the &lt;strong&gt;Installation&lt;/strong&gt; table, you will find a column called &lt;em&gt;Firmware OpenWrt Install URL&lt;/em&gt; and another one called &lt;em&gt;Firmware OpenWrt Upgrade URL&lt;/em&gt;. If your device is &lt;strong&gt;still running the original firmware&lt;/strong&gt;, then download the binary from the &lt;em&gt;Firmware OpenWrt &lt;strong&gt;Install&lt;/strong&gt; URL&lt;/em&gt; column; otherwise, download the binary from the &lt;em&gt;Firmware OpenWrt &lt;strong&gt;Upgrade&lt;/strong&gt; URL&lt;/em&gt; column.  Both files should have a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.bin&lt;/code&gt; extension;&lt;/li&gt;
   &lt;li&gt;Regardless of the binary file downloaded, &lt;a href=&quot;https://openwrt.org/docs/guide-quick-start/verify_firmware_checksum&quot;&gt;&lt;strong&gt;verify its checksum&lt;/strong&gt;&lt;/a&gt; afterwards;&lt;/li&gt;
   &lt;li&gt;Disconnect your laptop/PC from any access point or switch, and connect your laptop/PC directly to the device’s ethernet port.&lt;/li&gt;
-  &lt;li&gt;Open your device’s web UI, go to its Settings and/or find the &lt;strong&gt;Firmware Upgrade&lt;/strong&gt; option. Then, select the downloaded OpenWrt binary, and let it do its thing. Once it’s done, the device will reboot with OpenWrt installed. (You should be able to reach it at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.1.1&lt;/code&gt; if connected to a LAN port.)&lt;/li&gt;
+  &lt;li&gt;Open your device’s web UI, go to its Settings and/or find the &lt;strong&gt;Firmware Upgrade&lt;/strong&gt; option. Then, select the downloaded OpenWrt binary, and let it do its thing. Once it’s done, the device will reboot with OpenWrt installed.&lt;/li&gt;
+  &lt;li&gt;You should now be able to reach your new OpenWrt device at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.1.1&lt;/code&gt; if connected to a LAN port. (Remember that all wireless interfaces are disabled by default, so you can only reach it via cable.)&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;If you can reach the OpenWrt web UI, then you’ve successfully installed OpenWrt and it’s now time to configure it.&lt;/p&gt;
+&lt;p class=&quot;notice--success&quot;&gt;If you chose to follow these steps and have successfully flashed the default OpenWrt firmware onto your device, then go ahead and skip to the &lt;a href=&quot;#initial-configuration&quot;&gt;Initial configuration&lt;/a&gt; section.  The remaining part of this section is meant for advanced users who want to customize their image files.&lt;/p&gt;
+
+&lt;p&gt;If you’re an &lt;strong&gt;experienced user&lt;/strong&gt;, you can use &lt;a href=&quot;https://openwrt.org/docs/guide-user/additional-software/imagebuilder&quot;&gt;OpenWrt’s Image Builder&lt;/a&gt; to create a customized image that contains all the necessary packages and configuration files by default.  This can save you a lot of time by letting you skip either partially or completely the remaining configuration instructions, depending on the level of specification of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;make image&lt;/code&gt; build command.&lt;/p&gt;
+
+&lt;p&gt;To build a custom image file, first &lt;a href=&quot;https://openwrt.org/docs/guide-user/additional-software/imagebuilder#prerequisites&quot;&gt;install the dependencies&lt;/a&gt; for your Linux distribution.  Afterwards, follow these steps to download the image builder:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Find the target for your device in the device’s OpenWrt page.  For instance, for the &lt;a href=&quot;https://openwrt.org/toh/tp-link/tl-wdr4300_v1&quot;&gt;TP-Link TL-WDR4300 v1&lt;/a&gt;, the target is &lt;em&gt;ath79/generic&lt;/em&gt;;&lt;/li&gt;
+  &lt;li&gt;Navigate to the root of the available targets for the latest version of the OpenWrt 21 release (e.g., &lt;a href=&quot;https://downloads.openwrt.org/releases/21.02.0/targets/&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;21.02.0&lt;/code&gt;&lt;/a&gt;);&lt;/li&gt;
+  &lt;li&gt;Navigate to the root of your device’s target (e.g., for the TL-WDR4300, that would be &lt;a href=&quot;https://downloads.openwrt.org/releases/21.02.0/targets/ath79/&quot;&gt;&lt;em&gt;ath79&lt;/em&gt;&lt;/a&gt; &amp;gt; &lt;a href=&quot;https://downloads.openwrt.org/releases/21.02.0/targets/ath79/generic/&quot;&gt;&lt;em&gt;generic&lt;/em&gt;&lt;/a&gt;);&lt;/li&gt;
+  &lt;li&gt;Go to the &lt;strong&gt;Supplementary Files&lt;/strong&gt; table at the bottom;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Download the image builder &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.tar.xz&lt;/code&gt; file (e.g., &lt;a href=&quot;https://downloads.openwrt.org/releases/21.02.0/targets/ath79/generic/openwrt-imagebuilder-21.02.0-ath79-generic.Linux-x86_64.tar.xz&quot;&gt;openwrt-imagebuilder-21.02.0-ath79-generic.Linux-x86_64.tar.xz&lt;/a&gt;) and check its hash afterwards:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; sha256sum openwrt-imagebuilder-*.tar.xz
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If everything looks good, extract the image builder:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; tar -xvf openwrt-imagebuilder-*.tar.xz
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Enter the image builder directory to start using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;make&lt;/code&gt; and then search for your device’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PROFILE&lt;/code&gt; name (e.g., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tplink_tl-wdr4300-v1&lt;/code&gt;), as follows:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; cd openwrt-imagebuilder-*
+ make info
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p class=&quot;notice--info&quot;&gt;For long lists, you might want to filter the output via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grep&lt;/code&gt;.  For example, to show only entries that contain &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wdr4300&lt;/code&gt;, run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;make info | grep -i wdr4300&lt;/code&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Build customized images for your device’s profile. (See below for a table with a list of specific packages to add and to remove if you want to enable batman mesh support by default.)  For example, to build images for the &lt;strong&gt;TL-WDR4300 (v1)&lt;/strong&gt; &lt;em&gt;without&lt;/em&gt; pppoe and IPv6 support and &lt;em&gt;with&lt;/em&gt; a minimal LuCI and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt; mesh support, run the following &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;make image&lt;/code&gt; command:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; make image PROFILE=tplink_tl-wdr4300-v1 \
+   PACKAGES=&quot;uhttpd uhttpd-mod-ubus libiwinfo-lua luci-base luci-app-firewall luci-mod-admin-full luci-theme-bootstrap \
+   -ppp -ppp-mod-pppoe \
+   -ip6tables -odhcp6c -kmod-ipv6 -kmod-ip6tables -odhcpd-ipv6only \
+   -wpad-basic-wolfssl wpad-mesh-wolfssl \
+   batctl-full kmod-batman-adv&quot; \
+   CONFIG_IPV6=n
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p class=&quot;notice--info&quot;&gt;Notice that the prefix &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-&lt;/code&gt; is meant to inform that the package should be &lt;em&gt;removed&lt;/em&gt; from the default image of the chosen &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PROFILE&lt;/code&gt;. In addition, the inclusion of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CONFIG_IPV6=n&lt;/code&gt; is optional and only used here to completely disable the IPv6 configuration in the example.  Other &lt;a href=&quot;https://openwrt.org/docs/guide-user/additional-software/saving_space#modifying_build_configuration_variables&quot;&gt;build configuration variables&lt;/a&gt; are also optional and can be modified by adding them to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;make image&lt;/code&gt; command.  For more detailed information, run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;make help&lt;/code&gt;.&lt;/p&gt;
+
+    &lt;p&gt;This will prompt your system to start downloading the required packages and then start building the firmware.  &lt;strong&gt;Be patient&lt;/strong&gt; because this operation can take several minutes.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Once the builder is done &lt;strong&gt;without any errors&lt;/strong&gt;, navigate to the subdirectory &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;./bin/targets/&amp;lt;target&amp;gt;&lt;/code&gt; that contains the built image files, in which &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;target&amp;gt;&lt;/code&gt; is the device’s target.  For the TL-WDR4300, for instance, the target is &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ath79/generic&lt;/code&gt;, which means the built files are at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;./bin/targets/ath79/generic&lt;/code&gt; and you can navigate to it from the image builder root directory as follows:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; cd ./bin/targets/ath79/generic
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p class=&quot;notice--info&quot;&gt;Of note, the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.manifest&lt;/code&gt; file contains a list of installed packages, which is useful if you need to double check which packages a given image contains by default.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Personally, I like to copy all generated files to a location outside the image builder.  To create a new location for the built images in your user’s Downloads directory, do as follows (suggested structure is &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;openwrt-custom-images/&amp;lt;release&amp;gt;/&amp;lt;device&amp;gt;&lt;/code&gt;):&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mkdir ~/Downloads/openwrt-custom-images \
+  ~/Downloads/openwrt-custom-images/21.02 \
+  ~/Downloads/openwrt-custom-images/21.02/tl-wdr4300_v1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;Then copy all generated files to the new directory outside the image builder:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cp ./* ~/Downloads/openwrt-custom-images/21.02/tl-wdr4300_v1/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;Now you can safely go back to the root of the image builder directory and run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;make clean&lt;/code&gt; to delete all generated files.  This is good practice if building multiple images with different features.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;From this part forward, the procedure is the same as outline before for the &lt;strong&gt;default installation procedures&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Lastly, to save additional firmware space and RAM, &lt;a href=&quot;https://openwrt.org/docs/guide-user/additional-software/saving_space&quot;&gt;follow the OpenWrt recommendation&lt;/a&gt; and at the end of the package list, add the following to enable &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt; and include support for mesh encryption (e.g., use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sae&lt;/code&gt; to authenticate mesh nodes):&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;action&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;package&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;remove mesh encryption conflict&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-wpad-basic-wolfssl&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;add mesh encryption&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wpad-mesh-wolfssl&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;add the full batctl&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batctl-full&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;add batman-adv&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kmod-batman-adv&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
 
 &lt;h3 id=&quot;initial-configuration&quot;&gt;Initial configuration&lt;/h3&gt;
 &lt;p&gt;As mentioned before, we &lt;strong&gt;will not use the web UI&lt;/strong&gt; in this tutorial, even if the OpenWrt image you’re using has LuCI installed by default.  Instead, we will access our device and configure it using only &lt;strong&gt;SSH&lt;/strong&gt;.  So, open a terminal and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ssh&lt;/code&gt; into your OpenWrt device, as follows&lt;/p&gt;
