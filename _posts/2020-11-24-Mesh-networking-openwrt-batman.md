@@ -10,7 +10,7 @@ toc_label: "Table of Contents"
 toc_icon: "list"
 ---
 # Changelog
-**October XX, 2021**: Major updates to make the guide compatible with OpenWrt 21.\*.
+**October XX, 2021**: Major updates to make the guide compatible with OpenWrt 21.02.
 {: .notice--success }
 **September 16th, 2021**: Updated the information about OpenWrt 21 in the section [**Bonus content: Moving from OpenWrt 19 to 21**](#bonus-content-moving-from-openwrt-19-to-21).  In brief, DSA support is still very limited and OpenWrt has officially started rolling out version 21 with the [release of OpenWrt 21.02](https://openwrt.org/releases/21.02/notes-21.02.0). I'm currently testing the new version and network configuration on a few devices and once I get everything running as well as it was in version 19, I will update the entire article to reflect the new (and current) configuration.  It is, of course, still possible to download and use [the latest OpenWrt 19 images](https://downloads.openwrt.org/releases/19.07.8/targets/), which should be just fine for a long time still.  However, if you want to make use of OpenWrt 21, then read the aforementioned bonus section for guidance on the syntax changes and updated hardware requirements.
 {: .notice--info }
@@ -267,7 +267,7 @@ Huge differences in firmware, kernel, or package versions *might* make the imple
 
 Also, I've noticed that when installing `kmod-batman-adv`, the package manager will install a minimal version of `batctl`, called `batctl-tiny`, that lacks some of the options mentioned here (e.g., `batctl n` and `batnctl o`).  However, if you install `batctl` first and then `kmod-batman-adv`, the package manager will preserve `batctl-default`, which has most of the `batctl` features.  In this tutorial, however, we will use the `batctl-full` package that contains all features referred to in the [batctl man page](https://downloads.open-mesh.org/batman/manpages/batctl.8.html).
 
-Finally, the installation of `wpad-mesh-wolfssl` will conflict with the already installed `wpad-basic-wolfssl` package (or any other `wpad-basic*` package).  This means **you have to remove the latter before installing the former**.  To remove the `wpad-basic-wolfssl` or any other conflicting package, simply type
+Finally, the installation of `wpad-mesh-wolfssl` will conflict with the already installed `wpad-basic-wolfssl` package (or any other `wpad-basic*` package, for that matter).  This means **you have to remove the latter before installing the former**.  To remove the `wpad-basic-wolfssl` or any other conflicting `wpad-basic` package, simply type
 
 ```
 opkg remove wpad-basic*
@@ -344,7 +344,7 @@ In this section, we will see how to configure **four mesh nodes** in **three dif
 
 [![Topology - Gateway-Gateway](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-gateway-gateway.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-gateway-gateway.jpg)
 
-In all such cases, we will use the **5Ghz** radio exclusively for *mesh* wireless traffic, while the more widely compatible **2.4Ghz** radio will be used for *non-mesh* wireless traffic:
+In all such cases, we will use the **5Ghz** radio exclusively for *mesh* wireless traffic, while the more widely compatible **2.4Ghz** radio, as well as Ethernet connections, will be left available for *non-mesh* wireless traffic:
 
 [![Segmentation](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/segmentation.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/segmentation.jpg)
 
@@ -370,7 +370,7 @@ Just like any other type of network, deploying a mesh network--especially over l
 The examples in this tutorial are simple *by design*--they were created to illustrate different scenarios in a way that makes it easy to understand what is going on. The idea is to use the examples as templates for more complex implementations.
 
 ## OpenWrt installation and initial configuration
-Now that you have the hardware, the first thing to do is to install OpenWrt.  Flashing a default OpenWrt image onto a ***compatible device* is a very easy and safe procedure** because it's been tested multiple times.  (For extra safety precautions, you might want to search the Web for your device + OpenWrt to see if there's any indexed forum post or comment regarding installation issues and bugs, for example.)  
+Now that you have the hardware, the first thing to do is to install OpenWrt.  Flashing a default OpenWrt image onto a **compatible device** is a very **easy and safe procedure** because it's been tested multiple times.  (For extra safety precautions, you might want to search the web for `your-device` + `openwrt` to see if there's any indexed forum post or comment regarding installation issues and bugs, for example.)  
 
 If you're **new to all this**, the folks at OpenWrt were kind enough to provide a plethora of instructions on [how to install and uninstall OpenWrt](https://openwrt.org/docs/guide-user/installation/start) and even put together an [**installation checklist**](https://openwrt.org/docs/guide-user/installation/generic.flashing#installation_checklist).  At the very least, do the following:
 
@@ -382,21 +382,24 @@ If you're **new to all this**, the folks at OpenWrt were kind enough to provide 
 6. Open your device's web UI, go to its Settings and/or find the **Firmware Upgrade** option. Then, select the downloaded OpenWrt binary, and let it do its thing. Once it's done, the device will reboot with OpenWrt installed. 
 7. You should now be able to reach your new OpenWrt device at `192.168.1.1` if connected to a LAN port. (Remember that all wireless interfaces are disabled by default, so you can only reach it via cable.)
 
-If you chose to follow these steps and have successfully flashed the default OpenWrt firmware onto your device, then go ahead and skip to the [Initial configuration](#initial-configuration) section.  The remaining part of this section is meant for advanced users who want to customize their image files.
+If you followed these steps and successfully flashed the default OpenWrt firmware onto your device, then go ahead and skip to the [Initial configuration](#initial-configuration) section.  The remaining part of this section is meant for advanced users who want to customize their image files.
 {:.notice--success}
 
 If you're an **experienced user**, you can use [OpenWrt's Image Builder](https://openwrt.org/docs/guide-user/additional-software/imagebuilder) to create a customized image that contains all the necessary packages and configuration files by default.  This can save you a lot of time by letting you skip either partially or completely the remaining configuration instructions, depending on the level of specification of the `make image` build command.  
 
-To build a custom image file, first [install the dependencies](https://openwrt.org/docs/guide-user/additional-software/imagebuilder#prerequisites) for your Linux distribution.  Afterwards, follow these steps to download the image builder:
+To build a custom image file, first [install the dependencies](https://openwrt.org/docs/guide-user/additional-software/imagebuilder#prerequisites) for your Linux distribution.  Afterwards, follow these steps:
 
 1. Find the target for your device in the device's OpenWrt page.  For instance, for the [TP-Link TL-WDR4300 v1](https://openwrt.org/toh/tp-link/tl-wdr4300_v1), the target is *ath79/generic*;
-2. Navigate to the root of the available targets for the latest version of the OpenWrt 21 release (e.g., [`21.02.0`](https://downloads.openwrt.org/releases/21.02.0/targets/));
+2. Navigate to the root of the available targets for the latest version of the OpenWrt 21.02 release (e.g., [`21.02.0`](https://downloads.openwrt.org/releases/21.02.0/targets/));
 3. Navigate to the root of your device's target (e.g., for the TL-WDR4300, that would be [*ath79*](https://downloads.openwrt.org/releases/21.02.0/targets/ath79/) > [*generic*](https://downloads.openwrt.org/releases/21.02.0/targets/ath79/generic/));
 4. Go to the **Supplementary Files** table at the bottom;
 5. Download the image builder `.tar.xz` file (e.g., [openwrt-imagebuilder-21.02.0-ath79-generic.Linux-x86_64.tar.xz](https://downloads.openwrt.org/releases/21.02.0/targets/ath79/generic/openwrt-imagebuilder-21.02.0-ath79-generic.Linux-x86_64.tar.xz)) and check its hash afterwards:
 
     ```
     sha256sum openwrt-imagebuilder-*.tar.xz
+    ```
+    ```
+    6354c0380a8cdb2c6a7f43449a7f6b3d04c4148478752a90f2af575ee182d2bb  openwrt-imagebuilder-21.02.0-ath79-generic.Linux-x86_64.tar.xz
     ```
 
 6. If everything looks good, extract the image builder: 
@@ -410,6 +413,13 @@ To build a custom image file, first [install the dependencies](https://openwrt.o
     ```
     cd openwrt-imagebuilder-*
     make info
+    ```
+    ```
+    tplink_tl-wdr4300-v1:
+      TP-Link TL-WDR4300 v1
+      Packages: kmod-usb2 kmod-usb-ledtrig-usbport
+      hasImageMetadata: 1
+      SupportedDevices: tplink,tl-wdr4300-v1 tl-wdr4300
     ```
 
     For long lists, you might want to filter the output via `grep`.  For example, to show only entries that contain `wdr4300`, run `make info | grep -i wdr4300`.
@@ -438,7 +448,7 @@ To build a custom image file, first [install the dependencies](https://openwrt.o
     cd ./bin/targets/ath79/generic
     ```
 
-    Of note, the `.manifest` file contains a list of installed packages, which is useful if you need to double check which packages a given image contains by default.
+    Of note, the `*.manifest` file contains a list of installed packages, which is useful if you need to double check which packages a given image contains by default.  The `profiles.json` file contains even more detailed information about the built image but it is in json format.  If you have `jq` installed, however, you can parse it via `cat profiles.json | jq .` to get a more readable version.
     {:.notice--info} 
 
 10. Personally, I like to copy all generated files to a location outside the image builder.  To create a new location for the built images in your user's Downloads directory, do as follows (suggested structure is `openwrt-custom-images/<release>/<device>`):
@@ -457,7 +467,7 @@ To build a custom image file, first [install the dependencies](https://openwrt.o
 
     Now you can safely go back to the root of the image builder directory and run `make clean` to delete all generated files.  This is good practice if building multiple images with different features.
 
-11. From this part forward, the procedure is the same as outline before for the **default installation procedures**. 
+11. From this part forward, the procedure is the same as outlined before for the **default installation**. 
 
 Lastly, to save additional firmware space and RAM, [follow the OpenWrt recommendation](https://openwrt.org/docs/guide-user/additional-software/saving_space) and at the end of the package list, add the following to enable `batman-adv` and include support for mesh encryption (e.g., use `sae` to authenticate mesh nodes):
 
