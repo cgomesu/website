@@ -200,7 +200,7 @@
 
 
 
-  112 minute read
+  122 minute read
 
 </p>
       
@@ -1105,7 +1105,7 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
   <li>Are there pre-configured wireless access points being broadcast?  If yes, which <code class="language-plaintext highlighter-rouge">option network</code> is it using by default? (Likely <code class="language-plaintext highlighter-rouge">lan</code> or whatever the LAN interface is being called in <code class="language-plaintext highlighter-rouge">/etc/config/network</code>.)</li>
 </ul>
 
-<p>For example, many wireless routers, including the TP-Link WR1043ND, have LAN and WAN ports which are handled by a <code class="language-plaintext highlighter-rouge">switch</code> configuration with VLANs enabled to separate LAN from WAN.  Take note of it;  understand what is going on in the config files;  play with them;  then, continue.  Also, take this opportunity to go over the <strong>Device Page</strong> to check if there’s any warnings or special configuration notes (e.g., <a href="https://openwrt.org/toh/tp-link/tl-wr1043nd#warningsgotchas">warnings and gotchas with the 1043ND</a>).</p>
+<p>For example, many wireless routers have LAN and WAN ports which are handled by a <code class="language-plaintext highlighter-rouge">switch</code> configuration with VLANs enabled to separate LAN from WAN.  Take note of it;  understand what is going on in the config files;  play with them;  then, continue.  Also, take this opportunity to go over the <strong>Device Page</strong> to check if there’s any warnings or special configuration notes.</p>
 
 <p>This understanding is instrumental to the way the device will be configured to play different roles in the mesh network and a good grasp of the device’s default settings will greatly reward you later on.</p>
 
@@ -1127,21 +1127,23 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
 </code></pre></div></div>
 <p><strong>Be careful with mass upgrades though</strong>, especially if you’re running a device with limited memory.  You might end up even bricking your device.</p>
 
-<p>Now, let’s install the mesh-related packages and remove conflicting packages.  First, remove <code class="language-plaintext highlighter-rouge">wpad-basic</code> with</p>
+<p>Now, let’s install the mesh-related packages and remove conflicting packages.  First, remove <code class="language-plaintext highlighter-rouge">wpad-basic-wolfssl</code> with</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>opkg remove wpad-basic
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>opkg remove wpad-basic-wolfssl
 </code></pre></div></div>
 
-<p>then install <code class="language-plaintext highlighter-rouge">batctl</code>, <code class="language-plaintext highlighter-rouge">batman-adv</code>, and <code class="language-plaintext highlighter-rouge">wpad-mesh-openssl</code> with</p>
+<p>then install <code class="language-plaintext highlighter-rouge">batctl-full</code>, <code class="language-plaintext highlighter-rouge">batman-adv</code>, and <code class="language-plaintext highlighter-rouge">wpad-mesh-wolfssl</code> with</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>opkg install batctl kmod-batman-adv wpad-mesh-openssl
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>opkg install batctl kmod-batman-adv wpad-mesh-wolfssl
 </code></pre></div></div>
+
+<p class="notice--info">It is up to you whether to install <code class="language-plaintext highlighter-rouge">wpad-mesh-wolfssl</code> or <code class="language-plaintext highlighter-rouge">wpad-mesh-openssl</code>. For a detailed description of the main differences, take a look at the <a href="https://www.wolfssl.com/docs/wolfssl-openssl/">wolfSSL documentation</a>.  In brief, wolfSSL was built for embedded systems–such as most consumer routers–and it is lighter and more frequently patched than OpenSSL. OpenSSL is much older and more general purpose.</p>
 
 <p>Make sure there are no error messages and if there are, troubleshoot them before proceeding.</p>
 
 <p>Remove the connection that gave your device temporary access to the Internet.  Then, <strong>reboot</strong> (type <code class="language-plaintext highlighter-rouge">reboot</code> in the terminal) and restart the SSH session with your laptop/PC still connected to the device via cable.</p>
 
-<p class="notice--warning">If you’re using the <strong>TP-Link WR1043ND v1.x</strong> in your mesh project, take a look at my previous note about the <a href="#ath9k-modules">ath9k module</a> in the <a href="#hardware">hardware section</a>.  In brief, if you have issues running the mesh with encryption, then you have to enable the <code class="language-plaintext highlighter-rouge">nohwcrypt</code> parameter of the <code class="language-plaintext highlighter-rouge">ath9k</code> module.</p>
+<p class="notice--warning">Depending on your hardware, you might run into issues while trying to make one or multiple radios operate in <code class="language-plaintext highlighter-rouge">mesh point</code> mode, owing to loaded modules and their default parameter values.  Keep a close look at your device’s syslog file (run <code class="language-plaintext highlighter-rouge">logread</code> to output it to the terminal) for kernel related errors.  In addition, take a look at the section <a href="#hardware-specific-configurations">Hardware-specific configurations</a> for any comments related to the module used by your OpenWrt device.</p>
 
 <h2 id="mesh-node-basic-config">Mesh node basic config</h2>
 <p>It is time to configure the basics of our mesh network and nodes.  To do so, we will edit multiple files in <code class="language-plaintext highlighter-rouge">/etc/config/</code> but first, let’s find out the capabilities of the detected radios in our wireless device, as follows</p>
@@ -1151,85 +1153,185 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
 
 <p>which will output something like this</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Wiphy phy0
-	max # scan SSIDs: 4
-	max scan IEs length: 2257 bytes
-	max # sched scan SSIDs: 0
-	max # match sets: 0
-	max # scan plans: 1
-	max scan plan interval: -1
-	max scan plan iterations: 0
-	Retry short limit: 7
-	Retry long limit: 4
-	Coverage class: 0 (up to 0m)
-	Device supports AP-side u-APSD.
-	Device supports T-DLS.
-	Available Antennas: TX 0x7 RX 0x7
-	Configured Antennas: TX 0x7 RX 0x7
-	Supported interface modes:
-		 * IBSS
-		 * managed
-		 * AP
-		 * AP/VLAN
-		 * monitor
-		 * mesh point
-		 * P2P-client
-		 * P2P-GO
-		 * outside context of a BSS
-	Band 1:
-		Capabilities: 0x104e
-			HT20/HT40
-			SM Power Save disabled
-			RX HT40 SGI
-			No RX STBC
-			Max AMSDU length: 3839 bytes
-			DSSS/CCK HT40
-		Maximum RX AMPDU length 65535 bytes (exponent: 0x003)
-		Minimum RX AMPDU time spacing: 8 usec (0x06)
-		HT TX/RX MCS rate indexes supported: 0-15
-		Frequencies:
-			* 2412 MHz [1] (20.0 dBm)
-			* 2417 MHz [2] (20.0 dBm)
-			* 2422 MHz [3] (20.0 dBm)
-			* 2427 MHz [4] (20.0 dBm)
-			* 2432 MHz [5] (20.0 dBm)
-			* 2437 MHz [6] (20.0 dBm)
-			* 2442 MHz [7] (20.0 dBm)
-			* 2447 MHz [8] (20.0 dBm)
-			* 2452 MHz [9] (20.0 dBm)
-			* 2457 MHz [10] (20.0 dBm)
-			* 2462 MHz [11] (20.0 dBm)
-			* 2467 MHz [12] (20.0 dBm)
-			* 2472 MHz [13] (20.0 dBm)
-			* 2484 MHz [14] (disabled)
-	valid interface combinations:
-		 * #{ managed } &lt;= 2048, #{ AP, mesh point } &lt;= 8, #{ P2P-client, P2P-GO } &lt;= 1, #{ IBSS } &lt;= 1,
-		   total &lt;= 2048, #channels &lt;= 1, STA/AP BI must match, radar detect widths: { 20 MHz (no HT), 20 MHz, 40 MHz }
-	HT Capability overrides:
-		 * MCS: ff ff ff ff ff ff ff ff ff ff
-		 * maximum A-MSDU length
-		 * supported channel width
-		 * short GI for 40 MHz
-		 * max A-MPDU length exponent
-		 * min MPDU start spacing
-	Supported extended features:
-		* [ RRM ]: RRM
-		* [ CQM_RSSI_LIST ]: multiple CQM_RSSI_THOLD records
-		* [ CONTROL_PORT_OVER_NL80211 ]: control port over nl80211
-		* [ TXQS ]: FQ-CoDel-enabled intermediate TXQs
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Wiphy phy1
+        wiphy index: 1
+        max # scan SSIDs: 4
+        max scan IEs length: 2261 bytes
+        max # sched scan SSIDs: 0
+        max # match sets: 0
+        Retry short limit: 7
+        Retry long limit: 4
+        Coverage class: 0 (up to 0m)
+        Device supports AP-side u-APSD.
+        Device supports T-DLS.
+        Available Antennas: TX 0x7 RX 0x7
+        Configured Antennas: TX 0x7 RX 0x7
+        Supported interface modes:
+                 * IBSS
+                 * managed
+                 * AP
+                 * AP/VLAN
+                 * monitor
+                 * mesh point
+                 * P2P-client
+                 * P2P-GO
+                 * outside context of a BSS
+        Band 2:
+                Capabilities: 0x11ef
+                        RX LDPC
+                        HT20/HT40
+                        SM Power Save disabled
+                        RX HT20 SGI
+                        RX HT40 SGI
+                        TX STBC
+                        RX STBC 1-stream
+                        Max AMSDU length: 3839 bytes
+                        DSSS/CCK HT40
+                Maximum RX AMPDU length 65535 bytes (exponent: 0x003)
+                Minimum RX AMPDU time spacing: 8 usec (0x06)
+                HT TX/RX MCS rate indexes supported: 0-23
+                Frequencies:
+                        * 5180 MHz [36] (17.0 dBm)
+                        * 5200 MHz [40] (17.0 dBm)
+                        * 5220 MHz [44] (17.0 dBm)
+                        * 5240 MHz [48] (17.0 dBm)
+                        * 5260 MHz [52] (21.0 dBm) (radar detection)
+                        * 5280 MHz [56] (21.0 dBm) (radar detection)
+                        * 5300 MHz [60] (21.0 dBm) (radar detection)
+                        * 5320 MHz [64] (21.0 dBm) (radar detection)
+                        * 5500 MHz [100] (21.0 dBm) (radar detection)
+                        * 5520 MHz [104] (21.0 dBm) (radar detection)
+                        * 5540 MHz [108] (21.0 dBm) (radar detection)
+                        * 5560 MHz [112] (21.0 dBm) (radar detection)
+                        * 5580 MHz [116] (21.0 dBm) (radar detection)
+                        * 5600 MHz [120] (21.0 dBm) (radar detection)
+                        * 5620 MHz [124] (21.0 dBm) (radar detection)
+                        * 5640 MHz [128] (21.0 dBm) (radar detection)
+                        * 5660 MHz [132] (21.0 dBm) (radar detection)
+                        * 5680 MHz [136] (21.0 dBm) (radar detection)
+                        * 5700 MHz [140] (21.0 dBm) (radar detection)
+                        * 5745 MHz [149] (21.0 dBm)
+                        * 5765 MHz [153] (21.0 dBm)
+                        * 5785 MHz [157] (21.0 dBm)
+                        * 5805 MHz [161] (21.0 dBm)
+                        * 5825 MHz [165] (21.0 dBm)
+        valid interface combinations:
+                 * #{ managed } &lt;= 2048, #{ AP, mesh point } &lt;= 8, #{ P2P-client, P2P-GO } &lt;= 1, #{ IBSS } &lt;= 1,
+                   total &lt;= 2048, #channels &lt;= 1, STA/AP BI must match, radar detect widths: { 20 MHz (no HT), 20 MHz, 40 MHz }
+
+        HT Capability overrides:
+                 * MCS: ff ff ff ff ff ff ff ff ff ff
+                 * maximum A-MSDU length
+                 * supported channel width
+                 * short GI for 40 MHz
+                 * max A-MPDU length exponent
+                 * min MPDU start spacing
+        max # scan plans: 1
+        max scan plan interval: -1
+        max scan plan iterations: 0
+        Supported extended features:
+                * [ RRM ]: RRM
+                * [ CQM_RSSI_LIST ]: multiple CQM_RSSI_THOLD records
+                * [ CONTROL_PORT_OVER_NL80211 ]: control port over nl80211
+                * [ TXQS ]: FQ-CoDel-enabled intermediate TXQs
+                * [ AIRTIME_FAIRNESS ]: airtime fairness scheduling
+                * [ SCAN_RANDOM_SN ]: use random sequence numbers in scans
+                * [ SCAN_MIN_PREQ_CONTENT ]: use probe request with only rate IEs in scans
+                * [ CAN_REPLACE_PTK0 ]: can safely replace PTK 0 when rekeying
+                * [ CONTROL_PORT_NO_PREAUTH ]: disable pre-auth over nl80211 control port support
+                * [ DEL_IBSS_STA ]: deletion of IBSS station support
+                * [ MULTICAST_REGISTRATIONS ]: mgmt frame registration for multicast
+                * [ SCAN_FREQ_KHZ ]: scan on kHz frequency support
+                * [ CONTROL_PORT_OVER_NL80211_TX_STATUS ]: tx status for nl80211 control port support
+Wiphy phy0
+        wiphy index: 0
+        max # scan SSIDs: 4
+        max scan IEs length: 2257 bytes
+        max # sched scan SSIDs: 0
+        max # match sets: 0
+        Retry short limit: 7
+        Retry long limit: 4
+        Coverage class: 0 (up to 0m)
+        Device supports AP-side u-APSD.
+        Device supports T-DLS.
+        Available Antennas: TX 0x3 RX 0x3
+        Configured Antennas: TX 0x3 RX 0x3
+        Supported interface modes:
+                 * IBSS
+                 * managed
+                 * AP
+                 * AP/VLAN
+                 * monitor
+                 * mesh point
+                 * P2P-client
+                 * P2P-GO
+                 * outside context of a BSS
+        Band 1:
+                Capabilities: 0x11ef
+                        RX LDPC
+                        HT20/HT40
+                        SM Power Save disabled
+                        RX HT20 SGI
+                        RX HT40 SGI
+                        TX STBC
+                        RX STBC 1-stream
+                        Max AMSDU length: 3839 bytes
+                        DSSS/CCK HT40
+                Maximum RX AMPDU length 65535 bytes (exponent: 0x003)
+                Minimum RX AMPDU time spacing: 8 usec (0x06)
+                HT TX/RX MCS rate indexes supported: 0-15
+                Frequencies:
+                        * 2412 MHz [1] (20.0 dBm)
+                        * 2417 MHz [2] (20.0 dBm)
+                        * 2422 MHz [3] (20.0 dBm)
+                        * 2427 MHz [4] (20.0 dBm)
+                        * 2432 MHz [5] (20.0 dBm)
+                        * 2437 MHz [6] (20.0 dBm)
+                        * 2442 MHz [7] (20.0 dBm)
+                        * 2447 MHz [8] (20.0 dBm)
+                        * 2452 MHz [9] (20.0 dBm)
+                        * 2457 MHz [10] (20.0 dBm)
+                        * 2462 MHz [11] (20.0 dBm)
+                        * 2467 MHz [12] (20.0 dBm)
+                        * 2472 MHz [13] (20.0 dBm)
+                        * 2484 MHz [14] (disabled)
+        valid interface combinations:
+                 * #{ managed } &lt;= 2048, #{ AP, mesh point } &lt;= 8, #{ P2P-client, P2P-GO } &lt;= 1, #{ IBSS } &lt;= 1,
+                   total &lt;= 2048, #channels &lt;= 1, STA/AP BI must match, radar detect widths: { 20 MHz (no HT), 20 MHz, 40 MHz }
+
+        HT Capability overrides:
+                 * MCS: ff ff ff ff ff ff ff ff ff ff
+                 * maximum A-MSDU length
+                 * supported channel width
+                 * short GI for 40 MHz
+                 * max A-MPDU length exponent
+                 * min MPDU start spacing
+        max # scan plans: 1
+        max scan plan interval: -1
+        max scan plan iterations: 0
+        Supported extended features:
+                * [ RRM ]: RRM
+                * [ CQM_RSSI_LIST ]: multiple CQM_RSSI_THOLD records
+                * [ CONTROL_PORT_OVER_NL80211 ]: control port over nl80211
+                * [ TXQS ]: FQ-CoDel-enabled intermediate TXQs
+                * [ AIRTIME_FAIRNESS ]: airtime fairness scheduling
+                * [ SCAN_RANDOM_SN ]: use random sequence numbers in scans
+                * [ SCAN_MIN_PREQ_CONTENT ]: use probe request with only rate IEs in scans
+                * [ CAN_REPLACE_PTK0 ]: can safely replace PTK 0 when rekeying
+                * [ CONTROL_PORT_NO_PREAUTH ]: disable pre-auth over nl80211 control port support
+                * [ DEL_IBSS_STA ]: deletion of IBSS station support
+                * [ MULTICAST_REGISTRATIONS ]: mgmt frame registration for multicast
+                * [ SCAN_FREQ_KHZ ]: scan on kHz frequency support
+                * [ CONTROL_PORT_OVER_NL80211_TX_STATUS ]: tx status for nl80211 control port support
 </code></pre></div></div>
 
-<p>Here, we are particularly interested in</p>
+<p>Here, we are particularly interested in learning the following:</p>
 
 <ul>
-  <li>the <strong>supported modes of operation</strong>, and more specifically, that the device is indeed able to operate in <strong>mesh point</strong> mode (it is), as shown under <code class="language-plaintext highlighter-rouge">Supported interface modes:</code>;</li>
-  <li>the <strong>total number of bands</strong> (only one band, <code class="language-plaintext highlighter-rouge">Band 1</code>);</li>
-  <li>then for each band
-    <ul>
-      <li>the possible <a href="https://openwrt.org/docs/guide-user/network/wifi/basic#htmodethe_wi-fi_channel_width"><strong><code class="language-plaintext highlighter-rouge">htmode</code></strong></a> (supports <code class="language-plaintext highlighter-rouge">htmode 'HT20'</code> and <code class="language-plaintext highlighter-rouge">htmode 'HT40'</code>), as shown in <code class="language-plaintext highlighter-rouge">HT20/HT40</code>, under <code class="language-plaintext highlighter-rouge">Capabilities:</code>;</li>
-      <li>the <strong>acceptable channels</strong> (from <code class="language-plaintext highlighter-rouge">channel '1'</code> to <code class="language-plaintext highlighter-rouge">channel '13'</code>), as shown under <code class="language-plaintext highlighter-rouge">Frequencies:</code>.</li>
-    </ul>
-  </li>
+  <li>How many radios there are (<code class="language-plaintext highlighter-rouge">phy0</code>, <code class="language-plaintext highlighter-rouge">phy1</code>);</li>
+  <li>The supported <strong>modes of operation</strong> of each radio, and more specifically, that the device is indeed able to operate in <code class="language-plaintext highlighter-rouge">mesh point</code> mode, as shown under <code class="language-plaintext highlighter-rouge">Supported interface modes:</code>;</li>
+  <li>The <strong>total number of bands</strong>. In this example, each radio can use only one band but one uses <code class="language-plaintext highlighter-rouge">2.4GHz</code> frequencies (<code class="language-plaintext highlighter-rouge">phy0</code>, <code class="language-plaintext highlighter-rouge">Band 1</code>), while the other uses <code class="language-plaintext highlighter-rouge">5GHz</code> frequencies (<code class="language-plaintext highlighter-rouge">phy1</code>, <code class="language-plaintext highlighter-rouge">Band 2</code>);</li>
+  <li>For each band, the <strong>acceptable channels</strong>, as shown under <code class="language-plaintext highlighter-rouge">Frequencies:</code>.</li>
 </ul>
 
 <p>With such information, we can now configure our radio devices in <a href="https://openwrt.org/docs/guide-user/network/wifi/basic"><code class="language-plaintext highlighter-rouge">/etc/config/wireless</code></a>, as follows</p>
@@ -1237,20 +1339,40 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi /etc/config/wireless
 </code></pre></div></div>
 
-<p>and then edit each <code class="language-plaintext highlighter-rouge">config wifi-device</code> accordingly.  In the 1043ND, there’s only one <code class="language-plaintext highlighter-rouge">wifi-device</code> and my config looks like the following</p>
+<p>and then edit each <code class="language-plaintext highlighter-rouge">config wifi-device</code> stanza accordingly.  In the TL-WDR4300, there’s two default <code class="language-plaintext highlighter-rouge">config wifi-device</code> stanzas–namely, one for the 2.4GHz radio (called <code class="language-plaintext highlighter-rouge">radio0</code>) and another for the 5GHz radio (<code class="language-plaintext highlighter-rouge">radio1</code>).  After <a href="https://openwrt.org/docs/guide-user/network/wifi/basic">changing and adding a few additional options</a>, mine usually look like the following:</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config wifi-device 'radio0'
         option type 'mac80211'
-        option channel 3
+        option channel '1'
+        #option txpower '20'  ##uncomment and edit to override default transmission power in dBm
         option hwmode '11g'
-        option path 'platform/ahb/180c0000.wmac'
-        option htmode 'HT20'
-        option country 'BR'
+        option path 'platform/ahb/18100000.wmac'
+        #option htmode 'HT20'  ##uncomment and edit to override default high throughput mode
+        option country 'BR'  ##change for your country code
+        option disabled '1'  ##change to 0 to enable it
+
+config wifi-device 'radio1'
+        option type 'mac80211'
+        option channel '153'  ##all nodes must use the same channel
+        #option txpower '21'  ##uncomment and edit to override default transmission power in dBm
+        option hwmode '11a'
+        option path 'pci0000:00/0000:00:00.0'
+        #option htmode 'HT20'  ##uncomment and edit to override default high throughput mode
+        option country 'BR'  ##change for your country code
+        option disabled '0'  ##change to 1 to disable it
 </code></pre></div></div>
 
-<p>If this radio device will be used for the mesh traffic, make sure all mesh nodes <strong>use the same channel</strong>.  However, if the radio will be used as an access point for non-mesh clients, <strong>use a different channel than the mesh channel</strong>.  In addition, for <code class="language-plaintext highlighter-rouge">HT20/HT40</code> devices, stick to <code class="language-plaintext highlighter-rouge">HT20</code> if you are deploying the mesh in a crowded area, such as an apartment building; otherwise, the interference might make <code class="language-plaintext highlighter-rouge">HT40</code> actually slower than <code class="language-plaintext highlighter-rouge">HT20</code>.  Finally, remember to edit the <strong>country code</strong> before enabling the radio.</p>
+<p class="notice--info">The comments in this and other config files are just for educational purpose. Feel free to remove them in your device’s config files.</p>
 
-<p>Comment out any <code class="language-plaintext highlighter-rouge">config wifi-iface</code> automatically generated after a fresh install by adding a <code class="language-plaintext highlighter-rouge">#</code> at the beginning of each line, as follows</p>
+<p>In this guide, <code class="language-plaintext highlighter-rouge">radio1</code> (5GHz) will be used for the <em>mesh</em> traffic under the channel <code class="language-plaintext highlighter-rouge">153</code>, which means all other mesh nodes must use the <strong>same channel</strong>.  However, <code class="language-plaintext highlighter-rouge">radio0</code> (2.4GHz) will at times be used to create standard wireless access points (WAPs; 802.11b/g/n) for <em>non-mesh</em> clients, which means that none of the other nodes need to use the same channel with this radio.  In fact, it is strongly advised that 2.4GHz WAPs in close proximity should use <strong>different channels</strong>–namely, channels <code class="language-plaintext highlighter-rouge">1</code> (<code class="language-plaintext highlighter-rouge">2401–2423MHz</code> frequency range), <code class="language-plaintext highlighter-rouge">6</code> (<code class="language-plaintext highlighter-rouge">2426–2448MHz</code>), or <code class="language-plaintext highlighter-rouge">11</code> (<code class="language-plaintext highlighter-rouge">2451–2473MHz</code>) because those are non-overlapping channels and therefore, do not interfere with each other.  Because only mesh <em>bridges</em> will make use of <code class="language-plaintext highlighter-rouge">radio0</code>, the configuration indicates that it should be <em>disabled</em> by default.</p>
+
+<p>The segmentation between mesh and non-mesh wireless communication adopted in this guide is best summarized by the following illustration:</p>
+
+<p><a href="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/segmentation.jpg"><img src="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/segmentation.jpg" alt="Segmentation" class="PostImage PostImage--large" /></a></p>
+
+<p>In addition, for <code class="language-plaintext highlighter-rouge">HT20/HT40</code> devices, stick to <code class="language-plaintext highlighter-rouge">HT20</code> if you are deploying the mesh in a crowded area, such as an apartment building; otherwise, the interference might make higher high-throughput (HT) actually less performant.  Finally, remember to edit the <strong>country code</strong> before enabling the radio and <a href="https://en.wikipedia.org/wiki/List_of_WLAN_channels#5_GHz_(802.11a/h/j/n/ac/ax)">follow country regulations</a> when overriding the default transmission power (<code class="language-plaintext highlighter-rouge">option txpower</code>).  More often than not, you should actually <em>decrease</em> the <code class="language-plaintext highlighter-rouge">txpower</code> rather than increase it.  (For related material, see OpenWrt’s articles on <a href="https://openwrt.org/docs/guide-user/network/wifi/transmit.power.limits">Exceeding transmit power limits</a> and <a href="https://openwrt.org/faq/other_transmit_power_issues">Other transmit power issues</a>.)</p>
+
+<p>Comment out or delete any <code class="language-plaintext highlighter-rouge">config wifi-iface</code> automatically generated after a fresh install by adding a <code class="language-plaintext highlighter-rouge">#</code> at the beginning of each line or typing <code class="language-plaintext highlighter-rouge">dd</code>, as follows</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#config wifi-iface 'default_radio0'
 #        option device 'radio0'
@@ -1263,22 +1385,19 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
 <p>Then, at the end of the file, let’s add a <code class="language-plaintext highlighter-rouge">wifi-iface</code> for the wireless mesh, called <code class="language-plaintext highlighter-rouge">wmesh</code>, as follows</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config wifi-iface 'wmesh'
-        option device 'radio0'	#must match the name of a wifi-device
-        option ifname 'if-mesh'	#name for this iface
-        option network 'mesh'	#mesh stanza in /etc/config/network
-        option mode 'mesh'		#use 802.11s mode
-        option mesh_id 'MeshCloud'	#like an ssid of the wireless mesh
-        option encryption 'sae'	#https://openwrt.org/docs/guide-user/network/wifi/basic#wpa_modes
-        option key 'MeshPassword123'	#mesh password if encryption is enabled
-        option mesh_fwding 0	#let batman-adv handle routing
-        option mesh_ttl 1		#time to live in the mesh
-        option mcast_rate 24000	#routes with a lower throughput rate than the mcast_rate will not be visible to batman-adv
-#       option disabled 1		#uncomment to disable
+        option device 'radio1'  ##must match the name of a wifi-device
+        option network 'mesh'  ##mesh stanza in /etc/config/network
+        option mode 'mesh'  ##use 802.11s mode
+        option mesh_id 'MeshCloud'  ##mesh "ssid"
+        option encryption 'sae'  ##https://openwrt.org/docs/guide-user/network/wifi/basic#wpa_modes
+        option key 'MeshPassword123'  ##password in plain text
+        option mesh_fwding '0'  ##let batman-adv handle routing
+        option mesh_ttl '1'  ##time to live in the mesh
+        option mcast_rate '24000'  ##routes with a lower throughput rate won't be visible
+        option disabled '0'  ##change to 1 to disable it
 </code></pre></div></div>
 
-<p class="notice--info">The comments are just for educational purpose. Feel free to remove them in your device’s config file.</p>
-
-<p>Because all mesh nodes must operate on the same channel, use the same authentication, etc., multiple config options are often dictated by the “lowest common denominator” across all mesh nodes–that is, the best possible config that will work with <strong>all nodes</strong>, not just the ones with the best hardware and software available.  For example, not all devices will necessarily be able to use SAE because it’s very new and therefore, won’t be able to connect to mesh networks that use it. Instead, you might want to set encryption to something like <code class="language-plaintext highlighter-rouge">psk2+aes</code>, which should be good enough for most devices out there. So, keep that in mind when configuring your mesh nodes.</p>
+<p>Because all mesh nodes must operate on the same channel, use the same authentication, etc., multiple config options are often dictated by the <strong>“lowest common denominator”</strong> across all mesh nodes–that is, the best possible configuration that will work with <strong>all nodes</strong>, not just the ones with the best hardware and software available.  For example, not all devices will necessarily be able to use SAE because it’s very new and therefore, won’t be able to connect to mesh networks that use it. Instead, you might want to set encryption to something like <code class="language-plaintext highlighter-rouge">psk2+aes</code>, which should be good enough for most devices out there. So, keep that in mind when configuring your mesh nodes.</p>
 
 <p><strong>Save the file</strong> and exit it.</p>
 
@@ -1287,34 +1406,37 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi /etc/config/network
 </code></pre></div></div>
 
-<p>and let’s add an <code class="language-plaintext highlighter-rouge">interface</code> called <code class="language-plaintext highlighter-rouge">bat0</code> at the bottom of the file, as follows</p>
+<p>and let’s add an <code class="language-plaintext highlighter-rouge">interface</code> called <code class="language-plaintext highlighter-rouge">bat0</code> at the bottom of the file, as follows:</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config interface 'bat0'
         option proto 'batadv'
         option routing_algo 'BATMAN_IV'
-        option aggregated_ogms 1
-        option ap_isolation 0
-        option bonding 0
-        option bridge_loop_avoidance 1
-        option distributed_arp_table 1
-        option fragmentation 1
+        option aggregated_ogms '1'
+        option ap_isolation '0'
+        option bonding '0'
+        option bridge_loop_avoidance '1'
+        option distributed_arp_table '1'
+        option fragmentation '1'
         option gw_mode 'off'
-        option hop_penalty 30
+        #option gw_sel_class '20'
+        #option gw_bandwidth '10000/2000'
+        option hop_penalty '30'
         option isolation_mark '0x00000000/0x00000000'
-        option log_level 0
-        option multicast_mode 1
-        option multicast_fanout 16
-        option network_coding 0
-        option orig_interval 1000
+        option log_level '0'
+        option multicast_mode '1'
+        option multicast_fanout '16'
+        option network_coding '0'
+        option orig_interval '1000'
 </code></pre></div></div>
 
-<p>which has options with (mostly) default values to facilitate fine-tuning later on.  (For more details, refer to the <a href="https://www.open-mesh.org/projects/batman-adv/wiki#Protocol-Documentation"><strong>Protocol Documentation</strong></a> and more specifically, the <a href="https://www.open-mesh.org/projects/batman-adv/wiki/Tweaking"><strong>Tweaking</strong></a> section.)  Then, at the bottom of the same file, let’s add an actual <strong>network</strong> interface to transport <code class="language-plaintext highlighter-rouge">batman-adv</code> packets, which in our case will be the network used by <code class="language-plaintext highlighter-rouge">wmesh</code> in the <code class="language-plaintext highlighter-rouge">/etc/config/wireless</code> config file, namely <code class="language-plaintext highlighter-rouge">mesh</code>, as follows</p>
+<p>The <code class="language-plaintext highlighter-rouge">bat0</code> stanza has options with default values to facilitate fine-tuning later on.  The specifics about each option is derived from the <a href="https://downloads.open-mesh.org/batman/manpages/batctl.8.html">official <code class="language-plaintext highlighter-rouge">batctl</code> manual</a>.  For more details, refer to the <a href="https://www.open-mesh.org/projects/batman-adv/wiki#Protocol-Documentation">Protocol Documentation</a> and more specifically, the <a href="https://www.open-mesh.org/projects/batman-adv/wiki/Tweaking">Tweaking</a> section.</p>
+
+<p>Then, at the bottom of the <code class="language-plaintext highlighter-rouge">/etc/config/network</code> file, let’s add an actual network interface to transport <code class="language-plaintext highlighter-rouge">batman-adv</code> packets, which in our case will be the network used by <code class="language-plaintext highlighter-rouge">wmesh</code> in the <code class="language-plaintext highlighter-rouge">/etc/config/wireless</code> config file, namely <code class="language-plaintext highlighter-rouge">mesh</code>, as follows:</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config interface 'mesh'
         option proto 'batadv_hardif'
         option master 'bat0'
-        option mtu 2304
-        option throughput_override 0
+        option mtu '1536'  ##https://www.open-mesh.org/projects/batman-adv/wiki/Fragmentation-technical
 </code></pre></div></div>
 
 <p><strong>Save the file</strong> and exit.</p>
@@ -1328,17 +1450,18 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>batctl if
 </code></pre></div></div>
 
-<p>If it all looks good, exit the <code class="language-plaintext highlighter-rouge">ssh</code> session, disconnect your laptop/PC from the wireless device (but keep it running nearby), and <strong>go ahead and configure at least one other node</strong>.  This can be done manually just like you’ve just configured the current node.  However, if your other mesh nodes are identical to the one you have already configured–that is, it is the same brand, model, and it is running the same OpenWrt version–then you can simply <strong>copy the modified files</strong> and then <strong>paste them on the <code class="language-plaintext highlighter-rouge">/etc/config/</code> dir of the new device</strong>.  To copy all such files from the configured device to your laptop/PC current directory, you can use <code class="language-plaintext highlighter-rouge">scp</code>, as follows:</p>
+<p>If it all looks good, exit the <code class="language-plaintext highlighter-rouge">ssh</code> session, disconnect your laptop/PC from the wireless device (but keep it running nearby), and <strong>go ahead and configure at least one other node</strong>.  This can be done manually just like you’ve just configured the current node.  However, if your other mesh nodes are identical to the one you have already configured–that is, it is the same brand, model, and it is running the same OpenWrt version–then you can simply <strong>copy the modified files</strong> and then paste them on the <code class="language-plaintext highlighter-rouge">/etc/config/</code> directory of the new device.  To copy all such files from the configured device to your laptop/PC current directory, you can use <code class="language-plaintext highlighter-rouge">scp</code>, as follows:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scp -r root@IP_MESH_NODE:/etc/config ./
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scp -r root@192.168.1.1:/etc/config ./
 </code></pre></div></div>
 
-<p>which should create a <code class="language-plaintext highlighter-rouge">config</code> dir on your laptop/PC that has all the config files from the already configured device.  Then, it’s just a matter of doing the reverse process on the unconfigured devices:</p>
+<p>which should create a <code class="language-plaintext highlighter-rouge">config</code> dir on your laptop/PC that has all the config files from the already configured device.  Then, once connected to another default OpenWrt device, it’s just a matter of doing the reverse operation, as follows:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scp -r ./config/* root@IP_NEW_MESH_NODE:/etc/config/
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+  -r ./config/* root@192.168.1.1:/etc/config/
 </code></pre></div></div>
 
-<p class="notice--warning">Because we’re starting SSH sessions with <em>different machines</em> using the <em>same IP addr</em> (<code class="language-plaintext highlighter-rouge">192.168.1.1</code>), it’s quite possible that your SSH client will complaint about the authenticity of the host at <code class="language-plaintext highlighter-rouge">192.168.1.1</code>.  To get rid of this message, simply remove the relevant entry in your user’s <code class="language-plaintext highlighter-rouge">known_hosts</code> file or delete it altogether.  On Linux distros, such file can be found at <code class="language-plaintext highlighter-rouge">~/.ssh/known_hosts</code>–that is, the <code class="language-plaintext highlighter-rouge">ssh</code> folder for your current user.</p>
+<p class="notice--warning">Because we are starting SSH sessions with different machines that have the same IP address (<code class="language-plaintext highlighter-rouge">192.168.1.1</code>), we can include <code class="language-plaintext highlighter-rouge">-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null</code> to disable checking the <code class="language-plaintext highlighter-rouge">known_hosts</code> file and redirect discovery of the new key to <code class="language-plaintext highlighter-rouge">/dev/null</code> instead of your user’s <code class="language-plaintext highlighter-rouge">known_hosts</code>.  Alternatively, you can manually edit or delete your user’s <code class="language-plaintext highlighter-rouge">known_hosts</code> file, which is usually found at <code class="language-plaintext highlighter-rouge">~/.ssh/known_hosts</code>.</p>
 
 <p>Afterwards, <code class="language-plaintext highlighter-rouge">ssh</code> into one of the configured mesh nodes and type</p>
 
@@ -1365,8 +1488,6 @@ rtt min/avg/max/mdev = 1.103/1.942/3.008/0.794 ms
 
 <p><strong>Go ahead and configure all your mesh nodes the same way as before</strong> and only then move on to bridges, gateways, and VLAN configs, as described next.</p>
 
-<p>(<em>Optional</em>: This is a good time to <a href="https://www.open-mesh.org/projects/batman-adv/wiki/Tweaking">tweak the mesh configuration</a> as well.)</p>
-
 <h2 id="troubleshooting-mesh-issues">Troubleshooting mesh issues</h2>
 <p>These are a few tips in case you run into issues when configuring gateways and bridges.</p>
 
@@ -1384,9 +1505,9 @@ rtt min/avg/max/mdev = 1.103/1.942/3.008/0.794 ms
 
 <p>in which <code class="language-plaintext highlighter-rouge">batX</code> is a <code class="language-plaintext highlighter-rouge">batman-adv</code> interface (usually <code class="language-plaintext highlighter-rouge">bat0</code> but if you have more than one, then <code class="language-plaintext highlighter-rouge">bat1</code>, etc.).  This is quite useful when configuring VLANs because it will show the VLAN ID of each client as well.  In addition, it is possible to specify the VLAN ID in the <code class="language-plaintext highlighter-rouge">td</code> argument to constraint the output to one particular VLAN (e.g., <code class="language-plaintext highlighter-rouge">batctl td bat0.1</code>).  Depending on the scale of your mesh network, you might need to filter the output because things can get wild with <code class="language-plaintext highlighter-rouge">tcpdump</code> really fast.</p>
 
-<p>For more details, see the <a href="https://downloads.open-mesh.org/batman/manpages/batctl.8.html"><strong>batctl man page</strong></a>.</p>
+<p>For more details, see the <a href="https://downloads.open-mesh.org/batman/manpages/batctl.8.html"><code class="language-plaintext highlighter-rouge">batctl</code> manual</a> or type <code class="language-plaintext highlighter-rouge">batctl -h</code> for cli usage information.  Keep in mind that while many options can be set via <code class="language-plaintext highlighter-rouge">batctl</code>, those changes are ephemeral–that is, they won’t survive a reboot.  To make permanent changes, you need to add/edit the respective option in the <code class="language-plaintext highlighter-rouge">/etc/config/network</code> file and <code class="language-plaintext highlighter-rouge">batX</code> stanza.</p>
 
-<p>Finally, if you’ve been following my suggestion to name and take note of each device’s MAC address, you can create a file called <code class="language-plaintext highlighter-rouge">bat-hosts</code> in <code class="language-plaintext highlighter-rouge">/etc/</code> that contains pairs of <code class="language-plaintext highlighter-rouge">MAC address</code> and <code class="language-plaintext highlighter-rouge">name</code>, as follows</p>
+<p>It is worth mentioning that if you’ve been following my suggestion to name and take note of each device’s MAC address, you can now create a file called <code class="language-plaintext highlighter-rouge">bat-hosts</code> in <code class="language-plaintext highlighter-rouge">/etc/</code> that contains pairs of <code class="language-plaintext highlighter-rouge">MAC address</code> and <code class="language-plaintext highlighter-rouge">name</code>, as follows:</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>f0:f0:00:00:00:00 node01
 f0:f1:00:00:00:00 node02
@@ -1394,7 +1515,14 @@ f0:f2:00:00:00:00 node03
 f0:f3:00:00:00:00 node04
 </code></pre></div></div>
 
-<p>which makes it much easier to identify the mesh nodes when issuing a command like <code class="language-plaintext highlighter-rouge">batctl n</code> and other debug tables.  As far as I’m aware, however, you have to create and update such file in each node because such information will just be available to nodes that have a <code class="language-plaintext highlighter-rouge">bat-hosts</code> file.</p>
+<p>This makes it much easier to identify the mesh nodes when issuing a command like <code class="language-plaintext highlighter-rouge">batctl n</code> and other debug tables.  As far as I’m aware, however, you have to create and update such file in each node because such information will just be available to nodes that have a <code class="language-plaintext highlighter-rouge">bat-hosts</code> file.</p>
+
+<p>Finally, as mentioned before, keep an eye on your device’s syslog for errors.  Module related issues are often associated with logged kernel errors (see the section <a href="#hardware-specific-configurations">Hardware-specific configurations</a>) and wpa_supplicant has <a href="https://www.toomanyatoms.com/computer/disconnection_codes.html">multiple mesh-specific error codes</a>. The syslog can be inspected via <code class="language-plaintext highlighter-rouge">logread</code>, as follows:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>logread
+</code></pre></div></div>
+
+<p>For usage information, type <code class="language-plaintext highlighter-rouge">logread -h</code>.</p>
 
 <h2 id="configuring-common-mesh-networks">Configuring common mesh networks</h2>
 <p>Here, we will see how to turn one or two of our configured mesh nodes into either a mesh <strong>bridge</strong> or a mesh <strong>gateway</strong>.  To avoid repetition, the configuration of bridges and gateways is described in more detail in the <a href="#gateway-bridge">first example</a>, and only a few small differences and observations are highlighted afterwards.  In addition, only IPv4 addresses and configurations were used but nothing prohibits the use of IPv6 in a mesh network.</p>
@@ -1894,10 +2022,10 @@ lsmod | grep batman
 
 <ul>
   <li>
-    <p>OpenWrt 21.02 introduces initial support for the <a href="https://www.kernel.org/doc/html/latest/networking/dsa/dsa.html"><strong>Distributed Switch Architecture</strong> (<strong>DSA</strong>)</a>.  Currently, however, this only applies to <a href="https://openwrt.org/releases/21.02/notes-21.02.0#initial_dsa_support">a very limited number of devices</a>.  If you have one of such devices, then make sure to read <strong>rmilecki</strong>’s <a href="https://forum.openwrt.org/t/mini-tutorial-for-dsa-network-config/96998">mini tutorial for DSA network configuration</a> because the syntax is a little bit different than the one used in this guide.</p>
+    <p>OpenWrt 21.02 introduces initial support for the <a href="https://www.kernel.org/doc/html/latest/networking/dsa/dsa.html"><strong>Distributed Switch Architecture</strong> (<strong>DSA</strong>)</a>.  Currently, however, this only applies to <a href="https://openwrt.org/releases/21.02/notes-21.02.0#initial_dsa_support">a very limited number of devices</a>.  If you have one of such devices, then make sure to read rmilecki’s <a href="https://forum.openwrt.org/t/mini-tutorial-for-dsa-network-config/96998">mini tutorial for DSA network configuration</a> because the syntax is a little bit different than the one used in this guide.</p>
   </li>
   <li>
-    <p>The <a href="https://openwrt.org/releases/21.02/notes-21.02.0#increased_minimum_hardware_requirements8_mb_flash_64_mb_ram">hardware requirements to run OpenWrt 21.02</a> has increased to <code class="language-plaintext highlighter-rouge">8 MB</code> of flash memory and <code class="language-plaintext highlighter-rouge">64 MB</code> of RAM.  In the first version of this guide, I used the <strong>TP-Link TL-WR1043ND (v1)</strong> as an example of mesh node hardware, which has <code class="language-plaintext highlighter-rouge">8MB</code> of flash memory and <code class="language-plaintext highlighter-rouge">32MB</code> of RAM.  At first, I tried to use OpenWrt 21.02 but the system became <strong>too unstable</strong> with it, even after making several changes to the firmware images (e.g., removing LuCI altogether and adding <code class="language-plaintext highlighter-rouge">zram</code> support).  This is what prompted me to change the device in the examples to the <strong>TP-Link TL-WD4300</strong>, which is also a <em>low-end</em> router but it has <code class="language-plaintext highlighter-rouge">128MB</code> of RAM instead and importantly, it is a <em>dual-band</em> router that allows better segmentation of mesh vs non-mesh wireless traffic.</p>
+    <p>The <a href="https://openwrt.org/releases/21.02/notes-21.02.0#increased_minimum_hardware_requirements8_mb_flash_64_mb_ram">hardware requirements to run OpenWrt 21.02</a> has increased to <code class="language-plaintext highlighter-rouge">8 MB</code> of flash memory and <code class="language-plaintext highlighter-rouge">64 MB</code> of RAM.  In the first version of this guide, I used the <strong>TP-Link TL-WR1043ND (v1.8)</strong> as an example of mesh node hardware, which has <code class="language-plaintext highlighter-rouge">8MB</code> of flash memory and <code class="language-plaintext highlighter-rouge">32MB</code> of RAM.  At first, I tried to use OpenWrt 21.02 with it but the system became <strong>too unstable</strong>, even after making several changes to multiple firmware images (e.g., removing LuCI altogether and adding <code class="language-plaintext highlighter-rouge">zram</code> support).  This is what prompted me to change the device in the examples to the <strong>TP-Link TL-WD4300</strong>, which is also a <em>low-end</em> router but it has <code class="language-plaintext highlighter-rouge">128MB</code> of RAM instead and importantly, it is a <em>dual-band</em> router that allows better segmentation of mesh vs non-mesh wireless traffic.</p>
   </li>
   <li>There is a small but important <a href="https://openwrt.org/releases/21.02/notes-21.02.0#new_network_configuration_syntax_and_boardjson_change">change in the configuration <strong>syntax</strong></a> in <code class="language-plaintext highlighter-rouge">/etc/config/network</code>, namely:
     <ol>
@@ -1905,7 +2033,7 @@ lsmod | grep batman
       <li>The option <code class="language-plaintext highlighter-rouge">ifname</code> is now called <code class="language-plaintext highlighter-rouge">ports</code> in all <code class="language-plaintext highlighter-rouge">config device</code> stanzas of type <code class="language-plaintext highlighter-rouge">bridge</code>.</li>
     </ol>
 
-    <p>Fortunately, it seems that the <strong>old syntax</strong> (as in the first version of this guide) <strong>is still supported</strong> but if you are using LuCI, you will run into compatibility issues and will be prompted to update.  To update it, take a closer look at the examples in the current version of the guide, which have been all updated to make them compatible with the network syntax introduced by OpenWrt 21.02.</p>
+    <p>Fortunately, it seems that the <strong>old syntax</strong> (as in the first version of this guide) <strong>is still supported</strong> but if you are using LuCI, you will run into compatibility issues and will be prompted to update.  To update it, take a closer look at the examples in the current version of the guide, which are now compatible with the network syntax introduced by OpenWrt 21.02.</p>
   </li>
   <li>There many other changes in OpenWrt 21.02 but from my experience so far, none of them are as relevant as the ones mentioned before.  For other highlights and additional information, please check the <a href="https://openwrt.org/releases/21.02/notes-21.02.0">official OpenWrt 21.02.0 release notes</a>.</li>
 </ul>
@@ -1927,17 +2055,13 @@ Swap:         13308         768       12540
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sysupgrade -v -n /tmp/*-sysupgrade.bin
 </code></pre></div></div>
 
-<p><strong>Importantly</strong>, owing to changes in the network syntax, I strongly recommend to discard all configuration files when making the transition.  When upgrading via LuCI, make sure to deselect the option to preserve configuration, and similarly, when upgrading via <code class="language-plaintext highlighter-rouge">sysupgrade</code>, add the <code class="language-plaintext highlighter-rouge">-n</code> argument command, as mentioned before. This, of course, means you will lose connection to the device if you are running the upgrade via a wireless connection, so make sure to use a cable for this particular operation.</p>
+<p>Importantly, owing to changes in the network syntax, I strongly recommend to <strong>discard all configuration files when making the transition</strong>.  When upgrading via LuCI, make sure to <em>de</em>select the option to preserve configuration, and similarly, when upgrading via <code class="language-plaintext highlighter-rouge">sysupgrade</code>, add the <code class="language-plaintext highlighter-rouge">-n</code> argument command, as mentioned before. This, of course, means you will lose connection to the device if you are running the upgrade via a wireless connection, so make sure to use a cable for this particular operation.</p>
 
 <p class="notice--warning">If the configuration files in <code class="language-plaintext highlighter-rouge">/etc/config/</code> have been extensively edited, make sure to make a backup of them before running the upgrade.</p>
 
 <p>In addition, remember that the various packages supporting the use of <code class="language-plaintext highlighter-rouge">batman-adv</code> do not come with pre-built (default) images, which means that you won’t be able to connect to your mesh node after an upgrade if you are relying on the mesh network to reach it.  If you do not want to reinstall all such packages (or cannot physically reach the nodes), check the updated section about <a href="#openwrt-installation-and-initial-configuration">OpenWrt installation and initial configuration</a>, which now features instructions on how to build customized images with pre-installed mesh packages.  Building your own images also means you can create default versions for all <code class="language-plaintext highlighter-rouge">/etc/config/</code> files (see <code class="language-plaintext highlighter-rouge">FILES=""</code> usage in the <code class="language-plaintext highlighter-rouge">make image</code> command) but <strong>use caution with such feature</strong> to avoid (soft) bricking your device.  At the very least, use only configurations you have already tested and that will work independently of any other node.</p>
 
-<p>Lastly, I would like to thank <a href="https://forum.openwrt.org/u/stevenewcomb">SteveNewcomb</a> for testing–and letting me know about–<code class="language-plaintext highlighter-rouge">batman-adv</code> under the OpenWrt 21.02 release candidates.  For reference, here are two of his forum posts that detail the specifics of his devices and configuration:</p>
-<ul>
-  <li><a href="https://forum.openwrt.org/t/batman-in-production-with-post-19-07-snapshot-not-working-under-21-02">Batman (in production with post 19.07 snapshot) not working under 21.02</a></li>
-  <li><a href="https://forum.openwrt.org/t/how-to-specify-the-mac-address-of-a-batman-mesh-member/100164/2">How to specify the mac address of a batman mesh member?</a></li>
-</ul>
+<p>Overall, I like the clearer distinction between layers 2 and 3 introduced by the new network syntax in OpenWrt 21.02.  Once you get the hang of it, the configuration looks more organized and intuitive than before, and therefore, I think it is a step forward in the right direction.  Lastly, I would like to thank <a href="https://forum.openwrt.org/u/stevenewcomb">SteveNewcomb</a> for testing–and letting me know about–<code class="language-plaintext highlighter-rouge">batman-adv</code> under the OpenWrt 21.02 release candidates.</p>
 
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 

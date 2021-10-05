@@ -521,7 +521,7 @@ And finally, look at the wireless settings (`/etc/config/wireless`):
 * Is the radio enabled or disabled? (Keep/add `option disabled 1` to disable it before configuration; to re-enable, simply comment this line out or set the value to `0`.)
 * Are there pre-configured wireless access points being broadcast?  If yes, which `option network` is it using by default? (Likely `lan` or whatever the LAN interface is being called in `/etc/config/network`.)
 
-For example, many wireless routers, including the TP-Link WR1043ND, have LAN and WAN ports which are handled by a `switch` configuration with VLANs enabled to separate LAN from WAN.  Take note of it;  understand what is going on in the config files;  play with them;  then, continue.  Also, take this opportunity to go over the **Device Page** to check if there's any warnings or special configuration notes (e.g., [warnings and gotchas with the 1043ND](https://openwrt.org/toh/tp-link/tl-wr1043nd#warningsgotchas)).
+For example, many wireless routers have LAN and WAN ports which are handled by a `switch` configuration with VLANs enabled to separate LAN from WAN.  Take note of it;  understand what is going on in the config files;  play with them;  then, continue.  Also, take this opportunity to go over the **Device Page** to check if there's any warnings or special configuration notes.
 
 This understanding is instrumental to the way the device will be configured to play different roles in the mesh network and a good grasp of the device's default settings will greatly reward you later on.
 
@@ -546,23 +546,26 @@ opkg list-upgradable | cut -f 1 -d ' ' | xargs opkg upgrade
 ```
 **Be careful with mass upgrades though**, especially if you're running a device with limited memory.  You might end up even bricking your device.
 
-Now, let's install the mesh-related packages and remove conflicting packages.  First, remove `wpad-basic` with
+Now, let's install the mesh-related packages and remove conflicting packages.  First, remove `wpad-basic-wolfssl` with
 
 ```
-opkg remove wpad-basic
+opkg remove wpad-basic-wolfssl
 ```
 
-then install `batctl`, `batman-adv`, and `wpad-mesh-openssl` with
+then install `batctl-full`, `batman-adv`, and `wpad-mesh-wolfssl` with
 
 ```
-opkg install batctl kmod-batman-adv wpad-mesh-openssl
+opkg install batctl kmod-batman-adv wpad-mesh-wolfssl
 ```
+
+It is up to you whether to install `wpad-mesh-wolfssl` or `wpad-mesh-openssl`. For a detailed description of the main differences, take a look at the [wolfSSL documentation](https://www.wolfssl.com/docs/wolfssl-openssl/).  In brief, wolfSSL was built for embedded systems--such as most consumer routers--and it is lighter and more frequently patched than OpenSSL. OpenSSL is much older and more general purpose.
+{:.notice--info}
 
 Make sure there are no error messages and if there are, troubleshoot them before proceeding. 
 
 Remove the connection that gave your device temporary access to the Internet.  Then, **reboot** (type `reboot` in the terminal) and restart the SSH session with your laptop/PC still connected to the device via cable.
 
-If you're using the **TP-Link WR1043ND v1.x** in your mesh project, take a look at my previous note about the [ath9k module](#ath9k-modules) in the [hardware section](#hardware).  In brief, if you have issues running the mesh with encryption, then you have to enable the `nohwcrypt` parameter of the `ath9k` module.
+Depending on your hardware, you might run into issues while trying to make one or multiple radios operate in `mesh point` mode, owing to loaded modules and their default parameter values.  Keep a close look at your device's syslog file (run `logread` to output it to the terminal) for kernel related errors.  In addition, take a look at the section [Hardware-specific configurations](#hardware-specific-configurations) for any comments related to the module used by your OpenWrt device.
 {: .notice--warning }
 
 ## Mesh node basic config
@@ -575,81 +578,184 @@ iw list
 which will output something like this
 
 ```
+Wiphy phy1
+        wiphy index: 1
+        max # scan SSIDs: 4
+        max scan IEs length: 2261 bytes
+        max # sched scan SSIDs: 0
+        max # match sets: 0
+        Retry short limit: 7
+        Retry long limit: 4
+        Coverage class: 0 (up to 0m)
+        Device supports AP-side u-APSD.
+        Device supports T-DLS.
+        Available Antennas: TX 0x7 RX 0x7
+        Configured Antennas: TX 0x7 RX 0x7
+        Supported interface modes:
+                 * IBSS
+                 * managed
+                 * AP
+                 * AP/VLAN
+                 * monitor
+                 * mesh point
+                 * P2P-client
+                 * P2P-GO
+                 * outside context of a BSS
+        Band 2:
+                Capabilities: 0x11ef
+                        RX LDPC
+                        HT20/HT40
+                        SM Power Save disabled
+                        RX HT20 SGI
+                        RX HT40 SGI
+                        TX STBC
+                        RX STBC 1-stream
+                        Max AMSDU length: 3839 bytes
+                        DSSS/CCK HT40
+                Maximum RX AMPDU length 65535 bytes (exponent: 0x003)
+                Minimum RX AMPDU time spacing: 8 usec (0x06)
+                HT TX/RX MCS rate indexes supported: 0-23
+                Frequencies:
+                        * 5180 MHz [36] (17.0 dBm)
+                        * 5200 MHz [40] (17.0 dBm)
+                        * 5220 MHz [44] (17.0 dBm)
+                        * 5240 MHz [48] (17.0 dBm)
+                        * 5260 MHz [52] (21.0 dBm) (radar detection)
+                        * 5280 MHz [56] (21.0 dBm) (radar detection)
+                        * 5300 MHz [60] (21.0 dBm) (radar detection)
+                        * 5320 MHz [64] (21.0 dBm) (radar detection)
+                        * 5500 MHz [100] (21.0 dBm) (radar detection)
+                        * 5520 MHz [104] (21.0 dBm) (radar detection)
+                        * 5540 MHz [108] (21.0 dBm) (radar detection)
+                        * 5560 MHz [112] (21.0 dBm) (radar detection)
+                        * 5580 MHz [116] (21.0 dBm) (radar detection)
+                        * 5600 MHz [120] (21.0 dBm) (radar detection)
+                        * 5620 MHz [124] (21.0 dBm) (radar detection)
+                        * 5640 MHz [128] (21.0 dBm) (radar detection)
+                        * 5660 MHz [132] (21.0 dBm) (radar detection)
+                        * 5680 MHz [136] (21.0 dBm) (radar detection)
+                        * 5700 MHz [140] (21.0 dBm) (radar detection)
+                        * 5745 MHz [149] (21.0 dBm)
+                        * 5765 MHz [153] (21.0 dBm)
+                        * 5785 MHz [157] (21.0 dBm)
+                        * 5805 MHz [161] (21.0 dBm)
+                        * 5825 MHz [165] (21.0 dBm)
+        valid interface combinations:
+                 * #{ managed } <= 2048, #{ AP, mesh point } <= 8, #{ P2P-client, P2P-GO } <= 1, #{ IBSS } <= 1,
+                   total <= 2048, #channels <= 1, STA/AP BI must match, radar detect widths: { 20 MHz (no HT), 20 MHz, 40 MHz }
+
+        HT Capability overrides:
+                 * MCS: ff ff ff ff ff ff ff ff ff ff
+                 * maximum A-MSDU length
+                 * supported channel width
+                 * short GI for 40 MHz
+                 * max A-MPDU length exponent
+                 * min MPDU start spacing
+        max # scan plans: 1
+        max scan plan interval: -1
+        max scan plan iterations: 0
+        Supported extended features:
+                * [ RRM ]: RRM
+                * [ CQM_RSSI_LIST ]: multiple CQM_RSSI_THOLD records
+                * [ CONTROL_PORT_OVER_NL80211 ]: control port over nl80211
+                * [ TXQS ]: FQ-CoDel-enabled intermediate TXQs
+                * [ AIRTIME_FAIRNESS ]: airtime fairness scheduling
+                * [ SCAN_RANDOM_SN ]: use random sequence numbers in scans
+                * [ SCAN_MIN_PREQ_CONTENT ]: use probe request with only rate IEs in scans
+                * [ CAN_REPLACE_PTK0 ]: can safely replace PTK 0 when rekeying
+                * [ CONTROL_PORT_NO_PREAUTH ]: disable pre-auth over nl80211 control port support
+                * [ DEL_IBSS_STA ]: deletion of IBSS station support
+                * [ MULTICAST_REGISTRATIONS ]: mgmt frame registration for multicast
+                * [ SCAN_FREQ_KHZ ]: scan on kHz frequency support
+                * [ CONTROL_PORT_OVER_NL80211_TX_STATUS ]: tx status for nl80211 control port support
 Wiphy phy0
-	max # scan SSIDs: 4
-	max scan IEs length: 2257 bytes
-	max # sched scan SSIDs: 0
-	max # match sets: 0
-	max # scan plans: 1
-	max scan plan interval: -1
-	max scan plan iterations: 0
-	Retry short limit: 7
-	Retry long limit: 4
-	Coverage class: 0 (up to 0m)
-	Device supports AP-side u-APSD.
-	Device supports T-DLS.
-	Available Antennas: TX 0x7 RX 0x7
-	Configured Antennas: TX 0x7 RX 0x7
-	Supported interface modes:
-		 * IBSS
-		 * managed
-		 * AP
-		 * AP/VLAN
-		 * monitor
-		 * mesh point
-		 * P2P-client
-		 * P2P-GO
-		 * outside context of a BSS
-	Band 1:
-		Capabilities: 0x104e
-			HT20/HT40
-			SM Power Save disabled
-			RX HT40 SGI
-			No RX STBC
-			Max AMSDU length: 3839 bytes
-			DSSS/CCK HT40
-		Maximum RX AMPDU length 65535 bytes (exponent: 0x003)
-		Minimum RX AMPDU time spacing: 8 usec (0x06)
-		HT TX/RX MCS rate indexes supported: 0-15
-		Frequencies:
-			* 2412 MHz [1] (20.0 dBm)
-			* 2417 MHz [2] (20.0 dBm)
-			* 2422 MHz [3] (20.0 dBm)
-			* 2427 MHz [4] (20.0 dBm)
-			* 2432 MHz [5] (20.0 dBm)
-			* 2437 MHz [6] (20.0 dBm)
-			* 2442 MHz [7] (20.0 dBm)
-			* 2447 MHz [8] (20.0 dBm)
-			* 2452 MHz [9] (20.0 dBm)
-			* 2457 MHz [10] (20.0 dBm)
-			* 2462 MHz [11] (20.0 dBm)
-			* 2467 MHz [12] (20.0 dBm)
-			* 2472 MHz [13] (20.0 dBm)
-			* 2484 MHz [14] (disabled)
-	valid interface combinations:
-		 * #{ managed } <= 2048, #{ AP, mesh point } <= 8, #{ P2P-client, P2P-GO } <= 1, #{ IBSS } <= 1,
-		   total <= 2048, #channels <= 1, STA/AP BI must match, radar detect widths: { 20 MHz (no HT), 20 MHz, 40 MHz }
-	HT Capability overrides:
-		 * MCS: ff ff ff ff ff ff ff ff ff ff
-		 * maximum A-MSDU length
-		 * supported channel width
-		 * short GI for 40 MHz
-		 * max A-MPDU length exponent
-		 * min MPDU start spacing
-	Supported extended features:
-		* [ RRM ]: RRM
-		* [ CQM_RSSI_LIST ]: multiple CQM_RSSI_THOLD records
-		* [ CONTROL_PORT_OVER_NL80211 ]: control port over nl80211
-		* [ TXQS ]: FQ-CoDel-enabled intermediate TXQs
+        wiphy index: 0
+        max # scan SSIDs: 4
+        max scan IEs length: 2257 bytes
+        max # sched scan SSIDs: 0
+        max # match sets: 0
+        Retry short limit: 7
+        Retry long limit: 4
+        Coverage class: 0 (up to 0m)
+        Device supports AP-side u-APSD.
+        Device supports T-DLS.
+        Available Antennas: TX 0x3 RX 0x3
+        Configured Antennas: TX 0x3 RX 0x3
+        Supported interface modes:
+                 * IBSS
+                 * managed
+                 * AP
+                 * AP/VLAN
+                 * monitor
+                 * mesh point
+                 * P2P-client
+                 * P2P-GO
+                 * outside context of a BSS
+        Band 1:
+                Capabilities: 0x11ef
+                        RX LDPC
+                        HT20/HT40
+                        SM Power Save disabled
+                        RX HT20 SGI
+                        RX HT40 SGI
+                        TX STBC
+                        RX STBC 1-stream
+                        Max AMSDU length: 3839 bytes
+                        DSSS/CCK HT40
+                Maximum RX AMPDU length 65535 bytes (exponent: 0x003)
+                Minimum RX AMPDU time spacing: 8 usec (0x06)
+                HT TX/RX MCS rate indexes supported: 0-15
+                Frequencies:
+                        * 2412 MHz [1] (20.0 dBm)
+                        * 2417 MHz [2] (20.0 dBm)
+                        * 2422 MHz [3] (20.0 dBm)
+                        * 2427 MHz [4] (20.0 dBm)
+                        * 2432 MHz [5] (20.0 dBm)
+                        * 2437 MHz [6] (20.0 dBm)
+                        * 2442 MHz [7] (20.0 dBm)
+                        * 2447 MHz [8] (20.0 dBm)
+                        * 2452 MHz [9] (20.0 dBm)
+                        * 2457 MHz [10] (20.0 dBm)
+                        * 2462 MHz [11] (20.0 dBm)
+                        * 2467 MHz [12] (20.0 dBm)
+                        * 2472 MHz [13] (20.0 dBm)
+                        * 2484 MHz [14] (disabled)
+        valid interface combinations:
+                 * #{ managed } <= 2048, #{ AP, mesh point } <= 8, #{ P2P-client, P2P-GO } <= 1, #{ IBSS } <= 1,
+                   total <= 2048, #channels <= 1, STA/AP BI must match, radar detect widths: { 20 MHz (no HT), 20 MHz, 40 MHz }
+
+        HT Capability overrides:
+                 * MCS: ff ff ff ff ff ff ff ff ff ff
+                 * maximum A-MSDU length
+                 * supported channel width
+                 * short GI for 40 MHz
+                 * max A-MPDU length exponent
+                 * min MPDU start spacing
+        max # scan plans: 1
+        max scan plan interval: -1
+        max scan plan iterations: 0
+        Supported extended features:
+                * [ RRM ]: RRM
+                * [ CQM_RSSI_LIST ]: multiple CQM_RSSI_THOLD records
+                * [ CONTROL_PORT_OVER_NL80211 ]: control port over nl80211
+                * [ TXQS ]: FQ-CoDel-enabled intermediate TXQs
+                * [ AIRTIME_FAIRNESS ]: airtime fairness scheduling
+                * [ SCAN_RANDOM_SN ]: use random sequence numbers in scans
+                * [ SCAN_MIN_PREQ_CONTENT ]: use probe request with only rate IEs in scans
+                * [ CAN_REPLACE_PTK0 ]: can safely replace PTK 0 when rekeying
+                * [ CONTROL_PORT_NO_PREAUTH ]: disable pre-auth over nl80211 control port support
+                * [ DEL_IBSS_STA ]: deletion of IBSS station support
+                * [ MULTICAST_REGISTRATIONS ]: mgmt frame registration for multicast
+                * [ SCAN_FREQ_KHZ ]: scan on kHz frequency support
+                * [ CONTROL_PORT_OVER_NL80211_TX_STATUS ]: tx status for nl80211 control port support
 ```
 
-Here, we are particularly interested in 
+Here, we are particularly interested in learning the following:
 
-* the **supported modes of operation**, and more specifically, that the device is indeed able to operate in **mesh point** mode (it is), as shown under `Supported interface modes:`;
-* the **total number of bands** (only one band, `Band 1`);
-* then for each band
-  * the possible [**`htmode`**](https://openwrt.org/docs/guide-user/network/wifi/basic#htmodethe_wi-fi_channel_width) (supports `htmode 'HT20'` and `htmode 'HT40'`), as shown in `HT20/HT40`, under `Capabilities:`;
-  * the **acceptable channels** (from `channel '1'` to `channel '13'`), as shown under `Frequencies:`.  
+- How many radios there are (`phy0`, `phy1`);
+- The supported **modes of operation** of each radio, and more specifically, that the device is indeed able to operate in `mesh point` mode, as shown under `Supported interface modes:`;
+- The **total number of bands**. In this example, each radio can use only one band but one uses `2.4GHz` frequencies (`phy0`, `Band 1`), while the other uses `5GHz` frequencies (`phy1`, `Band 2`);
+- For each band, the **acceptable channels**, as shown under `Frequencies:`.
 
 With such information, we can now configure our radio devices in [`/etc/config/wireless`](https://openwrt.org/docs/guide-user/network/wifi/basic), as follows
 
@@ -657,21 +763,42 @@ With such information, we can now configure our radio devices in [`/etc/config/w
 vi /etc/config/wireless
 ```
 
-and then edit each `config wifi-device` accordingly.  In the 1043ND, there's only one `wifi-device` and my config looks like the following
+and then edit each `config wifi-device` stanza accordingly.  In the TL-WDR4300, there's two default `config wifi-device` stanzas--namely, one for the 2.4GHz radio (called `radio0`) and another for the 5GHz radio (`radio1`).  After [changing and adding a few additional options](https://openwrt.org/docs/guide-user/network/wifi/basic), mine usually look like the following:
 
 ```
 config wifi-device 'radio0'
         option type 'mac80211'
-        option channel 3
+        option channel '1'
+        #option txpower '20'  ##uncomment and edit to override default transmission power in dBm
         option hwmode '11g'
-        option path 'platform/ahb/180c0000.wmac'
-        option htmode 'HT20'
-        option country 'BR'
+        option path 'platform/ahb/18100000.wmac'
+        #option htmode 'HT20'  ##uncomment and edit to override default high throughput mode
+        option country 'BR'  ##change for your country code
+        option disabled '1'  ##change to 0 to enable it
+
+config wifi-device 'radio1'
+        option type 'mac80211'
+        option channel '153'  ##all nodes must use the same channel
+        #option txpower '21'  ##uncomment and edit to override default transmission power in dBm
+        option hwmode '11a'
+        option path 'pci0000:00/0000:00:00.0'
+        #option htmode 'HT20'  ##uncomment and edit to override default high throughput mode
+        option country 'BR'  ##change for your country code
+        option disabled '0'  ##change to 1 to disable it
 ```
 
-If this radio device will be used for the mesh traffic, make sure all mesh nodes **use the same channel**.  However, if the radio will be used as an access point for non-mesh clients, **use a different channel than the mesh channel**.  In addition, for `HT20/HT40` devices, stick to `HT20` if you are deploying the mesh in a crowded area, such as an apartment building; otherwise, the interference might make `HT40` actually slower than `HT20`.  Finally, remember to edit the **country code** before enabling the radio.
+The comments in this and other config files are just for educational purpose. Feel free to remove them in your device's config files.
+{: .notice--info }
 
-Comment out any `config wifi-iface` automatically generated after a fresh install by adding a `#` at the beginning of each line, as follows
+In this guide, `radio1` (5GHz) will be used for the *mesh* traffic under the channel `153`, which means all other mesh nodes must use the **same channel**.  However, `radio0` (2.4GHz) will at times be used to create standard wireless access points (WAPs; 802.11b/g/n) for *non-mesh* clients, which means that none of the other nodes need to use the same channel with this radio.  In fact, it is strongly advised that 2.4GHz WAPs in close proximity should use **different channels**--namely, channels `1` (`2401–2423MHz` frequency range), `6` (`2426–2448MHz`), or `11` (`2451–2473MHz`) because those are non-overlapping channels and therefore, do not interfere with each other.  Because only mesh *bridges* will make use of `radio0`, the configuration indicates that it should be *disabled* by default.
+
+The segmentation between mesh and non-mesh wireless communication adopted in this guide is best summarized by the following illustration:
+
+[![Segmentation](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/segmentation.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/segmentation.jpg)
+
+In addition, for `HT20/HT40` devices, stick to `HT20` if you are deploying the mesh in a crowded area, such as an apartment building; otherwise, the interference might make higher high-throughput (HT) actually less performant.  Finally, remember to edit the **country code** before enabling the radio and [follow country regulations](https://en.wikipedia.org/wiki/List_of_WLAN_channels#5_GHz_(802.11a/h/j/n/ac/ax)) when overriding the default transmission power (`option txpower`).  More often than not, you should actually *decrease* the `txpower` rather than increase it.  (For related material, see OpenWrt's articles on [Exceeding transmit power limits](https://openwrt.org/docs/guide-user/network/wifi/transmit.power.limits) and [Other transmit power issues](https://openwrt.org/faq/other_transmit_power_issues).)
+
+Comment out or delete any `config wifi-iface` automatically generated after a fresh install by adding a `#` at the beginning of each line or typing `dd`, as follows
 
 ```
 #config wifi-iface 'default_radio0'
@@ -686,23 +813,19 @@ Then, at the end of the file, let's add a `wifi-iface` for the wireless mesh, ca
 
 ```
 config wifi-iface 'wmesh'
-        option device 'radio0'	#must match the name of a wifi-device
-        option ifname 'if-mesh'	#name for this iface
-        option network 'mesh'	#mesh stanza in /etc/config/network
-        option mode 'mesh'		#use 802.11s mode
-        option mesh_id 'MeshCloud'	#like an ssid of the wireless mesh
-        option encryption 'sae'	#https://openwrt.org/docs/guide-user/network/wifi/basic#wpa_modes
-        option key 'MeshPassword123'	#mesh password if encryption is enabled
-        option mesh_fwding 0	#let batman-adv handle routing
-        option mesh_ttl 1		#time to live in the mesh
-        option mcast_rate 24000	#routes with a lower throughput rate than the mcast_rate will not be visible to batman-adv
-#       option disabled 1		#uncomment to disable
+        option device 'radio1'  ##must match the name of a wifi-device
+        option network 'mesh'  ##mesh stanza in /etc/config/network
+        option mode 'mesh'  ##use 802.11s mode
+        option mesh_id 'MeshCloud'  ##mesh "ssid"
+        option encryption 'sae'  ##https://openwrt.org/docs/guide-user/network/wifi/basic#wpa_modes
+        option key 'MeshPassword123'  ##password in plain text
+        option mesh_fwding '0'  ##let batman-adv handle routing
+        option mesh_ttl '1'  ##time to live in the mesh
+        option mcast_rate '24000'  ##routes with a lower throughput rate won't be visible
+        option disabled '0'  ##change to 1 to disable it
 ```
 
-The comments are just for educational purpose. Feel free to remove them in your device's config file.
-{: .notice--info }
-
-Because all mesh nodes must operate on the same channel, use the same authentication, etc., multiple config options are often dictated by the "lowest common denominator" across all mesh nodes--that is, the best possible config that will work with **all nodes**, not just the ones with the best hardware and software available.  For example, not all devices will necessarily be able to use SAE because it's very new and therefore, won't be able to connect to mesh networks that use it. Instead, you might want to set encryption to something like `psk2+aes`, which should be good enough for most devices out there. So, keep that in mind when configuring your mesh nodes.
+Because all mesh nodes must operate on the same channel, use the same authentication, etc., multiple config options are often dictated by the **"lowest common denominator"** across all mesh nodes--that is, the best possible configuration that will work with **all nodes**, not just the ones with the best hardware and software available.  For example, not all devices will necessarily be able to use SAE because it's very new and therefore, won't be able to connect to mesh networks that use it. Instead, you might want to set encryption to something like `psk2+aes`, which should be good enough for most devices out there. So, keep that in mind when configuring your mesh nodes.
 
 **Save the file** and exit it.  
 
@@ -712,36 +835,39 @@ Now we need to configure [`/etc/config/network`](https://openwrt.org/docs/guide-
 vi /etc/config/network
 ```
 
-and let's add an `interface` called `bat0` at the bottom of the file, as follows
+and let's add an `interface` called `bat0` at the bottom of the file, as follows:
 
 ```
 config interface 'bat0'
         option proto 'batadv'
         option routing_algo 'BATMAN_IV'
-        option aggregated_ogms 1
-        option ap_isolation 0
-        option bonding 0
-        option bridge_loop_avoidance 1
-        option distributed_arp_table 1
-        option fragmentation 1
+        option aggregated_ogms '1'
+        option ap_isolation '0'
+        option bonding '0'
+        option bridge_loop_avoidance '1'
+        option distributed_arp_table '1'
+        option fragmentation '1'
         option gw_mode 'off'
-        option hop_penalty 30
+        #option gw_sel_class '20'
+        #option gw_bandwidth '10000/2000'
+        option hop_penalty '30'
         option isolation_mark '0x00000000/0x00000000'
-        option log_level 0
-        option multicast_mode 1
-        option multicast_fanout 16
-        option network_coding 0
-        option orig_interval 1000
+        option log_level '0'
+        option multicast_mode '1'
+        option multicast_fanout '16'
+        option network_coding '0'
+        option orig_interval '1000'
 ```
 
-which has options with (mostly) default values to facilitate fine-tuning later on.  (For more details, refer to the [**Protocol Documentation**](https://www.open-mesh.org/projects/batman-adv/wiki#Protocol-Documentation) and more specifically, the [**Tweaking**](https://www.open-mesh.org/projects/batman-adv/wiki/Tweaking) section.)  Then, at the bottom of the same file, let's add an actual **network** interface to transport `batman-adv` packets, which in our case will be the network used by `wmesh` in the `/etc/config/wireless` config file, namely `mesh`, as follows
+The `bat0` stanza has options with default values to facilitate fine-tuning later on.  The specifics about each option is derived from the [official `batctl` manual](https://downloads.open-mesh.org/batman/manpages/batctl.8.html).  For more details, refer to the [Protocol Documentation](https://www.open-mesh.org/projects/batman-adv/wiki#Protocol-Documentation) and more specifically, the [Tweaking](https://www.open-mesh.org/projects/batman-adv/wiki/Tweaking) section.
+
+Then, at the bottom of the `/etc/config/network` file, let's add an actual network interface to transport `batman-adv` packets, which in our case will be the network used by `wmesh` in the `/etc/config/wireless` config file, namely `mesh`, as follows:
 
 ```
 config interface 'mesh'
         option proto 'batadv_hardif'
         option master 'bat0'
-        option mtu 2304
-        option throughput_override 0
+        option mtu '1536'  ##https://www.open-mesh.org/projects/batman-adv/wiki/Fragmentation-technical
 ```
 
 **Save the file** and exit. 
@@ -757,19 +883,20 @@ and if the config is right, you should now see `bat0` and `if-mesh` in the outpu
 batctl if
 ```
 
-If it all looks good, exit the `ssh` session, disconnect your laptop/PC from the wireless device (but keep it running nearby), and **go ahead and configure at least one other node**.  This can be done manually just like you've just configured the current node.  However, if your other mesh nodes are identical to the one you have already configured--that is, it is the same brand, model, and it is running the same OpenWrt version--then you can simply **copy the modified files** and then **paste them on the `/etc/config/` dir of the new device**.  To copy all such files from the configured device to your laptop/PC current directory, you can use `scp`, as follows:
+If it all looks good, exit the `ssh` session, disconnect your laptop/PC from the wireless device (but keep it running nearby), and **go ahead and configure at least one other node**.  This can be done manually just like you've just configured the current node.  However, if your other mesh nodes are identical to the one you have already configured--that is, it is the same brand, model, and it is running the same OpenWrt version--then you can simply **copy the modified files** and then paste them on the `/etc/config/` directory of the new device.  To copy all such files from the configured device to your laptop/PC current directory, you can use `scp`, as follows:
 
 ```
-scp -r root@IP_MESH_NODE:/etc/config ./
+scp -r root@192.168.1.1:/etc/config ./
 ```
 
-which should create a `config` dir on your laptop/PC that has all the config files from the already configured device.  Then, it's just a matter of doing the reverse process on the unconfigured devices:
+which should create a `config` dir on your laptop/PC that has all the config files from the already configured device.  Then, once connected to another default OpenWrt device, it's just a matter of doing the reverse operation, as follows:
 
 ```
-scp -r ./config/* root@IP_NEW_MESH_NODE:/etc/config/
+scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+  -r ./config/* root@192.168.1.1:/etc/config/
 ```
 
-Because we're starting SSH sessions with *different machines* using the *same IP addr* (`192.168.1.1`), it's quite possible that your SSH client will complaint about the authenticity of the host at `192.168.1.1`.  To get rid of this message, simply remove the relevant entry in your user's `known_hosts` file or delete it altogether.  On Linux distros, such file can be found at `~/.ssh/known_hosts`--that is, the `ssh` folder for your current user.
+Because we are starting SSH sessions with different machines that have the same IP address (`192.168.1.1`), we can include `-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null` to disable checking the `known_hosts` file and redirect discovery of the new key to `/dev/null` instead of your user's `known_hosts`.  Alternatively, you can manually edit or delete your user's `known_hosts` file, which is usually found at `~/.ssh/known_hosts`.
 {: .notice--warning }
 
 Afterwards, `ssh` into one of the configured mesh nodes and type 
@@ -800,8 +927,6 @@ Pat yourself on the back because you have successfully configured multiple mesh 
 
 **Go ahead and configure all your mesh nodes the same way as before** and only then move on to bridges, gateways, and VLAN configs, as described next.
 
-(*Optional*: This is a good time to [tweak the mesh configuration](https://www.open-mesh.org/projects/batman-adv/wiki/Tweaking) as well.)
-
 ## Troubleshooting mesh issues
 These are a few tips in case you run into issues when configuring gateways and bridges. 
 
@@ -821,9 +946,9 @@ batctl td batX
 
 in which `batX` is a `batman-adv` interface (usually `bat0` but if you have more than one, then `bat1`, etc.).  This is quite useful when configuring VLANs because it will show the VLAN ID of each client as well.  In addition, it is possible to specify the VLAN ID in the `td` argument to constraint the output to one particular VLAN (e.g., `batctl td bat0.1`).  Depending on the scale of your mesh network, you might need to filter the output because things can get wild with `tcpdump` really fast.
 
-For more details, see the [**batctl man page**](https://downloads.open-mesh.org/batman/manpages/batctl.8.html).
+For more details, see the [`batctl` manual](https://downloads.open-mesh.org/batman/manpages/batctl.8.html) or type `batctl -h` for cli usage information.  Keep in mind that while many options can be set via `batctl`, those changes are ephemeral--that is, they won't survive a reboot.  To make permanent changes, you need to add/edit the respective option in the `/etc/config/network` file and `batX` stanza.
 
-Finally, if you've been following my suggestion to name and take note of each device's MAC address, you can create a file called `bat-hosts` in `/etc/` that contains pairs of `MAC address` and `name`, as follows
+It is worth mentioning that if you've been following my suggestion to name and take note of each device's MAC address, you can now create a file called `bat-hosts` in `/etc/` that contains pairs of `MAC address` and `name`, as follows:
 
 ```
 f0:f0:00:00:00:00 node01
@@ -832,7 +957,15 @@ f0:f2:00:00:00:00 node03
 f0:f3:00:00:00:00 node04
 ```
 
-which makes it much easier to identify the mesh nodes when issuing a command like `batctl n` and other debug tables.  As far as I'm aware, however, you have to create and update such file in each node because such information will just be available to nodes that have a `bat-hosts` file.
+This makes it much easier to identify the mesh nodes when issuing a command like `batctl n` and other debug tables.  As far as I'm aware, however, you have to create and update such file in each node because such information will just be available to nodes that have a `bat-hosts` file.
+
+Finally, as mentioned before, keep an eye on your device's syslog for errors.  Module related issues are often associated with logged kernel errors (see the section [Hardware-specific configurations](#hardware-specific-configurations)) and wpa_supplicant has [multiple mesh-specific error codes](https://www.toomanyatoms.com/computer/disconnection_codes.html). The syslog can be inspected via `logread`, as follows:
+
+```
+logread
+```
+
+For usage information, type `logread -h`.
 
 ## Configuring common mesh networks
 Here, we will see how to turn one or two of our configured mesh nodes into either a mesh **bridge** or a mesh **gateway**.  To avoid repetition, the configuration of bridges and gateways is described in more detail in the [first example](#gateway-bridge), and only a few small differences and observations are highlighted afterwards.  In addition, only IPv4 addresses and configurations were used but nothing prohibits the use of IPv6 in a mesh network.  
@@ -1333,15 +1466,15 @@ When this guide was first written, [OpenWrt 19.07](https://openwrt.org/releases/
 
 Of course, it is still possible to download and use the latest version of the OpenWrt 19.07 binaries (`19.07.8`) by looking for your device's target at [releases/19.07.8/targets](https://downloads.openwrt.org/releases/19.07.8/targets/).  However, it is generally a good idea to run the latest release version for multiple reasons, **security being the main one**.  Nonetheless, OpenWrt 21.02 introduces **new hardware requirements** and **changes to the network syntax** that you should not overlook before making the transition.  More specifically:
 
-  - OpenWrt 21.02 introduces initial support for the [**Distributed Switch Architecture** (**DSA**)](https://www.kernel.org/doc/html/latest/networking/dsa/dsa.html).  Currently, however, this only applies to [a very limited number of devices](https://openwrt.org/releases/21.02/notes-21.02.0#initial_dsa_support).  If you have one of such devices, then make sure to read **rmilecki**'s [mini tutorial for DSA network configuration](https://forum.openwrt.org/t/mini-tutorial-for-dsa-network-config/96998) because the syntax is a little bit different than the one used in this guide.
+  - OpenWrt 21.02 introduces initial support for the [**Distributed Switch Architecture** (**DSA**)](https://www.kernel.org/doc/html/latest/networking/dsa/dsa.html).  Currently, however, this only applies to [a very limited number of devices](https://openwrt.org/releases/21.02/notes-21.02.0#initial_dsa_support).  If you have one of such devices, then make sure to read rmilecki's [mini tutorial for DSA network configuration](https://forum.openwrt.org/t/mini-tutorial-for-dsa-network-config/96998) because the syntax is a little bit different than the one used in this guide.
 
-  - The [hardware requirements to run OpenWrt 21.02](https://openwrt.org/releases/21.02/notes-21.02.0#increased_minimum_hardware_requirements8_mb_flash_64_mb_ram) has increased to `8 MB` of flash memory and `64 MB` of RAM.  In the first version of this guide, I used the **TP-Link TL-WR1043ND (v1)** as an example of mesh node hardware, which has `8MB` of flash memory and `32MB` of RAM.  At first, I tried to use OpenWrt 21.02 but the system became **too unstable** with it, even after making several changes to the firmware images (e.g., removing LuCI altogether and adding `zram` support).  This is what prompted me to change the device in the examples to the **TP-Link TL-WD4300**, which is also a *low-end* router but it has `128MB` of RAM instead and importantly, it is a *dual-band* router that allows better segmentation of mesh vs non-mesh wireless traffic. 
+  - The [hardware requirements to run OpenWrt 21.02](https://openwrt.org/releases/21.02/notes-21.02.0#increased_minimum_hardware_requirements8_mb_flash_64_mb_ram) has increased to `8 MB` of flash memory and `64 MB` of RAM.  In the first version of this guide, I used the **TP-Link TL-WR1043ND (v1.8)** as an example of mesh node hardware, which has `8MB` of flash memory and `32MB` of RAM.  At first, I tried to use OpenWrt 21.02 with it but the system became **too unstable**, even after making several changes to multiple firmware images (e.g., removing LuCI altogether and adding `zram` support).  This is what prompted me to change the device in the examples to the **TP-Link TL-WD4300**, which is also a *low-end* router but it has `128MB` of RAM instead and importantly, it is a *dual-band* router that allows better segmentation of mesh vs non-mesh wireless traffic. 
 
   - There is a small but important [change in the configuration **syntax**](https://openwrt.org/releases/21.02/notes-21.02.0#new_network_configuration_syntax_and_boardjson_change) in `/etc/config/network`, namely:
     1. The option `ifname` is now called `device` in all `config interface` stanzas;
     2. The option `ifname` is now called `ports` in all `config device` stanzas of type `bridge`.
 
-    Fortunately, it seems that the **old syntax** (as in the first version of this guide) **is still supported** but if you are using LuCI, you will run into compatibility issues and will be prompted to update.  To update it, take a closer look at the examples in the current version of the guide, which have been all updated to make them compatible with the network syntax introduced by OpenWrt 21.02.
+    Fortunately, it seems that the **old syntax** (as in the first version of this guide) **is still supported** but if you are using LuCI, you will run into compatibility issues and will be prompted to update.  To update it, take a closer look at the examples in the current version of the guide, which are now compatible with the network syntax introduced by OpenWrt 21.02.
 
   - There many other changes in OpenWrt 21.02 but from my experience so far, none of them are as relevant as the ones mentioned before.  For other highlights and additional information, please check the [official OpenWrt 21.02.0 release notes](https://openwrt.org/releases/21.02/notes-21.02.0).
 
@@ -1365,16 +1498,15 @@ and if the amount of `free` in the `Mem:` row is higher than the size of the bin
 sysupgrade -v -n /tmp/*-sysupgrade.bin
 ```
 
-**Importantly**, owing to changes in the network syntax, I strongly recommend to discard all configuration files when making the transition.  When upgrading via LuCI, make sure to deselect the option to preserve configuration, and similarly, when upgrading via `sysupgrade`, add the `-n` argument command, as mentioned before. This, of course, means you will lose connection to the device if you are running the upgrade via a wireless connection, so make sure to use a cable for this particular operation.  
+Importantly, owing to changes in the network syntax, I strongly recommend to **discard all configuration files when making the transition**.  When upgrading via LuCI, make sure to *de*select the option to preserve configuration, and similarly, when upgrading via `sysupgrade`, add the `-n` argument command, as mentioned before. This, of course, means you will lose connection to the device if you are running the upgrade via a wireless connection, so make sure to use a cable for this particular operation.  
 
 If the configuration files in `/etc/config/` have been extensively edited, make sure to make a backup of them before running the upgrade.
 {:.notice--warning}
 
 In addition, remember that the various packages supporting the use of `batman-adv` do not come with pre-built (default) images, which means that you won't be able to connect to your mesh node after an upgrade if you are relying on the mesh network to reach it.  If you do not want to reinstall all such packages (or cannot physically reach the nodes), check the updated section about [OpenWrt installation and initial configuration](#openwrt-installation-and-initial-configuration), which now features instructions on how to build customized images with pre-installed mesh packages.  Building your own images also means you can create default versions for all `/etc/config/` files (see `FILES=""` usage in the `make image` command) but **use caution with such feature** to avoid (soft) bricking your device.  At the very least, use only configurations you have already tested and that will work independently of any other node.
 
-Lastly, I would like to thank [SteveNewcomb](https://forum.openwrt.org/u/stevenewcomb) for testing--and letting me know about--`batman-adv` under the OpenWrt 21.02 release candidates.  For reference, here are two of his forum posts that detail the specifics of his devices and configuration:
-  - [Batman (in production with post 19.07 snapshot) not working under 21.02](https://forum.openwrt.org/t/batman-in-production-with-post-19-07-snapshot-not-working-under-21-02)
-  - [How to specify the mac address of a batman mesh member?](https://forum.openwrt.org/t/how-to-specify-the-mac-address-of-a-batman-mesh-member/100164/2)
+Overall, I like the clearer distinction between layers 2 and 3 introduced by the new network syntax in OpenWrt 21.02.  Once you get the hang of it, the configuration looks more organized and intuitive than before, and therefore, I think it is a step forward in the right direction.  Lastly, I would like to thank [SteveNewcomb](https://forum.openwrt.org/u/stevenewcomb) for testing--and letting me know about--`batman-adv` under the OpenWrt 21.02 release candidates.
+
 
 [top](#){: .btn .btn--light-outline .btn--small}
 
