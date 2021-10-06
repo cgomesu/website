@@ -200,7 +200,7 @@
 
 
 
-  126 minute read
+  125 minute read
 
 </p>
       
@@ -1541,8 +1541,7 @@ f0:f3:00:00:00:00 node04
 <p>First, let’s configure our <strong>mesh gateway</strong>.</p>
 
 <h4 id="mesh-gateway-configuration">Mesh gateway configuration</h4>
-
-<p>Get one of the <a href="#mesh-node-basic-config">pre-configured mesh nodes</a> that has at the very least two Ethernet ports, a LAN port and a WAN port.  (This, of course, is not required for a gateway device because <a href="https://openwrt.org/docs/guide-user/network/wan/internet.connection">there are multiple ways to connect to WAN</a> but having separate physical ports makes the explanation much simpler to follow.  If that is not your case, just adapt to whatever interfaces you have configured that play the role of default <code class="language-plaintext highlighter-rouge">lan</code> and <code class="language-plaintext highlighter-rouge">wan</code>.)</p>
+<p>Get one of the <a href="#mesh-node-basic-config">pre-configured mesh nodes</a> that has at the very least two Ethernet ports, a LAN port and a WAN port.  (This, of course, is not required for a gateway device because <a href="https://openwrt.org/docs/guide-user/network/wan/internet.connection">there are multiple ways to connect to WAN</a> but having separate physical ports makes the explanation much simpler to follow.  If that is not your case, just adapt the default configuration for your device accordingly.)</p>
 
 <p class="notice--warning">If you’ve configured this node as a <a href="https://openwrt.org/docs/guide-user/network/wifi/dumbap">dumb access point</a> to temporarily give it access to the Internet while updating and installing packages, undo the configuration before proceeding because we will use both the <code class="language-plaintext highlighter-rouge">firewall</code> and <code class="language-plaintext highlighter-rouge">dhcp</code> config files in the gateway configuration.</p>
 
@@ -1604,7 +1603,7 @@ config interface 'default'
 
 <p><strong>Save the file</strong> and exit it.</p>
 
-<p>Finally, let’s edit the <a href="https://openwrt.org/docs/guide-user/firewall/firewall_configuration"><code class="language-plaintext highlighter-rouge">/etc/config/firewall</code></a> config.  Many things that can be done at the firewall level and for this reason, it’s often the most overwhelming part of the configuration.  Fortunately, in our case, all that we need to do here is simply <strong>copy</strong> the default <code class="language-plaintext highlighter-rouge">lan</code> config for the new <code class="language-plaintext highlighter-rouge">default</code>.  That is, anything that has <code class="language-plaintext highlighter-rouge">lan</code> we will</p>
+<p>Finally, let’s edit the <a href="https://openwrt.org/docs/guide-user/firewall/firewall_configuration"><code class="language-plaintext highlighter-rouge">/etc/config/firewall</code></a> config.  Many things that can be done at the firewall level and for this reason, it’s often the most overwhelming part of the configuration.  Fortunately, in our case, all that we need to do here is simply <strong>copy</strong> the original <code class="language-plaintext highlighter-rouge">lan</code> config for the new <code class="language-plaintext highlighter-rouge">default</code>.  That is, anything that has <code class="language-plaintext highlighter-rouge">lan</code> we will</p>
 
 <ol>
   <li>copy the related config;</li>
@@ -1687,7 +1686,7 @@ config interface 'default'
 
 <p><strong>Save the file</strong> and exit it.</p>
 
-<p>Similarly, you can create a <strong>wireless access point</strong> (WAP) for <em>non-mesh</em> clients, and the instructions in the <a href="https://openwrt.org/docs/guide-user/network/wifi/dumbap"><strong>dumb access point</strong> documentation</a> will work just fine because it uses a network that is bridged with our mesh–namely, the default <code class="language-plaintext highlighter-rouge">lan</code>.  To avoid confusion, make sure to use <strong>a different SSID</strong> for the WAP(s) than the <code class="language-plaintext highlighter-rouge">mesh_id</code> used for the mesh.  In addition, use <strong>a different radio</strong> for the WAP(s) and set them to operate on <strong>different channels</strong>.  If that is not possible, that is probably okay for most home users but keep in mind that node hoping will start affecting performance quite noticeably.</p>
+<p>Similarly, you can create a <strong>wireless access point</strong> (WAP) for <em>non-mesh</em> clients, and the instructions in the <a href="https://openwrt.org/docs/guide-user/network/wifi/dumbap"><strong>dumb access point</strong> documentation</a> will work just fine because it uses a network that is bridged with our mesh–namely, the original <code class="language-plaintext highlighter-rouge">lan</code>.  To avoid confusion, make sure to use <strong>a different SSID</strong> for the WAP(s) than the <code class="language-plaintext highlighter-rouge">mesh_id</code> used for the mesh.  In addition, use <strong>a different radio</strong> for the WAP(s) and set them to operate on <strong>different channels</strong>.  If that is not possible, that is probably okay for most home users but keep in mind that node hoping will start affecting performance quite noticeably.</p>
 
 <p>(<em>Optional</em>.) To illustrate, let’s create a simple 2.4GHz WAP for your home devices that will make use of the <code class="language-plaintext highlighter-rouge">default</code> network.  This can be done by editing the <code class="language-plaintext highlighter-rouge">/etc/config/wireless</code> file as follows:</p>
 
@@ -1773,7 +1772,7 @@ config interface 'default'
     <p>Because we will now run <strong>two</strong> DHCP servers on <strong>the same network</strong>, we need to find a way of avoiding conflicts when assigning an IP address to new clients.  The easiest way of doing that is by assigning <strong>different intervals</strong> to each DHCP server running on the same network.  In OpenWrt, this is done by editing the <code class="language-plaintext highlighter-rouge">/etc/config/dhcp</code> config file, and in the <code class="language-plaintext highlighter-rouge">default</code> DHCP configuration, we add a different starting point next to the <code class="language-plaintext highlighter-rouge">option start</code> option.  For example, while the DHCP server running on the first gateway will have <code class="language-plaintext highlighter-rouge">option start '50'</code>, the DHCP server running on the second gateway will have <code class="language-plaintext highlighter-rouge">option start '150'</code> instead.  This way, the first DHCP server leases addresses from <code class="language-plaintext highlighter-rouge">192.168.10.50</code> to <code class="language-plaintext highlighter-rouge">.149</code>, whereas the second leases addresses from <code class="language-plaintext highlighter-rouge">192.168.10.150</code> to <code class="language-plaintext highlighter-rouge">.249</code>.</p>
   </li>
   <li>
-    <p>In the <code class="language-plaintext highlighter-rouge">bat0</code> interface config of the <code class="language-plaintext highlighter-rouge">/etc/config/network</code> config file, we can now enable the <code class="language-plaintext highlighter-rouge">option gw_mode 'server'</code> and specify the WAN connection speed with <code class="language-plaintext highlighter-rouge">option gw_bandwidth '10000/2000'</code> (i.e., 10000kbps download and 2000kbps upload), as follows:</p>
+    <p>In the <code class="language-plaintext highlighter-rouge">bat0</code> interface config of the <code class="language-plaintext highlighter-rouge">/etc/config/network</code> config file, we can now enable the <code class="language-plaintext highlighter-rouge">option gw_mode 'server'</code> and specify the WAN connection speed with <code class="language-plaintext highlighter-rouge">option gw_bandwidth '10000/2000'</code>, as follows:</p>
 
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> config interface 'bat0'
          option proto 'batadv'
@@ -1845,7 +1844,7 @@ config interface 'default'
 <ul>
   <li>We will have two additional bridges in the network–that is, one for each mesh VLAN, for a total of three bridges. This is not a necessity but a matter of convenience to keep the example simple. The same bridge device can definitely bridge more than one mesh VLAN;</li>
   <li>In the gateway device, we will create VLAN IDs for the <code class="language-plaintext highlighter-rouge">iot</code> (<strong>2</strong>), <code class="language-plaintext highlighter-rouge">guest</code> (<strong>5</strong>), and <code class="language-plaintext highlighter-rouge">default</code> (<strong>1</strong>) networks, each with a separate set of DHCP server and firewall rules;</li>
-  <li>In each bridge device, we will join the default <code class="language-plaintext highlighter-rouge">lan</code> with the <strong>VLAN ID</strong> of the mesh VLAN (<code class="language-plaintext highlighter-rouge">bat0.1</code>, <code class="language-plaintext highlighter-rouge">bat0.2</code>, <code class="language-plaintext highlighter-rouge">bat0.5</code>), instead of <code class="language-plaintext highlighter-rouge">bat0</code>.</li>
+  <li>In each bridge device, we will join the original <code class="language-plaintext highlighter-rouge">lan</code> with the <strong>VLAN ID</strong> of the mesh VLAN (<code class="language-plaintext highlighter-rouge">bat0.1</code>, <code class="language-plaintext highlighter-rouge">bat0.2</code>, <code class="language-plaintext highlighter-rouge">bat0.5</code>), instead of <code class="language-plaintext highlighter-rouge">bat0</code>.</li>
 </ul>
 
 <p>Surprisingly enough, we don’t need to do a thing about the <strong>mesh nodes</strong> that are not <strong>gateways</strong> or <strong>bridges</strong>–that is, the <a href="#mesh-node-basic-config">mesh node basic config</a> is both necessary and sufficient for simple mesh nodes, even when using VLANs.  The only exception is if one of your mesh nodes is, for example, a laptop and you want it to use a particular mesh VLAN instead of the untagged <code class="language-plaintext highlighter-rouge">bat0</code>.  In our case, however, the pre-configured mesh nodes are ready to route traffic of any VLAN that belongs to <code class="language-plaintext highlighter-rouge">bat0</code>.</p>
@@ -1855,100 +1854,78 @@ config interface 'default'
 <h3 id="mesh-gateway-with-vlan-configuration">Mesh gateway with VLAN configuration</h3>
 <p>First, configure the gateway <strong>the same way</strong> <a href="#mesh-gateway-configuration">as in the gateway-bridge example</a>.</p>
 
-<p>Now, instead of <code class="language-plaintext highlighter-rouge">lan_bat0</code>, we’re going to change it to <code class="language-plaintext highlighter-rouge">default</code> in the config files, then do the same for <code class="language-plaintext highlighter-rouge">iot</code> and <code class="language-plaintext highlighter-rouge">guest</code>.  So, if you’re ready, <code class="language-plaintext highlighter-rouge">ssh</code> back into it and let’s start by editing the <code class="language-plaintext highlighter-rouge">/etc/config/network</code> config file, as follows</p>
+<p>Second, instead of listing <code class="language-plaintext highlighter-rouge">bat0</code> in the <code class="language-plaintext highlighter-rouge">br-default</code> bridge, we will change it to <code class="language-plaintext highlighter-rouge">bat0.1</code> to indicate that this is the <strong>VLAN ID #1</strong> of our <code class="language-plaintext highlighter-rouge">bat0</code> interface.  So, let’s start by editing the <code class="language-plaintext highlighter-rouge">/etc/config/network</code> configuration file, as follows:</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi /etc/config/network
 </code></pre></div></div>
 
-<p>and at the end, comment out the <code class="language-plaintext highlighter-rouge">lan_bat0</code> config, as follows</p>
+<p>Then edit the <code class="language-plaintext highlighter-rouge">br-default</code> stanza to look like this:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#config interface 'lan_bat0'
-#        option type 'bridge'		#uncomment if adding other interfaces to ifname
-#        option ifname 'bat0'
-#        option proto 'static'
-#        option ipaddr '192.168.10.1'	#static addr for this gateway on the 192.168.10.0/24 net
-#        option netmask '255.255.255.0'
-#        list dns '1.1.1.1'			#cloudflare dns server
-#        list dns '8.8.8.8'			#google dns server
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config device
+        option name 'br-default'
+        option type 'bridge'
+        list ports 'bat0.1'
 </code></pre></div></div>
 
-<p>then below it, let’s add a new interface for <code class="language-plaintext highlighter-rouge">default</code>, as follows</p>
+<p class="notice--info">At this point, if you want to enable access to the <code class="language-plaintext highlighter-rouge">default</code> network via the Ethernet port of your gateway device, you can then add another <code class="language-plaintext highlighter-rouge">list ports 'eth0.1'</code> (or whatever you device uses) to the <code class="language-plaintext highlighter-rouge">br-default</code> bridge configuration.  Afterwards, remove any configuration related to the original <code class="language-plaintext highlighter-rouge">lan</code> network.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config interface 'lan_bat0_1'
-#        option type 'bridge'	#uncomment if adding other interfaces to ifname
-        option ifname 'bat0.1'
-        option proto 'static'
-        option ipaddr '192.168.10.1'
-        option netmask '255.255.255.0'
-        list dns '1.1.1.1'
-#        list dns '8.8.8.8'	#make it use cloudflare
-</code></pre></div></div>
+<p><strong>Save the file</strong>.</p>
 
-<p>then another one for <code class="language-plaintext highlighter-rouge">iot</code></p>
+<p>Now, we are going to apply the same procedure we used to create the <code class="language-plaintext highlighter-rouge">default</code> network (and its bridge, firewall rules, and dhcp service) to the remaining two networks, namely <code class="language-plaintext highlighter-rouge">iot</code> and <code class="language-plaintext highlighter-rouge">guest</code>.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config interface 'lan_bat0_2'
-#        option type 'bridge'	#uncomment if adding other interfaces to ifname
-        option ifname 'bat0.2'
+<p>At the end of the <code class="language-plaintext highlighter-rouge">/etc/config/network</code> file, add a new <code class="language-plaintext highlighter-rouge">config device</code> and <code class="language-plaintext highlighter-rouge">config interface</code> for the <code class="language-plaintext highlighter-rouge">iot</code> network, as follows:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config device                             
+        option name 'br-iot'
+        option type 'bridge'
+        list ports 'bat0.2'
+                                      
+config interface 'iot'
+        option device 'br-iot'
         option proto 'static'
         option ipaddr '192.168.20.1'
         option netmask '255.255.255.0'
-#        list dns '1.1.1.1'	#make it use google
+        list dns '1.1.1.1'
         list dns '8.8.8.8'
 </code></pre></div></div>
 
-<p>and another one for <code class="language-plaintext highlighter-rouge">guest</code></p>
+<p>Then add another set of stanzas immediately below for the <code class="language-plaintext highlighter-rouge">guest</code> network:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config interface 'lan_bat0_5'
-#        option type 'bridge'	#uncomment if adding other interfaces to ifname
-        option ifname 'bat0.5'
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config device                             
+        option name 'br-guest'
+        option type 'bridge'
+        list ports 'bat0.5'
+                                      
+config interface 'guest'
+        option device 'br-guest'
         option proto 'static'
         option ipaddr '192.168.50.1'
         option netmask '255.255.255.0'
-#        list dns '1.1.1.1'	#make it use google
+        list dns '1.1.1.1'
         list dns '8.8.8.8'
 </code></pre></div></div>
 
 <p><strong>Save the file</strong> and exit it.</p>
 
-<p>Now, let’s edit the <code class="language-plaintext highlighter-rouge">/etc/config/dhcp</code> config file, as follows</p>
+<p>Now, let’s edit the <code class="language-plaintext highlighter-rouge">/etc/config/dhcp</code> config file, as follows:</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi /etc/config/dhcp
 </code></pre></div></div>
 
-<p>and once again, comment out all <code class="language-plaintext highlighter-rouge">lan_bat0</code> config, as follows</p>
+<p>and once again, add a DHCP server config for the <code class="language-plaintext highlighter-rouge">iot</code> network:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#config dhcp 'lan_bat0'
-#        option interface 'lan_bat0'
-#        option start 50		#start leasing at addr 192.168.10.50
-#        option limit 100		#max leases, so for 100, leased addr goes from .50 to .149
-#        option leasetime '3h'
-#        option ra 'server'
-</code></pre></div></div>
-
-<p>then add a DHCP server config for the <code class="language-plaintext highlighter-rouge">default</code> interface below it</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config dhcp 'lan_bat0_1'
-        option interface 'lan_bat0_1'
-        option start 50
-        option limit 100
-        option leasetime '12h'
-        option ra 'server'
-</code></pre></div></div>
-
-<p>and like before, we will add another one for the <code class="language-plaintext highlighter-rouge">iot</code> interface</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config dhcp 'lan_bat0_2'
-        option interface 'lan_bat0_2'
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config dhcp 'iot'
+        option interface 'iot'
         option start 50
         option limit 100
         option leasetime '6h'
         option ra 'server'
 </code></pre></div></div>
 
-<p>and another one for the <code class="language-plaintext highlighter-rouge">guest</code> interface</p>
+<p>and another one for the <code class="language-plaintext highlighter-rouge">guest</code> network:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config dhcp 'lan_bat0_5'
-        option interface 'lan_bat0_5'
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config dhcp 'guest'
+        option interface 'guest'
         option start 50
         option limit 100
         option leasetime '1h'
@@ -1962,118 +1939,114 @@ config interface 'default'
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi /etc/config/firewall
 </code></pre></div></div>
 
-<p>and once again, comment out the <code class="language-plaintext highlighter-rouge">lan_bat0</code> configs, as follows</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#config zone
-#        option name     lan_bat0
-#        list network    'lan_bat0'
-#        option input    ACCEPT
-#        option output   ACCEPT
-#        option forward  ACCEPT
-</code></pre></div></div>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#config forwarding
-#        option src   lan_bat0
-#        option dest  wan
-</code></pre></div></div>
-
-<p>and below each one of them, add one for the <code class="language-plaintext highlighter-rouge">default</code> interface</p>
+<p>and below each stanza for the <code class="language-plaintext highlighter-rouge">default</code> network, add one for the <code class="language-plaintext highlighter-rouge">iot</code> network:</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config zone
-        option name     lan_bat0_1
-        list network    'lan_bat0_1'
-        option input    ACCEPT
+        option name     iot
+        list network    'iot'
+        option input    ACCEPT  ##recommended REJECT
         option output   ACCEPT
-        option forward  ACCEPT
+        option forward  ACCEPT  ##recommended REJECT
 </code></pre></div></div>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config forwarding
-        option src   lan_bat0_1
+        option src   iot
+        option dest  wan  ##allows access to cloud services
+</code></pre></div></div>
+
+<p>and another for the <code class="language-plaintext highlighter-rouge">guest</code> network:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config zone
+        option name     guest
+        list network    'guest'
+        option input    ACCEPT  ##recommended REJECT
+        option output   ACCEPT
+        option forward  ACCEPT  ##recommended REJECT
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config forwarding
+        option src   guest
         option dest  wan
 </code></pre></div></div>
 
-<p>then another one for the <code class="language-plaintext highlighter-rouge">iot</code> interface</p>
+<p class="notice--warning">Of note, it is good practice to be more restrictive with the firewall rules the <code class="language-plaintext highlighter-rouge">guest</code> and <code class="language-plaintext highlighter-rouge">iot</code> networks.  I added comments with recommendations in the configurations above but additional rules might be necessary to enable basic functionality within each of those networks.  For a reference, check the OpenWrt’s guide on <a href="https://openwrt.org/docs/guide-user/network/wifi/guestwifi/guest-wlan#firewall">Guest Wi-Fi basics</a>.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config zone
-        option name     lan_bat0_2
-        list network    'lan_bat0_2'
-        option input    ACCEPT
-        option output   ACCEPT
-        option forward  ACCEPT
-</code></pre></div></div>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config forwarding
-        option src   lan_bat0_2
-        option dest  wan
-</code></pre></div></div>
+<p>Now <strong>save the file</strong> and exit.  Then, <strong>reboot</strong> the device.  This will implement the changes and offer an opportunity to check if everything will work as intended after a power loss.</p>
 
-<p>and another one for the <code class="language-plaintext highlighter-rouge">guest</code> interface</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config zone
-        option name     lan_bat0_5
-        list network    'lan_bat0_5'
-        option input    ACCEPT
-        option output   ACCEPT
-        option forward  ACCEPT
-</code></pre></div></div>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config forwarding
-        option src   lan_bat0_5
-        option dest  wan
-</code></pre></div></div>
-
-<p><strong>Save the file</strong> and exit.</p>
-
-<p><strong>Reboot</strong> the device.</p>
-
-<p>Once the gateway device is back online–by the way, it should still be at <code class="language-plaintext highlighter-rouge">192.168.1.1</code> because the gateway’s default <code class="language-plaintext highlighter-rouge">lan</code> is intact, so even if we fuck something up, we should be able to find the gateway via a direct cable connection–<code class="language-plaintext highlighter-rouge">ssh</code> into it once again and type</p>
+<p>Once the gateway device is back online, <code class="language-plaintext highlighter-rouge">ssh</code> into it once again and list its IP addresses:</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ip a
 </code></pre></div></div>
 
-<p>which now should show the new interfaces we created (e.g, <code class="language-plaintext highlighter-rouge">bat0.1@bat0</code>) and the static IP addr of your device in each one of them (<code class="language-plaintext highlighter-rouge">192.168.10.1</code>).  (As mentioned before, if the <code class="language-plaintext highlighter-rouge">option type 'bridge'</code> was enabled in the <code class="language-plaintext highlighter-rouge">/etc/config/network</code> config stanza, then there will be an additional interface with the <code class="language-plaintext highlighter-rouge">br-</code> prefix attached to it and the static IP addr of your device will be associated with it.)</p>
+<p>This should show the various new interfaces we created and the static IP address of your device in each one of them.  If everything looks good, we’re done with the gateway configuration!  We’re now ready to tell our bridges which VLAN ID to join with their standard interfaces.</p>
 
-<p>If everything looks good, we’re done with the gateway configuration!  We’re now ready to tell our bridges which VLAN ID to join with their standard interfaces.</p>
-
-<p class="notice--danger">You don’t need to use <strong>interface names</strong> such as <code class="language-plaintext highlighter-rouge">lan_bat0_1</code>; they can be whatever you find intuitive.  However, whatever you choose, <strong>keep them short</strong>–that is, less than 14 characters long–or you’ll start experiencing config issues.</p>
+<p class="notice--danger">You don’t need to use <strong>names</strong> such as <code class="language-plaintext highlighter-rouge">default</code>, <code class="language-plaintext highlighter-rouge">iot</code>, or <code class="language-plaintext highlighter-rouge">guest</code>. They can be whatever you find intuitive.  However, whatever you choose, <strong>keep them short</strong>.  Specifically, they should use less than 15 characters, owing to kernel limitations and various operations that append prefixes/suffixes to such names.</p>
 
 <h3 id="mesh-bridge-with-vlan-configuration">Mesh bridge with VLAN configuration</h3>
-<p>Here, we’ll also configure the bridges <strong>the same way</strong> as in the gateway-bridge example. However, each bridge device will bridge <strong>a different VLAN ID</strong>–namely, either <code class="language-plaintext highlighter-rouge">bat0.1</code> or <code class="language-plaintext highlighter-rouge">bat0.2</code> or <code class="language-plaintext highlighter-rouge">bat0.5</code>–with its default <code class="language-plaintext highlighter-rouge">lan</code>, instead of bridging <code class="language-plaintext highlighter-rouge">bat0</code> with its default <code class="language-plaintext highlighter-rouge">lan</code>.</p>
+<p>Here, we’ll also configure the bridges <strong>the same way</strong> as in the gateway-bridge example. However, each bridge device will bridge <strong>a different VLAN ID</strong>–namely, either <code class="language-plaintext highlighter-rouge">bat0.1</code> or <code class="language-plaintext highlighter-rouge">bat0.2</code> or <code class="language-plaintext highlighter-rouge">bat0.5</code>.</p>
 
-<p>Let’s start with the Network B (<strong>IoT</strong>) bridge.</p>
-
-<p>Configure one of the mesh nodes <a href="#mesh-bridge-configuration">as in the gateway-bridge example</a>, except that in the default <code class="language-plaintext highlighter-rouge">lan</code> interface stanza of the <code class="language-plaintext highlighter-rouge">/etc/config/network</code> file, let’s do the following:</p>
+<p>The configuration of the Network D (<strong>Default</strong>) bridge is by far the easiest one because it follows the exact same procedure <a href="#mesh-bridge-configuration">as in the <strong>gateway-bridge example</strong></a>, with the following exception in the <code class="language-plaintext highlighter-rouge">/etc/config/network</code> file:</p>
 
 <ul>
-  <li>In <code class="language-plaintext highlighter-rouge">option ifname</code>, change <code class="language-plaintext highlighter-rouge">bat0</code> for <code class="language-plaintext highlighter-rouge">bat0.2</code>;</li>
-  <li>In <code class="language-plaintext highlighter-rouge">option ipaddr</code>, change <code class="language-plaintext highlighter-rouge">192.168.10.</code> for <code class="language-plaintext highlighter-rouge">192.168.20.</code>;</li>
-  <li>In both <code class="language-plaintext highlighter-rouge">option gateway</code> and <code class="language-plaintext highlighter-rouge">option dns</code>, change <code class="language-plaintext highlighter-rouge">192.168.10.1</code> for <code class="language-plaintext highlighter-rouge">192.168.20.1</code>;</li>
-  <li>Then, the default <code class="language-plaintext highlighter-rouge">lan</code> stanza should look something like this
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config interface lan
-      option type 'bridge'
-      option ifname 'eth0.1 eth1 bat0.2'	#ethX might be different for your device
-      option proto 'static'
-      option ipaddr '192.168.20.10'
-      option netmask '255.255.255.0'
-      option gateway '192.168.20.1'
-      option dns '192.168.20.1'
+  <li>
+    <p>Instead of <code class="language-plaintext highlighter-rouge">bat0</code> in the <code class="language-plaintext highlighter-rouge">br-default</code> stanza, use <code class="language-plaintext highlighter-rouge">bat0.1</code>:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> config device
+         option name 'br-default'
+         option type 'bridge'
+         list ports 'eth0.1'
+         list ports 'bat0.1'
 </code></pre></div>    </div>
   </li>
 </ul>
 
+<p>After making such a change, <strong>save the file</strong> and <strong>reboot</strong> your device.</p>
+
+<p>Now, let’s configure the Network B (<strong>IoT</strong>) bridge. First, configure one of the mesh nodes <a href="#mesh-bridge-configuration">as in the gateway-bridge example</a>.  Then, in the <code class="language-plaintext highlighter-rouge">/etc/config/network</code> file, do the following:</p>
+
+<ul>
+  <li>Replace all instances of <code class="language-plaintext highlighter-rouge">default</code> for <code class="language-plaintext highlighter-rouge">iot</code>;</li>
+  <li>In the now <code class="language-plaintext highlighter-rouge">br-iot</code> bridge stanza, replace <code class="language-plaintext highlighter-rouge">bat0</code> for <code class="language-plaintext highlighter-rouge">bat0.2</code>;</li>
+  <li>In the now <code class="language-plaintext highlighter-rouge">config interface 'iot'</code> stanza:
+    <ul>
+      <li>Replace <code class="language-plaintext highlighter-rouge">option ipaddr '192.168.10.10'</code> for <code class="language-plaintext highlighter-rouge">option ipaddr '192.168.20.10'</code>;</li>
+      <li>Replace <code class="language-plaintext highlighter-rouge">option gateway '192.168.10.1'</code> for <code class="language-plaintext highlighter-rouge">option gateway '192.168.20.1'</code>;</li>
+      <li>Replace <code class="language-plaintext highlighter-rouge">option dns '192.168.10.1'</code> for <code class="language-plaintext highlighter-rouge">option dns '192.168.20.1'</code>;</li>
+    </ul>
+  </li>
+</ul>
+
+<p>After all is done, the updated configuration should look something like this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config device
+        option name 'br-iot'
+        option type 'bridge'
+        list ports 'eth0.1'
+        list ports 'bat0.2'
+
+config interface 'iot'
+        option device 'br-iot'
+        option proto 'static'
+        option ipaddr '192.168.20.10'
+        option netmask '255.255.255.0'
+        option gateway '192.168.20.1'
+        option dns '192.168.20.1'
+</code></pre></div></div>
+
 <p><strong>Save the file</strong> and exit it.</p>
+
+<p>If you created a 2.4GHz WAP that made use of your <code class="language-plaintext highlighter-rouge">default</code> network (e.g., <code class="language-plaintext highlighter-rouge">whome</code>), you can now <strong>edit it</strong> (<code class="language-plaintext highlighter-rouge">vi /etc/config/wireless</code>) to make use of your <code class="language-plaintext highlighter-rouge">iot</code> network instead (<code class="language-plaintext highlighter-rouge">wiot</code>).  Otherwise, ignore this message.</p>
 
 <p><strong>Reboot</strong> your device.</p>
 
-<p>Once it comes back on, your laptop/PC will receive an IP addr from our mesh gateway in the <code class="language-plaintext highlighter-rouge">192.168.20.0/24</code> network, the bridge node should be reachable at <code class="language-plaintext highlighter-rouge">192.168.20.10</code>, and you should be able to access the Internet via the <strong>IoT</strong> network (try <code class="language-plaintext highlighter-rouge">ping google.com</code>, for example).</p>
+<p>Once it comes back on, your laptop/PC will receive an IP address from our mesh gateway in the <code class="language-plaintext highlighter-rouge">192.168.20.0/24</code> network, the bridge node should be reachable at <code class="language-plaintext highlighter-rouge">192.168.20.10</code>, and you should be able to access the Internet via the <strong>IoT</strong> network (try <code class="language-plaintext highlighter-rouge">ping google.com</code>, for example).</p>
 
-<p><strong>If something doesn’t work</strong>, review the config files from your gateway and then from the bridge, then reboot the gateway and the bridge, and test again.</p>
+<p><strong>If something does not work</strong>, review the config files from your gateway and then from the bridge, then reboot the gateway and the bridge, and test again.</p>
 
-<p>If this config is working, <strong>repeat the same steps</strong> in the config of the other two bridges, with the following exceptions</p>
+<p>If this configuration is working, <strong>repeat the same steps</strong> as before for the Network C bridge (<strong>Guest</strong>), with the following exceptions:</p>
 
 <ul>
-  <li>
-    <p>In the Network C bridge (<strong>Guest</strong>), use <code class="language-plaintext highlighter-rouge">bat0.5</code> instead of <code class="language-plaintext highlighter-rouge">bat0.2</code>, and similarly, use the <code class="language-plaintext highlighter-rouge">192.168.50.</code> IP addr instead of <code class="language-plaintext highlighter-rouge">192.168.20.</code>;</p>
-  </li>
-  <li>
-    <p>In the Network D bridge (<strong>Default</strong>), use <code class="language-plaintext highlighter-rouge">bat0.1</code> instead of <code class="language-plaintext highlighter-rouge">bat0.2</code>, and similarly, use the <code class="language-plaintext highlighter-rouge">192.168.10.</code> IP addr instead of <code class="language-plaintext highlighter-rouge">192.168.20.</code>;</p>
-  </li>
+  <li>Instead of <code class="language-plaintext highlighter-rouge">iot</code>, use <code class="language-plaintext highlighter-rouge">guest</code>;</li>
+  <li>Instead of <code class="language-plaintext highlighter-rouge">bat0.2</code>, use <code class="language-plaintext highlighter-rouge">bat0.2</code>;</li>
+  <li>Instead of <code class="language-plaintext highlighter-rouge">192.168.20.0/24</code> IP addresses, user <code class="language-plaintext highlighter-rouge">192.168.20.0/24</code> addresses when assigning static IP and pointing to the gateway.</li>
 </ul>
 
 <p><em>Optional</em>. When configuring a <strong>Guest</strong> WAP, for example, you can add <code class="language-plaintext highlighter-rouge">option isolate 1</code> to the relevant stanza in the <code class="language-plaintext highlighter-rouge">/etc/config/wireless</code> config file to deny client-to-client connectivity without the need of re-enabling the firewall in the bridge device.  If that’s not enough, re-enable the firewall and configure it according to your needs–at the bottom of the <code class="language-plaintext highlighter-rouge">/etc/config/firewall</code> file, there are examples you can use as template.</p>

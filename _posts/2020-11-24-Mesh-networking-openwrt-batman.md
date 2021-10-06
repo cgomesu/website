@@ -39,10 +39,10 @@ Even though the concept of mesh networking has been around for quite some time n
 
 My intention with this tutorial is to help closing the gap between concept and implementation of mesh networking using up-to-date software that anyone can download and install on cheap, commonly available hardware--primarily consumer wireless routers (from old to new, single- or multi-band) but the principles should be extendable to any cellphones, laptops, PCs or servers running **Linux**.  The content is partially based on my own experience and builds upon the work of other, much more talented individuals who shared their knowledge on the Web.  More specifically, the content is notably influenced by the following:
 
-* Brian Innes workshop about using Raspberry Pis to create a mesh network for sharing sensor data wirelessly ([Github repo](https://github.com/binnes/WiFiMeshRaspberryPi))
-* Andreas Spiess [LoRa mesh project](https://www.youtube.com/watch?v=TY6m6fS8bxU)
-* Maintaners of the [OpenWRT documentation](https://openwrt.org/docs/start) and the [B.A.T.M.A.N. wiki](https://www.open-mesh.org/projects/batman-adv/wiki)
-* Multiple users from the OpenWrt forum who shared their opinions over the years. To name a few,  the users [jeff](https://forum.openwrt.org/u/jeff), [mcarni](https://forum.openwrt.org/u/mcarni), [oavaldezi](https://forum.openwrt.org/u/oavaldezi), [slh](https://forum.openwrt.org/u/slh), and many others. Thanks for keeping the posts public.
+- Brian Innes workshop about using Raspberry Pis to create a mesh network for sharing sensor data wirelessly ([Github repo](https://github.com/binnes/WiFiMeshRaspberryPi))
+- Andreas Spiess [LoRa mesh project](https://www.youtube.com/watch?v=TY6m6fS8bxU)
+- Maintaners of the [OpenWRT documentation](https://openwrt.org/docs/start) and the [B.A.T.M.A.N. wiki](https://www.open-mesh.org/projects/batman-adv/wiki)
+- Multiple users from the OpenWrt forum who shared their opinions over the years. To name a few,  the users [jeff](https://forum.openwrt.org/u/jeff), [mcarni](https://forum.openwrt.org/u/mcarni), [oavaldezi](https://forum.openwrt.org/u/oavaldezi), [slh](https://forum.openwrt.org/u/slh), and many others. Thanks for keeping the posts public.
 
 [top](#){: .btn .btn--light-outline .btn--small}
 
@@ -70,24 +70,24 @@ From this point forward, the article is divided into four main parts:
 # Concepts and documentation
 
 ## Main network definitions
-* Mesh [node](https://en.wikipedia.org/wiki/Node_(networking)): Any network device that is connected to the mesh network and that helps routing data to (and from) mesh clients.  Here, however, if a mesh node acts as a bridge or gateway, it will always be referred by the latter role, even though by definition, mesh bridges and mesh gateways are also mesh nodes.  
+- Mesh [node](https://en.wikipedia.org/wiki/Node_(networking)): Any network device that is connected to the mesh network and that helps routing data to (and from) mesh clients.  Here, however, if a mesh node acts as a bridge or gateway, it will always be referred by the latter role, even though by definition, mesh bridges and mesh gateways are also mesh nodes.  
   In addition, even though it's possible to route mesh traffic via cable, in this tutorial, *all mesh nodes are also wireless devices*, meaning that they have access to a radio with [**mesh point** (802.11s)](https://en.wikipedia.org/wiki/IEEE_802.11s) capabilities.
-  * [Learn about the OpenWrt wireless config **/etc/config/wireless**](https://openwrt.org/docs/guide-user/network/wifi/basic)
+  - [Learn about the OpenWrt wireless config **/etc/config/wireless**](https://openwrt.org/docs/guide-user/network/wifi/basic)
 
-* [Bridge](https://en.wikipedia.org/wiki/Bridging_(networking)): A network device that joins any two or more network interfaces (e.g., LAN Ethernet and wireless) into a single network.  Here, when a device is referred to as a bridge, it means that in addition to being a mesh node, the only other thing it does is bridge interfaces.  But of course, a gateway *device*, such as a router with a built-in modem, or a firewall appliance, may also work as a bridge for multiple interfaces. The distinction in the examples is just used to highlight its main role in the network.  Therefore, a mesh bridge in this tutorial is a mesh node that simply bridges the mesh network with a WiFi access point  for non-mesh clients, for example, or its LAN ports.
+- [Bridge](https://en.wikipedia.org/wiki/Bridging_(networking)): A network device that joins any two or more network interfaces (e.g., LAN Ethernet and wireless) into a single network.  Here, when a device is referred to as a bridge, it means that in addition to being a mesh node, the only other thing it does is bridge interfaces.  But of course, a gateway *device*, such as a router with a built-in modem, or a firewall appliance, may also work as a bridge for multiple interfaces. The distinction in the examples is just used to highlight its main role in the network.  Therefore, a mesh bridge in this tutorial is a mesh node that simply bridges the mesh network with a WiFi access point  for non-mesh clients, for example, or its LAN ports.
 
-* [Gateway](https://en.wikipedia.org/wiki/Gateway_(telecommunications)): A network device that translates traffic from one network (LAN) to another (WAN) and here, acts as both a **firewall** and **DHCP server**.  (If there's more than one DHCP server in the same network, they assign IPs to different ranges, such as `.1-100`, `.101-200`, and so on.)
-  * [Learn about the OpenWrt network config **/etc/config/network**](https://openwrt.org/docs/guide-user/base-system/basic-networking)
+- [Gateway](https://en.wikipedia.org/wiki/Gateway_(telecommunications)): A network device that translates traffic from one network (LAN) to another (WAN) and here, acts as both a **firewall** and **DHCP server**.  (If there's more than one DHCP server in the same network, they assign IPs to different ranges, such as `.1-100`, `.101-200`, and so on.)
+  - [Learn about the OpenWrt network config **/etc/config/network**](https://openwrt.org/docs/guide-user/base-system/basic-networking)
 
-* [DNS](https://en.wikipedia.org/wiki/Domain_Name_System): In brief, a system for translating domain names (e.g., `cgomesu.com`) into IP addresses (`185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`). DNS filtering systems, such as [PiHole](https://pi-hole.net/), work by catching such requests--usually sent through port `53`--and checking if the domain is blacklisted or not.  In this tutorial, we will always use an external DNS server, such as `1.1.1.1` (Cloudflare) or `8.8.8.8` (Google), but if you have your own DNS resolver, feel free to use it instead when configuring your mesh network but then make sure the mesh network/VLAN has access to its address.
+- [DNS](https://en.wikipedia.org/wiki/Domain_Name_System): In brief, a system for translating domain names (e.g., `cgomesu.com`) into IP addresses (`185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`). DNS filtering systems, such as [PiHole](https://pi-hole.net/), work by catching such requests--usually sent through port `53`--and checking if the domain is blacklisted or not.  In this tutorial, we will always use an external DNS server, such as `1.1.1.1` (Cloudflare) or `8.8.8.8` (Google), but if you have your own DNS resolver, feel free to use it instead when configuring your mesh network but then make sure the mesh network/VLAN has access to its address.
 
-* [DHCP](https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol): An IP management system that dynamically assigns layer-3 addresses for devices connected to a network. For instance, it might dynamically assign IPs between `192.168.1.0` and `192.168.1.255` (i.e., `192.168.1.0/24`) to any devices connected to LAN. Of note, because this is a network layer protocol, it uses IP addresses, whereas `batman-adv` uses MAC addresses because it works at the data link layer (and therefore, `batman-adv` actually doesn't need DHCP and IPs to discover and manage mesh clients but we're going to use them to make it more intuitive and easier to integrate mesh with non-mesh clients).
-  *  [Learn about the OpenWrt DNS and DHCP config **/etc/config/dhcp**](https://openwrt.org/docs/guide-user/base-system/dhcp)
+- [DHCP](https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol): An IP management system that dynamically assigns layer-3 addresses for devices connected to a network. For instance, it might dynamically assign IPs between `192.168.1.0` and `192.168.1.255` (i.e., `192.168.1.0/24`) to any devices connected to LAN. Of note, because this is a network layer protocol, it uses IP addresses, whereas `batman-adv` uses MAC addresses because it works at the data link layer (and therefore, `batman-adv` actually doesn't need DHCP and IPs to discover and manage mesh clients but we're going to use them to make it more intuitive and easier to integrate mesh with non-mesh clients).
+  -  [Learn about the OpenWrt DNS and DHCP config **/etc/config/dhcp**](https://openwrt.org/docs/guide-user/base-system/dhcp)
 
-* [Firewall](https://en.wikipedia.org/wiki/Firewall_(computing)): A network system that monitors and controls network traffic, such as specifying rules for incoming WAN traffic (e.g., `deny all`), outgoing LAN traffic (`accept all`), geoblocking and IP filtering systems, intrusion prevention/detection systems ([Suricata](https://suricata-ids.org/)), and so on.  [OpenSense](https://opnsense.org/) and [pfSense](https://www.pfsense.org/) are examples of dedicated firewall software. If a mesh node is acting as a mesh gateway, it's imperative to configure the firewall or your mesh network will likely end up without access to external networks (e.g., WAN) and their services (e.g., DNS servers).
-  * [Learn about the OpenWrt firewall config **/etc/config/firewall**](https://openwrt.org/docs/guide-user/firewall/firewall_configuration)
+- [Firewall](https://en.wikipedia.org/wiki/Firewall_(computing)): A network system that monitors and controls network traffic, such as specifying rules for incoming WAN traffic (e.g., `deny all`), outgoing LAN traffic (`accept all`), geoblocking and IP filtering systems, intrusion prevention/detection systems ([Suricata](https://suricata-ids.org/)), and so on.  [OpenSense](https://opnsense.org/) and [pfSense](https://www.pfsense.org/) are examples of dedicated firewall software. If a mesh node is acting as a mesh gateway, it's imperative to configure the firewall or your mesh network will likely end up without access to external networks (e.g., WAN) and their services (e.g., DNS servers).
+  - [Learn about the OpenWrt firewall config **/etc/config/firewall**](https://openwrt.org/docs/guide-user/firewall/firewall_configuration)
 
-* [VLAN](https://en.wikipedia.org/wiki/Virtual_LAN): A *virtual* LAN that is partitioned and isolated in a network at the layer-2 level.  They are often followed by an integer to differentiate each other (e.g., VLAN 1, VLAN 50) and used to better manage network clients that belong to different groups (e.g., administrators, IoT devices, security cameras, guests).
+- [VLAN](https://en.wikipedia.org/wiki/Virtual_LAN): A *virtual* LAN that is partitioned and isolated in a network at the layer-2 level.  They are often followed by an integer to differentiate each other (e.g., VLAN 1, VLAN 50) and used to better manage network clients that belong to different groups (e.g., administrators, IoT devices, security cameras, guests).
 
 ## Network topologies
 
@@ -102,8 +102,8 @@ From this point forward, the article is divided into four main parts:
 {:. text-center}
 
 ### Where can I learn more about mesh networking?
-* Wikipedia articles about [mesh networking](https://en.wikipedia.org/wiki/Mesh_networking) and [wireless mesh networks](https://en.wikipedia.org/wiki/Wireless_mesh_network)
-* [Peer-reviewed papers or books](https://scholar.google.com/scholar?q=mesh+networking)
+- Wikipedia articles about [mesh networking](https://en.wikipedia.org/wiki/Mesh_networking) and [wireless mesh networks](https://en.wikipedia.org/wiki/Wireless_mesh_network)
+- [Peer-reviewed papers or books](https://scholar.google.com/scholar?q=mesh+networking)
 
 ### Routing protocols
 There are [dozens of algorithms](https://en.wikipedia.org/wiki/Wireless_mesh_network#Protocols) for routing packets in a mesh network.  A few notable ones are the Optimized Link State Routing (OLSR) and the Hybrid Wireless Mesh Protocol (HWMP). 
@@ -118,23 +118,23 @@ Config-wise, there's very little to do because the default settings should work 
 #### batctl
 Another very cool feature of B.A.T.M.A.N. is the ability to test, debug, monitor, and set settings with the package [`batctl`](https://downloads.open-mesh.org/batman/manpages/batctl.8.html).  A few noteworthy options:
 
-* Ping mesh node/client with its MAC address `f0:f0:00:00:00:00`
+- Ping mesh node/client with its MAC address `f0:f0:00:00:00:00`
 ```
 batctl p f0:f0:00:00:00:00
 ```
-* [`tcpdump`](https://linux.die.net/man/8/tcpdump) for all mesh traffic in the `bat0` interface
+- [`tcpdump`](https://linux.die.net/man/8/tcpdump) for all mesh traffic in the `bat0` interface
 ```
 batctl td bat0
 ```
-* Prints useful stats for all mesh traffic, such as sent and received bytes
+- Prints useful stats for all mesh traffic, such as sent and received bytes
 ```
 batctl s
 ```
-* Shows the neighboring mesh nodes
+- Shows the neighboring mesh nodes
 ```
 batctl n
 ```
-* Displays the gateway servers (`option gw_mode 'server'`) in the mesh network
+- Displays the gateway servers (`option gw_mode 'server'`) in the mesh network
 ```
 batctl gwl
 ```
@@ -146,12 +146,12 @@ It goes without saying that if you want to dive deep into `batman-adv`, you shou
 # Hardware
 Unless otherwise specified, all mesh nodes used in the various implementations had the following hardware:
 
-* **Device**: [TP-Link TL-WDR4300](https://www.tp-link.com/us/home-networking/wifi-router/tl-wr1043nd/) v1.0 - v1.7
-  * **SoC**: Atheros AR9344
-  * **WLAN Hardware**: Dual-band (Atheros AR9344, Atheros AR9580)
-  * **CPU**: `560 Mhz`
-  * **Flash memory**: `8 MB`
-  * **RAM**: `128 MB`
+- **Device**: [TP-Link TL-WDR4300](https://www.tp-link.com/us/home-networking/wifi-router/tl-wr1043nd/) v1.0 - v1.7
+  - **SoC**: Atheros AR9344
+  - **WLAN Hardware**: Dual-band (Atheros AR9344, Atheros AR9580)
+  - **CPU**: `560 Mhz`
+  - **Flash memory**: `8 MB`
+  - **RAM**: `128 MB`
 
 [![TL-WDR4300 front](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/tplink-tl-wdr4300-front.jpg){:.PostImage}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/tplink-tl-wdr4300-front.jpg)
 
@@ -198,7 +198,7 @@ If your device uses the `ath9k` module, there's a chance that you'll need to ena
    If `nohwcrypt` is enabled, the output will be `1`; otherwise, it will be `0`.
 4. Check your mesh configuration once again and add encryption to your wireless mesh stanza.
 
-* Known affected devices:
+- Known affected devices:
 
   | brand | model | version | OpenWrt release |
   |:---:|:---:|:---:|:---:|
@@ -216,7 +216,7 @@ I've noticed that radio devices that use the `ath10k` module and more specifical
    ```
 3. Reboot your device and then check the status of your mesh network.
 
-* Known affected devices:
+- Known affected devices:
 
   | brand | model | version | OpenWrt release |
   |:---:|:---:|:---:|:---:|
@@ -242,14 +242,14 @@ Unless otherwise specified, all mesh nodes were running the following software:
 
 [![OpenWrt default SSH welcome](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/openwrt-ssh-welcome.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/openwrt-ssh-welcome.jpg) 
 
-* **Operating System**:
-	* **Firmware**: OpenWrt `21.02.0`, `r16279-5cc0535800`
-	* **Linux kernel**: `5.4.143`
+- **Operating System**:
+	- **Firmware**: OpenWrt `21.02.0`, `r16279-5cc0535800`
+	- **Linux kernel**: `5.4.143`
 
-* **Packages mentioned in the tutorial**:
-	* [`batctl-full`](https://openwrt.org/packages/pkgdata/batctl-default): 2021.1-1
-	* [`kmod-batman-adv`](https://openwrt.org/packages/pkgdata/kmod-batman-adv): 5.4.143+2021.1-4
-	* [`wpad-mesh-wolfssl`](https://openwrt.org/packages/pkgdata/wpad-mesh-wolfssl): 2020-06-08-5a8b3662-35
+- **Packages mentioned in the tutorial**:
+	- [`batctl-full`](https://openwrt.org/packages/pkgdata/batctl-default): 2021.1-1
+	- [`kmod-batman-adv`](https://openwrt.org/packages/pkgdata/kmod-batman-adv): 5.4.143+2021.1-4
+	- [`wpad-mesh-wolfssl`](https://openwrt.org/packages/pkgdata/wpad-mesh-wolfssl): 2020-06-08-5a8b3662-35
 
 To find out the version of all installed packages, type 
 
@@ -332,15 +332,15 @@ Now, if you still don't like to use `vi`, you can always transfer files from you
 # Implementation
 In this section, we will see how to configure **four mesh nodes** in **three different network topologies**. More specifically: 
 
-* **Gateway-Bridge**: A mesh network in which one node plays the role of a mesh gateway and another, of a bridge, while the remaining are just mesh nodes.  This is a very typical scenario for a home or small office, for example.
+- **Gateway-Bridge**: A mesh network in which one node plays the role of a mesh gateway and another, of a bridge, while the remaining are just mesh nodes.  This is a very typical scenario for a home or small office, for example.
 
 [![Topology - Gateway-Bridge](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-gateway-bridge.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-gateway-bridge.jpg)
 
-* **Bridge-Bridge**: Two nodes play the role of a bridge, therefore making the mesh network transparent to the external (non-mesh) networks.
+- **Bridge-Bridge**: Two nodes play the role of a bridge, therefore making the mesh network transparent to the external (non-mesh) networks.
 
 [![Topology - Bridge-Bridge](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-bridge-bridge.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-bridge-bridge.jpg)
 
-* **Gateway-Gateway**: Two nodes play the role of a gateway to provide high-availability to mesh clients/nodes.
+- **Gateway-Gateway**: Two nodes play the role of a gateway to provide high-availability to mesh clients/nodes.
 
 [![Topology - Gateway-Gateway](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-gateway-gateway.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-gateway-gateway.jpg)
 
@@ -508,18 +508,18 @@ From this point forward, we will start editing files using `vi`.  If you've not 
 ### Default config for the hardware
 Regardless of the hardware, **before doing anything related to the mesh network**, always take your time and **study the default configuration** found in `/etc/config/`.  For reference, I usually go over the following:
 
-* How many Ethernet ports?
-* Are they labeled either LAN or WAN or there's both?
-* In `/etc/config/network`, how is the router handling multiple Ethernet ports? If there's both LAN and WAN, how is the router separating LAN from WAN?
-* If there is both LAN and WAN, how is the firewall handling them in `/etc/config/firewall`? (Probably two zones, LAN and WAN, with LAN->WAN accept all but WAN->LAN deny all?)
-* In `/etc/config/dhcp`, how is the device handling IP addresses?  (Is there a DHCP server for LAN?)
+- How many Ethernet ports?
+- Are they labeled either LAN or WAN or there's both?
+- In `/etc/config/network`, how is the router handling multiple Ethernet ports? If there's both LAN and WAN, how is the router separating LAN from WAN?
+- If there is both LAN and WAN, how is the firewall handling them in `/etc/config/firewall`? (Probably two zones, LAN and WAN, with LAN->WAN accept all but WAN->LAN deny all?)
+- In `/etc/config/dhcp`, how is the device handling IP addresses?  (Is there a DHCP server for LAN?)
 
 And finally, look at the wireless settings (`/etc/config/wireless`):
 
-* How many radio devices and their names? (e.g., `radio0`)
-* Configuration-wise, what is the device using by default vs. what is it capable of? (`iw list`)
-* Is the radio enabled or disabled? (Keep/add `option disabled 1` to disable it before configuration; to re-enable, simply comment this line out or set the value to `0`.)
-* Are there pre-configured wireless access points being broadcast?  If yes, which `option network` is it using by default? (Likely `lan` or whatever the LAN interface is being called in `/etc/config/network`.)
+- How many radio devices and their names? (e.g., `radio0`)
+- Configuration-wise, what is the device using by default vs. what is it capable of? (`iw list`)
+- Is the radio enabled or disabled? (Keep/add `option disabled 1` to disable it before configuration; to re-enable, simply comment this line out or set the value to `0`.)
+- Are there pre-configured wireless access points being broadcast?  If yes, which `option network` is it using by default? (Likely `lan` or whatever the LAN interface is being called in `/etc/config/network`.)
 
 For example, many wireless routers have LAN and WAN ports which are handled by a `switch` configuration with VLANs enabled to separate LAN from WAN.  Take note of it;  understand what is going on in the config files;  play with them;  then, continue.  Also, take this opportunity to go over the **Device Page** to check if there's any warnings or special configuration notes.
 
@@ -985,8 +985,7 @@ More specifically, the mesh has access to the WAN (**Network A**) via a *gateway
 First, let's configure our **mesh gateway**.  
 
 #### Mesh gateway configuration
-
-Get one of the [pre-configured mesh nodes](#mesh-node-basic-config) that has at the very least two Ethernet ports, a LAN port and a WAN port.  (This, of course, is not required for a gateway device because [there are multiple ways to connect to WAN](https://openwrt.org/docs/guide-user/network/wan/internet.connection) but having separate physical ports makes the explanation much simpler to follow.  If that is not your case, just adapt to whatever interfaces you have configured that play the role of default `lan` and `wan`.)  
+Get one of the [pre-configured mesh nodes](#mesh-node-basic-config) that has at the very least two Ethernet ports, a LAN port and a WAN port.  (This, of course, is not required for a gateway device because [there are multiple ways to connect to WAN](https://openwrt.org/docs/guide-user/network/wan/internet.connection) but having separate physical ports makes the explanation much simpler to follow.  If that is not your case, just adapt the default configuration for your device accordingly.)  
 
 If you've configured this node as a [dumb access point](https://openwrt.org/docs/guide-user/network/wifi/dumbap) to temporarily give it access to the Internet while updating and installing packages, undo the configuration before proceeding because we will use both the `firewall` and `dhcp` config files in the gateway configuration.  
 {: .notice--warning }
@@ -1051,7 +1050,7 @@ config dhcp 'default'
 
 **Save the file** and exit it. 
 
-Finally, let's edit the [`/etc/config/firewall`](https://openwrt.org/docs/guide-user/firewall/firewall_configuration) config.  Many things that can be done at the firewall level and for this reason, it's often the most overwhelming part of the configuration.  Fortunately, in our case, all that we need to do here is simply **copy** the default `lan` config for the new `default`.  That is, anything that has `lan` we will 
+Finally, let's edit the [`/etc/config/firewall`](https://openwrt.org/docs/guide-user/firewall/firewall_configuration) config.  Many things that can be done at the firewall level and for this reason, it's often the most overwhelming part of the configuration.  Fortunately, in our case, all that we need to do here is simply **copy** the original `lan` config for the new `default`.  That is, anything that has `lan` we will 
 
 1. copy the related config;
 2. paste it immediately below the equivalent `lan` config;
@@ -1135,7 +1134,7 @@ After applying this configuration, it will let any ***non-mesh* clients** to joi
 
 **Save the file** and exit it.
 
-Similarly, you can create a **wireless access point** (WAP) for *non-mesh* clients, and the instructions in the [**dumb access point** documentation](https://openwrt.org/docs/guide-user/network/wifi/dumbap) will work just fine because it uses a network that is bridged with our mesh--namely, the default `lan`.  To avoid confusion, make sure to use **a different SSID** for the WAP(s) than the `mesh_id` used for the mesh.  In addition, use **a different radio** for the WAP(s) and set them to operate on **different channels**.  If that is not possible, that is probably okay for most home users but keep in mind that node hoping will start affecting performance quite noticeably. 
+Similarly, you can create a **wireless access point** (WAP) for *non-mesh* clients, and the instructions in the [**dumb access point** documentation](https://openwrt.org/docs/guide-user/network/wifi/dumbap) will work just fine because it uses a network that is bridged with our mesh--namely, the original `lan`.  To avoid confusion, make sure to use **a different SSID** for the WAP(s) than the `mesh_id` used for the mesh.  In addition, use **a different radio** for the WAP(s) and set them to operate on **different channels**.  If that is not possible, that is probably okay for most home users but keep in mind that node hoping will start affecting performance quite noticeably. 
 
 (*Optional*.) To illustrate, let's create a simple 2.4GHz WAP for your home devices that will make use of the `default` network.  This can be done by editing the `/etc/config/wireless` file as follows:
 
@@ -1208,7 +1207,7 @@ Specifically, there's only one private network (mesh, defined in the `192.168.10
 
 - Because we will now run **two** DHCP servers on **the same network**, we need to find a way of avoiding conflicts when assigning an IP address to new clients.  The easiest way of doing that is by assigning **different intervals** to each DHCP server running on the same network.  In OpenWrt, this is done by editing the `/etc/config/dhcp` config file, and in the `default` DHCP configuration, we add a different starting point next to the `option start` option.  For example, while the DHCP server running on the first gateway will have `option start '50'`, the DHCP server running on the second gateway will have `option start '150'` instead.  This way, the first DHCP server leases addresses from `192.168.10.50` to `.149`, whereas the second leases addresses from `192.168.10.150` to `.249`.
 
-- In the `bat0` interface config of the `/etc/config/network` config file, we can now enable the `option gw_mode 'server'` and specify the WAN connection speed with `option gw_bandwidth '10000/2000'` (i.e., 10000kbps download and 2000kbps upload), as follows:
+- In the `bat0` interface config of the `/etc/config/network` config file, we can now enable the `option gw_mode 'server'` and specify the WAN connection speed with `option gw_bandwidth '10000/2000'`, as follows:
    
    ```
    config interface 'bat0'
@@ -1269,15 +1268,15 @@ Consider, for example, the following network
 
 There's a single gateway device that provides WAN access to the mesh and Networks B, C, and D, which are all private networks defined in different IP ranges. In addition, all the Networks B, C, and D traffic should go via **any** mesh node in the mesh network while keeping them **isolated from each other**.  To make it easier to remember and distinguish each private network, let's call 
 
-* Network **B** by `iot` network (`192.168.20.0/24`);
-* Network **C** by `guest` network (`192.168.50.0/24`);
-* and Network **D** by `default` network (`192.168.10.0/24`).
+- Network **B** by `iot` network (`192.168.20.0/24`);
+- Network **C** by `guest` network (`192.168.50.0/24`);
+- and Network **D** by `default` network (`192.168.10.0/24`).
 
 To implement such a mesh network with VLANs, we're going to follow very similar steps to [the first example of a gateway-bridge mesh network](#gateway-bridge), except for the following: 
 
-* We will have two additional bridges in the network--that is, one for each mesh VLAN, for a total of three bridges. This is not a necessity but a matter of convenience to keep the example simple. The same bridge device can definitely bridge more than one mesh VLAN;
-* In the gateway device, we will create VLAN IDs for the `iot` (**2**), `guest` (**5**), and `default` (**1**) networks, each with a separate set of DHCP server and firewall rules;
-* In each bridge device, we will join the default `lan` with the **VLAN ID** of the mesh VLAN (`bat0.1`, `bat0.2`, `bat0.5`), instead of `bat0`.
+- We will have two additional bridges in the network--that is, one for each mesh VLAN, for a total of three bridges. This is not a necessity but a matter of convenience to keep the example simple. The same bridge device can definitely bridge more than one mesh VLAN;
+- In the gateway device, we will create VLAN IDs for the `iot` (**2**), `guest` (**5**), and `default` (**1**) networks, each with a separate set of DHCP server and firewall rules;
+- In each bridge device, we will join the original `lan` with the **VLAN ID** of the mesh VLAN (`bat0.1`, `bat0.2`, `bat0.5`), instead of `bat0`.
 
 Surprisingly enough, we don't need to do a thing about the **mesh nodes** that are not **gateways** or **bridges**--that is, the [mesh node basic config](#mesh-node-basic-config) is both necessary and sufficient for simple mesh nodes, even when using VLANs.  The only exception is if one of your mesh nodes is, for example, a laptop and you want it to use a particular mesh VLAN instead of the untagged `bat0`.  In our case, however, the pre-configured mesh nodes are ready to route traffic of any VLAN that belongs to `bat0`.
 
@@ -1286,110 +1285,86 @@ As before, let's start with the **gateway** configuration.
 ### Mesh gateway with VLAN configuration
 First, configure the gateway **the same way** [as in the gateway-bridge example](#mesh-gateway-configuration).
 
-Now, instead of `lan_bat0`, we're going to change it to `default` in the config files, then do the same for `iot` and `guest`.  So, if you're ready, `ssh` back into it and let's start by editing the `/etc/config/network` config file, as follows
+Second, instead of listing `bat0` in the `br-default` bridge, we will change it to `bat0.1` to indicate that this is the **VLAN ID #1** of our `bat0` interface.  So, let's start by editing the `/etc/config/network` configuration file, as follows:
 
 ```
 vi /etc/config/network
 ```
 
-and at the end, comment out the `lan_bat0` config, as follows
+Then edit the `br-default` stanza to look like this:
 
 ```
-#config interface 'lan_bat0'
-#        option type 'bridge'		#uncomment if adding other interfaces to ifname
-#        option ifname 'bat0'
-#        option proto 'static'
-#        option ipaddr '192.168.10.1'	#static addr for this gateway on the 192.168.10.0/24 net
-#        option netmask '255.255.255.0'
-#        list dns '1.1.1.1'			#cloudflare dns server
-#        list dns '8.8.8.8'			#google dns server
+config device
+        option name 'br-default'
+        option type 'bridge'
+        list ports 'bat0.1'
 ```
 
-then below it, let's add a new interface for `default`, as follows
+At this point, if you want to enable access to the `default` network via the Ethernet port of your gateway device, you can then add another `list ports 'eth0.1'` (or whatever you device uses) to the `br-default` bridge configuration.  Afterwards, remove any configuration related to the original `lan` network.
+{:.notice--info}
+
+**Save the file**.
+
+Now, we are going to apply the same procedure we used to create the `default` network (and its bridge, firewall rules, and dhcp service) to the remaining two networks, namely `iot` and `guest`.  
+
+At the end of the `/etc/config/network` file, add a new `config device` and `config interface` for the `iot` network, as follows:
 
 ```
-config interface 'lan_bat0_1'
-#        option type 'bridge'	#uncomment if adding other interfaces to ifname
-        option ifname 'bat0.1'
-        option proto 'static'
-        option ipaddr '192.168.10.1'
-        option netmask '255.255.255.0'
-        list dns '1.1.1.1'
-#        list dns '8.8.8.8'	#make it use cloudflare
-```
-
-then another one for `iot`
-
-```
-config interface 'lan_bat0_2'
-#        option type 'bridge'	#uncomment if adding other interfaces to ifname
-        option ifname 'bat0.2'
+config device                             
+        option name 'br-iot'
+        option type 'bridge'
+        list ports 'bat0.2'
+                                      
+config interface 'iot'
+        option device 'br-iot'
         option proto 'static'
         option ipaddr '192.168.20.1'
         option netmask '255.255.255.0'
-#        list dns '1.1.1.1'	#make it use google
+        list dns '1.1.1.1'
         list dns '8.8.8.8'
 ```
 
-and another one for `guest`
+Then add another set of stanzas immediately below for the `guest` network:
 
 ```
-config interface 'lan_bat0_5'
-#        option type 'bridge'	#uncomment if adding other interfaces to ifname
-        option ifname 'bat0.5'
+config device                             
+        option name 'br-guest'
+        option type 'bridge'
+        list ports 'bat0.5'
+                                      
+config interface 'guest'
+        option device 'br-guest'
         option proto 'static'
         option ipaddr '192.168.50.1'
         option netmask '255.255.255.0'
-#        list dns '1.1.1.1'	#make it use google
+        list dns '1.1.1.1'
         list dns '8.8.8.8'
 ```
 
 **Save the file** and exit it.
 
-Now, let's edit the `/etc/config/dhcp` config file, as follows
+Now, let's edit the `/etc/config/dhcp` config file, as follows:
 
 ```
 vi /etc/config/dhcp
 ```
 
-and once again, comment out all `lan_bat0` config, as follows
+and once again, add a DHCP server config for the `iot` network:
 
 ```
-#config dhcp 'lan_bat0'
-#        option interface 'lan_bat0'
-#        option start 50		#start leasing at addr 192.168.10.50
-#        option limit 100		#max leases, so for 100, leased addr goes from .50 to .149
-#        option leasetime '3h'
-#        option ra 'server'
-```
-
-then add a DHCP server config for the `default` interface below it
-
-```
-config dhcp 'lan_bat0_1'
-        option interface 'lan_bat0_1'
-        option start 50
-        option limit 100
-        option leasetime '12h'
-        option ra 'server'
-```
-
-and like before, we will add another one for the `iot` interface
-
-```
-config dhcp 'lan_bat0_2'
-        option interface 'lan_bat0_2'
+config dhcp 'iot'
+        option interface 'iot'
         option start 50
         option limit 100
         option leasetime '6h'
         option ra 'server'
 ```
 
-and another one for the `guest` interface
+and another one for the `guest` network:
 
 ```
-config dhcp 'lan_bat0_5'
-        option interface 'lan_bat0_5'
+config dhcp 'guest'
+        option interface 'guest'
         option start 50
         option limit 100
         option leasetime '1h'
@@ -1404,102 +1379,91 @@ Finally, let's edit the `/etc/config/firewall` config file, as follows
 vi /etc/config/firewall
 ```
 
-and once again, comment out the `lan_bat0` configs, as follows
-
-```
-#config zone
-#        option name     lan_bat0
-#        list network    'lan_bat0'
-#        option input    ACCEPT
-#        option output   ACCEPT
-#        option forward  ACCEPT
-```
-```
-#config forwarding
-#        option src   lan_bat0
-#        option dest  wan
-```
-
-and below each one of them, add one for the `default` interface
+and below each stanza for the `default` network, add one for the `iot` network:
 
 ```
 config zone
-        option name     lan_bat0_1
-        list network    'lan_bat0_1'
-        option input    ACCEPT
+        option name     iot
+        list network    'iot'
+        option input    ACCEPT  ##recommended REJECT
         option output   ACCEPT
-        option forward  ACCEPT
+        option forward  ACCEPT  ##recommended REJECT
 ```
 ```
 config forwarding
-        option src   lan_bat0_1
-        option dest  wan
+        option src   iot
+        option dest  wan  ##allows access to cloud services
 ```
 
-then another one for the `iot` interface
+and another for the `guest` network:
 
 ```
 config zone
-        option name     lan_bat0_2
-        list network    'lan_bat0_2'
-        option input    ACCEPT
+        option name     guest
+        list network    'guest'
+        option input    ACCEPT  ##recommended REJECT
         option output   ACCEPT
-        option forward  ACCEPT
+        option forward  ACCEPT  ##recommended REJECT
 ```
 ```
 config forwarding
-        option src   lan_bat0_2
+        option src   guest
         option dest  wan
 ```
 
-and another one for the `guest` interface
+Of note, it is good practice to be more restrictive with the firewall rules the `guest` and `iot` networks.  I added comments with recommendations in the configurations above but additional rules might be necessary to enable basic functionality within each of those networks.  For a reference, check the OpenWrt's guide on [Guest Wi-Fi basics](https://openwrt.org/docs/guide-user/network/wifi/guestwifi/guest-wlan#firewall).
+{:.notice--warning}
 
-```
-config zone
-        option name     lan_bat0_5
-        list network    'lan_bat0_5'
-        option input    ACCEPT
-        option output   ACCEPT
-        option forward  ACCEPT
-```
-```
-config forwarding
-        option src   lan_bat0_5
-        option dest  wan
-```
+Now **save the file** and exit.  Then, **reboot** the device.  This will implement the changes and offer an opportunity to check if everything will work as intended after a power loss.
 
-**Save the file** and exit.
-
-**Reboot** the device.
-
-Once the gateway device is back online--by the way, it should still be at `192.168.1.1` because the gateway's default `lan` is intact, so even if we fuck something up, we should be able to find the gateway via a direct cable connection--`ssh` into it once again and type
+Once the gateway device is back online, `ssh` into it once again and list its IP addresses:
 
 ```
 ip a
 ```
 
-which now should show the new interfaces we created (e.g, `bat0.1@bat0`) and the static IP addr of your device in each one of them (`192.168.10.1`).  (As mentioned before, if the `option type 'bridge'` was enabled in the `/etc/config/network` config stanza, then there will be an additional interface with the `br-` prefix attached to it and the static IP addr of your device will be associated with it.)
+This should show the various new interfaces we created and the static IP address of your device in each one of them.  If everything looks good, we're done with the gateway configuration!  We're now ready to tell our bridges which VLAN ID to join with their standard interfaces.
 
-If everything looks good, we're done with the gateway configuration!  We're now ready to tell our bridges which VLAN ID to join with their standard interfaces.
-
-You don't need to use **interface names** such as `lan_bat0_1`; they can be whatever you find intuitive.  However, whatever you choose, **keep them short**--that is, less than 14 characters long--or you'll start experiencing config issues.
+You don't need to use **names** such as `default`, `iot`, or `guest`. They can be whatever you find intuitive.  However, whatever you choose, **keep them short**.  Specifically, they should use less than 15 characters, owing to kernel limitations and various operations that append prefixes/suffixes to such names.
 {: .notice--danger }
 
 ### Mesh bridge with VLAN configuration
-Here, we'll also configure the bridges **the same way** as in the gateway-bridge example. However, each bridge device will bridge **a different VLAN ID**--namely, either `bat0.1` or `bat0.2` or `bat0.5`--with its default `lan`, instead of bridging `bat0` with its default `lan`.
+Here, we'll also configure the bridges **the same way** as in the gateway-bridge example. However, each bridge device will bridge **a different VLAN ID**--namely, either `bat0.1` or `bat0.2` or `bat0.5`.
 
-Let's start with the Network B (**IoT**) bridge. 
+The configuration of the Network D (**Default**) bridge is by far the easiest one because it follows the exact same procedure [as in the **gateway-bridge example**](#mesh-bridge-configuration), with the following exception in the `/etc/config/network` file:
 
-Configure one of the mesh nodes [as in the gateway-bridge example](#mesh-bridge-configuration), except that in the default `lan` interface stanza of the `/etc/config/network` file, let's do the following:
+- Instead of `bat0` in the `br-default` stanza, use `bat0.1`:
 
-* In `option ifname`, change `bat0` for `bat0.2`;
-* In `option ipaddr`, change `192.168.10.` for `192.168.20.`;
-* In both `option gateway` and `option dns`, change `192.168.10.1` for `192.168.20.1`;
-* Then, the default `lan` stanza should look something like this
-  ```
-config interface lan
+   ```
+   config device
+           option name 'br-default'
+           option type 'bridge'
+           list ports 'eth0.1'
+           list ports 'bat0.1'
+   ```
+
+After making such a change, **save the file** and **reboot** your device.
+
+Now, let's configure the Network B (**IoT**) bridge. First, configure one of the mesh nodes [as in the gateway-bridge example](#mesh-bridge-configuration).  Then, in the `/etc/config/network` file, do the following:
+
+- Replace all instances of `default` for `iot`;
+- In the now `br-iot` bridge stanza, replace `bat0` for `bat0.2`;
+- In the now `config interface 'iot'` stanza:
+  - Replace `option ipaddr '192.168.10.10'` for `option ipaddr '192.168.20.10'`;
+  - Replace `option gateway '192.168.10.1'` for `option gateway '192.168.20.1'`;
+  - Replace `option dns '192.168.10.1'` for `option dns '192.168.20.1'`;
+
+After all is done, the updated configuration should look something like this:
+
+```
+config device
+        option name 'br-iot'
         option type 'bridge'
-        option ifname 'eth0.1 eth1 bat0.2'	#ethX might be different for your device
+        list ports 'eth0.1'
+        list ports 'bat0.2'
+
+config interface 'iot'
+        option device 'br-iot'
         option proto 'static'
         option ipaddr '192.168.20.10'
         option netmask '255.255.255.0'
@@ -1509,17 +1473,19 @@ config interface lan
 
 **Save the file** and exit it.
 
+If you created a 2.4GHz WAP that made use of your `default` network (e.g., `whome`), you can now **edit it** (`vi /etc/config/wireless`) to make use of your `iot` network instead (`wiot`).  Otherwise, ignore this message.
+
 **Reboot** your device. 
 
-Once it comes back on, your laptop/PC will receive an IP addr from our mesh gateway in the `192.168.20.0/24` network, the bridge node should be reachable at `192.168.20.10`, and you should be able to access the Internet via the **IoT** network (try `ping google.com`, for example). 
+Once it comes back on, your laptop/PC will receive an IP address from our mesh gateway in the `192.168.20.0/24` network, the bridge node should be reachable at `192.168.20.10`, and you should be able to access the Internet via the **IoT** network (try `ping google.com`, for example). 
 
-**If something doesn’t work**, review the config files from your gateway and then from the bridge, then reboot the gateway and the bridge, and test again.
+**If something does not work**, review the config files from your gateway and then from the bridge, then reboot the gateway and the bridge, and test again.
 
-If this config is working, **repeat the same steps** in the config of the other two bridges, with the following exceptions
+If this configuration is working, **repeat the same steps** as before for the Network C bridge (**Guest**), with the following exceptions:
 
-* In the Network C bridge (**Guest**), use `bat0.5` instead of `bat0.2`, and similarly, use the `192.168.50.` IP addr instead of `192.168.20.`;
-
-* In the Network D bridge (**Default**), use `bat0.1` instead of `bat0.2`, and similarly, use the `192.168.10.` IP addr instead of `192.168.20.`;
+- Instead of `iot`, use `guest`;
+- Instead of `bat0.2`, use `bat0.2`;
+- Instead of `192.168.20.0/24` IP addresses, user `192.168.20.0/24` addresses when assigning static IP and pointing to the gateway.
 
 *Optional*. When configuring a **Guest** WAP, for example, you can add `option isolate 1` to the relevant stanza in the `/etc/config/wireless` config file to deny client-to-client connectivity without the need of re-enabling the firewall in the bridge device.  If that's not enough, re-enable the firewall and configure it according to your needs--at the bottom of the `/etc/config/firewall` file, there are examples you can use as template.
 
@@ -1622,8 +1588,8 @@ Good news, everyone! You've reached the end of this tutorial, which means it's t
 ## Other similar mesh solutions
 If you find this guide overwhelming but you're still curious about mesh networking, take a look at the following alternatives (in alphabetical order):
 
-* [Commotion Wireless](https://www.commotionwireless.net)
-* [LibreMesh](https://libremesh.org)
+- [Commotion Wireless](https://www.commotionwireless.net)
+- [LibreMesh](https://libremesh.org)
 
 They have pre-configured images that will work "out of the box" with compatible devices.  You might find instructive to start playing around with their software first and once comfortable, build your own configuration from a default (or customized from the source) OpenWrt image.
 

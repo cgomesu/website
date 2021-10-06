@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-10-06T11:13:14-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: ESP-01 Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: ESP-01 Tasmota environmental sensor" /><published>2021-08-12T13:00:00-03:00</published><updated>2021-08-12T13:00:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-10-06T12:40:28-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: ESP-01 Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: ESP-01 Tasmota environmental sensor" /><published>2021-08-12T13:00:00-03:00</published><updated>2021-08-12T13:00:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;August 12th, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
@@ -5672,8 +5672,7 @@ f0:f3:00:00:00:00 node04
 &lt;p&gt;First, let’s configure our &lt;strong&gt;mesh gateway&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;h4 id=&quot;mesh-gateway-configuration&quot;&gt;Mesh gateway configuration&lt;/h4&gt;
-
-&lt;p&gt;Get one of the &lt;a href=&quot;#mesh-node-basic-config&quot;&gt;pre-configured mesh nodes&lt;/a&gt; that has at the very least two Ethernet ports, a LAN port and a WAN port.  (This, of course, is not required for a gateway device because &lt;a href=&quot;https://openwrt.org/docs/guide-user/network/wan/internet.connection&quot;&gt;there are multiple ways to connect to WAN&lt;/a&gt; but having separate physical ports makes the explanation much simpler to follow.  If that is not your case, just adapt to whatever interfaces you have configured that play the role of default &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wan&lt;/code&gt;.)&lt;/p&gt;
+&lt;p&gt;Get one of the &lt;a href=&quot;#mesh-node-basic-config&quot;&gt;pre-configured mesh nodes&lt;/a&gt; that has at the very least two Ethernet ports, a LAN port and a WAN port.  (This, of course, is not required for a gateway device because &lt;a href=&quot;https://openwrt.org/docs/guide-user/network/wan/internet.connection&quot;&gt;there are multiple ways to connect to WAN&lt;/a&gt; but having separate physical ports makes the explanation much simpler to follow.  If that is not your case, just adapt the default configuration for your device accordingly.)&lt;/p&gt;
 
 &lt;p class=&quot;notice--warning&quot;&gt;If you’ve configured this node as a &lt;a href=&quot;https://openwrt.org/docs/guide-user/network/wifi/dumbap&quot;&gt;dumb access point&lt;/a&gt; to temporarily give it access to the Internet while updating and installing packages, undo the configuration before proceeding because we will use both the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;firewall&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dhcp&lt;/code&gt; config files in the gateway configuration.&lt;/p&gt;
 
@@ -5735,7 +5734,7 @@ config interface 'default'
 
 &lt;p&gt;&lt;strong&gt;Save the file&lt;/strong&gt; and exit it.&lt;/p&gt;
 
-&lt;p&gt;Finally, let’s edit the &lt;a href=&quot;https://openwrt.org/docs/guide-user/firewall/firewall_configuration&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/firewall&lt;/code&gt;&lt;/a&gt; config.  Many things that can be done at the firewall level and for this reason, it’s often the most overwhelming part of the configuration.  Fortunately, in our case, all that we need to do here is simply &lt;strong&gt;copy&lt;/strong&gt; the default &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt; config for the new &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default&lt;/code&gt;.  That is, anything that has &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt; we will&lt;/p&gt;
+&lt;p&gt;Finally, let’s edit the &lt;a href=&quot;https://openwrt.org/docs/guide-user/firewall/firewall_configuration&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/firewall&lt;/code&gt;&lt;/a&gt; config.  Many things that can be done at the firewall level and for this reason, it’s often the most overwhelming part of the configuration.  Fortunately, in our case, all that we need to do here is simply &lt;strong&gt;copy&lt;/strong&gt; the original &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt; config for the new &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default&lt;/code&gt;.  That is, anything that has &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt; we will&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;copy the related config;&lt;/li&gt;
@@ -5818,7 +5817,7 @@ config interface 'default'
 
 &lt;p&gt;&lt;strong&gt;Save the file&lt;/strong&gt; and exit it.&lt;/p&gt;
 
-&lt;p&gt;Similarly, you can create a &lt;strong&gt;wireless access point&lt;/strong&gt; (WAP) for &lt;em&gt;non-mesh&lt;/em&gt; clients, and the instructions in the &lt;a href=&quot;https://openwrt.org/docs/guide-user/network/wifi/dumbap&quot;&gt;&lt;strong&gt;dumb access point&lt;/strong&gt; documentation&lt;/a&gt; will work just fine because it uses a network that is bridged with our mesh–namely, the default &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt;.  To avoid confusion, make sure to use &lt;strong&gt;a different SSID&lt;/strong&gt; for the WAP(s) than the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mesh_id&lt;/code&gt; used for the mesh.  In addition, use &lt;strong&gt;a different radio&lt;/strong&gt; for the WAP(s) and set them to operate on &lt;strong&gt;different channels&lt;/strong&gt;.  If that is not possible, that is probably okay for most home users but keep in mind that node hoping will start affecting performance quite noticeably.&lt;/p&gt;
+&lt;p&gt;Similarly, you can create a &lt;strong&gt;wireless access point&lt;/strong&gt; (WAP) for &lt;em&gt;non-mesh&lt;/em&gt; clients, and the instructions in the &lt;a href=&quot;https://openwrt.org/docs/guide-user/network/wifi/dumbap&quot;&gt;&lt;strong&gt;dumb access point&lt;/strong&gt; documentation&lt;/a&gt; will work just fine because it uses a network that is bridged with our mesh–namely, the original &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt;.  To avoid confusion, make sure to use &lt;strong&gt;a different SSID&lt;/strong&gt; for the WAP(s) than the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mesh_id&lt;/code&gt; used for the mesh.  In addition, use &lt;strong&gt;a different radio&lt;/strong&gt; for the WAP(s) and set them to operate on &lt;strong&gt;different channels&lt;/strong&gt;.  If that is not possible, that is probably okay for most home users but keep in mind that node hoping will start affecting performance quite noticeably.&lt;/p&gt;
 
 &lt;p&gt;(&lt;em&gt;Optional&lt;/em&gt;.) To illustrate, let’s create a simple 2.4GHz WAP for your home devices that will make use of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default&lt;/code&gt; network.  This can be done by editing the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/wireless&lt;/code&gt; file as follows:&lt;/p&gt;
 
@@ -5904,7 +5903,7 @@ config interface 'default'
     &lt;p&gt;Because we will now run &lt;strong&gt;two&lt;/strong&gt; DHCP servers on &lt;strong&gt;the same network&lt;/strong&gt;, we need to find a way of avoiding conflicts when assigning an IP address to new clients.  The easiest way of doing that is by assigning &lt;strong&gt;different intervals&lt;/strong&gt; to each DHCP server running on the same network.  In OpenWrt, this is done by editing the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/dhcp&lt;/code&gt; config file, and in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default&lt;/code&gt; DHCP configuration, we add a different starting point next to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option start&lt;/code&gt; option.  For example, while the DHCP server running on the first gateway will have &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option start '50'&lt;/code&gt;, the DHCP server running on the second gateway will have &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option start '150'&lt;/code&gt; instead.  This way, the first DHCP server leases addresses from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.10.50&lt;/code&gt; to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.149&lt;/code&gt;, whereas the second leases addresses from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.10.150&lt;/code&gt; to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.249&lt;/code&gt;.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;In the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt; interface config of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/network&lt;/code&gt; config file, we can now enable the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option gw_mode 'server'&lt;/code&gt; and specify the WAN connection speed with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option gw_bandwidth '10000/2000'&lt;/code&gt; (i.e., 10000kbps download and 2000kbps upload), as follows:&lt;/p&gt;
+    &lt;p&gt;In the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt; interface config of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/network&lt;/code&gt; config file, we can now enable the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option gw_mode 'server'&lt;/code&gt; and specify the WAN connection speed with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option gw_bandwidth '10000/2000'&lt;/code&gt;, as follows:&lt;/p&gt;
 
     &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; config interface 'bat0'
          option proto 'batadv'
@@ -5976,7 +5975,7 @@ config interface 'default'
 &lt;ul&gt;
   &lt;li&gt;We will have two additional bridges in the network–that is, one for each mesh VLAN, for a total of three bridges. This is not a necessity but a matter of convenience to keep the example simple. The same bridge device can definitely bridge more than one mesh VLAN;&lt;/li&gt;
   &lt;li&gt;In the gateway device, we will create VLAN IDs for the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iot&lt;/code&gt; (&lt;strong&gt;2&lt;/strong&gt;), &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;guest&lt;/code&gt; (&lt;strong&gt;5&lt;/strong&gt;), and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default&lt;/code&gt; (&lt;strong&gt;1&lt;/strong&gt;) networks, each with a separate set of DHCP server and firewall rules;&lt;/li&gt;
-  &lt;li&gt;In each bridge device, we will join the default &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt; with the &lt;strong&gt;VLAN ID&lt;/strong&gt; of the mesh VLAN (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0.1&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0.2&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0.5&lt;/code&gt;), instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;In each bridge device, we will join the original &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt; with the &lt;strong&gt;VLAN ID&lt;/strong&gt; of the mesh VLAN (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0.1&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0.2&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0.5&lt;/code&gt;), instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;Surprisingly enough, we don’t need to do a thing about the &lt;strong&gt;mesh nodes&lt;/strong&gt; that are not &lt;strong&gt;gateways&lt;/strong&gt; or &lt;strong&gt;bridges&lt;/strong&gt;–that is, the &lt;a href=&quot;#mesh-node-basic-config&quot;&gt;mesh node basic config&lt;/a&gt; is both necessary and sufficient for simple mesh nodes, even when using VLANs.  The only exception is if one of your mesh nodes is, for example, a laptop and you want it to use a particular mesh VLAN instead of the untagged &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt;.  In our case, however, the pre-configured mesh nodes are ready to route traffic of any VLAN that belongs to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt;.&lt;/p&gt;
@@ -5986,100 +5985,78 @@ config interface 'default'
 &lt;h3 id=&quot;mesh-gateway-with-vlan-configuration&quot;&gt;Mesh gateway with VLAN configuration&lt;/h3&gt;
 &lt;p&gt;First, configure the gateway &lt;strong&gt;the same way&lt;/strong&gt; &lt;a href=&quot;#mesh-gateway-configuration&quot;&gt;as in the gateway-bridge example&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;Now, instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan_bat0&lt;/code&gt;, we’re going to change it to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default&lt;/code&gt; in the config files, then do the same for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iot&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;guest&lt;/code&gt;.  So, if you’re ready, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ssh&lt;/code&gt; back into it and let’s start by editing the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/network&lt;/code&gt; config file, as follows&lt;/p&gt;
+&lt;p&gt;Second, instead of listing &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt; in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;br-default&lt;/code&gt; bridge, we will change it to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0.1&lt;/code&gt; to indicate that this is the &lt;strong&gt;VLAN ID #1&lt;/strong&gt; of our &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt; interface.  So, let’s start by editing the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/network&lt;/code&gt; configuration file, as follows:&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;vi /etc/config/network
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;and at the end, comment out the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan_bat0&lt;/code&gt; config, as follows&lt;/p&gt;
+&lt;p&gt;Then edit the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;br-default&lt;/code&gt; stanza to look like this:&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#config interface 'lan_bat0'
-#        option type 'bridge'		#uncomment if adding other interfaces to ifname
-#        option ifname 'bat0'
-#        option proto 'static'
-#        option ipaddr '192.168.10.1'	#static addr for this gateway on the 192.168.10.0/24 net
-#        option netmask '255.255.255.0'
-#        list dns '1.1.1.1'			#cloudflare dns server
-#        list dns '8.8.8.8'			#google dns server
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config device
+        option name 'br-default'
+        option type 'bridge'
+        list ports 'bat0.1'
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;then below it, let’s add a new interface for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default&lt;/code&gt;, as follows&lt;/p&gt;
+&lt;p class=&quot;notice--info&quot;&gt;At this point, if you want to enable access to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default&lt;/code&gt; network via the Ethernet port of your gateway device, you can then add another &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;list ports 'eth0.1'&lt;/code&gt; (or whatever you device uses) to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;br-default&lt;/code&gt; bridge configuration.  Afterwards, remove any configuration related to the original &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt; network.&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config interface 'lan_bat0_1'
-#        option type 'bridge'	#uncomment if adding other interfaces to ifname
-        option ifname 'bat0.1'
-        option proto 'static'
-        option ipaddr '192.168.10.1'
-        option netmask '255.255.255.0'
-        list dns '1.1.1.1'
-#        list dns '8.8.8.8'	#make it use cloudflare
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Save the file&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;p&gt;then another one for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iot&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Now, we are going to apply the same procedure we used to create the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default&lt;/code&gt; network (and its bridge, firewall rules, and dhcp service) to the remaining two networks, namely &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iot&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;guest&lt;/code&gt;.&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config interface 'lan_bat0_2'
-#        option type 'bridge'	#uncomment if adding other interfaces to ifname
-        option ifname 'bat0.2'
+&lt;p&gt;At the end of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/network&lt;/code&gt; file, add a new &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config device&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config interface&lt;/code&gt; for the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iot&lt;/code&gt; network, as follows:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config device                             
+        option name 'br-iot'
+        option type 'bridge'
+        list ports 'bat0.2'
+                                      
+config interface 'iot'
+        option device 'br-iot'
         option proto 'static'
         option ipaddr '192.168.20.1'
         option netmask '255.255.255.0'
-#        list dns '1.1.1.1'	#make it use google
+        list dns '1.1.1.1'
         list dns '8.8.8.8'
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;and another one for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;guest&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Then add another set of stanzas immediately below for the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;guest&lt;/code&gt; network:&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config interface 'lan_bat0_5'
-#        option type 'bridge'	#uncomment if adding other interfaces to ifname
-        option ifname 'bat0.5'
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config device                             
+        option name 'br-guest'
+        option type 'bridge'
+        list ports 'bat0.5'
+                                      
+config interface 'guest'
+        option device 'br-guest'
         option proto 'static'
         option ipaddr '192.168.50.1'
         option netmask '255.255.255.0'
-#        list dns '1.1.1.1'	#make it use google
+        list dns '1.1.1.1'
         list dns '8.8.8.8'
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;strong&gt;Save the file&lt;/strong&gt; and exit it.&lt;/p&gt;
 
-&lt;p&gt;Now, let’s edit the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/dhcp&lt;/code&gt; config file, as follows&lt;/p&gt;
+&lt;p&gt;Now, let’s edit the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/dhcp&lt;/code&gt; config file, as follows:&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;vi /etc/config/dhcp
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;and once again, comment out all &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan_bat0&lt;/code&gt; config, as follows&lt;/p&gt;
+&lt;p&gt;and once again, add a DHCP server config for the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iot&lt;/code&gt; network:&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#config dhcp 'lan_bat0'
-#        option interface 'lan_bat0'
-#        option start 50		#start leasing at addr 192.168.10.50
-#        option limit 100		#max leases, so for 100, leased addr goes from .50 to .149
-#        option leasetime '3h'
-#        option ra 'server'
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;then add a DHCP server config for the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default&lt;/code&gt; interface below it&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config dhcp 'lan_bat0_1'
-        option interface 'lan_bat0_1'
-        option start 50
-        option limit 100
-        option leasetime '12h'
-        option ra 'server'
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;and like before, we will add another one for the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iot&lt;/code&gt; interface&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config dhcp 'lan_bat0_2'
-        option interface 'lan_bat0_2'
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config dhcp 'iot'
+        option interface 'iot'
         option start 50
         option limit 100
         option leasetime '6h'
         option ra 'server'
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;and another one for the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;guest&lt;/code&gt; interface&lt;/p&gt;
+&lt;p&gt;and another one for the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;guest&lt;/code&gt; network:&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config dhcp 'lan_bat0_5'
-        option interface 'lan_bat0_5'
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config dhcp 'guest'
+        option interface 'guest'
         option start 50
         option limit 100
         option leasetime '1h'
@@ -6093,118 +6070,114 @@ config interface 'default'
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;vi /etc/config/firewall
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;and once again, comment out the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan_bat0&lt;/code&gt; configs, as follows&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#config zone
-#        option name     lan_bat0
-#        list network    'lan_bat0'
-#        option input    ACCEPT
-#        option output   ACCEPT
-#        option forward  ACCEPT
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#config forwarding
-#        option src   lan_bat0
-#        option dest  wan
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;and below each one of them, add one for the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default&lt;/code&gt; interface&lt;/p&gt;
+&lt;p&gt;and below each stanza for the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default&lt;/code&gt; network, add one for the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iot&lt;/code&gt; network:&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config zone
-        option name     lan_bat0_1
-        list network    'lan_bat0_1'
-        option input    ACCEPT
+        option name     iot
+        list network    'iot'
+        option input    ACCEPT  ##recommended REJECT
         option output   ACCEPT
-        option forward  ACCEPT
+        option forward  ACCEPT  ##recommended REJECT
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config forwarding
-        option src   lan_bat0_1
+        option src   iot
+        option dest  wan  ##allows access to cloud services
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;and another for the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;guest&lt;/code&gt; network:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config zone
+        option name     guest
+        list network    'guest'
+        option input    ACCEPT  ##recommended REJECT
+        option output   ACCEPT
+        option forward  ACCEPT  ##recommended REJECT
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config forwarding
+        option src   guest
         option dest  wan
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;then another one for the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iot&lt;/code&gt; interface&lt;/p&gt;
+&lt;p class=&quot;notice--warning&quot;&gt;Of note, it is good practice to be more restrictive with the firewall rules the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;guest&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iot&lt;/code&gt; networks.  I added comments with recommendations in the configurations above but additional rules might be necessary to enable basic functionality within each of those networks.  For a reference, check the OpenWrt’s guide on &lt;a href=&quot;https://openwrt.org/docs/guide-user/network/wifi/guestwifi/guest-wlan#firewall&quot;&gt;Guest Wi-Fi basics&lt;/a&gt;.&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config zone
-        option name     lan_bat0_2
-        list network    'lan_bat0_2'
-        option input    ACCEPT
-        option output   ACCEPT
-        option forward  ACCEPT
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config forwarding
-        option src   lan_bat0_2
-        option dest  wan
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Now &lt;strong&gt;save the file&lt;/strong&gt; and exit.  Then, &lt;strong&gt;reboot&lt;/strong&gt; the device.  This will implement the changes and offer an opportunity to check if everything will work as intended after a power loss.&lt;/p&gt;
 
-&lt;p&gt;and another one for the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;guest&lt;/code&gt; interface&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config zone
-        option name     lan_bat0_5
-        list network    'lan_bat0_5'
-        option input    ACCEPT
-        option output   ACCEPT
-        option forward  ACCEPT
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config forwarding
-        option src   lan_bat0_5
-        option dest  wan
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;Save the file&lt;/strong&gt; and exit.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Reboot&lt;/strong&gt; the device.&lt;/p&gt;
-
-&lt;p&gt;Once the gateway device is back online–by the way, it should still be at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.1.1&lt;/code&gt; because the gateway’s default &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt; is intact, so even if we fuck something up, we should be able to find the gateway via a direct cable connection–&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ssh&lt;/code&gt; into it once again and type&lt;/p&gt;
+&lt;p&gt;Once the gateway device is back online, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ssh&lt;/code&gt; into it once again and list its IP addresses:&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ip a
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;which now should show the new interfaces we created (e.g, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0.1@bat0&lt;/code&gt;) and the static IP addr of your device in each one of them (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.10.1&lt;/code&gt;).  (As mentioned before, if the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option type 'bridge'&lt;/code&gt; was enabled in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/network&lt;/code&gt; config stanza, then there will be an additional interface with the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;br-&lt;/code&gt; prefix attached to it and the static IP addr of your device will be associated with it.)&lt;/p&gt;
+&lt;p&gt;This should show the various new interfaces we created and the static IP address of your device in each one of them.  If everything looks good, we’re done with the gateway configuration!  We’re now ready to tell our bridges which VLAN ID to join with their standard interfaces.&lt;/p&gt;
 
-&lt;p&gt;If everything looks good, we’re done with the gateway configuration!  We’re now ready to tell our bridges which VLAN ID to join with their standard interfaces.&lt;/p&gt;
-
-&lt;p class=&quot;notice--danger&quot;&gt;You don’t need to use &lt;strong&gt;interface names&lt;/strong&gt; such as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan_bat0_1&lt;/code&gt;; they can be whatever you find intuitive.  However, whatever you choose, &lt;strong&gt;keep them short&lt;/strong&gt;–that is, less than 14 characters long–or you’ll start experiencing config issues.&lt;/p&gt;
+&lt;p class=&quot;notice--danger&quot;&gt;You don’t need to use &lt;strong&gt;names&lt;/strong&gt; such as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iot&lt;/code&gt;, or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;guest&lt;/code&gt;. They can be whatever you find intuitive.  However, whatever you choose, &lt;strong&gt;keep them short&lt;/strong&gt;.  Specifically, they should use less than 15 characters, owing to kernel limitations and various operations that append prefixes/suffixes to such names.&lt;/p&gt;
 
 &lt;h3 id=&quot;mesh-bridge-with-vlan-configuration&quot;&gt;Mesh bridge with VLAN configuration&lt;/h3&gt;
-&lt;p&gt;Here, we’ll also configure the bridges &lt;strong&gt;the same way&lt;/strong&gt; as in the gateway-bridge example. However, each bridge device will bridge &lt;strong&gt;a different VLAN ID&lt;/strong&gt;–namely, either &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0.1&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0.2&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0.5&lt;/code&gt;–with its default &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt;, instead of bridging &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt; with its default &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Here, we’ll also configure the bridges &lt;strong&gt;the same way&lt;/strong&gt; as in the gateway-bridge example. However, each bridge device will bridge &lt;strong&gt;a different VLAN ID&lt;/strong&gt;–namely, either &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0.1&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0.2&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0.5&lt;/code&gt;.&lt;/p&gt;
 
-&lt;p&gt;Let’s start with the Network B (&lt;strong&gt;IoT&lt;/strong&gt;) bridge.&lt;/p&gt;
-
-&lt;p&gt;Configure one of the mesh nodes &lt;a href=&quot;#mesh-bridge-configuration&quot;&gt;as in the gateway-bridge example&lt;/a&gt;, except that in the default &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt; interface stanza of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/network&lt;/code&gt; file, let’s do the following:&lt;/p&gt;
+&lt;p&gt;The configuration of the Network D (&lt;strong&gt;Default&lt;/strong&gt;) bridge is by far the easiest one because it follows the exact same procedure &lt;a href=&quot;#mesh-bridge-configuration&quot;&gt;as in the &lt;strong&gt;gateway-bridge example&lt;/strong&gt;&lt;/a&gt;, with the following exception in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/network&lt;/code&gt; file:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;In &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option ifname&lt;/code&gt;, change &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt; for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0.2&lt;/code&gt;;&lt;/li&gt;
-  &lt;li&gt;In &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option ipaddr&lt;/code&gt;, change &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.10.&lt;/code&gt; for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.20.&lt;/code&gt;;&lt;/li&gt;
-  &lt;li&gt;In both &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option gateway&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option dns&lt;/code&gt;, change &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.10.1&lt;/code&gt; for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.20.1&lt;/code&gt;;&lt;/li&gt;
-  &lt;li&gt;Then, the default &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lan&lt;/code&gt; stanza should look something like this
-    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config interface lan
-      option type 'bridge'
-      option ifname 'eth0.1 eth1 bat0.2'	#ethX might be different for your device
-      option proto 'static'
-      option ipaddr '192.168.20.10'
-      option netmask '255.255.255.0'
-      option gateway '192.168.20.1'
-      option dns '192.168.20.1'
+  &lt;li&gt;
+    &lt;p&gt;Instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt; in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;br-default&lt;/code&gt; stanza, use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0.1&lt;/code&gt;:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; config device
+         option name 'br-default'
+         option type 'bridge'
+         list ports 'eth0.1'
+         list ports 'bat0.1'
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;p&gt;After making such a change, &lt;strong&gt;save the file&lt;/strong&gt; and &lt;strong&gt;reboot&lt;/strong&gt; your device.&lt;/p&gt;
+
+&lt;p&gt;Now, let’s configure the Network B (&lt;strong&gt;IoT&lt;/strong&gt;) bridge. First, configure one of the mesh nodes &lt;a href=&quot;#mesh-bridge-configuration&quot;&gt;as in the gateway-bridge example&lt;/a&gt;.  Then, in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/network&lt;/code&gt; file, do the following:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Replace all instances of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default&lt;/code&gt; for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iot&lt;/code&gt;;&lt;/li&gt;
+  &lt;li&gt;In the now &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;br-iot&lt;/code&gt; bridge stanza, replace &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt; for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0.2&lt;/code&gt;;&lt;/li&gt;
+  &lt;li&gt;In the now &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config interface 'iot'&lt;/code&gt; stanza:
+    &lt;ul&gt;
+      &lt;li&gt;Replace &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option ipaddr '192.168.10.10'&lt;/code&gt; for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option ipaddr '192.168.20.10'&lt;/code&gt;;&lt;/li&gt;
+      &lt;li&gt;Replace &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option gateway '192.168.10.1'&lt;/code&gt; for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option gateway '192.168.20.1'&lt;/code&gt;;&lt;/li&gt;
+      &lt;li&gt;Replace &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option dns '192.168.10.1'&lt;/code&gt; for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option dns '192.168.20.1'&lt;/code&gt;;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;After all is done, the updated configuration should look something like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config device
+        option name 'br-iot'
+        option type 'bridge'
+        list ports 'eth0.1'
+        list ports 'bat0.2'
+
+config interface 'iot'
+        option device 'br-iot'
+        option proto 'static'
+        option ipaddr '192.168.20.10'
+        option netmask '255.255.255.0'
+        option gateway '192.168.20.1'
+        option dns '192.168.20.1'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
 &lt;p&gt;&lt;strong&gt;Save the file&lt;/strong&gt; and exit it.&lt;/p&gt;
+
+&lt;p&gt;If you created a 2.4GHz WAP that made use of your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default&lt;/code&gt; network (e.g., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;whome&lt;/code&gt;), you can now &lt;strong&gt;edit it&lt;/strong&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vi /etc/config/wireless&lt;/code&gt;) to make use of your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iot&lt;/code&gt; network instead (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wiot&lt;/code&gt;).  Otherwise, ignore this message.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Reboot&lt;/strong&gt; your device.&lt;/p&gt;
 
-&lt;p&gt;Once it comes back on, your laptop/PC will receive an IP addr from our mesh gateway in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.20.0/24&lt;/code&gt; network, the bridge node should be reachable at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.20.10&lt;/code&gt;, and you should be able to access the Internet via the &lt;strong&gt;IoT&lt;/strong&gt; network (try &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ping google.com&lt;/code&gt;, for example).&lt;/p&gt;
+&lt;p&gt;Once it comes back on, your laptop/PC will receive an IP address from our mesh gateway in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.20.0/24&lt;/code&gt; network, the bridge node should be reachable at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.20.10&lt;/code&gt;, and you should be able to access the Internet via the &lt;strong&gt;IoT&lt;/strong&gt; network (try &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ping google.com&lt;/code&gt;, for example).&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;If something doesn’t work&lt;/strong&gt;, review the config files from your gateway and then from the bridge, then reboot the gateway and the bridge, and test again.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;If something does not work&lt;/strong&gt;, review the config files from your gateway and then from the bridge, then reboot the gateway and the bridge, and test again.&lt;/p&gt;
 
-&lt;p&gt;If this config is working, &lt;strong&gt;repeat the same steps&lt;/strong&gt; in the config of the other two bridges, with the following exceptions&lt;/p&gt;
+&lt;p&gt;If this configuration is working, &lt;strong&gt;repeat the same steps&lt;/strong&gt; as before for the Network C bridge (&lt;strong&gt;Guest&lt;/strong&gt;), with the following exceptions:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;In the Network C bridge (&lt;strong&gt;Guest&lt;/strong&gt;), use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0.5&lt;/code&gt; instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0.2&lt;/code&gt;, and similarly, use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.50.&lt;/code&gt; IP addr instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.20.&lt;/code&gt;;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;In the Network D bridge (&lt;strong&gt;Default&lt;/strong&gt;), use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0.1&lt;/code&gt; instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0.2&lt;/code&gt;, and similarly, use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.10.&lt;/code&gt; IP addr instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.20.&lt;/code&gt;;&lt;/p&gt;
-  &lt;/li&gt;
+  &lt;li&gt;Instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iot&lt;/code&gt;, use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;guest&lt;/code&gt;;&lt;/li&gt;
+  &lt;li&gt;Instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0.2&lt;/code&gt;, use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0.2&lt;/code&gt;;&lt;/li&gt;
+  &lt;li&gt;Instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.20.0/24&lt;/code&gt; IP addresses, user &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.20.0/24&lt;/code&gt; addresses when assigning static IP and pointing to the gateway.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;em&gt;Optional&lt;/em&gt;. When configuring a &lt;strong&gt;Guest&lt;/strong&gt; WAP, for example, you can add &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option isolate 1&lt;/code&gt; to the relevant stanza in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/wireless&lt;/code&gt; config file to deny client-to-client connectivity without the need of re-enabling the firewall in the bridge device.  If that’s not enough, re-enable the firewall and configure it according to your needs–at the bottom of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/firewall&lt;/code&gt; file, there are examples you can use as template.&lt;/p&gt;
