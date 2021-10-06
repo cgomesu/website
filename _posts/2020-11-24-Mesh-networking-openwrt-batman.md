@@ -265,7 +265,7 @@ opkg list-installed | grep bat
 
 Huge differences in firmware, kernel, or package versions *might* make the implementation of a mesh network a little bit different than the way it was explained here.  Of note, devices running the `batman-adv` **version 2019.0-2 and older** are certainly incompatible with the instructions found in this tutorial, the reason being that the module was modified after then to better integrate with the [network interface daemon](https://openwrt.org/docs/techref/netifd).  Fortunately, the implementation using old modules is just a simple as with the latest one. [Check what the B.A.T.M.A.N. wiki has to say about it](https://www.open-mesh.org/projects/batman-adv/wiki/Batman-adv-openwrt-config#Batman-adv-20190-2-and-older).  However, it's worth mentioning that with old batman modules, changes to `/etc/config/network` will likely require a reboot instead of simply reloading `/etc/init.d/network`.
 
-Also, I've noticed that when installing `kmod-batman-adv`, the package manager will install a minimal version of `batctl`, called `batctl-tiny`, that lacks some of the options mentioned here (e.g., `batctl n` and `batnctl o`).  However, if you install `batctl` first and then `kmod-batman-adv`, the package manager will preserve `batctl-default`, which has most of the `batctl` features.  In this tutorial, however, we will use the `batctl-full` package that contains all features referred to in the [batctl man page](https://downloads.open-mesh.org/batman/manpages/batctl.8.html).
+Also, I've noticed that when installing `kmod-batman-adv`, the package manager will install a minimal version of `batctl`, called `batctl-tiny`, that lacks some of the options mentioned here (e.g., `batctl n` and `batnctl o`).  However, if you install `batctl` first and then `kmod-batman-adv`, the package manager will preserve `batctl-default`, which has most of the `batctl` features.  In this tutorial, however, we will use the `batctl-full` package that contains all features referred to in the [`batctl` manual](https://downloads.open-mesh.org/batman/manpages/batctl.8.html).
 
 Finally, the installation of `wpad-mesh-wolfssl` will conflict with the already installed `wpad-basic-wolfssl` package (or any other `wpad-basic*` package, for that matter).  This means **you have to remove the latter before installing the former**.  To remove the `wpad-basic-wolfssl` or any other conflicting `wpad-basic` package, simply type
 
@@ -817,7 +817,7 @@ config wifi-iface 'wmesh'
         option network 'mesh'  ##mesh stanza in /etc/config/network
         option mode 'mesh'  ##use 802.11s mode
         option mesh_id 'MeshCloud'  ##mesh "ssid"
-        option encryption 'sae'  ##https://openwrt.org/docs/guide-user/network/wifi/basic#wpa_modes
+        option encryption 'sae'  ##https://openwrt.org/docs/guide-user/network/wifi/basic#encryption_modes
         option key 'MeshPassword123'  ##password in plain text
         option mesh_fwding '0'  ##let batman-adv handle routing
         option mesh_ttl '1'  ##time to live in the mesh
@@ -964,7 +964,7 @@ f0:f3:00:00:00:00 node04
 
 This makes it much easier to identify the mesh nodes when issuing a command like `batctl n` and other debug tables.  As far as I'm aware, however, you have to create and update such file in each node because such information will just be available to nodes that have a `bat-hosts` file.
 
-Finally, as mentioned before, keep an eye on your device's syslog for errors.  Module related issues are often associated with logged kernel errors (see the section [Hardware-specific configurations](#hardware-specific-configurations)) and wpa_supplicant has [multiple mesh-specific error codes](https://www.toomanyatoms.com/computer/disconnection_codes.html). The syslog can be inspected via `logread`, as follows:
+Finally, as mentioned before, keep an eye on your device's syslog for errors.  Module related issues are often associated with logged kernel errors (see the section [Hardware-specific configurations](#hardware-specific-configurations)) and wpa_supplicant has [multiple mesh-specific error codes](https://www.toomanyatoms.com/computer/disconnection_codes.html) to help you debug connectivity issues. The syslog can be inspected via `logread`, as follows:
 
 ```
 logread
@@ -1000,13 +1000,13 @@ vi /etc/config/network
 At the beginning of the file, there should a bunch of `config interface` for `loopback`, `lan`, and `wan`, for example, as well as a default `config device` for the `lan` bridge, called `br-lan`, and.  At the end, of course, there should be the mesh interfaces we previously created for the mesh node, namely `bat0` and `mesh`.  There are at least two options at this point: 
 
 1. Create an entirely new local network for `bat0`, called `default`, at the expense of additional `dhcp` and `firewall` configuration; 
-2. Or use the existing, `lan` network by simply bridging `bat0` at the `config device` `br-lan` stanza, as follows:
+2. Or use the original `lan` network by simply bridging `bat0` at the `config device` `br-lan` stanza, as follows:
     ```
     config device                             
             option name 'br-lan'
             option type 'bridge'
             list ports 'eth0.1'  ##edit according to your device
-            list ports 'bat0.1'
+            list ports 'bat0'
     ```
 
 While the latter option is much easier than the former, we will choose the first here (i.e., create a new local network from the ground up) because it makes this tutorial compatible with multiple devices (switched or switchless) and it allows us to keep the original `lan` (`192.168.1.0/24`) as a management/debugging network.  (Later on, we will see how to bridge the original `lan` with any `bat0` VLAN, for example, so the original `lan` becomes accessible to the mesh as well.  For now, keep it simple.) 
@@ -1028,7 +1028,7 @@ config interface 'default'
         list dns '8.8.8.8'  ##comment out to disable google dns
 ```
 
-The first stanza (`config device`) creates a **bridge** (layer 2) for the `default` network, while the second stanza (`config interface 'default'`) creates the proper `default` **network** (layer 3) at the `192.168.10.0/24` pool, then sets a static IP address for this device at `192.168.10.1` and broadcasts to any client that they should use the external DNS servers `1.1.1.1` and `8.8.8.8`.  
+The first stanza (`config device`) creates a **bridge** (layer 2) for the `default` network, while the second stanza (`config interface 'default'`) creates the proper `default` **network** (layer 3) at the `192.168.10.0/24` pool, then sets a static IP address for this device at `192.168.10.1` and broadcasts to any client that they should use the external DNS servers `1.1.1.1` or `8.8.8.8`.  
 
 **Save the file** and exit it. 
 
@@ -1107,15 +1107,23 @@ If you **don't see the static IP on the new network**, then review the files we 
 #### Mesh bridge configuration
 The configuration of a mesh bridge is much simpler than of a mesh gateway because contrary to the gateway config, our mesh bridge doesn't require the use of a DHCP server and firewall.  In fact, both services will be disabled in a mesh bridge and instead, the ony thing we will do is join interfaces to make them look like a single one to any connected device.
 
-As before, get one of the other [pre-configured mesh nodes](#mesh-node-basic-config) and to start things off, we will configure it as a [dumb access point](https://openwrt.org/docs/guide-user/network/wifi/dumbap).  Follow the instructions in the OpenWrt documentation, except for the following when configuring the default `lan` interface
+As before, get one of the other [pre-configured mesh nodes](#mesh-node-basic-config) and to start things off, we will configure it as a [dumb access point](https://openwrt.org/docs/guide-user/network/wifi/dumbap).  Follow the instructions in the OpenWrt documentation, except for the following when configuring the original `lan` interface:
 
-* add `bat0` to the list of `ifname`;
-* set a static IP for the device on the `192.168.10.0/24` network, such as `192.168.10.10`, pointing to our gateway at `192.168.10.1`;
-* the configuration of the default `lan` should then look something like this
-  ```
-  config interface lan
+- Add `bat0` to a new `list ports` entry in the bridge stanza used by the `lan` interface, namely `br-lan`;
+- Set a static IP for the device on the `192.168.10.0/24` network, such as `192.168.10.10`, pointing to our configured gateway at `192.168.10.1`;
+- After all is done, rename every `lan` entry for `default` to make it consistent with the gateway configuration.  This, of course, is optional.
+
+Once done, the configuration of the original `lan` interface and its `br-lan` bridge, which are now called `default` and `br-default`, respectively, should look something like this:
+
+```
+config device
+        option name 'br-default'
         option type 'bridge'
-        option ifname 'eth0.1 eth1 bat0'	#ethX might be different for your device
+        list ports 'eth0.1'
+        list ports 'bat0'
+
+config interface 'default'
+        option device 'br-default'
         option proto 'static'
         option ipaddr '192.168.10.10'
         option netmask '255.255.255.0'
@@ -1123,11 +1131,42 @@ As before, get one of the other [pre-configured mesh nodes](#mesh-node-basic-con
         option dns '192.168.10.1'
 ``` 
 
-After applying this configuration, it will let any **non-mesh client** to join the mesh **via Ethernet cable**--that is, by connecting a cable to one of the LAN/WAN ports of the mesh bridge device.  As long as the gateway is reachable, everything should work like a standard network, you could use the device's own switch or connect the device to a switch and manage things there, and so on.
+After applying this configuration, it will let any ***non-mesh* clients** to join the mesh **via Ethernet cable**--that is, by connecting a cable to one of the **LAN ports** of the mesh bridge device.  As long as the gateway is reachable, everything should work like a standard network, you could use the device's own switch or connect the device to a switch and manage things there, and so on.
 
 **Save the file** and exit it.
 
-Similarly, you can create a **wireless access point** (WAP) for non-mesh clients, and the instructions in the [**dumb access point** documentation](https://openwrt.org/docs/guide-user/network/wifi/dumbap) will work just fine because it uses a network that is bridged with our mesh--namely, the default `lan`.  To avoid confusion, make sure to use **a different SSID** for the WAP(s) than the `mesh_id` used for the mesh.  In addition, if at all possible, use **a different radio or band** for the WAP(s) and set it to operate on **a different channel** than the mesh channel (`channel 3`, unless you changed yours).  If that is not possible, that is probably okay for most home users but keep in mind that node hoping will start affecting performance quite noticeably.
+Similarly, you can create a **wireless access point** (WAP) for *non-mesh* clients, and the instructions in the [**dumb access point** documentation](https://openwrt.org/docs/guide-user/network/wifi/dumbap) will work just fine because it uses a network that is bridged with our mesh--namely, the default `lan`.  To avoid confusion, make sure to use **a different SSID** for the WAP(s) than the `mesh_id` used for the mesh.  In addition, use **a different radio** for the WAP(s) and set them to operate on **different channels**.  If that is not possible, that is probably okay for most home users but keep in mind that node hoping will start affecting performance quite noticeably. 
+
+(*Optional*.) To illustrate, let's create a simple 2.4GHz WAP for your home devices that will make use of the `default` network.  This can be done by editing the `/etc/config/wireless` file as follows:
+
+- In the 2.4GHz radio stanza (`radio0`), set `option disabled` to `'0'` to **enable** it:
+   
+   ```
+   config wifi-device 'radio0'
+           option type 'mac80211'
+           option channel '1'
+           #option txpower '20'
+           option hwmode '11g'
+           option path 'platform/ahb/18100000.wmac'
+           #option htmode 'HT20'
+           option country 'BR'
+           option disabled '0'
+   ```
+
+- At the bottom of the file, create a new `config wifi-interface 'whome'` stanza that configures an access point (`option mode 'ap'`) that will make use of the `default` network. It should look similar to the following one when done:
+
+   ```
+   config wifi-iface 'whome'
+           option device 'radio0'
+           option network 'default'
+           option mode 'ap'
+           option ssid 'HomeWAP'  ##edit it
+           option encryption 'psk2+aes'  ##https://openwrt.org/docs/guide-user/network/wifi/basic#encryption_modes
+           option key 'MyStrongPassword123'  ##edit it
+           option disabled '0'
+   ```
+
+- **Save the file** and exit.
 
 Finally, in the terminal, make sure to disable `dnsmasq`, `odhcpd`, and the `firewall`, as follows
 
@@ -1137,9 +1176,11 @@ Finally, in the terminal, make sure to disable `dnsmasq`, `odhcpd`, and the `fir
 /etc/init.d/firewall stop && /etc/init.d/firewall disable
 ```
 
-**Reboot** your device and on your laptop/PC, **disable networking** altogether (this will force it to get a new IP from the bridge when it comes back)--alternatively, just disconnect the Ethernet cable.
+**Reboot** your device and on your laptop/PC, **disable networking** altogether to force it to get a new IP from the bridge when it comes back online--alternatively, just disconnect the Ethernet cable.
 
-Once the bridge is back online (wait at least a minute or two to give it enough time to connect to the mesh first), **re-enable networking** on your laptop/PC (or reconnect the Ethernet cable) and it should receive an IP addr from our mesh gateway in the `192.168.10.0/24` network (on a Linux distro, type `ip a` or `ip addr` or `ifconfig`), the bridge node should now be reachable at `192.168.10.10`, and you should be able to access the Internet from your laptop/PC through the mesh (try `ping google.com`, for example).  If something doesn't work, review the config files mentioned here and then go over the ones for the gateway, reboot all mesh nodes (gateway first, then nodes, then bridge) and test again.
+Once the bridge is back online--wait at least a minute or two to give it enough time to connect to the mesh first--**re-enable networking** on your laptop/PC (or reconnect the Ethernet cable) and it should receive an IP addr from our mesh gateway in the `192.168.10.0/24` network (on a Linux distro, type `ip a` or `ip addr` or `ifconfig`), the bridge node should now be reachable at `192.168.10.10`, and you should be able to access the Internet from your laptop/PC through the mesh (try `ping google.com`, for example).  
+
+If something doesn't work, review the config files mentioned here and then go over the ones for the gateway, reboot all mesh nodes (gateway first, then nodes, then bridge) and test again.
 
 ### Bridge-Bridge
 This second example applies to the following topology:
@@ -1150,11 +1191,11 @@ Contrary to the first example, there's no mesh gateway device and as such, this 
 
 Config-wise, the mesh bridges in this topology are configured exactly [as in the first example](#mesh-bridge-configuration), except for the following differences in the configuration of the `/etc/config/network` config file:
 
-* **Each mesh bridge** should have a different static IP address in the `lan` interface, as indicated by `option ipaddr`.  For example, the first mesh bridge will have `option ipaddr '192.168.10.10'`, while the second mesh bridge will have `option ipaddr '192.168.10.11'`;
+- **Each mesh bridge** should have a different static IP address in the `default` interface, as indicated by `option ipaddr`.  For example, the first mesh bridge will have `option ipaddr '192.168.10.10'`, while the second mesh bridge will have `option ipaddr '192.168.10.11'`;
 
-* The `option gateway '192.168.10.1'` in the default `lan` stanza must match an existing gateway on either Network A or B, and similarly, `option dns '192.168.10.1'` must point to a valid DNS resolver;
+- The `option gateway '192.168.10.1'` in the `default` stanza must match an existing gateway on either Network A or B, and similarly, `option dns '192.168.10.1'` must point to a valid DNS resolver or forwarder;
 
-* As mentioned before, if your existing Networks A and B are not defined in the `192.168.10.0/24` IP range, then just edit the config file accordingly.
+- As mentioned before, if your existing Networks A and B are not defined in the `192.168.10.0/24` IP range, then just edit the config file accordingly.
 
 ### Gateway-Gateway
 The third and final example applies to the following topology:
@@ -1163,11 +1204,61 @@ The third and final example applies to the following topology:
 
 Specifically, there's only one private network (mesh, defined in the `192.168.10.0/24` IP range) and notably, **two** mesh gateways.  This provides "high availability" of the Internet connection to mesh nodes and surprisingly enough, the configuration of each mesh gateway is [just like in the first example](#mesh-gateway-configuration), with the following exceptions
 
-* Like in the [bridge-bridge example](#bridge-bridge), we must assign different static IP addresses to **each** mesh gateway.  This is done by editing the `/etc/config/network` config file, and in the `lan` interface configuration, add a different IP addr next to the `option ipaddr` option.  For example, the first mesh gateway will have `option ipaddr '192.168.10.1'`, while the second mesh gateway will have `option ipaddr '192.168.10.2'`.
+- Like in the [bridge-bridge example](#bridge-bridge), we must assign different static IP addresses to **each** mesh gateway.  This is done by editing the `/etc/config/network` config file, and in the `default` interface configuration, add a different IP addr next to the `option ipaddr` option.  For example, the first mesh gateway will have `option ipaddr '192.168.10.1'`, while the second mesh gateway will have `option ipaddr '192.168.10.2'`.
 
-* Because we will now run **two** DHCP servers on **the same network**, we need to find a way of avoiding conflicts when assigning an IP address to new clients.  The easiest way of doing that is by assigning **different intervals** to each DHCP server running on the same network.  In OpenWrt, this is done by editing the `/etc/config/dhcp` config file, and in the `lan_bat0` DHCP configuration, we add a different starting point next to the `option start` option.  For example, while the DHCP server running on the first gateway will have `option start '50'`, the DHCP server running on the second gateway will have `option start '150'` instead.  This way, the first DHCP server leases addresses from `192.168.10.50` to `.149`, whereas the second leases addresses from `192.168.10.150` to `.249`.
+- Because we will now run **two** DHCP servers on **the same network**, we need to find a way of avoiding conflicts when assigning an IP address to new clients.  The easiest way of doing that is by assigning **different intervals** to each DHCP server running on the same network.  In OpenWrt, this is done by editing the `/etc/config/dhcp` config file, and in the `default` DHCP configuration, we add a different starting point next to the `option start` option.  For example, while the DHCP server running on the first gateway will have `option start '50'`, the DHCP server running on the second gateway will have `option start '150'` instead.  This way, the first DHCP server leases addresses from `192.168.10.50` to `.149`, whereas the second leases addresses from `192.168.10.150` to `.249`.
 
-* *Optional*. In the `bat0` interface config of the `/etc/config/network` config file, we can now enable the `option gw_mode 'server'` and specify the WAN connection speed with `option gw_bandwidth '10000/2000'` (i.e., 10000kbps download and 2000kbps upload).  Then, in each other **mesh node**, we set the `option gw_mode` to `'client'` instead of `'off'`.  This way, we can make each mesh node aware of the two gateways on the network (and their speeds) to better route mesh traffic.
+- In the `bat0` interface config of the `/etc/config/network` config file, we can now enable the `option gw_mode 'server'` and specify the WAN connection speed with `option gw_bandwidth '10000/2000'` (i.e., 10000kbps download and 2000kbps upload), as follows:
+   
+   ```
+   config interface 'bat0'
+           option proto 'batadv'
+           option routing_algo 'BATMAN_IV'
+           option aggregated_ogms '1'
+           option ap_isolation '0'
+           option bonding '0'
+           option bridge_loop_avoidance '1'
+           option distributed_arp_table '1'
+           option fragmentation '1'
+           option gw_mode 'server'
+           #option gw_sel_class '20'
+           option gw_bandwidth '10000/2000'  ##download/upload in kbps
+           option hop_penalty '30'
+           option isolation_mark '0x00000000/0x00000000'
+           option log_level '0'
+           option multicast_mode '1'
+           option multicast_fanout '16'
+           option network_coding '0'
+           option orig_interval '1000'
+   ```
+
+   Similarly, now in each other **mesh node** (non-gateway devices), we set the `option gw_mode` to `'client'` instead of `'off'` and enable selection options, as follows:
+
+   ```
+      config interface 'bat0'
+           option proto 'batadv'
+           option routing_algo 'BATMAN_IV'
+           option aggregated_ogms '1'
+           option ap_isolation '0'
+           option bonding '0'
+           option bridge_loop_avoidance '1'
+           option distributed_arp_table '1'
+           option fragmentation '1'
+           option gw_mode 'client'
+           option gw_sel_class '20'  ##set to 1 for fast connection policy (BATMAN_IV)
+           #option gw_bandwidth '10000/2000'
+           option hop_penalty '30'
+           option isolation_mark '0x00000000/0x00000000'
+           option log_level '0'
+           option multicast_mode '1'
+           option multicast_fanout '16'
+           option network_coding '0'
+           option orig_interval '1000'
+   ```
+
+   This way, we can make each mesh node aware of the two gateways on the network (and their speeds) to better route mesh traffic.
+
+To learn more about how `batman-adv` handles multiple gateways, read the official [Gateway documentation](https://www.open-mesh.org/projects/batman-adv/wiki/Gateways).
 
 ## Mesh VLANs
 You don't need to configure VLANs in order to use `batman-adv` but it is one of its best features.  In brief, this is a way of using **our already configured** wireless mesh network to route traffic **to/from multiple and all networks** in a secure, isolated way (as far as VLANs go).  No need for additional hardware--the combination of OpenWrt and `batman-adv` turns even cheap wireless hardware into powerful virtual switches.  It's just a matter of tagging the additional (and virtual) networks instead of using the untagged `bat0` (or similarly, in a port-based analogy, "plugging" standard interfaces into different ports of our `bat0` switch).  This is a fairly advanced topic but surprisingly easy to incorporate to our existing `batman-adv` configuration.

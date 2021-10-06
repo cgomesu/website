@@ -200,7 +200,7 @@
 
 
 
-  123 minute read
+  126 minute read
 
 </p>
       
@@ -792,7 +792,7 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
 
 <p>Huge differences in firmware, kernel, or package versions <em>might</em> make the implementation of a mesh network a little bit different than the way it was explained here.  Of note, devices running the <code class="language-plaintext highlighter-rouge">batman-adv</code> <strong>version 2019.0-2 and older</strong> are certainly incompatible with the instructions found in this tutorial, the reason being that the module was modified after then to better integrate with the <a href="https://openwrt.org/docs/techref/netifd">network interface daemon</a>.  Fortunately, the implementation using old modules is just a simple as with the latest one. <a href="https://www.open-mesh.org/projects/batman-adv/wiki/Batman-adv-openwrt-config#Batman-adv-20190-2-and-older">Check what the B.A.T.M.A.N. wiki has to say about it</a>.  However, it’s worth mentioning that with old batman modules, changes to <code class="language-plaintext highlighter-rouge">/etc/config/network</code> will likely require a reboot instead of simply reloading <code class="language-plaintext highlighter-rouge">/etc/init.d/network</code>.</p>
 
-<p>Also, I’ve noticed that when installing <code class="language-plaintext highlighter-rouge">kmod-batman-adv</code>, the package manager will install a minimal version of <code class="language-plaintext highlighter-rouge">batctl</code>, called <code class="language-plaintext highlighter-rouge">batctl-tiny</code>, that lacks some of the options mentioned here (e.g., <code class="language-plaintext highlighter-rouge">batctl n</code> and <code class="language-plaintext highlighter-rouge">batnctl o</code>).  However, if you install <code class="language-plaintext highlighter-rouge">batctl</code> first and then <code class="language-plaintext highlighter-rouge">kmod-batman-adv</code>, the package manager will preserve <code class="language-plaintext highlighter-rouge">batctl-default</code>, which has most of the <code class="language-plaintext highlighter-rouge">batctl</code> features.  In this tutorial, however, we will use the <code class="language-plaintext highlighter-rouge">batctl-full</code> package that contains all features referred to in the <a href="https://downloads.open-mesh.org/batman/manpages/batctl.8.html">batctl man page</a>.</p>
+<p>Also, I’ve noticed that when installing <code class="language-plaintext highlighter-rouge">kmod-batman-adv</code>, the package manager will install a minimal version of <code class="language-plaintext highlighter-rouge">batctl</code>, called <code class="language-plaintext highlighter-rouge">batctl-tiny</code>, that lacks some of the options mentioned here (e.g., <code class="language-plaintext highlighter-rouge">batctl n</code> and <code class="language-plaintext highlighter-rouge">batnctl o</code>).  However, if you install <code class="language-plaintext highlighter-rouge">batctl</code> first and then <code class="language-plaintext highlighter-rouge">kmod-batman-adv</code>, the package manager will preserve <code class="language-plaintext highlighter-rouge">batctl-default</code>, which has most of the <code class="language-plaintext highlighter-rouge">batctl</code> features.  In this tutorial, however, we will use the <code class="language-plaintext highlighter-rouge">batctl-full</code> package that contains all features referred to in the <a href="https://downloads.open-mesh.org/batman/manpages/batctl.8.html"><code class="language-plaintext highlighter-rouge">batctl</code> manual</a>.</p>
 
 <p>Finally, the installation of <code class="language-plaintext highlighter-rouge">wpad-mesh-wolfssl</code> will conflict with the already installed <code class="language-plaintext highlighter-rouge">wpad-basic-wolfssl</code> package (or any other <code class="language-plaintext highlighter-rouge">wpad-basic*</code> package, for that matter).  This means <strong>you have to remove the latter before installing the former</strong>.  To remove the <code class="language-plaintext highlighter-rouge">wpad-basic-wolfssl</code> or any other conflicting <code class="language-plaintext highlighter-rouge">wpad-basic</code> package, simply type</p>
 
@@ -1389,7 +1389,7 @@ config wifi-device 'radio1'
         option network 'mesh'  ##mesh stanza in /etc/config/network
         option mode 'mesh'  ##use 802.11s mode
         option mesh_id 'MeshCloud'  ##mesh "ssid"
-        option encryption 'sae'  ##https://openwrt.org/docs/guide-user/network/wifi/basic#wpa_modes
+        option encryption 'sae'  ##https://openwrt.org/docs/guide-user/network/wifi/basic#encryption_modes
         option key 'MeshPassword123'  ##password in plain text
         option mesh_fwding '0'  ##let batman-adv handle routing
         option mesh_ttl '1'  ##time to live in the mesh
@@ -1521,7 +1521,7 @@ f0:f3:00:00:00:00 node04
 
 <p>This makes it much easier to identify the mesh nodes when issuing a command like <code class="language-plaintext highlighter-rouge">batctl n</code> and other debug tables.  As far as I’m aware, however, you have to create and update such file in each node because such information will just be available to nodes that have a <code class="language-plaintext highlighter-rouge">bat-hosts</code> file.</p>
 
-<p>Finally, as mentioned before, keep an eye on your device’s syslog for errors.  Module related issues are often associated with logged kernel errors (see the section <a href="#hardware-specific-configurations">Hardware-specific configurations</a>) and wpa_supplicant has <a href="https://www.toomanyatoms.com/computer/disconnection_codes.html">multiple mesh-specific error codes</a>. The syslog can be inspected via <code class="language-plaintext highlighter-rouge">logread</code>, as follows:</p>
+<p>Finally, as mentioned before, keep an eye on your device’s syslog for errors.  Module related issues are often associated with logged kernel errors (see the section <a href="#hardware-specific-configurations">Hardware-specific configurations</a>) and wpa_supplicant has <a href="https://www.toomanyatoms.com/computer/disconnection_codes.html">multiple mesh-specific error codes</a> to help you debug connectivity issues. The syslog can be inspected via <code class="language-plaintext highlighter-rouge">logread</code>, as follows:</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>logread
 </code></pre></div></div>
@@ -1555,12 +1555,12 @@ f0:f3:00:00:00:00 node04
 
 <ol>
   <li>Create an entirely new local network for <code class="language-plaintext highlighter-rouge">bat0</code>, called <code class="language-plaintext highlighter-rouge">default</code>, at the expense of additional <code class="language-plaintext highlighter-rouge">dhcp</code> and <code class="language-plaintext highlighter-rouge">firewall</code> configuration;</li>
-  <li>Or use the existing, <code class="language-plaintext highlighter-rouge">lan</code> network by simply bridging <code class="language-plaintext highlighter-rouge">bat0</code> at the <code class="language-plaintext highlighter-rouge">config device</code> <code class="language-plaintext highlighter-rouge">br-lan</code> stanza, as follows:
+  <li>Or use the original <code class="language-plaintext highlighter-rouge">lan</code> network by simply bridging <code class="language-plaintext highlighter-rouge">bat0</code> at the <code class="language-plaintext highlighter-rouge">config device</code> <code class="language-plaintext highlighter-rouge">br-lan</code> stanza, as follows:
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> config device                             
          option name 'br-lan'
          option type 'bridge'
          list ports 'eth0.1'  ##edit according to your device
-         list ports 'bat0.1'
+         list ports 'bat0'
 </code></pre></div>    </div>
   </li>
 </ol>
@@ -1583,7 +1583,7 @@ config interface 'default'
         list dns '8.8.8.8'  ##comment out to disable google dns
 </code></pre></div></div>
 
-<p>The first stanza (<code class="language-plaintext highlighter-rouge">config device</code>) creates a <strong>bridge</strong> (layer 2) for the <code class="language-plaintext highlighter-rouge">default</code> network, while the second stanza (<code class="language-plaintext highlighter-rouge">config interface 'default'</code>) creates the proper <code class="language-plaintext highlighter-rouge">default</code> <strong>network</strong> (layer 3) at the <code class="language-plaintext highlighter-rouge">192.168.10.0/24</code> pool, then sets a static IP address for this device at <code class="language-plaintext highlighter-rouge">192.168.10.1</code> and broadcasts to any client that they should use the external DNS servers <code class="language-plaintext highlighter-rouge">1.1.1.1</code> and <code class="language-plaintext highlighter-rouge">8.8.8.8</code>.</p>
+<p>The first stanza (<code class="language-plaintext highlighter-rouge">config device</code>) creates a <strong>bridge</strong> (layer 2) for the <code class="language-plaintext highlighter-rouge">default</code> network, while the second stanza (<code class="language-plaintext highlighter-rouge">config interface 'default'</code>) creates the proper <code class="language-plaintext highlighter-rouge">default</code> <strong>network</strong> (layer 3) at the <code class="language-plaintext highlighter-rouge">192.168.10.0/24</code> pool, then sets a static IP address for this device at <code class="language-plaintext highlighter-rouge">192.168.10.1</code> and broadcasts to any client that they should use the external DNS servers <code class="language-plaintext highlighter-rouge">1.1.1.1</code> or <code class="language-plaintext highlighter-rouge">8.8.8.8</code>.</p>
 
 <p><strong>Save the file</strong> and exit it.</p>
 
@@ -1658,29 +1658,71 @@ config interface 'default'
 <h4 id="mesh-bridge-configuration">Mesh bridge configuration</h4>
 <p>The configuration of a mesh bridge is much simpler than of a mesh gateway because contrary to the gateway config, our mesh bridge doesn’t require the use of a DHCP server and firewall.  In fact, both services will be disabled in a mesh bridge and instead, the ony thing we will do is join interfaces to make them look like a single one to any connected device.</p>
 
-<p>As before, get one of the other <a href="#mesh-node-basic-config">pre-configured mesh nodes</a> and to start things off, we will configure it as a <a href="https://openwrt.org/docs/guide-user/network/wifi/dumbap">dumb access point</a>.  Follow the instructions in the OpenWrt documentation, except for the following when configuring the default <code class="language-plaintext highlighter-rouge">lan</code> interface</p>
+<p>As before, get one of the other <a href="#mesh-node-basic-config">pre-configured mesh nodes</a> and to start things off, we will configure it as a <a href="https://openwrt.org/docs/guide-user/network/wifi/dumbap">dumb access point</a>.  Follow the instructions in the OpenWrt documentation, except for the following when configuring the original <code class="language-plaintext highlighter-rouge">lan</code> interface:</p>
 
 <ul>
-  <li>add <code class="language-plaintext highlighter-rouge">bat0</code> to the list of <code class="language-plaintext highlighter-rouge">ifname</code>;</li>
-  <li>set a static IP for the device on the <code class="language-plaintext highlighter-rouge">192.168.10.0/24</code> network, such as <code class="language-plaintext highlighter-rouge">192.168.10.10</code>, pointing to our gateway at <code class="language-plaintext highlighter-rouge">192.168.10.1</code>;</li>
-  <li>the configuration of the default <code class="language-plaintext highlighter-rouge">lan</code> should then look something like this
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config interface lan
-      option type 'bridge'
-      option ifname 'eth0.1 eth1 bat0'	#ethX might be different for your device
-      option proto 'static'
-      option ipaddr '192.168.10.10'
-      option netmask '255.255.255.0'
-      option gateway '192.168.10.1'
-      option dns '192.168.10.1'
-</code></pre></div>    </div>
-  </li>
+  <li>Add <code class="language-plaintext highlighter-rouge">bat0</code> to a new <code class="language-plaintext highlighter-rouge">list ports</code> entry in the bridge stanza used by the <code class="language-plaintext highlighter-rouge">lan</code> interface, namely <code class="language-plaintext highlighter-rouge">br-lan</code>;</li>
+  <li>Set a static IP for the device on the <code class="language-plaintext highlighter-rouge">192.168.10.0/24</code> network, such as <code class="language-plaintext highlighter-rouge">192.168.10.10</code>, pointing to our configured gateway at <code class="language-plaintext highlighter-rouge">192.168.10.1</code>;</li>
+  <li>After all is done, rename every <code class="language-plaintext highlighter-rouge">lan</code> entry for <code class="language-plaintext highlighter-rouge">default</code> to make it consistent with the gateway configuration.  This, of course, is optional.</li>
 </ul>
 
-<p>After applying this configuration, it will let any <strong>non-mesh client</strong> to join the mesh <strong>via Ethernet cable</strong>–that is, by connecting a cable to one of the LAN/WAN ports of the mesh bridge device.  As long as the gateway is reachable, everything should work like a standard network, you could use the device’s own switch or connect the device to a switch and manage things there, and so on.</p>
+<p>Once done, the configuration of the original <code class="language-plaintext highlighter-rouge">lan</code> interface and its <code class="language-plaintext highlighter-rouge">br-lan</code> bridge, which are now called <code class="language-plaintext highlighter-rouge">default</code> and <code class="language-plaintext highlighter-rouge">br-default</code>, respectively, should look something like this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config device
+        option name 'br-default'
+        option type 'bridge'
+        list ports 'eth0.1'
+        list ports 'bat0'
+
+config interface 'default'
+        option device 'br-default'
+        option proto 'static'
+        option ipaddr '192.168.10.10'
+        option netmask '255.255.255.0'
+        option gateway '192.168.10.1'
+        option dns '192.168.10.1'
+</code></pre></div></div>
+
+<p>After applying this configuration, it will let any <strong><em>non-mesh</em> clients</strong> to join the mesh <strong>via Ethernet cable</strong>–that is, by connecting a cable to one of the <strong>LAN ports</strong> of the mesh bridge device.  As long as the gateway is reachable, everything should work like a standard network, you could use the device’s own switch or connect the device to a switch and manage things there, and so on.</p>
 
 <p><strong>Save the file</strong> and exit it.</p>
 
-<p>Similarly, you can create a <strong>wireless access point</strong> (WAP) for non-mesh clients, and the instructions in the <a href="https://openwrt.org/docs/guide-user/network/wifi/dumbap"><strong>dumb access point</strong> documentation</a> will work just fine because it uses a network that is bridged with our mesh–namely, the default <code class="language-plaintext highlighter-rouge">lan</code>.  To avoid confusion, make sure to use <strong>a different SSID</strong> for the WAP(s) than the <code class="language-plaintext highlighter-rouge">mesh_id</code> used for the mesh.  In addition, if at all possible, use <strong>a different radio or band</strong> for the WAP(s) and set it to operate on <strong>a different channel</strong> than the mesh channel (<code class="language-plaintext highlighter-rouge">channel 3</code>, unless you changed yours).  If that is not possible, that is probably okay for most home users but keep in mind that node hoping will start affecting performance quite noticeably.</p>
+<p>Similarly, you can create a <strong>wireless access point</strong> (WAP) for <em>non-mesh</em> clients, and the instructions in the <a href="https://openwrt.org/docs/guide-user/network/wifi/dumbap"><strong>dumb access point</strong> documentation</a> will work just fine because it uses a network that is bridged with our mesh–namely, the default <code class="language-plaintext highlighter-rouge">lan</code>.  To avoid confusion, make sure to use <strong>a different SSID</strong> for the WAP(s) than the <code class="language-plaintext highlighter-rouge">mesh_id</code> used for the mesh.  In addition, use <strong>a different radio</strong> for the WAP(s) and set them to operate on <strong>different channels</strong>.  If that is not possible, that is probably okay for most home users but keep in mind that node hoping will start affecting performance quite noticeably.</p>
+
+<p>(<em>Optional</em>.) To illustrate, let’s create a simple 2.4GHz WAP for your home devices that will make use of the <code class="language-plaintext highlighter-rouge">default</code> network.  This can be done by editing the <code class="language-plaintext highlighter-rouge">/etc/config/wireless</code> file as follows:</p>
+
+<ul>
+  <li>
+    <p>In the 2.4GHz radio stanza (<code class="language-plaintext highlighter-rouge">radio0</code>), set <code class="language-plaintext highlighter-rouge">option disabled</code> to <code class="language-plaintext highlighter-rouge">'0'</code> to <strong>enable</strong> it:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> config wifi-device 'radio0'
+         option type 'mac80211'
+         option channel '1'
+         #option txpower '20'
+         option hwmode '11g'
+         option path 'platform/ahb/18100000.wmac'
+         #option htmode 'HT20'
+         option country 'BR'
+         option disabled '0'
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>At the bottom of the file, create a new <code class="language-plaintext highlighter-rouge">config wifi-interface 'whome'</code> stanza that configures an access point (<code class="language-plaintext highlighter-rouge">option mode 'ap'</code>) that will make use of the <code class="language-plaintext highlighter-rouge">default</code> network. It should look similar to the following one when done:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> config wifi-iface 'whome'
+         option device 'radio0'
+         option network 'default'
+         option mode 'ap'
+         option ssid 'HomeWAP'  ##edit it
+         option encryption 'psk2+aes'  ##https://openwrt.org/docs/guide-user/network/wifi/basic#encryption_modes
+         option key 'MyStrongPassword123'  ##edit it
+         option disabled '0'
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Save the file</strong> and exit.</p>
+  </li>
+</ul>
 
 <p>Finally, in the terminal, make sure to disable <code class="language-plaintext highlighter-rouge">dnsmasq</code>, <code class="language-plaintext highlighter-rouge">odhcpd</code>, and the <code class="language-plaintext highlighter-rouge">firewall</code>, as follows</p>
 
@@ -1689,9 +1731,11 @@ config interface 'default'
 /etc/init.d/firewall stop &amp;&amp; /etc/init.d/firewall disable
 </code></pre></div></div>
 
-<p><strong>Reboot</strong> your device and on your laptop/PC, <strong>disable networking</strong> altogether (this will force it to get a new IP from the bridge when it comes back)–alternatively, just disconnect the Ethernet cable.</p>
+<p><strong>Reboot</strong> your device and on your laptop/PC, <strong>disable networking</strong> altogether to force it to get a new IP from the bridge when it comes back online–alternatively, just disconnect the Ethernet cable.</p>
 
-<p>Once the bridge is back online (wait at least a minute or two to give it enough time to connect to the mesh first), <strong>re-enable networking</strong> on your laptop/PC (or reconnect the Ethernet cable) and it should receive an IP addr from our mesh gateway in the <code class="language-plaintext highlighter-rouge">192.168.10.0/24</code> network (on a Linux distro, type <code class="language-plaintext highlighter-rouge">ip a</code> or <code class="language-plaintext highlighter-rouge">ip addr</code> or <code class="language-plaintext highlighter-rouge">ifconfig</code>), the bridge node should now be reachable at <code class="language-plaintext highlighter-rouge">192.168.10.10</code>, and you should be able to access the Internet from your laptop/PC through the mesh (try <code class="language-plaintext highlighter-rouge">ping google.com</code>, for example).  If something doesn’t work, review the config files mentioned here and then go over the ones for the gateway, reboot all mesh nodes (gateway first, then nodes, then bridge) and test again.</p>
+<p>Once the bridge is back online–wait at least a minute or two to give it enough time to connect to the mesh first–<strong>re-enable networking</strong> on your laptop/PC (or reconnect the Ethernet cable) and it should receive an IP addr from our mesh gateway in the <code class="language-plaintext highlighter-rouge">192.168.10.0/24</code> network (on a Linux distro, type <code class="language-plaintext highlighter-rouge">ip a</code> or <code class="language-plaintext highlighter-rouge">ip addr</code> or <code class="language-plaintext highlighter-rouge">ifconfig</code>), the bridge node should now be reachable at <code class="language-plaintext highlighter-rouge">192.168.10.10</code>, and you should be able to access the Internet from your laptop/PC through the mesh (try <code class="language-plaintext highlighter-rouge">ping google.com</code>, for example).</p>
+
+<p>If something doesn’t work, review the config files mentioned here and then go over the ones for the gateway, reboot all mesh nodes (gateway first, then nodes, then bridge) and test again.</p>
 
 <h3 id="bridge-bridge">Bridge-Bridge</h3>
 <p>This second example applies to the following topology:</p>
@@ -1704,10 +1748,10 @@ config interface 'default'
 
 <ul>
   <li>
-    <p><strong>Each mesh bridge</strong> should have a different static IP address in the <code class="language-plaintext highlighter-rouge">lan</code> interface, as indicated by <code class="language-plaintext highlighter-rouge">option ipaddr</code>.  For example, the first mesh bridge will have <code class="language-plaintext highlighter-rouge">option ipaddr '192.168.10.10'</code>, while the second mesh bridge will have <code class="language-plaintext highlighter-rouge">option ipaddr '192.168.10.11'</code>;</p>
+    <p><strong>Each mesh bridge</strong> should have a different static IP address in the <code class="language-plaintext highlighter-rouge">default</code> interface, as indicated by <code class="language-plaintext highlighter-rouge">option ipaddr</code>.  For example, the first mesh bridge will have <code class="language-plaintext highlighter-rouge">option ipaddr '192.168.10.10'</code>, while the second mesh bridge will have <code class="language-plaintext highlighter-rouge">option ipaddr '192.168.10.11'</code>;</p>
   </li>
   <li>
-    <p>The <code class="language-plaintext highlighter-rouge">option gateway '192.168.10.1'</code> in the default <code class="language-plaintext highlighter-rouge">lan</code> stanza must match an existing gateway on either Network A or B, and similarly, <code class="language-plaintext highlighter-rouge">option dns '192.168.10.1'</code> must point to a valid DNS resolver;</p>
+    <p>The <code class="language-plaintext highlighter-rouge">option gateway '192.168.10.1'</code> in the <code class="language-plaintext highlighter-rouge">default</code> stanza must match an existing gateway on either Network A or B, and similarly, <code class="language-plaintext highlighter-rouge">option dns '192.168.10.1'</code> must point to a valid DNS resolver or forwarder;</p>
   </li>
   <li>
     <p>As mentioned before, if your existing Networks A and B are not defined in the <code class="language-plaintext highlighter-rouge">192.168.10.0/24</code> IP range, then just edit the config file accordingly.</p>
@@ -1723,15 +1767,63 @@ config interface 'default'
 
 <ul>
   <li>
-    <p>Like in the <a href="#bridge-bridge">bridge-bridge example</a>, we must assign different static IP addresses to <strong>each</strong> mesh gateway.  This is done by editing the <code class="language-plaintext highlighter-rouge">/etc/config/network</code> config file, and in the <code class="language-plaintext highlighter-rouge">lan</code> interface configuration, add a different IP addr next to the <code class="language-plaintext highlighter-rouge">option ipaddr</code> option.  For example, the first mesh gateway will have <code class="language-plaintext highlighter-rouge">option ipaddr '192.168.10.1'</code>, while the second mesh gateway will have <code class="language-plaintext highlighter-rouge">option ipaddr '192.168.10.2'</code>.</p>
+    <p>Like in the <a href="#bridge-bridge">bridge-bridge example</a>, we must assign different static IP addresses to <strong>each</strong> mesh gateway.  This is done by editing the <code class="language-plaintext highlighter-rouge">/etc/config/network</code> config file, and in the <code class="language-plaintext highlighter-rouge">default</code> interface configuration, add a different IP addr next to the <code class="language-plaintext highlighter-rouge">option ipaddr</code> option.  For example, the first mesh gateway will have <code class="language-plaintext highlighter-rouge">option ipaddr '192.168.10.1'</code>, while the second mesh gateway will have <code class="language-plaintext highlighter-rouge">option ipaddr '192.168.10.2'</code>.</p>
   </li>
   <li>
-    <p>Because we will now run <strong>two</strong> DHCP servers on <strong>the same network</strong>, we need to find a way of avoiding conflicts when assigning an IP address to new clients.  The easiest way of doing that is by assigning <strong>different intervals</strong> to each DHCP server running on the same network.  In OpenWrt, this is done by editing the <code class="language-plaintext highlighter-rouge">/etc/config/dhcp</code> config file, and in the <code class="language-plaintext highlighter-rouge">lan_bat0</code> DHCP configuration, we add a different starting point next to the <code class="language-plaintext highlighter-rouge">option start</code> option.  For example, while the DHCP server running on the first gateway will have <code class="language-plaintext highlighter-rouge">option start '50'</code>, the DHCP server running on the second gateway will have <code class="language-plaintext highlighter-rouge">option start '150'</code> instead.  This way, the first DHCP server leases addresses from <code class="language-plaintext highlighter-rouge">192.168.10.50</code> to <code class="language-plaintext highlighter-rouge">.149</code>, whereas the second leases addresses from <code class="language-plaintext highlighter-rouge">192.168.10.150</code> to <code class="language-plaintext highlighter-rouge">.249</code>.</p>
+    <p>Because we will now run <strong>two</strong> DHCP servers on <strong>the same network</strong>, we need to find a way of avoiding conflicts when assigning an IP address to new clients.  The easiest way of doing that is by assigning <strong>different intervals</strong> to each DHCP server running on the same network.  In OpenWrt, this is done by editing the <code class="language-plaintext highlighter-rouge">/etc/config/dhcp</code> config file, and in the <code class="language-plaintext highlighter-rouge">default</code> DHCP configuration, we add a different starting point next to the <code class="language-plaintext highlighter-rouge">option start</code> option.  For example, while the DHCP server running on the first gateway will have <code class="language-plaintext highlighter-rouge">option start '50'</code>, the DHCP server running on the second gateway will have <code class="language-plaintext highlighter-rouge">option start '150'</code> instead.  This way, the first DHCP server leases addresses from <code class="language-plaintext highlighter-rouge">192.168.10.50</code> to <code class="language-plaintext highlighter-rouge">.149</code>, whereas the second leases addresses from <code class="language-plaintext highlighter-rouge">192.168.10.150</code> to <code class="language-plaintext highlighter-rouge">.249</code>.</p>
   </li>
   <li>
-    <p><em>Optional</em>. In the <code class="language-plaintext highlighter-rouge">bat0</code> interface config of the <code class="language-plaintext highlighter-rouge">/etc/config/network</code> config file, we can now enable the <code class="language-plaintext highlighter-rouge">option gw_mode 'server'</code> and specify the WAN connection speed with <code class="language-plaintext highlighter-rouge">option gw_bandwidth '10000/2000'</code> (i.e., 10000kbps download and 2000kbps upload).  Then, in each other <strong>mesh node</strong>, we set the <code class="language-plaintext highlighter-rouge">option gw_mode</code> to <code class="language-plaintext highlighter-rouge">'client'</code> instead of <code class="language-plaintext highlighter-rouge">'off'</code>.  This way, we can make each mesh node aware of the two gateways on the network (and their speeds) to better route mesh traffic.</p>
+    <p>In the <code class="language-plaintext highlighter-rouge">bat0</code> interface config of the <code class="language-plaintext highlighter-rouge">/etc/config/network</code> config file, we can now enable the <code class="language-plaintext highlighter-rouge">option gw_mode 'server'</code> and specify the WAN connection speed with <code class="language-plaintext highlighter-rouge">option gw_bandwidth '10000/2000'</code> (i.e., 10000kbps download and 2000kbps upload), as follows:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> config interface 'bat0'
+         option proto 'batadv'
+         option routing_algo 'BATMAN_IV'
+         option aggregated_ogms '1'
+         option ap_isolation '0'
+         option bonding '0'
+         option bridge_loop_avoidance '1'
+         option distributed_arp_table '1'
+         option fragmentation '1'
+         option gw_mode 'server'
+         #option gw_sel_class '20'
+         option gw_bandwidth '10000/2000'  ##download/upload in kbps
+         option hop_penalty '30'
+         option isolation_mark '0x00000000/0x00000000'
+         option log_level '0'
+         option multicast_mode '1'
+         option multicast_fanout '16'
+         option network_coding '0'
+         option orig_interval '1000'
+</code></pre></div>    </div>
+
+    <p>Similarly, now in each other <strong>mesh node</strong> (non-gateway devices), we set the <code class="language-plaintext highlighter-rouge">option gw_mode</code> to <code class="language-plaintext highlighter-rouge">'client'</code> instead of <code class="language-plaintext highlighter-rouge">'off'</code> and enable selection options, as follows:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    config interface 'bat0'
+         option proto 'batadv'
+         option routing_algo 'BATMAN_IV'
+         option aggregated_ogms '1'
+         option ap_isolation '0'
+         option bonding '0'
+         option bridge_loop_avoidance '1'
+         option distributed_arp_table '1'
+         option fragmentation '1'
+         option gw_mode 'client'
+         option gw_sel_class '20'  ##set to 1 for fast connection policy (BATMAN_IV)
+         #option gw_bandwidth '10000/2000'
+         option hop_penalty '30'
+         option isolation_mark '0x00000000/0x00000000'
+         option log_level '0'
+         option multicast_mode '1'
+         option multicast_fanout '16'
+         option network_coding '0'
+         option orig_interval '1000'
+</code></pre></div>    </div>
+
+    <p>This way, we can make each mesh node aware of the two gateways on the network (and their speeds) to better route mesh traffic.</p>
   </li>
 </ul>
+
+<p>To learn more about how <code class="language-plaintext highlighter-rouge">batman-adv</code> handles multiple gateways, read the official <a href="https://www.open-mesh.org/projects/batman-adv/wiki/Gateways">Gateway documentation</a>.</p>
 
 <h2 id="mesh-vlans">Mesh VLANs</h2>
 <p>You don’t need to configure VLANs in order to use <code class="language-plaintext highlighter-rouge">batman-adv</code> but it is one of its best features.  In brief, this is a way of using <strong>our already configured</strong> wireless mesh network to route traffic <strong>to/from multiple and all networks</strong> in a secure, isolated way (as far as VLANs go).  No need for additional hardware–the combination of OpenWrt and <code class="language-plaintext highlighter-rouge">batman-adv</code> turns even cheap wireless hardware into powerful virtual switches.  It’s just a matter of tagging the additional (and virtual) networks instead of using the untagged <code class="language-plaintext highlighter-rouge">bat0</code> (or similarly, in a port-based analogy, “plugging” standard interfaces into different ports of our <code class="language-plaintext highlighter-rouge">bat0</code> switch).  This is a fairly advanced topic but surprisingly easy to incorporate to our existing <code class="language-plaintext highlighter-rouge">batman-adv</code> configuration.</p>
