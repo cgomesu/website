@@ -108,7 +108,7 @@ From this point forward, the article is divided into four main parts:
 ### Routing protocols
 There are [dozens of algorithms](https://en.wikipedia.org/wiki/Wireless_mesh_network#Protocols) for routing packets in a mesh network.  A few notable ones are the Optimized Link State Routing (OLSR) and the Hybrid Wireless Mesh Protocol (HWMP). 
 
-In this tutorial, however, we will cover only one of them, called [*Better Approach to Mobile Adhoc Networking*](https://en.wikipedia.org/wiki/B.A.T.M.A.N.) (**B.A.T.M.A.N.**), because [it has long been incorporated into the Linux Kernel](https://www.kernel.org/doc/html/latest/networking/batman-adv.html) and is thus easily enabled on Linux devices.  It is also a [fairly well-documented](https://www.open-mesh.org/projects/batman-adv/wiki) algorithm that [has been continuously improved](https://www.open-mesh.org/projects/open-mesh/activity) over the years.  Another noteworthy feature of `batman-adv` is its lack of reliance on layer-3 protocols for managing mesh clients because it works at the layer-2 and its ability to create VLANs.  Think of it as if it were a big, smart, virtual switch, in which its VLANs are port-based segmentations.  If you want an interface to use a particular mesh VLAN, just "plug it" into the approriate port of the `batX` switch (e.g., bridge `if-guest` and `bat0.2` to give the guest network access to the `bat0` VLAN 2).
+In this tutorial, however, we will cover only one of them, called [*Better Approach to Mobile Adhoc Networking*](https://en.wikipedia.org/wiki/B.A.T.M.A.N.) (**B.A.T.M.A.N.**), because [it has long been incorporated into the Linux Kernel](https://www.kernel.org/doc/html/latest/networking/batman-adv.html) and is thus easily enabled on Linux devices.  It is also a [fairly well-documented](https://www.open-mesh.org/projects/batman-adv/wiki) algorithm that [has been continuously improved](https://www.open-mesh.org/projects/open-mesh/activity) over the years.  Another noteworthy feature of `batman-adv` is its lack of reliance on layer-3 protocols for managing mesh clients because it works at the layer-2 and its ability to create VLANs.  Think of it as if it were a big, smart, virtual switch, in which its VLANs are port-based segmentations.  If you want an interface to use a particular mesh VLAN, just "plug it" into the approriate port of the `batX` switch (e.g., bridge `guest` and `bat0.2` to give the guest network access to the `bat0` VLAN ID #2).
 
 #### batman-adv
 As mentioned before, B.A.T.M.A.N. has gone through multiple changes over the years, which means that there are actually *multiple versions of the algorithm*. I've had a good experience with [**B.A.T.M.A.N. IV**](https://www.open-mesh.org/projects/batman-adv/wiki/BATMAN_IV) and therefore, the examples here make use of it.  However, you are free to try whatever version you want and even run them in parallel to each other, by assigning a different `batX` interface to each version of the algorithm (versions are chosen with `option routing_algo` in the `/etc/config/network` config file for each enabled `batX` interface).
@@ -910,7 +910,7 @@ Afterwards, `ssh` into one of the configured mesh nodes and type
 batctl n
 ```
 
-which will show a table with the interfaces (`if-mesh`), MAC address of the neighboring mesh nodes, and when each of them was last seen.  Copy the MAC address (e.g., `f0:f0:00:00:00:01`) from each neighboring mesh node and ping them through the mesh (using `batctl p`) to see if they are all replying, as follows (press Ctrl+C to stop)
+which will show a table with the interfaces (`wlan1`), MAC address of the neighboring mesh nodes, and when each of them was last seen.  Copy the MAC address (e.g., `f0:f0:00:00:00:01`) from each neighboring mesh node and ping them through the mesh (using `batctl p`) to see if they are all replying, as follows (press Ctrl+C to stop)
 
 ```
 batctl p f0:f0:00:00:00:01
@@ -1300,7 +1300,7 @@ config device
         list ports 'bat0.1'
 ```
 
-At this point, if you want to enable access to the `default` network via the Ethernet port of your gateway device, you can then add another `list ports 'eth0.1'` (or whatever you device uses) to the `br-default` bridge configuration.  Afterwards, remove any configuration related to the original `lan` network.
+At this point, if you want to enable access to the `default` network via the Ethernet port of your gateway device, you can then add another `list ports 'eth0.1'` (or whatever your device uses) to the `br-default` bridge configuration.  Afterwards, remove any configuration related to the original `lan` network.
 {:.notice--info}
 
 **Save the file**.
@@ -1411,7 +1411,7 @@ config forwarding
         option dest  wan
 ```
 
-Of note, it is good practice to be more restrictive with the firewall rules the `guest` and `iot` networks.  I added comments with recommendations in the configurations above but additional rules might be necessary to enable basic functionality within each of those networks.  For a reference, check the OpenWrt's guide on [Guest Wi-Fi basics](https://openwrt.org/docs/guide-user/network/wifi/guestwifi/guest-wlan#firewall).
+Of note, it is good practice to be more restrictive with the firewall rules for the `guest` and `iot` networks.  I added comments with recommendations in the configurations above but additional rules might be necessary to enable basic functionality within each of those networks.  For a reference, check the OpenWrt's guide on [Guest Wi-Fi basics](https://openwrt.org/docs/guide-user/network/wifi/guestwifi/guest-wlan#firewall).
 {:.notice--warning}
 
 Now **save the file** and exit.  Then, **reboot** the device.  This will implement the changes and offer an opportunity to check if everything will work as intended after a power loss.
@@ -1451,7 +1451,7 @@ Now, let's configure the Network B (**IoT**) bridge. First, configure one of the
 - In the now `config interface 'iot'` stanza:
   - Replace `option ipaddr '192.168.10.10'` for `option ipaddr '192.168.20.10'`;
   - Replace `option gateway '192.168.10.1'` for `option gateway '192.168.20.1'`;
-  - Replace `option dns '192.168.10.1'` for `option dns '192.168.20.1'`;
+  - Replace `option dns '192.168.10.1'` for `option dns '192.168.20.1'`.
 
 After all is done, the updated configuration should look something like this:
 
@@ -1484,8 +1484,8 @@ Once it comes back on, your laptop/PC will receive an IP address from our mesh g
 If this configuration is working, **repeat the same steps** as before for the Network C bridge (**Guest**), with the following exceptions:
 
 - Instead of `iot`, use `guest`;
-- Instead of `bat0.2`, use `bat0.2`;
-- Instead of `192.168.20.0/24` IP addresses, user `192.168.20.0/24` addresses when assigning static IP and pointing to the gateway.
+- Instead of `bat0.2`, use `bat0.5`;
+- Instead of `192.168.20.0/24` IP addresses, user `192.168.50.0/24` addresses when assigning static IP and pointing to the gateway.
 
 *Optional*. When configuring a **Guest** WAP, for example, you can add `option isolate 1` to the relevant stanza in the `/etc/config/wireless` config file to deny client-to-client connectivity without the need of re-enabling the firewall in the bridge device.  If that's not enough, re-enable the firewall and configure it according to your needs--at the bottom of the `/etc/config/firewall` file, there are examples you can use as template.
 

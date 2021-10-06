@@ -556,7 +556,7 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
 <h3 id="routing-protocols">Routing protocols</h3>
 <p>There are <a href="https://en.wikipedia.org/wiki/Wireless_mesh_network#Protocols">dozens of algorithms</a> for routing packets in a mesh network.  A few notable ones are the Optimized Link State Routing (OLSR) and the Hybrid Wireless Mesh Protocol (HWMP).</p>
 
-<p>In this tutorial, however, we will cover only one of them, called <a href="https://en.wikipedia.org/wiki/B.A.T.M.A.N."><em>Better Approach to Mobile Adhoc Networking</em></a> (<strong>B.A.T.M.A.N.</strong>), because <a href="https://www.kernel.org/doc/html/latest/networking/batman-adv.html">it has long been incorporated into the Linux Kernel</a> and is thus easily enabled on Linux devices.  It is also a <a href="https://www.open-mesh.org/projects/batman-adv/wiki">fairly well-documented</a> algorithm that <a href="https://www.open-mesh.org/projects/open-mesh/activity">has been continuously improved</a> over the years.  Another noteworthy feature of <code class="language-plaintext highlighter-rouge">batman-adv</code> is its lack of reliance on layer-3 protocols for managing mesh clients because it works at the layer-2 and its ability to create VLANs.  Think of it as if it were a big, smart, virtual switch, in which its VLANs are port-based segmentations.  If you want an interface to use a particular mesh VLAN, just “plug it” into the approriate port of the <code class="language-plaintext highlighter-rouge">batX</code> switch (e.g., bridge <code class="language-plaintext highlighter-rouge">if-guest</code> and <code class="language-plaintext highlighter-rouge">bat0.2</code> to give the guest network access to the <code class="language-plaintext highlighter-rouge">bat0</code> VLAN 2).</p>
+<p>In this tutorial, however, we will cover only one of them, called <a href="https://en.wikipedia.org/wiki/B.A.T.M.A.N."><em>Better Approach to Mobile Adhoc Networking</em></a> (<strong>B.A.T.M.A.N.</strong>), because <a href="https://www.kernel.org/doc/html/latest/networking/batman-adv.html">it has long been incorporated into the Linux Kernel</a> and is thus easily enabled on Linux devices.  It is also a <a href="https://www.open-mesh.org/projects/batman-adv/wiki">fairly well-documented</a> algorithm that <a href="https://www.open-mesh.org/projects/open-mesh/activity">has been continuously improved</a> over the years.  Another noteworthy feature of <code class="language-plaintext highlighter-rouge">batman-adv</code> is its lack of reliance on layer-3 protocols for managing mesh clients because it works at the layer-2 and its ability to create VLANs.  Think of it as if it were a big, smart, virtual switch, in which its VLANs are port-based segmentations.  If you want an interface to use a particular mesh VLAN, just “plug it” into the approriate port of the <code class="language-plaintext highlighter-rouge">batX</code> switch (e.g., bridge <code class="language-plaintext highlighter-rouge">guest</code> and <code class="language-plaintext highlighter-rouge">bat0.2</code> to give the guest network access to the <code class="language-plaintext highlighter-rouge">bat0</code> VLAN ID #2).</p>
 
 <h4 id="batman-adv">batman-adv</h4>
 <p>As mentioned before, B.A.T.M.A.N. has gone through multiple changes over the years, which means that there are actually <em>multiple versions of the algorithm</em>. I’ve had a good experience with <a href="https://www.open-mesh.org/projects/batman-adv/wiki/BATMAN_IV"><strong>B.A.T.M.A.N. IV</strong></a> and therefore, the examples here make use of it.  However, you are free to try whatever version you want and even run them in parallel to each other, by assigning a different <code class="language-plaintext highlighter-rouge">batX</code> interface to each version of the algorithm (versions are chosen with <code class="language-plaintext highlighter-rouge">option routing_algo</code> in the <code class="language-plaintext highlighter-rouge">/etc/config/network</code> config file for each enabled <code class="language-plaintext highlighter-rouge">batX</code> interface).</p>
@@ -1472,7 +1472,7 @@ config wifi-device 'radio1'
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>batctl n
 </code></pre></div></div>
 
-<p>which will show a table with the interfaces (<code class="language-plaintext highlighter-rouge">if-mesh</code>), MAC address of the neighboring mesh nodes, and when each of them was last seen.  Copy the MAC address (e.g., <code class="language-plaintext highlighter-rouge">f0:f0:00:00:00:01</code>) from each neighboring mesh node and ping them through the mesh (using <code class="language-plaintext highlighter-rouge">batctl p</code>) to see if they are all replying, as follows (press Ctrl+C to stop)</p>
+<p>which will show a table with the interfaces (<code class="language-plaintext highlighter-rouge">wlan1</code>), MAC address of the neighboring mesh nodes, and when each of them was last seen.  Copy the MAC address (e.g., <code class="language-plaintext highlighter-rouge">f0:f0:00:00:00:01</code>) from each neighboring mesh node and ping them through the mesh (using <code class="language-plaintext highlighter-rouge">batctl p</code>) to see if they are all replying, as follows (press Ctrl+C to stop)</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>batctl p f0:f0:00:00:00:01
 </code></pre></div></div>
@@ -1867,7 +1867,7 @@ config interface 'default'
         list ports 'bat0.1'
 </code></pre></div></div>
 
-<p class="notice--info">At this point, if you want to enable access to the <code class="language-plaintext highlighter-rouge">default</code> network via the Ethernet port of your gateway device, you can then add another <code class="language-plaintext highlighter-rouge">list ports 'eth0.1'</code> (or whatever you device uses) to the <code class="language-plaintext highlighter-rouge">br-default</code> bridge configuration.  Afterwards, remove any configuration related to the original <code class="language-plaintext highlighter-rouge">lan</code> network.</p>
+<p class="notice--info">At this point, if you want to enable access to the <code class="language-plaintext highlighter-rouge">default</code> network via the Ethernet port of your gateway device, you can then add another <code class="language-plaintext highlighter-rouge">list ports 'eth0.1'</code> (or whatever your device uses) to the <code class="language-plaintext highlighter-rouge">br-default</code> bridge configuration.  Afterwards, remove any configuration related to the original <code class="language-plaintext highlighter-rouge">lan</code> network.</p>
 
 <p><strong>Save the file</strong>.</p>
 
@@ -1967,7 +1967,7 @@ config interface 'guest'
         option dest  wan
 </code></pre></div></div>
 
-<p class="notice--warning">Of note, it is good practice to be more restrictive with the firewall rules the <code class="language-plaintext highlighter-rouge">guest</code> and <code class="language-plaintext highlighter-rouge">iot</code> networks.  I added comments with recommendations in the configurations above but additional rules might be necessary to enable basic functionality within each of those networks.  For a reference, check the OpenWrt’s guide on <a href="https://openwrt.org/docs/guide-user/network/wifi/guestwifi/guest-wlan#firewall">Guest Wi-Fi basics</a>.</p>
+<p class="notice--warning">Of note, it is good practice to be more restrictive with the firewall rules for the <code class="language-plaintext highlighter-rouge">guest</code> and <code class="language-plaintext highlighter-rouge">iot</code> networks.  I added comments with recommendations in the configurations above but additional rules might be necessary to enable basic functionality within each of those networks.  For a reference, check the OpenWrt’s guide on <a href="https://openwrt.org/docs/guide-user/network/wifi/guestwifi/guest-wlan#firewall">Guest Wi-Fi basics</a>.</p>
 
 <p>Now <strong>save the file</strong> and exit.  Then, <strong>reboot</strong> the device.  This will implement the changes and offer an opportunity to check if everything will work as intended after a power loss.</p>
 
@@ -2009,7 +2009,7 @@ config interface 'guest'
     <ul>
       <li>Replace <code class="language-plaintext highlighter-rouge">option ipaddr '192.168.10.10'</code> for <code class="language-plaintext highlighter-rouge">option ipaddr '192.168.20.10'</code>;</li>
       <li>Replace <code class="language-plaintext highlighter-rouge">option gateway '192.168.10.1'</code> for <code class="language-plaintext highlighter-rouge">option gateway '192.168.20.1'</code>;</li>
-      <li>Replace <code class="language-plaintext highlighter-rouge">option dns '192.168.10.1'</code> for <code class="language-plaintext highlighter-rouge">option dns '192.168.20.1'</code>;</li>
+      <li>Replace <code class="language-plaintext highlighter-rouge">option dns '192.168.10.1'</code> for <code class="language-plaintext highlighter-rouge">option dns '192.168.20.1'</code>.</li>
     </ul>
   </li>
 </ul>
@@ -2045,8 +2045,8 @@ config interface 'iot'
 
 <ul>
   <li>Instead of <code class="language-plaintext highlighter-rouge">iot</code>, use <code class="language-plaintext highlighter-rouge">guest</code>;</li>
-  <li>Instead of <code class="language-plaintext highlighter-rouge">bat0.2</code>, use <code class="language-plaintext highlighter-rouge">bat0.2</code>;</li>
-  <li>Instead of <code class="language-plaintext highlighter-rouge">192.168.20.0/24</code> IP addresses, user <code class="language-plaintext highlighter-rouge">192.168.20.0/24</code> addresses when assigning static IP and pointing to the gateway.</li>
+  <li>Instead of <code class="language-plaintext highlighter-rouge">bat0.2</code>, use <code class="language-plaintext highlighter-rouge">bat0.5</code>;</li>
+  <li>Instead of <code class="language-plaintext highlighter-rouge">192.168.20.0/24</code> IP addresses, user <code class="language-plaintext highlighter-rouge">192.168.50.0/24</code> addresses when assigning static IP and pointing to the gateway.</li>
 </ul>
 
 <p><em>Optional</em>. When configuring a <strong>Guest</strong> WAP, for example, you can add <code class="language-plaintext highlighter-rouge">option isolate 1</code> to the relevant stanza in the <code class="language-plaintext highlighter-rouge">/etc/config/wireless</code> config file to deny client-to-client connectivity without the need of re-enabling the firewall in the bridge device.  If that’s not enough, re-enable the firewall and configure it according to your needs–at the bottom of the <code class="language-plaintext highlighter-rouge">/etc/config/firewall</code> file, there are examples you can use as template.</p>
