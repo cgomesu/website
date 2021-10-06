@@ -146,7 +146,7 @@ It goes without saying that if you want to dive deep into `batman-adv`, you shou
 # Hardware
 Unless otherwise specified, all mesh nodes used in the various implementations had the following hardware:
 
-- **Device**: [TP-Link TL-WDR4300](https://www.tp-link.com/us/home-networking/wifi-router/tl-wr1043nd/) v1.0 - v1.7
+- **Device**: [TP-Link TL-WDR4300](https://www.tp-link.com/us/home-networking/wifi-router/tl-wdr4300/) v1.0 - v1.7
   - **SoC**: Atheros AR9344
   - **WLAN Hardware**: Dual-band (Atheros AR9344, Atheros AR9580)
   - **CPU**: `560 Mhz`
