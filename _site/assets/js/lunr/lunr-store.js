@@ -42,7 +42,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Mesh networking: A guide to using free and open-source software with common hardware",
-        "excerpt":"Changelog September 16th, 2021: Updated the information about OpenWrt 21 in the section Bonus content: Moving from OpenWrt 19 to 21. In brief, DSA support is still very limited and OpenWrt has officially started rolling out version 21 with the release of OpenWrt 21.02. I’m currently testing the new version...","categories": ["blog"],
+        "excerpt":"Changelog October 6th, 2021: The guide was completely updated to make it consistent with the current stable release, namely OpenWrt 21.02. In brief, most of the changes had to do with the new network syntax and increased hardware requirements. More specifically, OpenWrt 21.02 drops the use of ifname and make...","categories": ["blog"],
         "tags": ["mesh","adhoc","ieee","wifi","wireless","radio","network","router","openwrt","batman"],
         "url": "/blog/Mesh-networking-openwrt-batman/",
         "teaser": null
