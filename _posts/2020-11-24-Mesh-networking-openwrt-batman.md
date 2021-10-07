@@ -53,7 +53,7 @@ My intention with this tutorial is to help closing the gap between concept and i
 4. Install and configure the Kernel module `batman-adv` on an OpenWrt device using the `opkg` package manager.
 5. Use `batctl` to test, debug, and monitor connectivity within the mesh.
 6. Use two radios to segment mesh (5Ghz) from non-mesh (2.4Ghz) wireless communication.
-7. Add encryption to the mesh network with the package `wpad-mesh-openssl`.
+7. Add encryption to the mesh network with the package `wpad-mesh-wolfssl`.
 8. Use VLANs to create `default`, `iot`, and `guest` networks within the mesh using `batman-adv`.
 
 [top](#){: .btn .btn--light-outline .btn--small}
@@ -555,7 +555,7 @@ opkg remove wpad-basic-wolfssl
 then install `batctl-full`, `batman-adv`, and `wpad-mesh-wolfssl` with
 
 ```
-opkg install batctl kmod-batman-adv wpad-mesh-wolfssl
+opkg install batctl-full kmod-batman-adv wpad-mesh-wolfssl
 ```
 
 It is up to you whether to install `wpad-mesh-wolfssl` or `wpad-mesh-openssl`. For a detailed description of the main differences, take a look at the [wolfSSL documentation](https://www.wolfssl.com/docs/wolfssl-openssl/).  In brief, wolfSSL was built for embedded systems--such as most consumer routers--and it is lighter and more frequently patched than OpenSSL. OpenSSL is much older and more general purpose.
