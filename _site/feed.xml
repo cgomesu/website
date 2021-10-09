@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-10-07T09:35:18-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: ESP-01 Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: ESP-01 Tasmota environmental sensor" /><published>2021-08-12T13:00:00-03:00</published><updated>2021-08-12T13:00:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-10-09T13:46:50-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: ESP-01 Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: ESP-01 Tasmota environmental sensor" /><published>2021-08-12T13:00:00-03:00</published><updated>2021-08-12T13:00:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;August 12th, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
@@ -4846,25 +4846,25 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
           &lt;td style=&quot;text-align: center&quot;&gt;TP-Link&lt;/td&gt;
           &lt;td style=&quot;text-align: center&quot;&gt;Archer C7&lt;/td&gt;
           &lt;td style=&quot;text-align: center&quot;&gt;2.0&lt;/td&gt;
-          &lt;td style=&quot;text-align: center&quot;&gt;19.07&lt;/td&gt;
+          &lt;td style=&quot;text-align: center&quot;&gt;19.07, 21.02&lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr&gt;
           &lt;td style=&quot;text-align: center&quot;&gt;TP-Link&lt;/td&gt;
           &lt;td style=&quot;text-align: center&quot;&gt;Archer C7 US&lt;/td&gt;
           &lt;td style=&quot;text-align: center&quot;&gt;2.0&lt;/td&gt;
-          &lt;td style=&quot;text-align: center&quot;&gt;19.07&lt;/td&gt;
+          &lt;td style=&quot;text-align: center&quot;&gt;19.07, 21.02&lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr&gt;
           &lt;td style=&quot;text-align: center&quot;&gt;TP-Link&lt;/td&gt;
           &lt;td style=&quot;text-align: center&quot;&gt;Archer C7&lt;/td&gt;
           &lt;td style=&quot;text-align: center&quot;&gt;4.0&lt;/td&gt;
-          &lt;td style=&quot;text-align: center&quot;&gt;19.07&lt;/td&gt;
+          &lt;td style=&quot;text-align: center&quot;&gt;19.07, 21.02&lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr&gt;
           &lt;td style=&quot;text-align: center&quot;&gt;TP-Link&lt;/td&gt;
           &lt;td style=&quot;text-align: center&quot;&gt;Archer C7&lt;/td&gt;
           &lt;td style=&quot;text-align: center&quot;&gt;5.0&lt;/td&gt;
-          &lt;td style=&quot;text-align: center&quot;&gt;19.07&lt;/td&gt;
+          &lt;td style=&quot;text-align: center&quot;&gt;19.07, 21.02&lt;/td&gt;
         &lt;/tr&gt;
       &lt;/tbody&gt;
     &lt;/table&gt;

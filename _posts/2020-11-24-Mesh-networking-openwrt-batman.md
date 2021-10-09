@@ -220,10 +220,10 @@ I've noticed that radio devices that use the `ath10k` module and more specifical
 
   | brand | model | version | OpenWrt release |
   |:---:|:---:|:---:|:---:|
-  | TP-Link | Archer C7 | 2.0 | 19.07 |
-  | TP-Link | Archer C7 US | 2.0 | 19.07 |
-  | TP-Link | Archer C7 | 4.0 | 19.07 |
-  | TP-Link | Archer C7 | 5.0 | 19.07 |
+  | TP-Link | Archer C7 | 2.0 | 19.07, 21.02 |
+  | TP-Link | Archer C7 US | 2.0 | 19.07, 21.02 |
+  | TP-Link | Archer C7 | 4.0 | 19.07, 21.02 |
+  | TP-Link | Archer C7 | 5.0 | 19.07, 21.02 |
 
 ## Useful hardware resources
 These are a few resources that I've used in the past that you might find useful when looking for mesh compatible devices:
