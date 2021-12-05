@@ -54,7 +54,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Tasmota webcam server for the ESP32-cam",
-        "excerpt":"Changelog September 3rd, 2021: Included a new section called RTSP server that describes how to enable and access the video stream via the Real Time Streaming Protocol (rtsp://). Also made a few related changes to the table in Webcam server additional configurations. September 1st, 2021, Update #3: Extended the information...","categories": ["blog"],
+        "excerpt":"Changelog Dec 5th, 2021: I made a tiny change to the default AITHINKER CAM template in the Updating the template section to disable the PWM component on the GPIO4 (flash LED). More specifically, instead of assigning 416 (PWM) to IO4 (as in the official template for such board), the current...","categories": ["blog"],
         "tags": ["iot","esp32","tasmota","mqtt","cam","webcam","surveillance","wifi","wireless","network"],
         "url": "/blog/Esp32cam-tasmota-webcam-server/",
         "teaser": null

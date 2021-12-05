@@ -200,7 +200,7 @@
 
 
 
-  41 minute read
+  42 minute read
 
 </p>
       
@@ -387,6 +387,8 @@
           </aside>
         
         <h1 id="changelog">Changelog</h1>
+<p class="notice--info"><strong>Dec 5th, 2021</strong>: I made a tiny change to the default AITHINKER CAM template in the <a href="#updating-the-template">Updating the template</a> section to <em>disable</em> the PWM component on the GPIO4 (flash LED). More specifically, instead of assigning <code class="language-plaintext highlighter-rouge">416</code> (PWM) to IO4 (as in the <a href="https://templates.blakadder.com/ai-thinker_ESP32-CAM.html">official template for such board</a>), the current template assigns <code class="language-plaintext highlighter-rouge">1</code> (User) to it. This change was motivated by multiple boards becoming unstable when such option was implemented (e.g., turning the flash LED on would cause one or consecutive reboots). (Of note, the same issue seems to occur with the relay component and any other component that attempts to control the flash LED. My advice is to not use it at all.) Disabling the flash LED and using <code class="language-plaintext highlighter-rouge">2.5A</code> power supplies solved my random reboot and connectivity issues with the firmware <code class="language-plaintext highlighter-rouge">10.0</code>.</p>
+
 <p class="notice--success"><strong>September 3rd, 2021</strong>: Included a new section called <a href="#rtsp-server">RTSP server</a> that describes how to enable and access the video stream via the Real Time Streaming Protocol (<code class="language-plaintext highlighter-rouge">rtsp://</code>).  Also made a few related changes to the table in <a href="#webcam-server-additional-configurations">Webcam server additional configurations</a>.</p>
 
 <p class="notice--info"><strong>September 1st, 2021</strong>, Update #3: Extended the information about the flash and red LEDs at the end of the <a href="#webcam-server-additional-configurations">Webcam server additional configurations</a> section.</p>
@@ -694,9 +696,9 @@ sudo mkdir tasmota32
 
 <ol>
   <li>
-    <p>Copy the <strong>AITHINKER CAM template</strong> (<em>Updated on September 1st, 2021</em>):</p>
+    <p>Copy the <strong>AITHINKER CAM template</strong>:</p>
 
-    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="nl">"NAME"</span><span class="p">:</span><span class="s2">"AITHINKER CAM"</span><span class="p">,</span><span class="nl">"GPIO"</span><span class="p">:[</span><span class="mi">4992</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">672</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">416</span><span class="p">,</span><span class="mi">5088</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">6720</span><span class="p">,</span><span class="mi">736</span><span class="p">,</span><span class="mi">704</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">5089</span><span class="p">,</span><span class="mi">5090</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">5091</span><span class="p">,</span><span class="mi">5184</span><span class="p">,</span><span class="mi">5152</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">5120</span><span class="p">,</span><span class="mi">5024</span><span class="p">,</span><span class="mi">5056</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">4928</span><span class="p">,</span><span class="mi">576</span><span class="p">,</span><span class="mi">5094</span><span class="p">,</span><span class="mi">5095</span><span class="p">,</span><span class="mi">5092</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">5093</span><span class="p">],</span><span class="nl">"FLAG"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nl">"BASE"</span><span class="p">:</span><span class="mi">2</span><span class="p">}</span><span class="w">
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="nl">"NAME"</span><span class="p">:</span><span class="s2">"AITHINKER CAM"</span><span class="p">,</span><span class="nl">"GPIO"</span><span class="p">:[</span><span class="mi">4992</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">672</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">5088</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">6720</span><span class="p">,</span><span class="mi">736</span><span class="p">,</span><span class="mi">704</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">5089</span><span class="p">,</span><span class="mi">5090</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">5091</span><span class="p">,</span><span class="mi">5184</span><span class="p">,</span><span class="mi">5152</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">5120</span><span class="p">,</span><span class="mi">5024</span><span class="p">,</span><span class="mi">5056</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">4928</span><span class="p">,</span><span class="mi">576</span><span class="p">,</span><span class="mi">5094</span><span class="p">,</span><span class="mi">5095</span><span class="p">,</span><span class="mi">5092</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">5093</span><span class="p">],</span><span class="nl">"FLAG"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nl">"BASE"</span><span class="p">:</span><span class="mi">2</span><span class="p">}</span><span class="w">
 </span></code></pre></div>    </div>
   </li>
   <li>
@@ -1101,7 +1103,6 @@ sudo mkdir tasmota32
 <p>This concludes the tutorial on how to install and configure the Tasmota32 webcam server onto the ESP32-cam.  As usual, if you spot an error or want to share an idea, feel free to <a href="/contact">get in touch with me</a>.  I try to keep my articles updated as much as possible to reflect my current understanding about the topic.  All such updates are noted in the <a href="#changelog">changelog</a>.</p>
 
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
-
 
         
       </section>

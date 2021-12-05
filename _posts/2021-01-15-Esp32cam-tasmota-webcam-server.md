@@ -11,6 +11,9 @@ toc_icon: "list"
 ---
 
 # Changelog
+**Dec 5th, 2021**: I made a tiny change to the default AITHINKER CAM template in the [Updating the template](#updating-the-template) section to *disable* the PWM component on the GPIO4 (flash LED). More specifically, instead of assigning `416` (PWM) to IO4 (as in the [official template for such board](https://templates.blakadder.com/ai-thinker_ESP32-CAM.html)), the current template assigns `1` (User) to it. This change was motivated by multiple boards becoming unstable when such option was implemented (e.g., turning the flash LED on would cause one or consecutive reboots). (Of note, the same issue seems to occur with the relay component and any other component that attempts to control the flash LED. My advice is to not use it at all.) Disabling the flash LED and using `2.5A` power supplies solved my random reboot and connectivity issues with the firmware `10.0`.
+{: .notice--info }
+
 **September 3rd, 2021**: Included a new section called [RTSP server](#rtsp-server) that describes how to enable and access the video stream via the Real Time Streaming Protocol (`rtsp://`).  Also made a few related changes to the table in [Webcam server additional configurations](#webcam-server-additional-configurations).
 {: .notice--success }
 
@@ -83,7 +86,7 @@ This tutorial was organized as follows.  First, I presented the motivation behin
 # Why Tasmota?
 Tasmota was created and it is still maintanted by [Theo Arends](https://github.com/arendst). It started as hacky alternative to the [Sonoff](https://sonoff.tech/) commercial firmware and moved onto an independent, [free and open-source project](https://github.com/arendst/Tasmota) that provides multiple firmwares for ESP8266-based devices.  The firmwares come with a simple webUI that let's you control and configure the board main modules as well as integration with a MQTT server and more. Even though Tasmota [support for the ESP32 is still in beta development](https://tasmota.github.io/docs/ESP32/), my experience with it has been very positive.  
 
-One of the main webcam firmwares for the **ESP32-cam** is the one provided by Espressif themselves, the [CameraWebServer](https://github.com/espressif/arduino-esp32/tree/master/libraries/ESP32/examples/Camera/CameraWebServer) Arduino sketch.  This one has features that the Tasmota32 webcam firmware does not offer, such as face recognition and motion detection.  However, my experience with the **video streaming** has been negative.  Specifically, the streaming runs smoothly when the video resolution is low (640x480) but it strugles quite a bit when running at medium to high resolutions--that is, the number of frames per second decreases noticeably.  I've also noticed that the board runs very hot when running the CameraWebServer Arduino sketch, even when the most CPU intensive tasks (motion detection and face reconition) are disabled. 
+One of the main webcam firmwares for the **ESP32-cam** is the one provided by Espressif themselves, the [CameraWebServer](https://github.com/espressif/arduino-esp32/tree/master/libraries/ESP32/examples/Camera/CameraWebServer) Arduino sketch.  This one has features that the Tasmota32 webcam firmware does not offer, such as face recognition and motion detection.  However, my experience with the **video streaming** has been negative.  Specifically, the streaming runs smoothly when the video resolution is low (640x480) but it strugles quite a bit when running at medium to high resolutions--that is, the number of frames per second decreases noticeably.  I've also noticed that the board runs very hot when running the CameraWebServer Arduino sketch, even when the most CPU intensive tasks (motion detection and face reconition) are disabled.
 
 On the other hand, the **[Tasmota32 webcam server](https://github.com/arendst/Tasmota-firmware/tree/main/release-firmware/tasmota32)** seems to perform much better in the areas the CameraWebServer Arduino sketch strugles with.  More specifically, the streaming is smoother and the board does not seem to get as hot.  I've not had a chance to investigate why this happens and to measure the actual difference in frames per second and temperature, so don't take my opinion too seriously.  Also, I cannot tell if this happens for all ESP32-cam boards because I've only tested with the **AI-Thinker** module.  Overall, however, my experience with the Tasmota32 firmware has been better than with the Espressif firmware in the area that I think is the most relevant one for a camera module, namely video streaming performance.  On top of that, the Tasmota firmware offers a multitude of methods to interact with the ESP32-cam remotely, while the Espressif sketch is very limited in that regard.
 
@@ -102,7 +105,7 @@ If you've never heard of Tasmota before, check Robbert's ([The Hook Up](https://
 # Hardware
 To make a single wireless camera based on the ESP32-cam board, you'll need at least the following items:
 
-* Board: 
+* Board:
   * 01x [ESP32-CAM, AI-Thinker board](https://www.amazon.com/s?k=esp32cam+ai-thinker)
 
   [![ESP32cam](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam.jpg){:.PostImage}](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam.jpg)
@@ -163,7 +166,7 @@ Before we can flash the Tasmota32 webcam server onto the ESP32-cam, we will need
    ```
 
 5. Connect your ESP32-cam to the USB to TTL/serial adapter in flash mode:
-   
+
    [![ESP32cam flash mode](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-wiring-flash-mode.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-wiring-flash-mode.jpg)
 
    **Attention.** Make sure your USB to TTL adapter has **VCC in 5V mode** and in the ESP32, the VCC cable is connected to the 5V pin.  Double check the wiring before moving on.
@@ -200,7 +203,7 @@ We are now ready to flash the Tasmota firmware.  For reference, the official inf
    ```
 
 3. Download the `tasmota32-webcam.bin` binary and the needed ESP32 Tasmota binaries from the official Github repo via `wget`.  (*The following was updated on August 12th, 2021.*) The binaries are now available in a different repository than [before](https://github.com/arendst/Tasmota), namely [arendst/Tasmota-firmware](https://github.com/arendst/Tasmota-firmware), and currently, the new repository has a single branch (`main`). There are two versions of the `tasmota32-wecam.bin`, one from the `release` and another from the `development` portions of the Tasmota32 project. My advice is to try the release first, then development if you have any issues.
-   
+
    To download the **stable release** binaries, use the following command:
 
    ```
@@ -222,7 +225,7 @@ We are now ready to flash the Tasmota firmware.  For reference, the official inf
    ```
 
 4. Make sure your ESP32-cam is connected to your computer in [flash mode](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-wiring-flash-mode.jpg) (GPIO0-GND jumper).  Now find the USB port your device is using in `/dev/` and set it to the environmental variable `ESP_PORT`, as follows:
-   
+
    **Attention.** While convenient, the following command assumes there is a single USB to serial adapter connected to your computer.  If this is not the case, manually set `ESP_PORT` to whichever port your USB adapter is currently using. You can find the port via `ls /dev/ttyUSB*` and testing one by one until you find the one used by the adapter. Alternatively, simply disconnect all other USB to serial adapters for this procedure and continue.
    {: .notice--warning }
 
@@ -245,9 +248,9 @@ We are now ready to flash the Tasmota firmware.  For reference, the official inf
    /dev/ttyUSB0
    ```
 
-5. Erase the current firmware (or whatever data) from your ESP32-cam. 
-   
-   **Attention.** The following procedure will **wipe all the data** on the ESP32-cam. 
+5. Erase the current firmware (or whatever data) from your ESP32-cam.
+
+   **Attention.** The following procedure will **wipe all the data** on the ESP32-cam.
    {: .notice--warning }
 
    ```
@@ -281,7 +284,7 @@ We are now ready to flash the Tasmota firmware.  For reference, the official inf
    {: .notice }
 
 8. **Wait until `esptool.py` is done**. Then, **remove the flash mode (GPIO0-GND) jumper** from the ESP32-cam.
-   
+
    [![ESP32cam nonflash mode](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-wiring-nonflash-mode.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-wiring-nonflash-mode.jpg)
 
 9.  Now **press the reset button** on your ESP32-cam.
@@ -290,7 +293,7 @@ We are now ready to flash the Tasmota firmware.  For reference, the official inf
 
 
 # Configuration
-By default, the Tasmota firmware will create a wireless access point for your ESP32-cam. 
+By default, the Tasmota firmware will create a wireless access point for your ESP32-cam.
 
 If you cannot find the Tasmota wireless access point, it is possible that the USB adapter is unable to provide enough power to operate the WiFi features in a reliable way.  In this case, check the [Standalone wiring](#standalone-wiring) section and use a power supply able to deliver at least 1A at 5V.
 {:.notice}
@@ -306,16 +309,16 @@ If you cannot find the Tasmota wireless access point, it is possible that the US
 ## Updating the template
 Tasmota templates are device-specific definitions of how their GPIO pins are assigned. As mentioned before, there are multiple ESP32-cam boards out there with different definitions.  In my case, I'm using the **AI-Thinker cam** module and therefore, I should configure the Tasmota32 webcam server to use the [AITHINKER CAM template](https://tasmota.github.io/docs/ESP32/#aithinker-cam) instead of the default one.  (If your ESP32-cam is different, then check [https://tasmota.github.io/docs/ESP32/](https://tasmota.github.io/docs/ESP32/) for the appropriate template and use that one instead of the AITHINKER CAM.)
 
-1. Copy the **AITHINKER CAM template** (*Updated on September 1st, 2021*):
+1. Copy the **AITHINKER CAM template**:
 
    ```json
-   {"NAME":"AITHINKER CAM","GPIO":[4992,1,672,1,416,5088,1,1,1,6720,736,704,1,1,5089,5090,0,5091,5184,5152,0,5120,5024,5056,0,0,0,0,4928,576,5094,5095,5092,0,0,5093],"FLAG":0,"BASE":2}
+   {"NAME":"AITHINKER CAM","GPIO":[4992,1,672,1,1,5088,1,1,1,6720,736,704,1,1,5089,5090,0,5091,5184,5152,0,5120,5024,5056,0,0,0,0,4928,576,5094,5095,5092,0,0,5093],"FLAG":0,"BASE":2}
    ```
 
 2. From the ESP32-cam webUI, go to **Configuration > Configure > Configure other**.
 
 3. Paste the template under **Other parameters > Template**; **Check Activate**; Save it and wait for the reboot.
-   
+
    If you lose connection to the ESP-cam afterwards, it is very likely that the AITHINKER CAM template has changed since the last time this article was updated.  In this case, put the ESP-cam in **flash mode** and flash the Tasmota32-webcam firmware once again.  Then, when updating the **Template**, use the one from [https://tasmota.github.io/docs/ESP32/#aithinker-cam](https://tasmota.github.io/docs/ESP32/#aithinker-cam) instead of the one mentioned before.
    {:.notice}
 
@@ -373,13 +376,13 @@ As of release `9.5.0`, it is possible to use [Real Time Streaming Protocol (RTSP
 1. Navigate to the ESP32-cam webUI and then go to the **Console**.
 
 2. **Enable the RTSP server** by entering the following command:
-   
+
    ```
    WcRtsp 1
    ```
 
 3. Now, the video stream should be accessible via RTSP using the following address:
-   
+
    ```
    rtsp://DEVICE_IP:8554/mjpeg/1
    ```
@@ -506,7 +509,7 @@ docker run \
 Of course, if you use [Portainer](https://www.portainer.io/) or other application for managing your docker containers, you can also pull and run `tasmocompiler` via the application instead of a terminal.  In this case, translate the commands to your application.  This also applies to users who are not running Docker on Linux.
 {: .notice .notice--info }
 
-This will create a container named `tasmocompiler` that has a web GUI exposed on port `3000` of the local machine.  To access it, go to the following address using any web-browser: 
+This will create a container named `tasmocompiler` that has a web GUI exposed on port `3000` of the local machine.  To access it, go to the following address using any web-browser:
 
 * [**http://localhost:3000**](http://localhost:3000)
 
@@ -515,16 +518,16 @@ Now that the `tasmocompiler` container is running, we can compile a new customiz
 
 1. Open any web-browser and navigate to [**http://localhost:3000**](http://localhost:3000);
 
-2. In **Tasmota source code**, select *Refresh Source* (this can take a few minutes, depending on your connection) and afterwards, *Next*; 
-   
+2. In **Tasmota source code**, select *Refresh Source* (this can take a few minutes, depending on your connection) and afterwards, *Next*;
+
    [![tasmocompiler step 01](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-step01.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-step01.jpg)
 
 3. In **WiFi configuration**, add your wifi credentials and hit *Next*;
-   
+
    [![tasmocompiler step 02](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-step02.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-step02.jpg)
 
 4. In **Select Features**, select **ESP32 webcam** as your board.  For this example, we are adding the **BME280 sensor module** and therefore, in feature, we add the *Temp/Hum sensors* feature to support the BME280 sensor. If you are attaching another device, check the appropriate feature to support it here (e.g., check *Displays (I2C/SPI)* to support an OLED display module).  When done, hit *Next*;
-   
+
    [![tasmocompiler step 03](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-step03.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/tasmocompiler-step03.jpg)
 
 5. It is not necessary to edit any parameter in **Custom Parameters**, so hit *Next*;
@@ -566,14 +569,14 @@ To configure the ESP32-cam template, do the following:
 
 1. Open a web-browser and go to the IP address of your Tasmota ESP32-cam;
 
-2. Follow the instructions in [**Updating the template**](#updating-the-template) if you have not done that before. Afterwards, navigate to **Configuration** > **Configure Other** > **Other parameters** > **Template** and make sure the **Activate** is checked. 
+2. Follow the instructions in [**Updating the template**](#updating-the-template) if you have not done that before. Afterwards, navigate to **Configuration** > **Configure Other** > **Other parameters** > **Template** and make sure the **Activate** is checked.
 
 3. Navigate to **Configuration** > **Configure Template**.  The name of the template should be the same one you specified in the previous step.  Remember that according to the wiring of the BME280 board, **SDA** and **SCL** are connected to pins **GPIO14** and **GPIO15**, respectively.  Therefore, **find the GPIO14 pin** and instead of `User`, select `I2C SDA`; and similarly, **find the GPIO15 pin** and instead of `User`, select `I2C SCL`.
-   
+
    [![BME280 template](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-template-bme280.jpg){:.PostImage}](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-template-bme280.jpg)
 
 4. Hit *Save* and wait for the device to reboot. Once it comes back on, the firmware should automatically detect and configure the I2C device and on the **Main Page**, there should be some of the metrics associated with the device.  Because we are connecting the board to a BME280 sensor module, the Main page will show measures for the ambient temperature, humidity, dew point, and pressure.
-   
+
    [![ESP32-cam BME280](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-bme280.jpg){:.PostImage .PostImage--large}](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-bme280.jpg)
 
    Of course, different peripherals will show different metrics, buttons, sliders, etc., on the main page. As before, the camera stream should be available on the main page and via port `81` at `/stream` and `/cam.mjpeg`.
@@ -585,4 +588,3 @@ To configure the ESP32-cam template, do the following:
 This concludes the tutorial on how to install and configure the Tasmota32 webcam server onto the ESP32-cam.  As usual, if you spot an error or want to share an idea, feel free to [get in touch with me](/contact).  I try to keep my articles updated as much as possible to reflect my current understanding about the topic.  All such updates are noted in the [changelog](#changelog).
 
 [top](#){: .btn .btn--light-outline .btn--small}
-
