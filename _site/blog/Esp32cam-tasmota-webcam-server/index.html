@@ -200,7 +200,7 @@
 
 
 
-  42 minute read
+  44 minute read
 
 </p>
       
@@ -365,6 +365,7 @@
       <li><a href="#rtsp-server">RTSP server</a></li>
       <li><a href="#webcam-server-additional-configurations">Webcam server additional configurations</a></li>
       <li><a href="#fixing-the-timezone">Fixing the timezone</a></li>
+      <li><a href="#setoption-configurations">SetOption configurations</a></li>
     </ul>
   </li>
   <li><a href="#basic-usage">Basic usage</a>
@@ -387,9 +388,11 @@
           </aside>
         
         <h1 id="changelog">Changelog</h1>
-<p class="notice--info"><strong>Dec 5th, 2021</strong>: I made a tiny change to the default AITHINKER CAM template in the <a href="#updating-the-template">Updating the template</a> section to <em>disable</em> the PWM component on the GPIO4 (flash LED). More specifically, instead of assigning <code class="language-plaintext highlighter-rouge">416</code> (PWM) to IO4 (as in the <a href="https://templates.blakadder.com/ai-thinker_ESP32-CAM.html">official template for such board</a>), the current template assigns <code class="language-plaintext highlighter-rouge">1</code> (User) to it. This change was motivated by multiple boards becoming unstable when such option was implemented (e.g., turning the flash LED on would cause one or consecutive reboots). (Of note, the same issue seems to occur with the relay component and any other component that attempts to control the flash LED. My advice is to not use it at all.) Disabling the flash LED and using <code class="language-plaintext highlighter-rouge">2.5A</code> power supplies solved my random reboot and connectivity issues with the firmware <code class="language-plaintext highlighter-rouge">10.0</code>.</p>
+<p class="notice--success"><strong>Dec 6th, 2021</strong>: Included a new section called <a href="#setoption-configurations">SetOption configurations</a> to add information about the boot loop defaults restoration control (<code class="language-plaintext highlighter-rouge">SetOption36</code>). This is useful to prevent your device from losing its configurations after power outages and other events that might cause a boot loop.</p>
 
-<p class="notice--success"><strong>September 3rd, 2021</strong>: Included a new section called <a href="#rtsp-server">RTSP server</a> that describes how to enable and access the video stream via the Real Time Streaming Protocol (<code class="language-plaintext highlighter-rouge">rtsp://</code>).  Also made a few related changes to the table in <a href="#webcam-server-additional-configurations">Webcam server additional configurations</a>.</p>
+<p class="notice--success"><strong>Dec 5th, 2021</strong>: I made a tiny change to the default AITHINKER CAM template in the <a href="#updating-the-template">Updating the template</a> section to <em>disable</em> the PWM component on the GPIO4 (flash LED). More specifically, instead of assigning <code class="language-plaintext highlighter-rouge">416</code> (PWM) to IO4 (as in the <a href="https://templates.blakadder.com/ai-thinker_ESP32-CAM.html">official template for such board</a>), the current template assigns <code class="language-plaintext highlighter-rouge">1</code> (User) to it. This change was motivated by multiple boards becoming unstable when such option was implemented (e.g., turning the flash LED on would cause one or consecutive reboots). (Of note, the same issue seems to occur with the relay component and any other component that attempts to control the flash LED. My advice is to not use it at all.) Disabling the flash LED and using <code class="language-plaintext highlighter-rouge">2.5A</code> power supplies solved my random reboot and connectivity issues with the firmware <code class="language-plaintext highlighter-rouge">10.0</code>.</p>
+
+<p class="notice--info"><strong>September 3rd, 2021</strong>: Included a new section called <a href="#rtsp-server">RTSP server</a> that describes how to enable and access the video stream via the Real Time Streaming Protocol (<code class="language-plaintext highlighter-rouge">rtsp://</code>).  Also made a few related changes to the table in <a href="#webcam-server-additional-configurations">Webcam server additional configurations</a>.</p>
 
 <p class="notice--info"><strong>September 1st, 2021</strong>, Update #3: Extended the information about the flash and red LEDs at the end of the <a href="#webcam-server-additional-configurations">Webcam server additional configurations</a> section.</p>
 
@@ -687,7 +690,7 @@ sudo mkdir tasmota32
     <p>Navigate to the <strong>DHCP server</strong> of your local network and find the IP address assigned to your ESP32-cam.  At this point, it’s a good idea to assign a static address to it as well.  (If you set a static address, then reboot the ESP32-cam before moving on.)</p>
   </li>
   <li>
-    <p>Navigate to the ESP32-cam webUI on your local network.</p>
+    <p>Navigate to the ESP32-cam webUI on your local network and start the configuration process (see below).</p>
   </li>
 </ol>
 
@@ -947,6 +950,26 @@ sudo mkdir tasmota32
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>timezone -3
 </code></pre></div></div>
+
+<h2 id="setoption-configurations">SetOption configurations</h2>
+<p>Tasmota has a command called <a href="https://tasmota.github.io/docs/Commands/#setoptions"><code class="language-plaintext highlighter-rouge">SetOption&lt;x&gt;</code></a> (or <code class="language-plaintext highlighter-rouge">SO&lt;x&gt;</code>) that allows users to change various default firmware behaviors, such as whether to preserve power state after a restart (<code class="language-plaintext highlighter-rouge">SO0</code>), which temperature scale to use (<code class="language-plaintext highlighter-rouge">SO8</code>), and so on.  One such options, namely <code class="language-plaintext highlighter-rouge">SetOption36</code> (<code class="language-plaintext highlighter-rouge">SO36</code>), is responsible for the <strong>boot loop defaults restoration control</strong>.  A boot loop is defined as a restart within less than 10s before restoring settings (according to the <code class="language-plaintext highlighter-rouge">BOOT_LOOP_TIME</code> default value), and by default, the Tasmota firmware will start applying the following changes as soon as it detects <em>a single boot loop</em> (<code class="language-plaintext highlighter-rouge">SO36 1</code> is the default):</p>
+
+<ul>
+  <li>1st restart: disable ESP8285 generic GPIOs interfering with flash SPI;</li>
+  <li>2nd restart: disable rules causing boot loop;</li>
+  <li>3rd restart: disable all rules (and autoexec.bat);</li>
+  <li>4th restart: reset user defined GPIOs to disable any attached peripherals;</li>
+  <li>5th restart: reset module to Sonoff Basic (1).</li>
+</ul>
+
+<p>Fortunately, such option can be disabled entirely (<code class="language-plaintext highlighter-rouge">SO36 0</code>) or customized (e.g., start boot loop control after 5 boot loops: <code class="language-plaintext highlighter-rouge">SO36 5</code>). This matters because if for any reason your device detects a boot loop (e.g., bad power supply during boot), it will start reverting many of the customizations you’ve configured before (e.g., rules and template), which might cause loss of connectivity and other related issues. Personally, I like to disable boot loop control altogether, as follows:</p>
+
+<ul>
+  <li>Navigate to your device’s console and enter
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SetOption36 0
+</code></pre></div>    </div>
+  </li>
+</ul>
 
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 
