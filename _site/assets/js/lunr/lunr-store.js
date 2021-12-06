@@ -54,7 +54,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Tasmota webcam server for the ESP32-cam",
-        "excerpt":"Changelog Dec 5th, 2021: I made a tiny change to the default AITHINKER CAM template in the Updating the template section to disable the PWM component on the GPIO4 (flash LED). More specifically, instead of assigning 416 (PWM) to IO4 (as in the official template for such board), the current...","categories": ["blog"],
+        "excerpt":"Changelog Dec 6th, 2021: Included a new section called SetOption configurations to add information about the boot loop defaults restoration control (SetOption36). This is useful to prevent your device from losing its configurations after power outages and other events that might cause a boot loop. Dec 5th, 2021: I made...","categories": ["blog"],
         "tags": ["iot","esp32","tasmota","mqtt","cam","webcam","surveillance","wifi","wireless","network"],
         "url": "/blog/Esp32cam-tasmota-webcam-server/",
         "teaser": null

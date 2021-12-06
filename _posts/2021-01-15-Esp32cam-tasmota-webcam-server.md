@@ -11,11 +11,14 @@ toc_icon: "list"
 ---
 
 # Changelog
+**Dec 6th, 2021**: Included a new section called [SetOption configurations](#setoption-configurations) to add information about the boot loop defaults restoration control (`SetOption36`). This is useful to prevent your device from losing its configurations after power outages and other events that might cause a boot loop.
+{: .notice--success }
+
 **Dec 5th, 2021**: I made a tiny change to the default AITHINKER CAM template in the [Updating the template](#updating-the-template) section to *disable* the PWM component on the GPIO4 (flash LED). More specifically, instead of assigning `416` (PWM) to IO4 (as in the [official template for such board](https://templates.blakadder.com/ai-thinker_ESP32-CAM.html)), the current template assigns `1` (User) to it. This change was motivated by multiple boards becoming unstable when such option was implemented (e.g., turning the flash LED on would cause one or consecutive reboots). (Of note, the same issue seems to occur with the relay component and any other component that attempts to control the flash LED. My advice is to not use it at all.) Disabling the flash LED and using `2.5A` power supplies solved my random reboot and connectivity issues with the firmware `10.0`.
-{: .notice--info }
+{: .notice--success }
 
 **September 3rd, 2021**: Included a new section called [RTSP server](#rtsp-server) that describes how to enable and access the video stream via the Real Time Streaming Protocol (`rtsp://`).  Also made a few related changes to the table in [Webcam server additional configurations](#webcam-server-additional-configurations).
-{: .notice--success }
+{: .notice--info }
 
 **September 1st, 2021**, Update #3: Extended the information about the flash and red LEDs at the end of the [Webcam server additional configurations](#webcam-server-additional-configurations) section.
 {: .notice--info }
@@ -304,7 +307,7 @@ If you cannot find the Tasmota wireless access point, it is possible that the US
 
 3. Navigate to the **DHCP server** of your local network and find the IP address assigned to your ESP32-cam.  At this point, it's a good idea to assign a static address to it as well.  (If you set a static address, then reboot the ESP32-cam before moving on.)
 
-4. Navigate to the ESP32-cam webUI on your local network.
+4. Navigate to the ESP32-cam webUI on your local network and start the configuration process (see below).
 
 ## Updating the template
 Tasmota templates are device-specific definitions of how their GPIO pins are assigned. As mentioned before, there are multiple ESP32-cam boards out there with different definitions.  In my case, I'm using the **AI-Thinker cam** module and therefore, I should configure the Tasmota32 webcam server to use the [AITHINKER CAM template](https://tasmota.github.io/docs/ESP32/#aithinker-cam) instead of the default one.  (If your ESP32-cam is different, then check [https://tasmota.github.io/docs/ESP32/](https://tasmota.github.io/docs/ESP32/) for the appropriate template and use that one instead of the AITHINKER CAM.)
@@ -450,6 +453,22 @@ and to change it, enter the command with a value equal to your region's [standar
 ```
 timezone -3
 ```
+
+## SetOption configurations
+Tasmota has a command called [`SetOption<x>`](https://tasmota.github.io/docs/Commands/#setoptions) (or `SO<x>`) that allows users to change various default firmware behaviors, such as whether to preserve power state after a restart (`SO0`), which temperature scale to use (`SO8`), and so on.  One such options, namely `SetOption36` (`SO36`), is responsible for the **boot loop defaults restoration control**.  A boot loop is defined as a restart within less than 10s before restoring settings (according to the `BOOT_LOOP_TIME` default value), and by default, the Tasmota firmware will start applying the following changes as soon as it detects *a single boot loop* (`SO36 1` is the default):
+
+- 1st restart: disable ESP8285 generic GPIOs interfering with flash SPI;
+- 2nd restart: disable rules causing boot loop;
+- 3rd restart: disable all rules (and autoexec.bat);
+- 4th restart: reset user defined GPIOs to disable any attached peripherals;
+- 5th restart: reset module to Sonoff Basic (1).
+
+Fortunately, such option can be disabled entirely (`SO36 0`) or customized (e.g., start boot loop control after 5 boot loops: `SO36 5`). This matters because if for any reason your device detects a boot loop (e.g., bad power supply during boot), it will start reverting many of the customizations you've configured before (e.g., rules and template), which might cause loss of connectivity and other related issues. Personally, I like to disable boot loop control altogether, as follows:
+
+- Navigate to your device's console and enter
+  ```
+  SetOption36 0
+  ```
 
 [top](#){: .btn .btn--light-outline .btn--small}
 
