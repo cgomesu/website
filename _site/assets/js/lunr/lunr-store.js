@@ -54,7 +54,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Tasmota webcam server for the ESP32-cam",
-        "excerpt":"Changelog Dec 6th, 2021: Included a new section called SetOption configurations to add information about the boot loop defaults restoration control (SetOption36). This is useful to prevent your device from losing its configurations after power outages and other events that might cause a boot loop. Dec 5th, 2021: I made...","categories": ["blog"],
+        "excerpt":"Changelog Dec 10th, 2021: I made changes to multiple sections to reflect that the use of an independent power supply is now required after flashing the firmware. In addition, there is now a new section called Serial Console in which I described how to use screen to establish a wired...","categories": ["blog"],
         "tags": ["iot","esp32","tasmota","mqtt","cam","webcam","surveillance","wifi","wireless","network"],
         "url": "/blog/Esp32cam-tasmota-webcam-server/",
         "teaser": null

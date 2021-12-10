@@ -200,7 +200,7 @@
 
 
 
-  44 minute read
+  51 minute read
 
 </p>
       
@@ -358,6 +358,8 @@
       <li><a href="#flashing-tasmota32-webcam-server">Flashing Tasmota32 webcam server</a></li>
     </ul>
   </li>
+  <li><a href="#serial-console">Serial Console</a></li>
+  <li><a href="#standalone-wiring">Standalone wiring</a></li>
   <li><a href="#configuration">Configuration</a>
     <ul>
       <li><a href="#updating-the-template">Updating the template</a></li>
@@ -368,11 +370,7 @@
       <li><a href="#setoption-configurations">SetOption configurations</a></li>
     </ul>
   </li>
-  <li><a href="#basic-usage">Basic usage</a>
-    <ul>
-      <li><a href="#standalone-wiring">Standalone wiring</a></li>
-    </ul>
-  </li>
+  <li><a href="#basic-usage">Basic usage</a></li>
   <li><a href="#bonus-content-firmware-customization">Bonus content: Firmware customization</a>
     <ul>
       <li><a href="#installing-docker-and-running-tasmocompiler">Installing Docker and running TasmoCompiler</a></li>
@@ -388,9 +386,11 @@
           </aside>
         
         <h1 id="changelog">Changelog</h1>
-<p class="notice--success"><strong>Dec 6th, 2021</strong>: Included a new section called <a href="#setoption-configurations">SetOption configurations</a> to add information about the boot loop defaults restoration control (<code class="language-plaintext highlighter-rouge">SetOption36</code>). This is useful to prevent your device from losing its configurations after power outages and other events that might cause a boot loop.</p>
+<p class="notice--warning"><strong>Dec 10th, 2021</strong>: I made changes to multiple sections to reflect that the use of an independent power supply is now required after flashing the firmware.  In addition, there is now a new section called <a href="#serial-console">Serial Console</a> in which I described how to use <code class="language-plaintext highlighter-rouge">screen</code> to establish a wired connection with the board to monitor its state and help troubleshooting possible issues with it. I also added a few comments about mounting the board at the end of the <a href="#hardware">Hardware</a> section. Lastly, I should point out that there is an ongoing issue with the firmware <code class="language-plaintext highlighter-rouge">10.x</code> that causes the board to become unstable after initializing the camera, so you might want to stick to firmware <code class="language-plaintext highlighter-rouge">9.5</code> for a little longer.  Check the current status of this <a href="https://github.com/arendst/Tasmota/issues/13882">issue on Github</a>.</p>
 
-<p class="notice--success"><strong>Dec 5th, 2021</strong>: I made a tiny change to the default AITHINKER CAM template in the <a href="#updating-the-template">Updating the template</a> section to <em>disable</em> the PWM component on the GPIO4 (flash LED). More specifically, instead of assigning <code class="language-plaintext highlighter-rouge">416</code> (PWM) to IO4 (as in the <a href="https://templates.blakadder.com/ai-thinker_ESP32-CAM.html">official template for such board</a>), the current template assigns <code class="language-plaintext highlighter-rouge">1</code> (User) to it. This change was motivated by multiple boards becoming unstable when such option was implemented (e.g., turning the flash LED on would cause one or consecutive reboots). (Of note, the same issue seems to occur with the relay component and any other component that attempts to control the flash LED. My advice is to not use it at all.) Disabling the flash LED and using <code class="language-plaintext highlighter-rouge">2.5A</code> power supplies solved my random reboot and connectivity issues with the firmware <code class="language-plaintext highlighter-rouge">10.0</code>.</p>
+<p class="notice--info"><strong>Dec 6th, 2021</strong>: Included a new section called <a href="#setoption-configurations">SetOption configurations</a> to add information about the boot loop defaults restoration control (<code class="language-plaintext highlighter-rouge">SetOption36</code>). This is useful to prevent your device from losing its configurations after power outages and other events that might cause a boot loop.</p>
+
+<p class="notice--info"><strong>Dec 5th, 2021</strong>: I made a tiny change to the default AITHINKER CAM template in the <a href="#updating-the-template">Updating the template</a> section to <em>disable</em> the PWM component on the GPIO4 (flash LED). More specifically, instead of assigning <code class="language-plaintext highlighter-rouge">416</code> (PWM) to IO4 (as in the <a href="https://templates.blakadder.com/ai-thinker_ESP32-CAM.html">official template for such board</a>), the current template assigns <code class="language-plaintext highlighter-rouge">1</code> (User) to it. This change was motivated by multiple boards becoming unstable when such option was implemented (e.g., turning the flash LED on would cause one or consecutive reboots). (Of note, the same issue seems to occur with the relay component and any other component that attempts to control the flash LED. My advice is to not use it at all.) Disabling the flash LED and using <code class="language-plaintext highlighter-rouge">2.5A</code> power supplies solved my random reboot and connectivity issues with the firmware <code class="language-plaintext highlighter-rouge">10.0</code>.</p>
 
 <p class="notice--info"><strong>September 3rd, 2021</strong>: Included a new section called <a href="#rtsp-server">RTSP server</a> that describes how to enable and access the video stream via the Real Time Streaming Protocol (<code class="language-plaintext highlighter-rouge">rtsp://</code>).  Also made a few related changes to the table in <a href="#webcam-server-additional-configurations">Webcam server additional configurations</a>.</p>
 
@@ -480,7 +480,7 @@
 <p>To make a single wireless camera based on the ESP32-cam board, you’ll need at least the following items:</p>
 
 <ul>
-  <li>Board:
+  <li><strong>Board</strong>:
     <ul>
       <li>01x <a href="https://www.amazon.com/s?k=esp32cam+ai-thinker">ESP32-CAM, AI-Thinker board</a></li>
     </ul>
@@ -489,14 +489,14 @@
 
     <p><a href="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-pinout.jpg"><img src="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-pinout.jpg" alt="ESP32cam pinout" class="PostImage PostImage--large" /></a></p>
   </li>
-  <li>USB to TTL adapter:
+  <li><strong>USB to TTL adapter</strong>: Used to interface with the board when connected to a computer. It can only provide power to the board during the initial flashing stage.
     <ul>
       <li>01x <a href="https://www.amazon.com/s?k=ftdi+ft232RL+usb+to+ttl">FTDI FT232RL USB to TTL/serial module with 5v/3v3 voltage jumper</a></li>
     </ul>
 
     <p><a href="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/ftdi-usb-ttl.jpg"><img src="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/ftdi-usb-ttl.jpg" alt="FTDI FT232RL" class="PostImage" /></a></p>
   </li>
-  <li>Cables:
+  <li><strong>Cables</strong>: Long and thin cables can add significant resistance, so at the very least, try to keep them short.
     <ul>
       <li>05x <a href="https://www.amazon.com/s?k=female+dupont+wires">Female-Female dupont/jumper wires</a></li>
     </ul>
@@ -509,9 +509,28 @@
 
     <p><a href="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/usb-cable.jpg"><img src="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/usb-cable.jpg" alt="USB cable" class="PostImage" /></a></p>
   </li>
-</ul>
+  <li>
+    <p><strong>Power supply</strong>: Once you are done flashing the Tasmota firmware, you will need to power the board independently because your computer’s USB port and your TTL adapter won’t be able to deliver enough current to run the board with the new firmware.</p>
 
-<p><em>Optional.</em> If you wish to add a case to your ESP32-cam project, there are many <a href="https://duckduckgo.com/?q=esp32-cam+case">3D printed options to choose from</a>.  (Notice that the use of an external antenna requires (de)soldering very small components.  If you plan on installing the camera on an area with good wireless coverage, don’t bother with an external antenna.  Otherwise, plan accordingly.)  In addition, you might want to add a <a href="https://www.amazon.com/s?k=USB+to+DIP">USB to DIP adapter</a> to your shopping list in order to power your ESP32-cam without the USB to TTL adapter.  The USB to DIP adapter is highly dependent on the casing choice and most 3D printed enclosure projects for the ESP32-cam include assembly instructions.  <strong>Casing and assembly are not covered in this tutorial</strong>, owing to the plethora of alternatives.</p>
+    <ul>
+      <li>
+        <p>01x <a href="https://www.amazon.com/s?k=5v+2A+usb+power+supply">AC to 5V DC (2A) power supply</a>: If you have an old 5V charger lying around (e.g., from an old cellphone or tablet), you might be able to use it as well but make sure it is able to deliver at least 1A. However, if you run into power-related issues (see <a href="#troubleshooting">Troubleshooting</a>), consider buying a new power supply able to deliver at least 2A instead.</p>
+
+        <p><a href="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/power-supply.jpg"><img src="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/power-supply.jpg" alt="5V power supply" class="PostImage" /></a></p>
+      </li>
+      <li>
+        <p>01x <a href="https://www.amazon.com/s?k=USB+to+DIP">USB to DIP adapter</a>: Make sure to buy at least one DIP adapter that is <em>compatible with your power supply</em>.  (In our case, only the VCC and GND pins need to be soldered.) It doesn’t need to be a USB adapter if your power supply has a barrel connector, for example, in which case a simple <a href="https://duckduckgo.com/?q=DC+2.1x5.5mm+adapter&amp;iax=images&amp;ia=images">DC 2.1x5.5mm adapter</a> will be enough.</p>
+
+        <p><a href="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/usb-to-dip-adapter.jpg"><img src="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/usb-to-dip-adapter.jpg" alt="USB to DIP adapter" class="PostImage" /></a></p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Casing</strong>: <em>Casing is not covered in this tutorial</em>, owing to the plethora of alternatives.  If you wish to add a case to your ESP32-cam project, there are many <a href="https://duckduckgo.com/?q=esp32-cam+case">3D printed options to choose from</a>. You can also use pretty much any small prototyping box, fake camera case, etc., as long as it is capable of housing the module.</p>
+
+    <p>However, notice that the module <em>does not have screw holes</em> for securing it to a flat surface.  In such cases, my preferred alternative is to solder a few of the exposed pins to a <a href="https://www.amazon.com/s?k=Mini+Solderable+Breadboard">mini solderable breadboard</a> and then secure the breadboard with metal/nylon screws to the casing. This gives the project a more clean and professional look than using hot glue, for instance. In addition, having a breadboard makes it easy to attach additional components to your project (e.g., <a href="#wiring-and-template-configuration">BME280 sensor</a>).</p>
+  </li>
+</ul>
 
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 
@@ -663,21 +682,72 @@ sudo mkdir tasmota32
     <p class="notice">If <code class="language-plaintext highlighter-rouge">esptool.py</code> hangs at <code class="language-plaintext highlighter-rouge">Connecting...</code>, then press the <strong>Restart</strong> button (<code class="language-plaintext highlighter-rouge">RST</code>) on your ESP-cam module.</p>
   </li>
   <li>
-    <p><strong>Wait until <code class="language-plaintext highlighter-rouge">esptool.py</code> is done</strong>. Then, <strong>remove the flash mode (GPIO0-GND) jumper</strong> from the ESP32-cam.</p>
+    <p><strong>Wait until <code class="language-plaintext highlighter-rouge">esptool.py</code> is done</strong>. Then, <strong>disconnect your USB to TTL adapter</strong> from your computer and <strong>remove the flash mode (GPIO0-GND) jumper</strong> from the ESP32-cam.</p>
 
     <p><a href="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-wiring-nonflash-mode.jpg"><img src="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-wiring-nonflash-mode.jpg" alt="ESP32cam nonflash mode" class="PostImage PostImage--large" /></a></p>
   </li>
-  <li>
-    <p>Now <strong>press the reset button</strong> on your ESP32-cam.</p>
-  </li>
 </ol>
+
+<p>You are now ready to power your new Tasmota ESP32-cam device using an independent power supply. In the following sections, we will see how to monitor the device via the TTL adapter, which is optional, and then how to power the device and configure it, which are both required.</p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="serial-console">Serial Console</h1>
+<p class="notice--info">This section is optional but strongly recommended to facilitate troubleshooting power issues, incorrect component specification, random reboots, and so on. Feel free to skip to <a href="#standalone-wiring">Standalone Wiring</a> if you do not feel like setting up a serial connection to monitor your board while you configure it.</p>
+
+<p>Setting up a serial connection to your Tasmota ESP32-cam device allows you to monitor its state via a wired connection to your computer.  This is useful to troubleshoot issues that occur before you can access the device’s web interface (e.g., unable to connect to its access point, boot loops) and during the initial configuration steps because there won’t be any physical markers of the device’s state to rely on.</p>
+
+<p>To create a serial console for your device, you’ll need a (a) USB to TTL adapter and a (b) terminal emulator. If you followed this guide, you should already have a USB to TTL adapter, which should now be connected to the ESP32-cam board as follows:</p>
+
+<p><a href="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-wiring-serial-monitor.jpg"><img src="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-wiring-serial-monitor.jpg" alt="ESP32cam serial monitor" class="PostImage PostImage--large" /></a></p>
+
+<p>To establish a serial monitor, we will use a GNU application called <a href="https://www.gnu.org/software/screen/manual/screen.html"><code class="language-plaintext highlighter-rouge">screen</code></a>. First, open a terminal and check whether it is installed on your computer or not:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>which screen
+</code></pre></div></div>
+
+<p>and if <code class="language-plaintext highlighter-rouge">which</code> is unable to find the application, then install it via your systems package manager.  For <code class="language-plaintext highlighter-rouge">apt</code>-based distros:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt update &amp;&amp; sudo apt install screen
+</code></pre></div></div>
+
+<p>Now, <strong>connect your USB to TTL adapter to your computer</strong> and <a href="#flashing-tasmota32-webcam-server">just like before</a>, find the USB port your adapter is using in <code class="language-plaintext highlighter-rouge">/dev/</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls /dev/ttyUSB*
+</code></pre></div></div>
+
+<p>and if different than <code class="language-plaintext highlighter-rouge">echo $ESP_PORT</code>, set it to the environmental variable <code class="language-plaintext highlighter-rouge">ESP_PORT</code>; else, continue.</p>
+
+<p><code class="language-plaintext highlighter-rouge">screen</code> has <a href="https://www.gnu.org/software/screen/manual/screen.html#Invoking-Screen">many options</a> but in this case, we just need to enter the following to establish a connection and log the output (<code class="language-plaintext highlighter-rouge">-L</code>) to a file called <code class="language-plaintext highlighter-rouge">screenlog.0</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>screen -L $ESP_PORT 115200
+</code></pre></div></div>
+
+<p>To <a href="https://www.gnu.org/software/screen/manual/screen.html#Quit">quit</a> <code class="language-plaintext highlighter-rouge">screen</code>, press <code class="language-plaintext highlighter-rouge">Ctrl + a</code> and then <code class="language-plaintext highlighter-rouge">\</code>, which will prompt <code class="language-plaintext highlighter-rouge">screen</code> to ask if you want to quit (<code class="language-plaintext highlighter-rouge">y</code>).</p>
+
+<p class="notice">Of note, the command <code class="language-plaintext highlighter-rouge">C-</code> referred to in the manual stands for <code class="language-plaintext highlighter-rouge">Ctrl</code> plus another letter.  You can see a list of default commands via <code class="language-plaintext highlighter-rouge">C-a ?</code> when running screen.</p>
+
+<p>That is it! You are now all set to start configuring your device or troubleshooting any issues with it. Once you power your Tasmota ESP32-cam device, it should start outputting messages to your computer via <code class="language-plaintext highlighter-rouge">screen</code>.</p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="standalone-wiring">Standalone wiring</h1>
+<p>If you bought a USB to DIP adapter, you can now power your ESP32-cam independently, as follows:</p>
+
+<p><a href="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-wiring-standalone-mode.jpg"><img src="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-wiring-standalone-mode.jpg" alt="ESP32cam standalone mode" class="PostImage PostImage--large" /></a></p>
+
+<p>Use a <strong>5V</strong> power supply that is able to deliver at least <strong>1A</strong>, such as an old cellphone charger. However, if you start running into power-related issues (e.g., <code class="language-plaintext highlighter-rouge">Brownout detector was triggered</code>), replace your power supply for one able to deliver <em>at least</em> <strong>2A</strong> instead and check that your cable is rated for such current.</p>
+
+<p class="notice">During boot and when searching for wireless access points, the board requires far more power than when idling, and a few power supplies and cables might not be able to keep up with it, which cause the device to become unstable and trigger a reboot.</p>
+
+<p>Other, non mutually exclusive solution include <a href="https://duckduckgo.com/?q=esp32-cam+electrolytic+capacitor">the addition of an electrolytic capacitor across the 5V and GND pins</a>.</p>
 
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 
 <h1 id="configuration">Configuration</h1>
-<p>By default, the Tasmota firmware will create a wireless access point for your ESP32-cam.</p>
+<p>By default, a fresh install of the Tasmota firmware will create a wireless access point for your ESP32-cam.</p>
 
-<p class="notice">If you cannot find the Tasmota wireless access point, it is possible that the USB adapter is unable to provide enough power to operate the WiFi features in a reliable way.  In this case, check the <a href="#standalone-wiring">Standalone wiring</a> section and use a power supply able to deliver at least 1A at 5V.</p>
+<p class="notice">If you cannot find the Tasmota wireless access point, it is possible that the USB adapter is unable to provide enough power to operate the WiFi features in a reliable way.  In this case, check the <a href="#standalone-wiring">Standalone wiring</a> section.</p>
 
 <ol>
   <li>
@@ -938,7 +1008,7 @@ sudo mkdir tasmota32
 
 <p>which should reply with a <code class="language-plaintext highlighter-rouge">json</code> parsable by utilities such as <code class="language-plaintext highlighter-rouge">jq</code>.</p>
 
-<p>Finally, the <strong>flash LED</strong> is controlled by <strong>GPIO4</strong> and the <strong>red LED</strong> is controlled by <strong>GPIO33</strong>. Their state can be changed programmatically as well.  (<em>Updated on September 1st, 2021.</em>) As of release <code class="language-plaintext highlighter-rouge">9.5.0</code>, the default stable release automatically creates a <code class="language-plaintext highlighter-rouge">PWM</code> component for the <strong>flash LED</strong>, which allows to turn it <code class="language-plaintext highlighter-rouge">on</code> and <code class="language-plaintext highlighter-rouge">off</code>, as well as control its intensity, and it also creates a <code class="language-plaintext highlighter-rouge">LedLink_i</code> component for the <strong>red LED</strong>, which blinks whenever the ESP32-cam is not connected to a wireless network, as a physical marker of lack of connectivity.</p>
+<p>Finally, the <strong>flash LED</strong> is controlled by <strong>GPIO4</strong> and the <strong>red LED</strong> is controlled by <strong>GPIO33</strong>. Their state can be changed programmatically as well.</p>
 
 <h2 id="fixing-the-timezone">Fixing the timezone</h2>
 <p>If you installed a pre-compiled firmware, there’s a chance your device is using the incorrect timezone.  To check the current timezone, go to <strong>Console</strong> and type</p>
@@ -975,11 +1045,6 @@ sudo mkdir tasmota32
 
 <h1 id="basic-usage">Basic usage</h1>
 <p>You can now capture the live stream of your ESP32-cam at either <code class="language-plaintext highlighter-rouge">http://DEVICE_IP:81/stream</code> or <code class="language-plaintext highlighter-rouge">http://DEVICE_IP:81/cam.mjpeg</code>, and a single snapshot at <code class="language-plaintext highlighter-rouge">http://DEVICE_IP:80/snapshot.jpg</code>.  Such URLs can be easily fed into most camera surveillance servers, such as <a href="https://github.com/ccrisan/motioneye/">MotionEye</a>, <a href="https://shinobi.video/">Shinobi</a>, <a href="https://www.zoneminder.com/">ZoneMinder</a>, or <a href="https://www.ispyconnect.com/">iSpy</a>.  As mentioned before, the Tasmota32 webcam server can be configure to connect to a <strong><a href="https://mqtt.org/">MQTT server</a></strong> (see <strong>Configuration</strong> &gt; <strong>Configure MQTT</strong>) and then integrated with most home automation servers, such as <a href="https://www.home-assistant.io/">HomeAssistant</a>, <a href="https://www.openhab.org/">OpenHAB</a>, or one based on <a href="https://nodered.org/">NodeRed</a>’s flow programming.</p>
-
-<h2 id="standalone-wiring">Standalone wiring</h2>
-<p>If you bought a USB to DIP adapter, you can now power your ESP32-cam independent of your USB to TTL/serial adapter using a cheap <strong>5V USB power supply</strong> that is able to deliver at least <strong>1A</strong> (of note, <strong>500mA</strong> should work as well but it might be unreliable), such as an old cellphone charger, as follows:</p>
-
-<p><a href="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-wiring-standalone-mode.jpg"><img src="/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-wiring-standalone-mode.jpg" alt="ESP32cam standalone mode" class="PostImage PostImage--large" /></a></p>
 
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 
