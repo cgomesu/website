@@ -11,13 +11,16 @@ toc_icon: "list"
 ---
 
 # Changelog
-**Dec 10th, 2021**: I made changes to multiple sections to reflect that the use of an independent power supply is now required after flashing the firmware.  In addition, there is now a new section called [Serial Console](#serial-console) in which I described how to use `screen` to establish a wired connection with the board to monitor its state and help troubleshooting possible issues with it. I also added a few comments about mounting the board at the end of the [Hardware](#hardware) section. Lastly, I should point out that there is an ongoing issue with the firmware `10.x` that causes the board to become unstable after initializing the camera, so you might want to stick to firmware `9.5` for a little longer.  Check the current status of this [issue on Github](https://github.com/arendst/Tasmota/issues/13882).
+**Dec 13th, 2021**: The `tasmota32-webcam.bin` version `10.1.0.1` seems to have fixed the issue mentioned before. Therefore, I'm also reverting the AITHINKER CAM template back to the original, in which GPIO4 is assigned the PWM component (`416`).
+{: .notice--info }
+
+**Dec 10th, 2021**: I made changes to multiple sections to reflect that the use of an independent power supply is now required after flashing the firmware.  In addition, there is now a new section called [Serial Console](#serial-console) in which I described how to use `screen` to establish a wired connection with the board to monitor its state and help troubleshooting possible issues with it. I also added a few comments about mounting the board at the end of the [Hardware](#hardware) section. ~~Lastly, I should point out that there is an ongoing issue with the firmware `10.x` that causes the board to become unstable after initializing the camera, so you might want to stick to firmware `9.5` for a little longer.  Check the current status of this [issue on Github](https://github.com/arendst/Tasmota/issues/13882)~~ (see next update).
 {: .notice--warning }
 
 **Dec 6th, 2021**: Included a new section called [SetOption configurations](#setoption-configurations) to add information about the boot loop defaults restoration control (`SetOption36`). This is useful to prevent your device from losing its configurations after power outages and other events that might cause a boot loop.
 {: .notice--info }
 
-**Dec 5th, 2021**: I made a tiny change to the default AITHINKER CAM template in the [Updating the template](#updating-the-template) section to *disable* the PWM component on the GPIO4 (flash LED). More specifically, instead of assigning `416` (PWM) to IO4 (as in the [official template for such board](https://templates.blakadder.com/ai-thinker_ESP32-CAM.html)), the current template assigns `1` (User) to it. This change was motivated by multiple boards becoming unstable when such option was implemented (e.g., turning the flash LED on would cause one or consecutive reboots). (Of note, the same issue seems to occur with the relay component and any other component that attempts to control the flash LED. My advice is to not use it at all.) Disabling the flash LED and using `2.5A` power supplies solved my random reboot and connectivity issues with the firmware `10.0`.
+**Dec 5th, 2021**: I made a tiny change to the default AITHINKER CAM template in the [Updating the template](#updating-the-template) section to *disable* the PWM component on the GPIO4 (flash LED). More specifically, instead of assigning `416` (PWM) to IO4 (as in the [official template for such board](https://templates.blakadder.com/ai-thinker_ESP32-CAM.html)), the current template assigns `1` (User) to it. This change was motivated by multiple boards becoming unstable when such option was implemented (e.g., turning the flash LED on would cause one or consecutive reboots). (Of note, the same issue seems to occur with the relay component and any other component that attempts to control the flash LED. My advice is to not use it at all.) Disabling the flash LED and using 2.5A power supplies solved my random reboot and connectivity issues with the firmware `10.0`.
 {: .notice--info }
 
 **September 3rd, 2021**: Included a new section called [RTSP server](#rtsp-server) that describes how to enable and access the video stream via the Real Time Streaming Protocol (`rtsp://`).  Also made a few related changes to the table in [Webcam server additional configurations](#webcam-server-additional-configurations).
@@ -133,7 +136,7 @@ To make a single wireless camera based on the ESP32-cam board, you'll need at le
   [![USB cable](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/usb-cable.jpg){:.PostImage}](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/usb-cable.jpg)
 
 * **Power supply**: Once you are done flashing the Tasmota firmware, you will need to power the board independently because your computer's USB port and your TTL adapter won't be able to deliver enough current to run the board with the new firmware.
-  
+
   * 01x [AC to 5V DC (2A) power supply](https://www.amazon.com/s?k=5v+2A+usb+power+supply): If you have an old 5V charger lying around (e.g., from an old cellphone or tablet), you might be able to use it as well but make sure it is able to deliver at least 1A. However, if you run into power-related issues (see [Troubleshooting](#troubleshooting)), consider buying a new power supply able to deliver at least 2A instead.
 
     [![5V power supply](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/power-supply.jpg){:.PostImage}](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/power-supply.jpg)
@@ -314,7 +317,7 @@ You are now ready to power your new Tasmota ESP32-cam device using an independen
 This section is optional but strongly recommended to facilitate troubleshooting power issues, incorrect component specification, random reboots, and so on. Feel free to skip to [Standalone Wiring](#standalone-wiring) if you do not feel like setting up a serial connection to monitor your board while you configure it.
 {: .notice--info }
 
-Setting up a serial connection to your Tasmota ESP32-cam device allows you to monitor its state via a wired connection to your computer.  This is useful to troubleshoot issues that occur before you can access the device's web interface (e.g., unable to connect to its access point, boot loops) and during the initial configuration steps because there won't be any physical markers of the device's state to rely on. 
+Setting up a serial connection to your Tasmota ESP32-cam device allows you to monitor its state via a wired connection to your computer.  This is useful to troubleshoot issues that occur before you can access the device's web interface (e.g., unable to connect to its access point, boot loops) and during the initial configuration steps because there won't be any physical markers of the device's state to rely on.
 
 To create a serial console for your device, you'll need a (a) USB to TTL adapter and a (b) terminal emulator. If you followed this guide, you should already have a USB to TTL adapter, which should now be connected to the ESP32-cam board as follows:
 
@@ -390,7 +393,7 @@ Tasmota templates are device-specific definitions of how their GPIO pins are ass
 1. Copy the **AITHINKER CAM template**:
 
    ```json
-   {"NAME":"AITHINKER CAM","GPIO":[4992,1,672,1,1,5088,1,1,1,6720,736,704,1,1,5089,5090,0,5091,5184,5152,0,5120,5024,5056,0,0,0,0,4928,576,5094,5095,5092,0,0,5093],"FLAG":0,"BASE":2}
+   {"NAME":"AITHINKER CAM","GPIO":[4992,1,672,1,416,5088,1,1,1,6720,736,704,1,1,5089,5090,0,5091,5184,5152,0,5120,5024,5056,0,0,0,0,4928,576,5094,5095,5092,0,0,5093],"FLAG":0,"BASE":2}
    ```
 
 2. From the ESP32-cam webUI, go to **Configuration > Configure > Configure other**.
