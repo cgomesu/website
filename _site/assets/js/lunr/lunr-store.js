@@ -54,7 +54,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Tasmota webcam server for the ESP32-cam",
-        "excerpt":"Changelog Dec 13th, 2021: The tasmota32-webcam.bin version 10.1.0.1 seems to have fixed the issue mentioned before. Therefore, I’m also reverting the AITHINKER CAM template back to the original, in which GPIO4 is assigned the PWM component (416). Dec 10th, 2021: I made changes to multiple sections to reflect that the...","categories": ["blog"],
+        "excerpt":"Changelog Dec 22nd, 2021: Included more information about power supply to the Standalone wiring section and appended one more relevant SetOption to the SetOption configurations section, namely S065, which controls the fast power cycle detection. I also wrote a note to the Wiring and template configuration subsection of Customizing the...","categories": ["blog"],
         "tags": ["iot","esp32","tasmota","mqtt","cam","webcam","surveillance","wifi","wireless","network"],
         "url": "/blog/Esp32cam-tasmota-webcam-server/",
         "teaser": null

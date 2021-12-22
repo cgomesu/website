@@ -11,11 +11,14 @@ toc_icon: "list"
 ---
 
 # Changelog
+**Dec 22nd, 2021**: Included more information about power supply to the [Standalone wiring](#standalone-wiring) section and appended one more relevant `SetOption` to the [SetOption configurations](#setoption-configurations) section, namely `S065`, which controls the fast power cycle detection. I also wrote a note to the [Wiring and template configuration](#wiring-and-template-configuration) subsection of [Customizing the tasmota32-webcam firmware](#customizing-the-tasmota32-webcam-firmware) to mention that the referred GPIO pins are currently assigned to SPI-related components but can be safely freed up to be used with peripherals instead.
+{: .notice--success }
+
 **Dec 13th, 2021**: The `tasmota32-webcam.bin` version `10.1.0.1` seems to have fixed the issue mentioned before. Therefore, I'm also reverting the AITHINKER CAM template back to the original, in which GPIO4 is assigned the PWM component (`416`).
 {: .notice--info }
 
 **Dec 10th, 2021**: I made changes to multiple sections to reflect that the use of an independent power supply is now required after flashing the firmware.  In addition, there is now a new section called [Serial Console](#serial-console) in which I described how to use `screen` to establish a wired connection with the board to monitor its state and help troubleshooting possible issues with it. I also added a few comments about mounting the board at the end of the [Hardware](#hardware) section. ~~Lastly, I should point out that there is an ongoing issue with the firmware `10.x` that causes the board to become unstable after initializing the camera, so you might want to stick to firmware `9.5` for a little longer.  Check the current status of this [issue on Github](https://github.com/arendst/Tasmota/issues/13882)~~ (see next update).
-{: .notice--warning }
+{: .notice--info }
 
 **Dec 6th, 2021**: Included a new section called [SetOption configurations](#setoption-configurations) to add information about the boot loop defaults restoration control (`SetOption36`). This is useful to prevent your device from losing its configurations after power outages and other events that might cause a boot loop.
 {: .notice--info }
@@ -135,9 +138,9 @@ To make a single wireless camera based on the ESP32-cam board, you'll need at le
 
   [![USB cable](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/usb-cable.jpg){:.PostImage}](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/usb-cable.jpg)
 
-* **Power supply**: Once you are done flashing the Tasmota firmware, you will need to power the board independently because your computer's USB port and your TTL adapter won't be able to deliver enough current to run the board with the new firmware.
+* **Power supply**: Once you are done flashing the Tasmota firmware, you will need to power the board independently because your computer's USB port and your TTL adapter won't be able to deliver enough current at a reliable 5V to run the board with the new firmware. (See the [Standalone wiring](#standalone-wiring) section for more information on how to properly power your ESP32-cam project.)
 
-  * 01x [AC to 5V DC (2A) power supply](https://www.amazon.com/s?k=5v+2A+usb+power+supply): If you have an old 5V charger lying around (e.g., from an old cellphone or tablet), you might be able to use it as well but make sure it is able to deliver at least 1A. However, if you run into power-related issues (see [Troubleshooting](#troubleshooting)), consider buying a new power supply able to deliver at least 2A instead.
+  * 01x [AC to 5V DC (2A) power supply](https://www.amazon.com/s?k=5v+2A+usb+power+supply): If you have an old 5V charger lying around (e.g., from an old cellphone or tablet), you might be able to use it as well but make sure it is able to deliver at least 1A. However, if you run into power-related issues, consider buying a new power supply able to deliver at least 2A instead.
 
     [![5V power supply](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/power-supply.jpg){:.PostImage}](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/power-supply.jpg)
 
@@ -365,10 +368,26 @@ If you bought a USB to DIP adapter, you can now power your ESP32-cam independent
 
 Use a **5V** power supply that is able to deliver at least **1A**, such as an old cellphone charger. However, if you start running into power-related issues (e.g., `Brownout detector was triggered`), replace your power supply for one able to deliver *at least* **2A** instead and check that your cable is rated for such current.
 
-During boot and when searching for wireless access points, the board requires far more power than when idling, and a few power supplies and cables might not be able to keep up with it, which cause the device to become unstable and trigger a reboot.
+During boot and when searching for wireless access points, the board requires far more power than when idling.  Because a few power supplies were not designed to handle such sudden changes in energy consumption, voltage drops and insufficient current to the board might happen, which cause the device to become unstable and trigger a reboot.
 {:.notice}
 
-Other, non mutually exclusive solution include [the addition of an electrolytic capacitor across the 5V and GND pins](https://duckduckgo.com/?q=esp32-cam+electrolytic+capacitor).
+If `brownout` issues persist after changing your power supply, my recommendation is to make use of a [buck converter](https://en.wikipedia.org/wiki/Buck_converter) in between your power supply and the ESP32-cam board.  The addition of a buck converter gives you more flexibility in choosing a power supply, the ability to adjust the output voltage to better fit your project, additional output current, short-circuit protection, and built-in voltage smoothing/filtering.  For reference, I have used various converters based on the cheap [LM2596](https://duckduckgo.com/?q=LM2596) in ESP32-cam projects with great success.  You can easily [buy one of such converters for less than US$2](https://www.amazon.com/s?k=buck+converter+LM2596) and if you do not have a multimeter, some even come with an LED display to show the input and output voltage.  However, depending on your needs, there are other (slightly more expensive but slightly better, too) buck converters out there that you can use as well.  In any case, make sure to regulate your converters before attaching to your board; else, it might permanently damage your board and components.
+
+[![buck converter](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/buck-converter.jpg){:.PostImage .PostImage--small}](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/buck-converter.jpg)
+
+If you do not want to buy or don't have space to add a buck converter to your project, another possible solution to `brownout` issues include [the addition of an electrolytic capacitor across the 5V and GND pins](https://duckduckgo.com/?q=esp32-cam+electrolytic+capacitor), which should be placed close to the ESP32-cam pins.  Notice that this is exactly what is done in buck converters for the purpose of handling voltage instability, and quite often, a `220uF` electrolytic capacitor is used for such a purpose, so you might want to use one as well (any cap rated `10V` or higher should be fine). However, the inability to easily regulate the output voltage might prove to be an issue still.
+
+[![220uF 35v cap](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/220uf-35v-cap.jpg){:.PostImage .PostImage--small}](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/220uf-35v-cap.jpg)
+
+Finally, if power supply instability is inherent to your project (e.g., battery or solar-power based), then take a look at the [SetOption configurations](#setoption-configurations) section. By default, the Tasmota firmware implements multiple power related configurations that can revert one or all changes you have made to rules, templates, components, etc. (see `SO36`), or even reset the device completely (see `SO65`).
+
+For more information about powering this and other electronics projects, you might want to take a look at the following videos made by [DroneBot Workshop](https://www.youtube.com/channel/UCzml9bXoEM0itbcE96CB03w) and [Andreas Spiess](https://www.youtube.com/channel/UCu7_D0o48KbfhpEohoP7YSQ):
+
+{% include video id="IT19dg73nKU" provider="youtube" %}
+{:. text-center}
+
+{% include video id="DLQ1E5pDcBU" provider="youtube" %}
+{:. text-center}
 
 [top](#){:.btn .btn--light-outline .btn--small}
 
@@ -541,12 +560,17 @@ Tasmota has a command called [`SetOption<x>`](https://tasmota.github.io/docs/Com
 - 4th restart: reset user defined GPIOs to disable any attached peripherals;
 - 5th restart: reset module to Sonoff Basic (1).
 
-Fortunately, such option can be disabled entirely (`SO36 0`) or customized (e.g., start boot loop control after 5 boot loops: `SO36 5`). This matters because if for any reason your device detects a boot loop (e.g., bad power supply during boot), it will start reverting many of the customizations you've configured before (e.g., rules and template), which might cause loss of connectivity and other related issues. Personally, I like to disable boot loop control altogether, as follows:
+Fortunately, such option can be disabled entirely (`SO36 0`) or customized (e.g., start boot loop control after 5 boot loops: `SO36 5`). This matters because if for any reason your device detects a boot loop (e.g., bad power supply during boot), it will start reverting many of the customizations you've configured before (e.g., rules and template), which might cause loss of connectivity and other related issues. Personally, I like to disable boot loop control altogether once I have thoroughly tested the current configuration, which can be done by entering the following on the device's console window:
 
-- Navigate to your device's console and enter
-  ```
-  SetOption36 0
-  ```
+```
+SetOption36 0
+```
+
+Similarly, `SetOption65` (`SO65`) controls the device recovery process (i.e., reset all configurations to the firmware defaults and upon the first boot, create an access point for over-the-air WiFi configuration) via [fast power cycle detection](https://tasmota.github.io/docs/Device-Recovery/#fast-power-cycle-device-recovery).  This is enabled by default but to disable it, navigate to the console and enter the following:
+
+```
+SetOption65 1
+```
 
 [top](#){:.btn .btn--light-outline .btn--small}
 
@@ -664,6 +688,9 @@ To configure the ESP32-cam template, do the following:
 2. Follow the instructions in [**Updating the template**](#updating-the-template) if you have not done that before. Afterwards, navigate to **Configuration** > **Configure Other** > **Other parameters** > **Template** and make sure the **Activate** is checked.
 
 3. Navigate to **Configuration** > **Configure Template**.  The name of the template should be the same one you specified in the previous step.  Remember that according to the wiring of the BME280 board, **SDA** and **SCL** are connected to pins **GPIO14** and **GPIO15**, respectively.  Therefore, **find the GPIO14 pin** and instead of `User`, select `I2C SDA`; and similarly, **find the GPIO15 pin** and instead of `User`, select `I2C SCL`.
+
+   Currently, the default template for the ESP32-cam assigns SPI related components to `GPIO2`, `GPIO14`, and `GPIO15`, as well as the `SDCard CS` component to `GPIO13`. If you are not using the micro-SD card, you can free-up all such pins by assigning the `User` component to them and then use them according to the needs of your peripherals. Be sure to test them thoroughly before sending the device to production because I've had a few issues with other pins that are supposedly safe to use--namely, `GPIO12` and `GPIO16` both causing boot loops.
+   {:.notice}
 
    [![BME280 template](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-template-bme280.jpg){:.PostImage}](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-template-bme280.jpg)
 
