@@ -200,7 +200,7 @@
 
 
 
-  127 minute read
+  135 minute read
 
 </p>
       
@@ -422,6 +422,11 @@
         </ul>
       </li>
       <li><a href="#getting-started-with-batman-adv-on-any-linux-device">Getting started with batman-adv on any Linux device</a></li>
+    </ul>
+  </li>
+  <li><a href="#advanced-features">Advanced features</a>
+    <ul>
+      <li><a href="#multi-links">Multi-links</a></li>
     </ul>
   </li>
   <li><a href="#bonus-content-physical-computing">Bonus content: Physical computing</a></li>
@@ -2083,6 +2088,89 @@ lsmod | grep batman
 
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 
+<h1 id="advanced-features">Advanced features</h1>
+<p>The <code class="language-plaintext highlighter-rouge">batman-adv</code> routing protocol has multiple features that were not covered in the previous sections, owing to the higher level of complexity that they introduce to a mesh project.  However, once you feel more comfortable with the details of the basic implementation, it is recommended to take a look at the more advanced features because they can have a significant impact on the performance of your mesh project.  In this section, I described a few of the advanced features that I have used in the past and find particularly useful.</p>
+
+<h2 id="multi-links">Multi-links</h2>
+<p>The examples in this guide used a single, dedicated wireless interface–namely, the 5GHz radio of a dual-band router–to build the wireless mesh network. While the concept of using a single interface for the wireless mesh network might work just fine on a small scale, performance will often degrade as the size of the mesh network increases–and so the number of required node hops to reach a mesh gateway. This decline in performance occurs partially because a single wireless interface cannot send and receive at the same time, which is the same limitation we would run into with standard <a href="https://en.wikipedia.org/wiki/Wireless_repeater">wireless repeaters</a>, for example.</p>
+
+<p>Fortunately, the same <code class="language-plaintext highlighter-rouge">batman-adv</code> interface (e.g., <code class="language-plaintext highlighter-rouge">bat0</code>) <strong>can actually work on multiple (wired or wireless) interfaces</strong>, instead of either a 2.4GHz radio or a 5GHz radio or Ethernet cable.  In fact, a <code class="language-plaintext highlighter-rouge">batX</code> interface can work <em>with all such interfaces at the same time</em> and is able to choose which one to transmit packets depending on either <code class="language-plaintext highlighter-rouge">TQ</code> (<code class="language-plaintext highlighter-rouge">BATMAN_IV</code>) or throughput (<code class="language-plaintext highlighter-rouge">BATMAN_V</code>) between nodes.  This is orchestrated by a feature called <a href="https://www.open-mesh.org/projects/batman-adv/wiki/Multi-link-optimize">multi-link</a>.  More specifically, when using standard dual-band routers, such as the TL-WDR4300, a wireless mesh node has the option to use either the 2.4GHz radio or the 5GHz radio <em>or both</em> for the mesh traffic (<code class="language-plaintext highlighter-rouge">batX</code>).  Consider, for example, the following network composed of nine mesh nodes (<code class="language-plaintext highlighter-rouge">N01</code> … <code class="language-plaintext highlighter-rouge">N09</code>):</p>
+
+<p><a href="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-01.jpg"><img src="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-01.jpg" alt="multilink-01" class="PostImage PostImage--large" /></a></p>
+
+<p>Following the instructions in the <a href="#mesh-node-basic-config">Mesh node basic config</a> section, we would likely end up with nodes connected to <code class="language-plaintext highlighter-rouge">bat0</code> via their respective 5GHz radio on channel <code class="language-plaintext highlighter-rouge">153</code> (white lines):</p>
+
+<p><a href="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-02.jpg"><img src="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-02.jpg" alt="multilink-02" class="PostImage PostImage--large" /></a></p>
+
+<p>If <code class="language-plaintext highlighter-rouge">N01</code> were the mesh gateway, then the basic configuration (single, dedicated interface for mesh traffic) would likely prove very resonable because each other node has a direct connection to the gateway.  However, had the gateway been placed anywhere at the edge of the network, nodes at the opposite side would start struggling to reach it.  To remedy this situation, we can add another wireless interface to <code class="language-plaintext highlighter-rouge">bat0</code>.  Because radio waves attenuate a lot quicker at higher frequencies, the use of alternative 2.4GHz radios allow each node to establish connections to nodes that are usually not reachable via 5GHz radios.  Therefore, we can take advantage of such property to provide alternative, long-ranged routes for the <code class="language-plaintext highlighter-rouge">bat0</code> mesh traffic.  For example, we can configure nodes <code class="language-plaintext highlighter-rouge">N01</code>, <code class="language-plaintext highlighter-rouge">N06</code>, <code class="language-plaintext highlighter-rouge">N07</code>, <code class="language-plaintext highlighter-rouge">N08</code> and <code class="language-plaintext highlighter-rouge">N09</code> to connect to <code class="language-plaintext highlighter-rouge">bat0</code> via their 2.4GHz radio on channel <code class="language-plaintext highlighter-rouge">6</code> (green lines):</p>
+
+<p><a href="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-03.jpg"><img src="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-03.jpg" alt="multilink-03" class="PostImage PostImage--large" /></a></p>
+
+<p>We can then extrapolate this idea to connect nodes <code class="language-plaintext highlighter-rouge">N02</code> and <code class="language-plaintext highlighter-rouge">N04</code> via their 2.4GHz radio on channel <code class="language-plaintext highlighter-rouge">1</code> (yellow line), and similarly, connect nodes <code class="language-plaintext highlighter-rouge">N03</code> and <code class="language-plaintext highlighter-rouge">N05</code> on channel <code class="language-plaintext highlighter-rouge">11</code> (blue line):</p>
+
+<p><a href="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-04.jpg"><img src="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-04.jpg" alt="multilink-04" class="PostImage PostImage--large" /></a></p>
+
+<p>The <strong>planning</strong> of multi-links can be very challenging when using dual-band (2.4GHz + 5GHz) devices because as mentioned before, 2.4GHz and 5GHz attenuate at different rates, which means that interference across nodes can become an issue with several 2.4GHz radios operating on the same channel.  <a href="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-04.jpg">One alternative illustrated before</a> is to space nodes that operate at the same channel, so that they can mostly reach each other at the edges of the coverage area provided by their respective 2.4GHz radios and channel.  (Fine tunning each radio’s <code class="language-plaintext highlighter-rouge">txpower</code> by <em>decreasing</em> it to reduce unwantted overlap should help, too.)</p>
+
+<p><strong>Performance</strong>-wise, multi-links will almost always improve throughput in comparison to using a single interface, especially when used in conjunction with <a href="https://www.open-mesh.org/projects/batman-adv/wiki/Tweaking#bonding-mode"><code class="language-plaintext highlighter-rouge">bonding</code></a> and the throughput focused version of the <code class="language-plaintext highlighter-rouge">batman-adv</code> protocol, namely <a href="https://www.open-mesh.org/projects/batman-adv/wiki/BATMAN_V"><code class="language-plaintext highlighter-rouge">BATMAN_V</code></a>.  Naturally, however, node-to-node connections can become bottlenecked by the radios involved in the multi-link configuration–that is, you cannot expect to transfer packets via 2.4GHz at the same rate as 5GHz.</p>
+
+<p>Finally, <strong>configuration</strong>-wise, the implementation of multi-links is actually very simple because nothing new needs to be compilled or even enabled at the <code class="language-plaintext highlighter-rouge">batX</code> level.  To illustrate, let’s extend the example from the <a href="#mesh-node-basic-config">Mesh node basic config</a> section to add a second wireless mesh interface using the 2.4GHz radio of the TL-WDR4300.</p>
+
+<ul>
+  <li>
+    <p>In <code class="language-plaintext highlighter-rouge">/etc/config/network</code>, let’s rename <code class="language-plaintext highlighter-rouge">config interface 'mesh'</code> to <code class="language-plaintext highlighter-rouge">config interface 'mesh5g'</code>, which will be used by the 5GHz radio, and then create another <code class="language-plaintext highlighter-rouge">config interface 'mesh2g'</code> stanza for the 2.4GHz radio, as follows:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config interface 'mesh5g'
+      option proto 'batadv_hardif'
+      option master 'bat0'
+      option mtu '1536'
+
+config interface 'mesh2g'
+      option proto 'batadv_hardif'
+      option master 'bat0'
+      option mtu '1536'
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Then in <code class="language-plaintext highlighter-rouge">/etc/config/wireless</code>, let’s rename <code class="language-plaintext highlighter-rouge">config wifi-iface 'wmesh'</code> to <code class="language-plaintext highlighter-rouge">config wifi-iface 'wmesh5g'</code> and assign it to <code class="language-plaintext highlighter-rouge">option network 'mesh5g'</code> instead, as follows:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config wifi-iface 'wmesh5g'
+      option device 'radio1'
+      option network 'mesh5g'
+      option mode 'mesh'
+      option mesh_id 'MeshCloud'
+      option encryption 'sae'
+      option key 'MeshPassword123'
+      option mesh_fwding '0'
+      option mesh_ttl '1'
+      option mcast_rate '24000'
+      option disabled '0'
+</code></pre></div>    </div>
+
+    <p>and similarly, add the following <code class="language-plaintext highlighter-rouge">config wifi-iface 'wmesh2g'</code> stanza that makes use of <code class="language-plaintext highlighter-rouge">radio0</code> (2.4GHz in the TL-WDR4300) and <code class="language-plaintext highlighter-rouge">option network 'mesh2g'</code>, as follows:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>config wifi-iface 'wmesh2g'
+      option device 'radio0'
+      option network 'mesh2g'
+      option mode 'mesh'
+      option mesh_id 'MeshCloud'
+      option encryption 'sae'
+      option key 'MeshPassword123'
+      option mesh_fwding '0'
+      option mesh_ttl '1'
+      option mcast_rate '24000'
+      option disabled '0'
+</code></pre></div>    </div>
+
+    <p class="notice">Make sure the <code class="language-plaintext highlighter-rouge">radio0</code> is enabled in its stanza as well, of course.</p>
+  </li>
+  <li>
+    <p>Restart your device and once it comes back, check <code class="language-plaintext highlighter-rouge">batctl if</code> to make sure that it can now detect <em>two</em> interfaces, namely <code class="language-plaintext highlighter-rouge">wlan0</code> and <code class="language-plaintext highlighter-rouge">wlan1</code>. If you can see both interfaces, then you’re all set; otherwise, check <code class="language-plaintext highlighter-rouge">logread</code> for related errors.</p>
+  </li>
+</ul>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
 <h1 id="bonus-content-physical-computing">Bonus content: Physical computing</h1>
 <p>If your device has unused <strong>general purpose I/O</strong> pins, it’s possible to do all sorts of things with them.  Check the <a href="https://openwrt.org/docs/techref/hardware/port.gpio">GPIO documentation</a> for examples of how to install new LEDs and buttons, for instance.  (<a href="https://openwrt.org/toh/tp-link/tl-wr1043nd#gpios">Your device’s OpenWrt page can be very useful as well</a>.)</p>
 
@@ -2102,7 +2190,7 @@ lsmod | grep batman
     <p>OpenWrt 21.02 introduces initial support for the <a href="https://www.kernel.org/doc/html/latest/networking/dsa/dsa.html"><strong>Distributed Switch Architecture</strong> (<strong>DSA</strong>)</a>.  Currently, however, this only applies to <a href="https://openwrt.org/releases/21.02/notes-21.02.0#initial_dsa_support">a very limited number of devices</a>.  If you have one of such devices, then make sure to read rmilecki’s <a href="https://forum.openwrt.org/t/mini-tutorial-for-dsa-network-config/96998">mini tutorial for DSA network configuration</a> because the syntax is a little bit different than the one used in this guide.</p>
   </li>
   <li>
-    <p>The <a href="https://openwrt.org/releases/21.02/notes-21.02.0#increased_minimum_hardware_requirements8_mb_flash_64_mb_ram">hardware requirements to run OpenWrt 21.02</a> has increased to <code class="language-plaintext highlighter-rouge">8 MB</code> of flash memory and <code class="language-plaintext highlighter-rouge">64 MB</code> of RAM.  In the first version of this guide, I used the <strong>TP-Link TL-WR1043ND (v1.8)</strong> as an example of mesh node hardware, which has <code class="language-plaintext highlighter-rouge">8MB</code> of flash memory and <code class="language-plaintext highlighter-rouge">32MB</code> of RAM.  At first, I tried to use OpenWrt 21.02 with it but the system became <strong>too unstable</strong>, even after making several changes to multiple firmware images (e.g., removing LuCI altogether and adding <code class="language-plaintext highlighter-rouge">zram</code> support).  This is what prompted me to change the device in the examples to the <strong>TP-Link TL-WD4300</strong>, which is also a <em>low-end</em> router but it has <code class="language-plaintext highlighter-rouge">128MB</code> of RAM instead and importantly, it is a <em>dual-band</em> router that allows better segmentation of mesh vs non-mesh wireless traffic.</p>
+    <p>The <a href="https://openwrt.org/releases/21.02/notes-21.02.0#increased_minimum_hardware_requirements8_mb_flash_64_mb_ram">hardware requirements to run OpenWrt 21.02</a> has increased to <code class="language-plaintext highlighter-rouge">8 MB</code> of flash memory and <code class="language-plaintext highlighter-rouge">64 MB</code> of RAM.  In the first version of this guide, I used the <strong>TP-Link TL-WR1043ND (v1.8)</strong> as an example of mesh node hardware, which has <code class="language-plaintext highlighter-rouge">8MB</code> of flash memory and <code class="language-plaintext highlighter-rouge">32MB</code> of RAM.  At first, I tried to use OpenWrt 21.02 with it but the system became <strong>too unstable</strong>, even after making several changes to multiple firmware images (e.g., removing LuCI altogether and adding <code class="language-plaintext highlighter-rouge">zram</code> support).  This is what prompted me to change the device in the examples to the <strong>TP-Link TL-WDR4300</strong>, which is also a <em>low-end</em> router but it has <code class="language-plaintext highlighter-rouge">128MB</code> of RAM instead and importantly, it is a <em>dual-band</em> router that allows better segmentation of mesh vs non-mesh wireless traffic.</p>
   </li>
   <li>There is a small but important <a href="https://openwrt.org/releases/21.02/notes-21.02.0#new_network_configuration_syntax_and_boardjson_change">change in the configuration <strong>syntax</strong></a> in <code class="language-plaintext highlighter-rouge">/etc/config/network</code>, namely:
     <ol>
@@ -2262,7 +2350,7 @@ Swap:         13308         768       12540
   </ul>
 </div>
 
-<div class="page__footer-copyright">&copy; 2021 CGomesu - Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> and <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a></div>
+<div class="page__footer-copyright">&copy; 2022 CGomesu - Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> and <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a></div>
 
       </footer>
     </div>

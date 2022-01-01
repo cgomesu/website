@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-12-22T15:29:18-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: ESP-01 Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: ESP-01 Tasmota environmental sensor" /><published>2021-08-12T13:00:00-03:00</published><updated>2021-08-12T13:00:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-01-01T17:32:45-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: ESP-01 Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: ESP-01 Tasmota environmental sensor" /><published>2021-08-12T13:00:00-03:00</published><updated>2021-08-12T13:00:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;August 12th, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
@@ -6336,6 +6336,89 @@ lsmod | grep batman
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
+&lt;h1 id=&quot;advanced-features&quot;&gt;Advanced features&lt;/h1&gt;
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt; routing protocol has multiple features that were not covered in the previous sections, owing to the higher level of complexity that they introduce to a mesh project.  However, once you feel more comfortable with the details of the basic implementation, it is recommended to take a look at the more advanced features because they can have a significant impact on the performance of your mesh project.  In this section, I described a few of the advanced features that I have used in the past and find particularly useful.&lt;/p&gt;
+
+&lt;h2 id=&quot;multi-links&quot;&gt;Multi-links&lt;/h2&gt;
+&lt;p&gt;The examples in this guide used a single, dedicated wireless interface–namely, the 5GHz radio of a dual-band router–to build the wireless mesh network. While the concept of using a single interface for the wireless mesh network might work just fine on a small scale, performance will often degrade as the size of the mesh network increases–and so the number of required node hops to reach a mesh gateway. This decline in performance occurs partially because a single wireless interface cannot send and receive at the same time, which is the same limitation we would run into with standard &lt;a href=&quot;https://en.wikipedia.org/wiki/Wireless_repeater&quot;&gt;wireless repeaters&lt;/a&gt;, for example.&lt;/p&gt;
+
+&lt;p&gt;Fortunately, the same &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt; interface (e.g., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt;) &lt;strong&gt;can actually work on multiple (wired or wireless) interfaces&lt;/strong&gt;, instead of either a 2.4GHz radio or a 5GHz radio or Ethernet cable.  In fact, a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batX&lt;/code&gt; interface can work &lt;em&gt;with all such interfaces at the same time&lt;/em&gt; and is able to choose which one to transmit packets depending on either &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;TQ&lt;/code&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BATMAN_IV&lt;/code&gt;) or throughput (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BATMAN_V&lt;/code&gt;) between nodes.  This is orchestrated by a feature called &lt;a href=&quot;https://www.open-mesh.org/projects/batman-adv/wiki/Multi-link-optimize&quot;&gt;multi-link&lt;/a&gt;.  More specifically, when using standard dual-band routers, such as the TL-WDR4300, a wireless mesh node has the option to use either the 2.4GHz radio or the 5GHz radio &lt;em&gt;or both&lt;/em&gt; for the mesh traffic (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batX&lt;/code&gt;).  Consider, for example, the following network composed of nine mesh nodes (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;N01&lt;/code&gt; … &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;N09&lt;/code&gt;):&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-01.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-01.jpg&quot; alt=&quot;multilink-01&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Following the instructions in the &lt;a href=&quot;#mesh-node-basic-config&quot;&gt;Mesh node basic config&lt;/a&gt; section, we would likely end up with nodes connected to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt; via their respective 5GHz radio on channel &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;153&lt;/code&gt; (white lines):&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-02.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-02.jpg&quot; alt=&quot;multilink-02&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;If &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;N01&lt;/code&gt; were the mesh gateway, then the basic configuration (single, dedicated interface for mesh traffic) would likely prove very resonable because each other node has a direct connection to the gateway.  However, had the gateway been placed anywhere at the edge of the network, nodes at the opposite side would start struggling to reach it.  To remedy this situation, we can add another wireless interface to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt;.  Because radio waves attenuate a lot quicker at higher frequencies, the use of alternative 2.4GHz radios allow each node to establish connections to nodes that are usually not reachable via 5GHz radios.  Therefore, we can take advantage of such property to provide alternative, long-ranged routes for the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt; mesh traffic.  For example, we can configure nodes &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;N01&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;N06&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;N07&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;N08&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;N09&lt;/code&gt; to connect to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat0&lt;/code&gt; via their 2.4GHz radio on channel &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;6&lt;/code&gt; (green lines):&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-03.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-03.jpg&quot; alt=&quot;multilink-03&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;We can then extrapolate this idea to connect nodes &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;N02&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;N04&lt;/code&gt; via their 2.4GHz radio on channel &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1&lt;/code&gt; (yellow line), and similarly, connect nodes &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;N03&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;N05&lt;/code&gt; on channel &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;11&lt;/code&gt; (blue line):&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-04.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-04.jpg&quot; alt=&quot;multilink-04&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;planning&lt;/strong&gt; of multi-links can be very challenging when using dual-band (2.4GHz + 5GHz) devices because as mentioned before, 2.4GHz and 5GHz attenuate at different rates, which means that interference across nodes can become an issue with several 2.4GHz radios operating on the same channel.  &lt;a href=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-04.jpg&quot;&gt;One alternative illustrated before&lt;/a&gt; is to space nodes that operate at the same channel, so that they can mostly reach each other at the edges of the coverage area provided by their respective 2.4GHz radios and channel.  (Fine tunning each radio’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;txpower&lt;/code&gt; by &lt;em&gt;decreasing&lt;/em&gt; it to reduce unwantted overlap should help, too.)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Performance&lt;/strong&gt;-wise, multi-links will almost always improve throughput in comparison to using a single interface, especially when used in conjunction with &lt;a href=&quot;https://www.open-mesh.org/projects/batman-adv/wiki/Tweaking#bonding-mode&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bonding&lt;/code&gt;&lt;/a&gt; and the throughput focused version of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt; protocol, namely &lt;a href=&quot;https://www.open-mesh.org/projects/batman-adv/wiki/BATMAN_V&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BATMAN_V&lt;/code&gt;&lt;/a&gt;.  Naturally, however, node-to-node connections can become bottlenecked by the radios involved in the multi-link configuration–that is, you cannot expect to transfer packets via 2.4GHz at the same rate as 5GHz.&lt;/p&gt;
+
+&lt;p&gt;Finally, &lt;strong&gt;configuration&lt;/strong&gt;-wise, the implementation of multi-links is actually very simple because nothing new needs to be compilled or even enabled at the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batX&lt;/code&gt; level.  To illustrate, let’s extend the example from the &lt;a href=&quot;#mesh-node-basic-config&quot;&gt;Mesh node basic config&lt;/a&gt; section to add a second wireless mesh interface using the 2.4GHz radio of the TL-WDR4300.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;In &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/network&lt;/code&gt;, let’s rename &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config interface 'mesh'&lt;/code&gt; to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config interface 'mesh5g'&lt;/code&gt;, which will be used by the 5GHz radio, and then create another &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config interface 'mesh2g'&lt;/code&gt; stanza for the 2.4GHz radio, as follows:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config interface 'mesh5g'
+      option proto 'batadv_hardif'
+      option master 'bat0'
+      option mtu '1536'
+
+config interface 'mesh2g'
+      option proto 'batadv_hardif'
+      option master 'bat0'
+      option mtu '1536'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Then in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/wireless&lt;/code&gt;, let’s rename &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config wifi-iface 'wmesh'&lt;/code&gt; to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config wifi-iface 'wmesh5g'&lt;/code&gt; and assign it to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option network 'mesh5g'&lt;/code&gt; instead, as follows:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config wifi-iface 'wmesh5g'
+      option device 'radio1'
+      option network 'mesh5g'
+      option mode 'mesh'
+      option mesh_id 'MeshCloud'
+      option encryption 'sae'
+      option key 'MeshPassword123'
+      option mesh_fwding '0'
+      option mesh_ttl '1'
+      option mcast_rate '24000'
+      option disabled '0'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;and similarly, add the following &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config wifi-iface 'wmesh2g'&lt;/code&gt; stanza that makes use of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;radio0&lt;/code&gt; (2.4GHz in the TL-WDR4300) and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;option network 'mesh2g'&lt;/code&gt;, as follows:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;config wifi-iface 'wmesh2g'
+      option device 'radio0'
+      option network 'mesh2g'
+      option mode 'mesh'
+      option mesh_id 'MeshCloud'
+      option encryption 'sae'
+      option key 'MeshPassword123'
+      option mesh_fwding '0'
+      option mesh_ttl '1'
+      option mcast_rate '24000'
+      option disabled '0'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p class=&quot;notice&quot;&gt;Make sure the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;radio0&lt;/code&gt; is enabled in its stanza as well, of course.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Restart your device and once it comes back, check &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batctl if&lt;/code&gt; to make sure that it can now detect &lt;em&gt;two&lt;/em&gt; interfaces, namely &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wlan0&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wlan1&lt;/code&gt;. If you can see both interfaces, then you’re all set; otherwise, check &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;logread&lt;/code&gt; for related errors.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
 &lt;h1 id=&quot;bonus-content-physical-computing&quot;&gt;Bonus content: Physical computing&lt;/h1&gt;
 &lt;p&gt;If your device has unused &lt;strong&gt;general purpose I/O&lt;/strong&gt; pins, it’s possible to do all sorts of things with them.  Check the &lt;a href=&quot;https://openwrt.org/docs/techref/hardware/port.gpio&quot;&gt;GPIO documentation&lt;/a&gt; for examples of how to install new LEDs and buttons, for instance.  (&lt;a href=&quot;https://openwrt.org/toh/tp-link/tl-wr1043nd#gpios&quot;&gt;Your device’s OpenWrt page can be very useful as well&lt;/a&gt;.)&lt;/p&gt;
 
@@ -6355,7 +6438,7 @@ lsmod | grep batman
     &lt;p&gt;OpenWrt 21.02 introduces initial support for the &lt;a href=&quot;https://www.kernel.org/doc/html/latest/networking/dsa/dsa.html&quot;&gt;&lt;strong&gt;Distributed Switch Architecture&lt;/strong&gt; (&lt;strong&gt;DSA&lt;/strong&gt;)&lt;/a&gt;.  Currently, however, this only applies to &lt;a href=&quot;https://openwrt.org/releases/21.02/notes-21.02.0#initial_dsa_support&quot;&gt;a very limited number of devices&lt;/a&gt;.  If you have one of such devices, then make sure to read rmilecki’s &lt;a href=&quot;https://forum.openwrt.org/t/mini-tutorial-for-dsa-network-config/96998&quot;&gt;mini tutorial for DSA network configuration&lt;/a&gt; because the syntax is a little bit different than the one used in this guide.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;The &lt;a href=&quot;https://openwrt.org/releases/21.02/notes-21.02.0#increased_minimum_hardware_requirements8_mb_flash_64_mb_ram&quot;&gt;hardware requirements to run OpenWrt 21.02&lt;/a&gt; has increased to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;8 MB&lt;/code&gt; of flash memory and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;64 MB&lt;/code&gt; of RAM.  In the first version of this guide, I used the &lt;strong&gt;TP-Link TL-WR1043ND (v1.8)&lt;/strong&gt; as an example of mesh node hardware, which has &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;8MB&lt;/code&gt; of flash memory and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;32MB&lt;/code&gt; of RAM.  At first, I tried to use OpenWrt 21.02 with it but the system became &lt;strong&gt;too unstable&lt;/strong&gt;, even after making several changes to multiple firmware images (e.g., removing LuCI altogether and adding &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zram&lt;/code&gt; support).  This is what prompted me to change the device in the examples to the &lt;strong&gt;TP-Link TL-WD4300&lt;/strong&gt;, which is also a &lt;em&gt;low-end&lt;/em&gt; router but it has &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;128MB&lt;/code&gt; of RAM instead and importantly, it is a &lt;em&gt;dual-band&lt;/em&gt; router that allows better segmentation of mesh vs non-mesh wireless traffic.&lt;/p&gt;
+    &lt;p&gt;The &lt;a href=&quot;https://openwrt.org/releases/21.02/notes-21.02.0#increased_minimum_hardware_requirements8_mb_flash_64_mb_ram&quot;&gt;hardware requirements to run OpenWrt 21.02&lt;/a&gt; has increased to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;8 MB&lt;/code&gt; of flash memory and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;64 MB&lt;/code&gt; of RAM.  In the first version of this guide, I used the &lt;strong&gt;TP-Link TL-WR1043ND (v1.8)&lt;/strong&gt; as an example of mesh node hardware, which has &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;8MB&lt;/code&gt; of flash memory and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;32MB&lt;/code&gt; of RAM.  At first, I tried to use OpenWrt 21.02 with it but the system became &lt;strong&gt;too unstable&lt;/strong&gt;, even after making several changes to multiple firmware images (e.g., removing LuCI altogether and adding &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zram&lt;/code&gt; support).  This is what prompted me to change the device in the examples to the &lt;strong&gt;TP-Link TL-WDR4300&lt;/strong&gt;, which is also a &lt;em&gt;low-end&lt;/em&gt; router but it has &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;128MB&lt;/code&gt; of RAM instead and importantly, it is a &lt;em&gt;dual-band&lt;/em&gt; router that allows better segmentation of mesh vs non-mesh wireless traffic.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;There is a small but important &lt;a href=&quot;https://openwrt.org/releases/21.02/notes-21.02.0#new_network_configuration_syntax_and_boardjson_change&quot;&gt;change in the configuration &lt;strong&gt;syntax&lt;/strong&gt;&lt;/a&gt; in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/network&lt;/code&gt;, namely:
     &lt;ol&gt;
