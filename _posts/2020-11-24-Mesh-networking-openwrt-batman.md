@@ -168,9 +168,9 @@ iw list | grep -ix "^wiphy.*\|^.*mesh point$"
 
 	If it does, then the associated radio can be configured as a mesh point.
 
-Now, if you're looking for devices to buy and experiment on, my suggestion is to look for high-end dual-band wireless routers to allow a better segmentation of the wireless networks.  If you can afford spending more for a mesh node, look for tri-band devices.  Netgear and Linksys have solid options that are compatible with OpenWrt. For example, the Linksys WRT1900AC (v1/v2) dual-band wireless router would make for a good mesh node:
+Now, if you're looking for devices to buy and experiment on, my suggestion is to look for high-end dual-band wireless routers to allow a better segmentation of the wireless networks.  If you can afford spending more for a mesh node, look for tri-band devices.  Netgear and Linksys have solid options that are compatible with OpenWrt. For example, the [Linksys EA8300](https://openwrt.org/toh/linksys/ea8300) tri-band wireless router would make for a good high-end mesh node:
 
-[![Linksys WRT1900AC](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/linksys-wrt1900ac.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/linksys-wrt1900ac.jpg) 
+[![Linksys EA8300](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/linksys-ea8300.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/linksys-ea8300.jpg) 
 
 For single-board computer (SBC) fans like me, you can run OpenWrt with most of them and then use a combination of on-board wireless and USB adapter to create a powerful mesh node. [ClearFog boards](https://shop.solid-run.com/product-category/embedded-computers/marvell-family/clearfog-base-pro/) with one or two mini PCIe wireless cards would make very good candidates for such a project, for example:
 
