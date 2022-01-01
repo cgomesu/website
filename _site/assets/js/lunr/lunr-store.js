@@ -42,7 +42,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Mesh networking: A guide to using free and open-source software with common hardware",
-        "excerpt":"Changelog October 6th, 2021: The guide was completely updated to make it consistent with the current stable release, namely OpenWrt 21.02. In brief, most of the changes had to do with the new network syntax and increased hardware requirements. More specifically, OpenWrt 21.02 drops the use of ifname and make...","categories": ["blog"],
+        "excerpt":"Changelog January 1st, 2022: Added a new section called Advanced features to cover batman-adv features not previously described in the basic implementation section. The first included feature was the use of multi-links to improve performance and reliability. The subsection includes examples and a how-to for the implementation of multi-links. In...","categories": ["blog"],
         "tags": ["mesh","adhoc","ieee","wifi","wireless","radio","network","router","openwrt","batman"],
         "url": "/blog/Mesh-networking-openwrt-batman/",
         "teaser": null

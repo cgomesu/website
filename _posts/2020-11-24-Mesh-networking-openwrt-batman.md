@@ -10,8 +10,10 @@ toc_label: "Table of Contents"
 toc_icon: "list"
 ---
 # Changelog
-**October 6th, 2021**: The guide was completely updated to make it consistent with the current stable release, namely **OpenWrt 21.02**.  In brief, most of the changes had to do with the [**new network syntax**](https://openwrt.org/releases/21.02/notes-21.02.0#new_network_configuration_syntax_and_boardjson_change) and [**increased hardware requirements**](https://openwrt.org/releases/21.02/notes-21.02.0#increased_minimum_hardware_requirements8_mb_flash_64_mb_ram).  More specifically, OpenWrt 21.02 drops the use of `ifname` and make a more clear distinction between layer 2 and layer 3 configurations in the `/etc/config/network` file. In addition, the minimum requirements to run OpenWrt are now `8MB` of flash memory and `64MB` of RAM.  The latter change prompted me to use a new TP-Link router for the examples, namely the TL-WDR4300, instead of the old WR1043ND (v1). This new router is still a low-end device, which makes very affordable and easy to find worldwide, but contrary to the WR1043ND, it is actually a *dual-band* router.  This was an opportunity to illustrate wireless segmentation for mesh vs. non-mesh communication, which is something I think is almost required in most use cases, so [the new guide makes use of it by default](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/segmentation.jpg). I also took this opportunity to update many, many other things.  To mention two main ones: (a) at the end of the [OpenWrt installation and initial configuration](#openwrt-installation-and-initial-configuration) section, there's now a description of how to build custom images that contain all the required mesh packages; and (b) the section [Bonus content: Moving from OpenWrt 19 to 21](#bonus-content-moving-from-openwrt-19-to-21) was update to help users who followed the earlier version of this guide to transition to the new release. This was a big one and took a few days to get it done.  Hope you find it useful!
+**January 1st, 2022**: Added a new section called [Advanced features](#advanced-features) to cover `batman-adv` features not previously described in the basic implementation section.  The first included feature was the use of [multi-links](#multi-links) to improve performance and reliability.  The subsection includes examples and a how-to for the implementation of multi-links.  In addition, I changed the Linksys reference in [Hardware](#hardware) to the more stable [Linksys EA8300](https://openwrt.org/toh/linksys/ea8300) as reference of a high-end device.  I've not personally used it but have read reports of good experience with it by the OpenWrt forum user [16F48](https://forum.openwrt.org/u/16F84), for example.
 {: .notice--success }
+**October 6th, 2021**: The guide was completely updated to make it consistent with the current stable release, namely **OpenWrt 21.02**.  In brief, most of the changes had to do with the [**new network syntax**](https://openwrt.org/releases/21.02/notes-21.02.0#new_network_configuration_syntax_and_boardjson_change) and [**increased hardware requirements**](https://openwrt.org/releases/21.02/notes-21.02.0#increased_minimum_hardware_requirements8_mb_flash_64_mb_ram).  More specifically, OpenWrt 21.02 drops the use of `ifname` and make a more clear distinction between layer 2 and layer 3 configurations in the `/etc/config/network` file. In addition, the minimum requirements to run OpenWrt are now `8MB` of flash memory and `64MB` of RAM.  The latter change prompted me to use a new TP-Link router for the examples, namely the TL-WDR4300, instead of the old WR1043ND (v1). This new router is still a low-end device, which makes very affordable and easy to find worldwide, but contrary to the WR1043ND, it is actually a *dual-band* router.  This was an opportunity to illustrate wireless segmentation for mesh vs. non-mesh communication, which is something I think is almost required in most use cases, so [the new guide makes use of it by default](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/segmentation.jpg). I also took this opportunity to update many, many other things.  To mention two main ones: (a) at the end of the [OpenWrt installation and initial configuration](#openwrt-installation-and-initial-configuration) section, there's now a description of how to build custom images that contain all the required mesh packages; and (b) the section [Bonus content: Moving from OpenWrt 19 to 21](#bonus-content-moving-from-openwrt-19-to-21) was update to help users who followed the earlier version of this guide to transition to the new release. This was a big one and took a few days to get it done.  Hope you find it useful!
+{: .notice--warning }
 **September 16th, 2021**: Updated the information about OpenWrt 21 in the section [**Bonus content: Moving from OpenWrt 19 to 21**](#bonus-content-moving-from-openwrt-19-to-21).  In brief, DSA support is still very limited and OpenWrt has officially started rolling out version 21 with the [release of OpenWrt 21.02](https://openwrt.org/releases/21.02/notes-21.02.0). I'm currently testing the new version and network configuration on a few devices and once I get everything running as well as it was in version 19, I will update the entire article to reflect the new (and current) configuration.  It is, of course, still possible to download and use [the latest OpenWrt 19 images](https://downloads.openwrt.org/releases/19.07.8/targets/), which should be just fine for a long time still.  However, if you want to make use of OpenWrt 21, then read the aforementioned bonus section for guidance on the syntax changes and updated hardware requirements.
 {: .notice--info }
 **July 6th, 2021**: Added information about transitioning from OpenWrt 19 (current stable release) to OpenWrt 21 (next stable release) to a new section called [**Bonus content: Moving from OpenWrt 19 to 21**](#bonus-content-moving-from-openwrt-19-to-21).  In brief, the *next* stable release includes changes to the network configuration syntax that are incompatible with this guide.  Once the release version 21 becomes the *current* stable, however, I will update the main guide to reflect those changes.  In the meantime, I added a few references to the OpenWrt forum that should help anyone interested in using version 21 instead of 19.  Thanks to [Steve](https://forum.openwrt.org/u/SteveNewcomb) for testing and sharing his `batman-adv` configuration running on OpenWrt 21.
@@ -168,9 +170,9 @@ iw list | grep -ix "^wiphy.*\|^.*mesh point$"
 
 	If it does, then the associated radio can be configured as a mesh point.
 
-Now, if you're looking for devices to buy and experiment on, my suggestion is to look for high-end dual-band wireless routers to allow a better segmentation of the wireless networks.  If you can afford spending more for a mesh node, look for tri-band devices.  Netgear and Linksys have solid options that are compatible with OpenWrt. For example, the Linksys WRT1900AC (v1/v2) dual-band wireless router would make for a good mesh node:
+Now, if you're looking for devices to buy and experiment on, my suggestion is to look for high-end dual-band wireless routers to allow a better segmentation of the wireless networks.  If you can afford spending more for a mesh node, look for tri-band devices.  Netgear and Linksys have solid options that are compatible with OpenWrt. For example, the [Linksys EA8300](https://openwrt.org/toh/linksys/ea8300) tri-band wireless router would make for a good high-end mesh node:
 
-[![Linksys WRT1900AC](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/linksys-wrt1900ac.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/linksys-wrt1900ac.jpg) 
+[![Linksys EA8300](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/linksys-ea8300.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/linksys-ea8300.jpg) 
 
 For single-board computer (SBC) fans like me, you can run OpenWrt with most of them and then use a combination of on-board wireless and USB adapter to create a powerful mesh node. [ClearFog boards](https://shop.solid-run.com/product-category/embedded-computers/marvell-family/clearfog-base-pro/) with one or two mini PCIe wireless cards would make very good candidates for such a project, for example:
 
@@ -1520,6 +1522,87 @@ If you know of a program that has a GUI and is able to handle such configuration
 
 [top](#){: .btn .btn--light-outline .btn--small}
 
+# Advanced features
+The `batman-adv` routing protocol has multiple features that were not covered in the previous sections, owing to the higher level of complexity that they introduce to a mesh project.  However, once you feel more comfortable with the details of the basic implementation, it is recommended to take a look at the more advanced features because they can have a significant impact on the performance of your mesh project.  In this section, I described a few of the advanced features that I have used in the past and find particularly useful.
+
+## Multi-links
+The examples in this guide used a single, dedicated wireless interface--namely, the 5GHz radio of a dual-band router--to build the wireless mesh network. While the concept of using a single interface for the wireless mesh network might work just fine on a small scale, performance will often degrade as the size of the mesh network increases--and so the number of required node hops to reach a mesh gateway. This decline in performance occurs partially because a single wireless interface cannot send and receive at the same time, which is the same limitation we would run into with standard [wireless repeaters](https://en.wikipedia.org/wiki/Wireless_repeater), for example.
+
+Fortunately, the same `batman-adv` interface (e.g., `bat0`) **can actually work on multiple (wired or wireless) interfaces**, instead of either a 2.4GHz radio or a 5GHz radio or Ethernet cable.  In fact, a `batX` interface can work *with all such interfaces at the same time* and is able to choose which one to transmit packets depending on either `TQ` (`BATMAN_IV`) or throughput (`BATMAN_V`) between nodes.  This is orchestrated by a feature called [multi-link](https://www.open-mesh.org/projects/batman-adv/wiki/Multi-link-optimize).  More specifically, when using standard dual-band routers, such as the TL-WDR4300, a wireless mesh node has the option to use either the 2.4GHz radio or the 5GHz radio *or both* for the mesh traffic (`batX`).  Consider, for example, the following network composed of nine mesh nodes (`N01` ... `N09`):
+
+[![multilink-01](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-01.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-01.jpg) 
+
+Following the instructions in the [Mesh node basic config](#mesh-node-basic-config) section, we would likely end up with nodes connected to `bat0` via their respective 5GHz radio on channel `153` (white lines):
+
+[![multilink-02](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-02.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-02.jpg) 
+
+If `N01` were the mesh gateway, then the basic configuration (single, dedicated interface for mesh traffic) would likely prove very resonable because each other node has a direct connection to the gateway.  However, had the gateway been placed anywhere at the edge of the network, nodes at the opposite side would start struggling to reach it.  To remedy this situation, we can add another wireless interface to `bat0`.  Because radio waves attenuate a lot quicker at higher frequencies, the use of alternative 2.4GHz radios allow each node to establish connections to nodes that are usually not reachable via 5GHz radios.  Therefore, we can take advantage of such property to provide alternative, long-ranged routes for the `bat0` mesh traffic.  For example, we can configure nodes `N01`, `N06`, `N07`, `N08` and `N09` to connect to `bat0` via their 2.4GHz radio on channel `6` (green lines):
+
+[![multilink-03](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-03.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-03.jpg) 
+
+We can then extrapolate this idea to connect nodes `N02` and `N04` via their 2.4GHz radio on channel `1` (yellow line), and similarly, connect nodes `N03` and `N05` on channel `11` (blue line):
+
+[![multilink-04](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-04.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-04.jpg) 
+
+The **planning** of multi-links can be very challenging when using dual-band (2.4GHz + 5GHz) devices because as mentioned before, 2.4GHz and 5GHz attenuate at different rates, which means that interference across nodes can become an issue with several 2.4GHz radios operating on the same channel.  [One alternative illustrated before](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-04.jpg) is to space nodes that operate at the same channel, so that they can mostly reach each other at the edges of the coverage area provided by their respective 2.4GHz radios and channel.  (Fine tunning each radio's `txpower` by *decreasing* it to reduce unwantted overlap should help, too.)
+
+**Performance**-wise, multi-links will almost always improve throughput in comparison to using a single interface, especially when used in conjunction with [`bonding`](https://www.open-mesh.org/projects/batman-adv/wiki/Tweaking#bonding-mode) and the throughput focused version of the `batman-adv` protocol, namely [`BATMAN_V`](https://www.open-mesh.org/projects/batman-adv/wiki/BATMAN_V).  Naturally, however, node-to-node connections can become bottlenecked by the radios involved in the multi-link configuration--that is, you cannot expect to transfer packets via 2.4GHz at the same rate as 5GHz.
+
+Finally, **configuration**-wise, the implementation of multi-links is actually very simple because nothing new needs to be compilled or even enabled at the `batX` level.  To illustrate, let's extend the example from the [Mesh node basic config](#mesh-node-basic-config) section to add a second wireless mesh interface using the 2.4GHz radio of the TL-WDR4300.
+
+- In `/etc/config/network`, let's rename `config interface 'mesh'` to `config interface 'mesh5g'`, which will be used by the 5GHz radio, and then create another `config interface 'mesh2g'` stanza for the 2.4GHz radio, as follows:
+  
+  ```
+  config interface 'mesh5g'
+        option proto 'batadv_hardif'
+        option master 'bat0'
+        option mtu '1536'
+
+  config interface 'mesh2g'
+        option proto 'batadv_hardif'
+        option master 'bat0'
+        option mtu '1536'
+  ```
+
+- Then in `/etc/config/wireless`, let's rename `config wifi-iface 'wmesh'` to `config wifi-iface 'wmesh5g'` and assign it to `option network 'mesh5g'` instead, as follows:
+  
+  ```
+  config wifi-iface 'wmesh5g'
+        option device 'radio1'
+        option network 'mesh5g'
+        option mode 'mesh'
+        option mesh_id 'MeshCloud'
+        option encryption 'sae'
+        option key 'MeshPassword123'
+        option mesh_fwding '0'
+        option mesh_ttl '1'
+        option mcast_rate '24000'
+        option disabled '0'
+  ```
+
+  and similarly, add the following `config wifi-iface 'wmesh2g'` stanza that makes use of `radio0` (2.4GHz in the TL-WDR4300) and `option network 'mesh2g'`, as follows:
+
+  ```
+  config wifi-iface 'wmesh2g'
+        option device 'radio0'
+        option network 'mesh2g'
+        option mode 'mesh'
+        option mesh_id 'MeshCloud'
+        option encryption 'sae'
+        option key 'MeshPassword123'
+        option mesh_fwding '0'
+        option mesh_ttl '1'
+        option mcast_rate '24000'
+        option disabled '0'
+  ```
+
+  Make sure the `radio0` is enabled in its stanza as well, of course.
+  {:.notice}
+
+- Restart your device and once it comes back, check `batctl if` to make sure that it can now detect *two* interfaces, namely `wlan0` and `wlan1`. If you can see both interfaces, then you're all set; otherwise, check `logread` for related errors.
+
+[top](#){: .btn .btn--light-outline .btn--small}
+
 # Bonus content: Physical computing
 If your device has unused **general purpose I/O** pins, it's possible to do all sorts of things with them.  Check the [GPIO documentation](https://openwrt.org/docs/techref/hardware/port.gpio) for examples of how to install new LEDs and buttons, for instance.  ([Your device's OpenWrt page can be very useful as well](https://openwrt.org/toh/tp-link/tl-wr1043nd#gpios).)
 
@@ -1537,7 +1620,7 @@ Of course, it is still possible to download and use the latest version of the Op
 
   - OpenWrt 21.02 introduces initial support for the [**Distributed Switch Architecture** (**DSA**)](https://www.kernel.org/doc/html/latest/networking/dsa/dsa.html).  Currently, however, this only applies to [a very limited number of devices](https://openwrt.org/releases/21.02/notes-21.02.0#initial_dsa_support).  If you have one of such devices, then make sure to read rmilecki's [mini tutorial for DSA network configuration](https://forum.openwrt.org/t/mini-tutorial-for-dsa-network-config/96998) because the syntax is a little bit different than the one used in this guide.
 
-  - The [hardware requirements to run OpenWrt 21.02](https://openwrt.org/releases/21.02/notes-21.02.0#increased_minimum_hardware_requirements8_mb_flash_64_mb_ram) has increased to `8 MB` of flash memory and `64 MB` of RAM.  In the first version of this guide, I used the **TP-Link TL-WR1043ND (v1.8)** as an example of mesh node hardware, which has `8MB` of flash memory and `32MB` of RAM.  At first, I tried to use OpenWrt 21.02 with it but the system became **too unstable**, even after making several changes to multiple firmware images (e.g., removing LuCI altogether and adding `zram` support).  This is what prompted me to change the device in the examples to the **TP-Link TL-WD4300**, which is also a *low-end* router but it has `128MB` of RAM instead and importantly, it is a *dual-band* router that allows better segmentation of mesh vs non-mesh wireless traffic. 
+  - The [hardware requirements to run OpenWrt 21.02](https://openwrt.org/releases/21.02/notes-21.02.0#increased_minimum_hardware_requirements8_mb_flash_64_mb_ram) has increased to `8 MB` of flash memory and `64 MB` of RAM.  In the first version of this guide, I used the **TP-Link TL-WR1043ND (v1.8)** as an example of mesh node hardware, which has `8MB` of flash memory and `32MB` of RAM.  At first, I tried to use OpenWrt 21.02 with it but the system became **too unstable**, even after making several changes to multiple firmware images (e.g., removing LuCI altogether and adding `zram` support).  This is what prompted me to change the device in the examples to the **TP-Link TL-WDR4300**, which is also a *low-end* router but it has `128MB` of RAM instead and importantly, it is a *dual-band* router that allows better segmentation of mesh vs non-mesh wireless traffic. 
 
   - There is a small but important [change in the configuration **syntax**](https://openwrt.org/releases/21.02/notes-21.02.0#new_network_configuration_syntax_and_boardjson_change) in `/etc/config/network`, namely:
     1. The option `ifname` is now called `device` in all `config interface` stanzas;
