@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-01-01T17:57:44-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: ESP-01 Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: ESP-01 Tasmota environmental sensor" /><published>2021-08-12T13:00:00-03:00</published><updated>2021-08-12T13:00:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-02-04T10:14:17-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: ESP-01 Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: ESP-01 Tasmota environmental sensor" /><published>2021-08-12T13:00:00-03:00</published><updated>2021-08-12T13:00:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;August 12th, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
@@ -4690,7 +4690,8 @@ sudo systemctl start button-box.service
 &lt;p&gt;This conlcudes the tutorial on how to repurpose an old external HDD enclosure into a button box for the Raspberry Pi (or any other SBC).  Check the &lt;a href=&quot;#changelog&quot;&gt;changelog&lt;/a&gt; for updates.  If you have any questions, feel free to &lt;a href=&quot;/contact/&quot;&gt;get in touch with me&lt;/a&gt;.  For anything related to the controller, please visit the &lt;a href=&quot;https://github.com/cgomesu/rpi-button-box&quot;&gt;rpi-button-box repo&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="DIY" /><category term="raspberrypi" /><category term="rpi" /><category term="hdd" /><category term="enclosure" /><category term="button" /><category term="box" /></entry><entry><title type="html">Mesh networking: A guide to using free and open-source software with common hardware</title><link href="/blog/Mesh-networking-openwrt-batman/" rel="alternate" type="text/html" title="Mesh networking: A guide to using free and open-source software with common hardware" /><published>2020-12-07T12:10:00-03:00</published><updated>2020-12-07T12:10:00-03:00</updated><id>/blog/Mesh-networking-openwrt-batman</id><content type="html" xml:base="/blog/Mesh-networking-openwrt-batman/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
-&lt;p class=&quot;notice--success&quot;&gt;&lt;strong&gt;January 1st, 2022&lt;/strong&gt;: Added a new section called &lt;a href=&quot;#advanced-features&quot;&gt;Advanced features&lt;/a&gt; to cover &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt; features not previously described in the basic implementation section.  The first included feature was the use of &lt;a href=&quot;#multi-links&quot;&gt;multi-links&lt;/a&gt; to improve performance and reliability.  The subsection includes examples and a how-to for the implementation of multi-links.  In addition, I changed the Linksys reference in &lt;a href=&quot;#hardware&quot;&gt;Hardware&lt;/a&gt; to the more stable &lt;a href=&quot;https://openwrt.org/toh/linksys/ea8300&quot;&gt;Linksys EA8300&lt;/a&gt; as reference of a high-end device.  I’ve not personally used it but have read reports of good experience with it by the OpenWrt forum user &lt;a href=&quot;https://forum.openwrt.org/u/16F84&quot;&gt;16F48&lt;/a&gt;, for example.&lt;/p&gt;
+&lt;p class=&quot;notice--success&quot;&gt;&lt;strong&gt;February 4th, 2022&lt;/strong&gt;: Updated the &lt;a href=&quot;#hardware-specific-configurations&quot;&gt;Hardware-specific configurations&lt;/a&gt; section to include info about the issue affecting the &lt;a href=&quot;https://openwrt.org/toh/gl.inet/gl-ar750&quot;&gt;GL-AR750&lt;/a&gt; and to make the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ath10k&lt;/code&gt; instructions more general. Thanks to JF for testing and letting me know about the affected device and solution.&lt;/p&gt;
+&lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;January 1st, 2022&lt;/strong&gt;: Added a new section called &lt;a href=&quot;#advanced-features&quot;&gt;Advanced features&lt;/a&gt; to cover &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt; features not previously described in the basic implementation section.  The first included feature was the use of &lt;a href=&quot;#multi-links&quot;&gt;multi-links&lt;/a&gt; to improve performance and reliability.  The subsection includes examples and a how-to for the implementation of multi-links.  In addition, I changed the Linksys reference in &lt;a href=&quot;#hardware&quot;&gt;Hardware&lt;/a&gt; to the more stable &lt;a href=&quot;https://openwrt.org/toh/linksys/ea8300&quot;&gt;Linksys EA8300&lt;/a&gt; as reference of a high-end device.  I’ve not personally used it but have read reports of good experience with it by the OpenWrt forum user &lt;a href=&quot;https://forum.openwrt.org/u/16F84&quot;&gt;16F48&lt;/a&gt;, for example.&lt;/p&gt;
 &lt;p class=&quot;notice--warning&quot;&gt;&lt;strong&gt;October 6th, 2021&lt;/strong&gt;: The guide was completely updated to make it consistent with the current stable release, namely &lt;strong&gt;OpenWrt 21.02&lt;/strong&gt;.  In brief, most of the changes had to do with the &lt;a href=&quot;https://openwrt.org/releases/21.02/notes-21.02.0#new_network_configuration_syntax_and_boardjson_change&quot;&gt;&lt;strong&gt;new network syntax&lt;/strong&gt;&lt;/a&gt; and &lt;a href=&quot;https://openwrt.org/releases/21.02/notes-21.02.0#increased_minimum_hardware_requirements8_mb_flash_64_mb_ram&quot;&gt;&lt;strong&gt;increased hardware requirements&lt;/strong&gt;&lt;/a&gt;.  More specifically, OpenWrt 21.02 drops the use of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ifname&lt;/code&gt; and make a more clear distinction between layer 2 and layer 3 configurations in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/config/network&lt;/code&gt; file. In addition, the minimum requirements to run OpenWrt are now &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;8MB&lt;/code&gt; of flash memory and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;64MB&lt;/code&gt; of RAM.  The latter change prompted me to use a new TP-Link router for the examples, namely the TL-WDR4300, instead of the old WR1043ND (v1). This new router is still a low-end device, which makes very affordable and easy to find worldwide, but contrary to the WR1043ND, it is actually a &lt;em&gt;dual-band&lt;/em&gt; router.  This was an opportunity to illustrate wireless segmentation for mesh vs. non-mesh communication, which is something I think is almost required in most use cases, so &lt;a href=&quot;/assets/posts/2020-11-24-mesh-networking-openwrt-batman/segmentation.jpg&quot;&gt;the new guide makes use of it by default&lt;/a&gt;. I also took this opportunity to update many, many other things.  To mention two main ones: (a) at the end of the &lt;a href=&quot;#openwrt-installation-and-initial-configuration&quot;&gt;OpenWrt installation and initial configuration&lt;/a&gt; section, there’s now a description of how to build custom images that contain all the required mesh packages; and (b) the section &lt;a href=&quot;#bonus-content-moving-from-openwrt-19-to-21&quot;&gt;Bonus content: Moving from OpenWrt 19 to 21&lt;/a&gt; was update to help users who followed the earlier version of this guide to transition to the new release. This was a big one and took a few days to get it done.  Hope you find it useful!&lt;/p&gt;
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;September 16th, 2021&lt;/strong&gt;: Updated the information about OpenWrt 21 in the section &lt;a href=&quot;#bonus-content-moving-from-openwrt-19-to-21&quot;&gt;&lt;strong&gt;Bonus content: Moving from OpenWrt 19 to 21&lt;/strong&gt;&lt;/a&gt;.  In brief, DSA support is still very limited and OpenWrt has officially started rolling out version 21 with the &lt;a href=&quot;https://openwrt.org/releases/21.02/notes-21.02.0&quot;&gt;release of OpenWrt 21.02&lt;/a&gt;. I’m currently testing the new version and network configuration on a few devices and once I get everything running as well as it was in version 19, I will update the entire article to reflect the new (and current) configuration.  It is, of course, still possible to download and use &lt;a href=&quot;https://downloads.openwrt.org/releases/19.07.8/targets/&quot;&gt;the latest OpenWrt 19 images&lt;/a&gt;, which should be just fine for a long time still.  However, if you want to make use of OpenWrt 21, then read the aforementioned bonus section for guidance on the syntax changes and updated hardware requirements.&lt;/p&gt;
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;July 6th, 2021&lt;/strong&gt;: Added information about transitioning from OpenWrt 19 (current stable release) to OpenWrt 21 (next stable release) to a new section called &lt;a href=&quot;#bonus-content-moving-from-openwrt-19-to-21&quot;&gt;&lt;strong&gt;Bonus content: Moving from OpenWrt 19 to 21&lt;/strong&gt;&lt;/a&gt;.  In brief, the &lt;em&gt;next&lt;/em&gt; stable release includes changes to the network configuration syntax that are incompatible with this guide.  Once the release version 21 becomes the &lt;em&gt;current&lt;/em&gt; stable, however, I will update the main guide to reflect those changes.  In the meantime, I added a few references to the OpenWrt forum that should help anyone interested in using version 21 instead of 19.  Thanks to &lt;a href=&quot;https://forum.openwrt.org/u/SteveNewcomb&quot;&gt;Steve&lt;/a&gt; for testing and sharing his &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batman-adv&lt;/code&gt; configuration running on OpenWrt 21.&lt;/p&gt;
@@ -4897,7 +4898,7 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
 &lt;p&gt;All that said, most home users will be just fine with a cheapo, used, old, and single-band router.  For a brand reference, TP-Link has good and affordable devices that can be used in a mesh networking project without issues.  If you’re new to this, start from here (small, simple) and think about efficiency over power.  You don’t need to drive a Lamborghini to get a snack at the grocery store. For additional resources, skip to the section called &lt;a href=&quot;#useful-hardware-resources&quot;&gt;Useful hardware resources&lt;/a&gt; down below.&lt;/p&gt;
 
 &lt;h2 id=&quot;hardware-specific-configurations&quot;&gt;Hardware-specific configurations&lt;/h2&gt;
-&lt;p&gt;Every once in a while, I run into hardware that is capable of operating in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mesh point&lt;/code&gt; mode but the default OpenWrt firmware uses a module for the wireless adapter that is loaded with incompatible parameters.  Here is a list of a few of the known ones and their solution.&lt;/p&gt;
+&lt;p&gt;Every once in a while, users run into hardware that is capable of operating in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mesh point&lt;/code&gt; mode but the default OpenWrt firmware uses a module for the wireless adapter that is loaded with incompatible parameters.  Here is a list of a few of the known ones and their solution.&lt;/p&gt;
 
 &lt;h3 id=&quot;ath9k-modules&quot;&gt;ath9k modules&lt;/h3&gt;
 &lt;p&gt;If your device uses the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ath9k&lt;/code&gt; module, there’s a chance that you’ll need to enable the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nohwcrypt&lt;/code&gt; parameter of the module to use the mesh &lt;em&gt;with encryption&lt;/em&gt;.  First, however, try without changing the default module parameters.  After rulling out possible typos in the network and wireless configuration files, try the following:&lt;/p&gt;
@@ -4938,17 +4939,26 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;ath10k-modules&quot;&gt;ath10k modules&lt;/h3&gt;
-&lt;p&gt;I’ve noticed that radio devices that use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ath10k&lt;/code&gt; module and more specifically, the ones using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ath10k-firmware-qca988x-ct&lt;/code&gt;, are not able to operate in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mesh point&lt;/code&gt; mode by default.  If you check the syslog, you’ll notice that there will be a few messages stating that the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ath10k&lt;/code&gt; module must be loaded with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rawmode=1&lt;/code&gt; to allow mesh.  However, I’ve tried that before without much success.  Instead, my current recommendation to get &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mesh point&lt;/code&gt; working with the &lt;strong&gt;QCA988x&lt;/strong&gt; is the following (&lt;strong&gt;Internet connection required&lt;/strong&gt; to download packages via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;opkg&lt;/code&gt;):&lt;/p&gt;
+&lt;p&gt;I’ve noticed that radio devices that use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ath10k&lt;/code&gt; module and more specifically, the ones using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ath10k-firmware-qca988x-ct&lt;/code&gt;, are not able to operate in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mesh point&lt;/code&gt; mode by default.  If you check the syslog (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;logread&lt;/code&gt;), you’ll notice that there will be a few messages stating that the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ath10k&lt;/code&gt; module must be loaded with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rawmode=1&lt;/code&gt; to allow mesh.  However, I’ve tried that before without much success.  Instead, my current recommendation to get &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mesh point&lt;/code&gt; working with any of the &lt;strong&gt;QCA988x&lt;/strong&gt; hardware is the following (&lt;strong&gt;Internet connection required&lt;/strong&gt; to download packages via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;opkg&lt;/code&gt;):&lt;/p&gt;
 &lt;ol&gt;
-  &lt;li&gt;Remove the &lt;strong&gt;Candela Tech&lt;/strong&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;*-ct&lt;/code&gt;) modules as follows:
-    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;opkg remove ath10k-firmware-qca988x-ct kmod-ath10k-ct
+  &lt;li&gt;Check which &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ath&lt;/code&gt; module is installed via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;opkg&lt;/code&gt;:
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;opkg list-installed | grep -i ath
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;which should show at least one &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ath*-firmware-qca988*&lt;/code&gt; and another &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kmod-ath*&lt;/code&gt; packages installed.&lt;/p&gt;
   &lt;/li&gt;
-  &lt;li&gt;Install the non-ct modules:
-    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;opkg update &amp;amp;&amp;amp; opkg install ath10k-firmware-qca988x kmod-ath10k
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;li&gt;Try official &lt;strong&gt;alternatives&lt;/strong&gt; to them:
+    &lt;ul&gt;
+      &lt;li&gt;For the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ath*-firmware-qca988*&lt;/code&gt; alternatives, check the &lt;a href=&quot;https://openwrt.org/packages/index/firmware&quot;&gt;OpenWrt Firmware index&lt;/a&gt; for similar ones and favor the ones that match your hardware (e.g, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;QCA9887&lt;/code&gt;) before trying the more generic ones (e.g., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;QCA988x&lt;/code&gt;).&lt;/li&gt;
+      &lt;li&gt;For the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kmod-ath*&lt;/code&gt; alternatives, check &lt;a href=&quot;https://openwrt.org/packages/index/kernel-modules&quot;&gt;OpenWrt Kernel Modules index&lt;/a&gt;.&lt;/li&gt;
+      &lt;li&gt;Of note, if the installed modules are &lt;strong&gt;Candela Tech&lt;/strong&gt; (contain the suffix &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;*-ct&lt;/code&gt;), then (a) remove the -ct packages and (b) install compatible non-ct ones.  For the &lt;em&gt;TP-Link Archer C7&lt;/em&gt;, for instance, you can replace the -ct module as follows:
+        &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;opkg update
+opkg remove ath10k-firmware-qca988x-ct kmod-ath10k-ct
+opkg install ath10k-firmware-qca988x kmod-ath10k
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;Reboot your device and then check the status of your mesh network.&lt;/li&gt;
+  &lt;li&gt;Reboot your device and then check the status of your mesh network afterwards. If that does not work, check &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;logread&lt;/code&gt; again and if possible, try another module until you find a good one.&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;ul&gt;
@@ -4968,7 +4978,7 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
         &lt;tr&gt;
           &lt;td style=&quot;text-align: center&quot;&gt;TP-Link&lt;/td&gt;
           &lt;td style=&quot;text-align: center&quot;&gt;Archer C7&lt;/td&gt;
-          &lt;td style=&quot;text-align: center&quot;&gt;2.0&lt;/td&gt;
+          &lt;td style=&quot;text-align: center&quot;&gt;2.0, 4.0, 5.0&lt;/td&gt;
           &lt;td style=&quot;text-align: center&quot;&gt;19.07, 21.02&lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr&gt;
@@ -4978,16 +4988,10 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
           &lt;td style=&quot;text-align: center&quot;&gt;19.07, 21.02&lt;/td&gt;
         &lt;/tr&gt;
         &lt;tr&gt;
-          &lt;td style=&quot;text-align: center&quot;&gt;TP-Link&lt;/td&gt;
-          &lt;td style=&quot;text-align: center&quot;&gt;Archer C7&lt;/td&gt;
-          &lt;td style=&quot;text-align: center&quot;&gt;4.0&lt;/td&gt;
-          &lt;td style=&quot;text-align: center&quot;&gt;19.07, 21.02&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-          &lt;td style=&quot;text-align: center&quot;&gt;TP-Link&lt;/td&gt;
-          &lt;td style=&quot;text-align: center&quot;&gt;Archer C7&lt;/td&gt;
-          &lt;td style=&quot;text-align: center&quot;&gt;5.0&lt;/td&gt;
-          &lt;td style=&quot;text-align: center&quot;&gt;19.07, 21.02&lt;/td&gt;
+          &lt;td style=&quot;text-align: center&quot;&gt;GL.iNet&lt;/td&gt;
+          &lt;td style=&quot;text-align: center&quot;&gt;GL-AR750&lt;/td&gt;
+          &lt;td style=&quot;text-align: center&quot;&gt;-&lt;/td&gt;
+          &lt;td style=&quot;text-align: center&quot;&gt;21.02&lt;/td&gt;
         &lt;/tr&gt;
       &lt;/tbody&gt;
     &lt;/table&gt;
@@ -5826,7 +5830,7 @@ f0:f3:00:00:00:00 node04
         option name 'br-default'
         option type 'bridge'
         list ports 'bat0'
-                                      
+
 config interface 'default'
         option device 'br-default'
         option proto 'static'
@@ -5979,7 +5983,7 @@ config interface 'default'
 
 &lt;p&gt;Finally, in the terminal, make sure to disable &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dnsmasq&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;odhcpd&lt;/code&gt;, and the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;firewall&lt;/code&gt;, as follows&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/etc/init.d/dnsmasq stop &amp;amp;&amp;amp; /etc/init.d/dnsmasq disable 
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/etc/init.d/dnsmasq stop &amp;amp;&amp;amp; /etc/init.d/dnsmasq disable
 /etc/init.d/odhcpd stop &amp;amp;&amp;amp; /etc/init.d/odhcpd disable
 /etc/init.d/firewall stop &amp;amp;&amp;amp; /etc/init.d/firewall disable
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -6133,7 +6137,7 @@ config interface 'default'
         option name 'br-iot'
         option type 'bridge'
         list ports 'bat0.2'
-                                      
+
 config interface 'iot'
         option device 'br-iot'
         option proto 'static'
@@ -6149,7 +6153,7 @@ config interface 'iot'
         option name 'br-guest'
         option type 'bridge'
         list ports 'bat0.5'
-                                      
+
 config interface 'guest'
         option device 'br-guest'
         option proto 'static'

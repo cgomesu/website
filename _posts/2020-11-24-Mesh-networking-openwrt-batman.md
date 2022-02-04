@@ -10,8 +10,10 @@ toc_label: "Table of Contents"
 toc_icon: "list"
 ---
 # Changelog
-**January 1st, 2022**: Added a new section called [Advanced features](#advanced-features) to cover `batman-adv` features not previously described in the basic implementation section.  The first included feature was the use of [multi-links](#multi-links) to improve performance and reliability.  The subsection includes examples and a how-to for the implementation of multi-links.  In addition, I changed the Linksys reference in [Hardware](#hardware) to the more stable [Linksys EA8300](https://openwrt.org/toh/linksys/ea8300) as reference of a high-end device.  I've not personally used it but have read reports of good experience with it by the OpenWrt forum user [16F48](https://forum.openwrt.org/u/16F84), for example.
+**February 4th, 2022**: Updated the [Hardware-specific configurations](#hardware-specific-configurations) section to include info about the issue affecting the [GL-AR750](https://openwrt.org/toh/gl.inet/gl-ar750) and to make the `ath10k` instructions more general. Thanks to JF for testing and letting me know about the affected device and solution.
 {: .notice--success }
+**January 1st, 2022**: Added a new section called [Advanced features](#advanced-features) to cover `batman-adv` features not previously described in the basic implementation section.  The first included feature was the use of [multi-links](#multi-links) to improve performance and reliability.  The subsection includes examples and a how-to for the implementation of multi-links.  In addition, I changed the Linksys reference in [Hardware](#hardware) to the more stable [Linksys EA8300](https://openwrt.org/toh/linksys/ea8300) as reference of a high-end device.  I've not personally used it but have read reports of good experience with it by the OpenWrt forum user [16F48](https://forum.openwrt.org/u/16F84), for example.
+{: .notice--info }
 **October 6th, 2021**: The guide was completely updated to make it consistent with the current stable release, namely **OpenWrt 21.02**.  In brief, most of the changes had to do with the [**new network syntax**](https://openwrt.org/releases/21.02/notes-21.02.0#new_network_configuration_syntax_and_boardjson_change) and [**increased hardware requirements**](https://openwrt.org/releases/21.02/notes-21.02.0#increased_minimum_hardware_requirements8_mb_flash_64_mb_ram).  More specifically, OpenWrt 21.02 drops the use of `ifname` and make a more clear distinction between layer 2 and layer 3 configurations in the `/etc/config/network` file. In addition, the minimum requirements to run OpenWrt are now `8MB` of flash memory and `64MB` of RAM.  The latter change prompted me to use a new TP-Link router for the examples, namely the TL-WDR4300, instead of the old WR1043ND (v1). This new router is still a low-end device, which makes very affordable and easy to find worldwide, but contrary to the WR1043ND, it is actually a *dual-band* router.  This was an opportunity to illustrate wireless segmentation for mesh vs. non-mesh communication, which is something I think is almost required in most use cases, so [the new guide makes use of it by default](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/segmentation.jpg). I also took this opportunity to update many, many other things.  To mention two main ones: (a) at the end of the [OpenWrt installation and initial configuration](#openwrt-installation-and-initial-configuration) section, there's now a description of how to build custom images that contain all the required mesh packages; and (b) the section [Bonus content: Moving from OpenWrt 19 to 21](#bonus-content-moving-from-openwrt-19-to-21) was update to help users who followed the earlier version of this guide to transition to the new release. This was a big one and took a few days to get it done.  Hope you find it useful!
 {: .notice--warning }
 **September 16th, 2021**: Updated the information about OpenWrt 21 in the section [**Bonus content: Moving from OpenWrt 19 to 21**](#bonus-content-moving-from-openwrt-19-to-21).  In brief, DSA support is still very limited and OpenWrt has officially started rolling out version 21 with the [release of OpenWrt 21.02](https://openwrt.org/releases/21.02/notes-21.02.0). I'm currently testing the new version and network configuration on a few devices and once I get everything running as well as it was in version 19, I will update the entire article to reflect the new (and current) configuration.  It is, of course, still possible to download and use [the latest OpenWrt 19 images](https://downloads.openwrt.org/releases/19.07.8/targets/), which should be just fine for a long time still.  However, if you want to make use of OpenWrt 21, then read the aforementioned bonus section for guidance on the syntax changes and updated hardware requirements.
@@ -49,7 +51,7 @@ My intention with this tutorial is to help closing the gap between concept and i
 [top](#){: .btn .btn--light-outline .btn--small}
 
 # Objectives
-1. Get familiar with `/etc/config/` files in OpenWrt devices (namely, `wireless`, `network`, `dhcp`, `firewall`) to quickly and permanently configure mesh nodes. 
+1. Get familiar with `/etc/config/` files in OpenWrt devices (namely, `wireless`, `network`, `dhcp`, `firewall`) to quickly and permanently configure mesh nodes.
 2. Edit files directly from the terminal using the default text editor `vi`.
 3. Configure OpenWrt devices to play one of three possible roles in the network: (a) mesh node, (b) mesh + bridge node, or (c) mesh + gateway node.
 4. Install and configure the Kernel module `batman-adv` on an OpenWrt device using the `opkg` package manager.
@@ -61,7 +63,7 @@ My intention with this tutorial is to help closing the gap between concept and i
 [top](#){: .btn .btn--light-outline .btn--small}
 
 # Outline
-From this point forward, the article is divided into four main parts: 
+From this point forward, the article is divided into four main parts:
 1. [Concepts and documentation](#concepts-and-documentation): *Optional for advanced users.* Brief introduction to just enough network concepts to allow the implementation of simple mesh networks. When appropriate, a link to the relevant OpenWrt documentation was also provided.  
 2. [Hardware](#hardware): *Optional for everyone*. A few notes about the hardware used in the examples and recommendations for those who are planning on buying new/used devices for their mesh project.
 3. [Software](#software): *Optional for everyone*. A few notes about the software used in the examples.
@@ -108,7 +110,7 @@ From this point forward, the article is divided into four main parts:
 - [Peer-reviewed papers or books](https://scholar.google.com/scholar?q=mesh+networking)
 
 ### Routing protocols
-There are [dozens of algorithms](https://en.wikipedia.org/wiki/Wireless_mesh_network#Protocols) for routing packets in a mesh network.  A few notable ones are the Optimized Link State Routing (OLSR) and the Hybrid Wireless Mesh Protocol (HWMP). 
+There are [dozens of algorithms](https://en.wikipedia.org/wiki/Wireless_mesh_network#Protocols) for routing packets in a mesh network.  A few notable ones are the Optimized Link State Routing (OLSR) and the Hybrid Wireless Mesh Protocol (HWMP).
 
 In this tutorial, however, we will cover only one of them, called [*Better Approach to Mobile Adhoc Networking*](https://en.wikipedia.org/wiki/B.A.T.M.A.N.) (**B.A.T.M.A.N.**), because [it has long been incorporated into the Linux Kernel](https://www.kernel.org/doc/html/latest/networking/batman-adv.html) and is thus easily enabled on Linux devices.  It is also a [fairly well-documented](https://www.open-mesh.org/projects/batman-adv/wiki) algorithm that [has been continuously improved](https://www.open-mesh.org/projects/open-mesh/activity) over the years.  Another noteworthy feature of `batman-adv` is its lack of reliance on layer-3 protocols for managing mesh clients because it works at the layer-2 and its ability to create VLANs.  Think of it as if it were a big, smart, virtual switch, in which its VLANs are port-based segmentations.  If you want an interface to use a particular mesh VLAN, just "plug it" into the approriate port of the `batX` switch (e.g., bridge `guest` and `bat0.2` to give the guest network access to the `bat0` VLAN ID #2).
 
@@ -172,28 +174,28 @@ iw list | grep -ix "^wiphy.*\|^.*mesh point$"
 
 Now, if you're looking for devices to buy and experiment on, my suggestion is to look for high-end dual-band wireless routers to allow a better segmentation of the wireless networks.  If you can afford spending more for a mesh node, look for tri-band devices.  Netgear and Linksys have solid options that are compatible with OpenWrt. For example, the [Linksys EA8300](https://openwrt.org/toh/linksys/ea8300) tri-band wireless router would make for a good high-end mesh node:
 
-[![Linksys EA8300](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/linksys-ea8300.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/linksys-ea8300.jpg) 
+[![Linksys EA8300](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/linksys-ea8300.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/linksys-ea8300.jpg)
 
 For single-board computer (SBC) fans like me, you can run OpenWrt with most of them and then use a combination of on-board wireless and USB adapter to create a powerful mesh node. [ClearFog boards](https://shop.solid-run.com/product-category/embedded-computers/marvell-family/clearfog-base-pro/) with one or two mini PCIe wireless cards would make very good candidates for such a project, for example:
 
-[![ClearFog Pro](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/clearfog-pro.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/clearfog-pro.jpg) 
+[![ClearFog Pro](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/clearfog-pro.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/clearfog-pro.jpg)
 
 Of course, you can install OpenWrt on bare metal x86-64 machines (e.g., standard PC or server running Intel/AMD), which will give you lots of options to put together an impressive mesh device. However, if you just want your work/home laptops/PCs to *be part of the mesh* (i.e., become a mesh node), there are better alternatives than installing OpenWrt as its OS.  For example, you can run OpenWrt with a [virtual machine](https://openwrt.org/docs/guide-user/virtualization/start) or as a [docker container](https://github.com/openwrt/docker).  Naturally, it's also possible to configure `batman-adv` on Linux distributions other than OpenWrt, such as Arch, Debian, and Ubuntu.  See [Getting started with `batman-adv` on any Linux device](#getting-started-with-batman-adv-on-any-linux-device).
 
-As mentioned before, even if the existing/on-board radio of your SBC/laptop/PC/server does not support the mesh point mode of operation, you can always buy a compatible PCIe card or USB adapter to turn your device into a mesh node and then use the other radio for another purpose.  For example, many [Alfa Network](https://www.alfa.com.tw/) adapters can operate in mesh point mode, like the cheap AWUS036NH: 
+As mentioned before, even if the existing/on-board radio of your SBC/laptop/PC/server does not support the mesh point mode of operation, you can always buy a compatible PCIe card or USB adapter to turn your device into a mesh node and then use the other radio for another purpose.  For example, many [Alfa Network](https://www.alfa.com.tw/) adapters can operate in mesh point mode, like the cheap AWUS036NH:
 
-[![Alfa AWUS036NH](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/AWUS036NH.jpg){:.PostImage}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/AWUS036NH.jpg) 
+[![Alfa AWUS036NH](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/AWUS036NH.jpg){:.PostImage}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/AWUS036NH.jpg)
 
 All that said, most home users will be just fine with a cheapo, used, old, and single-band router.  For a brand reference, TP-Link has good and affordable devices that can be used in a mesh networking project without issues.  If you're new to this, start from here (small, simple) and think about efficiency over power.  You don't need to drive a Lamborghini to get a snack at the grocery store. For additional resources, skip to the section called [Useful hardware resources](#useful-hardware-resources) down below.
 
 ## Hardware-specific configurations
-Every once in a while, I run into hardware that is capable of operating in `mesh point` mode but the default OpenWrt firmware uses a module for the wireless adapter that is loaded with incompatible parameters.  Here is a list of a few of the known ones and their solution.
+Every once in a while, users run into hardware that is capable of operating in `mesh point` mode but the default OpenWrt firmware uses a module for the wireless adapter that is loaded with incompatible parameters.  Here is a list of a few of the known ones and their solution.
 
 ### ath9k modules
 If your device uses the `ath9k` module, there's a chance that you'll need to enable the `nohwcrypt` parameter of the module to use the mesh *with encryption*.  First, however, try without changing the default module parameters.  After rulling out possible typos in the network and wireless configuration files, try the following:
 1. Edit the `/etc/modules.d/ath9k` file and add `nohwcrypt=1` to it.  If there's something in the file, use a whitespace to separate parameters.
-2. Save the file, and **reboot** your device. 
-3. Once the device comes back, check if `nohwcrypt` is now enabled by typing 
+2. Save the file, and **reboot** your device.
+3. Once the device comes back, check if `nohwcrypt` is now enabled by typing
    ```
    cat /sys/module/ath9k/parameters/nohwcrypt
    ```
@@ -207,25 +209,30 @@ If your device uses the `ath9k` module, there's a chance that you'll need to ena
   | TP-Link | WR-1043-ND | 1.8 | 19.07 |
 
 ### ath10k modules
-I've noticed that radio devices that use the `ath10k` module and more specifically, the ones using `ath10k-firmware-qca988x-ct`, are not able to operate in `mesh point` mode by default.  If you check the syslog, you'll notice that there will be a few messages stating that the `ath10k` module must be loaded with `rawmode=1` to allow mesh.  However, I've tried that before without much success.  Instead, my current recommendation to get `mesh point` working with the **QCA988x** is the following (**Internet connection required** to download packages via `opkg`):
-1. Remove the **Candela Tech** (`*-ct`) modules as follows:
+I've noticed that radio devices that use the `ath10k` module and more specifically, the ones using `ath10k-firmware-qca988x-ct`, are not able to operate in `mesh point` mode by default.  If you check the syslog (`logread`), you'll notice that there will be a few messages stating that the `ath10k` module must be loaded with `rawmode=1` to allow mesh.  However, I've tried that before without much success.  Instead, my current recommendation to get `mesh point` working with any of the **QCA988x** hardware is the following (**Internet connection required** to download packages via `opkg`):
+1. Check which `ath` module is installed via `opkg`:
    ```
-   opkg remove ath10k-firmware-qca988x-ct kmod-ath10k-ct
+   opkg list-installed | grep -i ath
    ```
-2. Install the non-ct modules:
-   ```
-   opkg update && opkg install ath10k-firmware-qca988x kmod-ath10k
-   ```
-3. Reboot your device and then check the status of your mesh network.
+   which should show at least one `ath*-firmware-qca988*` and another `kmod-ath*` packages installed.
+2. Try official **alternatives** to them:
+   - For the `ath*-firmware-qca988*` alternatives, check the [OpenWrt Firmware index](https://openwrt.org/packages/index/firmware) for similar ones and favor the ones that match your hardware (e.g, `QCA9887`) before trying the more generic ones (e.g., `QCA988x`).
+   - For the `kmod-ath*` alternatives, check [OpenWrt Kernel Modules index](https://openwrt.org/packages/index/kernel-modules).
+   - Of note, if the installed modules are **Candela Tech** (contain the suffix `*-ct`), then (a) remove the -ct packages and (b) install compatible non-ct ones.  For the *TP-Link Archer C7*, for instance, you can replace the -ct module as follows:
+     ```
+     opkg update
+     opkg remove ath10k-firmware-qca988x-ct kmod-ath10k-ct
+     opkg install ath10k-firmware-qca988x kmod-ath10k
+     ```
+3. Reboot your device and then check the status of your mesh network afterwards. If that does not work, check `logread` again and if possible, try another module until you find a good one.
 
 - Known affected devices:
 
   | brand | model | version | OpenWrt release |
   |:---:|:---:|:---:|:---:|
-  | TP-Link | Archer C7 | 2.0 | 19.07, 21.02 |
+  | TP-Link | Archer C7 | 2.0, 4.0, 5.0 | 19.07, 21.02 |
   | TP-Link | Archer C7 US | 2.0 | 19.07, 21.02 |
-  | TP-Link | Archer C7 | 4.0 | 19.07, 21.02 |
-  | TP-Link | Archer C7 | 5.0 | 19.07, 21.02 |
+  | GL.iNet | GL-AR750 | - | 21.02 |
 
 ## Useful hardware resources
 These are a few resources that I've used in the past that you might find useful when looking for mesh compatible devices:
@@ -242,7 +249,7 @@ These are a few resources that I've used in the past that you might find useful 
 # Software
 Unless otherwise specified, all mesh nodes were running the following software:
 
-[![OpenWrt default SSH welcome](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/openwrt-ssh-welcome.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/openwrt-ssh-welcome.jpg) 
+[![OpenWrt default SSH welcome](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/openwrt-ssh-welcome.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/openwrt-ssh-welcome.jpg)
 
 - **Operating System**:
 	- **Firmware**: OpenWrt `21.02.0`, `r16279-5cc0535800`
@@ -253,7 +260,7 @@ Unless otherwise specified, all mesh nodes were running the following software:
 	- [`kmod-batman-adv`](https://openwrt.org/packages/pkgdata/kmod-batman-adv): 5.4.143+2021.1-4
 	- [`wpad-mesh-wolfssl`](https://openwrt.org/packages/pkgdata/wpad-mesh-wolfssl): 2020-06-08-5a8b3662-35
 
-To find out the version of all installed packages, type 
+To find out the version of all installed packages, type
 
 ```
 opkg list-installed
@@ -294,7 +301,7 @@ However, if you need to type characters and have more flexibility to edit the fi
 i
 ```
 
-and at the bottom of the screen, you will see that it now shows a `I` to indicate that `vi` is in insert mode.  You can now type freely and even paste multiple things at once in insert mode. 
+and at the bottom of the screen, you will see that it now shows a `I` to indicate that `vi` is in insert mode.  You can now type freely and even paste multiple things at once in insert mode.
 
 When you're done, press the button **Esc** to go back into command mode.  Notice that at the bottom of the screen, now there's a `-` where the `I` was, which tells you you're in command mode once again.
 
@@ -316,7 +323,7 @@ Alternatively, you can *write and quit* by simply typing `:wq`.
 
 ### VI cheat table
 
-| mode | key/command | action | 
+| mode | key/command | action |
 |:---:|:---:|:---:|
 | command | `i` key | Enter *insert* mode |
 | insert | `Esc` key | Return to *command* mode |
@@ -332,7 +339,7 @@ Now, if you still don't like to use `vi`, you can always transfer files from you
 [top](#){: .btn .btn--light-outline .btn--small}
 
 # Implementation
-In this section, we will see how to configure **four mesh nodes** in **three different network topologies**. More specifically: 
+In this section, we will see how to configure **four mesh nodes** in **three different network topologies**. More specifically:
 
 - **Gateway-Bridge**: A mesh network in which one node plays the role of a mesh gateway and another, of a bridge, while the remaining are just mesh nodes.  This is a very typical scenario for a home or small office, for example.
 
@@ -359,7 +366,7 @@ First, however, we will start with the aspects that are common to all topologies
 
 Even though the examples show static nodes, **none of the mesh nodes need to be static**. The mesh network and its components can be partially or totally mobile. For example, if some of your nodes are mobile units (e.g., vehicles, drones, robots, cellphones, laptops), they can leave and join the mesh, recreate the mesh elsewhere, join a completely different mesh, and so on.  The routing algorithm (`batman-adv`) will automatically (and  seamlessly) take care of changes to the network topology. (But of course, if there's a single gateway and it does not reach any node, the network is bound to stop working as intended without proper configuration to handle such scenarios.)
 
-[![Topology - Moving nodes](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-moving-nodes.gif){:.PostImage .PostImage--large}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-moving-nodes.gif) 
+[![Topology - Moving nodes](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-moving-nodes.gif){:.PostImage .PostImage--large}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-moving-nodes.gif)
 
 ## Planning
 Just like any other type of network, deploying a mesh network--especially over large areas, with dozens of nodes--requires a fair deal of planning; Otherwise, you are bound to experience, for instance, bottlenecks, uneven access point signal quality, and unstable WAN connectivity across the mesh.  Also, features like **high availability** go well beyond the configuration and topology of a mesh network (e.g., power source, whre your WAN connections are coming from, and the hardware you are using all play important roles when it comes to high availability).  Mesh networks are very, very easy to scale but planning is key.  
@@ -380,8 +387,8 @@ If you're **new to all this**, the folks at OpenWrt were kind enough to provide 
 2. Double check that the **model and version** match your device's **model and version** in the **Supported Versions** table;
 3. In the **Installation** table, you will find a column called *Firmware OpenWrt Install URL* and another one called *Firmware OpenWrt Upgrade URL*. If your device is **still running the original firmware**, then download the binary from the *Firmware OpenWrt **Install** URL* column; otherwise, download the binary from the *Firmware OpenWrt **Upgrade** URL* column.  Both files should have a `.bin` extension;
 4. Regardless of the binary file downloaded, [**verify its checksum**](https://openwrt.org/docs/guide-quick-start/verify_firmware_checksum) afterwards;
-5. Disconnect your laptop/PC from any access point or switch, and connect your laptop/PC directly to the device's Ethernet port. 
-6. Open your device's web UI, go to its Settings and/or find the **Firmware Upgrade** option. Then, select the downloaded OpenWrt binary, and let it do its thing. Once it's done, the device will reboot with OpenWrt installed. 
+5. Disconnect your laptop/PC from any access point or switch, and connect your laptop/PC directly to the device's Ethernet port.
+6. Open your device's web UI, go to its Settings and/or find the **Firmware Upgrade** option. Then, select the downloaded OpenWrt binary, and let it do its thing. Once it's done, the device will reboot with OpenWrt installed.
 7. You should now be able to reach your new OpenWrt device at `192.168.1.1` if connected to a LAN port. (Remember that all wireless interfaces are disabled by default, so you can only reach it via cable.)
 
 If you followed these steps and successfully flashed the default OpenWrt firmware onto your device, then go ahead and skip to the [Initial configuration](#initial-configuration) section.  The remaining part of this section is meant for advanced users who want to customize their image files.
@@ -404,14 +411,14 @@ To build a custom image file, first [install the dependencies](https://openwrt.o
     6354c0380a8cdb2c6a7f43449a7f6b3d04c4148478752a90f2af575ee182d2bb  openwrt-imagebuilder-21.02.0-ath79-generic.Linux-x86_64.tar.xz
     ```
 
-6. If everything looks good, extract the image builder: 
-    
+6. If everything looks good, extract the image builder:
+
     ```
     tar -xvf openwrt-imagebuilder-*.tar.xz
     ```
 
 7. Enter the image builder directory to start using `make` and then search for your device's `PROFILE` name (e.g., `tplink_tl-wdr4300-v1`), as follows:
-    
+
     ```
     cd openwrt-imagebuilder-*
     make info
@@ -428,7 +435,7 @@ To build a custom image file, first [install the dependencies](https://openwrt.o
     {:.notice--info}
 
 8. Build customized images for your device's profile. (See below for a table with a list of specific packages to add and to remove if you want to enable batman mesh support by default.)  For example, to build images for the **TL-WDR4300 (v1)** *without* pppoe and IPv6 support and *with* a minimal LuCI and `batman-adv` mesh support, run the following `make image` command:
-    
+
     ```
     make image PROFILE=tplink_tl-wdr4300-v1 \
       PACKAGES="uhttpd uhttpd-mod-ubus libiwinfo-lua luci-base luci-app-firewall luci-mod-admin-full luci-theme-bootstrap \
@@ -445,16 +452,16 @@ To build a custom image file, first [install the dependencies](https://openwrt.o
     This will prompt your system to start downloading the required packages and then start building the firmware.  **Be patient** because this operation can take several minutes.
 
 9. Once the builder is done **without any errors**, navigate to the subdirectory `./bin/targets/<target>` that contains the built image files, in which `<target>` is the device's target.  For the TL-WDR4300, for instance, the target is `ath79/generic`, which means the built files are at `./bin/targets/ath79/generic` and you can navigate to it from the image builder root directory as follows:
-    
+
     ```
     cd ./bin/targets/ath79/generic
     ```
 
     Of note, the `*.manifest` file contains a list of installed packages, which is useful if you need to double check which packages a given image contains by default.  The `profiles.json` file contains even more detailed information about the built image but it is in json format.  If you have `jq` installed, however, you can parse it via `cat profiles.json | jq .` to get a more readable version.
-    {:.notice--info} 
+    {:.notice--info}
 
 10. Personally, I like to copy all generated files to a location outside the image builder.  To create a new location for the built images in your user's Downloads directory, do as follows (suggested structure is `openwrt-custom-images/<release>/<device>`):
-    
+
     ```
     mkdir ~/Downloads/openwrt-custom-images \
       ~/Downloads/openwrt-custom-images/21.02 \
@@ -469,7 +476,7 @@ To build a custom image file, first [install the dependencies](https://openwrt.o
 
     Now you can safely go back to the root of the image builder directory and run `make clean` to delete all generated files.  This is good practice if building multiple images with different features.
 
-11. From this part forward, the procedure is the same as outlined before for the **default installation**. 
+11. From this part forward, the procedure is the same as outlined before for the **default installation**.
 
 Lastly, to save additional firmware space and RAM, [follow the OpenWrt recommendation](https://openwrt.org/docs/guide-user/additional-software/saving_space) and at the end of the package list, add the following to enable `batman-adv` and include support for mesh encryption (e.g., use `sae` to authenticate mesh nodes):
 
@@ -563,7 +570,7 @@ opkg install batctl-full kmod-batman-adv wpad-mesh-wolfssl
 It is up to you whether to install `wpad-mesh-wolfssl` or `wpad-mesh-openssl`. For a detailed description of the main differences, take a look at the [wolfSSL documentation](https://www.wolfssl.com/docs/wolfssl-openssl/).  In brief, wolfSSL was built for embedded systems--such as most consumer routers--and it is lighter and more frequently patched than OpenSSL. OpenSSL is much older and more general purpose.
 {:.notice--info}
 
-Make sure there are no error messages and if there are, troubleshoot them before proceeding. 
+Make sure there are no error messages and if there are, troubleshoot them before proceeding.
 
 Remove the connection that gave your device temporary access to the Internet.  Then, **reboot** (type `reboot` in the terminal) and restart the SSH session with your laptop/PC still connected to the device via cable.
 
@@ -861,7 +868,7 @@ config interface 'bat0'
         option orig_interval '1000'
 ```
 
-The `bat0` stanza has options with default values to facilitate fine-tuning later on.  The specifics about each option is derived from the [official `batctl` manual](https://downloads.open-mesh.org/batman/manpages/batctl.8.html).  For more details, refer to the [Protocol Documentation](https://www.open-mesh.org/projects/batman-adv/wiki#Protocol-Documentation) and more specifically, the [Tweaking](https://www.open-mesh.org/projects/batman-adv/wiki/Tweaking) section. 
+The `bat0` stanza has options with default values to facilitate fine-tuning later on.  The specifics about each option is derived from the [official `batctl` manual](https://downloads.open-mesh.org/batman/manpages/batctl.8.html).  For more details, refer to the [Protocol Documentation](https://www.open-mesh.org/projects/batman-adv/wiki#Protocol-Documentation) and more specifically, the [Tweaking](https://www.open-mesh.org/projects/batman-adv/wiki/Tweaking) section.
 
 In very nichey cases of highly mobile nodes, it is recommended to disable `aggregated_ogms` and lower `orig_interval`.
 {:.notice--info}
@@ -877,7 +884,7 @@ config interface 'mesh'
 
 The [maximum transmission unit (MTU) size](https://en.wikipedia.org/wiki/Maximum_transmission_unit) should be anything between `1500` (usual size for Ethernet connections) and `2304` (usual size for WLAN connections).  However, because `batman-adv` adds its own header to packets traveling through the wireless mesh network, it is suggested to set a minimum of `1528` instead.  For a more detailed discussion, see [Fragmentation](https://www.open-mesh.org/projects/batman-adv/wiki/Fragmentation-technical) in the official batman-adv wiki.
 
-**Save the file** and exit. 
+**Save the file** and exit.
 
 Next, let's **reboot** the device (type `reboot` in the terminal) and once it comes back online, `ssh` into it once again because we want to check that our `batman-adv` interfaces are up.  To do so, type
 
@@ -906,7 +913,7 @@ scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
 Because we are starting SSH sessions with different machines that have the same IP address (`192.168.1.1`), we can include `-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null` to disable checking the `known_hosts` file and redirect discovery of the new key to `/dev/null` instead of your user's `known_hosts`.  Alternatively, you can manually edit or delete your user's `known_hosts` file, which is usually found at `~/.ssh/known_hosts`.
 {: .notice--warning }
 
-Afterwards, `ssh` into one of the configured mesh nodes and type 
+Afterwards, `ssh` into one of the configured mesh nodes and type
 
 ```
 batctl n
@@ -930,14 +937,14 @@ PING f0:f0:00:00:00:01 (f0:f0:00:00:00:01) 20(48) bytes of data
 rtt min/avg/max/mdev = 1.103/1.942/3.008/0.794 ms
 ```
 
-Pat yourself on the back because you have successfully configured multiple mesh nodes! 
+Pat yourself on the back because you have successfully configured multiple mesh nodes!
 
 **Go ahead and configure all your mesh nodes the same way as before** and only then move on to bridges, gateways, and VLAN configs, as described next.
 
 ## Troubleshooting mesh issues
-These are a few tips in case you run into issues when configuring gateways and bridges. 
+These are a few tips in case you run into issues when configuring gateways and bridges.
 
-To test node to node connectivity, connect to a mesh node and use 
+To test node to node connectivity, connect to a mesh node and use
 
 ```
 batctl p MAC
@@ -998,9 +1005,9 @@ Connect your laptop/PC to the mesh node via cable using the LAN port--this way, 
 vi /etc/config/network
 ```
 
-At the beginning of the file, there should a bunch of `config interface` for `loopback`, `lan`, and `wan`, for example, as well as a default `config device` for the `lan` bridge, called `br-lan`, and.  At the end, of course, there should be the mesh interfaces we previously created for the mesh node, namely `bat0` and `mesh`.  There are at least two options at this point: 
+At the beginning of the file, there should a bunch of `config interface` for `loopback`, `lan`, and `wan`, for example, as well as a default `config device` for the `lan` bridge, called `br-lan`, and.  At the end, of course, there should be the mesh interfaces we previously created for the mesh node, namely `bat0` and `mesh`.  There are at least two options at this point:
 
-1. Create an entirely new local network for `bat0`, called `default`, at the expense of additional `dhcp` and `firewall` configuration; 
+1. Create an entirely new local network for `bat0`, called `default`, at the expense of additional `dhcp` and `firewall` configuration;
 2. Or use the original `lan` network by simply bridging `bat0` at the `config device` `br-lan` stanza, as follows:
     ```
     config device                             
@@ -1010,7 +1017,7 @@ At the beginning of the file, there should a bunch of `config interface` for `lo
             list ports 'bat0'
     ```
 
-While the latter option is much easier than the former, we will choose the first here (i.e., create a new local network from the ground up) because it makes this tutorial compatible with multiple devices (switched or switchless) and it allows us to keep the original `lan` (`192.168.1.0/24`) as a management/debugging network.  (Later on, we will see how to bridge the original `lan` with any `bat0` VLAN, for example, so the original `lan` becomes accessible to the mesh as well.  For now, keep it simple.) 
+While the latter option is much easier than the former, we will choose the first here (i.e., create a new local network from the ground up) because it makes this tutorial compatible with multiple devices (switched or switchless) and it allows us to keep the original `lan` (`192.168.1.0/24`) as a management/debugging network.  (Later on, we will see how to bridge the original `lan` with any `bat0` VLAN, for example, so the original `lan` becomes accessible to the mesh as well.  For now, keep it simple.)
 
 At the bottom of the `/etc/config/network` file, let's add the following two stanzas:
 
@@ -1019,7 +1026,7 @@ config device
         option name 'br-default'
         option type 'bridge'
         list ports 'bat0'
-                                      
+
 config interface 'default'
         option device 'br-default'
         option proto 'static'
@@ -1031,7 +1038,7 @@ config interface 'default'
 
 The first stanza (`config device`) creates a **bridge** (layer 2) for the `default` network, while the second stanza (`config interface 'default'`) creates the proper `default` **network** (layer 3) at the `192.168.10.0/24` pool, then sets a static IP address for this device at `192.168.10.1` and broadcasts to any client that they should use the external DNS servers `1.1.1.1` or `8.8.8.8`.  
 
-**Save the file** and exit it. 
+**Save the file** and exit it.
 
 Next, let's edit the [`/etc/config/dhcp`](https://openwrt.org/docs/guide-user/base-system/dhcp) config to run a DHCP server on the new interface, as follows
 
@@ -1050,13 +1057,13 @@ config dhcp 'default'
         option ra 'server'
 ```
 
-**Save the file** and exit it. 
+**Save the file** and exit it.
 
-Finally, let's edit the [`/etc/config/firewall`](https://openwrt.org/docs/guide-user/firewall/firewall_configuration) config.  Many things that can be done at the firewall level and for this reason, it's often the most overwhelming part of the configuration.  Fortunately, in our case, all that we need to do here is simply **copy** the original `lan` config for the new `default`.  That is, anything that has `lan` we will 
+Finally, let's edit the [`/etc/config/firewall`](https://openwrt.org/docs/guide-user/firewall/firewall_configuration) config.  Many things that can be done at the firewall level and for this reason, it's often the most overwhelming part of the configuration.  Fortunately, in our case, all that we need to do here is simply **copy** the original `lan` config for the new `default`.  That is, anything that has `lan` we will
 
 1. copy the related config;
 2. paste it immediately below the equivalent `lan` config;
-3. and then change `lan` for `default` in the new config. 
+3. and then change `lan` for `default` in the new config.
 
 Start by editing the `firewall` config file with `vi`, as follows
 
@@ -1064,7 +1071,7 @@ Start by editing the `firewall` config file with `vi`, as follows
 vi /etc/config/firewall
 ```
 
-then the first set of configs we will add (immediately below the equivalent `lan` config) is the **zone** settings, namely 
+then the first set of configs we will add (immediately below the equivalent `lan` config) is the **zone** settings, namely
 
 ```
 config zone
@@ -1087,7 +1094,7 @@ and **that is it!**
 
 *Optional*. At the end of the `firewall` config file, there's a bunch of examples that you could use as template for more avdanced usage of this device's firewall.  Feel free to play around with them **once you get everything up and running**.
 
-**Save the file** and exit it. 
+**Save the file** and exit it.
 
 *Optional*. Because we're not going to use IPv6, I suggest (a) disabling `odhcpd` altogether (run `/etc/init.d/odhcpd stop && /etc/init.d/odhcpd disable`) and (b) comment out any related IPv6 configuration in the files we just edited as well (e.g., remove configuration and references to `wan6`).
 
@@ -1130,18 +1137,18 @@ config interface 'default'
         option netmask '255.255.255.0'
         option gateway '192.168.10.1'
         option dns '192.168.10.1'
-``` 
+```
 
 After applying this configuration, it will let any ***non-mesh* clients** to join the mesh **via Ethernet cable**--that is, by connecting a cable to one of the **LAN ports** of the mesh bridge device.  As long as the gateway is reachable, everything should work like a standard network, you could use the device's own switch or connect the device to a switch and manage things there, and so on.
 
 **Save the file** and exit it.
 
-Similarly, you can create a **wireless access point** (WAP) for *non-mesh* clients, and the instructions in the [**dumb access point** documentation](https://openwrt.org/docs/guide-user/network/wifi/dumbap) will work just fine because it uses a network that is bridged with our mesh--namely, the original `lan`.  To avoid confusion, make sure to use **a different SSID** for the WAP(s) than the `mesh_id` used for the mesh.  In addition, use **a different radio** for the WAP(s) and set them to operate on **different channels**.  If that is not possible, that is probably okay for most home users but keep in mind that node hoping will start affecting performance quite noticeably. 
+Similarly, you can create a **wireless access point** (WAP) for *non-mesh* clients, and the instructions in the [**dumb access point** documentation](https://openwrt.org/docs/guide-user/network/wifi/dumbap) will work just fine because it uses a network that is bridged with our mesh--namely, the original `lan`.  To avoid confusion, make sure to use **a different SSID** for the WAP(s) than the `mesh_id` used for the mesh.  In addition, use **a different radio** for the WAP(s) and set them to operate on **different channels**.  If that is not possible, that is probably okay for most home users but keep in mind that node hoping will start affecting performance quite noticeably.
 
 (*Optional*.) To illustrate, let's create a simple 2.4GHz WAP for your home devices that will make use of the `default` network.  This can be done by editing the `/etc/config/wireless` file as follows:
 
 - In the 2.4GHz radio stanza (`radio0`), set `option disabled` to `'0'` to **enable** it:
-   
+
    ```
    config wifi-device 'radio0'
            option type 'mac80211'
@@ -1172,7 +1179,7 @@ Similarly, you can create a **wireless access point** (WAP) for *non-mesh* clien
 Finally, in the terminal, make sure to disable `dnsmasq`, `odhcpd`, and the `firewall`, as follows
 
 ```
-/etc/init.d/dnsmasq stop && /etc/init.d/dnsmasq disable 
+/etc/init.d/dnsmasq stop && /etc/init.d/dnsmasq disable
 /etc/init.d/odhcpd stop && /etc/init.d/odhcpd disable
 /etc/init.d/firewall stop && /etc/init.d/firewall disable
 ```
@@ -1210,7 +1217,7 @@ Specifically, there's only one private network (mesh, defined in the `192.168.10
 - Because we will now run **two** DHCP servers on **the same network**, we need to find a way of avoiding conflicts when assigning an IP address to new clients.  The easiest way of doing that is by assigning **different intervals** to each DHCP server running on the same network.  In OpenWrt, this is done by editing the `/etc/config/dhcp` config file, and in the `default` DHCP configuration, we add a different starting point next to the `option start` option.  For example, while the DHCP server running on the first gateway will have `option start '50'`, the DHCP server running on the second gateway will have `option start '150'` instead.  This way, the first DHCP server leases addresses from `192.168.10.50` to `.149`, whereas the second leases addresses from `192.168.10.150` to `.249`.
 
 - In the `bat0` interface config of the `/etc/config/network` config file, we can now enable the `option gw_mode 'server'` and specify the WAN connection speed with `option gw_bandwidth '10000/2000'`, as follows:
-   
+
    ```
    config interface 'bat0'
            option proto 'batadv'
@@ -1268,13 +1275,13 @@ Consider, for example, the following network
 
 [![Topology - Mesh VLANs](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-mesh-vlans.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/topo-mesh-vlans.jpg)
 
-There's a single gateway device that provides WAN access to the mesh and Networks B, C, and D, which are all private networks defined in different IP ranges. In addition, all the Networks B, C, and D traffic should go via **any** mesh node in the mesh network while keeping them **isolated from each other**.  To make it easier to remember and distinguish each private network, let's call 
+There's a single gateway device that provides WAN access to the mesh and Networks B, C, and D, which are all private networks defined in different IP ranges. In addition, all the Networks B, C, and D traffic should go via **any** mesh node in the mesh network while keeping them **isolated from each other**.  To make it easier to remember and distinguish each private network, let's call
 
 - Network **B** by `iot` network (`192.168.20.0/24`);
 - Network **C** by `guest` network (`192.168.50.0/24`);
 - and Network **D** by `default` network (`192.168.10.0/24`).
 
-To implement such a mesh network with VLANs, we're going to follow very similar steps to [the first example of a gateway-bridge mesh network](#gateway-bridge), except for the following: 
+To implement such a mesh network with VLANs, we're going to follow very similar steps to [the first example of a gateway-bridge mesh network](#gateway-bridge), except for the following:
 
 - We will have two additional bridges in the network--that is, one for each mesh VLAN, for a total of three bridges. This is not a necessity but a matter of convenience to keep the example simple. The same bridge device can definitely bridge more than one mesh VLAN;
 - In the gateway device, we will create VLAN IDs for the `iot` (**2**), `guest` (**5**), and `default` (**1**) networks, each with a separate set of DHCP server and firewall rules;
@@ -1316,7 +1323,7 @@ config device
         option name 'br-iot'
         option type 'bridge'
         list ports 'bat0.2'
-                                      
+
 config interface 'iot'
         option device 'br-iot'
         option proto 'static'
@@ -1333,7 +1340,7 @@ config device
         option name 'br-guest'
         option type 'bridge'
         list ports 'bat0.5'
-                                      
+
 config interface 'guest'
         option device 'br-guest'
         option proto 'static'
@@ -1477,9 +1484,9 @@ config interface 'iot'
 
 If you created a 2.4GHz WAP that made use of your `default` network (e.g., `whome`), you can now **edit it** (`vi /etc/config/wireless`) to make use of your `iot` network instead (`wiot`).  Otherwise, ignore this message.
 
-**Reboot** your device. 
+**Reboot** your device.
 
-Once it comes back on, your laptop/PC will receive an IP address from our mesh gateway in the `192.168.20.0/24` network, the bridge node should be reachable at `192.168.20.10`, and you should be able to access the Internet via the **IoT** network (try `ping google.com`, for example). 
+Once it comes back on, your laptop/PC will receive an IP address from our mesh gateway in the `192.168.20.0/24` network, the bridge node should be reachable at `192.168.20.10`, and you should be able to access the Internet via the **IoT** network (try `ping google.com`, for example).
 
 **If something does not work**, review the config files from your gateway and then from the bridge, then reboot the gateway and the bridge, and test again.
 
@@ -1530,19 +1537,19 @@ The examples in this guide used a single, dedicated wireless interface--namely, 
 
 Fortunately, the same `batman-adv` interface (e.g., `bat0`) **can actually work on multiple (wired or wireless) interfaces**, instead of either a 2.4GHz radio or a 5GHz radio or Ethernet cable.  In fact, a `batX` interface can work *with all such interfaces at the same time* and is able to choose which one to transmit packets depending on either `TQ` (`BATMAN_IV`) or throughput (`BATMAN_V`) between nodes.  This is orchestrated by a feature called [multi-link](https://www.open-mesh.org/projects/batman-adv/wiki/Multi-link-optimize).  More specifically, when using standard dual-band routers, such as the TL-WDR4300, a wireless mesh node has the option to use either the 2.4GHz radio or the 5GHz radio *or both* for the mesh traffic (`batX`).  Consider, for example, the following network composed of nine mesh nodes (`N01` ... `N09`):
 
-[![multilink-01](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-01.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-01.jpg) 
+[![multilink-01](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-01.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-01.jpg)
 
 Following the instructions in the [Mesh node basic config](#mesh-node-basic-config) section, we would likely end up with nodes connected to `bat0` via their respective 5GHz radio on channel `153` (white lines):
 
-[![multilink-02](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-02.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-02.jpg) 
+[![multilink-02](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-02.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-02.jpg)
 
 If `N01` were the mesh gateway, then the basic configuration (single, dedicated interface for mesh traffic) would likely prove very resonable because each other node has a direct connection to the gateway.  However, had the gateway been placed anywhere at the edge of the network, nodes at the opposite side would start struggling to reach it.  To remedy this situation, we can add another wireless interface to `bat0`.  Because radio waves attenuate a lot quicker at higher frequencies, the use of alternative 2.4GHz radios allow each node to establish connections to nodes that are usually not reachable via 5GHz radios.  Therefore, we can take advantage of such property to provide alternative, long-ranged routes for the `bat0` mesh traffic.  For example, we can configure nodes `N01`, `N06`, `N07`, `N08` and `N09` to connect to `bat0` via their 2.4GHz radio on channel `6` (green lines):
 
-[![multilink-03](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-03.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-03.jpg) 
+[![multilink-03](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-03.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-03.jpg)
 
 We can then extrapolate this idea to connect nodes `N02` and `N04` via their 2.4GHz radio on channel `1` (yellow line), and similarly, connect nodes `N03` and `N05` on channel `11` (blue line):
 
-[![multilink-04](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-04.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-04.jpg) 
+[![multilink-04](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-04.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-04.jpg)
 
 The **planning** of multi-links can be very challenging when using dual-band (2.4GHz + 5GHz) devices because as mentioned before, 2.4GHz and 5GHz attenuate at different rates, which means that interference across nodes can become an issue with several 2.4GHz radios operating on the same channel.  [One alternative illustrated before](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/multilink-04.jpg) is to space nodes that operate at the same channel, so that they can mostly reach each other at the edges of the coverage area provided by their respective 2.4GHz radios and channel.  (Fine tunning each radio's `txpower` by *decreasing* it to reduce unwantted overlap should help, too.)
 
@@ -1551,7 +1558,7 @@ The **planning** of multi-links can be very challenging when using dual-band (2.
 Finally, **configuration**-wise, the implementation of multi-links is actually very simple because nothing new needs to be compilled or even enabled at the `batX` level.  To illustrate, let's extend the example from the [Mesh node basic config](#mesh-node-basic-config) section to add a second wireless mesh interface using the 2.4GHz radio of the TL-WDR4300.
 
 - In `/etc/config/network`, let's rename `config interface 'mesh'` to `config interface 'mesh5g'`, which will be used by the 5GHz radio, and then create another `config interface 'mesh2g'` stanza for the 2.4GHz radio, as follows:
-  
+
   ```
   config interface 'mesh5g'
         option proto 'batadv_hardif'
@@ -1565,7 +1572,7 @@ Finally, **configuration**-wise, the implementation of multi-links is actually v
   ```
 
 - Then in `/etc/config/wireless`, let's rename `config wifi-iface 'wmesh'` to `config wifi-iface 'wmesh5g'` and assign it to `option network 'mesh5g'` instead, as follows:
-  
+
   ```
   config wifi-iface 'wmesh5g'
         option device 'radio1'
@@ -1614,13 +1621,13 @@ Also, if you want to change the functionality of a few of the existing LEDs on y
 If you just found this guide, you can safely ignore the content in this section because the entire article **has been updated** to make it compatible with OpenWrt 21.02, which is now the **current stable release**.  However, if you're currently running OpenWrt 19.07 and want to upgrade to 21.02, then read on.
 {:.notice--warning}
 
-When this guide was first written, [OpenWrt 19.07](https://openwrt.org/releases/19.07/start) was the current stable release version.  However, as of September 4th, OpenWrt 19.07 transitioned to old stable and [**OpenWrt 21.02**](https://openwrt.org/releases/21.02/start) is now the current stable release.  For one, this means that most device pages (e.g., [TP-Link Archer C7 AC1750](https://openwrt.org/toh/tp-link/archer_c7)) have been updated to link to the OpenWrt 21.02 firmware binaries. 
+When this guide was first written, [OpenWrt 19.07](https://openwrt.org/releases/19.07/start) was the current stable release version.  However, as of September 4th, OpenWrt 19.07 transitioned to old stable and [**OpenWrt 21.02**](https://openwrt.org/releases/21.02/start) is now the current stable release.  For one, this means that most device pages (e.g., [TP-Link Archer C7 AC1750](https://openwrt.org/toh/tp-link/archer_c7)) have been updated to link to the OpenWrt 21.02 firmware binaries.
 
 Of course, it is still possible to download and use the latest version of the OpenWrt 19.07 binaries (`19.07.8`) by looking for your device's target at [releases/19.07.8/targets](https://downloads.openwrt.org/releases/19.07.8/targets/).  However, it is generally a good idea to run the latest release version for multiple reasons, **security being the main one**.  Nonetheless, OpenWrt 21.02 introduces **new hardware requirements** and **changes to the network syntax** that you should not overlook before making the transition.  More specifically:
 
   - OpenWrt 21.02 introduces initial support for the [**Distributed Switch Architecture** (**DSA**)](https://www.kernel.org/doc/html/latest/networking/dsa/dsa.html).  Currently, however, this only applies to [a very limited number of devices](https://openwrt.org/releases/21.02/notes-21.02.0#initial_dsa_support).  If you have one of such devices, then make sure to read rmilecki's [mini tutorial for DSA network configuration](https://forum.openwrt.org/t/mini-tutorial-for-dsa-network-config/96998) because the syntax is a little bit different than the one used in this guide.
 
-  - The [hardware requirements to run OpenWrt 21.02](https://openwrt.org/releases/21.02/notes-21.02.0#increased_minimum_hardware_requirements8_mb_flash_64_mb_ram) has increased to `8 MB` of flash memory and `64 MB` of RAM.  In the first version of this guide, I used the **TP-Link TL-WR1043ND (v1.8)** as an example of mesh node hardware, which has `8MB` of flash memory and `32MB` of RAM.  At first, I tried to use OpenWrt 21.02 with it but the system became **too unstable**, even after making several changes to multiple firmware images (e.g., removing LuCI altogether and adding `zram` support).  This is what prompted me to change the device in the examples to the **TP-Link TL-WDR4300**, which is also a *low-end* router but it has `128MB` of RAM instead and importantly, it is a *dual-band* router that allows better segmentation of mesh vs non-mesh wireless traffic. 
+  - The [hardware requirements to run OpenWrt 21.02](https://openwrt.org/releases/21.02/notes-21.02.0#increased_minimum_hardware_requirements8_mb_flash_64_mb_ram) has increased to `8 MB` of flash memory and `64 MB` of RAM.  In the first version of this guide, I used the **TP-Link TL-WR1043ND (v1.8)** as an example of mesh node hardware, which has `8MB` of flash memory and `32MB` of RAM.  At first, I tried to use OpenWrt 21.02 with it but the system became **too unstable**, even after making several changes to multiple firmware images (e.g., removing LuCI altogether and adding `zram` support).  This is what prompted me to change the device in the examples to the **TP-Link TL-WDR4300**, which is also a *low-end* router but it has `128MB` of RAM instead and importantly, it is a *dual-band* router that allows better segmentation of mesh vs non-mesh wireless traffic.
 
   - There is a small but important [change in the configuration **syntax**](https://openwrt.org/releases/21.02/notes-21.02.0#new_network_configuration_syntax_and_boardjson_change) in `/etc/config/network`, namely:
     1. The option `ifname` is now called `device` in all `config interface` stanzas;
