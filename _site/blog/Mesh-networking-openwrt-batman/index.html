@@ -200,7 +200,7 @@
 
 
 
-  136 minute read
+  137 minute read
 
 </p>
       
@@ -442,7 +442,8 @@
           </aside>
         
         <h1 id="changelog">Changelog</h1>
-<p class="notice--success"><strong>January 1st, 2022</strong>: Added a new section called <a href="#advanced-features">Advanced features</a> to cover <code class="language-plaintext highlighter-rouge">batman-adv</code> features not previously described in the basic implementation section.  The first included feature was the use of <a href="#multi-links">multi-links</a> to improve performance and reliability.  The subsection includes examples and a how-to for the implementation of multi-links.  In addition, I changed the Linksys reference in <a href="#hardware">Hardware</a> to the more stable <a href="https://openwrt.org/toh/linksys/ea8300">Linksys EA8300</a> as reference of a high-end device.  I’ve not personally used it but have read reports of good experience with it by the OpenWrt forum user <a href="https://forum.openwrt.org/u/16F84">16F48</a>, for example.</p>
+<p class="notice--success"><strong>February 4th, 2022</strong>: Updated the <a href="#hardware-specific-configurations">Hardware-specific configurations</a> section to include info about the issue affecting the <a href="https://openwrt.org/toh/gl.inet/gl-ar750">GL-AR750</a> and to make the <code class="language-plaintext highlighter-rouge">ath10k</code> instructions more general. Thanks to JF for testing and letting me know about the affected device and solution.</p>
+<p class="notice--info"><strong>January 1st, 2022</strong>: Added a new section called <a href="#advanced-features">Advanced features</a> to cover <code class="language-plaintext highlighter-rouge">batman-adv</code> features not previously described in the basic implementation section.  The first included feature was the use of <a href="#multi-links">multi-links</a> to improve performance and reliability.  The subsection includes examples and a how-to for the implementation of multi-links.  In addition, I changed the Linksys reference in <a href="#hardware">Hardware</a> to the more stable <a href="https://openwrt.org/toh/linksys/ea8300">Linksys EA8300</a> as reference of a high-end device.  I’ve not personally used it but have read reports of good experience with it by the OpenWrt forum user <a href="https://forum.openwrt.org/u/16F84">16F48</a>, for example.</p>
 <p class="notice--warning"><strong>October 6th, 2021</strong>: The guide was completely updated to make it consistent with the current stable release, namely <strong>OpenWrt 21.02</strong>.  In brief, most of the changes had to do with the <a href="https://openwrt.org/releases/21.02/notes-21.02.0#new_network_configuration_syntax_and_boardjson_change"><strong>new network syntax</strong></a> and <a href="https://openwrt.org/releases/21.02/notes-21.02.0#increased_minimum_hardware_requirements8_mb_flash_64_mb_ram"><strong>increased hardware requirements</strong></a>.  More specifically, OpenWrt 21.02 drops the use of <code class="language-plaintext highlighter-rouge">ifname</code> and make a more clear distinction between layer 2 and layer 3 configurations in the <code class="language-plaintext highlighter-rouge">/etc/config/network</code> file. In addition, the minimum requirements to run OpenWrt are now <code class="language-plaintext highlighter-rouge">8MB</code> of flash memory and <code class="language-plaintext highlighter-rouge">64MB</code> of RAM.  The latter change prompted me to use a new TP-Link router for the examples, namely the TL-WDR4300, instead of the old WR1043ND (v1). This new router is still a low-end device, which makes very affordable and easy to find worldwide, but contrary to the WR1043ND, it is actually a <em>dual-band</em> router.  This was an opportunity to illustrate wireless segmentation for mesh vs. non-mesh communication, which is something I think is almost required in most use cases, so <a href="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/segmentation.jpg">the new guide makes use of it by default</a>. I also took this opportunity to update many, many other things.  To mention two main ones: (a) at the end of the <a href="#openwrt-installation-and-initial-configuration">OpenWrt installation and initial configuration</a> section, there’s now a description of how to build custom images that contain all the required mesh packages; and (b) the section <a href="#bonus-content-moving-from-openwrt-19-to-21">Bonus content: Moving from OpenWrt 19 to 21</a> was update to help users who followed the earlier version of this guide to transition to the new release. This was a big one and took a few days to get it done.  Hope you find it useful!</p>
 <p class="notice--info"><strong>September 16th, 2021</strong>: Updated the information about OpenWrt 21 in the section <a href="#bonus-content-moving-from-openwrt-19-to-21"><strong>Bonus content: Moving from OpenWrt 19 to 21</strong></a>.  In brief, DSA support is still very limited and OpenWrt has officially started rolling out version 21 with the <a href="https://openwrt.org/releases/21.02/notes-21.02.0">release of OpenWrt 21.02</a>. I’m currently testing the new version and network configuration on a few devices and once I get everything running as well as it was in version 19, I will update the entire article to reflect the new (and current) configuration.  It is, of course, still possible to download and use <a href="https://downloads.openwrt.org/releases/19.07.8/targets/">the latest OpenWrt 19 images</a>, which should be just fine for a long time still.  However, if you want to make use of OpenWrt 21, then read the aforementioned bonus section for guidance on the syntax changes and updated hardware requirements.</p>
 <p class="notice--info"><strong>July 6th, 2021</strong>: Added information about transitioning from OpenWrt 19 (current stable release) to OpenWrt 21 (next stable release) to a new section called <a href="#bonus-content-moving-from-openwrt-19-to-21"><strong>Bonus content: Moving from OpenWrt 19 to 21</strong></a>.  In brief, the <em>next</em> stable release includes changes to the network configuration syntax that are incompatible with this guide.  Once the release version 21 becomes the <em>current</em> stable, however, I will update the main guide to reflect those changes.  In the meantime, I added a few references to the OpenWrt forum that should help anyone interested in using version 21 instead of 19.  Thanks to <a href="https://forum.openwrt.org/u/SteveNewcomb">Steve</a> for testing and sharing his <code class="language-plaintext highlighter-rouge">batman-adv</code> configuration running on OpenWrt 21.</p>
@@ -649,7 +650,7 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
 <p>All that said, most home users will be just fine with a cheapo, used, old, and single-band router.  For a brand reference, TP-Link has good and affordable devices that can be used in a mesh networking project without issues.  If you’re new to this, start from here (small, simple) and think about efficiency over power.  You don’t need to drive a Lamborghini to get a snack at the grocery store. For additional resources, skip to the section called <a href="#useful-hardware-resources">Useful hardware resources</a> down below.</p>
 
 <h2 id="hardware-specific-configurations">Hardware-specific configurations</h2>
-<p>Every once in a while, I run into hardware that is capable of operating in <code class="language-plaintext highlighter-rouge">mesh point</code> mode but the default OpenWrt firmware uses a module for the wireless adapter that is loaded with incompatible parameters.  Here is a list of a few of the known ones and their solution.</p>
+<p>Every once in a while, users run into hardware that is capable of operating in <code class="language-plaintext highlighter-rouge">mesh point</code> mode but the default OpenWrt firmware uses a module for the wireless adapter that is loaded with incompatible parameters.  Here is a list of a few of the known ones and their solution.</p>
 
 <h3 id="ath9k-modules">ath9k modules</h3>
 <p>If your device uses the <code class="language-plaintext highlighter-rouge">ath9k</code> module, there’s a chance that you’ll need to enable the <code class="language-plaintext highlighter-rouge">nohwcrypt</code> parameter of the module to use the mesh <em>with encryption</em>.  First, however, try without changing the default module parameters.  After rulling out possible typos in the network and wireless configuration files, try the following:</p>
@@ -690,17 +691,26 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
 </ul>
 
 <h3 id="ath10k-modules">ath10k modules</h3>
-<p>I’ve noticed that radio devices that use the <code class="language-plaintext highlighter-rouge">ath10k</code> module and more specifically, the ones using <code class="language-plaintext highlighter-rouge">ath10k-firmware-qca988x-ct</code>, are not able to operate in <code class="language-plaintext highlighter-rouge">mesh point</code> mode by default.  If you check the syslog, you’ll notice that there will be a few messages stating that the <code class="language-plaintext highlighter-rouge">ath10k</code> module must be loaded with <code class="language-plaintext highlighter-rouge">rawmode=1</code> to allow mesh.  However, I’ve tried that before without much success.  Instead, my current recommendation to get <code class="language-plaintext highlighter-rouge">mesh point</code> working with the <strong>QCA988x</strong> is the following (<strong>Internet connection required</strong> to download packages via <code class="language-plaintext highlighter-rouge">opkg</code>):</p>
+<p>I’ve noticed that radio devices that use the <code class="language-plaintext highlighter-rouge">ath10k</code> module and more specifically, the ones using <code class="language-plaintext highlighter-rouge">ath10k-firmware-qca988x-ct</code>, are not able to operate in <code class="language-plaintext highlighter-rouge">mesh point</code> mode by default.  If you check the syslog (<code class="language-plaintext highlighter-rouge">logread</code>), you’ll notice that there will be a few messages stating that the <code class="language-plaintext highlighter-rouge">ath10k</code> module must be loaded with <code class="language-plaintext highlighter-rouge">rawmode=1</code> to allow mesh.  However, I’ve tried that before without much success.  Instead, my current recommendation to get <code class="language-plaintext highlighter-rouge">mesh point</code> working with any of the <strong>QCA988x</strong> hardware is the following (<strong>Internet connection required</strong> to download packages via <code class="language-plaintext highlighter-rouge">opkg</code>):</p>
 <ol>
-  <li>Remove the <strong>Candela Tech</strong> (<code class="language-plaintext highlighter-rouge">*-ct</code>) modules as follows:
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>opkg remove ath10k-firmware-qca988x-ct kmod-ath10k-ct
+  <li>Check which <code class="language-plaintext highlighter-rouge">ath</code> module is installed via <code class="language-plaintext highlighter-rouge">opkg</code>:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>opkg list-installed | grep -i ath
 </code></pre></div>    </div>
+    <p>which should show at least one <code class="language-plaintext highlighter-rouge">ath*-firmware-qca988*</code> and another <code class="language-plaintext highlighter-rouge">kmod-ath*</code> packages installed.</p>
   </li>
-  <li>Install the non-ct modules:
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>opkg update &amp;&amp; opkg install ath10k-firmware-qca988x kmod-ath10k
-</code></pre></div>    </div>
+  <li>Try official <strong>alternatives</strong> to them:
+    <ul>
+      <li>For the <code class="language-plaintext highlighter-rouge">ath*-firmware-qca988*</code> alternatives, check the <a href="https://openwrt.org/packages/index/firmware">OpenWrt Firmware index</a> for similar ones and favor the ones that match your hardware (e.g, <code class="language-plaintext highlighter-rouge">QCA9887</code>) before trying the more generic ones (e.g., <code class="language-plaintext highlighter-rouge">QCA988x</code>).</li>
+      <li>For the <code class="language-plaintext highlighter-rouge">kmod-ath*</code> alternatives, check <a href="https://openwrt.org/packages/index/kernel-modules">OpenWrt Kernel Modules index</a>.</li>
+      <li>Of note, if the installed modules are <strong>Candela Tech</strong> (contain the suffix <code class="language-plaintext highlighter-rouge">*-ct</code>), then (a) remove the -ct packages and (b) install compatible non-ct ones.  For the <em>TP-Link Archer C7</em>, for instance, you can replace the -ct module as follows:
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>opkg update
+opkg remove ath10k-firmware-qca988x-ct kmod-ath10k-ct
+opkg install ath10k-firmware-qca988x kmod-ath10k
+</code></pre></div>        </div>
+      </li>
+    </ul>
   </li>
-  <li>Reboot your device and then check the status of your mesh network.</li>
+  <li>Reboot your device and then check the status of your mesh network afterwards. If that does not work, check <code class="language-plaintext highlighter-rouge">logread</code> again and if possible, try another module until you find a good one.</li>
 </ol>
 
 <ul>
@@ -720,7 +730,7 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
         <tr>
           <td style="text-align: center">TP-Link</td>
           <td style="text-align: center">Archer C7</td>
-          <td style="text-align: center">2.0</td>
+          <td style="text-align: center">2.0, 4.0, 5.0</td>
           <td style="text-align: center">19.07, 21.02</td>
         </tr>
         <tr>
@@ -730,16 +740,10 @@ In addition, even though it’s possible to route mesh traffic via cable, in thi
           <td style="text-align: center">19.07, 21.02</td>
         </tr>
         <tr>
-          <td style="text-align: center">TP-Link</td>
-          <td style="text-align: center">Archer C7</td>
-          <td style="text-align: center">4.0</td>
-          <td style="text-align: center">19.07, 21.02</td>
-        </tr>
-        <tr>
-          <td style="text-align: center">TP-Link</td>
-          <td style="text-align: center">Archer C7</td>
-          <td style="text-align: center">5.0</td>
-          <td style="text-align: center">19.07, 21.02</td>
+          <td style="text-align: center">GL.iNet</td>
+          <td style="text-align: center">GL-AR750</td>
+          <td style="text-align: center">-</td>
+          <td style="text-align: center">21.02</td>
         </tr>
       </tbody>
     </table>
@@ -1578,7 +1582,7 @@ f0:f3:00:00:00:00 node04
         option name 'br-default'
         option type 'bridge'
         list ports 'bat0'
-                                      
+
 config interface 'default'
         option device 'br-default'
         option proto 'static'
@@ -1731,7 +1735,7 @@ config interface 'default'
 
 <p>Finally, in the terminal, make sure to disable <code class="language-plaintext highlighter-rouge">dnsmasq</code>, <code class="language-plaintext highlighter-rouge">odhcpd</code>, and the <code class="language-plaintext highlighter-rouge">firewall</code>, as follows</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/init.d/dnsmasq stop &amp;&amp; /etc/init.d/dnsmasq disable 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/init.d/dnsmasq stop &amp;&amp; /etc/init.d/dnsmasq disable
 /etc/init.d/odhcpd stop &amp;&amp; /etc/init.d/odhcpd disable
 /etc/init.d/firewall stop &amp;&amp; /etc/init.d/firewall disable
 </code></pre></div></div>
@@ -1885,7 +1889,7 @@ config interface 'default'
         option name 'br-iot'
         option type 'bridge'
         list ports 'bat0.2'
-                                      
+
 config interface 'iot'
         option device 'br-iot'
         option proto 'static'
@@ -1901,7 +1905,7 @@ config interface 'iot'
         option name 'br-guest'
         option type 'bridge'
         list ports 'bat0.5'
-                                      
+
 config interface 'guest'
         option device 'br-guest'
         option proto 'static'

@@ -42,7 +42,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Mesh networking: A guide to using free and open-source software with common hardware",
-        "excerpt":"Changelog January 1st, 2022: Added a new section called Advanced features to cover batman-adv features not previously described in the basic implementation section. The first included feature was the use of multi-links to improve performance and reliability. The subsection includes examples and a how-to for the implementation of multi-links. In...","categories": ["blog"],
+        "excerpt":"Changelog February 4th, 2022: Updated the Hardware-specific configurations section to include info about the issue affecting the GL-AR750 and to make the ath10k instructions more general. Thanks to JF for testing and letting me know about the affected device and solution. January 1st, 2022: Added a new section called Advanced...","categories": ["blog"],
         "tags": ["mesh","adhoc","ieee","wifi","wireless","radio","network","router","openwrt","batman"],
         "url": "/blog/Mesh-networking-openwrt-batman/",
         "teaser": null
