@@ -10,7 +10,7 @@ toc_label: "Table of Contents"
 toc_icon: "list"
 ---
 # Changelog
-**February 4th, 2022**: Updated the [Hardware-specific configurations](#hardware-specific-configurations) section to include info about the issue affecting the [GL-AR750](https://openwrt.org/toh/gl.inet/gl-ar750) and to make the `ath10k` instructions more general. Thanks to JF for testing and letting me know about the affected device and solution.
+**February 4th, 2022**: Updated the [Hardware-specific configurations](#hardware-specific-configurations) section to include info about an issue affecting the [GL-AR750](https://openwrt.org/toh/gl.inet/gl-ar750) and the [AVM Fritz!WLAN Repeater 1750E](https://openwrt.org/toh/avm/avm_fritz_wlan_repeater_1750e).  Also, the `ath10k` troubleshooting instructions were slightly modified to make them more general.  Thanks to JF and Erik for testing and letting me know about the affected devices and solutions.
 {: .notice--success }
 **January 1st, 2022**: Added a new section called [Advanced features](#advanced-features) to cover `batman-adv` features not previously described in the basic implementation section.  The first included feature was the use of [multi-links](#multi-links) to improve performance and reliability.  The subsection includes examples and a how-to for the implementation of multi-links.  In addition, I changed the Linksys reference in [Hardware](#hardware) to the more stable [Linksys EA8300](https://openwrt.org/toh/linksys/ea8300) as reference of a high-end device.  I've not personally used it but have read reports of good experience with it by the OpenWrt forum user [16F48](https://forum.openwrt.org/u/16F84), for example.
 {: .notice--info }
@@ -230,9 +230,11 @@ I've noticed that radio devices that use the `ath10k` module and more specifical
 
   | brand | model | version | OpenWrt release |
   |:---:|:---:|:---:|:---:|
+  | AVM | FRITZ!WLAN Repeater 1750E | - | 21.02 |
+  | GL.iNet | GL-AR750 | - | 21.02 |
   | TP-Link | Archer C7 | 2.0, 4.0, 5.0 | 19.07, 21.02 |
   | TP-Link | Archer C7 US | 2.0 | 19.07, 21.02 |
-  | GL.iNet | GL-AR750 | - | 21.02 |
+
 
 ## Useful hardware resources
 These are a few resources that I've used in the past that you might find useful when looking for mesh compatible devices:

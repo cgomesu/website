@@ -42,7 +42,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Mesh networking: A guide to using free and open-source software with common hardware",
-        "excerpt":"Changelog February 4th, 2022: Updated the Hardware-specific configurations section to include info about the issue affecting the GL-AR750 and to make the ath10k instructions more general. Thanks to JF for testing and letting me know about the affected device and solution. January 1st, 2022: Added a new section called Advanced...","categories": ["blog"],
+        "excerpt":"Changelog February 4th, 2022: Updated the Hardware-specific configurations section to include info about an issue affecting the GL-AR750 and the AVM Fritz!WLAN Repeater 1750E. Also, the ath10k troubleshooting instructions were slightly modified to make them more general. Thanks to JF and Erik for testing and letting me know about the...","categories": ["blog"],
         "tags": ["mesh","adhoc","ieee","wifi","wireless","radio","network","router","openwrt","batman"],
         "url": "/blog/Mesh-networking-openwrt-batman/",
         "teaser": null
