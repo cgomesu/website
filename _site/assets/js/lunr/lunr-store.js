@@ -54,7 +54,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Tasmota webcam server for the ESP32-cam",
-        "excerpt":"Changelog Dec 22nd, 2021: Included more information about power supply to the Standalone wiring section and appended one more relevant SetOption to the SetOption configurations section, namely S065, which controls the fast power cycle detection. I also wrote a note to the Wiring and template configuration subsection of Customizing the...","categories": ["blog"],
+        "excerpt":"Changelog Feb 11th, 2022: It seems that the version of the tasmota32-webcam.bin firmware that contains the bug fix I referred to on December 13th has not made its way to the latest stable release yet and is actually only available in the development release binaries instead. For this reason, I...","categories": ["blog"],
         "tags": ["iot","esp32","tasmota","mqtt","cam","webcam","surveillance","wifi","wireless","network"],
         "url": "/blog/Esp32cam-tasmota-webcam-server/",
         "teaser": null

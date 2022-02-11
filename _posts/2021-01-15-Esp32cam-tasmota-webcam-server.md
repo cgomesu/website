@@ -11,8 +11,11 @@ toc_icon: "list"
 ---
 
 # Changelog
+**Feb 11th, 2022**: It seems that the version of the `tasmota32-webcam.bin` firmware that contains the bug fix I referred to on December 13th has not made its way to the latest *stable release* yet and is actually only available in the ***development release*** binaries instead.  For this reason, I suggest to download and install the *development* binary when following the instructions in the section [Flashing Tasmota32 webcam server](#flashing-tasmota32-webcam-server).  Thanks to Hans for letting me know about this issue.
+{: .notice--warning }
+
 **Dec 22nd, 2021**: Included more information about power supply to the [Standalone wiring](#standalone-wiring) section and appended one more relevant `SetOption` to the [SetOption configurations](#setoption-configurations) section, namely `S065`, which controls the fast power cycle detection. I also wrote a note to the [Wiring and template configuration](#wiring-and-template-configuration) subsection of [Customizing the tasmota32-webcam firmware](#customizing-the-tasmota32-webcam-firmware) to mention that the referred GPIO pins are currently assigned to SPI-related components but can be safely freed up to be used with peripherals instead.
-{: .notice--success }
+{: .notice--info }
 
 **Dec 13th, 2021**: The `tasmota32-webcam.bin` version `10.1.0.1` seems to have fixed the issue mentioned before. Therefore, I'm also reverting the AITHINKER CAM template back to the original, in which GPIO4 is assigned the PWM component (`416`).
 {: .notice--info }
@@ -226,7 +229,7 @@ We are now ready to flash the Tasmota firmware.  For reference, the official inf
    sudo chown ${USER}:${USER} tasmota32/
    ```
 
-3. Download the `tasmota32-webcam.bin` binary and the needed ESP32 Tasmota binaries from the official Github repo via `wget`.  (*The following was updated on August 12th, 2021.*) The binaries are now available in a different repository than [before](https://github.com/arendst/Tasmota), namely [arendst/Tasmota-firmware](https://github.com/arendst/Tasmota-firmware), and currently, the new repository has a single branch (`main`). There are two versions of the `tasmota32-wecam.bin`, one from the `release` and another from the `development` portions of the Tasmota32 project. My advice is to try the release first, then development if you have any issues.
+3. Download the `tasmota32-webcam.bin` binary and the needed ESP32 Tasmota binaries from the official Github repo via `wget`.  (*The following was updated on August 12th, 2021.*) The binaries are now available in a different repository than [before](https://github.com/arendst/Tasmota), namely [arendst/Tasmota-firmware](https://github.com/arendst/Tasmota-firmware), and currently, the new repository has a single branch (`main`). There are two versions of the `tasmota32-wecam.bin`, one from the `release` and another from the `development` portions of the Tasmota32 project. My advice is to try the stable release first, then development if you have any issues, unless there is a note in [Changelog](#changelog) that says otherwise (e.g., the `Feb 11th, 2022` note).
 
    To download the **stable release** binaries, use the following command:
 
