@@ -60,7 +60,7 @@ var store = [{
         "teaser": null
       },{
         "title": "TVHlink: Livestreams as IPTV channels with TVHeadend and Streamlink",
-        "excerpt":"Changelog Mar 15th, 2022: It’s been a while since I last updated this article but all the information here is still up-to-date. You can track changes to my curated m3u playlists and related utility scripts on my tvhlink Github repository. July 16th, 2021, Update #2: Added information about Twitch streams...","categories": ["blog"],
+        "excerpt":"Changelog Mar 15th, 2022: It’s been a while since I last updated this article but all the information here is still up-to-date. Streamlink is on version 3.2.0 at the time of writing but everything works just as before and as outlined in this guide. You can track changes to my...","categories": ["blog"],
         "tags": ["tvhlink","streamlink","tvheadend","github","iptv","kodi","youtube","streaming","livestream"],
         "url": "/blog/Tvhlink/",
         "teaser": null
