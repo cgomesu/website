@@ -23,13 +23,16 @@ And for comparison, here's the unit next to a Raspberry Pi 3B:
 
 This article should give you a fairly good idea about the following:
 
-* What to buy; 
+* What to buy;
 * What to install at the operating system (OS) and NAS management level;
 * How to put everything together and get it up and running.  
 
-After that, you're free to do whatever you want for your own use-case (disk partitions, storage systems, file sharing method, applications, etc.). 
+After that, you're free to do whatever you want for your own use-case (disk partitions, storage systems, file sharing method, applications, etc.).
 
 # Changelog
+**March 19th, 2022**: I've had to deal with [a software issue that broke my NanoPi-M4 v2](https://forum.armbian.com/topic/20043-nanopi-m4-v2-4gb-doesnt-start-after-installing-updates/) and thought that this would be a nice opportunity to document a couple of procedures that allow you to recover from such scenarios. (Of note, if you are on **Armbian Buster** and using the **legacy kernel**, ***do not*** upgrade from version 21.08 to 22.02.) The result of this documentation is the addition of two new sections to this guide, namely [Backing up the entire mini-NAS OS disk](#backing-up-the-os-disk), [Emergency micro-SD](#emergency-micro-sd), and [Recovery procedures](#recovery-procedures), all of which were added under the [Bonus Content](#bonus-content) section.
+{: .notice .notice--success }
+
 **October 16th, 2020**, (#1 of 2): I've re-written the [pwm-fan script for the NanoPi-M4](https://github.com/cgomesu/nanopim4-satahat-fan) and updated [the section about it](#pwm-fan-controller) accordingly.
 {: .notice .notice--info }
 
@@ -95,9 +98,9 @@ If you're using the SATA hat, you only need a single PSU to provide power to eve
 
 [![NanoPi M4 PSU connections](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-psu-connections.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-psu-connections.jpg)
 
-Please note that if you're planning on using a PC PSU, you'll need to "hack it" in order to use the PSU without plugging it into a mobo. 
+Please note that if you're planning on using a PC PSU, you'll need to "hack it" in order to use the PSU without plugging it into a mobo.
 
-If you're not 100% sure about tinkering with anything related to electricity, do not attempt to modify any PSU you might have lying around and just buy a 12v (8A) external PSU.  You can die even if the PSU is not connected to an outlet, owing to the presence of massive capacitors inside the PSU.  I cannot emphasize this enough.  Also, don't go around cutting its cables to just make it look cute.  You might need them later. 
+If you're not 100% sure about tinkering with anything related to electricity, do not attempt to modify any PSU you might have lying around and just buy a 12v (8A) external PSU.  You can die even if the PSU is not connected to an outlet, owing to the presence of massive capacitors inside the PSU.  I cannot emphasize this enough.  Also, don't go around cutting its cables to just make it look cute.  You might need them later.
 {:.notice--danger}
 
 Alright, if you really want to use a PC PSU, follow the instructions in this video (but use a proper cable to connect the pins and make sure it's well secured):
@@ -113,7 +116,7 @@ You can run 3.5" drives as well but if you plan to keep power consumption at a m
 [![2.5" WD Black HDD 750GB](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/hdd-wb-black-25-750gb.jpg){:.PostImage}](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/hdd-wb-black-25-750gb.jpg)
 
 ## [kirkdis' 3D printed case](https://www.thingiverse.com/thing:3736661)
-There are other 3D printed cases out there but I like kirkdis' take on a minimal case for the NanoPi M4 and 2.5" drives.  Notice that there are 3- and 4-bay versions of the HDD case and mounts.  More specifically, for this project, I printed the following pieces: 
+There are other 3D printed cases out there but I like kirkdis' take on a minimal case for the NanoPi M4 and 2.5" drives.  Notice that there are 3- and 4-bay versions of the HDD case and mounts.  More specifically, for this project, I printed the following pieces:
 
 * 01 x `topcase_all_versions.stl`
 * 01 x `fanmount_all_versions.stl`
@@ -156,7 +159,7 @@ For reference, here's how much each hardware component cost me in Brazilian Real
 [top](#){: .btn .btn--light-outline .btn--small}
 
 # Software
-For the OS, I'm using the **server edition** of the **Armbian Buster** with **Kernell 4.4 (legacy)**. *(Of note, this section has been updated since the original article. In the previous version of the article, I suggested installing the latest Kernel 5.x instead of the legacy 4.4.x. The reason is that I've had multiple stability issues with Kernel 5.x and after switching to legacy, it's been solid as a rock.  That said, I've also read that many users have been running the latest Kernel without any issues, which makes me suspicious that there was somthing corrupted with my previous installation. So, my suggestion is the following: if you can afford testing for a few days, do try the latest Kernel 5.x first, and if you run into issues, reinstall the OS with legacy Kernel; otherwise, if you want it ready and solid right away, go straight to legacy Kernel.)*  You can download the image from the [official Armbian website](https://www.armbian.com/nanopi-m4/#kernels-archive-all).  Don't skip the integrity check.  On Linux, just open a terminal and run ```sha1sum /path/to/file.img.xz``` and check the output against the SHA file from the Armbian website.  This ensures your downloaded file has the same hash as the true file.  If you've ever used Debian or derivatives before (e.g., Ubuntu, Raspbian), Armbian will feel like home. 
+For the OS, I'm using the **server edition** of the **Armbian Buster** with **Kernell 4.4 (legacy)**. *(Of note, this section has been updated since the original article. In the previous version of the article, I suggested installing the latest Kernel 5.x instead of the legacy 4.4.x. The reason is that I've had multiple stability issues with Kernel 5.x and after switching to legacy, it's been solid as a rock.  That said, I've also read that many users have been running the latest Kernel without any issues, which makes me suspicious that there was somthing corrupted with my previous installation. So, my suggestion is the following: if you can afford testing for a few days, do try the latest Kernel 5.x first, and if you run into issues, reinstall the OS with legacy Kernel; otherwise, if you want it ready and solid right away, go straight to legacy Kernel.)*  You can download the image from the [official Armbian website](https://www.armbian.com/nanopi-m4/#kernels-archive-all).  Don't skip the integrity check.  On Linux, just open a terminal and run ```sha1sum /path/to/file.img.xz``` and check the output against the SHA file from the Armbian website.  This ensures your downloaded file has the same hash as the true file.  If you've ever used Debian or derivatives before (e.g., Ubuntu, Raspbian), Armbian will feel like home.
 
 [![SSH welcome and lscpu](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-sshwelcome-lscpu.jpg){:.PostImage .PostImage--large }](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-sshwelcome-lscpu.jpg)
 
@@ -172,9 +175,9 @@ In addition, the folks at OMV put together a guide on their Github repo that tel
 As you'll learn, the OMV installation script will take some time to finish.  We're talking about more than 10min.  Be patient!  Afterwards, open a web browser and log into OMV's WebUI and do your thing or read the [Getting Started Guide](https://github.com/OpenMediaVault-Plugin-Developers/docs/blob/master/Getting_Started-OMV5.pdf) that the OMV team wrote.
 
 ## CPU tuning
-The **Rockchip RK3399** is a fairly new and nichey system on a chip and therefore, its implementation is not widely stable. On Armbian with Kernel 5.4, for example, I've noticed a few CPU-related Kernel panics that cause the board to freeze/reboot. [Upon further investigation](https://forum.armbian.com/topic/11710-nanopi-m4-v2-m4-image-not-working/page/7/?tab=comments#comment-93238), it seems this issue can be fixed by changing the default CPU governor from *ondemand* to ***conservative***, and setting the *minimum CPU frequency to **1.4GhZ*** and the *maximum to **1.8GhZ***. 
+The **Rockchip RK3399** is a fairly new and nichey system on a chip and therefore, its implementation is not widely stable. On Armbian with Kernel 5.4, for example, I've noticed a few CPU-related Kernel panics that cause the board to freeze/reboot. [Upon further investigation](https://forum.armbian.com/topic/11710-nanopi-m4-v2-m4-image-not-working/page/7/?tab=comments#comment-93238), it seems this issue can be fixed by changing the default CPU governor from *ondemand* to ***conservative***, and setting the *minimum CPU frequency to **1.4GhZ*** and the *maximum to **1.8GhZ***.
 
-Be extra careful when tuning your CPU because things can go wrong if you set the board to operate in a condition that it was not meant to.  Move slowly and keep an eye on related statistics afterwards to make sure you're not going to fry the board. 
+Be extra careful when tuning your CPU because things can go wrong if you set the board to operate in a condition that it was not meant to.  Move slowly and keep an eye on related statistics afterwards to make sure you're not going to fry the board.
 {:. .notice .notice--warning }
 
 There are two ways to change the CPU frequency and governor. The first and recommended one is via the `armbian-config` configuration utility:
@@ -185,7 +188,7 @@ armbian-config
 # Set min frequency to 1416000 Hz
 # Set max frequency to 1800000 Hz
 # Set the governor to conservative
-# Confirm 
+# Confirm
 # Exit the configuration utility
 # Reboot
 ```
@@ -227,7 +230,7 @@ chmod +x pwm-fan.sh
 # Test the script
 ./pwm-fan.sh
 
-# Check for any error messages 
+# Check for any error messages
 # When done, press Ctrl+C after to send a SIGINT and stop the script
 ```
 
@@ -270,7 +273,7 @@ After that, install the eMMC and the SATA hat.  Your SBC should look something l
 
 [![Nanopi M4 with hat 02](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-cgomesu-assembled-02.jpg){:.PostImage}](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-cgomesu-assembled-02.jpg)
 
-Now, it's time to test the board and the SATA hat.  **Connect the board to an Ethernet cable and plug it into your 12v PSU.**  Observe the red and green LEDs as it turns on and starts running the OS for the first time. 
+Now, it's time to test the board and the SATA hat.  **Connect the board to an Ethernet cable and plug it into your 12v PSU.**  Observe the red and green LEDs as it turns on and starts running the OS for the first time.
 
 [![Nanopi M4 connected to PSU](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-cgomesu-psu-test01.jpg){:.PostImage}](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-cgomesu-psu-test01.jpg)
 
@@ -297,9 +300,9 @@ After reboot, wait a few seconds and try to SSH into the static IP address you g
 5. In **Power Management**, enable Monitoring and select the Shutdown action for the power button;
 6. **Reboot** via the webUI (arrow at the top right corner / reboot).
 
-After rebooting, check your **Storage** and **Diagnostics** tabs.  In Storage / Disks, there should be a single device for the OS eMMC.  Later on, we will come back to see if the drives plugged into the SATA hat are showing up here. 
+After rebooting, check your **Storage** and **Diagnostics** tabs.  In Storage / Disks, there should be a single device for the OS eMMC.  Later on, we will come back to see if the drives plugged into the SATA hat are showing up here.
 
-In Diagnostics / Sys Info, check all tabs to make sure they are displaying things correctly.  Your OMV should be collecting Performance Stats at this point, so there should be graphs available. 
+In Diagnostics / Sys Info, check all tabs to make sure they are displaying things correctly.  Your OMV should be collecting Performance Stats at this point, so there should be graphs available.
 
 (If you're new to OMV, take your time here and explore it a little bit.  This is a good time to read the Getting Started guide and get yourself familiarized with the webUI.)
 
@@ -324,8 +327,8 @@ And here's the second (backup) case:
 
 [![CGomesu backup case](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-cgomesu-backup-case.jpg){:.PostImage}](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-cgomesu-backup-case.jpg)
 
-[In kirkdis' last post](https://scheisser.net/?p=7781), he mentioned 
-> "... to be careful when you put the upper case over the external ports as this is the most fragile part. Designwise I didn´t found a workaround for this area as result it can happen if you push too much that the connections between the ports break off but with a liztle bit patience you can set iz in place as one piece." 
+[In kirkdis' last post](https://scheisser.net/?p=7781), he mentioned
+> "... to be careful when you put the upper case over the external ports as this is the most fragile part. Designwise I didn´t found a workaround for this area as result it can happen if you push too much that the connections between the ports break off but with a liztle bit patience you can set iz in place as one piece."
 
 I think I read his comment a bit too late:
 
@@ -389,7 +392,7 @@ My advice is to do the following:
 
 * Turn it on.
 
-Voilà!  Check your OMV webUI to make sure it detected all connected disks and then start mounting them and adding your file sharing configurations, installing applications, adding users, etc. 
+Voilà!  Check your OMV webUI to make sure it detected all connected disks and then start mounting them and adding your file sharing configurations, installing applications, adding users, etc.
 
 [![Nanopi M4 hat 4 HDD test](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-satahat-test-fourwdblacks.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-satahat-test-fourwdblacks.jpg)
 
@@ -413,6 +416,178 @@ Well, this concludes my NanoPi M4 mini-NAS project. I hope you enjoyed this arti
 [top](#){: .btn .btn--light-outline .btn--small}
 
 # Bonus Content
+## Backing up the OS disk
+Once you have your system up and running smoothly, it's a good idea to have **a backup plan** for cases in which your Armbian OS stops working altogether and you are unable to recover using traditional procedures (see [Recovery procedures](#recovery-procedures)).  There are many such strategies but in my opinion, the most straightforward one is to simply **clone the entire mini-NAS OS disk** every once in a while, which can be done with the `dd` GNU/Linux utility.  This allows you to re-flash the image to the existing (or new) microSD/eMMC/HDD/SSD in case something really bad happens.  (For more advanced users, this allows to even make changes to the OS without even having it attached to the NanoPi-M4, which can be done by mounting it locally and then `chroot`ing into it.  However, this latter procedure does require that you're running the same architecture as your NanoPi-M4.)
+
+Suppose you installed Armbian OS on an eMMC, as suggested in the [Software](#software) section of this guide. Then to backup the entire OS disk, which at the end will create an `.img` file of it that you can mount or flash onto other disks, follow the steps described next:
+
+For this procedure, you will need access to another computer running a **GNU/Linux distribution**, such as Armbian, Raspberry Pi OS, Debian, etc.  Of course, you can use the NanoPi-M4 itself for this purpose, but this requires a second (independent) disk to boot another Armbian OS, for example.  In addition, you will need access to a **storage space** (e.g., HDD) that has more space available than the size of the entire disk that we will backup.  For example, if the mini-NAS OS is on a 32GB eMMC, then at first, the backup destination needs to have at least that much space available.  (Afterwards, we can compress the `.img` file to greatly reduce its size.)
+{:.notice--warning}
+
+1. Shutdown your mini-NAS, turn it off, and then remove its eMMC;
+
+2. Use a [microSD adapter](#nanopi-m4-16-32gb-emmc--micro-sd-adapter) to connect the eMMC to another computer running a GNU/Linux distribution;
+
+3. Find the name of the eMMC in `/dev/`.  This can be done with `lsblk`, for example:
+   ```
+   lsblk
+   ```
+   ```
+   NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+   sda      8:0    0  29.8G  0 disk
+   ├─sda1   8:1    0   300M  0 part
+   └─sda2   8:2    0  29.5G  0 part
+   sdb      8:16   0 447.1G  0 disk
+   ├─sdb1   8:17   0   512M  0 part /boot/efi
+   ├─sdb2   8:18   0 445.7G  0 part /
+   └─sdb3   8:19   0   977M  0 part [SWAP]
+   sdc      8:32   1   1.9G  0 disk
+   └─sdc1   8:33   1   1.8G  0 part
+   sr0     11:0    1  1024M  0 rom  
+   ```
+   In this example, let's assume that `sdc` is the eMMC;
+
+   `sdc` **is likely not** the name of the eMMC in your case.  Before continuing, make sure to properly identify the actual disk name of *your eMMC* on *your system*.  
+   {:.notice--danger}
+
+   A few distributions might auto-mount disk partitions and if this has happened to you (i.e., `MOUNTPOINT` is not empty for the eMMC partitions), make sure to **unmount** any mounted partition of the eMMC before the next step.  You can unmount using `sudo unmount /full/path/to/mountpoint`.
+   {:.notice--danger}
+
+4. Using `dd`, which requires `sudo` permission, **clone the entire eMMC** to an `.img` file on your local disk. For this example, the `.img` file will be under your current user's home directory (`~/Backups/mini-nas/`) and for future reference, its name will contain both the OS name (e.g., Armbian Buster) and the current date (`date +%Y-%m-%d`):
+   ```
+   mkdir -p ~/Backups/mini-nas/
+   sudo dd if=/dev/sdc of=~/Backups/mini-nas/emmc-armbian-buster-$(date +%Y-%m-%d).img bs=1k conv=noerror status=progress
+   ```
+
+   This will take a long time.  Be patient and do not play with the eMMC at all.
+   {:.notice}
+
+5. When done, **compress** the `img` file into `.img.tar.gz` using the `tar` utility to greatly reduce its size:
+   ```
+   tar -czvf ~/Backups/mini-nas/emmc-armbian-buster-$(date +%Y-%m-%d).img.tar.gz ~/Backups/mini-nas/emmc-armbian-buster-$(date +%Y-%m-%d).img
+   ```
+
+   This also might take a long time.  Be patient.
+   {:.notice}
+
+6. Finally, now that you have a compressed version of the `.img` file, you can delete the original one to save space on your local disk:
+   ```
+   rm ~/Backups/mini-nas/emmc-armbian-buster-$(date +%Y-%m-%d).img
+   ```
+
+## Emergency micro-SD
+In addition to backing up your existing OS, I suggest having a tiny microSD (e.g., 2GB) that contains a *trimmed down version* of the same Armbian as your mini-NAS.  This trimmed down version is just the base Armbian image that you used to build your mini-NAS, per the instructions in the [Software](#software) section, except that it does not need to have OMV installed.  Optionally, you could install additional utilities to the micro-SD that will help you troubleshooting issues with the eMMC and the OS installed on it (e.g., [eMMC tools](https://www.kernel.org/doc/html/latest/driver-api/mmc/mmc-tools.html)).
+
+> Why, though?
+
+One reason to have an emergency micro-SD is that it can take a lot of time to remove the eMMC from a NanoPi-M4 mini-NAS.  Remember that the eMMC module is under the SATA hat, which means you'll need to disassemble the whole thing to finally have access to it if you ever need to.  On the other hand, the micro-SD slot is easily accessible and if for some reason your board stops working, you can attach the emergency micro-SD to quickly rule out major hardware issues, such as a bad PSU or a broken critical board component--that is, if the board does not boot from the eMMC but it does from the micro-SD, then the issue ought to be related to either the eMMC itself (hardware-wise) or the software installed on it.  On top of that, the emergency micro-SD can provide an environment to troubleshoot your eMMC and its partitions (e.g., check integrity of the filesystem on the eMMC via `fsck`) and worst case scenario, re-flash your backup image onto the still attached eMMC.
+
+## Recovery procedures
+If for any reason you find yourself in a situation in which your mini-NAS won't boot anymore or you experience instability, your board might be having either a hardware issue (e.g., bad PSU) or software issue (e.g., an update that breaks one ore more boot configuration files).  The folks at Armbian have documented guides to help users in such scenarios, namely:
+
+- the [hardware troubleshooting guide](https://docs.armbian.com/User-Guide_Basic-Troubleshooting/#hardware-troubleshooting-guide);
+- and basic [recovery procedures](https://docs.armbian.com/User-Guide_Recovery/).
+
+In this section, I will mention an **additional procedure**.  More specifically, I'll describe how to use the GNU/Linux `chroot` (**change root**) tool to debug and fix issues on a broken OS disk partition. Most users will find this procedure fairly complicated because it requires a little bit of preparation but the gist of it is very simple.  In brief, `chroot` allows us to (temporarily) move our current root directory (`/`) to another (e.g., `/mnt/emmc`)--that is, the mountpoint `/mnt/emmc` is interpreted as `/` in the chroot environment. There are many use cases for `chroot` but in our case, we will use this to make changes to the eMMC *as if we were running it*. For example, once we've `chroot`ed into the eMMC, we can run things like `apt update` and `apt install` to install new packages or upgrade/downgrade old ones *onto the eMMC*.  
+
+This approach was motivated by [an issue I had with my NanoPi-M4 that broke it](https://forum.armbian.com/topic/20043-nanopi-m4-v2-4gb-doesnt-start-after-installing-updates/)--it refused to boot after an `apt upgrade`--and [the solution to it](https://forum.armbian.com/topic/20043-nanopi-m4-v2-4gb-doesnt-start-after-installing-updates/?do=findComment&comment=136958), as originally described by the Armbian forum user [gilarelli](https://forum.armbian.com/profile/16146-gilarelli/).  In this section, I used my issue as example but of course, the procedure outlined next can be adapted for any other cases that would benefit from a `chroot` environment (e.g., building images from source).  More specifically, I described the issue first, pointed out the (likely) culprits, and then used `chroot` to implement the fix.
+
+- **The issue**: After an `apt upgrade`, the Armbian `21.08` OS (`buster`, `legacy kernel 4.4.213-rk3399`) stopped working altogether with my NanoPi-M4 v2. (Of note, I used it as NAS with [Openmediavault](#). This matters because OMV makes changes to many files, including `/etc/resolv.conf`, which in turn affect the procedures in the `chroot` environment later on.)
+
+- **The culprit(s)**: `apt upgrade` installed four new `22.02` packages over their respective `21.08` versions, namely:
+  - `linux-dtb-legacy-rk3399`
+  - `linux-headers-legacy-rk3399`
+  - `linux-image-legacy-rk3399`
+  - `linux-libc-dev`
+
+  At this time, I'm not sure if all of them or just a subset is responsible for the issue mentioned before but I do know that downgrading all four packages fixes the issue
+  {:.notice}
+
+- **The solution**: Use `apt` to *downgrade* all four culprit packages. This can be done by mounting the eMMC partition onto another `arm64` machine, such as the NanoPi-M4 v2 itself (or Raspberry Pi 4, or Odroid N2/+, and so on), then `chroot`ing into it, and using `apt install` to downgrade the packages.
+
+  Alternatively, [as *gilarelli* pointed out](https://forum.armbian.com/topic/20043-nanopi-m4-v2-4gb-doesnt-start-after-installing-updates/?do=findComment&comment=136958), we can manually download the `.deb` files via `wget` and then install with `dpkg`. The advantage of this procedure is that in the last step of the implementation of the solution, we can download the packages using our host OS and just copy (`cp`) them to the eMMC, which can be done without having to enable/configure network connectivity inside the `chroot` environment.
+  {:.notice}
+
+To implement the solution, you will need the following:
+
+- A [micro-SD](#emergency-micro-sd) to boot a clean Armbian OS using the NanoPi-M4 itself;
+- (*Optional but strongly recommended.*) A [backup image of the entire eMMC](#backing-up-the-os-disk) in case something goes terribly wrong;
+- WAN connectivity to download and install packages via `apt`.  That is, your NanoPi-M4 needs access to the Internet, so make sure it is connected to a network with access to the WAN.
+- (*Optional.*) Monitor and keyboard. Alternatively, you can connect to it remotely via SSH using the credentials and configuration from the micro-SD OS.
+
+Once you get those things sorted out, follow the steps outlined next:
+
+1. Turn off your NanoPi-M4, remove any unnecessary USB peripherals, then connect it to a monitor and a simple USB keyboard. (Alternatively, you could use a serial connection or SSH for the next steps, too;)
+
+2. Attach the emergency micro-SD and turn the board on. If it boots successfully, then continue;
+
+3. Identify the disk name of the eMMC on your system (`lsblk`) and run a filesystem integrity check on it:
+   ```
+   fsck /dev/mmcblkXpY -f
+   ```
+   in which `mmcblkXpY` is the primary partition of your eMMC. Continue if no errors are found;
+
+4. Create a new directory called `emmc` on `/mnt` (`/mnt/emmc`) and mount the eMMC primary partition on it:
+   ```
+   mkdir /mnt/emmc
+   mount /dev/mmcblkXpY /mnt/emmc
+   ```
+
+5. Prepare the chroot environment as follows:
+      - mount the current `proc`, `sys`, `dev`, and `run` on the eMMC mounted partition:
+        ```
+        mount -t proc /proc /mnt/emmc/proc/
+        mount -t sysfs /sys /mnt/emmc/sys/
+        mount --rbind /dev /mnt/emmc/dev/
+        mount --rbind /run /mnt/emmc/run/
+        ```
+      - test that you can connect to the WAN via `ping google.com`. if successful, backup the `resolv.conf` on the eMMC and copy the one from your micro-SD to the `eMMC`, which should ensure WAN connectivity in the chroot environment as well:
+        ```
+        mv /mnt/emmc/etc/resolv.conf /mnt/emmc/etc/resolv.conf.backup
+        cp /etc/resolv.conf /mnt/emmc/etc/resolv.conf
+        ```
+
+6. `chroot` the mounted eMMC primary partition:
+   ```
+   chroot /mnt/emmc
+   ```
+   which should move your terminal to `/` (root), that is, the chroot environment. If at any point you want to exit, just type `exit`;
+7. Test WAN connectivity inside the chroot environment (`ping google.com`) and if it looks good, then use `apt` to downgrade the culprit packages, as follows:
+   ```
+   apt update
+   ```
+
+   If you have issues with `apt` at this point (e.g., stuck at `Waiting for headers`), try cleaning old cached files and rebuilding the lists: `apt clean && mv /var/lib/apt/lists /var/lib/apt/lists.old && mkdir -p /var/lib/apt/lists/partial && apt clean && apt update`.
+   {:.notice}
+
+   ```
+   apt install linux-dtb-legacy-rk3399=21.08.1 linux-headers-legacy-rk3399=21.08.1 linux-image-legacy-rk3399=21.08.1 linux-libc-dev=21.08.1
+   ```
+
+8. Add a `hold` mark to the culprit packages to prevent `apt` from installing/removing/purging/upgrading them until the mark is removed:
+   ```
+   apt-mark hold linux-dtb-legacy-rk3399 linux-headers-legacy-rk3399 linux-image-legacy-rk3399 linux-libc-dev
+   ```
+
+   Once you learn that **a fix has been added to a new release** of each package marked with `hold`, you can remove the mark via `apt-mark unhold PKG_NAME`.
+   {:.notice}
+
+9. Exit the chroot environment:
+   ```
+   exit
+   ```
+
+10. Restore the original `/etc/resolv.conf` on the eMMC:
+    ```
+    mv /mnt/emmc/etc/resolv.conf.backup /mnt/emmc/etc/resolv.conf
+    ```
+
+11. Shutdown (`shutdown now`), turn off the NanoPi-M4, and then remove the micro-SD from it;
+
+12. Turn the board back on to check if it boots successfully from the eMMC. If it doesn't, go back to the first step and review the procedure and make additional changes in the chroot environment.
+
+Finally, remember that the same issue can have different causes. Make sure to inspect closely the error messages related to yours and search the official [Armbian Forum](https://forum.armbian.com/) for posts related to an identical or similar issue if you are having trouble fixing yours.
+
 ## Real time clock
 The NanoPi M4 comes with a built-in real time clock (RTC) module and to use it, all that you need is a compatible **RTC battery** with a *Molex 53398-0271 connector*:
 

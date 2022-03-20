@@ -200,7 +200,7 @@
 
 
 
-  41 minute read
+  58 minute read
 
 </p>
       
@@ -381,6 +381,9 @@
   <li><a href="#final-remarks">Final Remarks</a></li>
   <li><a href="#bonus-content">Bonus Content</a>
     <ul>
+      <li><a href="#backing-up-the-os-disk">Backing up the OS disk</a></li>
+      <li><a href="#emergency-micro-sd">Emergency micro-SD</a></li>
+      <li><a href="#recovery-procedures">Recovery procedures</a></li>
       <li><a href="#real-time-clock">Real time clock</a></li>
     </ul>
   </li>
@@ -412,6 +415,8 @@
 <p>After that, you’re free to do whatever you want for your own use-case (disk partitions, storage systems, file sharing method, applications, etc.).</p>
 
 <h1 id="changelog">Changelog</h1>
+<p class="notice notice--success"><strong>March 19th, 2022</strong>: I’ve had to deal with <a href="https://forum.armbian.com/topic/20043-nanopi-m4-v2-4gb-doesnt-start-after-installing-updates/">a software issue that broke my NanoPi-M4 v2</a> and thought that this would be a nice opportunity to document a couple of procedures that allow you to recover from such scenarios. (Of note, if you are on <strong>Armbian Buster</strong> and using the <strong>legacy kernel</strong>, <strong><em>do not</em></strong> upgrade from version 21.08 to 22.02.) The result of this documentation is the addition of two new sections to this guide, namely <a href="#backing-up-the-os-disk">Backing up the entire mini-NAS OS disk</a>, <a href="#emergency-micro-sd">Emergency micro-SD</a>, and <a href="#recovery-procedures">Recovery procedures</a>, all of which were added under the <a href="#bonus-content">Bonus Content</a> section.</p>
+
 <p class="notice notice--info"><strong>October 16th, 2020</strong>, (#1 of 2): I’ve re-written the <a href="https://github.com/cgomesu/nanopim4-satahat-fan">pwm-fan script for the NanoPi-M4</a> and updated <a href="#pwm-fan-controller">the section about it</a> accordingly.</p>
 
 <p class="notice notice--warning"><strong>October 16th, 2020</strong>, (#2 of 2): Despite the CPU tuning improvements I mentioned in my previous update, I’ve continued to have a few stability issues with Kernel 5.x.  After a while, I’ve decided to reinstall <strong>Armbian Buster</strong> with <strong>Kernel 4.4.213-rk3399 (legacy)</strong> and it has been smooth sailing ever since.  I updated the <a href="#software">section about OS installation</a> accordingly.</p>
@@ -652,7 +657,7 @@ armbian-config
 # Set min frequency to 1416000 Hz
 # Set max frequency to 1800000 Hz
 # Set the governor to conservative
-# Confirm 
+# Confirm
 # Exit the configuration utility
 # Reboot
 </code></pre></div></div>
@@ -691,7 +696,7 @@ chmod +x pwm-fan.sh
 # Test the script
 ./pwm-fan.sh
 
-# Check for any error messages 
+# Check for any error messages
 # When done, press Ctrl+C after to send a SIGINT and stop the script
 </code></pre></div></div>
 
@@ -902,6 +907,182 @@ systemctl status pwm-fan.service
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 
 <h1 id="bonus-content">Bonus Content</h1>
+<h2 id="backing-up-the-os-disk">Backing up the OS disk</h2>
+<p>Once you have your system up and running smoothly, it’s a good idea to have <strong>a backup plan</strong> for cases in which your Armbian OS stops working altogether and you are unable to recover using traditional procedures (see <a href="#recovery-procedures">Recovery procedures</a>).  There are many such strategies but in my opinion, the most straightforward one is to simply <strong>clone the entire mini-NAS OS disk</strong> every once in a while, which can be done with the <code class="language-plaintext highlighter-rouge">dd</code> GNU/Linux utility.  This allows you to re-flash the image to the existing (or new) microSD/eMMC/HDD/SSD in case something really bad happens.  (For more advanced users, this allows to even make changes to the OS without even having it attached to the NanoPi-M4, which can be done by mounting it locally and then <code class="language-plaintext highlighter-rouge">chroot</code>ing into it.  However, this latter procedure does require that you’re running the same architecture as your NanoPi-M4.)</p>
+
+<p>Suppose you installed Armbian OS on an eMMC, as suggested in the <a href="#software">Software</a> section of this guide. Then to backup the entire OS disk, which at the end will create an <code class="language-plaintext highlighter-rouge">.img</code> file of it that you can mount or flash onto other disks, follow the steps described next:</p>
+
+<p class="notice--warning">For this procedure, you will need access to another computer running a <strong>GNU/Linux distribution</strong>, such as Armbian, Raspberry Pi OS, Debian, etc.  Of course, you can use the NanoPi-M4 itself for this purpose, but this requires a second (independent) disk to boot another Armbian OS, for example.  In addition, you will need access to a <strong>storage space</strong> (e.g., HDD) that has more space available than the size of the entire disk that we will backup.  For example, if the mini-NAS OS is on a 32GB eMMC, then at first, the backup destination needs to have at least that much space available.  (Afterwards, we can compress the <code class="language-plaintext highlighter-rouge">.img</code> file to greatly reduce its size.)</p>
+
+<ol>
+  <li>
+    <p>Shutdown your mini-NAS, turn it off, and then remove its eMMC;</p>
+  </li>
+  <li>
+    <p>Use a <a href="#nanopi-m4-16-32gb-emmc--micro-sd-adapter">microSD adapter</a> to connect the eMMC to another computer running a GNU/Linux distribution;</p>
+  </li>
+  <li>Find the name of the eMMC in <code class="language-plaintext highlighter-rouge">/dev/</code>.  This can be done with <code class="language-plaintext highlighter-rouge">lsblk</code>, for example:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lsblk
+</code></pre></div>    </div>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+sda      8:0    0  29.8G  0 disk
+├─sda1   8:1    0   300M  0 part
+└─sda2   8:2    0  29.5G  0 part
+sdb      8:16   0 447.1G  0 disk
+├─sdb1   8:17   0   512M  0 part /boot/efi
+├─sdb2   8:18   0 445.7G  0 part /
+└─sdb3   8:19   0   977M  0 part [SWAP]
+sdc      8:32   1   1.9G  0 disk
+└─sdc1   8:33   1   1.8G  0 part
+sr0     11:0    1  1024M  0 rom  
+</code></pre></div>    </div>
+    <p>In this example, let’s assume that <code class="language-plaintext highlighter-rouge">sdc</code> is the eMMC;</p>
+
+    <p class="notice--danger"><code class="language-plaintext highlighter-rouge">sdc</code> <strong>is likely not</strong> the name of the eMMC in your case.  Before continuing, make sure to properly identify the actual disk name of <em>your eMMC</em> on <em>your system</em>.</p>
+
+    <p class="notice--danger">A few distributions might auto-mount disk partitions and if this has happened to you (i.e., <code class="language-plaintext highlighter-rouge">MOUNTPOINT</code> is not empty for the eMMC partitions), make sure to <strong>unmount</strong> any mounted partition of the eMMC before the next step.  You can unmount using <code class="language-plaintext highlighter-rouge">sudo unmount /full/path/to/mountpoint</code>.</p>
+  </li>
+  <li>Using <code class="language-plaintext highlighter-rouge">dd</code>, which requires <code class="language-plaintext highlighter-rouge">sudo</code> permission, <strong>clone the entire eMMC</strong> to an <code class="language-plaintext highlighter-rouge">.img</code> file on your local disk. For this example, the <code class="language-plaintext highlighter-rouge">.img</code> file will be under your current user’s home directory (<code class="language-plaintext highlighter-rouge">~/Backups/mini-nas/</code>) and for future reference, its name will contain both the OS name (e.g., Armbian Buster) and the current date (<code class="language-plaintext highlighter-rouge">date +%Y-%m-%d</code>):
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir -p ~/Backups/mini-nas/
+sudo dd if=/dev/sdc of=~/Backups/mini-nas/emmc-armbian-buster-$(date +%Y-%m-%d).img bs=1k conv=noerror status=progress
+</code></pre></div>    </div>
+
+    <p class="notice">This will take a long time.  Be patient and do not play with the eMMC at all.</p>
+  </li>
+  <li>When done, <strong>compress</strong> the <code class="language-plaintext highlighter-rouge">img</code> file into <code class="language-plaintext highlighter-rouge">.img.tar.gz</code> using the <code class="language-plaintext highlighter-rouge">tar</code> utility to greatly reduce its size:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tar -czvf ~/Backups/mini-nas/emmc-armbian-buster-$(date +%Y-%m-%d).img.tar.gz ~/Backups/mini-nas/emmc-armbian-buster-$(date +%Y-%m-%d).img
+</code></pre></div>    </div>
+
+    <p class="notice">This also might take a long time.  Be patient.</p>
+  </li>
+  <li>Finally, now that you have a compressed version of the <code class="language-plaintext highlighter-rouge">.img</code> file, you can delete the original one to save space on your local disk:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rm ~/Backups/mini-nas/emmc-armbian-buster-$(date +%Y-%m-%d).img
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h2 id="emergency-micro-sd">Emergency micro-SD</h2>
+<p>In addition to backing up your existing OS, I suggest having a tiny microSD (e.g., 2GB) that contains a <em>trimmed down version</em> of the same Armbian as your mini-NAS.  This trimmed down version is just the base Armbian image that you used to build your mini-NAS, per the instructions in the <a href="#software">Software</a> section, except that it does not need to have OMV installed.  Optionally, you could install additional utilities to the micro-SD that will help you troubleshooting issues with the eMMC and the OS installed on it (e.g., <a href="https://www.kernel.org/doc/html/latest/driver-api/mmc/mmc-tools.html">eMMC tools</a>).</p>
+
+<blockquote>
+  <p>Why, though?</p>
+</blockquote>
+
+<p>One reason to have an emergency micro-SD is that it can take a lot of time to remove the eMMC from a NanoPi-M4 mini-NAS.  Remember that the eMMC module is under the SATA hat, which means you’ll need to disassemble the whole thing to finally have access to it if you ever need to.  On the other hand, the micro-SD slot is easily accessible and if for some reason your board stops working, you can attach the emergency micro-SD to quickly rule out major hardware issues, such as a bad PSU or a broken critical board component–that is, if the board does not boot from the eMMC but it does from the micro-SD, then the issue ought to be related to either the eMMC itself (hardware-wise) or the software installed on it.  On top of that, the emergency micro-SD can provide an environment to troubleshoot your eMMC and its partitions (e.g., check integrity of the filesystem on the eMMC via <code class="language-plaintext highlighter-rouge">fsck</code>) and worst case scenario, re-flash your backup image onto the still attached eMMC.</p>
+
+<h2 id="recovery-procedures">Recovery procedures</h2>
+<p>If for any reason you find yourself in a situation in which your mini-NAS won’t boot anymore or you experience instability, your board might be having either a hardware issue (e.g., bad PSU) or software issue (e.g., an update that breaks one ore more boot configuration files).  The folks at Armbian have documented guides to help users in such scenarios, namely:</p>
+
+<ul>
+  <li>the <a href="https://docs.armbian.com/User-Guide_Basic-Troubleshooting/#hardware-troubleshooting-guide">hardware troubleshooting guide</a>;</li>
+  <li>and basic <a href="https://docs.armbian.com/User-Guide_Recovery/">recovery procedures</a>.</li>
+</ul>
+
+<p>In this section, I will mention an <strong>additional procedure</strong>.  More specifically, I’ll describe how to use the GNU/Linux <code class="language-plaintext highlighter-rouge">chroot</code> (<strong>change root</strong>) tool to debug and fix issues on a broken OS disk partition. Most users will find this procedure fairly complicated because it requires a little bit of preparation but the gist of it is very simple.  In brief, <code class="language-plaintext highlighter-rouge">chroot</code> allows us to (temporarily) move our current root directory (<code class="language-plaintext highlighter-rouge">/</code>) to another (e.g., <code class="language-plaintext highlighter-rouge">/mnt/emmc</code>)–that is, the mountpoint <code class="language-plaintext highlighter-rouge">/mnt/emmc</code> is interpreted as <code class="language-plaintext highlighter-rouge">/</code> in the chroot environment. There are many use cases for <code class="language-plaintext highlighter-rouge">chroot</code> but in our case, we will use this to make changes to the eMMC <em>as if we were running it</em>. For example, once we’ve <code class="language-plaintext highlighter-rouge">chroot</code>ed into the eMMC, we can run things like <code class="language-plaintext highlighter-rouge">apt update</code> and <code class="language-plaintext highlighter-rouge">apt install</code> to install new packages or upgrade/downgrade old ones <em>onto the eMMC</em>.</p>
+
+<p>This approach was motivated by <a href="https://forum.armbian.com/topic/20043-nanopi-m4-v2-4gb-doesnt-start-after-installing-updates/">an issue I had with my NanoPi-M4 that broke it</a>–it refused to boot after an <code class="language-plaintext highlighter-rouge">apt upgrade</code>–and <a href="https://forum.armbian.com/topic/20043-nanopi-m4-v2-4gb-doesnt-start-after-installing-updates/?do=findComment&amp;comment=136958">the solution to it</a>, as originally described by the Armbian forum user <a href="https://forum.armbian.com/profile/16146-gilarelli/">gilarelli</a>.  In this section, I used my issue as example but of course, the procedure outlined next can be adapted for any other cases that would benefit from a <code class="language-plaintext highlighter-rouge">chroot</code> environment (e.g., building images from source).  More specifically, I described the issue first, pointed out the (likely) culprits, and then used <code class="language-plaintext highlighter-rouge">chroot</code> to implement the fix.</p>
+
+<ul>
+  <li>
+    <p><strong>The issue</strong>: After an <code class="language-plaintext highlighter-rouge">apt upgrade</code>, the Armbian <code class="language-plaintext highlighter-rouge">21.08</code> OS (<code class="language-plaintext highlighter-rouge">buster</code>, <code class="language-plaintext highlighter-rouge">legacy kernel 4.4.213-rk3399</code>) stopped working altogether with my NanoPi-M4 v2. (Of note, I used it as NAS with <a href="#">Openmediavault</a>. This matters because OMV makes changes to many files, including <code class="language-plaintext highlighter-rouge">/etc/resolv.conf</code>, which in turn affect the procedures in the <code class="language-plaintext highlighter-rouge">chroot</code> environment later on.)</p>
+  </li>
+  <li><strong>The culprit(s)</strong>: <code class="language-plaintext highlighter-rouge">apt upgrade</code> installed four new <code class="language-plaintext highlighter-rouge">22.02</code> packages over their respective <code class="language-plaintext highlighter-rouge">21.08</code> versions, namely:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">linux-dtb-legacy-rk3399</code></li>
+      <li><code class="language-plaintext highlighter-rouge">linux-headers-legacy-rk3399</code></li>
+      <li><code class="language-plaintext highlighter-rouge">linux-image-legacy-rk3399</code></li>
+      <li><code class="language-plaintext highlighter-rouge">linux-libc-dev</code></li>
+    </ul>
+
+    <p class="notice">At this time, I’m not sure if all of them or just a subset is responsible for the issue mentioned before but I do know that downgrading all four packages fixes the issue</p>
+  </li>
+  <li>
+    <p><strong>The solution</strong>: Use <code class="language-plaintext highlighter-rouge">apt</code> to <em>downgrade</em> all four culprit packages. This can be done by mounting the eMMC partition onto another <code class="language-plaintext highlighter-rouge">arm64</code> machine, such as the NanoPi-M4 v2 itself (or Raspberry Pi 4, or Odroid N2/+, and so on), then <code class="language-plaintext highlighter-rouge">chroot</code>ing into it, and using <code class="language-plaintext highlighter-rouge">apt install</code> to downgrade the packages.</p>
+
+    <p class="notice">Alternatively, <a href="https://forum.armbian.com/topic/20043-nanopi-m4-v2-4gb-doesnt-start-after-installing-updates/?do=findComment&amp;comment=136958">as <em>gilarelli</em> pointed out</a>, we can manually download the <code class="language-plaintext highlighter-rouge">.deb</code> files via <code class="language-plaintext highlighter-rouge">wget</code> and then install with <code class="language-plaintext highlighter-rouge">dpkg</code>. The advantage of this procedure is that in the last step of the implementation of the solution, we can download the packages using our host OS and just copy (<code class="language-plaintext highlighter-rouge">cp</code>) them to the eMMC, which can be done without having to enable/configure network connectivity inside the <code class="language-plaintext highlighter-rouge">chroot</code> environment.</p>
+  </li>
+</ul>
+
+<p>To implement the solution, you will need the following:</p>
+
+<ul>
+  <li>A <a href="#emergency-micro-sd">micro-SD</a> to boot a clean Armbian OS using the NanoPi-M4 itself;</li>
+  <li>(<em>Optional but strongly recommended.</em>) A <a href="#backing-up-the-os-disk">backup image of the entire eMMC</a> in case something goes terribly wrong;</li>
+  <li>WAN connectivity to download and install packages via <code class="language-plaintext highlighter-rouge">apt</code>.  That is, your NanoPi-M4 needs access to the Internet, so make sure it is connected to a network with access to the WAN.</li>
+  <li>(<em>Optional.</em>) Monitor and keyboard. Alternatively, you can connect to it remotely via SSH using the credentials and configuration from the micro-SD OS.</li>
+</ul>
+
+<p>Once you get those things sorted out, follow the steps outlined next:</p>
+
+<ol>
+  <li>
+    <p>Turn off your NanoPi-M4, remove any unnecessary USB peripherals, then connect it to a monitor and a simple USB keyboard. (Alternatively, you could use a serial connection or SSH for the next steps, too;)</p>
+  </li>
+  <li>
+    <p>Attach the emergency micro-SD and turn the board on. If it boots successfully, then continue;</p>
+  </li>
+  <li>Identify the disk name of the eMMC on your system (<code class="language-plaintext highlighter-rouge">lsblk</code>) and run a filesystem integrity check on it:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fsck /dev/mmcblkXpY -f
+</code></pre></div>    </div>
+    <p>in which <code class="language-plaintext highlighter-rouge">mmcblkXpY</code> is the primary partition of your eMMC. Continue if no errors are found;</p>
+  </li>
+  <li>Create a new directory called <code class="language-plaintext highlighter-rouge">emmc</code> on <code class="language-plaintext highlighter-rouge">/mnt</code> (<code class="language-plaintext highlighter-rouge">/mnt/emmc</code>) and mount the eMMC primary partition on it:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir /mnt/emmc
+mount /dev/mmcblkXpY /mnt/emmc
+</code></pre></div>    </div>
+  </li>
+  <li>Prepare the chroot environment as follows:
+    <ul>
+      <li>mount the current <code class="language-plaintext highlighter-rouge">proc</code>, <code class="language-plaintext highlighter-rouge">sys</code>, <code class="language-plaintext highlighter-rouge">dev</code>, and <code class="language-plaintext highlighter-rouge">run</code> on the eMMC mounted partition:
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mount -t proc /proc /mnt/emmc/proc/
+mount -t sysfs /sys /mnt/emmc/sys/
+mount --rbind /dev /mnt/emmc/dev/
+mount --rbind /run /mnt/emmc/run/
+</code></pre></div>        </div>
+      </li>
+      <li>test that you can connect to the WAN via <code class="language-plaintext highlighter-rouge">ping google.com</code>. if successful, backup the <code class="language-plaintext highlighter-rouge">resolv.conf</code> on the eMMC and copy the one from your micro-SD to the <code class="language-plaintext highlighter-rouge">eMMC</code>, which should ensure WAN connectivity in the chroot environment as well:
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mv /mnt/emmc/etc/resolv.conf /mnt/emmc/etc/resolv.conf.backup
+cp /etc/resolv.conf /mnt/emmc/etc/resolv.conf
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">chroot</code> the mounted eMMC primary partition:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chroot /mnt/emmc
+</code></pre></div>    </div>
+    <p>which should move your terminal to <code class="language-plaintext highlighter-rouge">/</code> (root), that is, the chroot environment. If at any point you want to exit, just type <code class="language-plaintext highlighter-rouge">exit</code>;</p>
+  </li>
+  <li>Test WAN connectivity inside the chroot environment (<code class="language-plaintext highlighter-rouge">ping google.com</code>) and if it looks good, then use <code class="language-plaintext highlighter-rouge">apt</code> to downgrade the culprit packages, as follows:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt update
+</code></pre></div>    </div>
+
+    <p class="notice">If you have issues with <code class="language-plaintext highlighter-rouge">apt</code> at this point (e.g., stuck at <code class="language-plaintext highlighter-rouge">Waiting for headers</code>), try cleaning old cached files and rebuilding the lists: <code class="language-plaintext highlighter-rouge">apt clean &amp;&amp; mv /var/lib/apt/lists /var/lib/apt/lists.old &amp;&amp; mkdir -p /var/lib/apt/lists/partial &amp;&amp; apt clean &amp;&amp; apt update</code>.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt install linux-dtb-legacy-rk3399=21.08.1 linux-headers-legacy-rk3399=21.08.1 linux-image-legacy-rk3399=21.08.1 linux-libc-dev=21.08.1
+</code></pre></div>    </div>
+  </li>
+  <li>Add a <code class="language-plaintext highlighter-rouge">hold</code> mark to the culprit packages to prevent <code class="language-plaintext highlighter-rouge">apt</code> from installing/removing/purging/upgrading them until the mark is removed:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-mark hold linux-dtb-legacy-rk3399 linux-headers-legacy-rk3399 linux-image-legacy-rk3399 linux-libc-dev
+</code></pre></div>    </div>
+
+    <p class="notice">Once you learn that <strong>a fix has been added to a new release</strong> of each package marked with <code class="language-plaintext highlighter-rouge">hold</code>, you can remove the mark via <code class="language-plaintext highlighter-rouge">apt-mark unhold PKG_NAME</code>.</p>
+  </li>
+  <li>Exit the chroot environment:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>exit
+</code></pre></div>    </div>
+  </li>
+  <li>Restore the original <code class="language-plaintext highlighter-rouge">/etc/resolv.conf</code> on the eMMC:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mv /mnt/emmc/etc/resolv.conf.backup /mnt/emmc/etc/resolv.conf
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Shutdown (<code class="language-plaintext highlighter-rouge">shutdown now</code>), turn off the NanoPi-M4, and then remove the micro-SD from it;</p>
+  </li>
+  <li>Turn the board back on to check if it boots successfully from the eMMC. If it doesn’t, go back to the first step and review the procedure and make additional changes in the chroot environment.</li>
+</ol>
+
+<p>Finally, remember that the same issue can have different causes. Make sure to inspect closely the error messages related to yours and search the official <a href="https://forum.armbian.com/">Armbian Forum</a> for posts related to an identical or similar issue if you are having trouble fixing yours.</p>
+
 <h2 id="real-time-clock">Real time clock</h2>
 <p>The NanoPi M4 comes with a built-in real time clock (RTC) module and to use it, all that you need is a compatible <strong>RTC battery</strong> with a <em>Molex 53398-0271 connector</em>:</p>
 

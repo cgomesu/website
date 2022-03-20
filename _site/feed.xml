@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-03-15T15:22:39-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: ESP-01 Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: ESP-01 Tasmota environmental sensor" /><published>2021-08-12T13:00:00-03:00</published><updated>2021-08-12T13:00:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-03-20T10:19:19-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: ESP-01 Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: ESP-01 Tasmota environmental sensor" /><published>2021-08-12T13:00:00-03:00</published><updated>2021-08-12T13:00:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;August 12th, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
@@ -6531,6 +6531,8 @@ Swap:         13308         768       12540
 &lt;p&gt;After that, you’re free to do whatever you want for your own use-case (disk partitions, storage systems, file sharing method, applications, etc.).&lt;/p&gt;
 
 &lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+&lt;p class=&quot;notice notice--success&quot;&gt;&lt;strong&gt;March 19th, 2022&lt;/strong&gt;: I’ve had to deal with &lt;a href=&quot;https://forum.armbian.com/topic/20043-nanopi-m4-v2-4gb-doesnt-start-after-installing-updates/&quot;&gt;a software issue that broke my NanoPi-M4 v2&lt;/a&gt; and thought that this would be a nice opportunity to document a couple of procedures that allow you to recover from such scenarios. (Of note, if you are on &lt;strong&gt;Armbian Buster&lt;/strong&gt; and using the &lt;strong&gt;legacy kernel&lt;/strong&gt;, &lt;strong&gt;&lt;em&gt;do not&lt;/em&gt;&lt;/strong&gt; upgrade from version 21.08 to 22.02.) The result of this documentation is the addition of two new sections to this guide, namely &lt;a href=&quot;#backing-up-the-os-disk&quot;&gt;Backing up the entire mini-NAS OS disk&lt;/a&gt;, &lt;a href=&quot;#emergency-micro-sd&quot;&gt;Emergency micro-SD&lt;/a&gt;, and &lt;a href=&quot;#recovery-procedures&quot;&gt;Recovery procedures&lt;/a&gt;, all of which were added under the &lt;a href=&quot;#bonus-content&quot;&gt;Bonus Content&lt;/a&gt; section.&lt;/p&gt;
+
 &lt;p class=&quot;notice notice--info&quot;&gt;&lt;strong&gt;October 16th, 2020&lt;/strong&gt;, (#1 of 2): I’ve re-written the &lt;a href=&quot;https://github.com/cgomesu/nanopim4-satahat-fan&quot;&gt;pwm-fan script for the NanoPi-M4&lt;/a&gt; and updated &lt;a href=&quot;#pwm-fan-controller&quot;&gt;the section about it&lt;/a&gt; accordingly.&lt;/p&gt;
 
 &lt;p class=&quot;notice notice--warning&quot;&gt;&lt;strong&gt;October 16th, 2020&lt;/strong&gt;, (#2 of 2): Despite the CPU tuning improvements I mentioned in my previous update, I’ve continued to have a few stability issues with Kernel 5.x.  After a while, I’ve decided to reinstall &lt;strong&gt;Armbian Buster&lt;/strong&gt; with &lt;strong&gt;Kernel 4.4.213-rk3399 (legacy)&lt;/strong&gt; and it has been smooth sailing ever since.  I updated the &lt;a href=&quot;#software&quot;&gt;section about OS installation&lt;/a&gt; accordingly.&lt;/p&gt;
@@ -6771,7 +6773,7 @@ armbian-config
 # Set min frequency to 1416000 Hz
 # Set max frequency to 1800000 Hz
 # Set the governor to conservative
-# Confirm 
+# Confirm
 # Exit the configuration utility
 # Reboot
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -6810,7 +6812,7 @@ chmod +x pwm-fan.sh
 # Test the script
 ./pwm-fan.sh
 
-# Check for any error messages 
+# Check for any error messages
 # When done, press Ctrl+C after to send a SIGINT and stop the script
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
@@ -7021,6 +7023,182 @@ systemctl status pwm-fan.service
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;bonus-content&quot;&gt;Bonus Content&lt;/h1&gt;
+&lt;h2 id=&quot;backing-up-the-os-disk&quot;&gt;Backing up the OS disk&lt;/h2&gt;
+&lt;p&gt;Once you have your system up and running smoothly, it’s a good idea to have &lt;strong&gt;a backup plan&lt;/strong&gt; for cases in which your Armbian OS stops working altogether and you are unable to recover using traditional procedures (see &lt;a href=&quot;#recovery-procedures&quot;&gt;Recovery procedures&lt;/a&gt;).  There are many such strategies but in my opinion, the most straightforward one is to simply &lt;strong&gt;clone the entire mini-NAS OS disk&lt;/strong&gt; every once in a while, which can be done with the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dd&lt;/code&gt; GNU/Linux utility.  This allows you to re-flash the image to the existing (or new) microSD/eMMC/HDD/SSD in case something really bad happens.  (For more advanced users, this allows to even make changes to the OS without even having it attached to the NanoPi-M4, which can be done by mounting it locally and then &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;chroot&lt;/code&gt;ing into it.  However, this latter procedure does require that you’re running the same architecture as your NanoPi-M4.)&lt;/p&gt;
+
+&lt;p&gt;Suppose you installed Armbian OS on an eMMC, as suggested in the &lt;a href=&quot;#software&quot;&gt;Software&lt;/a&gt; section of this guide. Then to backup the entire OS disk, which at the end will create an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.img&lt;/code&gt; file of it that you can mount or flash onto other disks, follow the steps described next:&lt;/p&gt;
+
+&lt;p class=&quot;notice--warning&quot;&gt;For this procedure, you will need access to another computer running a &lt;strong&gt;GNU/Linux distribution&lt;/strong&gt;, such as Armbian, Raspberry Pi OS, Debian, etc.  Of course, you can use the NanoPi-M4 itself for this purpose, but this requires a second (independent) disk to boot another Armbian OS, for example.  In addition, you will need access to a &lt;strong&gt;storage space&lt;/strong&gt; (e.g., HDD) that has more space available than the size of the entire disk that we will backup.  For example, if the mini-NAS OS is on a 32GB eMMC, then at first, the backup destination needs to have at least that much space available.  (Afterwards, we can compress the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.img&lt;/code&gt; file to greatly reduce its size.)&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Shutdown your mini-NAS, turn it off, and then remove its eMMC;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Use a &lt;a href=&quot;#nanopi-m4-16-32gb-emmc--micro-sd-adapter&quot;&gt;microSD adapter&lt;/a&gt; to connect the eMMC to another computer running a GNU/Linux distribution;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Find the name of the eMMC in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/dev/&lt;/code&gt;.  This can be done with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lsblk&lt;/code&gt;, for example:
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;lsblk
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+sda      8:0    0  29.8G  0 disk
+├─sda1   8:1    0   300M  0 part
+└─sda2   8:2    0  29.5G  0 part
+sdb      8:16   0 447.1G  0 disk
+├─sdb1   8:17   0   512M  0 part /boot/efi
+├─sdb2   8:18   0 445.7G  0 part /
+└─sdb3   8:19   0   977M  0 part [SWAP]
+sdc      8:32   1   1.9G  0 disk
+└─sdc1   8:33   1   1.8G  0 part
+sr0     11:0    1  1024M  0 rom  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;In this example, let’s assume that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sdc&lt;/code&gt; is the eMMC;&lt;/p&gt;
+
+    &lt;p class=&quot;notice--danger&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sdc&lt;/code&gt; &lt;strong&gt;is likely not&lt;/strong&gt; the name of the eMMC in your case.  Before continuing, make sure to properly identify the actual disk name of &lt;em&gt;your eMMC&lt;/em&gt; on &lt;em&gt;your system&lt;/em&gt;.&lt;/p&gt;
+
+    &lt;p class=&quot;notice--danger&quot;&gt;A few distributions might auto-mount disk partitions and if this has happened to you (i.e., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MOUNTPOINT&lt;/code&gt; is not empty for the eMMC partitions), make sure to &lt;strong&gt;unmount&lt;/strong&gt; any mounted partition of the eMMC before the next step.  You can unmount using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sudo unmount /full/path/to/mountpoint&lt;/code&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dd&lt;/code&gt;, which requires &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sudo&lt;/code&gt; permission, &lt;strong&gt;clone the entire eMMC&lt;/strong&gt; to an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.img&lt;/code&gt; file on your local disk. For this example, the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.img&lt;/code&gt; file will be under your current user’s home directory (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/Backups/mini-nas/&lt;/code&gt;) and for future reference, its name will contain both the OS name (e.g., Armbian Buster) and the current date (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;date +%Y-%m-%d&lt;/code&gt;):
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mkdir -p ~/Backups/mini-nas/
+sudo dd if=/dev/sdc of=~/Backups/mini-nas/emmc-armbian-buster-$(date +%Y-%m-%d).img bs=1k conv=noerror status=progress
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p class=&quot;notice&quot;&gt;This will take a long time.  Be patient and do not play with the eMMC at all.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;When done, &lt;strong&gt;compress&lt;/strong&gt; the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;img&lt;/code&gt; file into &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.img.tar.gz&lt;/code&gt; using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tar&lt;/code&gt; utility to greatly reduce its size:
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tar -czvf ~/Backups/mini-nas/emmc-armbian-buster-$(date +%Y-%m-%d).img.tar.gz ~/Backups/mini-nas/emmc-armbian-buster-$(date +%Y-%m-%d).img
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p class=&quot;notice&quot;&gt;This also might take a long time.  Be patient.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Finally, now that you have a compressed version of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.img&lt;/code&gt; file, you can delete the original one to save space on your local disk:
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rm ~/Backups/mini-nas/emmc-armbian-buster-$(date +%Y-%m-%d).img
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;emergency-micro-sd&quot;&gt;Emergency micro-SD&lt;/h2&gt;
+&lt;p&gt;In addition to backing up your existing OS, I suggest having a tiny microSD (e.g., 2GB) that contains a &lt;em&gt;trimmed down version&lt;/em&gt; of the same Armbian as your mini-NAS.  This trimmed down version is just the base Armbian image that you used to build your mini-NAS, per the instructions in the &lt;a href=&quot;#software&quot;&gt;Software&lt;/a&gt; section, except that it does not need to have OMV installed.  Optionally, you could install additional utilities to the micro-SD that will help you troubleshooting issues with the eMMC and the OS installed on it (e.g., &lt;a href=&quot;https://www.kernel.org/doc/html/latest/driver-api/mmc/mmc-tools.html&quot;&gt;eMMC tools&lt;/a&gt;).&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Why, though?&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;One reason to have an emergency micro-SD is that it can take a lot of time to remove the eMMC from a NanoPi-M4 mini-NAS.  Remember that the eMMC module is under the SATA hat, which means you’ll need to disassemble the whole thing to finally have access to it if you ever need to.  On the other hand, the micro-SD slot is easily accessible and if for some reason your board stops working, you can attach the emergency micro-SD to quickly rule out major hardware issues, such as a bad PSU or a broken critical board component–that is, if the board does not boot from the eMMC but it does from the micro-SD, then the issue ought to be related to either the eMMC itself (hardware-wise) or the software installed on it.  On top of that, the emergency micro-SD can provide an environment to troubleshoot your eMMC and its partitions (e.g., check integrity of the filesystem on the eMMC via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fsck&lt;/code&gt;) and worst case scenario, re-flash your backup image onto the still attached eMMC.&lt;/p&gt;
+
+&lt;h2 id=&quot;recovery-procedures&quot;&gt;Recovery procedures&lt;/h2&gt;
+&lt;p&gt;If for any reason you find yourself in a situation in which your mini-NAS won’t boot anymore or you experience instability, your board might be having either a hardware issue (e.g., bad PSU) or software issue (e.g., an update that breaks one ore more boot configuration files).  The folks at Armbian have documented guides to help users in such scenarios, namely:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;the &lt;a href=&quot;https://docs.armbian.com/User-Guide_Basic-Troubleshooting/#hardware-troubleshooting-guide&quot;&gt;hardware troubleshooting guide&lt;/a&gt;;&lt;/li&gt;
+  &lt;li&gt;and basic &lt;a href=&quot;https://docs.armbian.com/User-Guide_Recovery/&quot;&gt;recovery procedures&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In this section, I will mention an &lt;strong&gt;additional procedure&lt;/strong&gt;.  More specifically, I’ll describe how to use the GNU/Linux &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;chroot&lt;/code&gt; (&lt;strong&gt;change root&lt;/strong&gt;) tool to debug and fix issues on a broken OS disk partition. Most users will find this procedure fairly complicated because it requires a little bit of preparation but the gist of it is very simple.  In brief, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;chroot&lt;/code&gt; allows us to (temporarily) move our current root directory (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/&lt;/code&gt;) to another (e.g., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/mnt/emmc&lt;/code&gt;)–that is, the mountpoint &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/mnt/emmc&lt;/code&gt; is interpreted as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/&lt;/code&gt; in the chroot environment. There are many use cases for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;chroot&lt;/code&gt; but in our case, we will use this to make changes to the eMMC &lt;em&gt;as if we were running it&lt;/em&gt;. For example, once we’ve &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;chroot&lt;/code&gt;ed into the eMMC, we can run things like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;apt update&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;apt install&lt;/code&gt; to install new packages or upgrade/downgrade old ones &lt;em&gt;onto the eMMC&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;This approach was motivated by &lt;a href=&quot;https://forum.armbian.com/topic/20043-nanopi-m4-v2-4gb-doesnt-start-after-installing-updates/&quot;&gt;an issue I had with my NanoPi-M4 that broke it&lt;/a&gt;–it refused to boot after an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;apt upgrade&lt;/code&gt;–and &lt;a href=&quot;https://forum.armbian.com/topic/20043-nanopi-m4-v2-4gb-doesnt-start-after-installing-updates/?do=findComment&amp;amp;comment=136958&quot;&gt;the solution to it&lt;/a&gt;, as originally described by the Armbian forum user &lt;a href=&quot;https://forum.armbian.com/profile/16146-gilarelli/&quot;&gt;gilarelli&lt;/a&gt;.  In this section, I used my issue as example but of course, the procedure outlined next can be adapted for any other cases that would benefit from a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;chroot&lt;/code&gt; environment (e.g., building images from source).  More specifically, I described the issue first, pointed out the (likely) culprits, and then used &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;chroot&lt;/code&gt; to implement the fix.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;The issue&lt;/strong&gt;: After an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;apt upgrade&lt;/code&gt;, the Armbian &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;21.08&lt;/code&gt; OS (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;buster&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;legacy kernel 4.4.213-rk3399&lt;/code&gt;) stopped working altogether with my NanoPi-M4 v2. (Of note, I used it as NAS with &lt;a href=&quot;#&quot;&gt;Openmediavault&lt;/a&gt;. This matters because OMV makes changes to many files, including &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/resolv.conf&lt;/code&gt;, which in turn affect the procedures in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;chroot&lt;/code&gt; environment later on.)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;The culprit(s)&lt;/strong&gt;: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;apt upgrade&lt;/code&gt; installed four new &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;22.02&lt;/code&gt; packages over their respective &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;21.08&lt;/code&gt; versions, namely:
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;linux-dtb-legacy-rk3399&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;linux-headers-legacy-rk3399&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;linux-image-legacy-rk3399&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;linux-libc-dev&lt;/code&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;p class=&quot;notice&quot;&gt;At this time, I’m not sure if all of them or just a subset is responsible for the issue mentioned before but I do know that downgrading all four packages fixes the issue&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;The solution&lt;/strong&gt;: Use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;apt&lt;/code&gt; to &lt;em&gt;downgrade&lt;/em&gt; all four culprit packages. This can be done by mounting the eMMC partition onto another &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;arm64&lt;/code&gt; machine, such as the NanoPi-M4 v2 itself (or Raspberry Pi 4, or Odroid N2/+, and so on), then &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;chroot&lt;/code&gt;ing into it, and using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;apt install&lt;/code&gt; to downgrade the packages.&lt;/p&gt;
+
+    &lt;p class=&quot;notice&quot;&gt;Alternatively, &lt;a href=&quot;https://forum.armbian.com/topic/20043-nanopi-m4-v2-4gb-doesnt-start-after-installing-updates/?do=findComment&amp;amp;comment=136958&quot;&gt;as &lt;em&gt;gilarelli&lt;/em&gt; pointed out&lt;/a&gt;, we can manually download the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.deb&lt;/code&gt; files via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wget&lt;/code&gt; and then install with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dpkg&lt;/code&gt;. The advantage of this procedure is that in the last step of the implementation of the solution, we can download the packages using our host OS and just copy (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cp&lt;/code&gt;) them to the eMMC, which can be done without having to enable/configure network connectivity inside the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;chroot&lt;/code&gt; environment.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;To implement the solution, you will need the following:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;A &lt;a href=&quot;#emergency-micro-sd&quot;&gt;micro-SD&lt;/a&gt; to boot a clean Armbian OS using the NanoPi-M4 itself;&lt;/li&gt;
+  &lt;li&gt;(&lt;em&gt;Optional but strongly recommended.&lt;/em&gt;) A &lt;a href=&quot;#backing-up-the-os-disk&quot;&gt;backup image of the entire eMMC&lt;/a&gt; in case something goes terribly wrong;&lt;/li&gt;
+  &lt;li&gt;WAN connectivity to download and install packages via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;apt&lt;/code&gt;.  That is, your NanoPi-M4 needs access to the Internet, so make sure it is connected to a network with access to the WAN.&lt;/li&gt;
+  &lt;li&gt;(&lt;em&gt;Optional.&lt;/em&gt;) Monitor and keyboard. Alternatively, you can connect to it remotely via SSH using the credentials and configuration from the micro-SD OS.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Once you get those things sorted out, follow the steps outlined next:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Turn off your NanoPi-M4, remove any unnecessary USB peripherals, then connect it to a monitor and a simple USB keyboard. (Alternatively, you could use a serial connection or SSH for the next steps, too;)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Attach the emergency micro-SD and turn the board on. If it boots successfully, then continue;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Identify the disk name of the eMMC on your system (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lsblk&lt;/code&gt;) and run a filesystem integrity check on it:
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fsck /dev/mmcblkXpY -f
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;in which &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mmcblkXpY&lt;/code&gt; is the primary partition of your eMMC. Continue if no errors are found;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Create a new directory called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;emmc&lt;/code&gt; on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/mnt&lt;/code&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/mnt/emmc&lt;/code&gt;) and mount the eMMC primary partition on it:
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mkdir /mnt/emmc
+mount /dev/mmcblkXpY /mnt/emmc
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Prepare the chroot environment as follows:
+    &lt;ul&gt;
+      &lt;li&gt;mount the current &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;proc&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sys&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dev&lt;/code&gt;, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;run&lt;/code&gt; on the eMMC mounted partition:
+        &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mount -t proc /proc /mnt/emmc/proc/
+mount -t sysfs /sys /mnt/emmc/sys/
+mount --rbind /dev /mnt/emmc/dev/
+mount --rbind /run /mnt/emmc/run/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
+      &lt;/li&gt;
+      &lt;li&gt;test that you can connect to the WAN via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ping google.com&lt;/code&gt;. if successful, backup the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;resolv.conf&lt;/code&gt; on the eMMC and copy the one from your micro-SD to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;eMMC&lt;/code&gt;, which should ensure WAN connectivity in the chroot environment as well:
+        &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mv /mnt/emmc/etc/resolv.conf /mnt/emmc/etc/resolv.conf.backup
+cp /etc/resolv.conf /mnt/emmc/etc/resolv.conf
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;chroot&lt;/code&gt; the mounted eMMC primary partition:
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;chroot /mnt/emmc
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;which should move your terminal to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/&lt;/code&gt; (root), that is, the chroot environment. If at any point you want to exit, just type &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;exit&lt;/code&gt;;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Test WAN connectivity inside the chroot environment (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ping google.com&lt;/code&gt;) and if it looks good, then use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;apt&lt;/code&gt; to downgrade the culprit packages, as follows:
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;apt update
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p class=&quot;notice&quot;&gt;If you have issues with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;apt&lt;/code&gt; at this point (e.g., stuck at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Waiting for headers&lt;/code&gt;), try cleaning old cached files and rebuilding the lists: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;apt clean &amp;amp;&amp;amp; mv /var/lib/apt/lists /var/lib/apt/lists.old &amp;amp;&amp;amp; mkdir -p /var/lib/apt/lists/partial &amp;amp;&amp;amp; apt clean &amp;amp;&amp;amp; apt update&lt;/code&gt;.&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;apt install linux-dtb-legacy-rk3399=21.08.1 linux-headers-legacy-rk3399=21.08.1 linux-image-legacy-rk3399=21.08.1 linux-libc-dev=21.08.1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Add a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hold&lt;/code&gt; mark to the culprit packages to prevent &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;apt&lt;/code&gt; from installing/removing/purging/upgrading them until the mark is removed:
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;apt-mark hold linux-dtb-legacy-rk3399 linux-headers-legacy-rk3399 linux-image-legacy-rk3399 linux-libc-dev
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p class=&quot;notice&quot;&gt;Once you learn that &lt;strong&gt;a fix has been added to a new release&lt;/strong&gt; of each package marked with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hold&lt;/code&gt;, you can remove the mark via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;apt-mark unhold PKG_NAME&lt;/code&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Exit the chroot environment:
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;exit
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Restore the original &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/resolv.conf&lt;/code&gt; on the eMMC:
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mv /mnt/emmc/etc/resolv.conf.backup /mnt/emmc/etc/resolv.conf
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Shutdown (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;shutdown now&lt;/code&gt;), turn off the NanoPi-M4, and then remove the micro-SD from it;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Turn the board back on to check if it boots successfully from the eMMC. If it doesn’t, go back to the first step and review the procedure and make additional changes in the chroot environment.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Finally, remember that the same issue can have different causes. Make sure to inspect closely the error messages related to yours and search the official &lt;a href=&quot;https://forum.armbian.com/&quot;&gt;Armbian Forum&lt;/a&gt; for posts related to an identical or similar issue if you are having trouble fixing yours.&lt;/p&gt;
+
 &lt;h2 id=&quot;real-time-clock&quot;&gt;Real time clock&lt;/h2&gt;
 &lt;p&gt;The NanoPi M4 comes with a built-in real time clock (RTC) module and to use it, all that you need is a compatible &lt;strong&gt;RTC battery&lt;/strong&gt; with a &lt;em&gt;Molex 53398-0271 connector&lt;/em&gt;:&lt;/p&gt;
 
