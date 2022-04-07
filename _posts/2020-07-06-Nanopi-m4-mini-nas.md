@@ -30,6 +30,9 @@ This article should give you a fairly good idea about the following:
 After that, you're free to do whatever you want for your own use-case (disk partitions, storage systems, file sharing method, applications, etc.).
 
 # Changelog
+**April 7th, 2022**: I updated a note about the issue that caused my NanoPi M4-v2 board to stop working after an `apt` upgrade.  More specifically, according to [gilarelli's post](https://forum.armbian.com/topic/20043-nanopi-m4-v2-4gb-doesnt-start-after-installing-updates/?do=findComment&comment=137274), it looks like the culprit is `linux-dtb-legacy-rk3399`, which does not include a device tree file for the board in its latest version, namely `rk3399-nanopi-m4v2.dtb` was not included in `linux-dtb-legacy-rk3399=22.02.01`.
+{: .notice .notice--info }
+
 **March 20th, 2022**: I've had to deal with [a software issue that broke my NanoPi-M4 v2](https://forum.armbian.com/topic/20043-nanopi-m4-v2-4gb-doesnt-start-after-installing-updates/) and thought that this would be a nice opportunity to document a couple of procedures that allow you to recover from such scenarios. (Of note, if you are on **Armbian Buster** and using the **legacy kernel**, ***do not*** upgrade from version `21.08` to `22.02`.) The result of this documentation is the addition of three new sections to this guide, namely [Backing up the entire mini-NAS OS disk](#backing-up-the-os-disk), [Emergency micro-SD](#emergency-micro-sd), and [Recovery procedures](#recovery-procedures), all of which were added under the [Bonus Content](#bonus-content) section.
 {: .notice .notice--success }
 
@@ -500,7 +503,7 @@ This approach was motivated by [an issue I had with my NanoPi-M4 that broke it](
   - `linux-image-legacy-rk3399`
   - `linux-libc-dev`
 
-  At this time, I'm not sure if all of them or just a subset is responsible for the issue mentioned before but I do know that downgrading all four packages fixes the issue
+  Per [gilarelli's new post](https://forum.armbian.com/topic/20043-nanopi-m4-v2-4gb-doesnt-start-after-installing-updates/?do=findComment&comment=137274), it looks like the culprit is `linux-dtb-legacy-rk3399`, which does not include a device tree file for the `nanopi-m4v2`.
   {:.notice}
 
 - **The solution**: Use `apt` to *downgrade* all four culprit packages. This can be done by mounting the eMMC partition onto another `arm64` machine, such as the NanoPi-M4 v2 itself (or Raspberry Pi 4, or Odroid N2/+, and so on), then `chroot`ing into it, and using `apt install` to downgrade the packages.
