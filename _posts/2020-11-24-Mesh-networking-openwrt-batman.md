@@ -10,6 +10,8 @@ toc_label: "Table of Contents"
 toc_icon: "list"
 ---
 # Changelog
+**May 4th, 2022**: Marc ([OneMarcFifty](https://www.youtube.com/channel/UCG5Ph9Mm6UEQLJJ-kGIC2AQ)) has published a video tutorial describing how to configure OpenWrt and batman-adv via **LuCI**, which is only possible because he also wrote a package that gives luci support for the batman-adv protocol ([luci-proto-batman-adv](https://github.com/openwrt/luci/tree/master/protocols/luci-proto-batman-adv)).  I added a reference to Marc's tutorial at the end of the [Other similar mesh solutions](#other-similar-mesh-solutions) section.
+{: .notice--success }
 **February 4th, 2022**: Updated the [Hardware-specific configurations](#hardware-specific-configurations) section to include info about an issue affecting the [GL-AR750](https://openwrt.org/toh/gl.inet/gl-ar750) and the [AVM Fritz!WLAN Repeater 1750E](https://openwrt.org/toh/avm/avm_fritz_wlan_repeater_1750e).  Also, the `ath10k` troubleshooting instructions were slightly modified to make them more general.  Thanks to JF and Erik for testing and letting me know about the affected devices and solutions.
 {: .notice--success }
 **January 1st, 2022**: Added a new section called [Advanced features](#advanced-features) to cover `batman-adv` features not previously described in the basic implementation section.  The first included feature was the use of [multi-links](#multi-links) to improve performance and reliability.  The subsection includes examples and a how-to for the implementation of multi-links.  In addition, I changed the Linksys reference in [Hardware](#hardware) to the more stable [Linksys EA8300](https://openwrt.org/toh/linksys/ea8300) as reference of a high-end device.  I've not personally used it but have read reports of good experience with it by the OpenWrt forum user [16F48](https://forum.openwrt.org/u/16F84), for example.
@@ -1141,7 +1143,7 @@ config interface 'default'
         option dns '192.168.10.1'
 ```
 
-After applying this configuration, it will let any ***non-mesh* clients** to join the mesh **via Ethernet cable**--that is, by connecting a cable to one of the **LAN ports** of the mesh bridge device.  As long as the gateway is reachable, everything should work like a standard network, you could use the device's own switch or connect the device to a switch and manage things there, and so on.
+After applying this configuration, it will let any **non-mesh** clients to join the mesh **via Ethernet cable**--that is, by connecting a cable to one of the **LAN ports** of the mesh bridge device.  As long as the gateway is reachable, everything should work like a standard network, you could use the device's own switch or connect the device to a switch and manage things there, and so on.
 
 **Save the file** and exit it.
 
@@ -1684,5 +1686,12 @@ If you find this guide overwhelming but you're still curious about mesh networki
 - [LibreMesh](https://libremesh.org)
 
 They have pre-configured images that will work "out of the box" with compatible devices.  You might find instructive to start playing around with their software first and once comfortable, build your own configuration from a default (or customized from the source) OpenWrt image.
+
+In addition, if you don't feel comfortable with the CLI approach I used, take a look at [OneMarcFifty](https://www.youtube.com/channel/UCG5Ph9Mm6UEQLJJ-kGIC2AQ)'s video tutorial on how to configure OpenWrt and batman-adv using the LuCI:
+
+{% include video id="t4A0kfg2olo" provider="youtube" %}
+{:. text-center}
+
+Marc has many other interesting videos about OpenWrt, so make sure to check them out as well.
 
 [top](#){: .btn .btn--light-outline .btn--small}

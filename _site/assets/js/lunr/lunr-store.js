@@ -42,7 +42,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Mesh networking: A guide to using free and open-source software with common hardware",
-        "excerpt":"Changelog February 4th, 2022: Updated the Hardware-specific configurations section to include info about an issue affecting the GL-AR750 and the AVM Fritz!WLAN Repeater 1750E. Also, the ath10k troubleshooting instructions were slightly modified to make them more general. Thanks to JF and Erik for testing and letting me know about the...","categories": ["blog"],
+        "excerpt":"Changelog May 4th, 2022: Marc (OneMarcFifty) has published a video tutorial describing how to configure OpenWrt and batman-adv via LuCI, which is only possible because he also wrote a package that gives luci support for the batman-adv protocol (luci-proto-batman-adv). I added a reference to Marc’s tutorial at the end of...","categories": ["blog"],
         "tags": ["mesh","adhoc","ieee","wifi","wireless","radio","network","router","openwrt","batman"],
         "url": "/blog/Mesh-networking-openwrt-batman/",
         "teaser": null
