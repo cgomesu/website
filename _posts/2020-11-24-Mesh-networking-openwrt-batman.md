@@ -1143,7 +1143,7 @@ config interface 'default'
         option dns '192.168.10.1'
 ```
 
-After applying this configuration, it will let any ***non-mesh* clients** to join the mesh **via Ethernet cable**--that is, by connecting a cable to one of the **LAN ports** of the mesh bridge device.  As long as the gateway is reachable, everything should work like a standard network, you could use the device's own switch or connect the device to a switch and manage things there, and so on.
+After applying this configuration, it will let any **non-mesh** clients to join the mesh **via Ethernet cable**--that is, by connecting a cable to one of the **LAN ports** of the mesh bridge device.  As long as the gateway is reachable, everything should work like a standard network, you could use the device's own switch or connect the device to a switch and manage things there, and so on.
 
 **Save the file** and exit it.
 
