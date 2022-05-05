@@ -11,6 +11,9 @@ toc_icon: "list"
 ---
 
 # Changelog
+**May 5th, 2022**: I decided to add a new sub-section called [Backup](#backup) to remind everyone that Tasmota has a very useful configuration backup system that allows users to restore all settings in case something goes terribly wrong with the device.  It only takes a few clicks and will save you a lot of time, so don't skip it!
+{: .notice--info }
+
 **Feb 11th, 2022**: It seems that the version of the `tasmota32-webcam.bin` firmware that contains the bug fix I referred to on December 13th has not made its way to the latest *stable release* yet and is actually only available in the ***development release*** binaries instead.  For this reason, I suggest to download and install the *development* binary when following the instructions in the section [Flashing Tasmota32 webcam server](#flashing-tasmota32-webcam-server).  Thanks to Hans for letting me know about this issue.
 {: .notice--warning }
 
@@ -574,6 +577,9 @@ Similarly, `SetOption65` (`SO65`) controls the device recovery process (i.e., re
 ```
 SetOption65 1
 ```
+
+## Backup
+Once you are done configuring your Tasmota device, make sure to download a backup of its settings and store the backup file on multiple locations (see the [3-2-1 backup strategy](https://www.youtube.com/watch?v=rFO6NyLIP7M)).  To do so, simply navigate to **Configuration** and select **Backup Configuration** to download a `.dmp` file containing all settings for the selected Tasmota device.  If for any reason your device loses its settings (e.g., power cycling, firmware re-flashing), instead of configuring it all over again, you can now easily restore all settings via the *Restore Configuration* option, which is even available when the device is in [AP mode](#configuration).
 
 [top](#){:.btn .btn--light-outline .btn--small}
 

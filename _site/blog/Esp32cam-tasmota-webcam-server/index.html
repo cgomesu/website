@@ -200,7 +200,7 @@
 
 
 
-  57 minute read
+  59 minute read
 
 </p>
       
@@ -368,6 +368,7 @@
       <li><a href="#webcam-server-additional-configurations">Webcam server additional configurations</a></li>
       <li><a href="#fixing-the-timezone">Fixing the timezone</a></li>
       <li><a href="#setoption-configurations">SetOption configurations</a></li>
+      <li><a href="#backup">Backup</a></li>
     </ul>
   </li>
   <li><a href="#basic-usage">Basic usage</a></li>
@@ -386,6 +387,8 @@
           </aside>
         
         <h1 id="changelog">Changelog</h1>
+<p class="notice--info"><strong>May 5th, 2022</strong>: I decided to add a new sub-section called <a href="#backup">Backup</a> to remind everyone that Tasmota has a very useful configuration backup system that allows users to restore all settings in case something goes terribly wrong with the device.  It only takes a few clicks and will save you a lot of time, so don’t skip it!</p>
+
 <p class="notice--warning"><strong>Feb 11th, 2022</strong>: It seems that the version of the <code class="language-plaintext highlighter-rouge">tasmota32-webcam.bin</code> firmware that contains the bug fix I referred to on December 13th has not made its way to the latest <em>stable release</em> yet and is actually only available in the <strong><em>development release</em></strong> binaries instead.  For this reason, I suggest to download and install the <em>development</em> binary when following the instructions in the section <a href="#flashing-tasmota32-webcam-server">Flashing Tasmota32 webcam server</a>.  Thanks to Hans for letting me know about this issue.</p>
 
 <p class="notice--info"><strong>Dec 22nd, 2021</strong>: Included more information about power supply to the <a href="#standalone-wiring">Standalone wiring</a> section and appended one more relevant <code class="language-plaintext highlighter-rouge">SetOption</code> to the <a href="#setoption-configurations">SetOption configurations</a> section, namely <code class="language-plaintext highlighter-rouge">S065</code>, which controls the fast power cycle detection. I also wrote a note to the <a href="#wiring-and-template-configuration">Wiring and template configuration</a> subsection of <a href="#customizing-the-tasmota32-webcam-firmware">Customizing the tasmota32-webcam firmware</a> to mention that the referred GPIO pins are currently assigned to SPI-related components but can be safely freed up to be used with peripherals instead.</p>
@@ -1071,6 +1074,9 @@ sudo mkdir tasmota32
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SetOption65 1
 </code></pre></div></div>
+
+<h2 id="backup">Backup</h2>
+<p>Once you are done configuring your Tasmota device, make sure to download a backup of its settings and store the backup file on multiple locations (see the <a href="https://www.youtube.com/watch?v=rFO6NyLIP7M">3-2-1 backup strategy</a>).  To do so, simply navigate to <strong>Configuration</strong> and select <strong>Backup Configuration</strong> to download a <code class="language-plaintext highlighter-rouge">.dmp</code> file containing all settings for the selected Tasmota device.  If for any reason your device loses its settings (e.g., power cycling, firmware re-flashing), instead of configuring it all over again, you can now easily restore all settings via the <em>Restore Configuration</em> option, which is even available when the device is in <a href="#configuration">AP mode</a>.</p>
 
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 
