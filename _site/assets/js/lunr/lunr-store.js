@@ -54,7 +54,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Tasmota webcam server for the ESP32-cam",
-        "excerpt":"Changelog Feb 11th, 2022: It seems that the version of the tasmota32-webcam.bin firmware that contains the bug fix I referred to on December 13th has not made its way to the latest stable release yet and is actually only available in the development release binaries instead. For this reason, I...","categories": ["blog"],
+        "excerpt":"Changelog May 5th, 2022: I decided to add a new sub-section called Backup to remind everyone that Tasmota has a very useful configuration backup system that allows users to restore all settings in case something goes terribly wrong with the device. It only takes a few clicks and will save...","categories": ["blog"],
         "tags": ["iot","esp32","tasmota","mqtt","cam","webcam","surveillance","wifi","wireless","network"],
         "url": "/blog/Esp32cam-tasmota-webcam-server/",
         "teaser": null
