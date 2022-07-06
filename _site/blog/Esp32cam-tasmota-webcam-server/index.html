@@ -934,14 +934,34 @@ sudo mkdir tasmota32
       <td style="text-align: center"><code class="language-plaintext highlighter-rouge">0</code>: stop, <code class="language-plaintext highlighter-rouge">1</code>: start</td>
     </tr>
     <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcRtsp</code></td>
+      <td style="text-align: center">RTSP server</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">0</code>: disable, <code class="language-plaintext highlighter-rouge">1</code>: enable (forces a restart)</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcColorbar</code></td>
+      <td style="text-align: center">Show Colorbar</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">0</code>: no, <code class="language-plaintext highlighter-rouge">1</code>: yes</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcFeature</code></td>
+      <td style="text-align: center">Set extended Feature</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">0</code>: off</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">1</code>: Reduced FPS mode, which reduces framerate and also increases exposure time to improve low light performance.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">2</code>: Nightmode, which further increases exposure time and lowers the framerate depending on available light.</td>
+    </tr>
+    <tr>
       <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WCFlip</code></td>
       <td style="text-align: center">Flips the image vertically</td>
       <td style="text-align: center"><code class="language-plaintext highlighter-rouge">1</code>, <code class="language-plaintext highlighter-rouge">0</code></td>
-    </tr>
-    <tr>
-      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcRtsp</code></td>
-      <td style="text-align: center">RTSP server</td>
-      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">0</code>: disable, <code class="language-plaintext highlighter-rouge">1</code>: enable</td>
     </tr>
     <tr>
       <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WCMirror</code></td>
@@ -1019,26 +1039,6 @@ sudo mkdir tasmota32
       <td style="text-align: center"><code class="language-plaintext highlighter-rouge">13</code>: <code class="language-plaintext highlighter-rouge">FRAMESIZE 1600x1200</code></td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcColorbar</code></td>
-      <td style="text-align: center">Show Colorbar</td>
-      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">0</code>: no, <code class="language-plaintext highlighter-rouge">1</code>: yes</td>
-    </tr>
-    <tr>
-      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcFeature</code></td>
-      <td style="text-align: center">Set extended Feature</td>
-      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">0</code>: off</td>
-    </tr>
-    <tr>
-      <td style="text-align: center"> </td>
-      <td style="text-align: center"> </td>
-      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">1</code>: Reduced FPS mode, which reduces framerate and also increases exposure time to improve low light performance.</td>
-    </tr>
-    <tr>
-      <td style="text-align: center"> </td>
-      <td style="text-align: center"> </td>
-      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">2</code>: Nightmode, which further increases exposure time and lowers the framerate depending on available light.</td>
-    </tr>
-    <tr>
       <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcBrightness</code></td>
       <td style="text-align: center">Image brightness</td>
       <td style="text-align: center"><code class="language-plaintext highlighter-rouge">-2</code>, <code class="language-plaintext highlighter-rouge">-1</code>, <code class="language-plaintext highlighter-rouge">0</code>, <code class="language-plaintext highlighter-rouge">1</code>, <code class="language-plaintext highlighter-rouge">2</code></td>
@@ -1071,7 +1071,7 @@ sudo mkdir tasmota32
     <tr>
       <td style="text-align: center"> </td>
       <td style="text-align: center"> </td>
-      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">3</code>: orange</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">3</code>: red</td>
     </tr>
     <tr>
       <td style="text-align: center"> </td>

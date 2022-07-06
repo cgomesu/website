@@ -510,8 +510,12 @@ A full list of commands for ESP32 devices can be found at [the official docs pag
 | `WcStats` | Show webcam related statistics | - |
 | `WcInit` | Initializes the HTTP webcam server | - |
 | `WcStream` | Controls the video streaming | `0`: stop, `1`: start |
+| `WcRtsp` | RTSP server | `0`: disable, `1`: enable (forces a restart) |
+| `WcColorbar` | Show Colorbar | `0`: no, `1`: yes |
+| `WcFeature` | Set extended Feature | `0`: off |
+|  |  | `1`: Reduced FPS mode, which reduces framerate and also increases exposure time to improve low light performance. |
+|  |  | `2`: Nightmode, which further increases exposure time and lowers the framerate depending on available light. |
 | `WCFlip` | Flips the image vertically | `1`, `0` |
-| `WcRtsp` | RTSP server | `0`: disable, `1`: enable |
 | `WCMirror` | Flips the image horizontally | `1`, `0` |
 | `WcResolution` | Image resolution | `0`: `FRAMESIZE 96x96` |
 |  |  | `1`: `FRAMESIZE 160x120` |
@@ -527,17 +531,13 @@ A full list of commands for ESP32 devices can be found at [the official docs pag
 |  |  | `11`: `FRAMESIZE 1280x720` |
 |  |  | `12`: `FRAMESIZE 1280x1024` |
 |  |  | `13`: `FRAMESIZE 1600x1200` |
-| `WcColorbar` | Show Colorbar | `0`: no, `1`: yes |
-| `WcFeature` | Set extended Feature | `0`: off |
-|  |  | `1`: Reduced FPS mode, which reduces framerate and also increases exposure time to improve low light performance. |
-|  |  | `2`: Nightmode, which further increases exposure time and lowers the framerate depending on available light. |
 | `WcBrightness` | Image brightness | `-2`, `-1`, `0`, `1`, `2` |
 | `WcContrast` | Image contrast | `-2`, `-1`, `0`, `1`, `2` |
 | `WcSaturation` | Image saturation | `-2`, `-1`, `0`, `1`, `2` |
 | `WcSpecialEffect` | Set Special Picture Effect | `0`: off |
 |  |  | `1`: inverted |
 |  |  | `2`: black and white |
-|  |  | `3`: orange |
+|  |  | `3`: red |
 |  |  | `4`: green |
 |  |  | `5`: blue |
 |  |  | `6`: yellow |
