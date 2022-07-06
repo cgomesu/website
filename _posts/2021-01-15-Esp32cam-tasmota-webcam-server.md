@@ -11,11 +11,14 @@ toc_icon: "list"
 ---
 
 # Changelog
+**Jul 6th, 2022**: Tasmota version 12.02 has been recently released and it introduces a few additional features relative to its previous iterations.  Most notably, the previous issue with the stable firmware version (see changelog from Feb 11th, 2022) has been fixed in the current stable.  In addition, a [pull request](https://github.com/arendst/Tasmota/pull/15531) by [@philrich](https://github.com/philrich) added support to several OV2640 features that were not contemplated in the previous firmware versions.  More specifically, version 12.02 includes commands for SpecialEffect, White Balance, Exposure Control, Gain Control, White/Black Pixel Correct, DCW, Gamma Correction, Lens Correction, Nightmode, and Reduced FPS mode.  These new commands were all added to the [table of additional webcam commands](#webcam-server-additional-configurations).  Thanks to Eric for letting me know about these changes.
+{: .notice--info }
+
 **May 5th, 2022**: I decided to add a new sub-section called [Backup](#backup) to remind everyone that Tasmota has a very useful configuration backup system that allows users to restore all settings in case something goes terribly wrong with the device.  It only takes a few clicks and will save you a lot of time, so don't skip it!
 {: .notice--info }
 
 **Feb 11th, 2022**: It seems that the version of the `tasmota32-webcam.bin` firmware that contains the bug fix I referred to on December 13th has not made its way to the latest *stable release* yet and is actually only available in the ***development release*** binaries instead.  For this reason, I suggest to download and install the *development* binary when following the instructions in the section [Flashing Tasmota32 webcam server](#flashing-tasmota32-webcam-server).  Thanks to Hans for letting me know about this issue.
-{: .notice--warning }
+{: .notice--info }
 
 **Dec 22nd, 2021**: Included more information about power supply to the [Standalone wiring](#standalone-wiring) section and appended one more relevant `SetOption` to the [SetOption configurations](#setoption-configurations) section, namely `S065`, which controls the fast power cycle detection. I also wrote a note to the [Wiring and template configuration](#wiring-and-template-configuration) subsection of [Customizing the tasmota32-webcam firmware](#customizing-the-tasmota32-webcam-firmware) to mention that the referred GPIO pins are currently assigned to SPI-related components but can be safely freed up to be used with peripherals instead.
 {: .notice--info }
@@ -499,15 +502,16 @@ As of release `9.5.0`, it is possible to use [Real Time Streaming Protocol (RTSP
 Currently, the RTSP server only needs to be enabled once.  So, contrary to `WcInit`, we won't need to write a new rule to re-enable it at boot.  Of note, the RTSP server is independent of the HTTP one.  In addition, I've only tested it with VLC and [there are reports of compatibility issues with other players](https://github.com/arendst/Tasmota/issues/9293#issuecomment-720108532).
 
 ## Webcam server additional configurations
-A full list of commands for ESP32 devices can be found at [the official docs page](https://tasmota.github.io/docs/Commands/#esp32).  However, by the time I finished writing this, many of the commands that are specific to the Tasmota32 webcam server binary were gone... I'm not sure what happened there.  For this reason, I've decided to post here all the additional commands (`wc`) that I'm aware of (in alphabetical order):
+A full list of commands for ESP32 devices can be found at [the official docs page](https://tasmota.github.io/docs/Commands/#esp32).  However, several commands that are specific to the Tasmota32 webcam server binary are often not documented there.  For this reason, I've decided to post below all the additional commands (`wc`) that I'm aware of.
 
 | Command | Definition | Values |
 |:---:|:---:|:---:|
 | `Wc` | Displays all the current webcam settings | - |
-| `WcBrightness` | Image brightness | `-2`, `-1`, `0`, `1`, `2` |
-| `WcContrast` | Image contrast | `-2`, `-1`, `0`, `1`, `2` |
-| `WCFlip` | Flips the image vertically | `1`, `0` |
+| `WcStats` | Show webcam related statistics | - |
 | `WcInit` | Initializes the HTTP webcam server | - |
+| `WcStream` | Controls the video streaming | `0`: stop, `1`: start |
+| `WCFlip` | Flips the image vertically | `1`, `0` |
+| `WcRtsp` | RTSP server | `0`: disable, `1`: enable |
 | `WCMirror` | Flips the image horizontally | `1`, `0` |
 | `WcResolution` | Image resolution | `0`: `FRAMESIZE 96x96` |
 |  |  | `1`: `FRAMESIZE 160x120` |
@@ -523,9 +527,35 @@ A full list of commands for ESP32 devices can be found at [the official docs pag
 |  |  | `11`: `FRAMESIZE 1280x720` |
 |  |  | `12`: `FRAMESIZE 1280x1024` |
 |  |  | `13`: `FRAMESIZE 1600x1200` |
-| `WcRtsp` | RTSP server | `0`: disable, `1`: enable |
+| `WcColorbar` | Show Colorbar | `0`: no, `1`: yes |
+| `WcFeature` | Set extended Feature | `0`: off |
+|  |  | `1`: Reduced FPS mode, which reduces framerate and also increases exposure time to improve low light performance. |
+|  |  | `2`: Nightmode, which further increases exposure time and lowers the framerate depending on available light. |
+| `WcBrightness` | Image brightness | `-2`, `-1`, `0`, `1`, `2` |
+| `WcContrast` | Image contrast | `-2`, `-1`, `0`, `1`, `2` |
 | `WcSaturation` | Image saturation | `-2`, `-1`, `0`, `1`, `2` |
-| `WcStream` | Controls the video streaming | `0`: stop, `1`: start |
+| `WcSpecialEffect` | Set Special Picture Effect | `0`: off |
+|  |  | `1`: inverted |
+|  |  | `2`: black and white |
+|  |  | `3`: orange |
+|  |  | `4`: green |
+|  |  | `5`: blue |
+|  |  | `6`: yellow |
+| `WcAWB` | Auto White Balance | `0`: no, `1`: yes |
+| `WcWBMode` | White Balance Mode | `0`: auto, `1`: manual |
+| `WcAWBGain` | Auto White Balance Gain | `0`: no, `1`: yes |
+| `WcAEC` | Auto exposure control (Sensor) | `0`: no, `1`: yes |
+| `WcAECDSP` | Auto exposure control (DSP) | `0`: no, `1`: yes |
+| `WcAECValue` | Auto exposure control value | `0`, ..., `1024` |
+| `WcAECLevel` | Auto exposure control level | `-2`, ..., `+2` |
+| `WcAGC` | Auto gain control | `0`: no, `1`: yes |
+| `WcAGCGain` | Auto gain control gain | `0`, ..., `30` |
+| `WcGainCeiling` |  Gain ceiling | `0`, ..., `6` |
+| `WcGammaCorrect` | Auto Gamma Correct | `0`: no, `1`: yes |
+| `WcLensCorrect` | Auto Lens Correct | `0`: no, `1`: yes |
+| `WcWPC` | White Pixel Correct | `0`: no, `1`: yes |
+| `WcDCW` | Downscale | `0`: no, `1`: yes |
+| `WcBPC` | Black Pixel Correct | `0`: no, `1`: yes |
 
 
 For example, to set the stream resolution to 800x600, go to the **Console** and enter the following command :

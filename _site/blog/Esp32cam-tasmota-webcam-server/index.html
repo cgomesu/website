@@ -200,7 +200,7 @@
 
 
 
-  59 minute read
+  61 minute read
 
 </p>
       
@@ -387,9 +387,11 @@
           </aside>
         
         <h1 id="changelog">Changelog</h1>
+<p class="notice--info"><strong>Jul 6th, 2022</strong>: Tasmota version 12.02 has been recently released and it introduces a few additional features relative to its previous iterations.  Most notably, the previous issue with the stable firmware version (see changelog from Feb 11th, 2022) has been fixed in the current stable.  In addition, a <a href="https://github.com/arendst/Tasmota/pull/15531">pull request</a> by <a href="https://github.com/philrich">@philrich</a> added support to several OV2640 features that were not contemplated in the previous firmware versions.  More specifically, version 12.02 includes commands for SpecialEffect, White Balance, Exposure Control, Gain Control, White/Black Pixel Correct, DCW, Gamma Correction, Lens Correction, Nightmode, and Reduced FPS mode.  These new commands were all added to the <a href="#webcam-server-additional-configurations">table of additional webcam commands</a>.  Thanks to Eric for letting me know about these changes.</p>
+
 <p class="notice--info"><strong>May 5th, 2022</strong>: I decided to add a new sub-section called <a href="#backup">Backup</a> to remind everyone that Tasmota has a very useful configuration backup system that allows users to restore all settings in case something goes terribly wrong with the device.  It only takes a few clicks and will save you a lot of time, so don’t skip it!</p>
 
-<p class="notice--warning"><strong>Feb 11th, 2022</strong>: It seems that the version of the <code class="language-plaintext highlighter-rouge">tasmota32-webcam.bin</code> firmware that contains the bug fix I referred to on December 13th has not made its way to the latest <em>stable release</em> yet and is actually only available in the <strong><em>development release</em></strong> binaries instead.  For this reason, I suggest to download and install the <em>development</em> binary when following the instructions in the section <a href="#flashing-tasmota32-webcam-server">Flashing Tasmota32 webcam server</a>.  Thanks to Hans for letting me know about this issue.</p>
+<p class="notice--info"><strong>Feb 11th, 2022</strong>: It seems that the version of the <code class="language-plaintext highlighter-rouge">tasmota32-webcam.bin</code> firmware that contains the bug fix I referred to on December 13th has not made its way to the latest <em>stable release</em> yet and is actually only available in the <strong><em>development release</em></strong> binaries instead.  For this reason, I suggest to download and install the <em>development</em> binary when following the instructions in the section <a href="#flashing-tasmota32-webcam-server">Flashing Tasmota32 webcam server</a>.  Thanks to Hans for letting me know about this issue.</p>
 
 <p class="notice--info"><strong>Dec 22nd, 2021</strong>: Included more information about power supply to the <a href="#standalone-wiring">Standalone wiring</a> section and appended one more relevant <code class="language-plaintext highlighter-rouge">SetOption</code> to the <a href="#setoption-configurations">SetOption configurations</a> section, namely <code class="language-plaintext highlighter-rouge">S065</code>, which controls the fast power cycle detection. I also wrote a note to the <a href="#wiring-and-template-configuration">Wiring and template configuration</a> subsection of <a href="#customizing-the-tasmota32-webcam-firmware">Customizing the tasmota32-webcam firmware</a> to mention that the referred GPIO pins are currently assigned to SPI-related components but can be safely freed up to be used with peripherals instead.</p>
 
@@ -900,7 +902,7 @@ sudo mkdir tasmota32
 <p>Currently, the RTSP server only needs to be enabled once.  So, contrary to <code class="language-plaintext highlighter-rouge">WcInit</code>, we won’t need to write a new rule to re-enable it at boot.  Of note, the RTSP server is independent of the HTTP one.  In addition, I’ve only tested it with VLC and <a href="https://github.com/arendst/Tasmota/issues/9293#issuecomment-720108532">there are reports of compatibility issues with other players</a>.</p>
 
 <h2 id="webcam-server-additional-configurations">Webcam server additional configurations</h2>
-<p>A full list of commands for ESP32 devices can be found at <a href="https://tasmota.github.io/docs/Commands/#esp32">the official docs page</a>.  However, by the time I finished writing this, many of the commands that are specific to the Tasmota32 webcam server binary were gone… I’m not sure what happened there.  For this reason, I’ve decided to post here all the additional commands (<code class="language-plaintext highlighter-rouge">wc</code>) that I’m aware of (in alphabetical order):</p>
+<p>A full list of commands for ESP32 devices can be found at <a href="https://tasmota.github.io/docs/Commands/#esp32">the official docs page</a>.  However, several commands that are specific to the Tasmota32 webcam server binary are often not documented there.  For this reason, I’ve decided to post below all the additional commands (<code class="language-plaintext highlighter-rouge">wc</code>) that I’m aware of.</p>
 
 <table>
   <thead>
@@ -917,14 +919,19 @@ sudo mkdir tasmota32
       <td style="text-align: center">-</td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcBrightness</code></td>
-      <td style="text-align: center">Image brightness</td>
-      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">-2</code>, <code class="language-plaintext highlighter-rouge">-1</code>, <code class="language-plaintext highlighter-rouge">0</code>, <code class="language-plaintext highlighter-rouge">1</code>, <code class="language-plaintext highlighter-rouge">2</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcStats</code></td>
+      <td style="text-align: center">Show webcam related statistics</td>
+      <td style="text-align: center">-</td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcContrast</code></td>
-      <td style="text-align: center">Image contrast</td>
-      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">-2</code>, <code class="language-plaintext highlighter-rouge">-1</code>, <code class="language-plaintext highlighter-rouge">0</code>, <code class="language-plaintext highlighter-rouge">1</code>, <code class="language-plaintext highlighter-rouge">2</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcInit</code></td>
+      <td style="text-align: center">Initializes the HTTP webcam server</td>
+      <td style="text-align: center">-</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcStream</code></td>
+      <td style="text-align: center">Controls the video streaming</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">0</code>: stop, <code class="language-plaintext highlighter-rouge">1</code>: start</td>
     </tr>
     <tr>
       <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WCFlip</code></td>
@@ -932,9 +939,9 @@ sudo mkdir tasmota32
       <td style="text-align: center"><code class="language-plaintext highlighter-rouge">1</code>, <code class="language-plaintext highlighter-rouge">0</code></td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcInit</code></td>
-      <td style="text-align: center">Initializes the HTTP webcam server</td>
-      <td style="text-align: center">-</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcRtsp</code></td>
+      <td style="text-align: center">RTSP server</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">0</code>: disable, <code class="language-plaintext highlighter-rouge">1</code>: enable</td>
     </tr>
     <tr>
       <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WCMirror</code></td>
@@ -1012,9 +1019,34 @@ sudo mkdir tasmota32
       <td style="text-align: center"><code class="language-plaintext highlighter-rouge">13</code>: <code class="language-plaintext highlighter-rouge">FRAMESIZE 1600x1200</code></td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcRtsp</code></td>
-      <td style="text-align: center">RTSP server</td>
-      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">0</code>: disable, <code class="language-plaintext highlighter-rouge">1</code>: enable</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcColorbar</code></td>
+      <td style="text-align: center">Show Colorbar</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">0</code>: no, <code class="language-plaintext highlighter-rouge">1</code>: yes</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcFeature</code></td>
+      <td style="text-align: center">Set extended Feature</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">0</code>: off</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">1</code>: Reduced FPS mode, which reduces framerate and also increases exposure time to improve low light performance.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">2</code>: Nightmode, which further increases exposure time and lowers the framerate depending on available light.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcBrightness</code></td>
+      <td style="text-align: center">Image brightness</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">-2</code>, <code class="language-plaintext highlighter-rouge">-1</code>, <code class="language-plaintext highlighter-rouge">0</code>, <code class="language-plaintext highlighter-rouge">1</code>, <code class="language-plaintext highlighter-rouge">2</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcContrast</code></td>
+      <td style="text-align: center">Image contrast</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">-2</code>, <code class="language-plaintext highlighter-rouge">-1</code>, <code class="language-plaintext highlighter-rouge">0</code>, <code class="language-plaintext highlighter-rouge">1</code>, <code class="language-plaintext highlighter-rouge">2</code></td>
     </tr>
     <tr>
       <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcSaturation</code></td>
@@ -1022,9 +1054,114 @@ sudo mkdir tasmota32
       <td style="text-align: center"><code class="language-plaintext highlighter-rouge">-2</code>, <code class="language-plaintext highlighter-rouge">-1</code>, <code class="language-plaintext highlighter-rouge">0</code>, <code class="language-plaintext highlighter-rouge">1</code>, <code class="language-plaintext highlighter-rouge">2</code></td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcStream</code></td>
-      <td style="text-align: center">Controls the video streaming</td>
-      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">0</code>: stop, <code class="language-plaintext highlighter-rouge">1</code>: start</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcSpecialEffect</code></td>
+      <td style="text-align: center">Set Special Picture Effect</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">0</code>: off</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">1</code>: inverted</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">2</code>: black and white</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">3</code>: orange</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">4</code>: green</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">5</code>: blue</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">6</code>: yellow</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcAWB</code></td>
+      <td style="text-align: center">Auto White Balance</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">0</code>: no, <code class="language-plaintext highlighter-rouge">1</code>: yes</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcWBMode</code></td>
+      <td style="text-align: center">White Balance Mode</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">0</code>: auto, <code class="language-plaintext highlighter-rouge">1</code>: manual</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcAWBGain</code></td>
+      <td style="text-align: center">Auto White Balance Gain</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">0</code>: no, <code class="language-plaintext highlighter-rouge">1</code>: yes</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcAEC</code></td>
+      <td style="text-align: center">Auto exposure control (Sensor)</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">0</code>: no, <code class="language-plaintext highlighter-rouge">1</code>: yes</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcAECDSP</code></td>
+      <td style="text-align: center">Auto exposure control (DSP)</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">0</code>: no, <code class="language-plaintext highlighter-rouge">1</code>: yes</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcAECValue</code></td>
+      <td style="text-align: center">Auto exposure control value</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">0</code>, …, <code class="language-plaintext highlighter-rouge">1024</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcAECLevel</code></td>
+      <td style="text-align: center">Auto exposure control level</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">-2</code>, …, <code class="language-plaintext highlighter-rouge">+2</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcAGC</code></td>
+      <td style="text-align: center">Auto gain control</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">0</code>: no, <code class="language-plaintext highlighter-rouge">1</code>: yes</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcAGCGain</code></td>
+      <td style="text-align: center">Auto gain control gain</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">0</code>, …, <code class="language-plaintext highlighter-rouge">30</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcGainCeiling</code></td>
+      <td style="text-align: center">Gain ceiling</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">0</code>, …, <code class="language-plaintext highlighter-rouge">6</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcGammaCorrect</code></td>
+      <td style="text-align: center">Auto Gamma Correct</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">0</code>: no, <code class="language-plaintext highlighter-rouge">1</code>: yes</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcLensCorrect</code></td>
+      <td style="text-align: center">Auto Lens Correct</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">0</code>: no, <code class="language-plaintext highlighter-rouge">1</code>: yes</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcWPC</code></td>
+      <td style="text-align: center">White Pixel Correct</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">0</code>: no, <code class="language-plaintext highlighter-rouge">1</code>: yes</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcDCW</code></td>
+      <td style="text-align: center">Downscale</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">0</code>: no, <code class="language-plaintext highlighter-rouge">1</code>: yes</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">WcBPC</code></td>
+      <td style="text-align: center">Black Pixel Correct</td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">0</code>: no, <code class="language-plaintext highlighter-rouge">1</code>: yes</td>
     </tr>
   </tbody>
 </table>
