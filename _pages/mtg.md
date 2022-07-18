@@ -8,9 +8,14 @@ header:
   overlay_image: /assets/img/site/banner-page-06.jpeg
   caption: "by [**Terese Nielsen**](https://en.wikipedia.org/wiki/Terese_Nielsen)"
 excerpt: "My decklists and primers."
-intro: 
-  - excerpt: "I've been playing MtG for a long time now, and as of late, I only play and follow Legacy, Vintage, and EDH formats.  The following is a few selected decklists that I created and have played with.  You'll find detailed descriptions of each in the accompanying links.  They're ordered by popularity."
+intro:
+  - excerpt: "I've been playing MtG for a long time now, and as of late, I only play and follow Legacy, Vintage, and EDH formats.  The following is a few selected decklists that I created and have played with.  You'll find detailed descriptions of each in the accompanying links.  (Ordered by format.)"
 feature_row:
+  - title: "Ragavan, Nimble Pilferer"
+    excerpt: "'Planet of the Monkey' is my Ragavan (R) control-voltron list for competitive 1v1 EDH.  (1v1 EDH)"
+    url: "https://tappedout.net/mtg-decks/planet-of-the-monkey-1v1-cedh-ragavan/"
+    btn_label: "View deck"
+    btn_class: "btn--success"
   - title: "Marath, Will of the Wild"
     excerpt: "A competitive Marath (GRW, Naya) Combo deck.  (Multiplayer EDH)"
     url: "https://tappedout.net/mtg-decks/competitive-marath-grw-naya-combo/"
@@ -24,11 +29,6 @@ feature_row:
   - title: "Akiri-Bruse"
     excerpt: "A competitive Akiri-Bruse (RW, Japan) Aggro-Control deck.  (Multiplayer EDH)"
     url: "https://tappedout.net/mtg-decks/akiri-bruse-rw-aggro-control/"
-    btn_label: "View deck"
-    btn_class: "btn--success"
-  - title: "GW Cataclysm loam"
-    excerpt: "A mid-range deck that resembles Maverik but uses Cataclysm for board control and Life from the Loam + Scroll Rack as card advantage engine.  (Legacy)"
-    url: "https://tappedout.net/mtg-decks/gw-cataclysm-loam/"
     btn_label: "View deck"
     btn_class: "btn--success"
   - title: "Deadguy Ale - Land Tax variation"
