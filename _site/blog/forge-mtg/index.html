@@ -1,0 +1,760 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.19.3 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Forge and XMage: The best free and open source rules engines for ‘Magic: the Gathering’ - CGomesu</title>
+<meta name="description" content="A blog and portfolio website built with Jekyll and hosted on Github Pages">
+
+
+  <meta name="author" content="Carlos Gomes">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="CGomesu">
+<meta property="og:title" content="Forge and XMage: The best free and open source rules engines for ‘Magic: the Gathering’">
+<meta property="og:url" content="/blog/forge-mtg/">
+
+
+  <meta property="og:description" content="A blog and portfolio website built with Jekyll and hosted on Github Pages">
+
+
+
+  <meta property="og:image" content="/assets/posts/2022-07-18-forge-mtg/header.jpg">
+
+
+
+
+
+  <meta property="article:published_time" content="2022-07-18T12:00:00-03:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="/blog/forge-mtg/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "",
+      "url": "/"
+    
+  }
+</script>
+
+
+  <meta name="google-site-verification" content="FA-B3i_TqYeaLPYwZvxxOsx07Coy_drBKJ0M_4DD0Gw" />
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="CGomesu Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="icon" href="/assets/img/site/favicon.ico" type="image/x-icon">
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/img/site/logo.png" alt=""></a>
+        
+        <a class="site-title" href="/">
+           
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/blog/">Blog</a>
+            </li><li class="masthead__menu-item">
+              <a href="/contact/">Contact</a>
+            </li><li class="masthead__menu-item">
+              <a href="/mtg/">MtG</a>
+            </li><li class="masthead__menu-item">
+              <a href="/publications/">Publications</a>
+            </li><li class="masthead__menu-item">
+              <a href="/projects/">Projects</a>
+            </li><li class="masthead__menu-item">
+              <a href="/donations/">Donations</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style="background-color: #000; background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/assets/posts/2022-07-18-forge-mtg/header.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 id="page-title" class="page__title" itemprop="headline">
+        
+          Forge and XMage: The best free and open source rules engines for ‘Magic: the Gathering’
+
+        
+      </h1>
+      
+        <p class="page__lead">
+</p>
+      
+      
+        <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  17 minute read
+
+</p>
+      
+      
+      
+    </div>
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/img/profile/profile-00.jpg" alt="Carlos Gomes" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Carlos Gomes</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>I’m a scientist, psychologist, math modeler, programmer, mtg player, free knowledge supporter, sbc fanatic, and electronics hobbyist.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Learn more</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Brazil</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="mailto:me@cgomesu.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Main e-mail</span></a></li>
+          
+        
+          
+            <li><a href="/donations" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-donate" aria-hidden="true"></i><span class="label">Donations</span></a></li>
+          
+        
+          
+            <li><a href="https://cgomesu.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">https://cgomesu.com</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Forge and XMage: The best free and open source rules engines for ‘Magic: the Gathering’">
+    <meta itemprop="description" content="">
+    <meta itemprop="datePublished" content="2022-07-18T12:00:00-03:00">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-list"></i> Table of Contents</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#changelog">Changelog</a></li>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#overview">Overview</a></li>
+  <li><a href="#mtg-rules-engines">MtG rules engines</a>
+    <ul>
+      <li><a href="#forge">Forge</a>
+        <ul>
+          <li><a href="#gameplay-demo">Gameplay demo</a></li>
+          <li><a href="#getting-started">Getting started</a></li>
+          <li><a href="#installation">Installation</a></li>
+          <li><a href="#user-guide">User guide</a></li>
+        </ul>
+      </li>
+      <li><a href="#xmage">XMage</a>
+        <ul>
+          <li><a href="#getting-started-1">Getting started</a></li>
+          <li><a href="#installation-1">Installation</a></li>
+          <li><a href="#user-guide-1">User guide</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#contributing">Contributing</a>
+    <ul>
+      <li><a href="#reporting-issues">Reporting issues</a></li>
+      <li><a href="#cards-api">Cards API</a></li>
+      <li><a href="#engine-development">Engine development</a></li>
+    </ul>
+  </li>
+</ul>
+
+            </nav>
+          </aside>
+        
+        <h1 id="changelog">Changelog</h1>
+<p class="notice--info"><strong>July 18th, 2022</strong>: Publication of the original article</p>
+
+<h1 id="introduction">Introduction</h1>
+<p>I have been playing <a href="https://magic.wizards.com">Magic: the Gathering</a> (MtG) for as long as the game exists. If you have never heard about it before, MtG is a trading card game (TCG) created by <a href="#">Richard Garfield</a> and released in 1993 by <a href="#">Wizards of the Coast</a> (WotC). It is arguably the most successful TCG ever made and even though it was originally popularized as a paper format TCG, it has long been ported to digital formats. The main MtG client developed by WotC is called <a href="#">MTG Online</a> (MTGO) and it requires users to buy digital versions of paper Magic cards to trade and play with other users on private servers. The development of such client has gone through many changes over the years but most of the details are unknown to the public because MTGO is not open source and a large portion of its functionality happens in the cloud. On top of that, MTGO only runs on Windows, leaving many of us nix users (e.g., GNU/Linux, macOS) without official support.</p>
+
+<p><a href="/assets/posts/2022-07-18-forge-mtg/card-fow.jpg"><img src="/assets/posts/2022-07-18-forge-mtg/card-fow.jpg" alt="Card - FoW" class="PostImage" /></a></p>
+
+<p>Fortunately, there are <strong>free and open source software</strong> (FOSS) alternatives to MTGO that <strong>do not</strong> require users to buy digital objects (cards) to play MtG. In this article, I talked about two of the main MtG rules engines (RE) currently available for offline and online play: <strong>Forge</strong> and <strong>XMage</strong>. More specifically, the article covers the development and main features of the Forge and XMage REs, how to install and use each one of them, and how you can contribute to maintain their development because these two projects are essentially community-driven. This is possible and completely legal because just like no company can claim ownership over the game of <a href="https://en.wikipedia.org/wiki/Poker">poker</a>, WotC cannot claim ownership over the rules that constitute the game of MtG.</p>
+
+<p>If you are interested in using and learning more about Forge and XMage, then keep on reading. As it is customary with my articles, I try to keep them up-to-date to reflect my current knowledge about the content, so if this is not your first time here, make sure to check the <a href="#changelog">Changelog</a> for updates. Also, if you spot an error or disagree with something that I wrote or want to improve this article, feel free <a href="/contact">to get in touch with me</a>.</p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="overview">Overview</h1>
+<p>TODO</p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="mtg-rules-engines">MtG rules engines</h1>
+<p>The starting point of any game is a set of rules that tell us how the game is played. In most card games (e.g., <a href="https://en.wikipedia.org/wiki/Monte_Bank">monte bank</a>), this amounts to just a few basic rules that we can count on our fingers. In MtG, however, there are <strong>over 250 pages of rules</strong>, which are described in detail in the <a href="https://magic.wizards.com/en/rules">MtG Comprehensive Rules book</a>. As a player, you are not supposed to go over all such rules in order to play the game. In fact, most of us just learn the basics first (e.g., the concept of mana, card zones, casting, and win conditions), leaving the specifics to be learned as we play the game. Nonetheless, the sheer amount of specific rules in MtG does indicate that MtG is a complex game, and therefore, its digital implementation is non-trivial. This alone speaks volumes about the individuals who have taken for themselves the task of implementing the game, especially those who have done so without the support of a business, and the development of both Forge and XMage falls very much into such category.</p>
+
+<p>Forge and XMage have in common the fact that they are both written in <a href="https://en.wikipedia.org/wiki/Java_(programming_language)"><strong>Java</strong></a>–a mature and object oriented language–which makes them easily portable. In fact, contrary to MTGO, they run on pretty much any operating system. In addition, neither Forge nor XMage tries to simply emulate MTGO features; they actually introduce many <strong>new features</strong>. A major and common one is that both Forge and XMage allow users <strong>to play against the computer (AI)</strong>. In addition, because both applications are free to use, it is not necessary to make any financial investment to play MtG, whereas buying MTGO cards can sometimes feel more like buying stocks than playing a card game.</p>
+
+<p class="notice--warning">After that last point, I feel I should note that MTGO outshines any other MtG RE <strong>by a huge margin</strong> when it comes to <strong>online play</strong>. The community around it and the events are definitely unique and in my opinion, the strongest features of MTGO and I dare say, worth your money if you are into MtG.</p>
+
+<p>However, even though Forge and XMage are both MtG REs, they are not mutually exclusive implementations of the game. Forge, on the one hand, has very unique play modes for single player, such as <strong>Quests</strong>, which are reminiscent of the old <a href="#">Shandalar</a> MtG game by MicroPose. XMage, on the other hand, has a very reliable implementation of <strong>online play</strong>, which is quite unreliable in Forge. In other words, each RE has its strengths and weaknesses, which I summarized in the following table:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Engine</th>
+      <th style="text-align: center">Strengths</th>
+      <th style="text-align: center">Weaknesses</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">Forge</td>
+      <td style="text-align: center">Various single player modes for <strong>offline play</strong> against the computer. Beautiful and customizable graphical interface. Runs on mobile (Android) as well as desktop. Supports card scripting. Supports almost every single card in MtG.</td>
+      <td style="text-align: center">The AI will occasionally make very dumb plays–it’s said that the AI works best with aggro strategies, as opposed to combos. Even though networking features exist for online play, it is quite unreliable.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">XMage</td>
+      <td style="text-align: center">Large community and arguably the most mature (unofficial) MtG RE available. Solid implementation for multiplayer, human vs. human, and <strong>online play</strong>.</td>
+      <td style="text-align: center">Does not support card scripting. Installation and development can be challenging for unfamiliar and non-tech users.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="notice--info">For more comparisons, refer to the <a href="https://www.slightlymagic.net/wiki/List_of_MTG_Engines">Slightly Magic wiki list of MtG REs</a>.</p>
+
+<p>In brief, my opinion is that if you are looking for a single player experience, then try Forge. Now, if you want to play with friends online, then try XMage. Are you unsure? Try both! I think they are both great examples of FOSS applied to gaming and they complement each other in many aspects.  In any case, check the following sections for specifics about each of those MtG REs.</p>
+
+<h2 id="forge">Forge</h2>
+<p>Forge was originally written by a single individual (<a href="https://mtgrares.blogspot.com/">mtgrares</a>) around the mid-2000s but the project has grown a lot ever since and is now <a href="https://github.com/Card-Forge/forge/graphs/contributors">maintained by a large number of contributors</a>. It has been particularly active ever since 2017 and its repository is currently being hosted on Github (<a href="https://github.com/Card-Forge/forge">Card-Forge/forge</a>). Of note, Forge has both a <strong>desktop release</strong>, which is the main focus of this guide, and a mobile (Android) release, which is not covered in this guide but information about the installation of the <code class="language-plaintext highlighter-rouge">apk</code> is mentioned below.</p>
+
+<p><a href="/assets/posts/2022-07-18-forge-mtg/forge-gui-01.png"><img src="/assets/posts/2022-07-18-forge-mtg/forge-gui-01.png" alt="Forge - GUI" class="PostImage PostImage--large" /></a></p>
+
+<p>As mentioned before, Forge features a very unique (<em>and hella fun!</em>) set of single player modes, namely <strong>Quest mode</strong>, <strong>Puzzle mode</strong>, and <strong>Gauntlets</strong>. The Quest mode plays like an RPG game in which you can improve your deck over battles against the computer. The Puzzle mode is pretty much self-explanatory: it gives you MtG puzzles to solve, such as how to win given a board state. Finally, the Gauntlets consist of a group of customizable players that play each other in a tournament-like fashion.</p>
+
+<p><a href="/assets/posts/2022-07-18-forge-mtg/forge-gui-quest.png"><img src="/assets/posts/2022-07-18-forge-mtg/forge-gui-quest.png" alt="Forge - GUI - Quest" class="PostImage" /></a></p>
+
+<p><a href="/assets/posts/2022-07-18-forge-mtg/forge-gui-puzzle.png"><img src="/assets/posts/2022-07-18-forge-mtg/forge-gui-puzzle.png" alt="Forge - GUI - Puzzle" class="PostImage" /></a></p>
+
+<p><a href="/assets/posts/2022-07-18-forge-mtg/forge-gui-gauntlet.png"><img src="/assets/posts/2022-07-18-forge-mtg/forge-gui-gauntlet.png" alt="Forge - GUI - Gauntlet" class="PostImage" /></a></p>
+
+<p>As it would be expected from an MtG RE, Forge also features a full blown <strong>deck editor</strong>. The editor lets users customize existing decks, build new ones, import from other applications, websites or <code class="language-plaintext highlighter-rouge">txt</code>, and also export decks created with Forge to other applications.</p>
+
+<p><a href="/assets/posts/2022-07-18-forge-mtg/forge-gui-editor.png"><img src="/assets/posts/2022-07-18-forge-mtg/forge-gui-editor.png" alt="Forge - GUI - Editor" class="PostImage PostImage--large" /></a></p>
+
+<p>Interface-wise, Forge is actually my favorite MtG RE. Almost everything can be edited to the user’s liking and they even have a <strong>theme</strong> selector feature. (<code class="language-plaintext highlighter-rouge">Magic blue</code> is my favorite one.)</p>
+
+<p><a href="/assets/posts/2022-07-18-forge-mtg/forge-gui-02.png"><img src="/assets/posts/2022-07-18-forge-mtg/forge-gui-02.png" alt="Forge - GUI - Alt 02" class="PostImage" /></a></p>
+
+<p><a href="/assets/posts/2022-07-18-forge-mtg/forge-gui-03.png"><img src="/assets/posts/2022-07-18-forge-mtg/forge-gui-03.png" alt="Forge - GUI - Alt 03" class="PostImage" /></a></p>
+
+<h3 id="gameplay-demo">Gameplay demo</h3>
+
+<!-- Courtesy of embedresponsively.com //-->
+<div class="responsive-video-container">
+
+  <iframe src="https://www.youtube-nocookie.com/embed/vypv4nmwwtE" frameborder="0" allowfullscreen=""></iframe>
+
+</div>
+
+<h3 id="getting-started">Getting started</h3>
+<p>Forge requires a <strong>Java Runtime Environment</strong> (JRE) to run the desktop application and a screen resolution of at least <strong>1024x768</strong> (the bigger, the better). In my experience, the application can be a bit memory hungry at times but anything with at least <strong>4GB of RAM</strong> should be just fine.</p>
+
+<p>For reference, the following table shows the versions of the software I used at the time of writing:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">application</th>
+      <th style="text-align: center">version</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">java</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">openjdk 11.0.15 2022-04-19</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">forge</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">1.6.53</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For information about how to install JRE and Forge, take a look at the next section.</p>
+
+<h3 id="installation">Installation</h3>
+<ul>
+  <li>
+    <p><strong>Requirements</strong></p>
+
+    <p>As before, Forge requires JRE to run, so <a href="https://www.java.com/download/">download and install Java on your machine</a>. If you are running GNU/Linux, you can check whether Java is already installed (and reachable via your user’s <code class="language-plaintext highlighter-rouge">$PATH</code>) via terminal, as follows:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>which java
+</code></pre></div>    </div>
+
+    <p>which should output the full path to your Java application. If it doesn’t find anything, then you gonna have to install it.  In <code class="language-plaintext highlighter-rouge">apt</code>-based distributions, such as Debian and Ubuntu, you can install the OpenJDK 11 JRE as follows:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt update
+sudo apt install default-jre
+</code></pre></div>    </div>
+
+    <p class="notice--info">If your distro does not use <code class="language-plaintext highlighter-rouge">apt</code> as package manager, just change the previous command to match whatever package manager you use. <strong>Alternatively</strong>, use the download link mentioned before to download the official JRE and follow the instructions mentioned there instead.</p>
+
+    <p>then check its version to make sure <code class="language-plaintext highlighter-rouge">java</code> is now reachable and is associated to the <code class="language-plaintext highlighter-rouge">apt</code> OpenJDK version we installed before:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java --version
+</code></pre></div>    </div>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openjdk 11.0.15 2022-04-19
+OpenJDK Runtime Environment (build 11.0.15+10-post-Debian-1deb11u1)
+OpenJDK 64-Bit Server VM (build 11.0.15+10-post-Debian-1deb11u1, mixed mode, sharing)
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Download and install Forge</strong></p>
+
+    <p>Forge for desktop has <strong>stable</strong> and <strong>snapshot</strong> releases.  As the name suggests, snapshot are edge releases that contain the latest changes from source that have not been thoroughly tested, while stable releases contain changes that have been tested before. Most users should favor the <strong>stable release</strong> over snapshot. The stable desktop releases can be found at the following website:</p>
+
+    <ul>
+      <li><a href="https://releases.cardforge.org/forge/forge-gui-desktop/">https://releases.cardforge.org/forge/forge-gui-desktop/</a></li>
+    </ul>
+
+    <p>then look for the latest release version (e.g., <code class="language-plaintext highlighter-rouge">1.6.53</code>), which you can check by looking at the dates or comparing against the <a href="https://github.com/Card-Forge/forge/tags">tags in the official repository</a>, and download then the associated <code class="language-plaintext highlighter-rouge">.tar.bz2</code> (and optionally, its <code class="language-plaintext highlighter-rouge">.md5</code> hash to make sure the downloaded file matches the remote). Alternatively, you might want to try the following to download the latest Forge tarball and hash via terminal:</p>
+
+    <ul>
+      <li>make sure <code class="language-plaintext highlighter-rouge">curl</code> and <code class="language-plaintext highlighter-rouge">jq</code> are installed:
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt install curl jq
+</code></pre></div>        </div>
+      </li>
+      <li>move into this user’s Downloads dir:
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd ~/Downloads/
+</code></pre></div>        </div>
+      </li>
+      <li>create a variable that stores de latest Forge version, according to the github repo:
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FORGE_LATEST=$(curl https://api.github.com/repos/Card-Forge/forge/tags | jq -r '.[0].name' | grep -oE "[[:digit:]]{1}\.+[[:digit:]]+\.+[[:digit:]]+")
+</code></pre></div>        </div>
+      </li>
+      <li>download the latest Forge files from cardforge.org:
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -O "https://releases.cardforge.org/forge/forge-gui-desktop/$FORGE_LATEST/forge-gui-desktop-$FORGE_LATEST.tar.bz2"
+curl -O "https://releases.cardforge.org/forge/forge-gui-desktop/$FORGE_LATEST/forge-gui-desktop-$FORGE_LATEST.tar.bz2.md5"
+</code></pre></div>        </div>
+      </li>
+      <li>after downloading the files, check hashes:
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo "$(cat forge-gui-desktop-$FORGE_LATEST.tar.bz2.md5) forge-gui-desktop-$FORGE_LATEST.tar.bz2" | md5sum -c
+</code></pre></div>        </div>
+      </li>
+    </ul>
+
+    <p>Once you have downloaded the tarball, extract it to a directory of your liking. Personally, I like to store such applications on a directory called <code class="language-plaintext highlighter-rouge">Applications</code> under my user’s <code class="language-plaintext highlighter-rouge">$HOME</code> (e.g., <code class="language-plaintext highlighter-rouge">/home/cgomesu/Applications/</code>):</p>
+
+    <ul>
+      <li>create an Applications dir for the current user if it doesn’t exist:
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if [ ! -d "$HOME/Applications/" ]; then mkdir "$HOME/Applications"; fi
+cd "$HOME/Applications/"
+</code></pre></div>        </div>
+      </li>
+      <li>extract the tarball into a subdir called forge-gui:
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir forge-gui
+tar -xvf "$HOME/Downloads/forge-gui-desktop-$FORGE_LATEST.tar.bz2" -C ./forge-gui/
+</code></pre></div>        </div>
+
+        <p class="notice--warning">If you have not declared and initialized a <code class="language-plaintext highlighter-rouge">FORGE_LATEST</code> variable before, then just edit the name of the tarball to match yours before running the command above.</p>
+      </li>
+    </ul>
+
+    <p>Now move into the newly created <code class="language-plaintext highlighter-rouge">forge-gui</code> dir</p>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd forge-gui/
+</code></pre></div>    </div>
+    <p>and at its root, you should find executables to start the application. For <strong>GNU/Linux</strong> and macOS users, there is a <strong>shell script</strong> called <code class="language-plaintext highlighter-rouge">forge.sh</code> that can be used to run Forge via the script’s shebang:</p>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./forge.sh
+</code></pre></div>    </div>
+    <p>or by calling <code class="language-plaintext highlighter-rouge">sh</code> directly:</p>
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sh forge.sh
+</code></pre></div>    </div>
+    <p>This will start loading the Forge’s graphical interface. If you run into issues, review your steps and then check the official <a href="https://github.com/Card-Forge/forge/wiki">Forge Wiki</a> for alternative instructions.</p>
+  </li>
+  <li>
+    <p><strong>Initial configuration</strong></p>
+
+    <p>Now that Forge is up and running, go to <strong>Game Settings</strong>. I usually take this opportunity to configure my <strong>Preferences</strong> to automatically download missing art (Game Settings &gt; Preferences &gt; Graphic Options &gt; Check ‘Automatically Download Missing Card Art’), which prompts Forge to download card art on demand. Afterwards, head to <strong>Content Downloaders</strong> and at the very least, go ahead and download the following items:</p>
+
+    <ul>
+      <li>Quest images</li>
+      <li>Achievement images</li>
+      <li>Card prices</li>
+      <li>Skins</li>
+    </ul>
+
+    <p>The other options will take a long time to complete, so I usually prefer to let the on-demand option we checked before to handle missing art.</p>
+
+    <p>Now, if you don’t feel like opening a terminal every time you want to run Forge, I strongly suggest you to create a custom <strong>launcher</strong> for it. In GNU/Linux, the specifics of how to create a launcher depends a lot on the distribution and more specifically, the desktop environment you are using (e.g., XFCE, GNOME, KDE). Here’s how my current launcher configuration looks like:</p>
+
+    <p><a href="/assets/posts/2022-07-18-forge-mtg/forge-xfce-launcher.png"><img src="/assets/posts/2022-07-18-forge-mtg/forge-xfce-launcher.png" alt="Forge - XFCE launcher" class="PostImage PostImage--large" /></a></p>
+
+    <p class="notice--info">My desktop environment of choice for Debian is <a href="https://www.xfce.org/">XFCE</a> and the maintainers have already documented <a href="https://docs.xfce.org/xfce/xfce4-panel/launcher">how to create custom launchers</a>, so I won’t cover such details here.</p>
+
+    <p>If you change location of your current Forge desktop application, you can simply edit the desktop launcher to point to the new directory under which the <code class="language-plaintext highlighter-rouge">forge.sh</code> helper script is located.</p>
+  </li>
+</ul>
+
+<h3 id="user-guide">User guide</h3>
+
+<h2 id="xmage">XMage</h2>
+
+<h3 id="getting-started-1">Getting started</h3>
+<h3 id="installation-1">Installation</h3>
+<ul>
+  <li>requisites</li>
+  <li>download</li>
+  <li>launcher
+    <h3 id="user-guide-1">User guide</h3>
+  </li>
+</ul>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="contributing">Contributing</h1>
+
+<h2 id="reporting-issues">Reporting issues</h2>
+
+<h2 id="cards-api">Cards API</h2>
+
+<h2 id="engine-development">Engine development</h2>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Posted on:</strong> <time datetime="2022-07-18T12:00:00-03:00">July 18, 2022</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="mailto:?subject=[cgomesu.com] Forge and XMage: The best free and open source rules engines for 'Magic: the Gathering'&amp;body=%2Fblog%2Fforge-mtg%2F " class="btn btn--inverse" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on E-mail"><i class="fas fa-envelope" aria-hidden="true"></i><span> E-mail</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2Fblog%2Fforge-mtg%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.reddit.com/submit?title=Forge and XMage: The best free and open source rules engines for 'Magic: the Gathering'&url=%2Fblog%2Fforge-mtg%2F" class="btn btn--reddit" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Reddit"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i><span> Reddit</span></a>
+
+  <a href="https://twitter.com/intent/tweet?text=Forge+and+XMage%3A+The+best+free+and+open+source+rules+engines+for+%27Magic%3A+the+Gathering%27%20%2Fblog%2Fforge-mtg%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/blog/diy-tasmota-bme280/" class="pagination--pager" title="DIY series: ESP-01 Tasmota environmental sensor
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search terms here...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search terms here..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/cgomesu" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          <li><a href="https://www.reddit.com/user/cgomesu/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i> Reddit</a></li>
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> RSS feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 CGomesu - Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> and <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a></div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>
