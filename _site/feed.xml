@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-07-20T14:48:15-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">Forge and XMage: The best free and open source rules engines for ‘Magic: the Gathering’</title><link href="/blog/forge-mtg/" rel="alternate" type="text/html" title="Forge and XMage: The best free and open source rules engines for ‘Magic: the Gathering’" /><published>2022-07-18T12:00:00-03:00</published><updated>2022-07-18T12:00:00-03:00</updated><id>/blog/forge-mtg</id><content type="html" xml:base="/blog/forge-mtg/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-07-20T22:10:54-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">Forge and XMage: The best free and open source rules engines for ‘Magic: the Gathering’</title><link href="/blog/forge-mtg/" rel="alternate" type="text/html" title="Forge and XMage: The best free and open source rules engines for ‘Magic: the Gathering’" /><published>2022-07-18T12:00:00-03:00</published><updated>2022-07-18T12:00:00-03:00</updated><id>/blog/forge-mtg</id><content type="html" xml:base="/blog/forge-mtg/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;July 18th, 2022&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
 
 &lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
@@ -224,27 +224,66 @@ tar -xvf &quot;$HOME/Downloads/forge-gui-desktop-$FORGE_LATEST.tar.bz2&quot; -C 
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;user-guide&quot;&gt;User guide&lt;/h3&gt;
+&lt;h3 id=&quot;card-scripting&quot;&gt;Card scripting&lt;/h3&gt;
+&lt;p&gt;In &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;res/cardsfolder/&lt;/code&gt;, you will find a compressed directory containing a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;txt&lt;/code&gt; file for each MtG card supported by the Forge RE. Those files are &lt;strong&gt;card scripts&lt;/strong&gt; that tell Forge how each card works via parameters for the various properties, effects, and abilities that each card might have. Take, for example, the card &lt;strong&gt;Fyndhorn Elves&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-mtg/card-elves.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-mtg/card-elves.jpg&quot; alt=&quot;Card - Fyndhorn Elves&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;and its script at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;res/cardsfolder/f/fyndhorn_elves&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Name:Fyndhorn Elves
+ManaCost:G
+Types:Creature Elf Druid
+PT:1/1
+A:AB$ Mana | Cost$ T | Produced$ G | SpellDescription$ Add {G}.
+Oracle:{T}: Add {G}.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;As you can notice, the card script is not written in Java or any other high level language, which means that anyone can help writing card scripts for upcoming sets. Of course, some cards can be more complex than others. Take a look, for example, at &lt;strong&gt;Ragavan, Nimble Pilferer&lt;/strong&gt;’s card script:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-mtg/card-ragavan.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-mtg/card-ragavan.jpg&quot; alt=&quot;Card - Ragavan&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Name:Ragavan, Nimble Pilferer
+ManaCost:R
+Types:Legendary Creature Monkey Pirate
+PT:2/1
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigTreasure | TriggerDescription$ Whenever CARDNAME deals combat damage to a player, create a Treasure token and exile the top card of that player's library. Until end of turn, you may cast that card.
+SVar:TrigTreasure:DB$ Token | TokenAmount$ 1 | TokenScript$ c_a_treasure_sac | TokenOwner$ You | SubAbility$ TrigExile
+SVar:TrigExile:DB$ Dig | Defined$ TriggeredTarget | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | ForgetOnMoved$ Exile | RememberObjects$ Remembered | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | EffectZone$ Command | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile | Description$ Until end of turn, you may cast that card and you may spend mana as though it were mana of any color to cast that spell.
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Dash:1 R
+Oracle:Whenever Ragavan, Nimble Pilferer deals combat damage to a player, create a Treasure token and exile the top card of that player's library. Until end of turn, you may cast that card.\nDash {1}{R} (You may cast this spell for its dash cost. If you do, it gains haste, and it's returned from the battlefield to its owner's hand at the beginning of the next end step.)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;However, you can write scripts for whatever you feel comfortable with. The specifics of the so-called &lt;strong&gt;card API&lt;/strong&gt; can be found at the &lt;a href=&quot;https://github.com/Card-Forge/forge/wiki/Card-scripting-API&quot;&gt;Forge Wiki - Card Scripting API&lt;/a&gt;. To learn about which cards have not been scripted yet, check the &lt;a href=&quot;https://github.com/Card-Forge/forge/projects&quot;&gt;Projects&lt;/a&gt;, which should list a few (upcoming) sets and the status of each card.&lt;/p&gt;
+
+&lt;p&gt;Writing card scripts for the Forge RE project is a great way to contribute.  However, before submitting a pull-request (PR) for a new card script, make sure to check the project’s current workflow for such contributions. At the time of writing, for example, there seems to be an open issue for each upcoming card that has not been scripted yet (e.g., &lt;a href=&quot;https://github.com/Card-Forge/forge/issues/974&quot;&gt;issue#974&lt;/a&gt; for the card &lt;a href=&quot;https://gatherer.wizards.com/Pages/Card/Details.aspx?name=Windshaper%20Planetar&quot;&gt;Windshaper Planetar&lt;/a&gt; from the ‘Commander’s Legends: Battle for Baldur’s Gate’ set) and a successful PR is one that fixes this issue by merging a commit to the repo’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;master&lt;/code&gt; branch that contains the new card script(s) (e.g., &lt;a href=&quot;https://github.com/Card-Forge/forge/pull/994&quot;&gt;PR#994&lt;/a&gt;). As a general rule of thumb, go over the project’s wiki and if you cannot find any info about it, then &lt;strong&gt;ask one the maintainers&lt;/strong&gt; to explain how you can help with such a task.&lt;/p&gt;
 
 &lt;h2 id=&quot;xmage&quot;&gt;XMage&lt;/h2&gt;
-
 &lt;h3 id=&quot;getting-started-1&quot;&gt;Getting started&lt;/h3&gt;
-&lt;h3 id=&quot;installation-1&quot;&gt;Installation&lt;/h3&gt;
 &lt;ul&gt;
-  &lt;li&gt;requisites&lt;/li&gt;
-  &lt;li&gt;download&lt;/li&gt;
-  &lt;li&gt;launcher
-    &lt;h3 id=&quot;user-guide-1&quot;&gt;User guide&lt;/h3&gt;
+  &lt;li&gt;client (most people just need this)&lt;/li&gt;
+  &lt;li&gt;server (if you want to run an XMage server for friends to join a multiplayer game, for example)
+    &lt;h3 id=&quot;installation-1&quot;&gt;Installation&lt;/h3&gt;
   &lt;/li&gt;
+  &lt;li&gt;Java&lt;/li&gt;
+  &lt;li&gt;download the launcher from ‘http://xmage.de/’&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mkdir &quot;$HOME/Applications/xmage&quot;&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;mv the launcher to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$HOME/Applications/xmage&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;cd into &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$HOME/Applications/xmage&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;run the launcher (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jar&lt;/code&gt; file): &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;java -jar *.jar&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;follow instructions on the screen for the first time install and wait for it to complete (might take a while)&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;h3 id=&quot;user-guide&quot;&gt;User guide&lt;/h3&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;contributing&quot;&gt;Contributing&lt;/h1&gt;
 
 &lt;h2 id=&quot;reporting-issues&quot;&gt;Reporting issues&lt;/h2&gt;
-
-&lt;h2 id=&quot;cards-api&quot;&gt;Cards API&lt;/h2&gt;
 
 &lt;h2 id=&quot;engine-development&quot;&gt;Engine development&lt;/h2&gt;
 

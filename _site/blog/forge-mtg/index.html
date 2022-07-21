@@ -200,7 +200,7 @@
 
 
 
-  17 minute read
+  22 minute read
 
 </p>
       
@@ -357,14 +357,14 @@
           <li><a href="#gameplay-demo">Gameplay demo</a></li>
           <li><a href="#getting-started">Getting started</a></li>
           <li><a href="#installation">Installation</a></li>
-          <li><a href="#user-guide">User guide</a></li>
+          <li><a href="#card-scripting">Card scripting</a></li>
         </ul>
       </li>
       <li><a href="#xmage">XMage</a>
         <ul>
           <li><a href="#getting-started-1">Getting started</a></li>
           <li><a href="#installation-1">Installation</a></li>
-          <li><a href="#user-guide-1">User guide</a></li>
+          <li><a href="#user-guide">User guide</a></li>
         </ul>
       </li>
     </ul>
@@ -372,7 +372,6 @@
   <li><a href="#contributing">Contributing</a>
     <ul>
       <li><a href="#reporting-issues">Reporting issues</a></li>
-      <li><a href="#cards-api">Cards API</a></li>
       <li><a href="#engine-development">Engine development</a></li>
     </ul>
   </li>
@@ -607,27 +606,66 @@ tar -xvf "$HOME/Downloads/forge-gui-desktop-$FORGE_LATEST.tar.bz2" -C ./forge-gu
   </li>
 </ul>
 
-<h3 id="user-guide">User guide</h3>
+<h3 id="card-scripting">Card scripting</h3>
+<p>In <code class="language-plaintext highlighter-rouge">res/cardsfolder/</code>, you will find a compressed directory containing a <code class="language-plaintext highlighter-rouge">txt</code> file for each MtG card supported by the Forge RE. Those files are <strong>card scripts</strong> that tell Forge how each card works via parameters for the various properties, effects, and abilities that each card might have. Take, for example, the card <strong>Fyndhorn Elves</strong></p>
+
+<p><a href="/assets/posts/2022-07-18-forge-mtg/card-elves.jpg"><img src="/assets/posts/2022-07-18-forge-mtg/card-elves.jpg" alt="Card - Fyndhorn Elves" class="PostImage" /></a></p>
+
+<p>and its script at <code class="language-plaintext highlighter-rouge">res/cardsfolder/f/fyndhorn_elves</code></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Name:Fyndhorn Elves
+ManaCost:G
+Types:Creature Elf Druid
+PT:1/1
+A:AB$ Mana | Cost$ T | Produced$ G | SpellDescription$ Add {G}.
+Oracle:{T}: Add {G}.
+</code></pre></div></div>
+
+<p>As you can notice, the card script is not written in Java or any other high level language, which means that anyone can help writing card scripts for upcoming sets. Of course, some cards can be more complex than others. Take a look, for example, at <strong>Ragavan, Nimble Pilferer</strong>’s card script:</p>
+
+<p><a href="/assets/posts/2022-07-18-forge-mtg/card-ragavan.jpg"><img src="/assets/posts/2022-07-18-forge-mtg/card-ragavan.jpg" alt="Card - Ragavan" class="PostImage" /></a></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Name:Ragavan, Nimble Pilferer
+ManaCost:R
+Types:Legendary Creature Monkey Pirate
+PT:2/1
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigTreasure | TriggerDescription$ Whenever CARDNAME deals combat damage to a player, create a Treasure token and exile the top card of that player's library. Until end of turn, you may cast that card.
+SVar:TrigTreasure:DB$ Token | TokenAmount$ 1 | TokenScript$ c_a_treasure_sac | TokenOwner$ You | SubAbility$ TrigExile
+SVar:TrigExile:DB$ Dig | Defined$ TriggeredTarget | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | ForgetOnMoved$ Exile | RememberObjects$ Remembered | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | EffectZone$ Command | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile | Description$ Until end of turn, you may cast that card and you may spend mana as though it were mana of any color to cast that spell.
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Dash:1 R
+Oracle:Whenever Ragavan, Nimble Pilferer deals combat damage to a player, create a Treasure token and exile the top card of that player's library. Until end of turn, you may cast that card.\nDash {1}{R} (You may cast this spell for its dash cost. If you do, it gains haste, and it's returned from the battlefield to its owner's hand at the beginning of the next end step.)
+</code></pre></div></div>
+
+<p>However, you can write scripts for whatever you feel comfortable with. The specifics of the so-called <strong>card API</strong> can be found at the <a href="https://github.com/Card-Forge/forge/wiki/Card-scripting-API">Forge Wiki - Card Scripting API</a>. To learn about which cards have not been scripted yet, check the <a href="https://github.com/Card-Forge/forge/projects">Projects</a>, which should list a few (upcoming) sets and the status of each card.</p>
+
+<p>Writing card scripts for the Forge RE project is a great way to contribute.  However, before submitting a pull-request (PR) for a new card script, make sure to check the project’s current workflow for such contributions. At the time of writing, for example, there seems to be an open issue for each upcoming card that has not been scripted yet (e.g., <a href="https://github.com/Card-Forge/forge/issues/974">issue#974</a> for the card <a href="https://gatherer.wizards.com/Pages/Card/Details.aspx?name=Windshaper%20Planetar">Windshaper Planetar</a> from the ‘Commander’s Legends: Battle for Baldur’s Gate’ set) and a successful PR is one that fixes this issue by merging a commit to the repo’s <code class="language-plaintext highlighter-rouge">master</code> branch that contains the new card script(s) (e.g., <a href="https://github.com/Card-Forge/forge/pull/994">PR#994</a>). As a general rule of thumb, go over the project’s wiki and if you cannot find any info about it, then <strong>ask one the maintainers</strong> to explain how you can help with such a task.</p>
 
 <h2 id="xmage">XMage</h2>
-
 <h3 id="getting-started-1">Getting started</h3>
-<h3 id="installation-1">Installation</h3>
 <ul>
-  <li>requisites</li>
-  <li>download</li>
-  <li>launcher
-    <h3 id="user-guide-1">User guide</h3>
+  <li>client (most people just need this)</li>
+  <li>server (if you want to run an XMage server for friends to join a multiplayer game, for example)
+    <h3 id="installation-1">Installation</h3>
   </li>
+  <li>Java</li>
+  <li>download the launcher from ‘http://xmage.de/’</li>
+  <li><code class="language-plaintext highlighter-rouge">mkdir "$HOME/Applications/xmage"</code></li>
+  <li>mv the launcher to <code class="language-plaintext highlighter-rouge">$HOME/Applications/xmage</code></li>
+  <li>cd into <code class="language-plaintext highlighter-rouge">$HOME/Applications/xmage</code></li>
+  <li>run the launcher (<code class="language-plaintext highlighter-rouge">jar</code> file): <code class="language-plaintext highlighter-rouge">java -jar *.jar</code></li>
+  <li>follow instructions on the screen for the first time install and wait for it to complete (might take a while)</li>
 </ul>
+
+<h3 id="user-guide">User guide</h3>
 
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 
 <h1 id="contributing">Contributing</h1>
 
 <h2 id="reporting-issues">Reporting issues</h2>
-
-<h2 id="cards-api">Cards API</h2>
 
 <h2 id="engine-development">Engine development</h2>
 
