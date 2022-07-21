@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-07-21T11:37:17-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">Forge and XMage: The best free and open source rules engines for ‘Magic: the Gathering’</title><link href="/blog/forge-mtg/" rel="alternate" type="text/html" title="Forge and XMage: The best free and open source rules engines for ‘Magic: the Gathering’" /><published>2022-07-18T12:00:00-03:00</published><updated>2022-07-18T12:00:00-03:00</updated><id>/blog/forge-mtg</id><content type="html" xml:base="/blog/forge-mtg/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-07-21T12:24:55-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">Forge and XMage: The best free and open source rules engines for ‘Magic: the Gathering’</title><link href="/blog/forge-xmage-mtg/" rel="alternate" type="text/html" title="Forge and XMage: The best free and open source rules engines for ‘Magic: the Gathering’" /><published>2022-07-18T12:00:00-03:00</published><updated>2022-07-18T12:00:00-03:00</updated><id>/blog/forge-xmage-mtg</id><content type="html" xml:base="/blog/forge-xmage-mtg/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;July 18th, 2022&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
 
 &lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
 &lt;p&gt;I have been playing &lt;a href=&quot;https://magic.wizards.com&quot;&gt;Magic: the Gathering&lt;/a&gt; (MtG) for as long as the game exists. If you have never heard about it before, MtG is a trading card game (TCG) created by &lt;a href=&quot;#&quot;&gt;Richard Garfield&lt;/a&gt; and released in 1993 by &lt;a href=&quot;#&quot;&gt;Wizards of the Coast&lt;/a&gt; (WotC). It is arguably the most successful TCG ever made and even though it was originally popularized as a paper format TCG, it has long been ported to digital formats. The main MtG client developed by WotC is called &lt;a href=&quot;#&quot;&gt;MTG Online&lt;/a&gt; (MTGO) and it requires users to buy digital versions of paper Magic cards to trade and play with other users on private servers. The development of such client has gone through many changes over the years but most of the details are unknown to the public because MTGO is not open source and a large portion of its functionality happens in the cloud. On top of that, MTGO only runs on Windows, leaving many of us nix users (e.g., GNU/Linux, macOS) without official support.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-mtg/card-fow.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-mtg/card-fow.jpg&quot; alt=&quot;Card - FoW&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/card-fow.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/card-fow.jpg&quot; alt=&quot;Card - FoW&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Fortunately, there are &lt;strong&gt;free and open source software&lt;/strong&gt; (FOSS) alternatives to MTGO that &lt;strong&gt;do not&lt;/strong&gt; require users to buy digital objects (cards) to play MtG. In this article, I talked about two of the main MtG rules engines (RE) currently available for offline and online play: &lt;strong&gt;Forge&lt;/strong&gt; and &lt;strong&gt;XMage&lt;/strong&gt;. More specifically, the article covers the main features of the Forge and XMage REs, how to install and use each one of them, and how you can contribute to maintain their development because these two projects are essentially community-driven. This is possible and completely legal because just like no company can claim ownership over the game of &lt;a href=&quot;https://en.wikipedia.org/wiki/Poker&quot;&gt;poker&lt;/a&gt;, WotC cannot claim ownership over the rules that constitute a game of MtG.&lt;/p&gt;
 
@@ -13,7 +13,9 @@
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;overview&quot;&gt;Overview&lt;/h1&gt;
-&lt;p&gt;TODO&lt;/p&gt;
+&lt;p&gt;This article is divided into three main sections. The first two are part of the &lt;a href=&quot;#mtg-rules-engines&quot;&gt;MtG rules engines&lt;/a&gt;, in which I described the &lt;a href=&quot;#forge&quot;&gt;Forge&lt;/a&gt; and the &lt;a href=&quot;#xmage&quot;&gt;XMage&lt;/a&gt; MtG REs in detail. More specifically, each of those two sections cover the development, features, and installation process of each RE. If you are only interested in learning how to install and use them, then simply jump straight to their respective section.&lt;/p&gt;
+
+&lt;p&gt;The third and last main section, called &lt;a href=&quot;#contributing&quot;&gt;Contributing&lt;/a&gt;, covers aspects about how you can help each project. I found this necessary because both Forge and XMage are quintessential community-driven projects and on top of that, they are very good examples of FOSS applied to gaming.  Reporting issues, writing card scripts, and setting up a (versioned) project directory are examples of the content covered in the last section.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
@@ -43,7 +45,7 @@
     &lt;tr&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;XMage&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;Large community and arguably the most mature (unofficial) MtG RE available. Solid implementation for multiplayer, human vs. human, and &lt;strong&gt;online play&lt;/strong&gt;.&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Installation and usage can be challenging for unfamiliar and non-tech users. It does not support as many cards as Forge.&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Installation and usage can be challenging for unfamiliar or non-tech users. It does not support as many cards as Forge but you’ll only notice it if you play with unusual cards that were never reprinted since Eventide.&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
@@ -55,25 +57,25 @@
 &lt;h2 id=&quot;forge&quot;&gt;Forge&lt;/h2&gt;
 &lt;p&gt;Forge was originally written by a single individual (&lt;a href=&quot;https://mtgrares.blogspot.com/&quot;&gt;mtgrares&lt;/a&gt;) around the mid-2000s, then started being (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git&lt;/code&gt;) versioned in 2011 by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jendave&lt;/code&gt;. The project has since grown a lot and is currently maintained by a large number of &lt;a href=&quot;https://github.com/Card-Forge/forge/graphs/contributors&quot;&gt;contributors and a group of core developers&lt;/a&gt;. It has been particularly active ever since 2017 and its repository is currently being hosted on Github (&lt;a href=&quot;https://github.com/Card-Forge/forge&quot;&gt;Card-Forge/forge&lt;/a&gt;). Of note, Forge has both a &lt;strong&gt;desktop release&lt;/strong&gt;, which is the main focus of this guide, and a mobile (Android) release, which is not covered in this guide but information about the installation of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;apk&lt;/code&gt; is mentioned below.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-mtg/forge-gui-01.png&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-mtg/forge-gui-01.png&quot; alt=&quot;Forge - GUI&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-01.png&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-01.png&quot; alt=&quot;Forge - GUI&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;As mentioned before, Forge features a very unique (&lt;em&gt;and hella fun!&lt;/em&gt;) set of single player modes, namely &lt;strong&gt;Quest mode&lt;/strong&gt;, &lt;strong&gt;Puzzle mode&lt;/strong&gt;, and &lt;strong&gt;Gauntlets&lt;/strong&gt;. The Quest mode plays like an RPG game in which you can improve your deck over battles against the computer. The Puzzle mode is pretty much self-explanatory: it gives you MtG puzzles to solve, such as how to win given a board state. Finally, the Gauntlets consist of a group of customizable players that play each other in a tournament-like fashion.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-mtg/forge-gui-quest.png&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-mtg/forge-gui-quest.png&quot; alt=&quot;Forge - GUI - Quest&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-quest.png&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-quest.png&quot; alt=&quot;Forge - GUI - Quest&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-mtg/forge-gui-puzzle.png&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-mtg/forge-gui-puzzle.png&quot; alt=&quot;Forge - GUI - Puzzle&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-puzzle.png&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-puzzle.png&quot; alt=&quot;Forge - GUI - Puzzle&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-mtg/forge-gui-gauntlet.png&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-mtg/forge-gui-gauntlet.png&quot; alt=&quot;Forge - GUI - Gauntlet&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-gauntlet.png&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-gauntlet.png&quot; alt=&quot;Forge - GUI - Gauntlet&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;As it would be expected from an MtG RE, Forge also features a full blown &lt;strong&gt;deck editor&lt;/strong&gt;. The editor lets users customize existing decks, build new ones, import from other applications, websites or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;txt&lt;/code&gt;, and also export decks created with Forge to other applications.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-mtg/forge-gui-editor.png&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-mtg/forge-gui-editor.png&quot; alt=&quot;Forge - GUI - Editor&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-editor.png&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-editor.png&quot; alt=&quot;Forge - GUI - Editor&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Interface-wise, Forge is actually my favorite MtG RE. Almost everything can be edited to the user’s liking and they even have a &lt;strong&gt;theme&lt;/strong&gt; selector feature. (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Magic&lt;/code&gt; is my favorite one.)&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-mtg/forge-gui-02.png&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-mtg/forge-gui-02.png&quot; alt=&quot;Forge - GUI - Alt 02&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-02.png&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-02.png&quot; alt=&quot;Forge - GUI - Alt 02&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-mtg/forge-gui-03.png&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-mtg/forge-gui-03.png&quot; alt=&quot;Forge - GUI - Alt 03&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-03.png&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-03.png&quot; alt=&quot;Forge - GUI - Alt 03&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;gameplay-demo&quot;&gt;Gameplay demo&lt;/h3&gt;
 
@@ -220,52 +222,13 @@ tar -xvf &quot;$HOME/Downloads/forge-gui-desktop-$FORGE_LATEST.tar.bz2&quot; -C 
 
     &lt;p&gt;Now, if you don’t feel like opening a terminal every time you want to run Forge, I strongly suggest you to create a custom &lt;strong&gt;launcher&lt;/strong&gt; for it. In GNU/Linux, the specifics of how to create a launcher depends a lot on the distribution and more specifically, the desktop environment you are using (e.g., XFCE, GNOME, KDE). Here’s how my current launcher configuration looks like:&lt;/p&gt;
 
-    &lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-mtg/forge-xfce-launcher.png&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-mtg/forge-xfce-launcher.png&quot; alt=&quot;Forge - XFCE launcher&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/forge-xfce-launcher.png&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/forge-xfce-launcher.png&quot; alt=&quot;Forge - XFCE launcher&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
     &lt;p class=&quot;notice--info&quot;&gt;My desktop environment of choice for Debian is &lt;a href=&quot;https://www.xfce.org/&quot;&gt;XFCE&lt;/a&gt; and the maintainers have already documented &lt;a href=&quot;https://docs.xfce.org/xfce/xfce4-panel/launcher&quot;&gt;how to create custom launchers&lt;/a&gt;, so I won’t cover such details here.&lt;/p&gt;
 
     &lt;p&gt;If you change location of your current Forge desktop application, you can simply edit the desktop launcher to point to the new directory under which the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;forge.sh&lt;/code&gt; helper script is located.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;h3 id=&quot;card-scripting&quot;&gt;Card scripting&lt;/h3&gt;
-&lt;p&gt;In &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;res/cardsfolder/&lt;/code&gt;, you will find a compressed directory containing a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;txt&lt;/code&gt; file for each MtG card supported by the Forge RE. Those files are &lt;strong&gt;card scripts&lt;/strong&gt; that tell Forge how each card works via parameters for the various properties, effects, and abilities that each card might have. Take, for example, the card &lt;strong&gt;Fyndhorn Elves&lt;/strong&gt;:&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-mtg/card-elves.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-mtg/card-elves.jpg&quot; alt=&quot;Card - Fyndhorn Elves&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;and its script (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;res/cardsfolder/f/fyndhorn_elves&lt;/code&gt;):&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Name:Fyndhorn Elves
-ManaCost:G
-Types:Creature Elf Druid
-PT:1/1
-A:AB$ Mana | Cost$ T | Produced$ G | SpellDescription$ Add {G}.
-Oracle:{T}: Add {G}.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;As you can see, the card script is not written in Java or any other high level language and for the most part, its structure and parameters are quite intuitive, which means that anyone can help writing card scripts for upcoming sets, even if you are not a developer yourself. Of course, some cards can be more complex than others. Take a look, for example, at &lt;strong&gt;Ragavan, Nimble Pilferer&lt;/strong&gt;:&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-mtg/card-ragavan.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-mtg/card-ragavan.jpg&quot; alt=&quot;Card - Ragavan&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Name:Ragavan, Nimble Pilferer
-ManaCost:R
-Types:Legendary Creature Monkey Pirate
-PT:2/1
-T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigTreasure | TriggerDescription$ Whenever CARDNAME deals combat damage to a player, create a Treasure token and exile the top card of that player's library. Until end of turn, you may cast that card.
-SVar:TrigTreasure:DB$ Token | TokenAmount$ 1 | TokenScript$ c_a_treasure_sac | TokenOwner$ You | SubAbility$ TrigExile
-SVar:TrigExile:DB$ Dig | Defined$ TriggeredTarget | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
-SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | ForgetOnMoved$ Exile | RememberObjects$ Remembered | SubAbility$ DBCleanup
-SVar:STPlay:Mode$ Continuous | MayPlay$ True | EffectZone$ Command | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile | Description$ Until end of turn, you may cast that card and you may spend mana as though it were mana of any color to cast that spell.
-SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
-K:Dash:1 R
-Oracle:Whenever Ragavan, Nimble Pilferer deals combat damage to a player, create a Treasure token and exile the top card of that player's library. Until end of turn, you may cast that card.\nDash {1}{R} (You may cast this spell for its dash cost. If you do, it gains haste, and it's returned from the battlefield to its owner's hand at the beginning of the next end step.)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;However, you can write scripts for whatever you feel comfortable with, for just a single card from an upcoming set or a bunch of them. The specifics of the so-called &lt;strong&gt;card API&lt;/strong&gt; can be found at the &lt;a href=&quot;https://github.com/Card-Forge/forge/wiki/Card-scripting-API&quot;&gt;Forge Wiki - Card Scripting API&lt;/a&gt;. To learn about which cards have not been scripted yet, check the &lt;a href=&quot;https://github.com/Card-Forge/forge/projects&quot;&gt;Projects&lt;/a&gt;, which should list a few (upcoming) sets and the status of each card.&lt;/p&gt;
-
-&lt;p&gt;Writing card scripts for the Forge RE project is a great way to contribute and if you want to get involved, check the &lt;a href=&quot;#contributing&quot;&gt;Contributing&lt;/a&gt; section of this article to learn more about versioning (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git&lt;/code&gt;) and setting up your project dir.  However, before submitting a pull-request (PR) for a new card script, make sure to check the project’s current workflow for such contributions. As a general rule of thumb, go over the project’s wiki (or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CONTRIBUTING.md&lt;/code&gt; guide) and if you cannot find any info about it, then &lt;strong&gt;ask one the maintainers&lt;/strong&gt; to explain how you can help with such a task.&lt;/p&gt;
-
-&lt;p class=&quot;notice--info&quot;&gt;At the time of writing, for example, there seems to be an open issue for each upcoming card that has not been scripted yet (e.g., &lt;a href=&quot;https://github.com/Card-Forge/forge/issues/974&quot;&gt;issue#974&lt;/a&gt; for the card &lt;a href=&quot;https://gatherer.wizards.com/Pages/Card/Details.aspx?name=Windshaper%20Planetar&quot;&gt;Windshaper Planetar&lt;/a&gt; from the &lt;em&gt;Commander’s Legends: Battle for Baldur’s Gate&lt;/em&gt; set) and a successful PR is one that fixes this issue by merging a commit to the repo’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;master&lt;/code&gt; branch that contains the new card script(s) (e.g., &lt;a href=&quot;https://github.com/Card-Forge/forge/pull/994&quot;&gt;PR#994&lt;/a&gt;).&lt;/p&gt;
 
 &lt;h3 id=&quot;android-apk&quot;&gt;Android APK&lt;/h3&gt;
 &lt;p&gt;Forge is very unique in which it also &lt;strong&gt;runs on Android&lt;/strong&gt;, so you can install it on your mobile or tablet running &lt;strong&gt;Android 9&lt;/strong&gt; or newer. The Android interface has its own peculiarities–because the application is designed for mobile–but if you are familiar with the desktop version, you will get the hang of the mobile version very quickly.&lt;/p&gt;
@@ -295,7 +258,48 @@ Oracle:Whenever Ragavan, Nimble Pilferer deals combat damage to a player, create
   &lt;li&gt;That is it!  Enjoy Forge on your mobile.&lt;/li&gt;
 &lt;/ol&gt;
 
+&lt;h3 id=&quot;card-scripting&quot;&gt;Card scripting&lt;/h3&gt;
+&lt;p&gt;In &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;res/cardsfolder/&lt;/code&gt;, you will find a compressed directory containing a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;txt&lt;/code&gt; file for each MtG card supported by the Forge RE. Those files are &lt;strong&gt;card scripts&lt;/strong&gt; that tell Forge how each card works via parameters for the various properties, effects, and abilities that each card might have. Take, for example, the card &lt;strong&gt;Fyndhorn Elves&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/card-elves.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/card-elves.jpg&quot; alt=&quot;Card - Fyndhorn Elves&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;and its script (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;res/cardsfolder/f/fyndhorn_elves&lt;/code&gt;):&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Name:Fyndhorn Elves
+ManaCost:G
+Types:Creature Elf Druid
+PT:1/1
+A:AB$ Mana | Cost$ T | Produced$ G | SpellDescription$ Add {G}.
+Oracle:{T}: Add {G}.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;As you can see, the card script is not written in Java or any other high level language and for the most part, its structure and parameters are quite intuitive, which means that anyone can help writing card scripts for upcoming sets, even if you are not a developer yourself. Of course, some cards can be more complex than others. Take a look, for example, at &lt;strong&gt;Ragavan, Nimble Pilferer&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/card-ragavan.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/card-ragavan.jpg&quot; alt=&quot;Card - Ragavan&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Name:Ragavan, Nimble Pilferer
+ManaCost:R
+Types:Legendary Creature Monkey Pirate
+PT:2/1
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigTreasure | TriggerDescription$ Whenever CARDNAME deals combat damage to a player, create a Treasure token and exile the top card of that player's library. Until end of turn, you may cast that card.
+SVar:TrigTreasure:DB$ Token | TokenAmount$ 1 | TokenScript$ c_a_treasure_sac | TokenOwner$ You | SubAbility$ TrigExile
+SVar:TrigExile:DB$ Dig | Defined$ TriggeredTarget | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | ForgetOnMoved$ Exile | RememberObjects$ Remembered | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | EffectZone$ Command | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile | Description$ Until end of turn, you may cast that card and you may spend mana as though it were mana of any color to cast that spell.
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Dash:1 R
+Oracle:Whenever Ragavan, Nimble Pilferer deals combat damage to a player, create a Treasure token and exile the top card of that player's library. Until end of turn, you may cast that card.\nDash {1}{R} (You may cast this spell for its dash cost. If you do, it gains haste, and it's returned from the battlefield to its owner's hand at the beginning of the next end step.)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;However, you can write scripts for whatever you feel comfortable with, for just a single card from an upcoming set or a bunch of them. The specifics of the so-called &lt;strong&gt;card API&lt;/strong&gt; can be found at the &lt;a href=&quot;https://github.com/Card-Forge/forge/wiki/Card-scripting-API&quot;&gt;Forge Wiki - Card Scripting API&lt;/a&gt;. To learn about which cards have not been scripted yet, check the &lt;a href=&quot;https://github.com/Card-Forge/forge/projects&quot;&gt;Projects&lt;/a&gt; tab, which should list a few (upcoming) sets and the status of each card.&lt;/p&gt;
+
+&lt;p&gt;Writing card scripts for the Forge RE project is a great way to contribute and if you want to get involved, check the &lt;a href=&quot;#contributing&quot;&gt;Contributing&lt;/a&gt; section of this article to learn more about versioning (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git&lt;/code&gt;) and setting up your project dir.  However, before submitting a pull-request (PR) for a new card script, make sure to check the project’s current workflow for such contributions. As a general rule of thumb, go over the project’s wiki (or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CONTRIBUTING.md&lt;/code&gt; guide) and if you cannot find any info about it, then &lt;strong&gt;ask one the maintainers&lt;/strong&gt; to explain how you can help with such a task.&lt;/p&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;At the time of writing, for example, there seems to be an open issue for each upcoming card that has not been scripted yet (e.g., &lt;a href=&quot;https://github.com/Card-Forge/forge/issues/974&quot;&gt;issue#974&lt;/a&gt; for the card &lt;a href=&quot;https://gatherer.wizards.com/Pages/Card/Details.aspx?name=Windshaper%20Planetar&quot;&gt;Windshaper Planetar&lt;/a&gt; from the &lt;em&gt;Commander’s Legends: Battle for Baldur’s Gate&lt;/em&gt; set) and a successful PR is one that fixes this issue by merging a commit to the repo’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;master&lt;/code&gt; branch that contains the new card script(s) (e.g., &lt;a href=&quot;https://github.com/Card-Forge/forge/pull/994&quot;&gt;PR#994&lt;/a&gt;).&lt;/p&gt;
+
 &lt;h2 id=&quot;xmage&quot;&gt;XMage&lt;/h2&gt;
+&lt;p&gt;XMage, also referred to as &lt;strong&gt;Magic is Another Game Engine&lt;/strong&gt; (MAGE), is a MtG RE that started being developed in the early 2010s and now encompasses both a client and a server for offline or online MtG games. Users X project’s commit history&lt;/p&gt;
+
 &lt;h3 id=&quot;getting-started-1&quot;&gt;Getting started&lt;/h3&gt;
 &lt;ul&gt;
   &lt;li&gt;client (most people just need this)&lt;/li&gt;
@@ -330,7 +334,7 @@ Oracle:Whenever Ragavan, Nimble Pilferer deals combat damage to a player, create
   &lt;li&gt;Brief how-to for setting up a local project development dir (just enough for card scripting contributions)&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="mtg" /><category term="magic" /><category term="foss" /><category term="open" /><category term="free" /><category term="java" /><category term="game" /></entry><entry><title type="html">DIY series: ESP-01 Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: ESP-01 Tasmota environmental sensor" /><published>2021-08-12T13:00:00-03:00</published><updated>2021-08-12T13:00:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="mtg" /><category term="magic" /><category term="foss" /><category term="open" /><category term="free" /><category term="java" /><category term="game" /><category term="forge" /><category term="xmage" /></entry><entry><title type="html">DIY series: ESP-01 Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: ESP-01 Tasmota environmental sensor" /><published>2021-08-12T13:00:00-03:00</published><updated>2021-08-12T13:00:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;August 12th, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;

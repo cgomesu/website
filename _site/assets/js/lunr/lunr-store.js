@@ -91,7 +91,7 @@ var store = [{
       },{
         "title": "Forge and XMage: The best free and open source rules engines for 'Magic: the Gathering'",
         "excerpt":"Changelog July 18th, 2022: Publication of the original article Introduction I have been playing Magic: the Gathering (MtG) for as long as the game exists. If you have never heard about it before, MtG is a trading card game (TCG) created by Richard Garfield and released in 1993 by Wizards...","categories": ["blog"],
-        "tags": ["mtg","magic","foss","open","free","java","game"],
-        "url": "/blog/forge-mtg/",
+        "tags": ["mtg","magic","foss","open","free","java","game","forge","xmage"],
+        "url": "/blog/forge-xmage-mtg/",
         "teaser": null
       }]
