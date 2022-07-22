@@ -15,7 +15,7 @@ toc_icon: "list"
 {:.notice--info }
 
 # Introduction
-I have been playing [Magic: the Gathering](https://magic.wizards.com) (MtG) for as long as the game exists. If you have never heard about it before, MtG is a trading card game (TCG) created by [Richard Garfield](#) and released in 1993 by [Wizards of the Coast](#) (WotC). It is arguably the most successful TCG ever made and even though it was originally popularized as a paper format TCG, it has long been ported to digital formats. The main MtG client developed by WotC is called [MTG Online](#) (MTGO) and it requires users to buy digital versions of paper Magic cards to trade and play with other users on private servers. The development of such client has gone through many changes over the years but most of the details are unknown to the public because MTGO is not open source and a large portion of its functionality happens in the cloud. On top of that, MTGO only runs on Windows, leaving many of us nix users (e.g., GNU/Linux, macOS) without official support.
+I have been playing [Magic: the Gathering](https://magic.wizards.com) (MtG) for as long as the game exists. If you have never heard about it before, MtG is a trading card game (TCG) created by [Richard Garfield](https://en.wikipedia.org/wiki/Richard_Garfield) and released in 1993 by [Wizards of the Coast](https://en.wikipedia.org/wiki/Wizards_of_the_Coast) (WotC). It is arguably the most successful TCG ever made and even though it was originally popularized as a paper format TCG, it has long been ported to digital formats. The main MtG client developed by WotC is called [MTG Online](https://magic.wizards.com/en/mtgo) (MTGO) and it requires users to buy digital versions of paper Magic cards to trade and play with other users on private servers. The development of such client has gone through many changes over the years but most of the details are unknown to the public because MTGO is not open source and a large portion of its functionality happens in the cloud. On top of that, MTGO only runs on Windows, leaving many of us nix users (e.g., GNU/Linux, macOS) without official support.
 
 [![Card - FoW](/assets/posts/2022-07-18-forge-xmage-mtg/card-fow.jpg){:.PostImage}](/assets/posts/2022-07-18-forge-xmage-mtg/card-fow.jpg)
 
@@ -50,12 +50,12 @@ Forge and XMage have in common the fact that they are both written in [**Java**]
 After that last point, I feel I should note that MTGO outshines any other MtG RE **by a huge margin** when it comes to **online play**. The community around it and the events are definitely unique and in my opinion, the strongest features of MTGO and I dare say, worth your money if you are into MtG.
 {:.notice--warning}
 
-However, even though Forge and XMage are both MtG REs, they are not mutually exclusive implementations of the game. Forge, on the one hand, has very unique play modes for single player, such as **Quests**, which are reminiscent of the old [Shandalar](#) MtG role playing game (RPG) by MicroPose. XMage, on the other hand, has a very reliable implementation of **online play**, which is quite unreliable in Forge. In other words, each RE has its strengths and weaknesses, which I summarized in the following table:
+However, even though Forge and XMage are both MtG REs, they are not mutually exclusive implementations of the game. Forge, on the one hand, has very unique play modes for single player, such as **Quests**, which are reminiscent of the old [Shandalar](https://www.pcgamer.com/the-first-digital-deckbuilder-was-a-magic-the-gathering-game-from-1997-and-it-ruled/) MtG role playing game (RPG) by MicroPose. XMage, on the other hand, has a very reliable implementation of **online play**, which is quite unreliable in Forge. In other words, each RE has its strengths and weaknesses, which I summarized in the following table:
 
 |Engine|Strengths|Weaknesses|
 |:-:|:-:|:-:|
 | Forge | Various single player modes for **offline play** against the computer. Beautiful and customizable graphical interface. Runs on mobile (Android) as well as desktop. Supports card scripting. Supports almost every single card in MtG. | The AI will occasionally make very dumb plays--it's said that the AI works best with aggro strategies, as opposed to combos. Even though networking features exist for online play, it is quite unreliable. |
-| XMage | Large community and arguably the most mature (unofficial) MtG RE available. Solid implementation of multiplayer, human vs. human, and **online play**. | Installation and usage can be challenging for non-tech users. It does not support as many cards as Forge but you'll only notice it if you play with unusual cards that were never reprinted since Eventide. |
+| XMage | Large community and one of the most mature (unofficial) MtG REs available. Solid implementation of multiplayer, human vs. human, and **online play**. | Installation and usage can be challenging for non-tech users. It does not support as many cards as Forge but you'll only notice it if you play with unusual cards that were never reprinted since Eventide. |
 
 For more comparisons, refer to the [Slightly Magic wiki list of MtG REs](https://www.slightlymagic.net/wiki/List_of_MTG_Engines).
 {:.notice--info}
@@ -411,14 +411,44 @@ Finally, it is also possible to play against a friend who is on the same local n
 [top](#){:.btn .btn--light-outline .btn--small}
 
 # Contributing
-- donations:
-  - forge: there's no official donation channel(s) yet. (user `austeregrim` helps providing free access to a server for Forge's content downloads and ppl can help support his service at http://download.austeregrim.net/ but he is not a project maintainer.)
-  - xmage: http://xmage.today/#donate. currently, donations go to the lead maintainer, [@JayDi85](https://github.com/JayDi85), who is also responsible for the public servers.
+Both Forge and XMage are community-driven FOSS projects, which means that anyone can help maintain those projects but if no one does that, the projects will simply die out as developers move onto other things. Fortunately, if you use and enjoy these projects, there are many things you can do to contribute to their continuing development. The most obvious one is via financial incentives, that is, **donations**. Currently, none of these projects has a proper channel that people can use to donate money specifically towards development and maintenance of the project's public repository. I reached out to the maintainers of each project and the only donation channels that I found (and thought would be appropriate to share here) are the following:
+
+- **Donations**
+  - Forge:
+    - There are no official donation channels yet.
+  - XMage:
+    - [http://xmage.today/#donate](http://xmage.today/#donate): At the time of writing, donations go to the lead maintainer of the XMage project, [@JayDi85](https://github.com/JayDi85), who is also responsible for a few of the public servers.
+
+However, financial incentive is not the only way to contribute. In next few sections, I mentioned additional ways to contribute that do not involve money but actual work.
 
 ## Reporting issues
+One of the easiest ways to contribute is by providing feedback regarding issues with one or more components of each application. This is done via an **issue tracker** which in both cases, is currently done via the project's Github repository:
+
+- [Forge issues](https://github.com/Card-Forge/forge/issues)
+- [XMage issues](https://github.com/magefree/mage/issues)
+
+Before submitting an issue, **always search** for a related keyword in issues that are still open (`is:issue is:open` filter) or closed (`is:issue is:closed`).  If you cannot find anything related, then open a new issue and importantly, *if the project has a template for submitting an issue*, which is enforced when it is opened, then read and follow the template. This saves a lot of time for you and the maintainers.
+
+## Card scripting
+Of the two MtG REs covered here, Forge is the only one that supports **card scripting**. This is something that anyone can do because it does not require knowledge about Java, IDEs, and object-oriented programming. If this sounds like something you can help with, take a look at the [Card scripting](#card-scripting) section covered before.
 
 ## Project development
-- Intro to versioning (`git`)
-- Brief how-to for setting up a local project development dir (just enough for card scripting contributions)
+Java is the language of choice in both projects. So, if you want to contribute to the development of the RE itself, then you will need to be at least familiar with Java and `git` versioning. The maintainers of both projects were kind enough to document useful information about development for anyone interested in helping out.  You can find such info in the Wiki of each project:
+
+- [Forge development instructions](https://github.com/Card-Forge/forge/wiki/(SM-autoconverted)-how-to-get-started-developing-forge)
+- [XMage development instructions](https://github.com/magefree/mage/wiki#developer)
+
+If you are not familiar with Java or `git` but want to learn, there are free online resources available:
+
+- **Introduction to Java**
+  {% include video id="7WiJGTPuVeU" provider="youtube" %}
+
+- **Introduction to Git and Github**
+  {% include video id="RGOj5yH7evk" provider="youtube" %}
+
+[top](#){:.btn .btn--light-outline .btn--small}
+
+# Final remarks
+In this article, I talked about two free and open source MtG REs, namely **Forge** and **XMage**. These projects are community-driven and good examples of FOSS applied to gaming. More specifically, they do not attempt to be copies of the official MtG client for Windows (MTGO) but actually introduce many new features (e.g., portability, single player modes, self-hosting MtG servers) that either enhance or complement each other and the official client. If you are a fan o MtG like me, you should definitely check them out and if you enjoyed them, please consider supporting the projects by spreading the word or contributing to their continuing development.
 
 [top](#){:.btn .btn--light-outline .btn--small}

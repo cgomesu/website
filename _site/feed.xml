@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-07-22T13:22:46-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">Forge and XMage: The best free and open source rules engines for ‘Magic: the Gathering’</title><link href="/blog/forge-xmage-mtg/" rel="alternate" type="text/html" title="Forge and XMage: The best free and open source rules engines for ‘Magic: the Gathering’" /><published>2022-07-18T12:00:00-03:00</published><updated>2022-07-18T12:00:00-03:00</updated><id>/blog/forge-xmage-mtg</id><content type="html" xml:base="/blog/forge-xmage-mtg/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-07-22T14:51:17-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">Forge and XMage: The best free and open source rules engines for ‘Magic: the Gathering’</title><link href="/blog/forge-xmage-mtg/" rel="alternate" type="text/html" title="Forge and XMage: The best free and open source rules engines for ‘Magic: the Gathering’" /><published>2022-07-18T12:00:00-03:00</published><updated>2022-07-18T12:00:00-03:00</updated><id>/blog/forge-xmage-mtg</id><content type="html" xml:base="/blog/forge-xmage-mtg/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;July 18th, 2022&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
 
 &lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
-&lt;p&gt;I have been playing &lt;a href=&quot;https://magic.wizards.com&quot;&gt;Magic: the Gathering&lt;/a&gt; (MtG) for as long as the game exists. If you have never heard about it before, MtG is a trading card game (TCG) created by &lt;a href=&quot;#&quot;&gt;Richard Garfield&lt;/a&gt; and released in 1993 by &lt;a href=&quot;#&quot;&gt;Wizards of the Coast&lt;/a&gt; (WotC). It is arguably the most successful TCG ever made and even though it was originally popularized as a paper format TCG, it has long been ported to digital formats. The main MtG client developed by WotC is called &lt;a href=&quot;#&quot;&gt;MTG Online&lt;/a&gt; (MTGO) and it requires users to buy digital versions of paper Magic cards to trade and play with other users on private servers. The development of such client has gone through many changes over the years but most of the details are unknown to the public because MTGO is not open source and a large portion of its functionality happens in the cloud. On top of that, MTGO only runs on Windows, leaving many of us nix users (e.g., GNU/Linux, macOS) without official support.&lt;/p&gt;
+&lt;p&gt;I have been playing &lt;a href=&quot;https://magic.wizards.com&quot;&gt;Magic: the Gathering&lt;/a&gt; (MtG) for as long as the game exists. If you have never heard about it before, MtG is a trading card game (TCG) created by &lt;a href=&quot;https://en.wikipedia.org/wiki/Richard_Garfield&quot;&gt;Richard Garfield&lt;/a&gt; and released in 1993 by &lt;a href=&quot;https://en.wikipedia.org/wiki/Wizards_of_the_Coast&quot;&gt;Wizards of the Coast&lt;/a&gt; (WotC). It is arguably the most successful TCG ever made and even though it was originally popularized as a paper format TCG, it has long been ported to digital formats. The main MtG client developed by WotC is called &lt;a href=&quot;https://magic.wizards.com/en/mtgo&quot;&gt;MTG Online&lt;/a&gt; (MTGO) and it requires users to buy digital versions of paper Magic cards to trade and play with other users on private servers. The development of such client has gone through many changes over the years but most of the details are unknown to the public because MTGO is not open source and a large portion of its functionality happens in the cloud. On top of that, MTGO only runs on Windows, leaving many of us nix users (e.g., GNU/Linux, macOS) without official support.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/card-fow.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/card-fow.jpg&quot; alt=&quot;Card - FoW&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
@@ -40,7 +40,7 @@
 
 &lt;p class=&quot;notice--warning&quot;&gt;After that last point, I feel I should note that MTGO outshines any other MtG RE &lt;strong&gt;by a huge margin&lt;/strong&gt; when it comes to &lt;strong&gt;online play&lt;/strong&gt;. The community around it and the events are definitely unique and in my opinion, the strongest features of MTGO and I dare say, worth your money if you are into MtG.&lt;/p&gt;
 
-&lt;p&gt;However, even though Forge and XMage are both MtG REs, they are not mutually exclusive implementations of the game. Forge, on the one hand, has very unique play modes for single player, such as &lt;strong&gt;Quests&lt;/strong&gt;, which are reminiscent of the old &lt;a href=&quot;#&quot;&gt;Shandalar&lt;/a&gt; MtG role playing game (RPG) by MicroPose. XMage, on the other hand, has a very reliable implementation of &lt;strong&gt;online play&lt;/strong&gt;, which is quite unreliable in Forge. In other words, each RE has its strengths and weaknesses, which I summarized in the following table:&lt;/p&gt;
+&lt;p&gt;However, even though Forge and XMage are both MtG REs, they are not mutually exclusive implementations of the game. Forge, on the one hand, has very unique play modes for single player, such as &lt;strong&gt;Quests&lt;/strong&gt;, which are reminiscent of the old &lt;a href=&quot;https://www.pcgamer.com/the-first-digital-deckbuilder-was-a-magic-the-gathering-game-from-1997-and-it-ruled/&quot;&gt;Shandalar&lt;/a&gt; MtG role playing game (RPG) by MicroPose. XMage, on the other hand, has a very reliable implementation of &lt;strong&gt;online play&lt;/strong&gt;, which is quite unreliable in Forge. In other words, each RE has its strengths and weaknesses, which I summarized in the following table:&lt;/p&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
@@ -58,7 +58,7 @@
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;XMage&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Large community and arguably the most mature (unofficial) MtG RE available. Solid implementation of multiplayer, human vs. human, and &lt;strong&gt;online play&lt;/strong&gt;.&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Large community and one of the most mature (unofficial) MtG REs available. Solid implementation of multiplayer, human vs. human, and &lt;strong&gt;online play&lt;/strong&gt;.&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;Installation and usage can be challenging for non-tech users. It does not support as many cards as Forge but you’ll only notice it if you play with unusual cards that were never reprinted since Eventide.&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
@@ -473,22 +473,76 @@ cd xmage
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;contributing&quot;&gt;Contributing&lt;/h1&gt;
+&lt;p&gt;Both Forge and XMage are community-driven FOSS projects, which means that anyone can help maintain those projects but if no one does that, the projects will simply die out as developers move onto other things. Fortunately, if you use and enjoy these projects, there are many things you can do to contribute to their continuing development. The most obvious one is via financial incentives, that is, &lt;strong&gt;donations&lt;/strong&gt;. Currently, none of these projects has a proper channel that people can use to donate money specifically towards development and maintenance of the project’s public repository. I reached out to the maintainers of each project and the only donation channels that I found (and thought would be appropriate to share here) are the following:&lt;/p&gt;
+
 &lt;ul&gt;
-  &lt;li&gt;donations:
+  &lt;li&gt;&lt;strong&gt;Donations&lt;/strong&gt;
     &lt;ul&gt;
-      &lt;li&gt;forge: there’s no official donation channel(s) yet. (user &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;austeregrim&lt;/code&gt; helps providing free access to a server for Forge’s content downloads and ppl can help support his service at http://download.austeregrim.net/ but he is not a project maintainer.)&lt;/li&gt;
-      &lt;li&gt;xmage: http://xmage.today/#donate. currently, donations go to the lead maintainer, &lt;a href=&quot;https://github.com/JayDi85&quot;&gt;@JayDi85&lt;/a&gt;, who is also responsible for the public servers.&lt;/li&gt;
+      &lt;li&gt;Forge:
+        &lt;ul&gt;
+          &lt;li&gt;There are no official donation channels yet.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;XMage:
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;http://xmage.today/#donate&quot;&gt;http://xmage.today/#donate&lt;/a&gt;: At the time of writing, donations go to the lead maintainer of the XMage project, &lt;a href=&quot;https://github.com/JayDi85&quot;&gt;@JayDi85&lt;/a&gt;, who is also responsible for a few of the public servers.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;p&gt;However, financial incentive is not the only way to contribute. In next few sections, I mentioned additional ways to contribute that do not involve money but actual work.&lt;/p&gt;
+
 &lt;h2 id=&quot;reporting-issues&quot;&gt;Reporting issues&lt;/h2&gt;
+&lt;p&gt;One of the easiest ways to contribute is by providing feedback regarding issues with one or more components of each application. This is done via an &lt;strong&gt;issue tracker&lt;/strong&gt; which in both cases, is currently done via the project’s Github repository:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/Card-Forge/forge/issues&quot;&gt;Forge issues&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/magefree/mage/issues&quot;&gt;XMage issues&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Before submitting an issue, &lt;strong&gt;always search&lt;/strong&gt; for a related keyword in issues that are still open (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;is:issue is:open&lt;/code&gt; filter) or closed (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;is:issue is:closed&lt;/code&gt;).  If you cannot find anything related, then open a new issue and importantly, &lt;em&gt;if the project has a template for submitting an issue&lt;/em&gt;, which is enforced when it is opened, then read and follow the template. This saves a lot of time for you and the maintainers.&lt;/p&gt;
+
+&lt;h2 id=&quot;card-scripting-1&quot;&gt;Card scripting&lt;/h2&gt;
+&lt;p&gt;Of the two MtG REs covered here, Forge is the only one that supports &lt;strong&gt;card scripting&lt;/strong&gt;. This is something that anyone can do because it does not require knowledge about Java, IDEs, and object-oriented programming. If this sounds like something you can help with, take a look at the &lt;a href=&quot;#card-scripting&quot;&gt;Card scripting&lt;/a&gt; section covered before.&lt;/p&gt;
 
 &lt;h2 id=&quot;project-development&quot;&gt;Project development&lt;/h2&gt;
+&lt;p&gt;Java is the language of choice in both projects. So, if you want to contribute to the development of the RE itself, then you will need to be at least familiar with Java and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git&lt;/code&gt; versioning. The maintainers of both projects were kind enough to document useful information about development for anyone interested in helping out.  You can find such info in the Wiki of each project:&lt;/p&gt;
+
 &lt;ul&gt;
-  &lt;li&gt;Intro to versioning (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git&lt;/code&gt;)&lt;/li&gt;
-  &lt;li&gt;Brief how-to for setting up a local project development dir (just enough for card scripting contributions)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/Card-Forge/forge/wiki/(SM-autoconverted)-how-to-get-started-developing-forge&quot;&gt;Forge development instructions&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/magefree/mage/wiki#developer&quot;&gt;XMage development instructions&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;If you are not familiar with Java or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git&lt;/code&gt; but want to learn, there are free online resources available:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Introduction to Java&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- Courtesy of embedresponsively.com //--&gt;
+&lt;div class=&quot;responsive-video-container&quot;&gt;
+
+  &lt;iframe src=&quot;https://www.youtube-nocookie.com/embed/7WiJGTPuVeU&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Introduction to Git and Github&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- Courtesy of embedresponsively.com //--&gt;
+&lt;div class=&quot;responsive-video-container&quot;&gt;
+
+  &lt;iframe src=&quot;https://www.youtube-nocookie.com/embed/RGOj5yH7evk&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;final-remarks&quot;&gt;Final remarks&lt;/h1&gt;
+&lt;p&gt;In this article, I talked about two free and open source MtG REs, namely &lt;strong&gt;Forge&lt;/strong&gt; and &lt;strong&gt;XMage&lt;/strong&gt;. These projects are community-driven and good examples of FOSS applied to gaming. More specifically, they do not attempt to be copies of the official MtG client for Windows (MTGO) but actually introduce many new features (e.g., portability, single player modes, self-hosting MtG servers) that either enhance or complement each other and the official client. If you are a fan o MtG like me, you should definitely check them out and if you enjoyed them, please consider supporting the projects by spreading the word or contributing to their continuing development.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="mtg" /><category term="magic" /><category term="foss" /><category term="open" /><category term="free" /><category term="java" /><category term="game" /><category term="forge" /><category term="xmage" /></entry><entry><title type="html">DIY series: ESP-01 Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: ESP-01 Tasmota environmental sensor" /><published>2021-08-12T13:00:00-03:00</published><updated>2021-08-12T13:00:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;August 12th, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
