@@ -26,26 +26,36 @@ If you are interested in using and learning more about Forge and XMage, then kee
 [top](#){:.btn .btn--light-outline .btn--small}
 
 # Overview
-This article is divided into three main sections. The first two are part of the [MtG rules engines](#mtg-rules-engines), in which I described the [Forge](#forge) and the [XMage](#xmage) MtG REs in detail. More specifically, each of those two sections cover the development, features, and installation process of each RE. If you are only interested in learning how to install and use them, then simply jump straight to their respective section.
+This article is divided into four main sections. The first is an optional and brief introduction to the game of MtG, called [the basics of MtG](#the-basics-of-mtg). This section is recommended only for those who are not familiar with the basic rules of MtG and want to get a taste of what the game is all about.
+
+The next two main sections are part of the [MtG rules engines](#mtg-rules-engines), in which I described the [Forge](#forge) and the [XMage](#xmage) MtG REs in detail. More specifically, each of those two sections cover the development, features, and installation process of each RE. If you are only interested in learning how to install and use them, then simply jump straight to their respective section.
 
 The third and last main section, called [Contributing](#contributing), covers aspects about how you can help each project. I found this necessary because both Forge and XMage are quintessential community-driven projects and on top of that, they are very good examples of FOSS applied to gaming.  Reporting issues, writing card scripts, and setting up a (versioned) project directory are examples of the content covered in the last section.
 
 [top](#){:.btn .btn--light-outline .btn--small}
 
+# The basics of MtG
+This section is optional for anyone who is already familiar with MtG. Feel free to [skip to the next section](#mtg-rules-engines) if this is the case.
+{:.notice--success}
+
+If you have never played MtG before and you are curious about it, then take a look at the following video to learn the basics before moving onto the next sections.
+
+{% include video id="RZyXU1L3JXk" provider="youtube" %}
+
 # MtG rules engines
-The starting point of any game is a set of rules that tell us how the game is played. In most card games (e.g., [monte bank](https://en.wikipedia.org/wiki/Monte_Bank)), this amounts to just a few basic rules that we can count on our fingers. In MtG, however, there are **over 250 pages of rules**, which are described in detail in the [MtG Comprehensive Rules book](https://magic.wizards.com/en/rules). As a player, you are not supposed to go over all such rules in order to play the game. In fact, most of us just learn the basics first (e.g., the concept of mana, card zones, casting, and win conditions), leaving the specifics to be learned as we play the game. Nonetheless, the sheer amount of specific rules in MtG does indicate that MtG is a complex game, and therefore, its digital implementation is non-trivial. This alone speaks volumes about the individuals who have taken for themselves the task of implementing the game, especially those who have done so without the support of a business, and the development of both Forge and XMage falls very much into such category.
+The starting point of any game is a set of rules that tell us how the game is played. In most card games (e.g., [monte bank](https://en.wikipedia.org/wiki/Monte_Bank)), this amounts to just a few basic rules that we can count on our fingers. In MtG, however, there are **over 250 pages of rules**, which are described in detail in the [MtG Comprehensive Rules book](https://magic.wizards.com/en/rules). As a player, you are not supposed to go over all such rules in order to play the game. In fact, most of us just learn the basics first (e.g., the concepts of mana, casting, phases, card zones, and win conditions), leaving the specifics to be learned as we play the game. Nonetheless, the sheer amount of specific rules in MtG does indicate that MtG is a complex game, and therefore, its digital implementation is non-trivial. This alone speaks volumes about the individuals who have taken for themselves the task of implementing the game, especially those who have done so without the support of a business, and the development of both Forge and XMage falls very much into such category.
 
 Forge and XMage have in common the fact that they are both written in [**Java**](https://en.wikipedia.org/wiki/Java_(programming_language))--a mature and object oriented language--which makes them easily portable. In fact, contrary to MTGO, they run on pretty much any operating system. In addition, neither Forge nor XMage tries to simply emulate MTGO features; they actually introduce many **new features**. A major and common one is that both Forge and XMage allow users **to play against the computer (AI)**. In addition, because both applications are free to use, it is not necessary to make any financial investment to play MtG, whereas buying MTGO cards can sometimes feel more like buying stocks than playing a card game.
 
 After that last point, I feel I should note that MTGO outshines any other MtG RE **by a huge margin** when it comes to **online play**. The community around it and the events are definitely unique and in my opinion, the strongest features of MTGO and I dare say, worth your money if you are into MtG.
 {:.notice--warning}
 
-However, even though Forge and XMage are both MtG REs, they are not mutually exclusive implementations of the game. Forge, on the one hand, has very unique play modes for single player, such as **Quests**, which are reminiscent of the old [Shandalar](#) MtG game by MicroPose. XMage, on the other hand, has a very reliable implementation of **online play**, which is quite unreliable in Forge. In other words, each RE has its strengths and weaknesses, which I summarized in the following table:
+However, even though Forge and XMage are both MtG REs, they are not mutually exclusive implementations of the game. Forge, on the one hand, has very unique play modes for single player, such as **Quests**, which are reminiscent of the old [Shandalar](#) MtG role playing game (RPG) by MicroPose. XMage, on the other hand, has a very reliable implementation of **online play**, which is quite unreliable in Forge. In other words, each RE has its strengths and weaknesses, which I summarized in the following table:
 
 |Engine|Strengths|Weaknesses|
 |:-:|:-:|:-:|
 | Forge | Various single player modes for **offline play** against the computer. Beautiful and customizable graphical interface. Runs on mobile (Android) as well as desktop. Supports card scripting. Supports almost every single card in MtG. | The AI will occasionally make very dumb plays--it's said that the AI works best with aggro strategies, as opposed to combos. Even though networking features exist for online play, it is quite unreliable. |
-| XMage | Large community and arguably the most mature (unofficial) MtG RE available. Solid implementation for multiplayer, human vs. human, and **online play**. | Installation and usage can be challenging for unfamiliar or non-tech users. It does not support as many cards as Forge but you'll only notice it if you play with unusual cards that were never reprinted since Eventide. |
+| XMage | Large community and arguably the most mature (unofficial) MtG RE available. Solid implementation of multiplayer, human vs. human, and **online play**. | Installation and usage can be challenging for non-tech users. It does not support as many cards as Forge but you'll only notice it if you play with unusual cards that were never reprinted since Eventide. |
 
 For more comparisons, refer to the [Slightly Magic wiki list of MtG REs](https://www.slightlymagic.net/wiki/List_of_MTG_Engines).
 {:.notice--info}
@@ -53,9 +63,11 @@ For more comparisons, refer to the [Slightly Magic wiki list of MtG REs](https:/
 In brief, my opinion is that if you are looking for a single player experience, then try Forge. Now, if you want to play with friends online, then try XMage. Are you unsure? Try both! I think they are both great examples of FOSS applied to gaming and they complement each other in many aspects.  In any case, check the following sections for specifics about each of those MtG REs.
 
 ## Forge
-Forge was originally written by a single individual ([mtgrares](https://mtgrares.blogspot.com/)) around the mid-2000s, then started being (`git`) versioned in 2011 by `jendave`. The project has since grown a lot and is currently maintained by a large number of [contributors and a group of core developers](https://github.com/Card-Forge/forge/graphs/contributors). It has been particularly active ever since 2017 and its repository is currently being hosted on Github ([Card-Forge/forge](https://github.com/Card-Forge/forge)). Of note, Forge has both a **desktop release**, which is the main focus of this guide, and a mobile (Android) release, which is not covered in this guide but information about the installation of the `apk` is mentioned below.
+Forge was originally written by a single individual ([mtgrares](https://mtgrares.blogspot.com/)) around the mid-2000s, then started being (`git`) versioned in 2011 by `jendave`. The project has since grown a lot and is currently maintained by a large number of [contributors and a group of core developers](https://github.com/Card-Forge/forge/graphs/contributors). It has been particularly active ever since 2017 and its repository is currently being hosted on Github ([Card-Forge/forge](https://github.com/Card-Forge/forge)). Of note, Forge has both a **desktop release**, which is the main focus of this guide, and a mobile (Android) release, which is only briefly mentioned in the [Android APK](#android-apk) section.
 
 [![Forge - GUI](/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-01.png){:.PostImage .PostImage--large}](/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-01.png)
+
+[![Forge - GUI - Gameplay](/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-gameplay-01.png){:.PostImage .PostImage--large}](/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-gameplay-01.png)
 
 As mentioned before, Forge features a very unique (*and hella fun!*) set of single player modes, namely **Quest mode**, **Puzzle mode**, and **Gauntlets**. The Quest mode plays like an RPG game in which you can improve your deck over battles against the computer. The Puzzle mode is pretty much self-explanatory: it gives you MtG puzzles to solve, such as how to win given a board state. Finally, the Gauntlets consist of a group of customizable players that play each other in a tournament-like fashion.
 
@@ -67,7 +79,7 @@ As mentioned before, Forge features a very unique (*and hella fun!*) set of sing
 
 As it would be expected from an MtG RE, Forge also features a full blown **deck editor**. The editor lets users customize existing decks, build new ones, import from other applications, websites or `txt`, and also export decks created with Forge to other applications.
 
-[![Forge - GUI - Editor](/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-editor.png){:.PostImage .PostImage--large}](/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-editor.png)
+[![Forge - GUI - Editor](/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-editor.png){:.PostImage}](/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-editor.png)
 
 Interface-wise, Forge is actually my favorite MtG RE. Almost everything can be edited to the user's liking and they even have a **theme** selector feature. (`Magic` is my favorite one.)
 
@@ -210,7 +222,7 @@ For information about how to install JRE and Forge, take a look at the next sect
 ### Android APK
 Forge is very unique in which it also **runs on Android**, so you can install it on your mobile or tablet running **Android 9** or newer. The Android interface has its own peculiarities--because the application is designed for mobile--but if you are familiar with the desktop version, you will get the hang of the mobile version very quickly.
 
-Older versions of the Forge MtG RE for Android exist that run on older versions of Android. This is an alternative if you are not running a modern Android OS but of course, such versions of the RE do not have cards from the latest sets, functionalities that were implemented recently, and so on. If that is okay, then when selecting the Forge version in the instructions below, just try older ones until you find one that works with your device and Android version.
+There are older versions of the Forge MtG RE for Android that run on versions of Android older than Android 9 (Pie). This is an alternative if you are not running a modern Android OS but of course, such versions of the RE do not have cards from the latest sets, functionalities that were implemented recently, and so on. If that is okay, then when selecting the Forge version in the instructions below, just try older ones until you find one that works with your device and Android version.
 {:.notice--info}
 
 {% include video id="NyjU1KN1Rv4" provider="youtube" %}
@@ -218,16 +230,17 @@ Older versions of the Forge MtG RE for Android exist that run on older versions 
 As far as I'm aware, the Forge `apk` (Android package) is not distributed via any well known app store (e.g., Google's Play Store, F-Droid), so you will need to download and install it from the official website.  In addition, the app requires *storage permission* in order to function, so once we have installed it, we need to manually add such permission for it to work. If that sounds good and you want to give it a try, then follow these steps:
 
 1. Grab your Android device.
-2. We need to allow our Internet Browser (and possibly, File Manager) to install apps from **unknown sources**. By default, such options is disabled. To enable it, go to **Settings** and search for 'unknown source', then follow the options to allow your Internet browser of choice (e.g., DuckDuckGo, Chrome) to install apps from unknown sources.
-3. Navigate to the cardforge.org website (see below) to **download the latest Forge apk**. First, you need to find the latest Forge version available (e.g., `1.6.53`). Then, find the corresponding directory that ends with three additional numbers (`1.6.53.001`) and enter in whichever one is the highest for the last Forge version (`004`). Inside such subdirectory, there should be an `apk` file that you should download and then install.
+2. We need to allow our Internet Browser (and possibly, File Manager) to install apps from **unknown sources**. By default, such option is disabled. To enable it, go to **Settings** and search for 'unknown source', then follow the options to allow your Internet browser of choice (e.g., DuckDuckGo, Chrome) to install apps from unknown sources.
+3. Navigate to the cardforge.org website (see below) to **download the latest Forge apk**. First, you need to find the latest Forge version available (e.g., `1.6.53`). Then, find the corresponding directory that ends with three additional numbers (`1.6.53.001`) and enter in whichever one is the highest for the last Forge version (`004`). Inside such subdirectory, there should be an `apk` file that you can download and then install.
    - [https://releases.cardforge.org/forge/forge-gui-android/](https://releases.cardforge.org/forge/forge-gui-android/)
-4. After downloading, open the `apk` and follow instructions to **install the Forge package**. When done, close the install window.
+4. After downloading, open the `apk` and follow instructions to **install the Forge**. When done, close the install window.
 5. Search for the Forge app icon in your home screen or app list. Then go into its **App info** > Permissions and allow it access to *Files and media* (or *Storage*, depending on which Android version you are running).
-6. Now, open the Forge app and follow instructions to download the assets (images, sounds, etc.) and when done, it should ask you to restart the application.
-7. That is it!  Enjoy Forge on your mobile.
+6. Now, open the Forge app and follow instructions to download the assets (main images, sounds, etc.) and when done, it should ask you to restart the application.
+7. (*Optional*.) Once the application is up an running, go to its *Settings* and check the option to download missing art on demand, just like we've done with the desktop release, and the go to the *Settings > Files* tab and download the Quests, Achievements, etc., missing images as well.
+8. That is it!  Enjoy Forge on your mobile.
 
 ### Card scripting
-In `res/cardsfolder/`, you will find a compressed directory containing a `txt` file for each MtG card supported by the Forge RE. Those files are **card scripts** that tell Forge how each card works via parameters for the various properties, effects, and abilities that each card might have. Take, for example, the card **Fyndhorn Elves**:
+In the `res/cardsfolder/` directory of your Forge for desktop application, you will find a compressed directory containing a `txt` file for each MtG card supported by the Forge RE. Those files are **card scripts** that tell Forge how each card works via parameters for the various properties, effects, and abilities that each card might have. Take, for example, the card **Fyndhorn Elves**:
 
 [![Card - Fyndhorn Elves](/assets/posts/2022-07-18-forge-xmage-mtg/card-elves.jpg){:.PostImage}](/assets/posts/2022-07-18-forge-xmage-mtg/card-elves.jpg)
 
@@ -265,38 +278,147 @@ However, you can write scripts for whatever you feel comfortable with, for just 
 
 Writing card scripts for the Forge RE project is a great way to contribute and if you want to get involved, check the [Contributing](#contributing) section of this article to learn more about versioning (`git`) and setting up your project dir.  However, before submitting a pull-request (PR) for a new card script, make sure to check the project's current workflow for such contributions. As a general rule of thumb, go over the project's wiki (or `CONTRIBUTING.md` guide) and if you cannot find any info about it, then **ask one the maintainers** to explain how you can help with such a task.
 
-At the time of writing, for example, there seems to be an open issue for each upcoming card that has not been scripted yet (e.g., [issue#974](https://github.com/Card-Forge/forge/issues/974) for the card [Windshaper Planetar](https://gatherer.wizards.com/Pages/Card/Details.aspx?name=Windshaper%20Planetar) from the *Commander's Legends: Battle for Baldur's Gate* set) and a successful PR is one that fixes this issue by merging a commit to the repo's `master` branch that contains the new card script(s) (e.g., [PR#994](https://github.com/Card-Forge/forge/pull/994)).
+At the time of writing, for example, there seems to be an open issue for each upcoming card that has not been scripted yet (e.g., [issue#974](https://github.com/Card-Forge/forge/issues/974) for the card [Windshaper Planetar](https://gatherer.wizards.com/Pages/Card/Details.aspx?name=Windshaper%20Planetar) from the *Commander's Legends: Battle for Baldur's Gate* set) and a successful PR is one that fixes this issue via a commit to the repo's `master` branch that adds the new card script(s) (e.g., [PR#994](https://github.com/Card-Forge/forge/pull/994)).
 {:.notice--info}
 
 ## XMage
-XMage, also referred to as **Magic is Another Game Engine** (MAGE), is a MtG RE that started being developed in the early 2010s and now encompasses both a client and a server for offline or online MtG games. Users X project's commit history
+XMage, also referred to as **Magic is Another Game Engine** (MAGE), is a MtG RE that started being developed in the early 2010s and now encompasses both a client and a server for offline or online MtG games. According to the project's commit history, the first few commits date back to 2010 by users `BetaSteward`, `Loki`, and `magenoxx`. The project has been particularly active since 2018 and is now maintained by a large number of [developers and contributors](https://github.com/magefree/mage/graphs/contributors). The official repository is currently hosted on Github ([magefree/mage](https://github.com/magefree/mage)).
 
-### Getting started
-- client (most people just need this)
-- server (if you want to run an XMage server for friends to join a multiplayer game, for example)
-- include stuff abou donation
+[![XMage - GUI - Launcher - 00](/assets/posts/2022-07-18-forge-xmage-mtg/xmage-launcher-00.png){:.PostImage .PostImage--large}](/assets/posts/2022-07-18-forge-xmage-mtg/xmage-launcher-00.png)
 
-### Installation
-- Java
-- download the launcher from 'http://xmage.de/'
-- `mkdir "$HOME/Applications/xmage"`
-- mv the launcher to `$HOME/Applications/xmage`
-- cd into `$HOME/Applications/xmage`
-- run the launcher (`jar` file): `java -jar *.jar`
-- follow instructions on the screen for the first time install and wait for it to complete (might take a while)
+[![XMage - GUI - Client - 01](/assets/posts/2022-07-18-forge-xmage-mtg/xmage-client-01.png){:.PostImage .PostImage--large}](/assets/posts/2022-07-18-forge-xmage-mtg/xmage-client-01.png)
+
+[![XMage - GUI - Gameplay - 01](/assets/posts/2022-07-18-forge-xmage-mtg/xmage-gui-gameplay-01.png){:.PostImage .PostImage--large}](/assets/posts/2022-07-18-forge-xmage-mtg/xmage-gui-gameplay-01.png)
+
+A major difference between XMage and Forge is that when launching XMage, you have the option to run it as a **client** or **server** or both. In brief, if you are hosting a game, then you need a server, even if you are playing locally against the computer (AI). However, if you are joining a local or remote game, then you need a client. For a single player game against the computer, for example, you need to launch both a server and a client, then within the client, connect to your local server (hosted on the same machine, `localhost`/`127.0.0.1`, and XMage's default port, `17171`). Now, to join a game your friend is hosting, all you need is to launch a client but then you also need a network address to join your friend's server over the WAN. (There are public servers, too, hosted by XMage maintainers. More on this in [Client and Server usage](#client-and-server-usage).) These bits of technical stuff can sound intimidating to users who are not very familiar with networking concepts but XMage developers were kind enough to make these tasks a matter of clicking on a few buttons and once you get the hang of it, it becomes very trivial to start new MtG games with XMage.
+
+[![XMage - Launcher - 03](/assets/posts/2022-07-18-forge-xmage-mtg/xmage-launcher-03.png){:.PostImage}](/assets/posts/2022-07-18-forge-xmage-mtg/xmage-launcher-03.png)
+
+In addition, XMage's client has another unique feature, called **card viewer**, that allows users to browse MtG collections. When I used to play paper MtG, I carried multiple binders with me that contained my most valuable cards and XMage's card viewer is very reminiscent of such binders. It is also an interesting mode to browse cards from a new set to get yourself familiarized with them and see what could be tested and added to an existing deck.
+
+[![XMage - Card Viewer](/assets/posts/2022-07-18-forge-xmage-mtg/xmage-gui-viewer.png){:.PostImage}](/assets/posts/2022-07-18-forge-xmage-mtg/xmage-gui-viewer.png)
+
+As expected, XMage features a comprehensive implementation of a **deck editor**. This can be found when launching a client, under the tab properly dubbed *Deck Editor*. Within the editor, users can lookup cards, use filters, preview art, build new decks for various formats, customize existing ones, import/export deck lists, and so on.
+
+[![XMage - Editor](/assets/posts/2022-07-18-forge-xmage-mtg/xmage-gui-editor.png){:.PostImage}](/assets/posts/2022-07-18-forge-xmage-mtg/xmage-gui-editor.png)
+
+Regarding XMage's client interface, it is also possible to select **themes** for it.  However, the number of options is more limited than in Forge and the visual changes are rather minor in most cases. (I personally like the `Default` one and `Grey`.)  Visually, a game of MtG on the XMage client reminds me a lot of the old Magic Online with Digital Objects (MODO)--a WotC MtG RE that preceded MTGO--so it can feel a bit nostalgic to play MtG on XMage if you have also experienced the MODO days.
 
 ### Gameplay demo
+
+{% include video id="iOMPxAm6vnw" provider="youtube" %}
+
+### Getting started
+The requirements to run XMage are almost identical to Forge.  That is, it needs a JRE to run and the user experience is much better with a larger screen than what you would get using a tiny laptop / tablet. However, contrary to Forge, you should plan on saving a long time for the XMage initial setup because it takes multiple hours for it to finish downloading all the missing images.
+
+You might want to install XMage at night and leave your computer running overnight while XMage downloads the missing art, for example. You most definitely do not need to monitor XMage while it performs such task.
+{:.notice--info}
+
+The following table provides a summary of the software I used to run XMage at the time of writing:
+
+|application|version|
+|:-:|:-:|
+|`java` (host)|`openjdk 11.0.15 2022-04-19`|
+|`java` (XMage)|`1.8.0_201`|
+|`xmage launcher`|`0.3.8`|
+|`xmage client`|`1.4.50-v2 build: 2021-09-05`|
+|`xmage server`|`1.4.50-v2 build: 2021-09-05`|
+
+### Installation
+- **Requirements**
+
+  As mentioned before, XMage requires a JRE to run. For instructions on how to install JRE on your host machine, please refer to the [Forge installation requirements](#installation) because they are identical.
+
+- **Download and install XMage**
+
+  The XMage RE can be divided into three distinct applications, namely **launcher**, **client**, and **server**. The launcher is used to manage both the client and the server--that is, it checks the requisites, what client and server versions are installed, if they are up-to-date, and whether you want to start a client or a server or both. Therefore, the installation starts with the **XMage launcher**, which you can manually download from the official website:
+
+  - [http://xmage.de](http://xmage.de)
+
+  or via terminal, using curl to download the launcher to your user's `Downloads` dir:
+
+  ```
+  cd ~/Downloads/
+  XMAGE_LAUNCHER=$(curl http://xmage.de | grep -oE "http.*xmageLauncher[[:digit:]]+")
+  curl -L -o xmageLauncher.jar "$XMAGE_LAUNCHER"
+  ```
+
+  Before executing the launcher, you should **define where the XMage application will be stored** because the launcher will create subdirs for the client and server inside the same directory it currently resides.  As I mentioned before, I like to put all such applications inside a directory called `Applications` in my user's `$HOME`:
+
+  ```
+  if [ ! -d "$HOME/Applications/" ]; then mkdir "$HOME/Applications"; fi
+  cd "$HOME/Applications/"
+  ```
+
+  Now we can create a separate dir for XMage and move the launcher there:
+
+  ```
+  mkdir xmage
+  mv ~/Downloads/xmageLauncher.jar ./xmage/
+  cd xmage
+  ```
+
+  The XMage launcher is a [Java archive](https://docs.oracle.com/javase/8/docs/technotes/guides/jar/index.html) (`jar`) file, so to execute it, run the following:
+
+  ```
+  java -jar xmageLauncher.jar
+  ```
+
+  You should now be able to see the launcher's GUI and it will start checking for missing requisites and then install the client and server.  Simply follow the instructions until the option to Launch Client becomes available. When you get to this point, you should be done installing the client and the server.
+
+- **Initial configuration**
+
+  Once the launcher is done installing the missing components, select **Launch Client** to download the missing content (symbols and images). You will be greeted by a *Connect to server* window but for now, we won't connect to any XMage server, so hit *Cancel* in order to access the tabs at the top of the client's window.
+
+  First, select **Symbols** and follow instructions to download such image files. When done, select **Images**, then *Standard download* and optionally, you might configure options different than default but I suggest to use defaults, and then hit *Start downloading*.
+
+  **This will take multiple hours to finish**.  Just keep it running in the background and come back later to check on it.
+  {:.notice--warning}
+
+  When you are done downloading the missing content, you can optionally go to **Preferences** and customize the XMage client to your liking.  However, if this is your first time, then try the defaults first and change preferences as you become more familiar with the interface.
+
+  Afterwards, close both the XMage client and then the XMage launcher and you are all done with the client configuration.
+
+  Now, it is possible to run either the client or the server or both without using the launcher but I strongly suggest to **always use the XMage launcher** because it is the launcher that ensures you are running the latest XMage components. However, instead of opening a terminal to run the launcher every time you want to use XMage, you can create a **custom launcher** for it, just like we have done with Forge. (Once again, in GNU/Linux, the specifics of creating a custom launcher depends a lot on the desktop environment and most of them have documented such procedure, so I won't cover this here.)  Here is how my XMage custom launcher configuration looks like in Debian 11 XFCE:
+
+  [![XMage - XFCE Launcher](/assets/posts/2022-07-18-forge-xmage-mtg/xmage-xfce-launcher.png){:.PostImage .PostImage--large}](/assets/posts/2022-07-18-forge-xmage-mtg/xmage-xfce-launcher.png)
+
+  The `-Djava.net.preferIPv4Stack=true` runtime arg is probably not necessary but since it is mentioned in the [XMage documentation](https://github.com/magefree/mage#installation--running), I also added it here. It just tells Java to favor IPv4 over IPv6, probably because XMage has/had an issue with the latter.  However, I've never notice any problems without setting it.
+  {:.notice--info}
+
+
+### Client and Server usage
+For most users, the steps covered so far are enough to start playing MtG using the XMage RE. For a **single player match against the computer(s)**, you need to launch **both server and client** from within the XMage launcher. This will prompt XMage to start a local server that your XMage client can connect to. To connect to your local server, select *LOCAL, AI*, then enter your username (e.g., `cgomesu`) and then select `Connect to server`:
+
+[![XMage - Client - Local](/assets/posts/2022-07-18-forge-xmage-mtg/xmage-local-ai.png){:.PostImage}](/assets/posts/2022-07-18-forge-xmage-mtg/xmage-local-ai.png)
+
+This will let you create a **New Match** and then configure the type of game you want to play, decks to use, and so on:
+
+[![XMage - GUI - Client - 02](/assets/posts/2022-07-18-forge-xmage-mtg/xmage-client-02.png){:.PostImage}](/assets/posts/2022-07-18-forge-xmage-mtg/xmage-client-02.png)
+
+For *Constructed* type of games, use the `mad` computer type.
+{:.notice--info}
+
+However, if you want to play online with friends, then **one of you will have to run an XMage server** that is reachable to the other players via a **public IP and port number** (or for the tech savvy, via a domain name, such as `xmage.cgomesu.com`). In such cases, I strongly recommend the person running the server to take a look at additional server configuration instructions that can be found in [XMage Wiki - Server configuration](https://github.com/magefree/mage/wiki#server-configuration).
+
+There are **public servers** as well but I've never used them before. Take a look at the following resources for more information:
+
+- [http://xmage.today](http://xmage.today)
+- [http://xmage.today/servers/](http://xmage.today/servers/)
+
+Finally, it is also possible to play against a friend who is on the same local network as you, which works just like a **LAN party**. The specifics are similar to the online play but instead of adding a remote address to the connection window, you specify the local IP address of the host running the XMage server (e.g., `192.168.1.100`) and port, if different than default (`17171`). Once all the players have joined the server, you can then configure and create a match for your friends to join.
 
 [top](#){:.btn .btn--light-outline .btn--small}
 
 # Contributing
+- donations:
+  - forge: there's no official donation channel(s) yet. (user `austeregrim` helps providing free access to a server for Forge's content downloads and ppl can help support his service at http://download.austeregrim.net/ but he is not a project maintainer.)
+  - xmage: http://xmage.today/#donate. currently, donations go to the lead maintainer, [@JayDi85](https://github.com/JayDi85), who is also responsible for the public servers.
 
 ## Reporting issues
 
-## Documentation
-
 ## Project development
-- Intro to versioning
+- Intro to versioning (`git`)
 - Brief how-to for setting up a local project development dir (just enough for card scripting contributions)
 
 [top](#){:.btn .btn--light-outline .btn--small}
