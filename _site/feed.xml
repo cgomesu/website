@@ -1,4 +1,550 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-07-18T12:03:47-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">DIY series: ESP-01 Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: ESP-01 Tasmota environmental sensor" /><published>2021-08-12T13:00:00-03:00</published><updated>2021-08-12T13:00:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-07-22T14:54:23-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">Forge and XMage: The best free and open source rules engines for ‘Magic: the Gathering’</title><link href="/blog/forge-xmage-mtg/" rel="alternate" type="text/html" title="Forge and XMage: The best free and open source rules engines for ‘Magic: the Gathering’" /><published>2022-07-22T14:50:00-03:00</published><updated>2022-07-22T14:50:00-03:00</updated><id>/blog/forge-xmage-mtg</id><content type="html" xml:base="/blog/forge-xmage-mtg/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+&lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;July 22th, 2022&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
+
+&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;I have been playing &lt;a href=&quot;https://magic.wizards.com&quot;&gt;Magic: the Gathering&lt;/a&gt; (MtG) for as long as the game exists. If you have never heard about it before, MtG is a trading card game (TCG) created by &lt;a href=&quot;https://en.wikipedia.org/wiki/Richard_Garfield&quot;&gt;Richard Garfield&lt;/a&gt; and released in 1993 by &lt;a href=&quot;https://en.wikipedia.org/wiki/Wizards_of_the_Coast&quot;&gt;Wizards of the Coast&lt;/a&gt; (WotC). It is arguably the most successful TCG ever made and even though it was originally popularized as a paper format TCG, it has long been ported to digital formats. The main MtG client developed by WotC is called &lt;a href=&quot;https://magic.wizards.com/en/mtgo&quot;&gt;MTG Online&lt;/a&gt; (MTGO) and it requires users to buy digital versions of paper Magic cards to trade and play with other users on private servers. The development of such client has gone through many changes over the years but most of the details are unknown to the public because MTGO is not open source and a large portion of its functionality happens in the cloud. On top of that, MTGO only runs on Windows, leaving many of us nix users (e.g., GNU/Linux, macOS) without official support.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/card-fow.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/card-fow.jpg&quot; alt=&quot;Card - FoW&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Fortunately, there are &lt;strong&gt;free and open source software&lt;/strong&gt; (FOSS) alternatives to MTGO that &lt;strong&gt;do not&lt;/strong&gt; require users to buy digital objects (cards) to play MtG. In this article, I talked about two of the main MtG rules engines (RE) currently available for offline and online play: &lt;strong&gt;Forge&lt;/strong&gt; and &lt;strong&gt;XMage&lt;/strong&gt;. More specifically, the article covers the main features of the Forge and XMage REs, how to install and use each one of them, and how you can contribute to maintain their development because these two projects are essentially community-driven. This is possible and completely legal because just like no company can claim ownership over the game of &lt;a href=&quot;https://en.wikipedia.org/wiki/Poker&quot;&gt;poker&lt;/a&gt;, WotC cannot claim ownership over the rules that constitute a game of MtG.&lt;/p&gt;
+
+&lt;p&gt;If you are interested in using and learning more about Forge and XMage, then keep on reading. As it is customary with my articles, I try to keep them up-to-date to reflect my current knowledge about the content, so if this is not your first time here, make sure to check the &lt;a href=&quot;#changelog&quot;&gt;Changelog&lt;/a&gt; for updates. Also, if you spot an error or disagree with something that I wrote or want to improve this article, feel free &lt;a href=&quot;/contact&quot;&gt;to get in touch with me&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;overview&quot;&gt;Overview&lt;/h1&gt;
+&lt;p&gt;This article is divided into four main sections. The first is an optional and brief introduction to the game of MtG, called &lt;a href=&quot;#the-basics-of-mtg&quot;&gt;the basics of MtG&lt;/a&gt;. This section is recommended only for those who are not familiar with the basic rules of MtG and want to get a taste of what the game is all about.&lt;/p&gt;
+
+&lt;p&gt;The next two main sections are part of the &lt;a href=&quot;#mtg-rules-engines&quot;&gt;MtG rules engines&lt;/a&gt;, in which I described the &lt;a href=&quot;#forge&quot;&gt;Forge&lt;/a&gt; and the &lt;a href=&quot;#xmage&quot;&gt;XMage&lt;/a&gt; MtG REs in detail. More specifically, each of those two sections cover the development, features, and installation process of each RE. If you are only interested in learning how to install and use them, then simply jump straight to their respective section.&lt;/p&gt;
+
+&lt;p&gt;The third and last main section, called &lt;a href=&quot;#contributing&quot;&gt;Contributing&lt;/a&gt;, covers aspects about how you can help each project. I found this necessary because both Forge and XMage are quintessential community-driven projects and on top of that, they are very good examples of FOSS applied to gaming.  Reporting issues, writing card scripts, and setting up a (versioned) project directory are examples of the content covered in the last section.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;the-basics-of-mtg&quot;&gt;The basics of MtG&lt;/h1&gt;
+&lt;p class=&quot;notice--success&quot;&gt;This section is optional for anyone who is already familiar with MtG. Feel free to &lt;a href=&quot;#mtg-rules-engines&quot;&gt;skip to the next section&lt;/a&gt; if this is the case.&lt;/p&gt;
+
+&lt;p&gt;If you have never played MtG before and you are curious about it, then take a look at the following video to learn the basics before moving onto the next sections.&lt;/p&gt;
+
+&lt;!-- Courtesy of embedresponsively.com //--&gt;
+&lt;div class=&quot;responsive-video-container&quot;&gt;
+
+  &lt;iframe src=&quot;https://www.youtube-nocookie.com/embed/RZyXU1L3JXk&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;/div&gt;
+
+&lt;h1 id=&quot;mtg-rules-engines&quot;&gt;MtG rules engines&lt;/h1&gt;
+&lt;p&gt;The starting point of any game is a set of rules that tell us how the game is played. In most card games (e.g., &lt;a href=&quot;https://en.wikipedia.org/wiki/Monte_Bank&quot;&gt;monte bank&lt;/a&gt;), this amounts to just a few basic rules that we can count on our fingers. In MtG, however, there are &lt;strong&gt;over 250 pages of rules&lt;/strong&gt;, which are described in detail in the &lt;a href=&quot;https://magic.wizards.com/en/rules&quot;&gt;MtG Comprehensive Rules book&lt;/a&gt;. As a player, you are not supposed to go over all such rules in order to play the game. In fact, most of us just learn the basics first (e.g., the concepts of mana, casting, phases, card zones, and win conditions), leaving the specifics to be learned as we play the game. Nonetheless, the sheer amount of specific rules in MtG does indicate that MtG is a complex game, and therefore, its digital implementation is non-trivial. This alone speaks volumes about the individuals who have taken for themselves the task of implementing the game, especially those who have done so without the support of a business, and the development of both Forge and XMage falls very much into such category.&lt;/p&gt;
+
+&lt;p&gt;Forge and XMage have in common the fact that they are both written in &lt;a href=&quot;https://en.wikipedia.org/wiki/Java_(programming_language)&quot;&gt;&lt;strong&gt;Java&lt;/strong&gt;&lt;/a&gt;–a mature and object oriented language–which makes them easily portable. In fact, contrary to MTGO, they run on pretty much any operating system. In addition, neither Forge nor XMage tries to simply emulate MTGO features; they actually introduce many &lt;strong&gt;new features&lt;/strong&gt;. A major and common one is that both Forge and XMage allow users &lt;strong&gt;to play against the computer (AI)&lt;/strong&gt;. In addition, because both applications are free to use, it is not necessary to make any financial investment to play MtG, whereas buying MTGO cards can sometimes feel more like buying stocks than playing a card game.&lt;/p&gt;
+
+&lt;p class=&quot;notice--warning&quot;&gt;After that last point, I feel I should note that MTGO outshines any other MtG RE &lt;strong&gt;by a huge margin&lt;/strong&gt; when it comes to &lt;strong&gt;online play&lt;/strong&gt;. The community around it and the events are definitely unique and in my opinion, the strongest features of MTGO and I dare say, worth your money if you are into MtG.&lt;/p&gt;
+
+&lt;p&gt;However, even though Forge and XMage are both MtG REs, they are not mutually exclusive implementations of the game. Forge, on the one hand, has very unique play modes for single player, such as &lt;strong&gt;Quests&lt;/strong&gt;, which are reminiscent of the old &lt;a href=&quot;https://www.pcgamer.com/the-first-digital-deckbuilder-was-a-magic-the-gathering-game-from-1997-and-it-ruled/&quot;&gt;Shandalar&lt;/a&gt; MtG role playing game (RPG) by MicroPose. XMage, on the other hand, has a very reliable implementation of &lt;strong&gt;online play&lt;/strong&gt;, which is quite unreliable in Forge. In other words, each RE has its strengths and weaknesses, which I summarized in the following table:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Engine&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Strengths&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Weaknesses&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Forge&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Various single player modes for &lt;strong&gt;offline play&lt;/strong&gt; against the computer. Beautiful and customizable graphical interface. Runs on mobile (Android) as well as desktop. Supports card scripting. Supports almost every single card in MtG.&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;The AI will occasionally make very dumb plays–it’s said that the AI works best with aggro strategies, as opposed to combos. Even though networking features exist for online play, it is quite unreliable.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;XMage&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Large community and one of the most mature (unofficial) MtG REs available. Solid implementation of multiplayer, human vs. human, and &lt;strong&gt;online play&lt;/strong&gt;.&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Installation and usage can be challenging for non-tech users. It does not support as many cards as Forge but you’ll only notice it if you play with unusual cards that were never reprinted since Eventide.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;For more comparisons, refer to the &lt;a href=&quot;https://www.slightlymagic.net/wiki/List_of_MTG_Engines&quot;&gt;Slightly Magic wiki list of MtG REs&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;In brief, my opinion is that if you are looking for a single player experience, then try Forge. Now, if you want to play with friends online, then try XMage. Are you unsure? Try both! I think they are both great examples of FOSS applied to gaming and they complement each other in many aspects.  In any case, check the following sections for specifics about each of those MtG REs.&lt;/p&gt;
+
+&lt;h2 id=&quot;forge&quot;&gt;Forge&lt;/h2&gt;
+&lt;p&gt;Forge was originally written by a single individual (&lt;a href=&quot;https://mtgrares.blogspot.com/&quot;&gt;mtgrares&lt;/a&gt;) around the mid-2000s, then started being (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git&lt;/code&gt;) versioned in 2011 by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jendave&lt;/code&gt;. The project has since grown a lot and is currently maintained by a large number of &lt;a href=&quot;https://github.com/Card-Forge/forge/graphs/contributors&quot;&gt;contributors and a group of core developers&lt;/a&gt;. It has been particularly active ever since 2017 and its repository is currently being hosted on Github (&lt;a href=&quot;https://github.com/Card-Forge/forge&quot;&gt;Card-Forge/forge&lt;/a&gt;). Of note, Forge has both a &lt;strong&gt;desktop release&lt;/strong&gt;, which is the main focus of this guide, and a mobile (Android) release, which is only briefly mentioned in the &lt;a href=&quot;#android-apk&quot;&gt;Android APK&lt;/a&gt; section.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-01.png&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-01.png&quot; alt=&quot;Forge - GUI&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-gameplay-01.png&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-gameplay-01.png&quot; alt=&quot;Forge - GUI - Gameplay&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;As mentioned before, Forge features a very unique (&lt;em&gt;and hella fun!&lt;/em&gt;) set of single player modes, namely &lt;strong&gt;Quest mode&lt;/strong&gt;, &lt;strong&gt;Puzzle mode&lt;/strong&gt;, and &lt;strong&gt;Gauntlets&lt;/strong&gt;. The Quest mode plays like an RPG game in which you can improve your deck over battles against the computer. The Puzzle mode is pretty much self-explanatory: it gives you MtG puzzles to solve, such as how to win given a board state. Finally, the Gauntlets consist of a group of customizable players that play each other in a tournament-like fashion.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-quest.png&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-quest.png&quot; alt=&quot;Forge - GUI - Quest&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-puzzle.png&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-puzzle.png&quot; alt=&quot;Forge - GUI - Puzzle&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-gauntlet.png&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-gauntlet.png&quot; alt=&quot;Forge - GUI - Gauntlet&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;As it would be expected from an MtG RE, Forge also features a full blown &lt;strong&gt;deck editor&lt;/strong&gt;. The editor lets users customize existing decks, build new ones, import from other applications, websites or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;txt&lt;/code&gt;, and also export decks created with Forge to other applications.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-editor.png&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-editor.png&quot; alt=&quot;Forge - GUI - Editor&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Interface-wise, Forge is actually my favorite MtG RE. Almost everything can be edited to the user’s liking and they even have a &lt;strong&gt;theme&lt;/strong&gt; selector feature. (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Magic&lt;/code&gt; is my favorite one.)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-02.png&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-02.png&quot; alt=&quot;Forge - GUI - Alt 02&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-03.png&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-03.png&quot; alt=&quot;Forge - GUI - Alt 03&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;gameplay-demo&quot;&gt;Gameplay demo&lt;/h3&gt;
+
+&lt;!-- Courtesy of embedresponsively.com //--&gt;
+&lt;div class=&quot;responsive-video-container&quot;&gt;
+
+  &lt;iframe src=&quot;https://www.youtube-nocookie.com/embed/VgBKh913oW8&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;/div&gt;
+
+&lt;h3 id=&quot;getting-started&quot;&gt;Getting started&lt;/h3&gt;
+&lt;p&gt;Forge requires a &lt;strong&gt;Java Runtime Environment&lt;/strong&gt; (JRE) to run the desktop application and a screen resolution of at least &lt;strong&gt;1024x768&lt;/strong&gt; (the bigger, the better). In my experience, the application can be a bit memory hungry at times but anything with at least &lt;strong&gt;4GB of RAM&lt;/strong&gt; should be just fine.&lt;/p&gt;
+
+&lt;p&gt;For reference, the following table shows the versions of the software I used at the time of writing:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;application&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;version&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;java&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;openjdk 11.0.15 2022-04-19&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;forge&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1.6.53&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;For information about how to install JRE and Forge, take a look at the next section.&lt;/p&gt;
+
+&lt;h3 id=&quot;installation&quot;&gt;Installation&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Requirements&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;p&gt;As before, Forge requires JRE to run, so &lt;a href=&quot;https://www.java.com/download/&quot;&gt;download and install Java on your machine&lt;/a&gt;. If you are running GNU/Linux, you can check whether Java is already installed (and in your user’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$PATH&lt;/code&gt;) via terminal, as follows:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;which java
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;which should output the full path to your Java application. If it doesn’t find anything, then you gonna have to install it.  In &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;apt&lt;/code&gt;-based distributions, such as Debian and Ubuntu, you can install the OpenJDK JRE as follows:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt update
+sudo apt install default-jre
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p class=&quot;notice--info&quot;&gt;The Java Development Kit (JDK) itself is not necessary to run Java applications. You only need the JDK if you want to, say, compile java files into bytecodes that can be executed by the Java Virtual Machine (JVM), which is something you would do if contributing to the development and testing of a Java project. However, if you want to install the JDK as well as JRE, you can do so via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sudo apt install default-jre default-jdk&lt;/code&gt;.&lt;/p&gt;
+
+    &lt;p class=&quot;notice--warning&quot;&gt;If your distro does not use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;apt&lt;/code&gt; as package manager, just change the previous command to match whatever package manager you use. &lt;strong&gt;Alternatively&lt;/strong&gt;, use the download link mentioned before to download Oracle JRE and follow the instructions mentioned there instead. (OpenJDK is also maintained by Oracle and in this sense, Oracle JRE and OpenJDK JRE are both official JREs.)&lt;/p&gt;
+
+    &lt;p&gt;then check its version to make sure &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;java&lt;/code&gt; is now reachable and is associated to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;apt&lt;/code&gt; OpenJDK version we installed before:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;java --version
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openjdk 11.0.15 2022-04-19
+OpenJDK Runtime Environment (build 11.0.15+10-post-Debian-1deb11u1)
+OpenJDK 64-Bit Server VM (build 11.0.15+10-post-Debian-1deb11u1, mixed mode, sharing)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p class=&quot;notice--warning&quot;&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default-jre&lt;/code&gt; package is often way behind the latest release but should be enough to run most Java applications. However, if you want to install the latest OpenJDK JRE package via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;apt&lt;/code&gt;, you will have to find what is available for your distribution and its repositories first.  For example, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sudo apt show openjdk-*-jre&lt;/code&gt; should list all OpenJDK JREs available for you. At the time of writing, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;openjdk-17-jre&lt;/code&gt; is the latest OpenJDK JRE version available in Debian 11.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Download and install Forge&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;p&gt;Forge for desktop has &lt;strong&gt;stable&lt;/strong&gt; and &lt;strong&gt;snapshot&lt;/strong&gt; releases.  As the name suggests, snapshot are edge releases that contain the latest changes from source that have not been thoroughly tested, while stable releases contain changes that have been tested before. Most users should favor the &lt;strong&gt;stable release&lt;/strong&gt; over snapshot. The stable desktop releases can be found at the following website:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://releases.cardforge.org/forge/forge-gui-desktop/&quot;&gt;https://releases.cardforge.org/forge/forge-gui-desktop/&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;p&gt;then look for the latest release version (e.g., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1.6.53&lt;/code&gt;), which you can check by looking at the dates or comparing against the &lt;a href=&quot;https://github.com/Card-Forge/forge/tags&quot;&gt;tags in the official repository&lt;/a&gt;, and download then the associated &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.tar.bz2&lt;/code&gt; (and optionally, its &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.md5&lt;/code&gt; hash to make sure the downloaded file matches the remote). Alternatively, you might want to try the following to download the latest Forge tarball and hash via terminal:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;make sure &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;curl&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jq&lt;/code&gt; are installed:
+        &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt install curl jq
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
+      &lt;/li&gt;
+      &lt;li&gt;move into this user’s Downloads dir:
+        &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd ~/Downloads/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
+      &lt;/li&gt;
+      &lt;li&gt;create a variable that stores de latest Forge version, according to the github repo:
+        &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;FORGE_LATEST=$(curl https://api.github.com/repos/Card-Forge/forge/tags | jq -r '.[0].name' | grep -oE &quot;[[:digit:]]{1}\.+[[:digit:]]+\.+[[:digit:]]+&quot;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
+      &lt;/li&gt;
+      &lt;li&gt;download the latest Forge files from cardforge.org:
+        &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl -O &quot;https://releases.cardforge.org/forge/forge-gui-desktop/$FORGE_LATEST/forge-gui-desktop-$FORGE_LATEST.tar.bz2&quot;
+curl -O &quot;https://releases.cardforge.org/forge/forge-gui-desktop/$FORGE_LATEST/forge-gui-desktop-$FORGE_LATEST.tar.bz2.md5&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
+      &lt;/li&gt;
+      &lt;li&gt;after downloading the files, check hashes:
+        &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;echo &quot;$(cat forge-gui-desktop-$FORGE_LATEST.tar.bz2.md5) forge-gui-desktop-$FORGE_LATEST.tar.bz2&quot; | md5sum -c
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;p&gt;Once you have downloaded the tarball, extract it to a directory of your liking. Personally, I like to store such applications on a directory called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Applications&lt;/code&gt; under my user’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$HOME&lt;/code&gt; (e.g., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/home/cgomesu/Applications/&lt;/code&gt;):&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;create an Applications dir for the current user if it doesn’t exist:
+        &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;if [ ! -d &quot;$HOME/Applications/&quot; ]; then mkdir &quot;$HOME/Applications&quot;; fi
+cd &quot;$HOME/Applications/&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
+      &lt;/li&gt;
+      &lt;li&gt;extract the tarball into a subdir called forge-gui:
+        &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mkdir forge-gui
+tar -xvf &quot;$HOME/Downloads/forge-gui-desktop-$FORGE_LATEST.tar.bz2&quot; -C ./forge-gui/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
+
+        &lt;p class=&quot;notice--warning&quot;&gt;If you have not declared and initialized a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;FORGE_LATEST&lt;/code&gt; variable before, then just edit the name of the tarball to match yours before running the command above.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;p&gt;Now move into the newly created &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;forge-gui&lt;/code&gt; dir&lt;/p&gt;
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd forge-gui/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;and at its root, you should find executables to start the application. For &lt;strong&gt;GNU/Linux&lt;/strong&gt; and macOS users, there is a &lt;strong&gt;shell script&lt;/strong&gt; called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;forge.sh&lt;/code&gt; that can be used to run Forge via the script’s shebang:&lt;/p&gt;
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./forge.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;or by calling &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sh&lt;/code&gt; directly:&lt;/p&gt;
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sh forge.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;This will start loading the Forge’s graphical interface. If you run into issues, review your steps and then check the official &lt;a href=&quot;https://github.com/Card-Forge/forge/wiki&quot;&gt;Forge Wiki&lt;/a&gt; for alternative instructions.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Initial configuration&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;p&gt;Now that Forge is up and running, go to &lt;strong&gt;Game Settings&lt;/strong&gt;. I usually take this opportunity to configure my &lt;strong&gt;Preferences&lt;/strong&gt; to automatically download missing art (Game Settings &amp;gt; Preferences &amp;gt; Graphic Options &amp;gt; Check ‘Automatically Download Missing Card Art’), which prompts Forge to download card art on demand. Afterwards, head to &lt;strong&gt;Content Downloaders&lt;/strong&gt; and at the very least, go ahead and download the following items:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;Quest images&lt;/li&gt;
+      &lt;li&gt;Achievement images&lt;/li&gt;
+      &lt;li&gt;Card prices&lt;/li&gt;
+      &lt;li&gt;Skins&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;p&gt;The other options will take a long time to complete, so I usually prefer to let the on-demand option we checked before to handle missing art.&lt;/p&gt;
+
+    &lt;p&gt;Now, if you don’t feel like opening a terminal every time you want to run Forge, I strongly suggest you to create a custom &lt;strong&gt;launcher&lt;/strong&gt; for it. In GNU/Linux, the specifics of how to create a launcher depends a lot on the distribution and more specifically, the desktop environment you are using (e.g., XFCE, GNOME, KDE). Here’s how my current launcher configuration looks like:&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/forge-xfce-launcher.png&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/forge-xfce-launcher.png&quot; alt=&quot;Forge - XFCE launcher&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p class=&quot;notice--info&quot;&gt;My desktop environment of choice for Debian is &lt;a href=&quot;https://www.xfce.org/&quot;&gt;XFCE&lt;/a&gt; and the maintainers have already documented &lt;a href=&quot;https://docs.xfce.org/xfce/xfce4-panel/launcher&quot;&gt;how to create custom launchers&lt;/a&gt;, so I won’t cover such details here.&lt;/p&gt;
+
+    &lt;p&gt;If you change location of your current Forge desktop application, you can simply edit the desktop launcher to point to the new directory under which the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;forge.sh&lt;/code&gt; helper script is located.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;android-apk&quot;&gt;Android APK&lt;/h3&gt;
+&lt;p&gt;Forge is very unique in which it also &lt;strong&gt;runs on Android&lt;/strong&gt;, so you can install it on your mobile or tablet running &lt;strong&gt;Android 9&lt;/strong&gt; or newer. The Android interface has its own peculiarities–because the application is designed for mobile–but if you are familiar with the desktop version, you will get the hang of the mobile version very quickly.&lt;/p&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;There are older versions of the Forge MtG RE for Android that run on versions of Android older than Android 9 (Pie). This is an alternative if you are not running a modern Android OS but of course, such versions of the RE do not have cards from the latest sets, functionalities that were implemented recently, and so on. If that is okay, then when selecting the Forge version in the instructions below, just try older ones until you find one that works with your device and Android version.&lt;/p&gt;
+
+&lt;!-- Courtesy of embedresponsively.com //--&gt;
+&lt;div class=&quot;responsive-video-container&quot;&gt;
+
+  &lt;iframe src=&quot;https://www.youtube-nocookie.com/embed/NyjU1KN1Rv4&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;As far as I’m aware, the Forge &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;apk&lt;/code&gt; (Android package) is not distributed via any well known app store (e.g., Google’s Play Store, F-Droid), so you will need to download and install it from the official website.  In addition, the app requires &lt;em&gt;storage permission&lt;/em&gt; in order to function, so once we have installed it, we need to manually add such permission for it to work. If that sounds good and you want to give it a try, then follow these steps:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Grab your Android device.&lt;/li&gt;
+  &lt;li&gt;We need to allow our Internet Browser (and possibly, File Manager) to install apps from &lt;strong&gt;unknown sources&lt;/strong&gt;. By default, such option is disabled. To enable it, go to &lt;strong&gt;Settings&lt;/strong&gt; and search for ‘unknown source’, then follow the options to allow your Internet browser of choice (e.g., DuckDuckGo, Chrome) to install apps from unknown sources.&lt;/li&gt;
+  &lt;li&gt;Navigate to the cardforge.org website (see below) to &lt;strong&gt;download the latest Forge apk&lt;/strong&gt;. First, you need to find the latest Forge version available (e.g., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1.6.53&lt;/code&gt;). Then, find the corresponding directory that ends with three additional numbers (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1.6.53.001&lt;/code&gt;) and enter in whichever one is the highest for the last Forge version (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;004&lt;/code&gt;). Inside such subdirectory, there should be an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;apk&lt;/code&gt; file that you can download and then install.
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://releases.cardforge.org/forge/forge-gui-android/&quot;&gt;https://releases.cardforge.org/forge/forge-gui-android/&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;After downloading, open the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;apk&lt;/code&gt; and follow instructions to &lt;strong&gt;install the Forge&lt;/strong&gt;. When done, close the install window.&lt;/li&gt;
+  &lt;li&gt;Search for the Forge app icon in your home screen or app list. Then go into its &lt;strong&gt;App info&lt;/strong&gt; &amp;gt; Permissions and allow it access to &lt;em&gt;Files and media&lt;/em&gt; (or &lt;em&gt;Storage&lt;/em&gt;, depending on which Android version you are running).&lt;/li&gt;
+  &lt;li&gt;Now, open the Forge app and follow instructions to download the assets (main images, sounds, etc.) and when done, it should ask you to restart the application.&lt;/li&gt;
+  &lt;li&gt;(&lt;em&gt;Optional&lt;/em&gt;.) Once the application is up an running, go to its &lt;em&gt;Settings&lt;/em&gt; and check the option to download missing art on demand, just like we’ve done with the desktop release, and the go to the &lt;em&gt;Settings &amp;gt; Files&lt;/em&gt; tab and download the Quests, Achievements, etc., missing images as well.&lt;/li&gt;
+  &lt;li&gt;That is it!  Enjoy Forge on your mobile.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;card-scripting&quot;&gt;Card scripting&lt;/h3&gt;
+&lt;p&gt;In the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;res/cardsfolder/&lt;/code&gt; directory of your Forge for desktop application, you will find a compressed directory containing a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;txt&lt;/code&gt; file for each MtG card supported by the Forge RE. Those files are &lt;strong&gt;card scripts&lt;/strong&gt; that tell Forge how each card works via parameters for the various properties, effects, and abilities that each card might have. Take, for example, the card &lt;strong&gt;Fyndhorn Elves&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/card-elves.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/card-elves.jpg&quot; alt=&quot;Card - Fyndhorn Elves&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;and its script (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;res/cardsfolder/f/fyndhorn_elves&lt;/code&gt;):&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Name:Fyndhorn Elves
+ManaCost:G
+Types:Creature Elf Druid
+PT:1/1
+A:AB$ Mana | Cost$ T | Produced$ G | SpellDescription$ Add {G}.
+Oracle:{T}: Add {G}.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;As you can see, the card script is not written in Java or any other high level language and for the most part, its structure and parameters are quite intuitive, which means that anyone can help writing card scripts for upcoming sets, even if you are not a developer yourself. Of course, some cards can be more complex than others. Take a look, for example, at &lt;strong&gt;Ragavan, Nimble Pilferer&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/card-ragavan.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/card-ragavan.jpg&quot; alt=&quot;Card - Ragavan&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Name:Ragavan, Nimble Pilferer
+ManaCost:R
+Types:Legendary Creature Monkey Pirate
+PT:2/1
+T:Mode$ DamageDone | ValidSource$ Card.Self | ValidTarget$ Player | CombatDamage$ True | Execute$ TrigTreasure | TriggerDescription$ Whenever CARDNAME deals combat damage to a player, create a Treasure token and exile the top card of that player's library. Until end of turn, you may cast that card.
+SVar:TrigTreasure:DB$ Token | TokenAmount$ 1 | TokenScript$ c_a_treasure_sac | TokenOwner$ You | SubAbility$ TrigExile
+SVar:TrigExile:DB$ Dig | Defined$ TriggeredTarget | DigNum$ 1 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ STPlay | ForgetOnMoved$ Exile | RememberObjects$ Remembered | SubAbility$ DBCleanup
+SVar:STPlay:Mode$ Continuous | MayPlay$ True | EffectZone$ Command | Affected$ Card.IsRemembered+nonLand | AffectedZone$ Exile | Description$ Until end of turn, you may cast that card and you may spend mana as though it were mana of any color to cast that spell.
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+K:Dash:1 R
+Oracle:Whenever Ragavan, Nimble Pilferer deals combat damage to a player, create a Treasure token and exile the top card of that player's library. Until end of turn, you may cast that card.\nDash {1}{R} (You may cast this spell for its dash cost. If you do, it gains haste, and it's returned from the battlefield to its owner's hand at the beginning of the next end step.)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;However, you can write scripts for whatever you feel comfortable with, for just a single card from an upcoming set or a bunch of them. The specifics of the so-called &lt;strong&gt;card API&lt;/strong&gt; can be found at the &lt;a href=&quot;https://github.com/Card-Forge/forge/wiki/Card-scripting-API&quot;&gt;Forge Wiki - Card Scripting API&lt;/a&gt;. To learn about which cards have not been scripted yet, check the &lt;a href=&quot;https://github.com/Card-Forge/forge/projects&quot;&gt;Projects&lt;/a&gt; tab, which should list a few (upcoming) sets and the status of each card.&lt;/p&gt;
+
+&lt;p&gt;Writing card scripts for the Forge RE project is a great way to contribute and if you want to get involved, check the &lt;a href=&quot;#contributing&quot;&gt;Contributing&lt;/a&gt; section of this article to learn more about versioning (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git&lt;/code&gt;) and setting up your project dir.  However, before submitting a pull-request (PR) for a new card script, make sure to check the project’s current workflow for such contributions. As a general rule of thumb, go over the project’s wiki (or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CONTRIBUTING.md&lt;/code&gt; guide) and if you cannot find any info about it, then &lt;strong&gt;ask one the maintainers&lt;/strong&gt; to explain how you can help with such a task.&lt;/p&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;At the time of writing, for example, there seems to be an open issue for each upcoming card that has not been scripted yet (e.g., &lt;a href=&quot;https://github.com/Card-Forge/forge/issues/974&quot;&gt;issue#974&lt;/a&gt; for the card &lt;a href=&quot;https://gatherer.wizards.com/Pages/Card/Details.aspx?name=Windshaper%20Planetar&quot;&gt;Windshaper Planetar&lt;/a&gt; from the &lt;em&gt;Commander’s Legends: Battle for Baldur’s Gate&lt;/em&gt; set) and a successful PR is one that fixes this issue via a commit to the repo’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;master&lt;/code&gt; branch that adds the new card script(s) (e.g., &lt;a href=&quot;https://github.com/Card-Forge/forge/pull/994&quot;&gt;PR#994&lt;/a&gt;).&lt;/p&gt;
+
+&lt;h2 id=&quot;xmage&quot;&gt;XMage&lt;/h2&gt;
+&lt;p&gt;XMage, also referred to as &lt;strong&gt;Magic is Another Game Engine&lt;/strong&gt; (MAGE), is a MtG RE that started being developed in the early 2010s and now encompasses both a client and a server for offline or online MtG games. According to the project’s commit history, the first few commits date back to 2010 by users &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BetaSteward&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Loki&lt;/code&gt;, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;magenoxx&lt;/code&gt;. The project has been particularly active since 2018 and is now maintained by a large number of &lt;a href=&quot;https://github.com/magefree/mage/graphs/contributors&quot;&gt;developers and contributors&lt;/a&gt;. The official repository is currently hosted on Github (&lt;a href=&quot;https://github.com/magefree/mage&quot;&gt;magefree/mage&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/xmage-launcher-00.png&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/xmage-launcher-00.png&quot; alt=&quot;XMage - GUI - Launcher - 00&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/xmage-client-01.png&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/xmage-client-01.png&quot; alt=&quot;XMage - GUI - Client - 01&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/xmage-gui-gameplay-01.png&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/xmage-gui-gameplay-01.png&quot; alt=&quot;XMage - GUI - Gameplay - 01&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;A major difference between XMage and Forge is that when launching XMage, you have the option to run it as a &lt;strong&gt;client&lt;/strong&gt; or &lt;strong&gt;server&lt;/strong&gt; or both. In brief, if you are hosting a game, then you need a server, even if you are playing locally against the computer (AI). However, if you are joining a local or remote game, then you need a client. For a single player game against the computer, for example, you need to launch both a server and a client, then within the client, connect to your local server (hosted on the same machine, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;localhost&lt;/code&gt;/&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;127.0.0.1&lt;/code&gt;, and XMage’s default port, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;17171&lt;/code&gt;). Now, to join a game your friend is hosting, all you need is to launch a client but then you also need a network address to join your friend’s server over the WAN. (There are public servers, too, hosted by XMage maintainers. More on this in &lt;a href=&quot;#client-and-server-usage&quot;&gt;Client and Server usage&lt;/a&gt;.) These bits of technical stuff can sound intimidating to users who are not very familiar with networking concepts but XMage developers were kind enough to make these tasks a matter of clicking on a few buttons and once you get the hang of it, it becomes very trivial to start new MtG games with XMage.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/xmage-launcher-03.png&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/xmage-launcher-03.png&quot; alt=&quot;XMage - Launcher - 03&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;In addition, XMage’s client has another unique feature, called &lt;strong&gt;card viewer&lt;/strong&gt;, that allows users to browse MtG collections. When I used to play paper MtG, I carried multiple binders with me that contained my most valuable cards and XMage’s card viewer is very reminiscent of such binders. It is also an interesting mode to browse cards from a new set to get yourself familiarized with them and see what could be tested and added to an existing deck.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/xmage-gui-viewer.png&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/xmage-gui-viewer.png&quot; alt=&quot;XMage - Card Viewer&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;As expected, XMage features a comprehensive implementation of a &lt;strong&gt;deck editor&lt;/strong&gt;. This can be found when launching a client, under the tab properly dubbed &lt;em&gt;Deck Editor&lt;/em&gt;. Within the editor, users can lookup cards, use filters, preview art, build new decks for various formats, customize existing ones, import/export deck lists, and so on.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/xmage-gui-editor.png&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/xmage-gui-editor.png&quot; alt=&quot;XMage - Editor&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Regarding XMage’s client interface, it is also possible to select &lt;strong&gt;themes&lt;/strong&gt; for it.  However, the number of options is more limited than in Forge and the visual changes are rather minor in most cases. (I personally like the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Default&lt;/code&gt; one and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Grey&lt;/code&gt;.)  Visually, a game of MtG on the XMage client reminds me a lot of the old Magic Online with Digital Objects (MODO)–a WotC MtG RE that preceded MTGO–so it can feel a bit nostalgic to play MtG on XMage if you have also experienced the MODO days.&lt;/p&gt;
+
+&lt;h3 id=&quot;gameplay-demo-1&quot;&gt;Gameplay demo&lt;/h3&gt;
+
+&lt;!-- Courtesy of embedresponsively.com //--&gt;
+&lt;div class=&quot;responsive-video-container&quot;&gt;
+
+  &lt;iframe src=&quot;https://www.youtube-nocookie.com/embed/iOMPxAm6vnw&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;/div&gt;
+
+&lt;h3 id=&quot;getting-started-1&quot;&gt;Getting started&lt;/h3&gt;
+&lt;p&gt;The requirements to run XMage are almost identical to Forge.  That is, it needs a JRE to run and the user experience is much better with a larger screen than what you would get using a tiny laptop / tablet. However, contrary to Forge, you should plan on saving a long time for the XMage initial setup because it takes multiple hours for it to finish downloading all the missing images.&lt;/p&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;You might want to install XMage at night and leave your computer running overnight while XMage downloads the missing art, for example. You most definitely do not need to monitor XMage while it performs such task.&lt;/p&gt;
+
+&lt;p&gt;The following table provides a summary of the software I used to run XMage at the time of writing:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;application&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;version&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;java&lt;/code&gt; (host)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;openjdk 11.0.15 2022-04-19&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;java&lt;/code&gt; (XMage)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1.8.0_201&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;xmage launcher&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0.3.8&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;xmage client&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1.4.50-v2 build: 2021-09-05&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;xmage server&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1.4.50-v2 build: 2021-09-05&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;installation-1&quot;&gt;Installation&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Requirements&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;p&gt;As mentioned before, XMage requires a JRE to run. For instructions on how to install JRE on your host machine, please refer to the &lt;a href=&quot;#installation&quot;&gt;Forge installation requirements&lt;/a&gt; because they are identical.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Download and install XMage&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;p&gt;The XMage RE can be divided into three distinct applications, namely &lt;strong&gt;launcher&lt;/strong&gt;, &lt;strong&gt;client&lt;/strong&gt;, and &lt;strong&gt;server&lt;/strong&gt;. The launcher is used to manage both the client and the server–that is, it checks the requisites, what client and server versions are installed, if they are up-to-date, and whether you want to start a client or a server or both. Therefore, the installation starts with the &lt;strong&gt;XMage launcher&lt;/strong&gt;, which you can manually download from the official website:&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;http://xmage.de&quot;&gt;http://xmage.de&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;p&gt;or via terminal, using curl to download the launcher to your user’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Downloads&lt;/code&gt; dir:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd ~/Downloads/
+XMAGE_LAUNCHER=$(curl http://xmage.de | grep -oE &quot;http.*xmageLauncher[[:digit:]]+&quot;)
+curl -L -o xmageLauncher.jar &quot;$XMAGE_LAUNCHER&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;Before executing the launcher, you should &lt;strong&gt;define where the XMage application will be stored&lt;/strong&gt; because the launcher will create subdirs for the client and server inside the same directory it currently resides.  As I mentioned before, I like to put all such applications inside a directory called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Applications&lt;/code&gt; in my user’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$HOME&lt;/code&gt;:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;if [ ! -d &quot;$HOME/Applications/&quot; ]; then mkdir &quot;$HOME/Applications&quot;; fi
+cd &quot;$HOME/Applications/&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;Now we can create a separate dir for XMage and move the launcher there:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mkdir xmage
+mv ~/Downloads/xmageLauncher.jar ./xmage/
+cd xmage
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;The XMage launcher is a &lt;a href=&quot;https://docs.oracle.com/javase/8/docs/technotes/guides/jar/index.html&quot;&gt;Java archive&lt;/a&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jar&lt;/code&gt;) file, so to execute it, run the following:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;java -jar xmageLauncher.jar
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;You should now be able to see the launcher’s GUI and it will start checking for missing requisites and then install the client and server.  Simply follow the instructions until the option to Launch Client becomes available. When you get to this point, you should be done installing the client and the server.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Initial configuration&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;p&gt;Once the launcher is done installing the missing components, select &lt;strong&gt;Launch Client&lt;/strong&gt; to download the missing content (symbols and images). You will be greeted by a &lt;em&gt;Connect to server&lt;/em&gt; window but for now, we won’t connect to any XMage server, so hit &lt;em&gt;Cancel&lt;/em&gt; in order to access the tabs at the top of the client’s window.&lt;/p&gt;
+
+    &lt;p&gt;First, select &lt;strong&gt;Symbols&lt;/strong&gt; and follow instructions to download such image files. When done, select &lt;strong&gt;Images&lt;/strong&gt;, then &lt;em&gt;Standard download&lt;/em&gt; and optionally, you might configure options different than default but I suggest to use defaults, and then hit &lt;em&gt;Start downloading&lt;/em&gt;.&lt;/p&gt;
+
+    &lt;p class=&quot;notice--warning&quot;&gt;&lt;strong&gt;This will take multiple hours to finish&lt;/strong&gt;.  Just keep it running in the background and come back later to check on it.&lt;/p&gt;
+
+    &lt;p&gt;When you are done downloading the missing content, you can optionally go to &lt;strong&gt;Preferences&lt;/strong&gt; and customize the XMage client to your liking.  However, if this is your first time, then try the defaults first and change preferences as you become more familiar with the interface.&lt;/p&gt;
+
+    &lt;p&gt;Afterwards, close both the XMage client and then the XMage launcher and you are all done with the client configuration.&lt;/p&gt;
+
+    &lt;p&gt;Now, it is possible to run either the client or the server or both without using the launcher but I strongly suggest to &lt;strong&gt;always use the XMage launcher&lt;/strong&gt; because it is the launcher that ensures you are running the latest XMage components. However, instead of opening a terminal to run the launcher every time you want to use XMage, you can create a &lt;strong&gt;custom launcher&lt;/strong&gt; for it, just like we have done with Forge. (Once again, in GNU/Linux, the specifics of creating a custom launcher depends a lot on the desktop environment and most of them have documented such procedure, so I won’t cover this here.)  Here is how my XMage custom launcher configuration looks like in Debian 11 XFCE:&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/xmage-xfce-launcher.png&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/xmage-xfce-launcher.png&quot; alt=&quot;XMage - XFCE Launcher&quot; class=&quot;PostImage PostImage--large&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p class=&quot;notice--info&quot;&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-Djava.net.preferIPv4Stack=true&lt;/code&gt; runtime arg is probably not necessary but since it is mentioned in the &lt;a href=&quot;https://github.com/magefree/mage#installation--running&quot;&gt;XMage documentation&lt;/a&gt;, I also added it here. It just tells Java to favor IPv4 over IPv6, probably because XMage has/had an issue with the latter.  However, I’ve never notice any problems without setting it.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;client-and-server-usage&quot;&gt;Client and Server usage&lt;/h3&gt;
+&lt;p&gt;For most users, the steps covered so far are enough to start playing MtG using the XMage RE. For a &lt;strong&gt;single player match against the computer(s)&lt;/strong&gt;, you need to launch &lt;strong&gt;both server and client&lt;/strong&gt; from within the XMage launcher. This will prompt XMage to start a local server that your XMage client can connect to. To connect to your local server, select &lt;em&gt;LOCAL, AI&lt;/em&gt;, then enter your username (e.g., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cgomesu&lt;/code&gt;) and then select &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Connect to server&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/xmage-local-ai.png&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/xmage-local-ai.png&quot; alt=&quot;XMage - Client - Local&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;This will let you create a &lt;strong&gt;New Match&lt;/strong&gt; and then configure the type of game you want to play, decks to use, and so on:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/xmage-client-02.png&quot;&gt;&lt;img src=&quot;/assets/posts/2022-07-18-forge-xmage-mtg/xmage-client-02.png&quot; alt=&quot;XMage - GUI - Client - 02&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;For &lt;em&gt;Constructed&lt;/em&gt; type of games, use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mad&lt;/code&gt; computer type.&lt;/p&gt;
+
+&lt;p&gt;However, if you want to play online with friends, then &lt;strong&gt;one of you will have to run an XMage server&lt;/strong&gt; that is reachable to the other players via a &lt;strong&gt;public IP and port number&lt;/strong&gt; (or for the tech savvy, via a domain name, such as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;xmage.cgomesu.com&lt;/code&gt;). In such cases, I strongly recommend the person running the server to take a look at additional server configuration instructions that can be found in &lt;a href=&quot;https://github.com/magefree/mage/wiki#server-configuration&quot;&gt;XMage Wiki - Server configuration&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;There are &lt;strong&gt;public servers&lt;/strong&gt; as well but I’ve never used them before. Take a look at the following resources for more information:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://xmage.today&quot;&gt;http://xmage.today&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://xmage.today/servers/&quot;&gt;http://xmage.today/servers/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Finally, it is also possible to play against a friend who is on the same local network as you, which works just like a &lt;strong&gt;LAN party&lt;/strong&gt;. The specifics are similar to the online play but instead of adding a remote address to the connection window, you specify the local IP address of the host running the XMage server (e.g., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.1.100&lt;/code&gt;) and port, if different than default (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;17171&lt;/code&gt;). Once all the players have joined the server, you can then configure and create a match for your friends to join.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;contributing&quot;&gt;Contributing&lt;/h1&gt;
+&lt;p&gt;Both Forge and XMage are community-driven FOSS projects, which means that anyone can help maintain those projects but if no one does that, the projects will simply die out as developers move onto other things. Fortunately, if you use and enjoy these projects, there are many things you can do to contribute to their continuing development. The most obvious one is via financial incentives, that is, &lt;strong&gt;donations&lt;/strong&gt;. Currently, none of these projects has a proper channel that people can use to donate money specifically towards development and maintenance of the project’s public repository. I reached out to the maintainers of each project and the only donation channels that I found (and thought would be appropriate to share here) are the following:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Donations&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Forge:
+        &lt;ul&gt;
+          &lt;li&gt;There are no official donation channels yet.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;XMage:
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;http://xmage.today/#donate&quot;&gt;http://xmage.today/#donate&lt;/a&gt;: At the time of writing, donations go to the lead maintainer of the XMage project, &lt;a href=&quot;https://github.com/JayDi85&quot;&gt;@JayDi85&lt;/a&gt;, who is also responsible for a few of the public servers.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;However, financial incentive is not the only way to contribute. In next few sections, I mentioned additional ways to contribute that do not involve money but actual work.&lt;/p&gt;
+
+&lt;h2 id=&quot;reporting-issues&quot;&gt;Reporting issues&lt;/h2&gt;
+&lt;p&gt;One of the easiest ways to contribute is by providing feedback regarding issues with one or more components of each application. This is done via an &lt;strong&gt;issue tracker&lt;/strong&gt; which in both cases, is currently done via the project’s Github repository:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/Card-Forge/forge/issues&quot;&gt;Forge issues&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/magefree/mage/issues&quot;&gt;XMage issues&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Before submitting an issue, &lt;strong&gt;always search&lt;/strong&gt; for a related keyword in issues that are still open (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;is:issue is:open&lt;/code&gt; filter) or closed (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;is:issue is:closed&lt;/code&gt;).  If you cannot find anything related, then open a new issue and importantly, &lt;em&gt;if the project has a template for submitting an issue&lt;/em&gt;, which is enforced when it is opened, then read and follow the template. This saves a lot of time for you and the maintainers.&lt;/p&gt;
+
+&lt;h2 id=&quot;card-scripting-1&quot;&gt;Card scripting&lt;/h2&gt;
+&lt;p&gt;Of the two MtG REs covered here, Forge is the only one that supports &lt;strong&gt;card scripting&lt;/strong&gt;. This is something that anyone can do because it does not require knowledge about Java, IDEs, and object-oriented programming. If this sounds like something you can help with, take a look at the &lt;a href=&quot;#card-scripting&quot;&gt;Card scripting&lt;/a&gt; section covered before.&lt;/p&gt;
+
+&lt;h2 id=&quot;project-development&quot;&gt;Project development&lt;/h2&gt;
+&lt;p&gt;Java is the language of choice in both projects. So, if you want to contribute to the development of the RE itself, then you will need to be at least familiar with Java and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git&lt;/code&gt; versioning. The maintainers of both projects were kind enough to document useful information about development for anyone interested in helping out.  You can find such info in the Wiki of each project:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/Card-Forge/forge/wiki/(SM-autoconverted)-how-to-get-started-developing-forge&quot;&gt;Forge development instructions&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/magefree/mage/wiki#developer&quot;&gt;XMage development instructions&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If you are not familiar with Java or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git&lt;/code&gt; but want to learn, there are free online resources available:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Introduction to Java&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- Courtesy of embedresponsively.com //--&gt;
+&lt;div class=&quot;responsive-video-container&quot;&gt;
+
+  &lt;iframe src=&quot;https://www.youtube-nocookie.com/embed/7WiJGTPuVeU&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Introduction to Git and Github&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- Courtesy of embedresponsively.com //--&gt;
+&lt;div class=&quot;responsive-video-container&quot;&gt;
+
+  &lt;iframe src=&quot;https://www.youtube-nocookie.com/embed/RGOj5yH7evk&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;final-remarks&quot;&gt;Final remarks&lt;/h1&gt;
+&lt;p&gt;In this article, I talked about two free and open source MtG REs, namely &lt;strong&gt;Forge&lt;/strong&gt; and &lt;strong&gt;XMage&lt;/strong&gt;. These projects are community-driven and good examples of FOSS applied to gaming. More specifically, they do not attempt to be copies of the official MtG client for Windows (MTGO) but actually introduce many new features (e.g., portability, single player modes, self-hosting MtG servers) that either enhance or complement each other and the official client. If you are a fan o MtG like me, you should definitely check them out and if you enjoyed them, please consider supporting the projects by spreading the word or contributing to their continuing development.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="mtg" /><category term="magic" /><category term="foss" /><category term="open" /><category term="free" /><category term="java" /><category term="game" /><category term="forge" /><category term="xmage" /></entry><entry><title type="html">DIY series: ESP-01 Tasmota environmental sensor</title><link href="/blog/diy-tasmota-bme280/" rel="alternate" type="text/html" title="DIY series: ESP-01 Tasmota environmental sensor" /><published>2021-08-12T13:00:00-03:00</published><updated>2021-08-12T13:00:00-03:00</updated><id>/blog/diy-tasmota-bme280</id><content type="html" xml:base="/blog/diy-tasmota-bme280/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;August 12th, 2021&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
@@ -7364,72 +7910,4 @@ cp /etc/resolv.conf /mnt/emmc/etc/resolv.conf
 
 &lt;p&gt;&lt;a href=&quot;/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-cgomesu-rtc-battery.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-07-06-Nanopi-m4-mini-nas/nanopim4-cgomesu-rtc-battery.jpg&quot; alt=&quot;RTC battery&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="sbc" /><category term="arm" /><category term="homelab" /><category term="homeserver" /><category term="storage" /></entry><entry><title type="html">The ASRock J3355b-itx pfSense box</title><link href="/blog/Pfsense-white-box/" rel="alternate" type="text/html" title="The ASRock J3355b-itx pfSense box" /><published>2020-06-25T10:31:25-03:00</published><updated>2020-06-25T10:31:25-03:00</updated><id>/blog/Pfsense-white-box</id><content type="html" xml:base="/blog/Pfsense-white-box/">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
-&lt;p&gt;&lt;a href=&quot;https://www.pfsense.org/&quot;&gt;pfSense CE&lt;/a&gt; is a free, &lt;a href=&quot;https://github.com/pfsense/pfsense&quot;&gt;open-source&lt;/a&gt;, and very popular &lt;strong&gt;firewall/router&lt;/strong&gt; that runs on &lt;a href=&quot;https://www.freebsd.org/&quot;&gt;FreeBSD&lt;/a&gt; and is developed by &lt;a href=&quot;https://www.netgate.com/&quot;&gt;Netgate&lt;/a&gt;.  Even though Netgate sells &lt;a href=&quot;https://www.netgate.com/products/appliances/&quot;&gt;official pfSense appliances&lt;/a&gt;, it’s possible to build your own, custom-made pfSense box for (way) less money (at the expense of way less support from Netgate).&lt;/p&gt;
-
-&lt;p&gt;In this article, I talked about &lt;strong&gt;my ASRock mini-ITX pfSense box project&lt;/strong&gt;.  In the first part, I listed all the necessary hardware to build the box, and in the second part, I briefly talked about the software.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--small btn--light-outline&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;hardware&quot;&gt;Hardware&lt;/h1&gt;
-&lt;p&gt;This project has five main hardware components, namely the &lt;strong&gt;motherboard&lt;/strong&gt; (mobo), the &lt;strong&gt;network interface card&lt;/strong&gt; (NIC), &lt;strong&gt;storage&lt;/strong&gt;, &lt;strong&gt;case&lt;/strong&gt;, and &lt;strong&gt;power supply unit&lt;/strong&gt; (PSU).&lt;/p&gt;
-
-&lt;h2 id=&quot;motherboard&quot;&gt;Motherboard&lt;/h2&gt;
-&lt;p&gt;Chances are that if you search for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pfSense white-box&lt;/code&gt;, you’ll find someone mentioning the &lt;a href=&quot;https://www.asrock.com/mb/Intel/J3355B-ITX/&quot;&gt;&lt;strong&gt;ASRock J3355b-itx&lt;/strong&gt;&lt;/a&gt;.  This is definitely &lt;strong&gt;not a top of the line&lt;/strong&gt; mobo but it comes with a &lt;strong&gt;passively cooled &lt;a href=&quot;https://ark.intel.com/content/www/us/en/ark/products/95597/intel-celeron-processor-j3355-2m-cache-up-to-2-5-ghz.html&quot;&gt;Intel dual-core processor&lt;/a&gt;&lt;/strong&gt; (AES-NI enabled), two &lt;strong&gt;SO-DIMM DDR3L&lt;/strong&gt; memory slots, a &lt;strong&gt;PCIe 2.0x16&lt;/strong&gt; expansion slot, and 2x SATA III ports.  On top of that, this is a &lt;strong&gt;&lt;em&gt;mini&lt;/em&gt;-ITX mobo&lt;/strong&gt;, so we can put it inside a low-profile case.  At the very least, if you’re looking for a more recent mobo, my suggestion is to use the ASRock J3355b-itx as reference.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-06-25-Pfsense-white-box/asrock-mobo.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-06-25-Pfsense-white-box/asrock-mobo.jpg&quot; alt=&quot;ASRock J3355b-itx&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;network-interface-card&quot;&gt;Network interface card&lt;/h2&gt;
-&lt;p&gt;Even though the ASRock mini-itx comes with a built-in NIC, it’s a single port Realtek NIC that pfSense will likely not recognize out of the box.  Ideally, you’d buy and install an Intel NIC using the PCI-e expansion slot on the ASRock mobo.  The card choice depends on your needs but at the very least, consider a &lt;strong&gt;Gigabit Intel NIC with two ports&lt;/strong&gt;, one for WAN and another for LAN.  (It’s possible to use a single port with a VLAN-capable switch but this is a far more complex setup.)  Also, make sure the Intel NIC comes with a &lt;strong&gt;low-profile support&lt;/strong&gt; or it won’t fit many min-ITX cases.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-06-25-Pfsense-white-box/intel-nic.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-06-25-Pfsense-white-box/intel-nic.jpg&quot; alt=&quot;Intel NIC with 2 ports&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;storage&quot;&gt;Storage&lt;/h2&gt;
-&lt;p&gt;pfSense uses very little storage space, so you don’t need TBs of storage here.  The things that matter are read/write speed and reliability.  A simple &lt;strong&gt;120GB solid-state drive (SSD)&lt;/strong&gt; will be more than enough, for example.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-06-25-Pfsense-white-box/120gb-ssd.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-06-25-Pfsense-white-box/120gb-ssd.jpg&quot; alt=&quot;SSD&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;case&quot;&gt;Case&lt;/h2&gt;
-&lt;p&gt;You can use &lt;em&gt;any&lt;/em&gt; mini-ITX case &lt;em&gt;as long as&lt;/em&gt; it has support for at least &lt;strong&gt;one expansion slot&lt;/strong&gt;.  Also, note that some mini-itx cases have an expansion slot parallel to the mobo (it sits above the mobo’s i/o plate), instead of perpendicular (next to the mobo’s i/o plate).  That will usually be okay but you’ll need to buy compatible PCI-e extension cable then.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-06-25-Pfsense-white-box/case-antec-front.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-06-25-Pfsense-white-box/case-antec-front.jpg&quot; alt=&quot;Case&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-06-25-Pfsense-white-box/case-antec-back.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-06-25-Pfsense-white-box/case-antec-back.jpg&quot; alt=&quot;Case&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-06-25-Pfsense-white-box/case-kmex-front.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-06-25-Pfsense-white-box/case-kmex-front.jpg&quot; alt=&quot;Case&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-06-25-Pfsense-white-box/case-kmex-back.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-06-25-Pfsense-white-box/case-kmex-back.jpg&quot; alt=&quot;Case&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;power-supply-unit&quot;&gt;Power supply unit&lt;/h2&gt;
-&lt;p&gt;If you bought an expensive case with a built-in PSU, go ahead and use it.  However, if you bought a cheap case with a PSU or one that even doesn’t have a built-in PSU, then buy and use a &lt;a href=&quot;https://www.amazon.com/s?k=pico+PSU&quot;&gt;&lt;strong&gt;pico PSU&lt;/strong&gt;&lt;/a&gt;. My experience is that &lt;strong&gt;cheap PSUs come with bad fans&lt;/strong&gt;, so avoid them if your firewall will be next to anyone in the house because it will eventually start making a lot of noise.  A pico PSU is the way to go, and because this box uses very little power, buy a low power PSU (anything between 60W-180W should be okay, for reference).&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/posts/2020-06-25-Pfsense-white-box/pico-psu.jpg&quot;&gt;&lt;img src=&quot;/assets/posts/2020-06-25-Pfsense-white-box/pico-psu.jpg&quot; alt=&quot;PicoPSU&quot; class=&quot;PostImage&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;software&quot;&gt;Software&lt;/h1&gt;
-&lt;p&gt;Software-wise, there’s not much to say other than&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Download the ISO from the &lt;a href=&quot;https://www.pfsense.org/download/&quot;&gt;official website&lt;/a&gt;;&lt;/li&gt;
-  &lt;li&gt;Check the SHA signature of the downloaded file against the one from the official website;&lt;/li&gt;
-  &lt;li&gt;Flash the image onto a USB stick;&lt;/li&gt;
-  &lt;li&gt;Connect a monitor and keyboard to your pfSense box;&lt;/li&gt;
-  &lt;li&gt;Insert the USB stick into your pfSense box, turn it on, and follow the instructions.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Now, if you want a more in-depth look into installation and initial configuration, check &lt;a href=&quot;https://docs.netgate.com/pfsense/en/latest/install/installing-pfsense.html&quot;&gt;&lt;strong&gt;the official docummentation&lt;/strong&gt;&lt;/a&gt;.  Alternatively, there’s a very easy to follow video tutorial that &lt;a href=&quot;https://www.youtube.com/channel/UCHkYOD-3fZbuGhwsADBd9ZQ&quot;&gt;Lawrence Systems&lt;/a&gt; put together. (It’s a bit old but still valid.)&lt;/p&gt;
-
-&lt;!-- Courtesy of embedresponsively.com //--&gt;
-&lt;div class=&quot;responsive-video-container&quot;&gt;
-
-  &lt;iframe src=&quot;https://www.youtube-nocookie.com/embed/9kSZ1oM-4ZM&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
-
-&lt;/div&gt;
-
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
-&lt;p&gt;This concludes the basics of a cheap, low-profile, and low-power (yet powerful) pfSense white-box.  I’ve never had any issues with this hardware and recommend it to anyone interested in diving into firewalls or just looking for something a bit more advanced than what commercial routers can offer.  If you want to try something different than pfSense, take a look at &lt;a href=&quot;https://opnsense.org/&quot;&gt;OPNsense&lt;/a&gt;–a pfSense fork–for another free and open-source firewall software.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="homelab" /><category term="homeserver" /><category term="firewall" /><category term="network" /></entry></feed>
+&lt;p&gt;&lt;a href=&quot;#&quot; class=&quot;btn btn--light-outline btn--small&quot;&gt;top&lt;/a&gt;&lt;/p&gt;</content><author><name>Carlos Gomes</name></author><category term="blog" /><category term="sbc" /><category term="arm" /><category term="homelab" /><category term="homeserver" /><category term="storage" /></entry></feed>
