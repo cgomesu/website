@@ -1,6 +1,6 @@
 ---
 title: "Forge and XMage: The best free and open source rules engines for 'Magic: the Gathering'"
-date: 2022-07-18 12:00:00 -0300
+date: 2022-07-22 14:50:00 -0300
 tags: mtg magic foss open free java game forge xmage
 header:
   overlay_image: "/assets/posts/2022-07-18-forge-xmage-mtg/header.jpg"
@@ -11,7 +11,7 @@ toc_icon: "list"
 ---
 
 # Changelog
-**July 18th, 2022**: Publication of the original article
+**July 22th, 2022**: Publication of the original article
 {:.notice--info }
 
 # Introduction
