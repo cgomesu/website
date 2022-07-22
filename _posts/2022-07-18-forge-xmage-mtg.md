@@ -11,7 +11,7 @@ toc_icon: "list"
 ---
 
 # Changelog
-**July 22th, 2022**: Publication of the original article
+**July 22nd, 2022**: Publication of the original article
 {:.notice--info }
 
 # Introduction
