@@ -59,6 +59,12 @@ it:
     btn_label: "Read more"
     btn_class: "btn--info"
 programming:
+  - title: "Pife (pif-paf)"
+    excerpt: "This is a command-line implementation of the card game Pife written in Java. It is a fork of another implementation that changes its main logic to adapt to the new game but preserves overlapping classes, such as deck and player. This program is only for educational purposes and the content is in Portuguese."
+    image_path: "/assets/img/projects/thumb-projects-pife.jpg"
+    url: "https://github.com/cgomesu/Pife"
+    btn_label: "Github Repo"
+    btn_class: "btn--info"
   - title: "Button box controller"
     excerpt: "Core program for a Raspberry Pi button box controller that uses the gpiozero Python library."
     image_path: "/assets/img/projects/thumb-projects-rpi-button-box.jpg"
