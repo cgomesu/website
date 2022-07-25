@@ -11,8 +11,8 @@ toc_icon: "list"
 ---
 
 # Changelog
-**July 25th, 2022**: Fix typos. Add info about intellectual property. Expand on Forge's early development history with additional info from one of the core devs. Add info about Forge's adventure mode.
-{:.notice--info }
+**July 25th, 2022**: I made a few updates to the article in light of new information I learned and to fix a few typos here and there. More specifically, there is a new section called [Adventure mode](#adventure-mode) that describes how to run Forge in **adventure mode**, which is a single-player RPG mode that resembles Shandalar. Thanks to user `tehdiplomat` for making me aware of it.  I also added a note about intellectual property to the introduction, following conversations I had with other users in a Reddit thread and private messages. Lastly, one of the core devs of the Forge MtG RE reached out to elaborate on the early development history of the RE, which I included in the introduction of the [Forge](#forge) section.
+{:.notice--success }
 
 **July 22nd, 2022**: Publication of the original article
 {:.notice--info }
