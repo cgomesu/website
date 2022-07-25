@@ -11,7 +11,7 @@ toc_icon: "list"
 ---
 
 # Changelog
-**July 25th, 2022**: Fix typos. Add info about intellectual property. Expand on Forge's early development history with additional info from one of the core devs.
+**July 25th, 2022**: Fix typos. Add info about intellectual property. Expand on Forge's early development history with additional info from one of the core devs. Add info about Forge's adventure mode.
 {:.notice--info }
 
 **July 22nd, 2022**: Publication of the original article
@@ -92,6 +92,16 @@ Interface-wise, Forge is actually my favorite MtG RE. Almost everything can be e
 [![Forge - GUI - Alt 02](/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-02.png){:.PostImage}](/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-02.png)
 
 [![Forge - GUI - Alt 03](/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-03.png){:.PostImage}](/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-03.png)
+
+Lastly, Forge includes a single player RPG mode called **Adventure**.  This mode is much closer to Shandalar than the Quests mode, as it allows players to roam through worlds and fight enemies along the way.  This mode was only included recently--the [original developer post](https://www.slightlymagic.net/forum/viewtopic.php?f=26&t=30489) dates back to July 2021--and at the time of writing, it is still in alpha but if you are looking for a modern port of Shandalar, definitely check the [Adventure mode](#adventure-mode) section below for more details.
+
+[![Forge - GUI - Adventure - 01](/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-adventure-01.png){:.PostImage}](/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-adventure-01.png)
+
+[![Forge - GUI - Adventure - 02](/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-adventure-02.png){:.PostImage}](/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-adventure-02.png)
+
+[![Forge - GUI - Adventure - 03](/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-adventure-03.png){:.PostImage}](/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-adventure-03.png)
+
+[![Forge - GUI - Adventure - 04](/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-adventure-04.png){:.PostImage}](/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-adventure-04.png)
 
 ### Gameplay demo
 
@@ -224,6 +234,33 @@ For information about how to install JRE and Forge, take a look at the next sect
   {:.notice--info}
 
   If you change location of your current Forge desktop application, you can simply edit the desktop launcher to point to the new directory under which the `forge.sh` helper script is located.
+
+### Adventure mode
+If you followed the [installation guide](#installation), your Forge desktop release directory should contain a Shell script to launch the **Adventure mode**, namely `forge-adventure.sh`. By default, the script is not executable, so open a terminal, move into the Forge dir and make the script executable, as follows:
+
+```
+chmod +x forge-adventure.sh
+```
+
+Now you should be able to run it using the shebang:
+
+```
+./forge-adventure.sh
+```
+
+or by calling `sh` directly:
+
+```
+sh ./forge-adventure.sh
+```
+
+Once you have access to the GUI, select *Adventure mode* and enjoy it!
+
+{% include video id="QFEhqV3SZb8" provider="youtube" %}
+
+Again, instead of using a terminal every time you want to to launch Forge in Adventure mode, create a **custom launcher** for it.  Here is how mine looks like in Debian 11 XFCE:
+
+[![Forge - XFCE Launcher - Adventure](/assets/posts/2022-07-18-forge-xmage-mtg/forge-xfce-launcher-adventure.png){:.PostImage .PostImage--large}](/assets/posts/2022-07-18-forge-xmage-mtg/forge-xfce-launcher-adventure.png)
 
 ### Android APK
 Forge is very unique in which it also **runs on Android**, so you can install it on your mobile or tablet running **Android 9** or newer. The Android interface has its own peculiarities--because the application is designed for mobile--but if you are familiar with the desktop version, you will get the hang of the mobile version very quickly.
