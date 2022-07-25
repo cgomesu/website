@@ -11,6 +11,9 @@ toc_icon: "list"
 ---
 
 # Changelog
+**July 25th, 2022**: I made a few updates to the article in light of new information I learned and to fix a few typos here and there. More specifically, there is a new section called [Adventure mode](#adventure-mode) that describes how to run Forge in **adventure mode**, which is a single-player RPG mode that resembles Shandalar. Thanks to user `tehdiplomat` for making me aware of it.  I also added a note about intellectual property to the introduction, following conversations I had with other users in a Reddit thread and private messages. Lastly, one of the core devs of the Forge MtG RE reached out to elaborate on the early development history of the RE, which I included in the introduction of the [Forge](#forge) section.
+{:.notice--success }
+
 **July 22nd, 2022**: Publication of the original article
 {:.notice--info }
 
@@ -19,7 +22,10 @@ I have been playing [Magic: the Gathering](https://magic.wizards.com) (MtG) for 
 
 [![Card - FoW](/assets/posts/2022-07-18-forge-xmage-mtg/card-fow.jpg){:.PostImage}](/assets/posts/2022-07-18-forge-xmage-mtg/card-fow.jpg)
 
-Fortunately, there are **free and open source software** (FOSS) alternatives to MTGO that **do not** require users to buy digital objects (cards) to play MtG. In this article, I talked about two of the main MtG rules engines (RE) currently available for offline and online play: **Forge** and **XMage**. More specifically, the article covers the main features of the Forge and XMage REs, how to install and use each one of them, and how you can contribute to maintain their development because these two projects are essentially community-driven. This is possible and completely legal because just like no company can claim ownership over the game of [poker](https://en.wikipedia.org/wiki/Poker), WotC cannot claim ownership over the rules that constitute a game of MtG.
+Fortunately, there are **free and open source software** (FOSS) alternatives to MTGO that **do not** require users to buy digital objects (cards) to play MtG. In this article, I talked about two of the main MtG rules engines (RE) currently available for offline and online play: **Forge** and **XMage**. More specifically, the article covers the main features of the Forge and XMage REs, how to install and use each one of them, and how you can contribute to maintain their development because these two projects are essentially community-driven. This is possible because just like no company can claim ownership over the game of [poker](https://en.wikipedia.org/wiki/Poker), WotC cannot claim ownership over the rules that constitute a game of MtG\*.
+
+\*To be fair, since the original publication of this article, I was made aware that the aspects concerning intellectual property related to MtG are more controversial and complex than in the comparison with poker. For anyone interested, [there is a Reddit thread](https://old.reddit.com/r/magicTCG/comments/w628xt/forge_and_xmage_the_best_free_and_open_source/ihfnuns/?context=10000) in which I shared my opinion on this matter and other users explained a few of the legal challenges. In addition, other people reached via private messages to let me know that in 2000, WotC created the [Open Game License](https://en.wikipedia.org/wiki/Open_Game_License) to allow easier dissemination of the game and to allow third-party parties to profit from the reproduction of certain aspects of the game. Clearly, the issue of intellectual property has multiple layers when it comes to MtG and it would be beyond the scope of this article (and honestly, my expertise) to cover it here.
+{:.notice--warning}
 
 If you are interested in using and learning more about Forge and XMage, then keep on reading. As it is customary with my articles, I try to keep them up-to-date to reflect my current knowledge about the content, so if this is not your first time here, make sure to check the [Changelog](#changelog) for updates. Also, if you spot an error or disagree with something that I wrote or want to improve this article, feel free [to get in touch with me](/contact).
 
@@ -30,7 +36,7 @@ This article is divided into four main sections. The first is an optional and br
 
 The next two main sections are part of the [MtG rules engines](#mtg-rules-engines), in which I described the [Forge](#forge) and the [XMage](#xmage) MtG REs in detail. More specifically, each of those two sections cover the development, features, and installation process of each RE. If you are only interested in learning how to install and use them, then simply jump straight to their respective section.
 
-The third and last main section, called [Contributing](#contributing), covers aspects about how you can help each project. I found this necessary because both Forge and XMage are quintessential community-driven projects and on top of that, they are very good examples of FOSS applied to gaming.  Reporting issues, writing card scripts, and setting up a (versioned) project directory are examples of the content covered in the last section.
+The last main section, called [Contributing](#contributing), covers aspects about how you can help each project. I found this necessary because both Forge and XMage are quintessential community-driven projects and on top of that, they are very good examples of FOSS applied to gaming.  Reporting issues, writing card scripts, and setting up a (versioned) project directory are examples of the content covered in the last section.
 
 [top](#){:.btn .btn--light-outline .btn--small}
 
@@ -63,7 +69,7 @@ For more comparisons, refer to the [Slightly Magic wiki list of MtG REs](https:/
 In brief, my opinion is that if you are looking for a single player experience, then try Forge. Now, if you want to play with friends online, then try XMage. Are you unsure? Try both! I think they are both great examples of FOSS applied to gaming and they complement each other in many aspects.  In any case, check the following sections for specifics about each of those MtG REs.
 
 ## Forge
-Forge was originally written by a single individual ([mtgrares](https://mtgrares.blogspot.com/)) around the mid-2000s, then started being (`git`) versioned in 2011 by `jendave`. The project has since grown a lot and is currently maintained by a large number of [contributors and a group of core developers](https://github.com/Card-Forge/forge/graphs/contributors). It has been particularly active ever since 2017 and its repository is currently being hosted on Github ([Card-Forge/forge](https://github.com/Card-Forge/forge)). Of note, Forge has both a **desktop release**, which is the main focus of this guide, and a mobile (Android) release, which is only briefly mentioned in the [Android APK](#android-apk) section.
+Forge started development in 2007 by a single individual ([mtgrares](https://mtgrares.blogspot.com/)) and was initially pushed to Google code (`svn` versioned) around 2008.  In 2011, `jendave` split the project into the first pass of the contemporary modules and soon afterwards, the project's development briefly moved to Bitbucket (`git`)--which is where some of the earliest `git` commits come from in the project's commit history--but the move did not prove successful and the project moved back to `svn` but now on [Slightly Magic](https://www.slightlymagic.net/forum/), where it remained for several years.  Finally, in 2018, the project moved once again to `git` on a hosted Gitlab service and currently, the official repository is hosted on Github ([Card-Forge/forge](https://github.com/Card-Forge/forge)).  The project has grown a lot over the years and is currently maintained by a large number of [contributors and a group of core developers](https://github.com/Card-Forge/forge/graphs/contributors). Of note, Forge has both a **desktop release**, which is the main focus of this guide, and a mobile (Android) release, which is only briefly mentioned in the [Android APK](#android-apk) section.
 
 [![Forge - GUI](/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-01.png){:.PostImage .PostImage--large}](/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-01.png)
 
@@ -86,6 +92,16 @@ Interface-wise, Forge is actually my favorite MtG RE. Almost everything can be e
 [![Forge - GUI - Alt 02](/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-02.png){:.PostImage}](/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-02.png)
 
 [![Forge - GUI - Alt 03](/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-03.png){:.PostImage}](/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-03.png)
+
+Lastly, Forge includes a single player RPG mode called **Adventure**.  This mode is much closer to Shandalar than the Quests mode, as it allows players to roam through worlds and fight enemies along the way.  This mode was only included recently--the [original developer post](https://www.slightlymagic.net/forum/viewtopic.php?f=26&t=30489) dates back to July 2021--and at the time of writing, it is still in alpha but if you are looking for a modern port of Shandalar, definitely check the [Adventure mode](#adventure-mode) section below for more details.
+
+[![Forge - GUI - Adventure - 01](/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-adventure-01.png){:.PostImage}](/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-adventure-01.png)
+
+[![Forge - GUI - Adventure - 02](/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-adventure-02.png){:.PostImage}](/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-adventure-02.png)
+
+[![Forge - GUI - Adventure - 03](/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-adventure-03.png){:.PostImage}](/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-adventure-03.png)
+
+[![Forge - GUI - Adventure - 04](/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-adventure-04.png){:.PostImage}](/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-adventure-04.png)
 
 ### Gameplay demo
 
@@ -219,6 +235,33 @@ For information about how to install JRE and Forge, take a look at the next sect
 
   If you change location of your current Forge desktop application, you can simply edit the desktop launcher to point to the new directory under which the `forge.sh` helper script is located.
 
+### Adventure mode
+If you followed the [installation guide](#installation), your Forge desktop release directory should contain a Shell script to launch the **Adventure mode**, namely `forge-adventure.sh`. By default, the script is not executable, so open a terminal, move into the Forge dir and make the script executable, as follows:
+
+```
+chmod +x forge-adventure.sh
+```
+
+Now you should be able to run it using the shebang:
+
+```
+./forge-adventure.sh
+```
+
+or by calling `sh` directly:
+
+```
+sh ./forge-adventure.sh
+```
+
+Once you have access to the GUI, select *Adventure mode* and enjoy it!
+
+{% include video id="QFEhqV3SZb8" provider="youtube" %}
+
+Again, instead of using a terminal every time you want to to launch Forge in Adventure mode, create a **custom launcher** for it.  Here is how mine looks like in Debian 11 XFCE:
+
+[![Forge - XFCE Launcher - Adventure](/assets/posts/2022-07-18-forge-xmage-mtg/forge-xfce-launcher-adventure.png){:.PostImage .PostImage--large}](/assets/posts/2022-07-18-forge-xmage-mtg/forge-xfce-launcher-adventure.png)
+
 ### Android APK
 Forge is very unique in which it also **runs on Android**, so you can install it on your mobile or tablet running **Android 9** or newer. The Android interface has its own peculiarities--because the application is designed for mobile--but if you are familiar with the desktop version, you will get the hang of the mobile version very quickly.
 
@@ -233,7 +276,7 @@ As far as I'm aware, the Forge `apk` (Android package) is not distributed via an
 2. We need to allow our Internet Browser (and possibly, File Manager) to install apps from **unknown sources**. By default, such option is disabled. To enable it, go to **Settings** and search for 'unknown source', then follow the options to allow your Internet browser of choice (e.g., DuckDuckGo, Chrome) to install apps from unknown sources.
 3. Navigate to the cardforge.org website (see below) to **download the latest Forge apk**. First, you need to find the latest Forge version available (e.g., `1.6.53`). Then, find the corresponding directory that ends with three additional numbers (`1.6.53.001`) and enter in whichever one is the highest for the last Forge version (`004`). Inside such subdirectory, there should be an `apk` file that you can download and then install.
    - [https://releases.cardforge.org/forge/forge-gui-android/](https://releases.cardforge.org/forge/forge-gui-android/)
-4. After downloading, open the `apk` and follow instructions to **install the Forge**. When done, close the install window.
+4. After downloading, open the `apk` and follow instructions to **install Forge**. When done, close the install window.
 5. Search for the Forge app icon in your home screen or app list. Then go into its **App info** > Permissions and allow it access to *Files and media* (or *Storage*, depending on which Android version you are running).
 6. Now, open the Forge app and follow instructions to download the assets (main images, sounds, etc.) and when done, it should ask you to restart the application.
 7. (*Optional*.) Once the application is up an running, go to its *Settings* and check the option to download missing art on demand, just like we've done with the desktop release, and the go to the *Settings > Files* tab and download the Quests, Achievements, etc., missing images as well.
@@ -383,7 +426,7 @@ The following table provides a summary of the software I used to run XMage at th
 
   [![XMage - XFCE Launcher](/assets/posts/2022-07-18-forge-xmage-mtg/xmage-xfce-launcher.png){:.PostImage .PostImage--large}](/assets/posts/2022-07-18-forge-xmage-mtg/xmage-xfce-launcher.png)
 
-  The `-Djava.net.preferIPv4Stack=true` runtime arg is probably not necessary but since it is mentioned in the [XMage documentation](https://github.com/magefree/mage#installation--running), I also added it here. It just tells Java to favor IPv4 over IPv6, probably because XMage has/had an issue with the latter.  However, I've never notice any problems without setting it.
+  The `-Djava.net.preferIPv4Stack=true` runtime arg is probably not necessary but since it is mentioned in the [XMage documentation](https://github.com/magefree/mage#installation--running), I also added it here. It just tells Java to favor IPv4 over IPv6, probably because XMage has/had an issue with the latter.  However, I've never noticed any problems without setting it.
   {:.notice--info}
 
 
@@ -449,6 +492,6 @@ If you are not familiar with Java or `git` but want to learn, there are free onl
 [top](#){:.btn .btn--light-outline .btn--small}
 
 # Final remarks
-In this article, I talked about two free and open source MtG REs, namely **Forge** and **XMage**. These projects are community-driven and good examples of FOSS applied to gaming. More specifically, they do not attempt to be copies of the official MtG client for Windows (MTGO) but actually introduce many new features (e.g., portability, single player modes, self-hosting MtG servers) that either enhance or complement each other and the official client. If you are a fan o MtG like me, you should definitely check them out and if you enjoyed them, please consider supporting the projects by spreading the word or contributing to their continuing development.
+In this article, I talked about two free and open source MtG REs, namely **Forge** and **XMage**. These projects are community-driven and good examples of FOSS applied to gaming. More specifically, they do not attempt to be copies of the official MtG client for Windows (MTGO) but actually introduce many new features (e.g., portability, single player modes, self-hosting MtG servers) that either enhance or complement each other and the official client. If you are a fan of MtG like me, you should definitely check them out and if you enjoyed them, please consider supporting the projects by spreading the word or contributing to their continuing development.
 
 [top](#){:.btn .btn--light-outline .btn--small}
