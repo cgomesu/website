@@ -11,7 +11,7 @@ toc_icon: "list"
 ---
 
 # Changelog
-**July 25th, 2022**: Fix typos. Add info about intellectual property.
+**July 25th, 2022**: Fix typos. Add info about intellectual property. Expand on Forge's early development history with additional info from one of the core devs.
 {:.notice--info }
 
 **July 22nd, 2022**: Publication of the original article
@@ -69,7 +69,7 @@ For more comparisons, refer to the [Slightly Magic wiki list of MtG REs](https:/
 In brief, my opinion is that if you are looking for a single player experience, then try Forge. Now, if you want to play with friends online, then try XMage. Are you unsure? Try both! I think they are both great examples of FOSS applied to gaming and they complement each other in many aspects.  In any case, check the following sections for specifics about each of those MtG REs.
 
 ## Forge
-Forge was originally written by a single individual ([mtgrares](https://mtgrares.blogspot.com/)) around the mid-2000s, then started being (`git`) versioned in 2011 by `jendave`. The project has since grown a lot and is currently maintained by a large number of [contributors and a group of core developers](https://github.com/Card-Forge/forge/graphs/contributors). It has been particularly active ever since 2017 and its repository is currently being hosted on Github ([Card-Forge/forge](https://github.com/Card-Forge/forge)). Of note, Forge has both a **desktop release**, which is the main focus of this guide, and a mobile (Android) release, which is only briefly mentioned in the [Android APK](#android-apk) section.
+Forge started development in 2007 by a single individual ([mtgrares](https://mtgrares.blogspot.com/)) and was initially pushed to Google code (`svn` versioned) around 2008.  In 2011, `jendave` split the project into the first pass of the contemporary modules and soon afterwards, the project's development briefly moved to Bitbucket (`git`)--which is where some of the earliest `git` commits come from in the project's commit history--but the move did not prove successful and the project moved back to `svn` but now on [Slightly Magic](https://www.slightlymagic.net/forum/), where it remained for several years.  Finally, in 2018, the project moved once again to `git` on a hosted Gitlab service and currently, the official repository is hosted on Github ([Card-Forge/forge](https://github.com/Card-Forge/forge)).  The project has grown a lot over the years and is currently maintained by a large number of [contributors and a group of core developers](https://github.com/Card-Forge/forge/graphs/contributors). Of note, Forge has both a **desktop release**, which is the main focus of this guide, and a mobile (Android) release, which is only briefly mentioned in the [Android APK](#android-apk) section.
 
 [![Forge - GUI](/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-01.png){:.PostImage .PostImage--large}](/assets/posts/2022-07-18-forge-xmage-mtg/forge-gui-01.png)
 
