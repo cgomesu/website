@@ -11,6 +11,9 @@ toc_icon: "list"
 ---
 
 # Changelog
+**July 25th, 2022**: Fix typos.
+{:.notice--info }
+
 **July 22nd, 2022**: Publication of the original article
 {:.notice--info }
 
@@ -30,7 +33,7 @@ This article is divided into four main sections. The first is an optional and br
 
 The next two main sections are part of the [MtG rules engines](#mtg-rules-engines), in which I described the [Forge](#forge) and the [XMage](#xmage) MtG REs in detail. More specifically, each of those two sections cover the development, features, and installation process of each RE. If you are only interested in learning how to install and use them, then simply jump straight to their respective section.
 
-The third and last main section, called [Contributing](#contributing), covers aspects about how you can help each project. I found this necessary because both Forge and XMage are quintessential community-driven projects and on top of that, they are very good examples of FOSS applied to gaming.  Reporting issues, writing card scripts, and setting up a (versioned) project directory are examples of the content covered in the last section.
+The last main section, called [Contributing](#contributing), covers aspects about how you can help each project. I found this necessary because both Forge and XMage are quintessential community-driven projects and on top of that, they are very good examples of FOSS applied to gaming.  Reporting issues, writing card scripts, and setting up a (versioned) project directory are examples of the content covered in the last section.
 
 [top](#){:.btn .btn--light-outline .btn--small}
 
@@ -233,7 +236,7 @@ As far as I'm aware, the Forge `apk` (Android package) is not distributed via an
 2. We need to allow our Internet Browser (and possibly, File Manager) to install apps from **unknown sources**. By default, such option is disabled. To enable it, go to **Settings** and search for 'unknown source', then follow the options to allow your Internet browser of choice (e.g., DuckDuckGo, Chrome) to install apps from unknown sources.
 3. Navigate to the cardforge.org website (see below) to **download the latest Forge apk**. First, you need to find the latest Forge version available (e.g., `1.6.53`). Then, find the corresponding directory that ends with three additional numbers (`1.6.53.001`) and enter in whichever one is the highest for the last Forge version (`004`). Inside such subdirectory, there should be an `apk` file that you can download and then install.
    - [https://releases.cardforge.org/forge/forge-gui-android/](https://releases.cardforge.org/forge/forge-gui-android/)
-4. After downloading, open the `apk` and follow instructions to **install the Forge**. When done, close the install window.
+4. After downloading, open the `apk` and follow instructions to **install Forge**. When done, close the install window.
 5. Search for the Forge app icon in your home screen or app list. Then go into its **App info** > Permissions and allow it access to *Files and media* (or *Storage*, depending on which Android version you are running).
 6. Now, open the Forge app and follow instructions to download the assets (main images, sounds, etc.) and when done, it should ask you to restart the application.
 7. (*Optional*.) Once the application is up an running, go to its *Settings* and check the option to download missing art on demand, just like we've done with the desktop release, and the go to the *Settings > Files* tab and download the Quests, Achievements, etc., missing images as well.
@@ -383,7 +386,7 @@ The following table provides a summary of the software I used to run XMage at th
 
   [![XMage - XFCE Launcher](/assets/posts/2022-07-18-forge-xmage-mtg/xmage-xfce-launcher.png){:.PostImage .PostImage--large}](/assets/posts/2022-07-18-forge-xmage-mtg/xmage-xfce-launcher.png)
 
-  The `-Djava.net.preferIPv4Stack=true` runtime arg is probably not necessary but since it is mentioned in the [XMage documentation](https://github.com/magefree/mage#installation--running), I also added it here. It just tells Java to favor IPv4 over IPv6, probably because XMage has/had an issue with the latter.  However, I've never notice any problems without setting it.
+  The `-Djava.net.preferIPv4Stack=true` runtime arg is probably not necessary but since it is mentioned in the [XMage documentation](https://github.com/magefree/mage#installation--running), I also added it here. It just tells Java to favor IPv4 over IPv6, probably because XMage has/had an issue with the latter.  However, I've never noticed any problems without setting it.
   {:.notice--info}
 
 
@@ -449,6 +452,6 @@ If you are not familiar with Java or `git` but want to learn, there are free onl
 [top](#){:.btn .btn--light-outline .btn--small}
 
 # Final remarks
-In this article, I talked about two free and open source MtG REs, namely **Forge** and **XMage**. These projects are community-driven and good examples of FOSS applied to gaming. More specifically, they do not attempt to be copies of the official MtG client for Windows (MTGO) but actually introduce many new features (e.g., portability, single player modes, self-hosting MtG servers) that either enhance or complement each other and the official client. If you are a fan o MtG like me, you should definitely check them out and if you enjoyed them, please consider supporting the projects by spreading the word or contributing to their continuing development.
+In this article, I talked about two free and open source MtG REs, namely **Forge** and **XMage**. These projects are community-driven and good examples of FOSS applied to gaming. More specifically, they do not attempt to be copies of the official MtG client for Windows (MTGO) but actually introduce many new features (e.g., portability, single player modes, self-hosting MtG servers) that either enhance or complement each other and the official client. If you are a fan of MtG like me, you should definitely check them out and if you enjoyed them, please consider supporting the projects by spreading the word or contributing to their continuing development.
 
 [top](#){:.btn .btn--light-outline .btn--small}
