@@ -11,7 +11,7 @@ toc_icon: "list"
 ---
 
 # Changelog
-**July 25th, 2022**: Fix typos.
+**July 25th, 2022**: Fix typos. Add info about intellectual property.
 {:.notice--info }
 
 **July 22nd, 2022**: Publication of the original article
@@ -22,7 +22,10 @@ I have been playing [Magic: the Gathering](https://magic.wizards.com) (MtG) for 
 
 [![Card - FoW](/assets/posts/2022-07-18-forge-xmage-mtg/card-fow.jpg){:.PostImage}](/assets/posts/2022-07-18-forge-xmage-mtg/card-fow.jpg)
 
-Fortunately, there are **free and open source software** (FOSS) alternatives to MTGO that **do not** require users to buy digital objects (cards) to play MtG. In this article, I talked about two of the main MtG rules engines (RE) currently available for offline and online play: **Forge** and **XMage**. More specifically, the article covers the main features of the Forge and XMage REs, how to install and use each one of them, and how you can contribute to maintain their development because these two projects are essentially community-driven. This is possible and completely legal because just like no company can claim ownership over the game of [poker](https://en.wikipedia.org/wiki/Poker), WotC cannot claim ownership over the rules that constitute a game of MtG.
+Fortunately, there are **free and open source software** (FOSS) alternatives to MTGO that **do not** require users to buy digital objects (cards) to play MtG. In this article, I talked about two of the main MtG rules engines (RE) currently available for offline and online play: **Forge** and **XMage**. More specifically, the article covers the main features of the Forge and XMage REs, how to install and use each one of them, and how you can contribute to maintain their development because these two projects are essentially community-driven. This is possible because just like no company can claim ownership over the game of [poker](https://en.wikipedia.org/wiki/Poker), WotC cannot claim ownership over the rules that constitute a game of MtG\*.
+
+\*To be fair, since the original publication of this article, I was made aware that the aspects concerning intellectual property related to MtG are more controversial and complex than in the comparison with poker. For anyone interested, [there is a Reddit thread](https://old.reddit.com/r/magicTCG/comments/w628xt/forge_and_xmage_the_best_free_and_open_source/ihfnuns/?context=10000) in which I shared my opinion on this matter and other users explained a few of the legal challenges. In addition, other people reached via private messages to let me know that in 2000, WotC created the [Open Game License](https://en.wikipedia.org/wiki/Open_Game_License) to allow easier dissemination of the game and to allow third-party parties to profit from the reproduction of certain aspects of the game. Clearly, the issue of intellectual property has multiple layers when it comes to MtG and it would be beyond the scope of this article (and honestly, my expertise) to cover it here.
+{:.notice--warning}
 
 If you are interested in using and learning more about Forge and XMage, then keep on reading. As it is customary with my articles, I try to keep them up-to-date to reflect my current knowledge about the content, so if this is not your first time here, make sure to check the [Changelog](#changelog) for updates. Also, if you spot an error or disagree with something that I wrote or want to improve this article, feel free [to get in touch with me](/contact).
 
