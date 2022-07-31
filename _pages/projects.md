@@ -59,6 +59,12 @@ it:
     btn_label: "Read more"
     btn_class: "btn--info"
 programming:
+  - title: "Programa Bolsas"
+    excerpt: "A CLI program that validates a csv file containing scholarship data from multiple students and allows users to perform a few operations, such as searching, encrypting, ranking, and computing means. This program was part of a selection process and most of its content is in Portuguese. It was written to demonstrate the use of the curses, pandas, and pandera Python packages. It also features unit tests for all of its main operations via pytest."
+    image_path: "/assets/img/projects/thumb-projects-bolsas.jpg"
+    url: "https://github.com/cgomesu/programa-bolsas"
+    btn_label: "Github Repo"
+    btn_class: "btn--info"
   - title: "Pife (pif-paf)"
     excerpt: "This is a command-line implementation of the card game Pife written in Java. It is a fork of another implementation that changes its main logic to adapt to the new game but preserves overlapping classes, such as deck and player. This program is only for educational purposes and the content is in Portuguese."
     image_path: "/assets/img/projects/thumb-projects-pife.jpg"
