@@ -60,7 +60,7 @@ var store = [{
         "teaser": null
       },{
         "title": "TVHlink: Livestreams as IPTV channels with TVHeadend and Streamlink",
-        "excerpt":"Changelog Mar 15th, 2022: It’s been a while since I last updated this article but all the information here is still up-to-date. Streamlink is on version 3.2.0 at the time of writing but everything works just as before and as outlined in this guide. You can track changes to my...","categories": ["blog"],
+        "excerpt":"Changelog Sep 20th, 2022: Updated the information regarding running custom scripts within a Tvheadend Docker container. This change is in connection with recent changes introduced by the folks maintaining the linuxserver.io image. For details, see this issue. Other than that, Streamlink is now on version 5.0 and the integration documented...","categories": ["blog"],
         "tags": ["tvhlink","streamlink","tvheadend","github","iptv","kodi","youtube","streaming","livestream"],
         "url": "/blog/Tvhlink/",
         "teaser": null

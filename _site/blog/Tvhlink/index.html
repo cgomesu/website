@@ -200,7 +200,7 @@
 
 
 
-  60 minute read
+  61 minute read
 
 </p>
       
@@ -412,7 +412,8 @@
           </aside>
         
         <h1 id="changelog">Changelog</h1>
-<p class="notice notice--success"><strong>Mar 15th, 2022</strong>: It’s been a while since I last updated this article but all the information here is still up-to-date. Streamlink is on version <code class="language-plaintext highlighter-rouge">3.2.0</code> at the time of writing but everything works just as before and as outlined in this guide. You can track changes to my curated <code class="language-plaintext highlighter-rouge">m3u</code> playlists and related utility scripts on my <a href="https://github.com/cgomesu/tvhlink">tvhlink Github repository</a>.</p>
+<p class="notice notice--success"><strong>Sep 20th, 2022</strong>: Updated the information regarding running custom scripts within a Tvheadend Docker container. This change is in connection with recent changes introduced by the folks maintaining the linuxserver.io image.  For details, see <a href="https://github.com/cgomesu/tvhlink/issues/18">this issue</a>. Other than that, <a href="https://github.com/streamlink/streamlink/releases/tag/5.0.0">Streamlink is now on version <code class="language-plaintext highlighter-rouge">5.0</code></a> and the integration documented here continues to works just as well as before.</p>
+<p class="notice notice--info"><strong>Mar 15th, 2022</strong>: It’s been a while since I last updated this article but all the information here is still up-to-date. Streamlink is on version <code class="language-plaintext highlighter-rouge">3.2.0</code> at the time of writing but everything works just as before and as outlined in this guide. You can track changes to my curated <code class="language-plaintext highlighter-rouge">m3u</code> playlists and related utility scripts on my <a href="https://github.com/cgomesu/tvhlink">tvhlink Github repository</a>.</p>
 <p class="notice notice--info"><strong>July 16th, 2021</strong>, Update #2: Added information about Twitch streams to the <a href="#conclusion">Conclusion</a> section.</p>
 <p class="notice notice--info"><strong>July 16th, 2021</strong>, Update #1: Updated all Youtube URLs to include the suffix <code class="language-plaintext highlighter-rouge">/live</code>, owing to <a href="https://github.com/streamlink/streamlink/pull/3797">changes to the Youtube plugin for Streamlink</a>.</p>
 <p class="notice notice--info"><strong>Jan 21st, 2021</strong>: Publication of the original article</p>
@@ -731,8 +732,8 @@
         <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  cd /opt &amp;&amp; sudo git clone https://github.com/cgomesu/tvhlink.git
 </code></pre></div>        </div>
       </li>
-      <li>Go to your TVH container’s <code class="language-plaintext highlighter-rouge">/config</code> directory (edit <code class="language-plaintext highlighter-rouge">&lt;TVH_CONTAINER&gt;</code> below before running the command; this is the dir where the TVH’s <code class="language-plaintext highlighter-rouge">/config</code> subdir is) and <strong>create a new dir</strong> called <code class="language-plaintext highlighter-rouge">custom-cont-init.d</code>. Any scripts in this dir are automatically executed at the container’s start-up:
-        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  cd &lt;TVH_CONTAINER&gt;/config &amp;&amp; sudo mkdir custom-cont-init.d
+      <li>Go to the directory where your TVH container’s <code class="language-plaintext highlighter-rouge">/config</code> is (edit <code class="language-plaintext highlighter-rouge">&lt;TVH_CONTAINER&gt;</code> below before running the command) and <strong>create a new dir</strong> called <code class="language-plaintext highlighter-rouge">custom-cont-init.d</code>. Any scripts in this dir are automatically executed at the container’s start-up:
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  cd &lt;TVH_CONTAINER&gt; &amp;&amp; sudo mkdir custom-cont-init.d
 </code></pre></div>        </div>
       </li>
       <li><strong>Copy</strong> the <code class="language-plaintext highlighter-rouge">streamlink_for_tvh_container.sh</code> script from the <code class="language-plaintext highlighter-rouge">tvhlink</code> repo to the new <code class="language-plaintext highlighter-rouge">custom-cont-init.d</code> dir:
@@ -744,9 +745,9 @@
 </code></pre></div>        </div>
       </li>
       <li>
-        <p><strong>Restart your TVH container</strong> and the script should automatically install and update Streamlink at every startup.  Check the logs for any <code class="language-plaintext highlighter-rouge">[TVHlink]</code> messages.  If you don’t see any, just <strong>recreate the container</strong> and wait until it’s done installing–it can take a few minutes.</p>
+        <p>Because the <code class="language-plaintext highlighter-rouge">custom-cont-init.d</code> dir is outside the <code class="language-plaintext highlighter-rouge">config</code> dir, you now need to mount it within your TVH container just like any other volume (e.g., <code class="language-plaintext highlighter-rouge">-v &lt;TVH_CONTAINER&gt;/custom-cont-init.d:/custom-cont-init.d</code>). Once done, <strong>(re)start your TVH container</strong> and the script should automatically install and update Streamlink at every startup.  Check the logs for any <code class="language-plaintext highlighter-rouge">[TVHlink]</code> messages.  If you don’t see any, just <strong>recreate the container</strong> and wait until it’s done installing–it can take a few minutes.</p>
 
-        <p class="notice notice--warning">Because the script is in the <code class="language-plaintext highlighter-rouge">/config</code> dir, it should persist after a TVH container update and will automatically be triggered at start-up to reinstall the required packages and Streamlink.  If you notice it’s broken, check the <a href="https://github.com/cgomesu/tvhlink">tvhlink repo</a> for an update or open an issue to let me know about it.  The script also updates Streamlink after it has been installed, so it makes sure your container is always runnig the latest version of it.  However, the script only triggers at start-up, so it will only try to update Streamlink then.  Therefore, if there’s a <a href="https://github.com/streamlink/streamlink/releases/">new Streamlink release</a> and you want to update it in the TVH container, simply restart the container and the script should take care of it.  (The script uses Python’s package manager, <code class="language-plaintext highlighter-rouge">pip</code>, so it will only install the latest version available there.)</p>
+        <p class="notice notice--warning">Because the script is in the same dir as the <code class="language-plaintext highlighter-rouge">/config</code> dir, it should persist after a TVH container update and will automatically be triggered at start-up to reinstall the required packages and Streamlink.  If you notice it’s broken, check the <a href="https://github.com/cgomesu/tvhlink">tvhlink repo</a> for an update or open an issue to let me know about it.  The script also updates Streamlink after it has been installed, so it makes sure your container is always runnig the latest version of it.  However, the script only triggers at start-up, so it will only try to update Streamlink then.  Therefore, if there’s a <a href="https://github.com/streamlink/streamlink/releases/">new Streamlink release</a> and you want to update it in the TVH container, simply restart the container and the script should take care of it.  (The script uses Python’s package manager, <code class="language-plaintext highlighter-rouge">pip</code>, so it will only install the latest version available there.)</p>
       </li>
     </ol>
 
