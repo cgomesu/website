@@ -11,8 +11,10 @@ toc_icon: "list"
 ---
 
 # Changelog
-**July 25th, 2022**: I made a few updates to the article in light of new information I learned and to fix a few typos here and there. More specifically, there is a new section called [Adventure mode](#adventure-mode) that describes how to run Forge in **adventure mode**, which is a single-player RPG mode that resembles Shandalar. Thanks to user `tehdiplomat` for making me aware of it.  I also added a note about intellectual property to the introduction, following conversations I had with other users in a Reddit thread and private messages. Lastly, one of the core devs of the Forge MtG RE reached out to elaborate on the early development history of the RE, which I included in the introduction of the [Forge](#forge) section.
+**Sep 21st, 2022**: [Forge is now accepting donations](https://ko-fi.com/forgedonations) via Ko-fi, so I updated the [Contributing](#contributing) section accordingly.
 {:.notice--success }
+**July 25th, 2022**: I made a few updates to the article in light of new information I learned and to fix a few typos here and there. More specifically, there is a new section called [Adventure mode](#adventure-mode) that describes how to run Forge in **adventure mode**, which is a single-player RPG mode that resembles Shandalar. Thanks to user `tehdiplomat` for making me aware of it.  I also added a note about intellectual property to the introduction, following conversations I had with other users in a Reddit thread and private messages. Lastly, one of the core devs of the Forge MtG RE reached out to elaborate on the early development history of the RE, which I included in the introduction of the [Forge](#forge) section.
+{:.notice--info }
 
 **July 22nd, 2022**: Publication of the original article
 {:.notice--info }
@@ -458,7 +460,7 @@ Both Forge and XMage are community-driven FOSS projects, which means that anyone
 
 - **Donations**
   - Forge:
-    - There are no official donation channels yet.
+    - [https://ko-fi.com/forgedonations](https://ko-fi.com/forgedonations): Help supporting hosting costs Forge has had over the years.
   - XMage:
     - [http://xmage.today/#donate](http://xmage.today/#donate): At the time of writing, donations go to the lead maintainer of the XMage project, [@JayDi85](https://github.com/JayDi85), who is also responsible for a few of the public servers.
 
