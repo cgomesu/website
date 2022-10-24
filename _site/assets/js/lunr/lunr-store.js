@@ -54,7 +54,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Tasmota webcam server for the ESP32-cam",
-        "excerpt":"Changelog Jul 6th, 2022: Tasmota version 12.02 has been recently released and it introduces a few additional features relative to its previous iterations. Most notably, the previous issue with the stable firmware version (see changelog from Feb 11th, 2022) has been fixed in the current stable. In addition, a pull...","categories": ["blog"],
+        "excerpt":"Changelog Oct 24th, 2022: I updated portions of this guide to reflect that recent versions of the tasmota factory firmware do not require flashing a separate boot, bootloader, and partitions binaries. There is now a single binary called tasmota32-webcam.factory.bin that we use to flash the tasmota firmware onto the ESP3-cam...","categories": ["blog"],
         "tags": ["iot","esp32","tasmota","mqtt","cam","webcam","surveillance","wifi","wireless","network"],
         "url": "/blog/Esp32cam-tasmota-webcam-server/",
         "teaser": null
