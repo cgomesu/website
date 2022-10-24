@@ -11,6 +11,9 @@ toc_icon: "list"
 ---
 
 # Changelog
+**Oct 24th, 2022**: I updated portions of this guide to reflect that recent versions of the tasmota factory firmware do not require flashing a separate boot, bootloader, and partitions binaries. There is now a single binary called `tasmota32-webcam.factory.bin` that we use to flash the tasmota firmware onto the ESP3-cam module. Everything else should work just like before though. (If you find you're having issues with the procedure outlined here, please refer to the [official flashing instructions](https://tasmota.github.io/docs/ESP32/#flashing).) Thanks to Toz for the heads up!
+{: .notice--info }
+
 **Jul 6th, 2022**: Tasmota version 12.02 has been recently released and it introduces a few additional features relative to its previous iterations.  Most notably, the previous issue with the stable firmware version (see changelog from Feb 11th, 2022) has been fixed in the current stable.  In addition, a [pull request](https://github.com/arendst/Tasmota/pull/15531) by [@philrich](https://github.com/philrich) added support to several OV2640 features that were not contemplated in the previous firmware versions.  More specifically, version 12.02 includes commands for SpecialEffect, White Balance, Exposure Control, Gain Control, White/Black Pixel Correct, DCW, Gamma Correction, Lens Correction, Nightmode, and Reduced FPS mode.  These new commands were all added to the [table of additional webcam commands](#webcam-server-additional-configurations).  Thanks to Eric for letting me know about these changes.
 {: .notice--info }
 
@@ -235,26 +238,18 @@ We are now ready to flash the Tasmota firmware.  For reference, the official inf
    sudo chown ${USER}:${USER} tasmota32/
    ```
 
-3. Download the `tasmota32-webcam.bin` binary and the needed ESP32 Tasmota binaries from the official Github repo via `wget`.  (*The following was updated on August 12th, 2021.*) The binaries are now available in a different repository than [before](https://github.com/arendst/Tasmota), namely [arendst/Tasmota-firmware](https://github.com/arendst/Tasmota-firmware), and currently, the new repository has a single branch (`main`). There are two versions of the `tasmota32-wecam.bin`, one from the `release` and another from the `development` portions of the Tasmota32 project. My advice is to try the stable release first, then development if you have any issues, unless there is a note in [Changelog](#changelog) that says otherwise (e.g., the `Feb 11th, 2022` note).
+3. Download the `tasmota32-webcam.factoryb.bi.factoryn` binary and the needed ESP32 Tasmota binaries from the official Github repo via `wget`.  (*The following was updated on August 12th, 2021.*) The binaries are now available in a different repository than [before](https://github.com/arendst/Tasmota), namely [arendst/Tasmota-firmware](https://github.com/arendst/Tasmota-firmware), and currently, the new repository has a single branch (`main`). There are two versions of the `tasmota32-webcam.factory.bin`, one from the `release` and another from the `development` portions of the Tasmota32 project. My advice is to try the stable release first, then development if you have any issues, unless there is a note in [Changelog](#changelog) that says otherwise (e.g., the `Feb 11th, 2022` note).
 
-   To download the **stable release** binaries, use the following command:
-
-   ```
-   wget -P /opt/tasmota32/ \
-     https://ota.tasmota.com/tasmota32/release/tasmota32-webcam.bin \
-     https://github.com/arendst/Tasmota-firmware/raw/main/static/esp32/boot_app0.bin \
-     https://github.com/arendst/Tasmota-firmware/raw/main/static/esp32/bootloader_dout_40m.bin \
-     https://github.com/arendst/Tasmota-firmware/raw/main/static/esp32/partitions.bin
-   ```
-
-   **Alternatively**, to download the **development** binaries, use the following command:
+   To download the **stable release** binary, use the following command:
 
    ```
-   wget -P /opt/tasmota32/ \
-     https://ota.tasmota.com/tasmota32/tasmota32-webcam.bin \
-     https://github.com/arendst/Tasmota-firmware/raw/main/static/esp32/boot_app0.bin \
-     https://github.com/arendst/Tasmota-firmware/raw/main/static/esp32/bootloader_dout_40m.bin \
-     https://github.com/arendst/Tasmota-firmware/raw/main/static/esp32/partitions.bin
+   wget -P /opt/tasmota32/ https://ota.tasmota.com/tasmota32/release/tasmota32-webcam.factory.bin
+   ```
+
+   **Alternatively**, to download the **development** binary, use the following command:
+
+   ```
+   wget -P /opt/tasmota32/ https://ota.tasmota.com/tasmota32/tasmota32-webcam.factory.bin
    ```
 
 4. Make sure your ESP32-cam is connected to your computer in [flash mode](/assets/posts/2021-01-15-Esp32cam-tasmota-webcam-server/esp32cam-wiring-flash-mode.jpg) (GPIO0-GND jumper).  Now find the USB port your device is using in `/dev/` and set it to the environmental variable `ESP_PORT`, as follows:
@@ -293,7 +288,7 @@ We are now ready to flash the Tasmota firmware.  For reference, the official inf
    **Wait** until `esptool.py` is done. Then, press the **reset button on the ESP32-cam**.  Now, check that `$ESP_PORT` is available again.
    {: .notice--danger }
 
-6. Flash the `tasmota32-webcam.bin` webcam server binary and the required Tasmota binaries to the ESP32-cam.
+6. Flash the `tasmota32-webcam.factory.bin` webcam server binary and the required Tasmota binaries to the ESP32-cam.
 
    ```
    esptool.py --chip esp32 \
@@ -302,12 +297,8 @@ We are now ready to flash the Tasmota firmware.  For reference, the official inf
      --after hard_reset \
      write_flash -z \
      --flash_mode dout \
-     --flash_freq 40m \
      --flash_size detect \
-     0x1000 /opt/tasmota32/bootloader_dout_40m.bin \
-     0x8000 /opt/tasmota32/partitions.bin \
-     0xe000 /opt/tasmota32/boot_app0.bin \
-     0x10000 /opt/tasmota32/tasmota32-webcam.bin
+     0x0 /opt/tasmota32/tasmota32-webcam.factory.bin
    ```
 
    **Wait** until `esptool.py` is completely done before moving on. Flashing a firmware can take a few minutes to complete.  If you experience issues while flashing, try a different baud rate (`-b`) than the default `115200`, such as `-b 921600`. The [Tasmota FAQ](https://tasmota.github.io/docs/FAQ/#flashing) can help with this and other issues.
@@ -708,7 +699,7 @@ If you have already flashed a pre-compiled Tasmota binary onto the ESP32-cam, th
 
 3. The device will reboot automatically and once it is back on, it should connect to the wireless network configured with TasmoCompiler.
 
-Now, if you have not flashed any pre-compiled Tasmota binary, simply switch the `tasmota32-webcam.bin` file mentioned in [Flashing Tasmota32 webcam server](#flashing-tasmota32-webcam-server) for the `firmware.bin` file you compiled with TasmoCompiler.
+Now, if you have not flashed any pre-compiled Tasmota binary, simply switch the `tasmota32-webcam.factory.bin` file mentioned in [Flashing Tasmota32 webcam server](#flashing-tasmota32-webcam-server) for the `firmware.bin` file you compiled with TasmoCompiler.
 
 ## Wiring and template configuration
 Suppose we have a **BME280 sensor module** wired to an ESP32-cam (AI-Thinker) board as follows:
