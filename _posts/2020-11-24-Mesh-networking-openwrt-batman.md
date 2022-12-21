@@ -10,8 +10,10 @@ toc_label: "Table of Contents"
 toc_icon: "list"
 ---
 # Changelog
-**May 4th, 2022**: Marc ([OneMarcFifty](https://www.youtube.com/channel/UCG5Ph9Mm6UEQLJJ-kGIC2AQ)) has published a video tutorial describing how to configure OpenWrt and batman-adv via **LuCI**, which is only possible because he also wrote a package that gives luci support for the batman-adv protocol ([luci-proto-batman-adv](https://github.com/openwrt/luci/tree/master/protocols/luci-proto-batman-adv)).  I added a reference to Marc's tutorial at the end of the [Other similar mesh solutions](#other-similar-mesh-solutions) section.
+**Dec 21st, 2022**: Minor updates to streamline a few commands and to add a note here that this guide is still valid for the current stable release version of OpenWrt (`22.03.2`).  I should also mentioned that a user (Iglói) reported that the Linksys EA8300 might not be the best choice for a high-end mesh node because [VLAN support is limited in the IPQ40xx hardware](https://forum.openwrt.org/t/ipq40xx-switch-config-strangeness/32542).  However, I've never tested that myself and after glancing over the forum posts, it seems the issue has been fixed in the latest release.  In any case, if you want to consider other high-end alternatives, check out the [Linksys WRT23x](https://openwrt.org/toh/linksys/wrt32x) and the [ZyXEL NBG6817](https://openwrt.org/toh/zyxel/nbg6817).
 {: .notice--success }
+**May 4th, 2022**: Marc ([OneMarcFifty](https://www.youtube.com/channel/UCG5Ph9Mm6UEQLJJ-kGIC2AQ)) has published a video tutorial describing how to configure OpenWrt and batman-adv via **LuCI**, which is only possible because he also wrote a package that gives luci support for the batman-adv protocol ([luci-proto-batman-adv](https://github.com/openwrt/luci/tree/master/protocols/luci-proto-batman-adv)).  I added a reference to Marc's tutorial at the end of the [Other similar mesh solutions](#other-similar-mesh-solutions) section.
+{: .notice--info }
 **February 4th, 2022**: Updated the [Hardware-specific configurations](#hardware-specific-configurations) section to include info about an issue affecting the [GL-AR750](https://openwrt.org/toh/gl.inet/gl-ar750) and the [AVM Fritz!WLAN Repeater 1750E](https://openwrt.org/toh/avm/avm_fritz_wlan_repeater_1750e).  Also, the `ath10k` troubleshooting instructions were slightly modified to make them more general.  Thanks to JF and Erik for testing and letting me know about the affected devices and solutions.
 {: .notice--info }
 **January 1st, 2022**: Added a new section called [Advanced features](#advanced-features) to cover `batman-adv` features not previously described in the basic implementation section.  The first included feature was the use of [multi-links](#multi-links) to improve performance and reliability.  The subsection includes examples and a how-to for the implementation of multi-links.  In addition, I changed the Linksys reference in [Hardware](#hardware) to the more stable [Linksys EA8300](https://openwrt.org/toh/linksys/ea8300) as reference of a high-end device.  I've not personally used it but have read reports of good experience with it by the OpenWrt forum user [16F48](https://forum.openwrt.org/u/16F84), for example.
@@ -234,7 +236,7 @@ I've noticed that radio devices that use the `ath10k` module and more specifical
   |:---:|:---:|:---:|:---:|
   | AVM | FRITZ!WLAN Repeater 1750E | - | 21.02 |
   | GL.iNet | GL-AR750 | - | 21.02 |
-  | TP-Link | Archer C7 | 2.0, 4.0, 5.0 | 19.07, 21.02 |
+  | TP-Link | Archer C7 | 2.0, 4.0, 5.0 | 19.07, 21.02, 22.03 |
   | TP-Link | Archer C7 US | 2.0 | 19.07, 21.02 |
 
 
@@ -467,9 +469,7 @@ To build a custom image file, first [install the dependencies](https://openwrt.o
 10. Personally, I like to copy all generated files to a location outside the image builder.  To create a new location for the built images in your user's Downloads directory, do as follows (suggested structure is `openwrt-custom-images/<release>/<device>`):
 
     ```
-    mkdir ~/Downloads/openwrt-custom-images \
-      ~/Downloads/openwrt-custom-images/21.02 \
-      ~/Downloads/openwrt-custom-images/21.02/tl-wdr4300_v1
+    mkdir -p ~/Downloads/openwrt-custom-images/21.02/tl-wdr4300_v1
     ```
 
     Then copy all generated files to the new directory outside the image builder:

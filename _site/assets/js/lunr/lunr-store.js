@@ -42,7 +42,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Mesh networking: A guide to using free and open-source software with common hardware",
-        "excerpt":"Changelog May 4th, 2022: Marc (OneMarcFifty) has published a video tutorial describing how to configure OpenWrt and batman-adv via LuCI, which is only possible because he also wrote a package that gives luci support for the batman-adv protocol (luci-proto-batman-adv). I added a reference to Marc’s tutorial at the end of...","categories": ["blog"],
+        "excerpt":"Changelog Dec 21st, 2022: Minor updates to streamline a few commands and to add a note here that this guide is still valid for the current stable release version of OpenWrt (22.03.2). I should also mentioned that a user (Iglói) reported that the Linksys EA8300 might not be the best...","categories": ["blog"],
         "tags": ["mesh","adhoc","ieee","wifi","wireless","radio","network","router","openwrt","batman"],
         "url": "/blog/Mesh-networking-openwrt-batman/",
         "teaser": null
