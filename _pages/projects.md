@@ -59,6 +59,12 @@ it:
     btn_label: "Read more"
     btn_class: "btn--info"
 programming:
+  - title: "RPi SenseHAT MQTT"
+    excerpt: "A Python application for the Raspberry Pi that allows interfacing with the SenseHAT over MQTT. The script publishes sensor and joystick data to the MQTT broker to be consumed by a home automation server (e.g., Home Assistant). In addition, it also subcribes to an LED topic to display payloads published to the broker. For instance, when an home automation publishes a message to the LED topic, the SenseHAT will consume it and display on the LED matrix."
+    image_path: "/assets/img/projects/thumb-projects-rpi-sensehat-mqtt.jpg"
+    url: "https://github.com/cgomesu/rpi-sensehat-mqtt"
+    btn_label: "Github Repo"
+    btn_class: "btn--info"
   - title: "Programa Bolsas"
     excerpt: "A CLI program that validates a csv file containing scholarship data from multiple students and allows users to perform a few operations, such as searching, encrypting, ranking, and computing means. This program was part of a selection process and most of its content is in Portuguese. It was written to demonstrate the use of the curses, pandas, and pandera Python packages. It also features unit tests for all of its main operations via pytest."
     image_path: "/assets/img/projects/thumb-projects-bolsas.jpg"
