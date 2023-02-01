@@ -200,7 +200,7 @@
 
 
 
-  53 minute read
+  54 minute read
 
 </p>
       
@@ -387,7 +387,8 @@
           </aside>
         
         <h1 id="changelog">Changelog</h1>
-<p class="notice--success"><strong>Sep 21st, 2022</strong>: <a href="https://ko-fi.com/forgedonations">Forge is now accepting donations</a> via Ko-fi, so I updated the <a href="#contributing">Contributing</a> section accordingly.</p>
+<p class="notice--success"><strong>Feb 1st, 2023</strong>: I updated the <a href="#installation-1">XMage installation instructions</a> to match the <em>beta</em> client instructions. This was necessary because the domain <code class="language-plaintext highlighter-rouge">xmage.de</code> has been offline for quite some time now, and the best alternative is to use the <code class="language-plaintext highlighter-rouge">xmage.today</code> domain, which hosts the beta client and a few public servers.</p>
+<p class="notice--info"><strong>Sep 21st, 2022</strong>: <a href="https://ko-fi.com/forgedonations">Forge is now accepting donations</a> via Ko-fi, so I updated the <a href="#contributing">Contributing</a> section accordingly.</p>
 <p class="notice--info"><strong>July 25th, 2022</strong>: I made a few updates to the article in light of new information I learned and to fix a few typos here and there. More specifically, there is a new section called <a href="#adventure-mode">Adventure mode</a> that describes how to run Forge in <strong>adventure mode</strong>, which is a single-player RPG mode that resembles Shandalar. Thanks to user <code class="language-plaintext highlighter-rouge">tehdiplomat</code> for making me aware of it.  I also added a note about intellectual property to the introduction, following conversations I had with other users in a Reddit thread and private messages. Lastly, one of the core devs of the Forge MtG RE reached out to elaborate on the early development history of the RE, which I included in the introduction of the <a href="#forge">Forge</a> section.</p>
 
 <p class="notice--info"><strong>July 22nd, 2022</strong>: Publication of the original article</p>
@@ -826,18 +827,23 @@ Oracle:Whenever Ragavan, Nimble Pilferer deals combat damage to a player, create
   <li>
     <p><strong>Download and install XMage</strong></p>
 
-    <p>The XMage RE can be divided into three distinct applications, namely <strong>launcher</strong>, <strong>client</strong>, and <strong>server</strong>. The launcher is used to manage both the client and the server–that is, it checks the requisites, what client and server versions are installed, if they are up-to-date, and whether you want to start a client or a server or both. Therefore, the installation starts with the <strong>XMage launcher</strong>, which you can manually download from the official website:</p>
+    <p>The XMage RE can be divided into three distinct applications, namely <strong>launcher</strong>, <strong>client</strong>, and <strong>server</strong>. The launcher is used to manage both the client and the server–that is, it checks the requisites, what client and server versions are installed, if they are up-to-date, and whether you want to start a client or a server or both. Therefore, the installation starts with the <strong>XMage launcher</strong>, which you can manually download from the beta website:</p>
 
     <ul>
-      <li><a href="http://xmage.de">http://xmage.de</a></li>
+      <li><a href="http://xmage.today">http://xmage.today</a></li>
     </ul>
 
     <p>or via terminal, using curl to download the launcher to your user’s <code class="language-plaintext highlighter-rouge">Downloads</code> dir:</p>
 
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd ~/Downloads/
-XMAGE_LAUNCHER=$(curl http://xmage.de | grep -oE "http.*xmageLauncher[[:digit:]]+")
-curl -L -o xmageLauncher.jar "$XMAGE_LAUNCHER"
+XMAGE_DOMAIN="http://xmage.today/"
+XMAGE_SUBDIRS="files/"
+XMAGE_FILE=$(curl -s $XMAGE_DOMAIN | grep -m 1 -oE "mage-full.*\.zip")
+XMAGE_URL="$XMAGE_DOMAIN$XMAGE_SUBDIRS$XMAGE_FILE"
+curl -L -o "$XMAGE_FILE" "$XMAGE_URL"
 </code></pre></div>    </div>
+
+    <p class="notice--info">Of note, the official website is (or used to be) <a href="http://xmage.de">http://xmage.de</a> but it has been down for quite some time now and the <code class="language-plaintext highlighter-rouge">xmage.today</code> domain, which hosts the <em>beta</em> client, is currently the suggested alternative.</p>
 
     <p>Before executing the launcher, you should <strong>define where the XMage application will be stored</strong> because the launcher will create subdirs for the client and server inside the same directory it currently resides.  As I mentioned before, I like to put all such applications inside a directory called <code class="language-plaintext highlighter-rouge">Applications</code> in my user’s <code class="language-plaintext highlighter-rouge">$HOME</code>:</p>
 
@@ -847,17 +853,23 @@ cd "$HOME/Applications/"
 
     <p>Now we can create a separate dir for XMage and move the launcher there:</p>
 
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir xmage
-mv ~/Downloads/xmageLauncher.jar ./xmage/
-cd xmage
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>XMAGE_DEST="XMage Beta"
+mkdir "$XMAGE_DEST"
+mv "$HOME/Downloads/$XMAGE_FILE" "./$XMAGE_DEST/"
+cd "$XMAGE_DEST"
+</code></pre></div>    </div>
+
+    <p>Unzip the downloaded file into the current directory:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unzip "$XMAGE_FILE"
 </code></pre></div>    </div>
 
     <p>The XMage launcher is a <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/jar/index.html">Java archive</a> (<code class="language-plaintext highlighter-rouge">jar</code>) file, so to execute it, run the following:</p>
 
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java -jar xmageLauncher.jar
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java -jar ./XMageLauncher-*.jar
 </code></pre></div>    </div>
 
-    <p>You should now be able to see the launcher’s GUI and it will start checking for missing requisites and then install the client and server.  Simply follow the instructions until the option to Launch Client becomes available. When you get to this point, you should be done installing the client and the server.</p>
+    <p>You should now be able to see the launcher’s GUI and it will start checking for missing requisites.  Simply follow the instructions until the option to Launch Client becomes available. When you get to this point, you should be done installing the client and the server.</p>
   </li>
   <li>
     <p><strong>Initial configuration</strong></p>
@@ -1079,7 +1091,7 @@ cd xmage
   </ul>
 </div>
 
-<div class="page__footer-copyright">&copy; 2022 CGomesu - Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> and <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a></div>
+<div class="page__footer-copyright">&copy; 2023 CGomesu - Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> and <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a></div>
 
       </footer>
     </div>

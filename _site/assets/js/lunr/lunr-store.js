@@ -90,7 +90,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Forge and XMage: The best free and open source rules engines for 'Magic: the Gathering'",
-        "excerpt":"Changelog Sep 21st, 2022: Forge is now accepting donations via Ko-fi, so I updated the Contributing section accordingly. July 25th, 2022: I made a few updates to the article in light of new information I learned and to fix a few typos here and there. More specifically, there is a...","categories": ["blog"],
+        "excerpt":"Changelog Feb 1st, 2023: I updated the XMage installation instructions to match the beta client instructions. This was necessary because the domain xmage.de has been offline for quite some time now, and the best alternative is to use the xmage.today domain, which hosts the beta client and a few public...","categories": ["blog"],
         "tags": ["mtg","magic","foss","open","free","java","game","forge","xmage"],
         "url": "/blog/forge-xmage-mtg/",
         "teaser": null

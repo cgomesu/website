@@ -11,8 +11,10 @@ toc_icon: "list"
 ---
 
 # Changelog
-**Sep 21st, 2022**: [Forge is now accepting donations](https://ko-fi.com/forgedonations) via Ko-fi, so I updated the [Contributing](#contributing) section accordingly.
+**Feb 1st, 2023**: I updated the [XMage installation instructions](#installation-1) to match the *beta* client instructions. This was necessary because the domain `xmage.de` has been offline for quite some time now, and the best alternative is to use the `xmage.today` domain, which hosts the beta client and a few public servers.
 {:.notice--success }
+**Sep 21st, 2022**: [Forge is now accepting donations](https://ko-fi.com/forgedonations) via Ko-fi, so I updated the [Contributing](#contributing) section accordingly.
+{:.notice--info }
 **July 25th, 2022**: I made a few updates to the article in light of new information I learned and to fix a few typos here and there. More specifically, there is a new section called [Adventure mode](#adventure-mode) that describes how to run Forge in **adventure mode**, which is a single-player RPG mode that resembles Shandalar. Thanks to user `tehdiplomat` for making me aware of it.  I also added a note about intellectual property to the introduction, following conversations I had with other users in a Reddit thread and private messages. Lastly, one of the core devs of the Forge MtG RE reached out to elaborate on the early development history of the RE, which I included in the introduction of the [Forge](#forge) section.
 {:.notice--info }
 
@@ -376,17 +378,23 @@ The following table provides a summary of the software I used to run XMage at th
 
 - **Download and install XMage**
 
-  The XMage RE can be divided into three distinct applications, namely **launcher**, **client**, and **server**. The launcher is used to manage both the client and the server--that is, it checks the requisites, what client and server versions are installed, if they are up-to-date, and whether you want to start a client or a server or both. Therefore, the installation starts with the **XMage launcher**, which you can manually download from the official website:
+  The XMage RE can be divided into three distinct applications, namely **launcher**, **client**, and **server**. The launcher is used to manage both the client and the server--that is, it checks the requisites, what client and server versions are installed, if they are up-to-date, and whether you want to start a client or a server or both. Therefore, the installation starts with the **XMage launcher**, which you can manually download from the beta website:
 
-  - [http://xmage.de](http://xmage.de)
+  - [http://xmage.today](http://xmage.today)
 
   or via terminal, using curl to download the launcher to your user's `Downloads` dir:
 
   ```
   cd ~/Downloads/
-  XMAGE_LAUNCHER=$(curl http://xmage.de | grep -oE "http.*xmageLauncher[[:digit:]]+")
-  curl -L -o xmageLauncher.jar "$XMAGE_LAUNCHER"
+  XMAGE_DOMAIN="http://xmage.today/"
+  XMAGE_SUBDIRS="files/"
+  XMAGE_FILE=$(curl -s $XMAGE_DOMAIN | grep -m 1 -oE "mage-full.*\.zip")
+  XMAGE_URL="$XMAGE_DOMAIN$XMAGE_SUBDIRS$XMAGE_FILE"
+  curl -L -o "$XMAGE_FILE" "$XMAGE_URL"
   ```
+
+  Of note, the official website is (or used to be) [http://xmage.de](http://xmage.de) but it has been down for quite some time now and the `xmage.today` domain, which hosts the *beta* client, is currently the suggested alternative.
+  {:.notice--info}
 
   Before executing the launcher, you should **define where the XMage application will be stored** because the launcher will create subdirs for the client and server inside the same directory it currently resides.  As I mentioned before, I like to put all such applications inside a directory called `Applications` in my user's `$HOME`:
 
@@ -398,18 +406,25 @@ The following table provides a summary of the software I used to run XMage at th
   Now we can create a separate dir for XMage and move the launcher there:
 
   ```
-  mkdir xmage
-  mv ~/Downloads/xmageLauncher.jar ./xmage/
-  cd xmage
+  XMAGE_DEST="XMage Beta"
+  mkdir "$XMAGE_DEST"
+  mv "$HOME/Downloads/$XMAGE_FILE" "./$XMAGE_DEST/"
+  cd "$XMAGE_DEST"
+  ```
+
+  Unzip the downloaded file into the current directory:
+
+  ```
+  unzip "$XMAGE_FILE"
   ```
 
   The XMage launcher is a [Java archive](https://docs.oracle.com/javase/8/docs/technotes/guides/jar/index.html) (`jar`) file, so to execute it, run the following:
 
   ```
-  java -jar xmageLauncher.jar
+  java -jar ./XMageLauncher-*.jar
   ```
 
-  You should now be able to see the launcher's GUI and it will start checking for missing requisites and then install the client and server.  Simply follow the instructions until the option to Launch Client becomes available. When you get to this point, you should be done installing the client and the server.
+  You should now be able to see the launcher's GUI and it will start checking for missing requisites.  Simply follow the instructions until the option to Launch Client becomes available. When you get to this point, you should be done installing the client and the server.
 
 - **Initial configuration**
 
