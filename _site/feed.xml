@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-12-31T11:20:32-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">Forge and XMage: The best free and open source rules engines for ‘Magic: the Gathering’</title><link href="/blog/forge-xmage-mtg/" rel="alternate" type="text/html" title="Forge and XMage: The best free and open source rules engines for ‘Magic: the Gathering’" /><published>2022-07-22T14:50:00-03:00</published><updated>2022-07-22T14:50:00-03:00</updated><id>/blog/forge-xmage-mtg</id><content type="html" xml:base="/blog/forge-xmage-mtg/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
-&lt;p class=&quot;notice--success&quot;&gt;&lt;strong&gt;Sep 21st, 2022&lt;/strong&gt;: &lt;a href=&quot;https://ko-fi.com/forgedonations&quot;&gt;Forge is now accepting donations&lt;/a&gt; via Ko-fi, so I updated the &lt;a href=&quot;#contributing&quot;&gt;Contributing&lt;/a&gt; section accordingly.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2023-02-01T12:34:12-03:00</updated><id>/feed.xml</id><title type="html">CGomesu</title><subtitle>A blog and portfolio website built with Jekyll and hosted on Github Pages</subtitle><author><name>Carlos Gomes</name></author><entry><title type="html">Forge and XMage: The best free and open source rules engines for ‘Magic: the Gathering’</title><link href="/blog/forge-xmage-mtg/" rel="alternate" type="text/html" title="Forge and XMage: The best free and open source rules engines for ‘Magic: the Gathering’" /><published>2022-07-22T14:50:00-03:00</published><updated>2022-07-22T14:50:00-03:00</updated><id>/blog/forge-xmage-mtg</id><content type="html" xml:base="/blog/forge-xmage-mtg/">&lt;h1 id=&quot;changelog&quot;&gt;Changelog&lt;/h1&gt;
+&lt;p class=&quot;notice--success&quot;&gt;&lt;strong&gt;Feb 1st, 2023&lt;/strong&gt;: I updated the &lt;a href=&quot;#installation-1&quot;&gt;XMage installation instructions&lt;/a&gt; to match the &lt;em&gt;beta&lt;/em&gt; client instructions. This was necessary because the domain &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;xmage.de&lt;/code&gt; has been offline for quite some time now, and the best alternative is to use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;xmage.today&lt;/code&gt; domain, which hosts the beta client and a few public servers.&lt;/p&gt;
+&lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;Sep 21st, 2022&lt;/strong&gt;: &lt;a href=&quot;https://ko-fi.com/forgedonations&quot;&gt;Forge is now accepting donations&lt;/a&gt; via Ko-fi, so I updated the &lt;a href=&quot;#contributing&quot;&gt;Contributing&lt;/a&gt; section accordingly.&lt;/p&gt;
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;July 25th, 2022&lt;/strong&gt;: I made a few updates to the article in light of new information I learned and to fix a few typos here and there. More specifically, there is a new section called &lt;a href=&quot;#adventure-mode&quot;&gt;Adventure mode&lt;/a&gt; that describes how to run Forge in &lt;strong&gt;adventure mode&lt;/strong&gt;, which is a single-player RPG mode that resembles Shandalar. Thanks to user &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tehdiplomat&lt;/code&gt; for making me aware of it.  I also added a note about intellectual property to the introduction, following conversations I had with other users in a Reddit thread and private messages. Lastly, one of the core devs of the Forge MtG RE reached out to elaborate on the early development history of the RE, which I included in the introduction of the &lt;a href=&quot;#forge&quot;&gt;Forge&lt;/a&gt; section.&lt;/p&gt;
 
 &lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;July 22nd, 2022&lt;/strong&gt;: Publication of the original article&lt;/p&gt;
@@ -438,18 +439,23 @@ Oracle:Whenever Ragavan, Nimble Pilferer deals combat damage to a player, create
   &lt;li&gt;
     &lt;p&gt;&lt;strong&gt;Download and install XMage&lt;/strong&gt;&lt;/p&gt;
 
-    &lt;p&gt;The XMage RE can be divided into three distinct applications, namely &lt;strong&gt;launcher&lt;/strong&gt;, &lt;strong&gt;client&lt;/strong&gt;, and &lt;strong&gt;server&lt;/strong&gt;. The launcher is used to manage both the client and the server–that is, it checks the requisites, what client and server versions are installed, if they are up-to-date, and whether you want to start a client or a server or both. Therefore, the installation starts with the &lt;strong&gt;XMage launcher&lt;/strong&gt;, which you can manually download from the official website:&lt;/p&gt;
+    &lt;p&gt;The XMage RE can be divided into three distinct applications, namely &lt;strong&gt;launcher&lt;/strong&gt;, &lt;strong&gt;client&lt;/strong&gt;, and &lt;strong&gt;server&lt;/strong&gt;. The launcher is used to manage both the client and the server–that is, it checks the requisites, what client and server versions are installed, if they are up-to-date, and whether you want to start a client or a server or both. Therefore, the installation starts with the &lt;strong&gt;XMage launcher&lt;/strong&gt;, which you can manually download from the beta website:&lt;/p&gt;
 
     &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;http://xmage.de&quot;&gt;http://xmage.de&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://xmage.today&quot;&gt;http://xmage.today&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
 
     &lt;p&gt;or via terminal, using curl to download the launcher to your user’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Downloads&lt;/code&gt; dir:&lt;/p&gt;
 
     &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd ~/Downloads/
-XMAGE_LAUNCHER=$(curl http://xmage.de | grep -oE &quot;http.*xmageLauncher[[:digit:]]+&quot;)
-curl -L -o xmageLauncher.jar &quot;$XMAGE_LAUNCHER&quot;
+XMAGE_DOMAIN=&quot;http://xmage.today/&quot;
+XMAGE_SUBDIRS=&quot;files/&quot;
+XMAGE_FILE=$(curl -s $XMAGE_DOMAIN | grep -m 1 -oE &quot;mage-full.*\.zip&quot;)
+XMAGE_URL=&quot;$XMAGE_DOMAIN$XMAGE_SUBDIRS$XMAGE_FILE&quot;
+curl -L -o &quot;$XMAGE_FILE&quot; &quot;$XMAGE_URL&quot;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p class=&quot;notice--info&quot;&gt;Of note, the official website is (or used to be) &lt;a href=&quot;http://xmage.de&quot;&gt;http://xmage.de&lt;/a&gt; but it has been down for quite some time now and the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;xmage.today&lt;/code&gt; domain, which hosts the &lt;em&gt;beta&lt;/em&gt; client, is currently the suggested alternative.&lt;/p&gt;
 
     &lt;p&gt;Before executing the launcher, you should &lt;strong&gt;define where the XMage application will be stored&lt;/strong&gt; because the launcher will create subdirs for the client and server inside the same directory it currently resides.  As I mentioned before, I like to put all such applications inside a directory called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Applications&lt;/code&gt; in my user’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$HOME&lt;/code&gt;:&lt;/p&gt;
 
@@ -459,17 +465,23 @@ cd &quot;$HOME/Applications/&quot;
 
     &lt;p&gt;Now we can create a separate dir for XMage and move the launcher there:&lt;/p&gt;
 
-    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mkdir xmage
-mv ~/Downloads/xmageLauncher.jar ./xmage/
-cd xmage
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;XMAGE_DEST=&quot;XMage Beta&quot;
+mkdir &quot;$XMAGE_DEST&quot;
+mv &quot;$HOME/Downloads/$XMAGE_FILE&quot; &quot;./$XMAGE_DEST/&quot;
+cd &quot;$XMAGE_DEST&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;Unzip the downloaded file into the current directory:&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;unzip &quot;$XMAGE_FILE&quot;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
 
     &lt;p&gt;The XMage launcher is a &lt;a href=&quot;https://docs.oracle.com/javase/8/docs/technotes/guides/jar/index.html&quot;&gt;Java archive&lt;/a&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jar&lt;/code&gt;) file, so to execute it, run the following:&lt;/p&gt;
 
-    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;java -jar xmageLauncher.jar
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;java -jar ./XMageLauncher-*.jar
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
 
-    &lt;p&gt;You should now be able to see the launcher’s GUI and it will start checking for missing requisites and then install the client and server.  Simply follow the instructions until the option to Launch Client becomes available. When you get to this point, you should be done installing the client and the server.&lt;/p&gt;
+    &lt;p&gt;You should now be able to see the launcher’s GUI and it will start checking for missing requisites.  Simply follow the instructions until the option to Launch Client becomes available. When you get to this point, you should be done installing the client and the server.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;&lt;strong&gt;Initial configuration&lt;/strong&gt;&lt;/p&gt;
