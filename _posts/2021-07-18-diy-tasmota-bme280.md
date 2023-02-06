@@ -467,7 +467,7 @@ After a fresh installation (or [power cycling your device seven times in a short
 6. Navigate to the Tasmota web UI on your local network to set the additional configurations described in the next section.
 
 ### ESP-01 Template
-Tasmota templates are device-specific definitions of how their GPIO pins are assigned and therefore, proper configuration of the template is key if you plan on using the device's GPIO pins. As you will notice, the default template in the `tasmota-sensors.bin` binary is for the [Sonoff Basic](https://sonoff.tech/product/diy-smart-switch/basicr2/) device, which won't work for us. The actual template for the ESP-01 can be found at [https://templates.blakadder.com/ESP01.html](https://templates.blakadder.com/ESP01.html).  To change the current Sonoff template to the proper ESP-01 template, do the following:
+Tasmota templates are device-specific definitions of how their GPIO pins are assigned and therefore, proper configuration of the template is key if you plan on using the device's GPIO pins. As you will notice, the default template in the `tasmota-sensors.bin` binary is for the [Sonoff Basic](https://sonoff.tech/product/diy-smart-switch/basicr2/) device, which won't work for us. The actual template for the ESP-01 can be found at [https://templates.blakadder.com/ESP-01S.html](https://templates.blakadder.com/ESP-01S.html).  To change the current Sonoff template to the proper ESP-01 template, do the following:
 
 1. Copy the **ESP-01 template**:
 
