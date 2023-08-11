@@ -1288,7 +1288,7 @@
   <span class="na">type</span><span class="pi">:</span> <span class="s">custom:mini-graph-card</span>
   <span class="na">name</span><span class="pi">:</span> <span class="s">Temperature - Met.no</span>
   <span class="na">hours_to_show</span><span class="pi">:</span> <span class="m">24</span>
-  <span class="na">animate</span><span class="pi">:</span> <span class="no">true</span>
+  <span class="na">animate</span><span class="pi">:</span> <span class="kc">true</span>
   <span class="na">align_state</span><span class="pi">:</span> <span class="s">right</span>
   <span class="na">align_icon</span><span class="pi">:</span> <span class="s">left</span>
   <span class="na">align_header</span><span class="pi">:</span> <span class="s">left</span>
@@ -1298,28 +1298,28 @@
   <span class="na">line_width</span><span class="pi">:</span> <span class="m">4</span>
   <span class="na">entities</span><span class="pi">:</span>
     <span class="pi">-</span> <span class="na">entity</span><span class="pi">:</span> <span class="s">sensor.template_weather_temperature</span>
-      <span class="na">show_fill</span><span class="pi">:</span> <span class="no">false</span>
-      <span class="na">state_adaptive_color</span><span class="pi">:</span> <span class="no">true</span>
+      <span class="na">show_fill</span><span class="pi">:</span> <span class="kc">false</span>
+      <span class="na">state_adaptive_color</span><span class="pi">:</span> <span class="kc">true</span>
       <span class="na">unit</span><span class="pi">:</span> <span class="s">°C</span>
     <span class="pi">-</span> <span class="na">entity</span><span class="pi">:</span> <span class="s">sensor.template_weather_temperature_one_day_max</span>
-      <span class="na">show_line</span><span class="pi">:</span> <span class="no">false</span>
-      <span class="na">show_points</span><span class="pi">:</span> <span class="no">false</span>
+      <span class="na">show_line</span><span class="pi">:</span> <span class="kc">false</span>
+      <span class="na">show_points</span><span class="pi">:</span> <span class="kc">false</span>
       <span class="na">color</span><span class="pi">:</span> <span class="s">white</span>
     <span class="pi">-</span> <span class="na">entity</span><span class="pi">:</span> <span class="s">sensor.template_weather_temperature_one_day_mean_plus_stdev</span>
-      <span class="na">show_line</span><span class="pi">:</span> <span class="no">false</span>
-      <span class="na">show_points</span><span class="pi">:</span> <span class="no">false</span>
+      <span class="na">show_line</span><span class="pi">:</span> <span class="kc">false</span>
+      <span class="na">show_points</span><span class="pi">:</span> <span class="kc">false</span>
       <span class="na">color</span><span class="pi">:</span> <span class="s">white</span>
     <span class="pi">-</span> <span class="na">entity</span><span class="pi">:</span> <span class="s">sensor.weather_temperature_one_day</span>
-      <span class="na">show_line</span><span class="pi">:</span> <span class="no">false</span>
-      <span class="na">show_points</span><span class="pi">:</span> <span class="no">false</span>
+      <span class="na">show_line</span><span class="pi">:</span> <span class="kc">false</span>
+      <span class="na">show_points</span><span class="pi">:</span> <span class="kc">false</span>
       <span class="na">color</span><span class="pi">:</span> <span class="s">white</span>
     <span class="pi">-</span> <span class="na">entity</span><span class="pi">:</span> <span class="s">sensor.template_weather_temperature_one_day_mean_minus_stdev</span>
-      <span class="na">show_line</span><span class="pi">:</span> <span class="no">false</span>
-      <span class="na">show_points</span><span class="pi">:</span> <span class="no">false</span>
+      <span class="na">show_line</span><span class="pi">:</span> <span class="kc">false</span>
+      <span class="na">show_points</span><span class="pi">:</span> <span class="kc">false</span>
       <span class="na">color</span><span class="pi">:</span> <span class="s">white</span>
     <span class="pi">-</span> <span class="na">entity</span><span class="pi">:</span> <span class="s">sensor.template_weather_temperature_one_day_min</span>
-      <span class="na">show_line</span><span class="pi">:</span> <span class="no">false</span>
-      <span class="na">show_points</span><span class="pi">:</span> <span class="no">false</span>
+      <span class="na">show_line</span><span class="pi">:</span> <span class="kc">false</span>
+      <span class="na">show_points</span><span class="pi">:</span> <span class="kc">false</span>
       <span class="na">color</span><span class="pi">:</span> <span class="s">white</span>
   <span class="na">color_thresholds</span><span class="pi">:</span>
     <span class="pi">-</span> <span class="na">value_template</span><span class="pi">:</span> <span class="s1">'</span><span class="s">{{</span><span class="nv"> </span><span class="s">states("sensor.template_weather_temperature_one_day_min")</span><span class="nv"> </span><span class="s">}}'</span>
@@ -1331,10 +1331,10 @@
     <span class="pi">-</span> <span class="na">value_template</span><span class="pi">:</span> <span class="s1">'</span><span class="s">{{</span><span class="nv"> </span><span class="s">states("sensor.template_weather_temperature_one_day_mean_plus_stdev")</span><span class="nv"> </span><span class="s">}}'</span>
       <span class="na">color</span><span class="pi">:</span> <span class="s1">'</span><span class="s">#F17D28'</span>
   <span class="na">show</span><span class="pi">:</span>
-    <span class="na">labels</span><span class="pi">:</span> <span class="no">true</span>
-    <span class="na">legend</span><span class="pi">:</span> <span class="no">false</span>
-    <span class="na">name_adaptive_color</span><span class="pi">:</span> <span class="no">true</span>
-    <span class="na">icon_adaptive_color</span><span class="pi">:</span> <span class="no">true</span>
+    <span class="na">labels</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="na">legend</span><span class="pi">:</span> <span class="kc">false</span>
+    <span class="na">name_adaptive_color</span><span class="pi">:</span> <span class="kc">true</span>
+    <span class="na">icon_adaptive_color</span><span class="pi">:</span> <span class="kc">true</span>
 <span class="na">entities</span><span class="pi">:</span>
   <span class="pi">-</span> <span class="s">sensor.weather_temperature_one_day</span>
   <span class="pi">-</span> <span class="s">sensor.template_weather_temperature_one_day_mean_plus_stdev</span>
