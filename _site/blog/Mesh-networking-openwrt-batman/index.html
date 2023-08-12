@@ -20,14 +20,14 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="CGomesu">
 <meta property="og:title" content="Mesh networking: A guide to using free and open-source software with common hardware">
-<meta property="og:url" content="/blog/Mesh-networking-openwrt-batman/">
+<meta property="og:url" content="http://localhost:4000/blog/Mesh-networking-openwrt-batman/">
 
 
   <meta property="og:description" content="A blog and portfolio website built with Jekyll and hosted on Github Pages">
 
 
 
-  <meta property="og:image" content="/assets/posts/2020-11-24-mesh-networking-openwrt-batman/header.jpg">
+  <meta property="og:image" content="http://localhost:4000/assets/posts/2020-11-24-mesh-networking-openwrt-batman/header.jpg">
 
 
 
@@ -44,7 +44,7 @@
   
 
 
-<link rel="canonical" href="/blog/Mesh-networking-openwrt-batman/">
+<link rel="canonical" href="http://localhost:4000/blog/Mesh-networking-openwrt-batman/">
 
 
 
@@ -55,7 +55,7 @@
     
       "@type": "Person",
       "name": "",
-      "url": "/"
+      "url": "http://localhost:4000/"
     
   }
 </script>
@@ -200,7 +200,7 @@
 
 
 
-  139 minute read
+  140 minute read
 
 </p>
       
@@ -442,7 +442,8 @@
           </aside>
         
         <h1 id="changelog">Changelog</h1>
-<p class="notice--success"><strong>Dec 21st, 2022</strong>: Minor updates to streamline a few commands and to add a note here that this guide is still valid for the current stable release version of OpenWrt (<code class="language-plaintext highlighter-rouge">22.03.2</code>).  I should also mentioned that a user (Iglói) reported that the Linksys EA8300 might not be the best choice for a high-end mesh node because <a href="https://forum.openwrt.org/t/ipq40xx-switch-config-strangeness/32542">VLAN support is limited in the IPQ40xx hardware</a>.  However, I’ve never tested that myself and after glancing over the forum posts, it seems the issue has been fixed in the latest release.  In any case, if you want to consider other high-end alternatives, check out the <a href="https://openwrt.org/toh/linksys/wrt32x">Linksys WRT23x</a> and the <a href="https://openwrt.org/toh/zyxel/nbg6817">ZyXEL NBG6817</a>.</p>
+<p class="notice--success"><strong>Aug 12th, 2023</strong>: The upcoming OpenWrt version <code class="language-plaintext highlighter-rouge">23.05</code> will bring a few changes to the way we configure VLANs. I’ll update the guide once 23 becomes the current stable. Until then, if you are using version 23 and playing aorund with VLANs, then refer to the <a href="https://openwrt.org/docs/guide-user/network/dsa/dsa-mini-tutorial">DSA mini tutorial</a> and <a href="https://openwrt.org/docs/guide-user/network/dsa/converting-to-dsa">converting to DSA user guide</a>.</p>
+<p class="notice--info"><strong>Dec 21st, 2022</strong>: Minor updates to streamline a few commands and to add a note here that this guide is still valid for the current stable release version of OpenWrt (<code class="language-plaintext highlighter-rouge">22.03.2</code>).  I should also mentioned that a user (Iglói) reported that the Linksys EA8300 might not be the best choice for a high-end mesh node because <a href="https://forum.openwrt.org/t/ipq40xx-switch-config-strangeness/32542">VLAN support is limited in the IPQ40xx hardware</a>.  However, I’ve never tested that myself and after glancing over the forum posts, it seems the issue has been fixed in the latest release.  In any case, if you want to consider other high-end alternatives, check out the <a href="https://openwrt.org/toh/linksys/wrt32x">Linksys WRT23x</a> and the <a href="https://openwrt.org/toh/zyxel/nbg6817">ZyXEL NBG6817</a>.</p>
 <p class="notice--info"><strong>May 4th, 2022</strong>: Marc (<a href="https://www.youtube.com/channel/UCG5Ph9Mm6UEQLJJ-kGIC2AQ">OneMarcFifty</a>) has published a video tutorial describing how to configure OpenWrt and batman-adv via <strong>LuCI</strong>, which is only possible because he also wrote a package that gives luci support for the batman-adv protocol (<a href="https://github.com/openwrt/luci/tree/master/protocols/luci-proto-batman-adv">luci-proto-batman-adv</a>).  I added a reference to Marc’s tutorial at the end of the <a href="#other-similar-mesh-solutions">Other similar mesh solutions</a> section.</p>
 <p class="notice--info"><strong>February 4th, 2022</strong>: Updated the <a href="#hardware-specific-configurations">Hardware-specific configurations</a> section to include info about an issue affecting the <a href="https://openwrt.org/toh/gl.inet/gl-ar750">GL-AR750</a> and the <a href="https://openwrt.org/toh/avm/avm_fritz_wlan_repeater_1750e">AVM Fritz!WLAN Repeater 1750E</a>.  Also, the <code class="language-plaintext highlighter-rouge">ath10k</code> troubleshooting instructions were slightly modified to make them more general.  Thanks to JF and Erik for testing and letting me know about the affected devices and solutions.</p>
 <p class="notice--info"><strong>January 1st, 2022</strong>: Added a new section called <a href="#advanced-features">Advanced features</a> to cover <code class="language-plaintext highlighter-rouge">batman-adv</code> features not previously described in the basic implementation section.  The first included feature was the use of <a href="#multi-links">multi-links</a> to improve performance and reliability.  The subsection includes examples and a how-to for the implementation of multi-links.  In addition, I changed the Linksys reference in <a href="#hardware">Hardware</a> to the more stable <a href="https://openwrt.org/toh/linksys/ea8300">Linksys EA8300</a> as reference of a high-end device.  I’ve not personally used it but have read reports of good experience with it by the OpenWrt forum user <a href="https://forum.openwrt.org/u/16F84">16F48</a>, for example.</p>
@@ -2289,13 +2290,13 @@ Swap:         13308         768       12540
     <h4 class="page__share-title">Share on</h4>
   
 
-  <a href="mailto:?subject=[cgomesu.com] Mesh networking: A guide to using free and open-source software with common hardware&amp;body=%2Fblog%2FMesh-networking-openwrt-batman%2F " class="btn btn--inverse" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on E-mail"><i class="fas fa-envelope" aria-hidden="true"></i><span> E-mail</span></a>
+  <a href="mailto:?subject=[cgomesu.com] Mesh networking: A guide to using free and open-source software with common hardware&amp;body=http%3A%2F%2Flocalhost%3A4000%2Fblog%2FMesh-networking-openwrt-batman%2F " class="btn btn--inverse" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on E-mail"><i class="fas fa-envelope" aria-hidden="true"></i><span> E-mail</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=%2Fblog%2FMesh-networking-openwrt-batman%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fblog%2FMesh-networking-openwrt-batman%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://www.reddit.com/submit?title=Mesh networking: A guide to using free and open-source software with common hardware&url=%2Fblog%2FMesh-networking-openwrt-batman%2F" class="btn btn--reddit" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Reddit"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i><span> Reddit</span></a>
+  <a href="https://www.reddit.com/submit?title=Mesh networking: A guide to using free and open-source software with common hardware&url=http%3A%2F%2Flocalhost%3A4000%2Fblog%2FMesh-networking-openwrt-batman%2F" class="btn btn--reddit" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Reddit"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i><span> Reddit</span></a>
 
-  <a href="https://twitter.com/intent/tweet?text=Mesh+networking%3A+A+guide+to+using+free+and+open-source+software+with+common+hardware%20%2Fblog%2FMesh-networking-openwrt-batman%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=Mesh+networking%3A+A+guide+to+using+free+and+open-source+software+with+common+hardware%20http%3A%2F%2Flocalhost%3A4000%2Fblog%2FMesh-networking-openwrt-batman%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 </section>
 
 
