@@ -20,6 +20,7 @@ excerpt: "All my published peer-reviewed papers and book chapters, plus a few se
 
 | status | download | reference |
 |:---:|:---:|:---:|
+| published | [DOI](https://doi.org/10.3390/healthcare11222912) | Moreira, S.V., Justi, F.R.R., **Gomes, C.F.A.**, & Moreira, M. (2023). Music therapy enhances episodic memory in Alzheimer’s and nixed dementia: A double-blind randomized controlled trial. Healthcare, 11, 2912. |
 | published | [DOI](https://doi.org/10.34019/1982-1247.2020.v14.29542) | **Gomes, C. F. A.**, & Buratto, L. G. (2020). Multinomial modeling applied to psychological research. Psicologia em Pesquisa, 14, 44-65. |
 | published | [DOI](http://doi.org/10.1037/xlm0000559) | Chen, X. R., **Gomes, C. F. A.**, & Brainerd, C. J. (2018). Explaining recollection without remembering. Journal of Experimental Psychology: Learning, Memory, and Cognition, 44, 1921-1930. |
 | published | [DOI](http://doi.org/10.1002/hup.2563) | Guarnieri, R. V., Buratto, L. G., **Gomes, C. F. A.**, Ribeiro, R. L., de Souza, A. A. L., Stein, L. M., ... & Bueno, O. F. (2017). Haloperidol increases false recognition memory of thematically related pictures in healthy volunteers. Human Psychopharmacology: Clinical and Experimental, 32, e2563. |
@@ -53,7 +54,7 @@ excerpt: "All my published peer-reviewed papers and book chapters, plus a few se
 
 ***
 # Presentations
-Only a few selected presentations.
+A few selected presentations.
 
 | type | download | reference |
 |:---:|:---:|:---:|
@@ -62,9 +63,5 @@ Only a few selected presentations.
 | lecture | [PDF](/assets/pdf/gomes-lecture1-unb-2018.pdf) | **Gomes, C.F.A.**. Aplicações da modelagem multinomial na pesquisa em cognição humana.  Universidade de Brasília, BR, 2018. |
 | paper | [Abstract](https://bit.ly/2NbM4lx) | Brainerd, C.J., **Gomes, C.F.A.**, Moran, R., & Reyna, V.F. Dual-recollection theory. Psychonomic Society Meeting, US, 2016. |
 | poster | [PDF](/assets/pdf/gomes-psychonomics-2015.pdf) | **Gomes, C.F.A.**, & Brainerd, C.J. Bivariate recollecttion in recognition. Psychonomic Society Meeting, US, 2015. |
-| poster | [PDF](/assets/pdf/gomes-psychonomics-2014.pdf) | **Gomes, C.F.A.**, & Brainerd, C.J. Dual-retrieval conceptions of free recall. Psychonomic Society Meeting, US, 2014. |
-| paper | [Abstract](https://bit.ly/2YTplQu) | Brainerd, C.J., **Gomes, C.F.A.**, & Reyna, V.F. Individualized measurement of dual-retrieval processes in neurocognitive impairment. Psychonomic Society Meeting, US, 2013. |
-| poster | [PDF](/assets/pdf/gomes-psychonomics-2012.pdf) | **Gomes, C.F.A.**, & Brainerd, C.J., & Reyna, V.F. A low-burden tool for measuring memory declines in healthy aging and neurocognitive impairment. Psychonomic Society Meeting, US, 2012. |
-| paper | [Abstract](https://bit.ly/2NaQSYe) | Brainerd, C.J., **Gomes, C.F.A.**, & Reyna, V.F. Dual Processes in Recall. Psychonomic Society Meeting, Minneapolis, US, 2012. |
 
 [top](#){: .btn .btn--light-outline .btn--small}
