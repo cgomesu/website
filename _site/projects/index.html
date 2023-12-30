@@ -10,7 +10,7 @@
     <meta charset="utf-8">
 
 <!-- begin _includes/seo.html --><title>Projects - CGomesu</title>
-<meta name="description" content="A selected list of past and current projects.">
+<meta name="description" content="A non-exhaustive list of past and current projects.">
 
 
   <meta name="author" content="Carlos Gomes">
@@ -23,7 +23,7 @@
 <meta property="og:url" content="http://localhost:4000/projects/">
 
 
-  <meta property="og:description" content="A selected list of past and current projects.">
+  <meta property="og:description" content="A non-exhaustive list of past and current projects.">
 
 
 
@@ -189,7 +189,7 @@
         
       </h1>
       
-        <p class="page__lead">A selected list of past and current projects.
+        <p class="page__lead">A non-exhaustive list of past and current projects.
 </p>
       
       
@@ -197,11 +197,13 @@
       
         <p>
         
-          <a href="/projects/#information-technology" class="btn btn--light-outline btn--large">IT</a>
+          <a href="/projects/#mcu" class="btn btn--light-outline btn--large">mcu</a>
         
-          <a href="/projects/#programming" class="btn btn--light-outline btn--large">Programming</a>
+          <a href="/projects/#sbc" class="btn btn--light-outline btn--large">sbc</a>
         
-          <a href="/projects/#academic-latest" class="btn btn--light-outline btn--large">Academic (latest)</a>
+          <a href="/projects/#networking" class="btn btn--light-outline btn--large">networking</a>
+        
+          <a href="/projects/#other" class="btn btn--light-outline btn--large">other</a>
         
       
     </div>
@@ -217,14 +219,14 @@
 <div id="main" role="main">
   <article class="splash" itemscope itemtype="https://schema.org/CreativeWork">
     <meta itemprop="headline" content="Projects">
-    <meta itemprop="description" content="A selected list of past and current projects.">
+    <meta itemprop="description" content="A non-exhaustive list of past and current projects.">
     
     
 
     <section class="page__content" itemprop="text">
       <hr />
 
-<h1 id="information-technology">Information Technology</h1>
+<h1 id="mcu">MCU</h1>
 
 <div class="feature__wrapper">
 
@@ -245,7 +247,7 @@
 
           
             <div class="archive__item-excerpt">
-              <p>The project describes the assembly of a cheap (less than USD$6), low-power (less than 1W), and low-profile (less than 5cm long) environmental sensor based on the ESP-01 WiFi module and the BME280. The unit runs a free and open source firmware (Tasmota) and provides temperature, humidity, and relative pressure measurements to home automation systems via the MQTT messaging protocol.</p>
+              <p>The project describes the assembly of a cheap (&lt;$6), low-power (&lt;1W), and low-profile (&lt;5cm) environmental sensor based on the ESP-01 and BME280. The unit runs a free and open source firmware (Tasmota) and provides temperature, humidity, and relative pressure measurements to home automation systems via the MQTT messaging protocol.</p>
 
             </div>
           
@@ -273,7 +275,7 @@
 
           
             <div class="archive__item-excerpt">
-              <p>The ESP32 is a low-cost and low-power microcontroller developed by Espressif. This project describes how to flash the Tasmota32 webcam server (beta) firmware onto the ESP32-cam module with onboard Wi-Fi. The Tasmota32 firmware can be used as an alternative to the Espressif CamWebServer Arduino sketch for users looking for more options to monitor and control an ESP32-cam remotely or to integrate into an existing home automation server via HTTP requests or MQTT.</p>
+              <p>The ESP32 is a low-cost and low-power microcontroller developed by Espressif. This project describes how to flash the Tasmota32 webcam server firmware onto the ESP32-cam. The Tasmota32 firmware can be used as an alternative to the Arduino sketch for users looking for more options to monitor and control an ESP32-cam remotely or to integrate into an existing home automation server.</p>
 
             </div>
           
@@ -285,33 +287,15 @@
       </div>
     </div>
   
-    <div class="feature__item">
-      <div class="archive__item">
-        
-          <div class="archive__item-teaser">
-            <img src="/assets/img/projects/thumb-projects-mesh.jpg" alt="" />
-            
-          </div>
-        
 
-        <div class="archive__item-body">
-          
-            <h2 class="archive__item-title">Mesh networking</h2>
-          
+</div>
 
-          
-            <div class="archive__item-excerpt">
-              <p>Mesh networks using free and open-source software (FOSS) and common hardware.  The project is based on OpenWrt and uses the layer-2 implementation of the Better Approach to Mobile Adhoc Networking (B.A.T.M.A.N.), called batman-adv, to route packets over multiple mesh topologies.</p>
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 
-            </div>
-          
+<h1 id="sbc">SBC</h1>
 
-          
-            <p><a href="/blog/Mesh-networking-openwrt-batman/" class="btn btn--info">Read more</a></p>
-          
-        </div>
-      </div>
-    </div>
+<div class="feature__wrapper">
+
   
     <div class="feature__item">
       <div class="archive__item">
@@ -336,6 +320,62 @@
 
           
             <p><a href="/blog/Nanopi-m4-mini-nas/" class="btn btn--info">Read more</a></p>
+          
+        </div>
+      </div>
+    </div>
+  
+    <div class="feature__item">
+      <div class="archive__item">
+        
+          <div class="archive__item-teaser">
+            <img src="/assets/img/projects/thumb-projects-logistic-pwm-fan.jpg" alt="" />
+            
+          </div>
+        
+
+        <div class="archive__item-body">
+          
+            <h2 class="archive__item-title">PWM fan controller</h2>
+          
+
+          
+            <div class="archive__item-excerpt">
+              <p>A fan controller written in Bash for the 12v fan connector of the NanoPi M4 SATA hat. By default, the script uses either a bounded logistic model with a moving mid-point or a proportional-integral-derivative (PID) controller to set the fan speed dynamically.</p>
+
+            </div>
+          
+
+          
+            <p><a href="https://github.com/cgomesu/nanopim4-satahat-fan" class="btn btn--info">Github Repo</a></p>
+          
+        </div>
+      </div>
+    </div>
+  
+    <div class="feature__item">
+      <div class="archive__item">
+        
+          <div class="archive__item-teaser">
+            <img src="/assets/img/projects/thumb-projects-rpi-sensehat-mqtt.jpg" alt="" />
+            
+          </div>
+        
+
+        <div class="archive__item-body">
+          
+            <h2 class="archive__item-title">RPi SenseHAT MQTT</h2>
+          
+
+          
+            <div class="archive__item-excerpt">
+              <p>A Python application for the RPi that allows interfacing with the SenseHAT over MQTT. The script publishes sensor and joystick data to the MQTT broker to be consumed by a home automation server. It also subcribes to an LED topic to display payloads published to the broker.</p>
+
+            </div>
+          
+
+          
+            <p><a href="https://github.com/cgomesu/rpi-sensehat-mqtt" class="btn btn--info">Github Repo</a></p>
           
         </div>
       </div>
@@ -373,23 +413,63 @@
       <div class="archive__item">
         
           <div class="archive__item-teaser">
-            <img src="/assets/img/projects/thumb-projects-chacara-microserver.jpg" alt="" />
+            <img src="/assets/img/projects/thumb-projects-rpi-button-box.jpg" alt="" />
             
           </div>
         
 
         <div class="archive__item-body">
           
-            <h2 class="archive__item-title">A chácara microserver</h2>
+            <h2 class="archive__item-title">Button box controller</h2>
           
 
           
             <div class="archive__item-excerpt">
-              <p>The microserver is composed of an HP Proliant Microserver Gen8 running Openmediavault and a Dell Optiplex 3060 micro running Proxmox. Both machines are used mostly for security-related things (surveillance cameras, location tracking) and Plex and Plex-related programs (PMS, Tautulli, Sonarr, Radarr, etc.). Other uses have to do with a universal desktop folder (Syncthing) and data analysis (R server).</p>
+              <p>Core program for a Raspberry Pi button box controller that uses the gpiozero Python library to interface with the wired buttons and switches.</p>
 
             </div>
           
 
+          
+            <p><a href="https://github.com/cgomesu/rpi-button-box" class="btn btn--info">Github Repo</a></p>
+          
+        </div>
+      </div>
+    </div>
+  
+
+</div>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+<h1 id="networking">Networking</h1>
+
+<div class="feature__wrapper">
+
+  
+    <div class="feature__item">
+      <div class="archive__item">
+        
+          <div class="archive__item-teaser">
+            <img src="/assets/img/projects/thumb-projects-mesh.jpg" alt="" />
+            
+          </div>
+        
+
+        <div class="archive__item-body">
+          
+            <h2 class="archive__item-title">Wireless Mesh</h2>
+          
+
+          
+            <div class="archive__item-excerpt">
+              <p>Wireless mesh networks using free and open-source software (FOSS) and common hardware.  The project is based on OpenWrt and uses the layer-2 implementation of the Better Approach to Mobile Adhoc Networking (batman-adv) to route packets over multiple mesh topologies.</p>
+
+            </div>
+          
+
+          
+            <p><a href="/blog/Mesh-networking-openwrt-batman/" class="btn btn--info">Read more</a></p>
           
         </div>
       </div>
@@ -406,7 +486,7 @@
 
         <div class="archive__item-body">
           
-            <h2 class="archive__item-title">pfSense white-box</h2>
+            <h2 class="archive__item-title">pfSense box</h2>
           
 
           
@@ -428,38 +508,10 @@
 
 <p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
 
-<h1 id="programming">Programming</h1>
+<h1 id="other">Other</h1>
 
 <div class="feature__wrapper">
 
-  
-    <div class="feature__item">
-      <div class="archive__item">
-        
-          <div class="archive__item-teaser">
-            <img src="/assets/img/projects/thumb-projects-rpi-sensehat-mqtt.jpg" alt="" />
-            
-          </div>
-        
-
-        <div class="archive__item-body">
-          
-            <h2 class="archive__item-title">RPi SenseHAT MQTT</h2>
-          
-
-          
-            <div class="archive__item-excerpt">
-              <p>A Python application for the Raspberry Pi that allows interfacing with the SenseHAT over MQTT. The script publishes sensor and joystick data to the MQTT broker to be consumed by a home automation server (e.g., Home Assistant). In addition, it also subcribes to an LED topic to display payloads published to the broker. For instance, when an home automation publishes a message to the LED topic, the SenseHAT will consume it and display on the LED matrix.</p>
-
-            </div>
-          
-
-          
-            <p><a href="https://github.com/cgomesu/rpi-sensehat-mqtt" class="btn btn--info">Github Repo</a></p>
-          
-        </div>
-      </div>
-    </div>
   
     <div class="feature__item">
       <div class="archive__item">
@@ -477,7 +529,7 @@
 
           
             <div class="archive__item-excerpt">
-              <p>A CLI program that validates a csv file containing scholarship data from multiple students and allows users to perform a few operations, such as searching, encrypting, ranking, and computing means. This program was part of a selection process and most of its content is in Portuguese. It was written to demonstrate the use of the curses, pandas, and pandera Python packages. It also features unit tests for all of its main operations via pytest.</p>
+              <p>A CLI program that validates a csv file containing scholarship data from multiple students and allows users to perform a few operations. This program was part of a selection process and most of its content is in Portuguese.</p>
 
             </div>
           
@@ -505,153 +557,13 @@
 
           
             <div class="archive__item-excerpt">
-              <p>This is a command-line implementation of the card game Pife written in Java. It is a fork of another implementation that changes its main logic to adapt to the new game but preserves overlapping classes, such as deck and player. This program is only for educational purposes and the content is in Portuguese.</p>
+              <p>This is a CLI implementation of the card game Pife written in Java. It is a fork of another implementation that changes its main logic to adapt to the new game but preserves overlapping classes, such as deck and player. This program is only for educational purposes and the content is in Portuguese.</p>
 
             </div>
           
 
           
             <p><a href="https://github.com/cgomesu/Pife" class="btn btn--info">Github Repo</a></p>
-          
-        </div>
-      </div>
-    </div>
-  
-    <div class="feature__item">
-      <div class="archive__item">
-        
-          <div class="archive__item-teaser">
-            <img src="/assets/img/projects/thumb-projects-rpi-button-box.jpg" alt="" />
-            
-          </div>
-        
-
-        <div class="archive__item-body">
-          
-            <h2 class="archive__item-title">Button box controller</h2>
-          
-
-          
-            <div class="archive__item-excerpt">
-              <p>Core program for a Raspberry Pi button box controller that uses the gpiozero Python library.</p>
-
-            </div>
-          
-
-          
-            <p><a href="https://github.com/cgomesu/rpi-button-box" class="btn btn--info">Github Repo</a></p>
-          
-        </div>
-      </div>
-    </div>
-  
-    <div class="feature__item">
-      <div class="archive__item">
-        
-          <div class="archive__item-teaser">
-            <img src="/assets/img/projects/thumb-projects-youtube4tvh.gif" alt="" />
-            
-          </div>
-        
-
-        <div class="archive__item-body">
-          
-            <h2 class="archive__item-title">Youtube4tvh</h2>
-          
-
-          
-            <div class="archive__item-excerpt">
-              <p>Youtube4tvh is a Python CLI program for TVHeadend servers that uses either the Youtube API or a custom-built web content parser to find live-streams and create (or update) m3u playlists. The m3u file follows IPTV conventions that allow a TVH server to automatically create an IPTV network with them, and each stream is piped into TVH via a Streamlink shell script.</p>
-
-            </div>
-          
-
-          
-            <p><a href="https://github.com/cgomesu/youtube4tvh" class="btn btn--info">Github Repo</a></p>
-          
-        </div>
-      </div>
-    </div>
-  
-    <div class="feature__item">
-      <div class="archive__item">
-        
-          <div class="archive__item-teaser">
-            <img src="/assets/img/projects/thumb-projects-netmonitor.gif" alt="" />
-            
-          </div>
-        
-
-        <div class="archive__item-body">
-          
-            <h2 class="archive__item-title">NetMonitor LCD</h2>
-          
-
-          
-            <div class="archive__item-excerpt">
-              <p>Python script for a 16x2 LCD that uses ping and netcat to monitor the network status of hosts and services, respectively.</p>
-
-            </div>
-          
-
-          
-            <p><a href="https://github.com/the-raspberry-pi-guy/lcd#netmonitor" class="btn btn--info">Github Repo</a></p>
-          
-        </div>
-      </div>
-    </div>
-  
-    <div class="feature__item">
-      <div class="archive__item">
-        
-          <div class="archive__item-teaser">
-            <img src="/assets/img/projects/thumb-projects-logistic-pwm-fan.jpg" alt="" />
-            
-          </div>
-        
-
-        <div class="archive__item-body">
-          
-            <h2 class="archive__item-title">PWM fan controller</h2>
-          
-
-          
-            <div class="archive__item-excerpt">
-              <p>A fan controller written in bash for the 12v fan connector of the NanoPi M4 SATA hat. By default, the script uses a bounded logistic model with a moving mid-point (based on the distance between the average temperature over time and a critical temperature threshold) to set the fan speed dynamically.</p>
-
-            </div>
-          
-
-          
-            <p><a href="https://github.com/cgomesu/nanopim4-satahat-fan" class="btn btn--info">Github Repo</a></p>
-          
-        </div>
-      </div>
-    </div>
-  
-    <div class="feature__item">
-      <div class="archive__item">
-        
-          <div class="archive__item-teaser">
-            <img src="/assets/img/projects/thumb-projects-adt-demo.gif" alt="" />
-            
-          </div>
-        
-
-        <div class="archive__item-body">
-          
-            <h2 class="archive__item-title">Audio diagnostic tool</h2>
-          
-
-          
-            <div class="archive__item-excerpt">
-              <p>This is a CLI diagnostic tool for audio files written in GNU Bash that extends my previous bash-flac-diag tool to mp3 and other audio formats. In brief, it tests a single or multiple audio files and generates logs with good files (no errors found) and bad ones (at least one error found). Tests are performed by codec-specific tools. There are two post-processing modes for bad files: fix or delete.</p>
-
-            </div>
-          
-
-          
-            <p><a href="https://github.com/cgomesu/audio-diagnostic-tool" class="btn btn--info">Github Repo</a></p>
           
         </div>
       </div>
@@ -680,100 +592,6 @@
 
           
             <p><a href="https://github.com/cgomesu/bash-logistic-function" class="btn btn--info">Github Repo</a></p>
-          
-        </div>
-      </div>
-    </div>
-  
-    <div class="feature__item">
-      <div class="archive__item">
-        
-          <div class="archive__item-teaser">
-            <img src="/assets/img/projects/thumb-projects-multitrial-datacount.jpg" alt="" />
-            
-          </div>
-        
-
-        <div class="archive__item-body">
-          
-            <h2 class="archive__item-title">Multi-trial data count</h2>
-          
-
-          
-            <div class="archive__item-excerpt">
-              <p>A VBA macro for MS Excel that counts patterns of correct responses (C) and errors (E) across multiple trials (e.g., CCC, CCE, CEC, …, EEE). It was initially developed as a tool to help with the data analysis of multi-trial memory experiments in which subjects provide boolean-type responses (yes/no, correct/error) for multiple items across multiple tests. In such designs, each item generates a pattern of C-E responses across tests. This VBA macro counts all such patterns across subjects and items.</p>
-
-            </div>
-          
-
-          
-            <p><a href="https://github.com/cgomesu/multitrial-datacount" class="btn btn--info">Github Repo</a></p>
-          
-        </div>
-      </div>
-    </div>
-  
-
-</div>
-
-<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
-
-<h1 id="academic-latest">Academic (latest)</h1>
-
-<div class="feature__wrapper">
-
-  
-    <div class="feature__item">
-      <div class="archive__item">
-        
-          <div class="archive__item-teaser">
-            <img src="/assets/img/site/thumb-academic.jpg" alt="" />
-            
-          </div>
-        
-
-        <div class="archive__item-body">
-          
-            <h2 class="archive__item-title">Multinomial modeling</h2>
-          
-
-          
-            <div class="archive__item-excerpt">
-              <p>Distribution of educational materials to researchers and students about the use of multinomial modeling in psychological research.</p>
-
-            </div>
-          
-
-          
-            <p><a href="https://doi.org/10.34019/1982-1247.2020.v14.29542" class="btn btn--info">Paper (pt-br)</a></p>
-          
-        </div>
-      </div>
-    </div>
-  
-    <div class="feature__item">
-      <div class="archive__item">
-        
-          <div class="archive__item-teaser">
-            <img src="/assets/img/site/thumb-academic.jpg" alt="" />
-            
-          </div>
-        
-
-        <div class="archive__item-body">
-          
-            <h2 class="archive__item-title">Bivariate recollection</h2>
-          
-
-          
-            <div class="archive__item-excerpt">
-              <p>A psychological theory that assumes that memory probes can provoke conscious awareness of either target items (target recollection) or their context (context recollection) or both.</p>
-
-            </div>
-          
-
-          
-            <p><a href="http://dx.doi.org/10.1037/a0037668" class="btn btn--info">Paper (en)</a></p>
           
         </div>
       </div>
