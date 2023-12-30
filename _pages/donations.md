@@ -17,18 +17,5 @@ intro:
 {% assign author = site.data.authors[author] | default: author %}
 
 - **Ko-fi**: [ko-fi.com/cgomesu](https://ko-fi.com/cgomesu)
-
-- **Bitcoin** (SegWit) address:
-  
-  ```
-  {{ author.btc }}
-  ```
-  [![BTC SegWit 01 QR code](/assets/img/site/bitcoin-segwit-01.png){:.PostImage}](bitcoin:{{ author.btc }})
-
-- **Litecoin** address:
-
-  ```
-  {{ author.ltc }}
-  ```  
-  [![LTC 01 QR code](/assets/img/site/litecoin-01.png){:.PostImage}](litecoin:{{ author.ltc }})
-
+- **Bitcoin**: ```{{ author.btc }}```
+- **Litecoin**: ```{{ author.ltc }}```
