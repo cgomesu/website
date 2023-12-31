@@ -11,8 +11,10 @@ toc_icon: "list"
 ---
 
 # Changelog
-**Feb 1st, 2023**: I updated the [XMage installation instructions](#installation-1) to match the *beta* client instructions. This was necessary because the domain `xmage.de` has been offline for quite some time now, and the best alternative is to use the `xmage.today` domain, which hosts the beta client and a few public servers.
+**Dec 31st, 2023**: Small update to fix typo in Forge's installation section. Everything else seems to be up-to-date.
 {:.notice--success }
+**Feb 1st, 2023**: I updated the [XMage installation instructions](#installation-1) to match the *beta* client instructions. This was necessary because the domain `xmage.de` has been offline for quite some time now, and the best alternative is to use the `xmage.today` domain, which hosts the beta client and a few public servers.
+{:.notice--info }
 **Sep 21st, 2022**: [Forge is now accepting donations](https://ko-fi.com/forgedonations) via Ko-fi, so I updated the [Contributing](#contributing) section accordingly.
 {:.notice--info }
 **July 25th, 2022**: I made a few updates to the article in light of new information I learned and to fix a few typos here and there. More specifically, there is a new section called [Adventure mode](#adventure-mode) that describes how to run Forge in **adventure mode**, which is a single-player RPG mode that resembles Shandalar. Thanks to user `tehdiplomat` for making me aware of it.  I also added a note about intellectual property to the introduction, following conversations I had with other users in a Reddit thread and private messages. Lastly, one of the core devs of the Forge MtG RE reached out to elaborate on the early development history of the RE, which I included in the introduction of the [Forge](#forge) section.
@@ -213,9 +215,9 @@ For information about how to install JRE and Forge, take a look at the next sect
   ```
   ./forge.sh
   ```
-  or by calling `sh` directly:
+  or by calling `bash` directly:
   ```
-  sh forge.sh
+  bash forge.sh
   ```
   This will start loading the Forge's graphical interface. If you run into issues, review your steps and then check the official [Forge Wiki](https://github.com/Card-Forge/forge/wiki) for alternative instructions.
 
@@ -252,10 +254,10 @@ Now you should be able to run it using the shebang:
 ./forge-adventure.sh
 ```
 
-or by calling `sh` directly:
+or by calling `bash` directly:
 
 ```
-sh ./forge-adventure.sh
+bash ./forge-adventure.sh
 ```
 
 Once you have access to the GUI, select *Adventure mode* and enjoy it!
