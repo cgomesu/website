@@ -3,31 +3,38 @@
    ========================================================================== */
 
 .page__footer {
-  @include clearfix;
-  float: left;
-  margin-left: 0;
-  margin-right: 0;
-  width: 100%;
-  clear: both;
-  margin-top: 3em;
-  color: $muted-text-color;
-  -webkit-animation: $intro-transition;
-  animation: $intro-transition;
-  -webkit-animation-delay: 0.45s;
-  animation-delay: 0.45s;
-  background-color: $footer-background-color;
+    @include clearfix;
+
+    & {
+      float: left;
+      margin-left: 0;
+      margin-right: 0;
+      width: 100%;
+      clear: both;
+      margin-top: 3em;
+      color: $muted-text-color;
+      -webkit-animation: $intro-transition;
+      animation: $intro-transition;
+      -webkit-animation-delay: 0.45s;
+      animation-delay: 0.45s;
+      background-color: $footer-background-color;
+    }
 
   footer {
     @include clearfix;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 2em;
-    max-width: 100%;
-    padding: 0 1em 2em;
-
+ 
     @include breakpoint($x-large) {
       max-width: $x-large;
     }
+ 
+    & {
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 2em;
+      max-width: 100%;
+      padding: 0 1em 2em;
+    }
+
   }
 
   a {
