@@ -7,7 +7,6 @@
    ========================================================================== */
 
 .breadcrumbs {
-  @include clearfix;
   margin: 0 auto;
   max-width: 100%;
   padding-left: 1em;
@@ -18,6 +17,8 @@
   -webkit-animation-delay: 0.3s;
   animation-delay: 0.3s;
 
+  @include clearfix;
+  
   @include breakpoint($x-large) {
     max-width: $x-large;
   }
@@ -51,11 +52,12 @@
      ========================================================================== */
 
 .pagination {
-  @include clearfix();
   float: left;
   margin-top: 1em;
   padding-top: 1em;
   width: 100%;
+
+  @include clearfix();
 
   ul {
     margin: 0;

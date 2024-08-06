@@ -5,6 +5,9 @@
 * { box-sizing: border-box; }
 
 html {
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+
   /* apply a natural box layout model to all elements */
   box-sizing: border-box;
   background-color: $background-color;
@@ -22,8 +25,6 @@ html {
     font-size: 22px;
   }
 
-  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
 }
 
 /* Remove margin */
