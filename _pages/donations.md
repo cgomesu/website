@@ -16,6 +16,7 @@ intro:
 {% assign author = page.author | default: page.authors[0] | default: site.author %}
 {% assign author = site.data.authors[author] | default: author %}
 
+- **Pix**: ```f5ae0d17-c278-4d2d-8fb1-be552f75a2dc```
 - **Ko-fi**: [ko-fi.com/cgomesu](https://ko-fi.com/cgomesu)
 - **Bitcoin**: ```{{ author.btc }}```
 - **Litecoin**: ```{{ author.ltc }}```
