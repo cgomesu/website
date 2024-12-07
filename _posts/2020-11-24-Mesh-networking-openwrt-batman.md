@@ -10,8 +10,10 @@ toc_label: "Table of Contents"
 toc_icon: "list"
 ---
 # Changelog
-**Aug 12th, 2023**: The upcoming OpenWrt version `23.05` will bring a few changes to the way we configure VLANs. I'll update the guide once 23 becomes the current stable. Until then, if you are using version 23 and playing aorund with VLANs, then refer to the [DSA mini tutorial](https://openwrt.org/docs/guide-user/network/dsa/dsa-mini-tutorial) and [converting to DSA user guide](https://openwrt.org/docs/guide-user/network/dsa/converting-to-dsa).
+**Dec 7th, 2024**: I updated a few sections of this guide to reflect the changes in the most recent releases. Nothing much has changed other than the default cryptogaphic library, which is now `mdebtls`. The `-ct` mesh issues are still there with the `ath10k` based radios but my instructions to simply install the non-ct ones work as before. A couple other things: (a) just tested with `24.10-rc2` (an upcoming release candidate) and everything seems to be working as expected; (b) the old TP-Link TL-WDR4300 is **still** able to run the upcoming release (kudos to the OS devs!) and the C7 continues to be one of my favorite cheapo mesh routers; (c) added a note to `onemarcfifty`'s video tutorial to let people know that the `luci-proto-batman-adv` has not been updated in a long time and does not seem to be working anymore but this only affect the people trying to set it up via the web interface, not via `ssh` (we're good!).
 {: .notice--success }
+**Aug 12th, 2023**: The upcoming OpenWrt version `23.05` will bring a few changes to the way we configure VLANs. I'll update the guide once 23 becomes the current stable. Until then, if you are using version 23 and playing aorund with VLANs, then refer to the [DSA mini tutorial](https://openwrt.org/docs/guide-user/network/dsa/dsa-mini-tutorial) and [converting to DSA user guide](https://openwrt.org/docs/guide-user/network/dsa/converting-to-dsa).
+{: .notice--info }
 **Dec 21st, 2022**: Minor updates to streamline a few commands and to add a note here that this guide is still valid for the current stable release version of OpenWrt (`22.03.2`).  I should also mentioned that a user (Iglói) reported that the Linksys EA8300 might not be the best choice for a high-end mesh node because [VLAN support is limited in the IPQ40xx hardware](https://forum.openwrt.org/t/ipq40xx-switch-config-strangeness/32542).  However, I've never tested that myself and after glancing over the forum posts, it seems the issue has been fixed in the latest release.  In any case, if you want to consider other high-end alternatives, check out the [Linksys WRT23x](https://openwrt.org/toh/linksys/wrt32x) and the [ZyXEL NBG6817](https://openwrt.org/toh/zyxel/nbg6817).
 {: .notice--info }
 **May 4th, 2022**: Marc ([OneMarcFifty](https://www.youtube.com/channel/UCG5Ph9Mm6UEQLJJ-kGIC2AQ)) has published a video tutorial describing how to configure OpenWrt and batman-adv via **LuCI**, which is only possible because he also wrote a package that gives luci support for the batman-adv protocol ([luci-proto-batman-adv](https://github.com/openwrt/luci/tree/master/protocols/luci-proto-batman-adv)).  I added a reference to Marc's tutorial at the end of the [Other similar mesh solutions](#other-similar-mesh-solutions) section.
@@ -63,7 +65,7 @@ My intention with this tutorial is to help closing the gap between concept and i
 4. Install and configure the Kernel module `batman-adv` on an OpenWrt device using the `opkg` package manager.
 5. Use `batctl` to test, debug, and monitor connectivity within the mesh.
 6. Use two radios to segment mesh (5Ghz) from non-mesh (2.4Ghz) wireless communication.
-7. Add encryption to the mesh network with the package `wpad-mesh-wolfssl`.
+7. Add encryption to the mesh network with the package `wpad-mesh-mbedtls`.
 8. Use VLANs to create `default`, `iot`, and `guest` networks within the mesh using `batman-adv`.
 
 [top](#){: .btn .btn--light-outline .btn--small}
@@ -238,7 +240,7 @@ I've noticed that radio devices that use the `ath10k` module and more specifical
   |:---:|:---:|:---:|:---:|
   | AVM | FRITZ!WLAN Repeater 1750E | - | 21.02 |
   | GL.iNet | GL-AR750 | - | 21.02 |
-  | TP-Link | Archer C7 | 2.0, 4.0, 5.0 | 19.07, 21.02, 22.03 |
+  | TP-Link | Archer C7 | 2.0, 4.0, 5.0 | 19.07, 21.02, 22.03, 24.10 |
   | TP-Link | Archer C7 US | 2.0 | 19.07, 21.02 |
 
 
@@ -260,13 +262,13 @@ Unless otherwise specified, all mesh nodes were running the following software:
 [![OpenWrt default SSH welcome](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/openwrt-ssh-welcome.jpg){:.PostImage .PostImage--large}](/assets/posts/2020-11-24-mesh-networking-openwrt-batman/openwrt-ssh-welcome.jpg)
 
 - **Operating System**:
-	- **Firmware**: OpenWrt `21.02.0`, `r16279-5cc0535800`
-	- **Linux kernel**: `5.4.143`
+	- **Firmware**: OpenWrt `21.02.0` or higher
+	- **Linux kernel**: `5.4.143` or higher
 
 - **Packages mentioned in the tutorial**:
-	- [`batctl-full`](https://openwrt.org/packages/pkgdata/batctl-default): 2021.1-1
-	- [`kmod-batman-adv`](https://openwrt.org/packages/pkgdata/kmod-batman-adv): 5.4.143+2021.1-4
-	- [`wpad-mesh-wolfssl`](https://openwrt.org/packages/pkgdata/wpad-mesh-wolfssl): 2020-06-08-5a8b3662-35
+	- `batctl-full` => `2021.1-1`
+	- `kmod-batman-adv` => `5.4.143+2021.1-4`
+	- `wpad-mesh-mbedtls` => `2024.09.15~5ace39b0-r1`
 
 To find out the version of all installed packages, type
 
@@ -284,7 +286,7 @@ Huge differences in firmware, kernel, or package versions *might* make the imple
 
 Also, I've noticed that when installing `kmod-batman-adv`, the package manager will install a minimal version of `batctl`, called `batctl-tiny`, that lacks some of the options mentioned here (e.g., `batctl n` and `batnctl o`).  However, if you install `batctl` first and then `kmod-batman-adv`, the package manager will preserve `batctl-default`, which has most of the `batctl` features.  In this tutorial, however, we will use the `batctl-full` package that contains all features referred to in the [`batctl` manual](https://downloads.open-mesh.org/batman/manpages/batctl.8.html).
 
-Finally, the installation of `wpad-mesh-wolfssl` will conflict with the already installed `wpad-basic-wolfssl` package (or any other `wpad-basic*` package, for that matter).  This means **you have to remove the latter before installing the former**.  To remove the `wpad-basic-wolfssl` or any other conflicting `wpad-basic` package, simply type
+Finally, the installation of `wpad-mesh-mbedtls` will conflict with the already installed `wpad-basic-mbedtls` package (or any other `wpad-basic*` package, for that matter).  This means **you have to remove the latter before installing the former**.  To remove the `wpad-basic-mbedtls` or any other conflicting `wpad-basic` package, simply type
 
 ```
 opkg remove wpad-basic*
@@ -449,7 +451,7 @@ To build a custom image file, first [install the dependencies](https://openwrt.o
       PACKAGES="uhttpd uhttpd-mod-ubus libiwinfo-lua luci-base luci-app-firewall luci-mod-admin-full luci-theme-bootstrap \
       -ppp -ppp-mod-pppoe \
       -ip6tables -odhcp6c -kmod-ipv6 -kmod-ip6tables -odhcpd-ipv6only \
-      -wpad-basic-wolfssl wpad-mesh-wolfssl \
+      -wpad-basic-mbedtls wpad-mesh-mbedtls \
       batctl-full kmod-batman-adv" \
       CONFIG_IPV6=n
     ```
@@ -488,8 +490,8 @@ Lastly, to save additional firmware space and RAM, [follow the OpenWrt recommend
 
 | action | package |
 |:---:|:---:|
-| remove mesh encryption conflict | `-wpad-basic-wolfssl` |
-| add mesh encryption | `wpad-mesh-wolfssl` |
+| remove mesh encryption conflict | `-wpad-basic-mbedtls` |
+| add mesh encryption | `wpad-mesh-mbedtls` |
 | add the full batctl | `batctl-full` |
 | add batman-adv | `kmod-batman-adv` |
 
@@ -561,19 +563,19 @@ opkg list-upgradable | cut -f 1 -d ' ' | xargs opkg upgrade
 ```
 **Be careful with mass upgrades though**, especially if you're running a device with limited memory.  You might end up even bricking your device.
 
-Now, let's install the mesh-related packages and remove conflicting packages.  First, remove `wpad-basic-wolfssl` with
+Now, let's install the mesh-related packages and remove conflicting packages.  First, remove `wpad-basic-mbedtls` with
 
 ```
-opkg remove wpad-basic-wolfssl
+opkg remove wpad-basic-mbedtls
 ```
 
-then install `batctl-full`, `batman-adv`, and `wpad-mesh-wolfssl` with
+then install `batctl-full`, `batman-adv`, and `wpad-mesh-mbedtls` with
 
 ```
-opkg install batctl-full kmod-batman-adv wpad-mesh-wolfssl
+opkg install batctl-full kmod-batman-adv wpad-mesh-mbedtls
 ```
 
-It is up to you whether to install `wpad-mesh-wolfssl` or `wpad-mesh-openssl`. For a detailed description of the main differences, take a look at the [wolfSSL documentation](https://www.wolfssl.com/docs/wolfssl-openssl/).  In brief, wolfSSL was built for embedded systems--such as most consumer routers--and it is lighter and more frequently patched than OpenSSL. OpenSSL is much older and more general purpose.
+It is up to you whether to install `wpad-mesh-mbedtls` or `wpad-mesh-wolfssl` or `wpad-mesh-openssl`. For a detailed description of the main differences, take a look at the [TLS libraries](https://openwrt.org/docs/guide-user/services/tls/libs) that work on OpenWrt.
 {:.notice--info}
 
 Make sure there are no error messages and if there are, troubleshoot them before proceeding.
@@ -1693,6 +1695,9 @@ In addition, if you don't feel comfortable with the CLI approach I used, take a 
 
 {% include video id="t4A0kfg2olo" provider="youtube" %}
 {:. text-center}
+
+A few users have reached out to let me know that the `luci-proto-batman-adv` interface used in the video tutorial mentioned before is no longer working as expected. Indeed, it seems that `onemarcfifty` has not updated it in a long time ([Github source](https://github.com/onemarcfifty/luci-proto-batman-adv/)). You **do not need** `luci-proto-batman-adv` to use mesh. Just follow my instructions to install the required packages and edit the config files via `ssh` and you will be all set.
+{:.notice--warning}
 
 Marc has many other interesting videos about OpenWrt, so make sure to check them out as well.
 
