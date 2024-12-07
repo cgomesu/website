@@ -200,7 +200,7 @@
 
 
 
-  140 minute read
+  142 minute read
 
 </p>
       
@@ -442,7 +442,8 @@
           </aside>
         
         <h1 id="changelog">Changelog</h1>
-<p class="notice--success"><strong>Aug 12th, 2023</strong>: The upcoming OpenWrt version <code class="language-plaintext highlighter-rouge">23.05</code> will bring a few changes to the way we configure VLANs. I’ll update the guide once 23 becomes the current stable. Until then, if you are using version 23 and playing aorund with VLANs, then refer to the <a href="https://openwrt.org/docs/guide-user/network/dsa/dsa-mini-tutorial">DSA mini tutorial</a> and <a href="https://openwrt.org/docs/guide-user/network/dsa/converting-to-dsa">converting to DSA user guide</a>.</p>
+<p class="notice--success"><strong>Dec 7th, 2024</strong>: I updated a few sections of this guide to reflect the changes in the most recent releases. Nothing much has changed other than the default cryptogaphic library, which is now <code class="language-plaintext highlighter-rouge">mdebtls</code>. The <code class="language-plaintext highlighter-rouge">-ct</code> mesh issues are still there with the <code class="language-plaintext highlighter-rouge">ath10k</code> based radios but my instructions to simply install the non-ct ones work as before. A couple other things: (a) just tested with <code class="language-plaintext highlighter-rouge">24.10-rc2</code> (an upcoming release candidate) and everything seems to be working as expected; (b) the old TP-Link TL-WDR4300 is <strong>still</strong> able to run the upcoming release (kudos to the OS devs!) and the C7 continues to be one of my favorite cheapo mesh routers; (c) added a note to <code class="language-plaintext highlighter-rouge">onemarcfifty</code>’s video tutorial to let people know that the <code class="language-plaintext highlighter-rouge">luci-proto-batman-adv</code> has not been updated in a long time and does not seem to be working anymore but this only affect the people trying to set it up via the web interface, not via <code class="language-plaintext highlighter-rouge">ssh</code> (we’re good!).</p>
+<p class="notice--info"><strong>Aug 12th, 2023</strong>: The upcoming OpenWrt version <code class="language-plaintext highlighter-rouge">23.05</code> will bring a few changes to the way we configure VLANs. I’ll update the guide once 23 becomes the current stable. Until then, if you are using version 23 and playing aorund with VLANs, then refer to the <a href="https://openwrt.org/docs/guide-user/network/dsa/dsa-mini-tutorial">DSA mini tutorial</a> and <a href="https://openwrt.org/docs/guide-user/network/dsa/converting-to-dsa">converting to DSA user guide</a>.</p>
 <p class="notice--info"><strong>Dec 21st, 2022</strong>: Minor updates to streamline a few commands and to add a note here that this guide is still valid for the current stable release version of OpenWrt (<code class="language-plaintext highlighter-rouge">22.03.2</code>).  I should also mentioned that a user (Iglói) reported that the Linksys EA8300 might not be the best choice for a high-end mesh node because <a href="https://forum.openwrt.org/t/ipq40xx-switch-config-strangeness/32542">VLAN support is limited in the IPQ40xx hardware</a>.  However, I’ve never tested that myself and after glancing over the forum posts, it seems the issue has been fixed in the latest release.  In any case, if you want to consider other high-end alternatives, check out the <a href="https://openwrt.org/toh/linksys/wrt32x">Linksys WRT23x</a> and the <a href="https://openwrt.org/toh/zyxel/nbg6817">ZyXEL NBG6817</a>.</p>
 <p class="notice--info"><strong>May 4th, 2022</strong>: Marc (<a href="https://www.youtube.com/channel/UCG5Ph9Mm6UEQLJJ-kGIC2AQ">OneMarcFifty</a>) has published a video tutorial describing how to configure OpenWrt and batman-adv via <strong>LuCI</strong>, which is only possible because he also wrote a package that gives luci support for the batman-adv protocol (<a href="https://github.com/openwrt/luci/tree/master/protocols/luci-proto-batman-adv">luci-proto-batman-adv</a>).  I added a reference to Marc’s tutorial at the end of the <a href="#other-similar-mesh-solutions">Other similar mesh solutions</a> section.</p>
 <p class="notice--info"><strong>February 4th, 2022</strong>: Updated the <a href="#hardware-specific-configurations">Hardware-specific configurations</a> section to include info about an issue affecting the <a href="https://openwrt.org/toh/gl.inet/gl-ar750">GL-AR750</a> and the <a href="https://openwrt.org/toh/avm/avm_fritz_wlan_repeater_1750e">AVM Fritz!WLAN Repeater 1750E</a>.  Also, the <code class="language-plaintext highlighter-rouge">ath10k</code> troubleshooting instructions were slightly modified to make them more general.  Thanks to JF and Erik for testing and letting me know about the affected devices and solutions.</p>
@@ -486,7 +487,7 @@
   <li>Install and configure the Kernel module <code class="language-plaintext highlighter-rouge">batman-adv</code> on an OpenWrt device using the <code class="language-plaintext highlighter-rouge">opkg</code> package manager.</li>
   <li>Use <code class="language-plaintext highlighter-rouge">batctl</code> to test, debug, and monitor connectivity within the mesh.</li>
   <li>Use two radios to segment mesh (5Ghz) from non-mesh (2.4Ghz) wireless communication.</li>
-  <li>Add encryption to the mesh network with the package <code class="language-plaintext highlighter-rouge">wpad-mesh-wolfssl</code>.</li>
+  <li>Add encryption to the mesh network with the package <code class="language-plaintext highlighter-rouge">wpad-mesh-mbedtls</code>.</li>
   <li>Use VLANs to create <code class="language-plaintext highlighter-rouge">default</code>, <code class="language-plaintext highlighter-rouge">iot</code>, and <code class="language-plaintext highlighter-rouge">guest</code> networks within the mesh using <code class="language-plaintext highlighter-rouge">batman-adv</code>.</li>
 </ol>
 
@@ -746,7 +747,7 @@ opkg install ath10k-firmware-qca988x kmod-ath10k
           <td style="text-align: center">TP-Link</td>
           <td style="text-align: center">Archer C7</td>
           <td style="text-align: center">2.0, 4.0, 5.0</td>
-          <td style="text-align: center">19.07, 21.02, 22.03</td>
+          <td style="text-align: center">19.07, 21.02, 22.03, 24.10</td>
         </tr>
         <tr>
           <td style="text-align: center">TP-Link</td>
@@ -786,15 +787,15 @@ opkg install ath10k-firmware-qca988x kmod-ath10k
 <ul>
   <li><strong>Operating System</strong>:
     <ul>
-      <li><strong>Firmware</strong>: OpenWrt <code class="language-plaintext highlighter-rouge">21.02.0</code>, <code class="language-plaintext highlighter-rouge">r16279-5cc0535800</code></li>
-      <li><strong>Linux kernel</strong>: <code class="language-plaintext highlighter-rouge">5.4.143</code></li>
+      <li><strong>Firmware</strong>: OpenWrt <code class="language-plaintext highlighter-rouge">21.02.0</code> or higher</li>
+      <li><strong>Linux kernel</strong>: <code class="language-plaintext highlighter-rouge">5.4.143</code> or higher</li>
     </ul>
   </li>
   <li><strong>Packages mentioned in the tutorial</strong>:
     <ul>
-      <li><a href="https://openwrt.org/packages/pkgdata/batctl-default"><code class="language-plaintext highlighter-rouge">batctl-full</code></a>: 2021.1-1</li>
-      <li><a href="https://openwrt.org/packages/pkgdata/kmod-batman-adv"><code class="language-plaintext highlighter-rouge">kmod-batman-adv</code></a>: 5.4.143+2021.1-4</li>
-      <li><a href="https://openwrt.org/packages/pkgdata/wpad-mesh-wolfssl"><code class="language-plaintext highlighter-rouge">wpad-mesh-wolfssl</code></a>: 2020-06-08-5a8b3662-35</li>
+      <li><code class="language-plaintext highlighter-rouge">batctl-full</code> =&gt; <code class="language-plaintext highlighter-rouge">2021.1-1</code></li>
+      <li><code class="language-plaintext highlighter-rouge">kmod-batman-adv</code> =&gt; <code class="language-plaintext highlighter-rouge">5.4.143+2021.1-4</code></li>
+      <li><code class="language-plaintext highlighter-rouge">wpad-mesh-mbedtls</code> =&gt; <code class="language-plaintext highlighter-rouge">2024.09.15~5ace39b0-r1</code></li>
     </ul>
   </li>
 </ul>
@@ -813,7 +814,7 @@ opkg install ath10k-firmware-qca988x kmod-ath10k
 
 <p>Also, I’ve noticed that when installing <code class="language-plaintext highlighter-rouge">kmod-batman-adv</code>, the package manager will install a minimal version of <code class="language-plaintext highlighter-rouge">batctl</code>, called <code class="language-plaintext highlighter-rouge">batctl-tiny</code>, that lacks some of the options mentioned here (e.g., <code class="language-plaintext highlighter-rouge">batctl n</code> and <code class="language-plaintext highlighter-rouge">batnctl o</code>).  However, if you install <code class="language-plaintext highlighter-rouge">batctl</code> first and then <code class="language-plaintext highlighter-rouge">kmod-batman-adv</code>, the package manager will preserve <code class="language-plaintext highlighter-rouge">batctl-default</code>, which has most of the <code class="language-plaintext highlighter-rouge">batctl</code> features.  In this tutorial, however, we will use the <code class="language-plaintext highlighter-rouge">batctl-full</code> package that contains all features referred to in the <a href="https://downloads.open-mesh.org/batman/manpages/batctl.8.html"><code class="language-plaintext highlighter-rouge">batctl</code> manual</a>.</p>
 
-<p>Finally, the installation of <code class="language-plaintext highlighter-rouge">wpad-mesh-wolfssl</code> will conflict with the already installed <code class="language-plaintext highlighter-rouge">wpad-basic-wolfssl</code> package (or any other <code class="language-plaintext highlighter-rouge">wpad-basic*</code> package, for that matter).  This means <strong>you have to remove the latter before installing the former</strong>.  To remove the <code class="language-plaintext highlighter-rouge">wpad-basic-wolfssl</code> or any other conflicting <code class="language-plaintext highlighter-rouge">wpad-basic</code> package, simply type</p>
+<p>Finally, the installation of <code class="language-plaintext highlighter-rouge">wpad-mesh-mbedtls</code> will conflict with the already installed <code class="language-plaintext highlighter-rouge">wpad-basic-mbedtls</code> package (or any other <code class="language-plaintext highlighter-rouge">wpad-basic*</code> package, for that matter).  This means <strong>you have to remove the latter before installing the former</strong>.  To remove the <code class="language-plaintext highlighter-rouge">wpad-basic-mbedtls</code> or any other conflicting <code class="language-plaintext highlighter-rouge">wpad-basic</code> package, simply type</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>opkg remove wpad-basic*
 </code></pre></div></div>
@@ -1018,7 +1019,7 @@ opkg install ath10k-firmware-qca988x kmod-ath10k
    PACKAGES="uhttpd uhttpd-mod-ubus libiwinfo-lua luci-base luci-app-firewall luci-mod-admin-full luci-theme-bootstrap \
    -ppp -ppp-mod-pppoe \
    -ip6tables -odhcp6c -kmod-ipv6 -kmod-ip6tables -odhcpd-ipv6only \
-   -wpad-basic-wolfssl wpad-mesh-wolfssl \
+   -wpad-basic-mbedtls wpad-mesh-mbedtls \
    batctl-full kmod-batman-adv" \
    CONFIG_IPV6=n
 </code></pre></div>    </div>
@@ -1063,11 +1064,11 @@ opkg install ath10k-firmware-qca988x kmod-ath10k
   <tbody>
     <tr>
       <td style="text-align: center">remove mesh encryption conflict</td>
-      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">-wpad-basic-wolfssl</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">-wpad-basic-mbedtls</code></td>
     </tr>
     <tr>
       <td style="text-align: center">add mesh encryption</td>
-      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">wpad-mesh-wolfssl</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">wpad-mesh-mbedtls</code></td>
     </tr>
     <tr>
       <td style="text-align: center">add the full batctl</td>
@@ -1144,17 +1145,17 @@ opkg install ath10k-firmware-qca988x kmod-ath10k
 </code></pre></div></div>
 <p><strong>Be careful with mass upgrades though</strong>, especially if you’re running a device with limited memory.  You might end up even bricking your device.</p>
 
-<p>Now, let’s install the mesh-related packages and remove conflicting packages.  First, remove <code class="language-plaintext highlighter-rouge">wpad-basic-wolfssl</code> with</p>
+<p>Now, let’s install the mesh-related packages and remove conflicting packages.  First, remove <code class="language-plaintext highlighter-rouge">wpad-basic-mbedtls</code> with</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>opkg remove wpad-basic-wolfssl
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>opkg remove wpad-basic-mbedtls
 </code></pre></div></div>
 
-<p>then install <code class="language-plaintext highlighter-rouge">batctl-full</code>, <code class="language-plaintext highlighter-rouge">batman-adv</code>, and <code class="language-plaintext highlighter-rouge">wpad-mesh-wolfssl</code> with</p>
+<p>then install <code class="language-plaintext highlighter-rouge">batctl-full</code>, <code class="language-plaintext highlighter-rouge">batman-adv</code>, and <code class="language-plaintext highlighter-rouge">wpad-mesh-mbedtls</code> with</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>opkg install batctl-full kmod-batman-adv wpad-mesh-wolfssl
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>opkg install batctl-full kmod-batman-adv wpad-mesh-mbedtls
 </code></pre></div></div>
 
-<p class="notice--info">It is up to you whether to install <code class="language-plaintext highlighter-rouge">wpad-mesh-wolfssl</code> or <code class="language-plaintext highlighter-rouge">wpad-mesh-openssl</code>. For a detailed description of the main differences, take a look at the <a href="https://www.wolfssl.com/docs/wolfssl-openssl/">wolfSSL documentation</a>.  In brief, wolfSSL was built for embedded systems–such as most consumer routers–and it is lighter and more frequently patched than OpenSSL. OpenSSL is much older and more general purpose.</p>
+<p class="notice--info">It is up to you whether to install <code class="language-plaintext highlighter-rouge">wpad-mesh-mbedtls</code> or <code class="language-plaintext highlighter-rouge">wpad-mesh-wolfssl</code> or <code class="language-plaintext highlighter-rouge">wpad-mesh-openssl</code>. For a detailed description of the main differences, take a look at the <a href="https://openwrt.org/docs/guide-user/services/tls/libs">TLS libraries</a> that work on OpenWrt.</p>
 
 <p>Make sure there are no error messages and if there are, troubleshoot them before proceeding.</p>
 
@@ -2266,6 +2267,8 @@ Swap:         13308         768       12540
   <iframe src="https://www.youtube-nocookie.com/embed/t4A0kfg2olo" frameborder="0" allowfullscreen=""></iframe>
 
 </div>
+
+<p class="notice--warning">A few users have reached out to let me know that the <code class="language-plaintext highlighter-rouge">luci-proto-batman-adv</code> interface used in the video tutorial mentioned before is no longer working as expected. Indeed, it seems that <code class="language-plaintext highlighter-rouge">onemarcfifty</code> has not updated it in a long time (<a href="https://github.com/onemarcfifty/luci-proto-batman-adv/">Github source</a>). You <strong>do not need</strong> <code class="language-plaintext highlighter-rouge">luci-proto-batman-adv</code> to use mesh. Just follow my instructions to install the required packages and edit the config files via <code class="language-plaintext highlighter-rouge">ssh</code> and you will be all set.</p>
 
 <p>Marc has many other interesting videos about OpenWrt, so make sure to check them out as well.</p>
 

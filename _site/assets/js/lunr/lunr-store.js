@@ -42,7 +42,7 @@ var store = [{
         "teaser": null
       },{
         "title": "Mesh networking: A guide to using free and open-source software with common hardware",
-        "excerpt":"Changelog Aug 12th, 2023: The upcoming OpenWrt version 23.05 will bring a few changes to the way we configure VLANs. I’ll update the guide once 23 becomes the current stable. Until then, if you are using version 23 and playing aorund with VLANs, then refer to the DSA mini tutorial...","categories": ["blog"],
+        "excerpt":"Changelog Dec 7th, 2024: I updated a few sections of this guide to reflect the changes in the most recent releases. Nothing much has changed other than the default cryptogaphic library, which is now mdebtls. The -ct mesh issues are still there with the ath10k based radios but my instructions...","categories": ["blog"],
         "tags": ["mesh","adhoc","ieee","wifi","wireless","radio","network","router","openwrt","batman"],
         "url": "http://localhost:4000/blog/Mesh-networking-openwrt-batman/",
         "teaser": null
@@ -60,7 +60,7 @@ var store = [{
         "teaser": null
       },{
         "title": "TVHlink: Livestreams as IPTV channels with TVHeadend and Streamlink",
-        "excerpt":"Changelog Dec 17th, 2023: Updated a few broken links. The integration cotninues to work just as described in this blog post. Sep 20th, 2022: Updated the information regarding running custom scripts within a Tvheadend Docker container. This change is in connection with recent changes introduced by the folks maintaining the...","categories": ["blog"],
+        "excerpt":"Changelog Dec 7th, 2024: My yearly update to let you know that this integration continues to work just fine and the m3u playlits are still being maintaned by me. Dec 17th, 2023: Updated a few broken links. The integration cotninues to work just as described in this blog post. Sep...","categories": ["blog"],
         "tags": ["tvhlink","streamlink","tvheadend","github","iptv","kodi","youtube","streaming","livestream"],
         "url": "http://localhost:4000/blog/Tvhlink/",
         "teaser": null
