@@ -11,8 +11,10 @@ toc_icon: "list"
 ---
 
 # Changelog
-**Dec 31st, 2023**: Small update to fix typo in Forge's installation section. Everything else seems to be up-to-date.
+**Jan 18th, 2025**: Updated forge installer broken URLs.
 {:.notice--success }
+**Dec 31st, 2023**: Small update to fix typo in Forge's installation section. Everything else seems to be up-to-date.
+{:.notice--info }
 **Feb 1st, 2023**: I updated the [XMage installation instructions](#installation-1) to match the *beta* client instructions. This was necessary because the domain `xmage.de` has been offline for quite some time now, and the best alternative is to use the `xmage.today` domain, which hosts the beta client and a few public servers.
 {:.notice--info }
 **Sep 21st, 2022**: [Forge is now accepting donations](https://ko-fi.com/forgedonations) via Ko-fi, so I updated the [Contributing](#contributing) section accordingly.
@@ -183,12 +185,12 @@ For information about how to install JRE and Forge, take a look at the next sect
       ```
     - download the latest Forge files from cardforge.org:
       ```
-      curl -O "https://releases.cardforge.org/forge/forge-gui-desktop/$FORGE_LATEST/forge-gui-desktop-$FORGE_LATEST.tar.bz2"
-      curl -O "https://releases.cardforge.org/forge/forge-gui-desktop/$FORGE_LATEST/forge-gui-desktop-$FORGE_LATEST.tar.bz2.md5"
+      curl -O "https://releases.cardforge.org/forge/forge-installer/$FORGE_LATEST/forge-installer-$FORGE_LATEST.tar.bz2"
+      curl -O "https://releases.cardforge.org/forge/forge-installer/$FORGE_LATEST/forge-installer-$FORGE_LATEST.tar.bz2.md5"
       ```
     - after downloading the files, check hashes:
       ```
-      echo "$(cat forge-gui-desktop-$FORGE_LATEST.tar.bz2.md5) forge-gui-desktop-$FORGE_LATEST.tar.bz2" | md5sum -c
+      echo "$(cat forge-installer-$FORGE_LATEST.tar.bz2.md5) forge-installer-$FORGE_LATEST.tar.bz2" | md5sum -c
       ```
 
   Once you have downloaded the tarball, extract it to a directory of your liking. Personally, I like to store such applications on a directory called `Applications` under my user's `$HOME` (e.g., `/home/cgomesu/Applications/`):
@@ -201,7 +203,7 @@ For information about how to install JRE and Forge, take a look at the next sect
     - extract the tarball into a subdir called forge-gui:
       ```
       mkdir forge-gui
-      tar -xvf "$HOME/Downloads/forge-gui-desktop-$FORGE_LATEST.tar.bz2" -C ./forge-gui/
+      tar -xvf "$HOME/Downloads/forge-installer-$FORGE_LATEST.tar.bz2" -C ./forge-gui/
       ```
 
       If you have not declared and initialized a `FORGE_LATEST` variable before, then just edit the name of the tarball to match yours before running the command above.
