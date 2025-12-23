@@ -1,3 +1,6 @@
+# tmps and locals
 _drafts
 .jekyll-cache
 .jekyll-metadata
+# editable and original assets
+.assets
