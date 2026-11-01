@@ -14,8 +14,6 @@ header:
       url: "/projects/#sbc"
     - label: "networking"
       url: "/projects/#networking"
-    - label: "other"
-      url: "/projects/#other"
 excerpt: "A non-exhaustive list of past and current projects."
 mcu:
   - title: "ESP-01 ambient sensor"
@@ -74,25 +72,6 @@ networking:
     url: "/blog/Pfsense-white-box/"
     btn_label: "Read more"
     btn_class: "btn--info"
-other:
-  - title: "Programa Bolsas"
-    excerpt: "A CLI program that validates a csv file containing scholarship data from multiple students and allows users to perform a few operations. This program was part of a selection process and most of its content is in Portuguese."
-    image_path: "/assets/img/projects/thumb-projects-bolsas.jpg"
-    url: "https://github.com/cgomesu/programa-bolsas"
-    btn_label: "Github Repo"
-    btn_class: "btn--info"
-  - title: "Pife (pif-paf)"
-    excerpt: "This is a CLI implementation of the card game Pife written in Java. It is a fork of another implementation that changes its main logic to adapt to the new game but preserves overlapping classes, such as deck and player. This program is only for educational purposes and the content is in Portuguese."
-    image_path: "/assets/img/projects/thumb-projects-pife.jpg"
-    url: "https://github.com/cgomesu/Pife"
-    btn_label: "Github Repo"
-    btn_class: "btn--info"
-  - title: "Logistic function in Bash"
-    excerpt: "An implementation of the logistic function written in GNU bash and GNU basic calculator (bc)."
-    image_path: "/assets/img/projects/thumb-projects-bash-logistic.jpg"
-    url: "https://github.com/cgomesu/bash-logistic-function"
-    btn_label: "Github Repo"
-    btn_class: "btn--info"
 ---
 ***
 
@@ -109,9 +88,4 @@ other:
 # Networking
 
 {% include feature_row id="networking" %}
-[top](#){: .btn .btn--light-outline .btn--small}
-
-# Other
-
-{% include feature_row id="other" %}
 [top](#){: .btn .btn--light-outline .btn--small}
