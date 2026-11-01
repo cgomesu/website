@@ -100,4 +100,10 @@ var store = [{
         "tags": ["science","philosophy","ml","learning","theory","classification","prediction"],
         "url": "http://localhost:4000/blog/reflections-theories-dl/",
         "teaser": null
+      },{
+        "title": "Reflections - Searle's chinese room experiment",
+        "excerpt":"Changelog November 1st, 2026: Publication of the original article Introduction If you have never heard of John Searle’s Chinese Room, please take a few hours to read (and think about) his 1980 paper, called Minds, brains, and programs. The following is an opinion piece that reflects my interpretation of the...","categories": ["blog"],
+        "tags": ["science","philosophy","ai","intelligence","thinking"],
+        "url": "http://localhost:4000/blog/reflections-chinese-room/",
+        "teaser": null
       }]

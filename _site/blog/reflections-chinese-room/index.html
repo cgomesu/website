@@ -1,0 +1,516 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.19.3 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Reflections - Searle’s chinese room experiment - CGomesu</title>
+<meta name="description" content="A blog and portfolio website built with Jekyll and hosted on Github Pages">
+
+
+  <meta name="author" content="Carlos Gomes">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="CGomesu">
+<meta property="og:title" content="Reflections - Searle’s chinese room experiment">
+<meta property="og:url" content="http://localhost:4000/blog/reflections-chinese-room/">
+
+
+  <meta property="og:description" content="A blog and portfolio website built with Jekyll and hosted on Github Pages">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/posts/2026-11-01-reflections-chinese-room/header.jpg">
+
+
+
+
+
+  <meta property="article:published_time" content="2026-11-01T12:00:00-03:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/blog/reflections-chinese-room/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+  <meta name="google-site-verification" content="FA-B3i_TqYeaLPYwZvxxOsx07Coy_drBKJ0M_4DD0Gw" />
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="CGomesu Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css"></noscript>
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="icon" href="/assets/img/site/favicon.ico" type="image/x-icon">
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/img/site/logo.png" alt=""></a>
+        
+        <a class="site-title" href="/">
+           
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/blog/">Blog</a>
+            </li><li class="masthead__menu-item">
+              <a href="/contact/">Contact</a>
+            </li><li class="masthead__menu-item">
+              <a href="/mtg/">MtG</a>
+            </li><li class="masthead__menu-item">
+              <a href="/publications/">Publications</a>
+            </li><li class="masthead__menu-item">
+              <a href="/projects/">Projects</a>
+            </li><li class="masthead__menu-item">
+              <a href="/donations/">Donations</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style="background-color: #000; background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/assets/posts/2026-11-01-reflections-chinese-room/header.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 id="page-title" class="page__title" itemprop="headline">
+        
+          Reflections - Searle’s chinese room experiment
+
+        
+      </h1>
+      
+        <p class="page__lead">
+</p>
+      
+      
+        <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  9 minute read
+
+</p>
+      
+      
+      
+    </div>
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/img/profile/profile-00.jpg" alt="Carlos Gomes" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Carlos Gomes</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>I’m a scientist, psychologist, math modeler, programmer, mtg player, free knowledge supporter, sbc fanatic, and electronics hobbyist.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Learn more</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Brazil</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="mailto:me@cgomesu.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Main e-mail</span></a></li>
+          
+        
+          
+            <li><a href="/donations" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-donate" aria-hidden="true"></i><span class="label">Donations</span></a></li>
+          
+        
+          
+            <li><a href="https://cgomesu.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">https://cgomesu.com</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Reflections - Searle’s chinese room experiment">
+    <meta itemprop="description" content="">
+    <meta itemprop="datePublished" content="2026-11-01T12:00:00-03:00">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-list"></i> Table of Contents</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#changelog">Changelog</a></li>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#what-was-the-paper-about-really">What was the paper about, really?</a></li>
+  <li><a href="#what-does-it-mean">What does it mean?</a></li>
+  <li><a href="#final-remarks">Final Remarks</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
+        <h1 id="changelog">Changelog</h1>
+<p class="notice--info"><strong>November 1st, 2026</strong>: Publication of the original article</p>
+
+<h1 id="introduction">Introduction</h1>
+<p>If you have never heard of <a href="https://en.wikipedia.org/wiki/John_Searle">John Searle</a>’s Chinese Room, please take a few hours to read (and think about) his 1980 paper, called <a href="https://doi.org/10.1017/S0140525X00005756">Minds, brains, and programs</a>. The following is an opinion piece that reflects my interpretation of the main point that Searle tried to make with his famous thought experiment. This was motivated by a discussion with a colleague of mine, which was later on adapted into a short video format for the general public (<a href="https://www.instagram.com/reel/DbdZzD8xhd_/?utm_source=ig_web_copy_link&amp;igsh=MzRlODBiNWFlZA==">Instagram</a>, <a href="https://www.linkedin.com/posts/ciacd-pucrs_inteligaeanciaartificial-ia-salachinesa-activity-7488954204506472449-kyCZ?utm_source=share&amp;utm_medium=member_desktop&amp;rcm=ACoAAEF4Kz0BOLM0V01_HY1kolPDSxcTb3Z18YU">LinkedIn</a>). However, I feel a lot was understandably left out from the video, so I decided to use this space to elaborate it further.</p>
+
+<h1 id="what-was-the-paper-about-really">What was the paper about, really?</h1>
+<p>The purpose of the Chinese Room experiment is to critique a specific notion of AI, called “strong” AI, which is closely connected to a functionalist perspective in the philosophy of mind. This perspective posits that given an appropriate set of mappings between inputs and outputs (<a href="https://en.wikipedia.org/wiki/Functionalism_(philosophy_of_mind)">functionalism</a>), a computer could possess a mind identical to our own, as opposed to serving merely as a computational tool. The proposed experiment seeks to illustrate Searle’s argument that this is in fact impossible. More specifically, a digital computer does not actually understand Chinese (or anything, really); it just executes instructions, step by step, much like you or I might if we possessed a comprehensive manual describing the exact mapping between a given sequence of input characters and the corresponding output. One does not need to comprehend the conversation (semantics) to carry out the instructions (syntax); the computer merely executes the instructions.</p>
+
+<p>This discussion is rooted in the formal definition of a digital computer as a <a href="https://en.wikipedia.org/wiki/Turing_machine">Turing machine</a>—that is, a device that reads a tape of symbols (0s and 1s) and performs actions based on that sequential input. This is the foundational model for all digital computers. It is from this point of view that Searle argues that computers can only manipulate syntactic elements, and that it is impossible to derive semantics (meaning) purely from syntax (the structure of symbols). A core premise here is that semantics is an essential component of the human mind.</p>
+
+<p>One reason for criticizing this functionalist view of strong AI is its unsettling implication that there is nothing biologically unique about the human mind. In this view, the human brain is simply another form of hardware—one that happens to run a program that gives rise to the mind we possess. Consequently, a MIPS64 processor, a quantum computer, the brain of an alien race, or even a laboratory-created biological computer could all “run” the human mind, provided they were executing the <em>correct program</em>.</p>
+
+<p class="notice--info">Of note, the dualist view of mind and body also gives rise to this type of implication, but in an even stronger form. That is the possibility that your mind could exist independently of your body. Scifi tropes like transferring your consciousness into a computer, for example, follow this rather outdated notion of the mind.</p>
+
+<h1 id="what-does-it-mean">What does it mean?</h1>
+<p>In my interpretation, the central issue is this: even if we knew the “correct program” for the mind, would implementing it on a digital computer be sufficient to produce a human mind? Searle’s answer is clearly <strong>no</strong>; it would not be sufficient, because computer programs are defined purely in terms of syntax. In one of his many responses, Searle illustrates this by pointing out that no one assumes a computer simulation of a fire could actually burn down the neighborhood, or that a simulation of a flood could inundate a house—so why the hell should anyone assume that a computer <em>simulating understanding</em> would actually understand anything?</p>
+
+<p>Surprisingly, the latter point is still quite relevant to modern-day AI discussions, especially the ones concerning the use of large language models (LLM). An LLM is essentially an equation—a non-linear, fully differentiable composite function—running on a digital computer, which is a choice made for the sake of convenience because as it is currently the most efficient way to operate on billions of parameters. <strong>The perception of understanding is illusory.</strong> It would be absurd to claim that a mathematical equation “understands” anything; it is merely a collection of symbols that a computer reads before executing an instruction.</p>
+
+<p>Nonetheless, this does not mean that a computer cannot possess a mind. Searle’s point is that the <em>human mind</em> is inseparable from the <em>human brain</em>—the “correct program” can only run on that specific hardware. If we were ever to create a machine capable of having a mind of its own, then we need to first figure out the hardware that has the same causal mechanisms as the brain, and that is not a digital computer. Indeed, we have already done this with other organs, such as the heart. An <a href="https://en.wikipedia.org/wiki/Artificial_heart">artificial heart</a> pumps blood in the same (real, onthological) way as the organic one, meaning it has the same causal mechanisms. We do not need to model the specifics of muscle tissue and so on, for example, to create artificial hearts that have the same causal power as our own heart. To create an artificial mind, as Searle pointed out, we would need to do the same for the brain. Simulation plays an important role in the discovery of the inner workings of the causal mechanisms but the simulation is not (and won’t ever be) the real thing.</p>
+
+<p>However, a digital computer could certainly have a mind—it just wouldn’t be a mind like ours. Similarly, if extraterrestrial life exists, any notion of “mind” they might possess would likely be vastly different from our own because it was shaped by different sensory apparatuses and unique evolutionary processes driven by their specific environments. The difficulty here lies in the fact that the only example of a mind we have is our own. Therefore, the term “mind” may not be the most appropriate choice for these other cases.</p>
+
+<h1 id="final-remarks">Final Remarks</h1>
+<p>The role of a philosopher is to question assumptions, and the result is often uncomfortable, especially for those who work with the topics in question. I also find it difficult to grapple with these ideas. We have come very far as a species and I see no reason why we cannot create artificial minds, even minds like our own. We have built rockets and airplanes that <em>really fly</em> (not a matter of perception), and on top of that, they can take us at speeds and heights that far exceed what any other flying organism can do—they are <em>super</em> flying machines in that sense, just as a super intelligence would be if we knew that the airplane counterpart of intelligence, the artificial brain, should be.</p>
+
+<p>But the reality is that we may never create a mind like our own, and honestly, why should this ever be a research goal anyway? I don’t know about you but I would feel really bad if my vaccuum cleaner or toilet had a consciousness of their own. I hope I’m not the only one.</p>
+
+<p><a href="#" class="btn btn--light-outline btn--small">top</a></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Posted on:</strong> <time datetime="2026-11-01T12:00:00-03:00">November 1, 2026</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="mailto:?subject=[cgomesu.com] Reflections - Searle's chinese room experiment&amp;body=http%3A%2F%2Flocalhost%3A4000%2Fblog%2Freflections-chinese-room%2F " class="btn btn--inverse" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on E-mail"><i class="fas fa-envelope" aria-hidden="true"></i><span> E-mail</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fblog%2Freflections-chinese-room%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.reddit.com/submit?title=Reflections - Searle's chinese room experiment&url=http%3A%2F%2Flocalhost%3A4000%2Fblog%2Freflections-chinese-room%2F" class="btn btn--reddit" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Reddit"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i><span> Reddit</span></a>
+
+  <a href="https://twitter.com/intent/tweet?text=Reflections+-+Searle%27s+chinese+room+experiment%20http%3A%2F%2Flocalhost%3A4000%2Fblog%2Freflections-chinese-room%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/blog/reflections-theories-dl/" class="pagination--pager" title="Reflections - The role of scientific theories in the era of deep learning: Sufficiency and necessity
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search terms here...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search terms here..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/cgomesu" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          <li><a href="https://www.reddit.com/user/cgomesu/" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-reddit" aria-hidden="true"></i> Reddit</a></li>
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> RSS feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2026 CGomesu - Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> and <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a></div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>
