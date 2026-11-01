@@ -8,18 +8,22 @@ header:
   overlay_image: /assets/img/site/banner-page-04.jpeg
   caption: "by [**Kentaro Miura**](https://en.wikipedia.org/wiki/Kentaro_Miura)"
   actions:
-    - label: "Journal Articles"
-      url: "/publications/#journal-articles"
+    - label: "Journal & Conference Papers"
+      url: "/publications/#journal-and-conference-papers"
     - label: "Book Chapters"
       url: "/publications/#book-chapters"
     - label: "Presentations"
       url: "/publications/#presentations"
 excerpt: "All my published peer-reviewed papers and book chapters, plus a few selected presentations.  Ordered by year."
 ---
-# Journal Articles
+# Journal and Conference Papers
 
 | status | download | reference |
 |:---:|:---:|:---:|
+| published | [DOI](https://doi.org/10.1007/978-3-032-39892-5_34) | Accorsi, Amaral, **Gomes** & Griebler. (2027) Tokenizer Impact on Multilingual to Portuguese Transfer in ModernBERT-Based Models. Brazilian Conference on Intelligent Systems, 517-531. |
+| published | [DOI](http://dx.doi.org/10.1111/ocr.70057) | Ahmad et al. (2026) A Novel Multimodal Deep Image Analysis Model for Predicting Extraction/Non-Extraction Decision. Orthodontics & Craniofacial Research, v. 29, p. 101-111. |
+| published | [DOI](http://dx.doi.org/10.1109/compsac65507.2025.00254) | Ahmad, Araujo, Teixeira, **Gomes** et al. (2025) A Novel AI-driven Automated Orthodontic Model Analysis to Improve Classification of Orthodontic Extraction Cases. IEEE 49th Annual Computers, Software, and Applications Conference (COMPSAC), p. 1853. |
+| published | [DOI](http://dx.doi.org/10.1109/compsac61105.2024.00316) | **Gomes** et al. Multiview Machine Learning Classification of Tooth Extraction in Orthodontics Using Intraoral Scans. (2024) IEEE 48th Annual Computers, Software, and Applications Conference (COMPSAC), p. 1977. |
 | published | [DOI](https://doi.org/10.3390/healthcare11222912) | Moreira, S.V., Justi, F.R.R., **Gomes, C.F.A.**, & Moreira, M. (2023). Music therapy enhances episodic memory in Alzheimer’s and nixed dementia: A double-blind randomized controlled trial. Healthcare, 11, 2912. |
 | published | [DOI](https://doi.org/10.34019/1982-1247.2020.v14.29542) | **Gomes, C. F. A.**, & Buratto, L. G. (2020). Multinomial modeling applied to psychological research. Psicologia em Pesquisa, 14, 44-65. |
 | published | [DOI](http://doi.org/10.1037/xlm0000559) | Chen, X. R., **Gomes, C. F. A.**, & Brainerd, C. J. (2018). Explaining recollection without remembering. Journal of Experimental Psychology: Learning, Memory, and Cognition, 44, 1921-1930. |
