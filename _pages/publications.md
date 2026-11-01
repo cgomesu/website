@@ -12,9 +12,7 @@ header:
       url: "/publications/#journal-and-conference-papers"
     - label: "Book Chapters"
       url: "/publications/#book-chapters"
-    - label: "Presentations"
-      url: "/publications/#presentations"
-excerpt: "All my published peer-reviewed papers and book chapters, plus a few selected presentations.  Ordered by year."
+excerpt: "All my published peer-reviewed papers and book chapters. Ordered by year."
 ---
 # Journal and Conference Papers
 
@@ -53,19 +51,5 @@ excerpt: "All my published peer-reviewed papers and book chapters, plus a few se
 | [Amazon](https://www.amazon.com/Elderly-Eyewitness-Court-Michael-Toglia/dp/1848725388) | **Gomes, C.F.A.**, Cohen, B.R., Desai, A., Brainerd, C.J., & Reyna, V.F. (2014). Aging and false memory: Fuzzy-trace theory and the elderly eyewitness. In Toglia, M.P., Ross, D.F., Pozzulo, J., & Pica, E. (Eds.), The elderly eyewitness in court (pp. 137-166). New York: Psychology Press. |
 | [Amazon](https://www.amazon.com/Development-Thinking-Reasoning-Pierre-Barrouillet/dp/1848721013) | **Gomes, C.F.A.**, & Brainerd, C.J. (2013). Dual processes in the development of reasoning: The memory side of the theory. In P. Barrouillet & C. Gauffroy (Eds.), The development of thinking and reasoning (pp. 221-242). New York: Psychology Press. |
 | [Amazon](https://www.amazon.com.br/Falsas-mem%C3%B3rias-Lilian-M-Stein/dp/8536320869) | Rohenkohl, G., **Gomes, C.F.A.**, Silveira, R.A.T., Pinto, L.H., & Santos, R.F. (2010). Emotion and false memories. In: Stein, L.M. Falsas Memórias: Fundamentos científicos, aplicações clínicas e jurídicas (pp. 87-100). Porto Alegre: ARTMED. |
-
-[top](#){: .btn .btn--light-outline .btn--small}
-
-***
-# Presentations
-A few selected presentations.
-
-| type | download | reference |
-|:---:|:---:|:---:|
-| paper | [PDF](/assets/pdf/gomes-scm2-ufjf-2019.pdf) | **Gomes, C.F.A.**. Modelagem multinomial na investigação de processos latentes.  Simposio Cerebro e Mente II, BR, 2019. |
-| lecture | [PDF](/assets/pdf/gomes-lecture2-unb-2018.pdf) | **Gomes, C.F.A.**. Processos de recordação durante comprometimento cognitivo leve e doença de Alzheimer.  Universidade de Brasília, BR, 2018. |
-| lecture | [PDF](/assets/pdf/gomes-lecture1-unb-2018.pdf) | **Gomes, C.F.A.**. Aplicações da modelagem multinomial na pesquisa em cognição humana.  Universidade de Brasília, BR, 2018. |
-| paper | [Abstract](https://bit.ly/2NbM4lx) | Brainerd, C.J., **Gomes, C.F.A.**, Moran, R., & Reyna, V.F. Dual-recollection theory. Psychonomic Society Meeting, US, 2016. |
-| poster | [PDF](/assets/pdf/gomes-psychonomics-2015.pdf) | **Gomes, C.F.A.**, & Brainerd, C.J. Bivariate recollecttion in recognition. Psychonomic Society Meeting, US, 2015. |
 
 [top](#){: .btn .btn--light-outline .btn--small}
