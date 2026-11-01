@@ -17,9 +17,9 @@ toc_icon: "list"
 # Introduction
 I have been thinking a lot about the notions of **sufficiency** and **necessity** lately. These are two very important concepts in theory development because they encompass key notions of what scientific theories do when it comes to understanding (physical / biological / cognitive / information / learning) phenomena, but the more I think about it, the more it seems that they also play a fundamental role in (data-driven) predictive models, especially classification ones.
 
-# The Aliens
 Suppose our classification problem is to tell 'human' from 'not human'. Well, all humans are great apes but not all great apes are human (*homo sapiens*). In other words, to be a great ape is a necesary condition to be a human, and to be a human is sufficient to be a great ape. Similarly, to be a human is a necessary condition to be a woman, and to be a woman is a sufficient condition to be a human. In terms of abstract levels of categorization (taxonomy), we say that 'great ape' is a superordinate level of human, 'human' is the basic level, and 'woman' is a subordinate level of human.
 
+# Meet the Aliens
 So, what that has to do with classification? Well, let's say that there is an alien race studying life on earth and they came up with a binary classifier that assigns 'human' if the organism is a 'woman', and 'not human' otherwise. In this case, their model uses a low-level feature to make predictions and precision-wise, it's a very good classifier—i.e., everything it says to be a human is indeed a human. That is because to be a woman is a sufficient condition for being a human. However, the aliens will soon find out that many humans are not women, which means that their model will miss a lot (false negatives). So, they try again and this time around their model assigns 'human' if it has all the characteristic features of a 'great ape' and 'not human' otherwise. Now, their model never misses a human—perfect recall in information retrieval lingo—but they soon find out that many great apes are not human, so their model makes tons of false alarms (false positives).
 
 # Understanding
