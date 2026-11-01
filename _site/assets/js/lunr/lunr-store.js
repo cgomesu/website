@@ -90,8 +90,14 @@ var store = [{
         "teaser": null
       },{
         "title": "Forge and XMage: The best free and open source rules engines for 'Magic: the Gathering'",
-        "excerpt":"Changelog Dec 31st, 2023: Small update to fix typo in Forge’s installation section. Everything else seems to be up-to-date. Feb 1st, 2023: I updated the XMage installation instructions to match the beta client instructions. This was necessary because the domain xmage.de has been offline for quite some time now, and...","categories": ["blog"],
+        "excerpt":"Changelog Jan 18th, 2025: Updated forge installer broken URLs. Dec 31st, 2023: Small update to fix typo in Forge’s installation section. Everything else seems to be up-to-date. Feb 1st, 2023: I updated the XMage installation instructions to match the beta client instructions. This was necessary because the domain xmage.de has...","categories": ["blog"],
         "tags": ["mtg","magic","foss","open","free","java","game","forge","xmage"],
         "url": "http://localhost:4000/blog/forge-xmage-mtg/",
+        "teaser": null
+      },{
+        "title": "Reflections - The role of scientific theories in the era of deep learning: Sufficiency and necessity",
+        "excerpt":"Changelog November 1st, 2026: Publication of the original article Introduction I have been thinking a lot about the notions of sufficiency and necessity lately. These are two very important concepts in theory development because they encompass key notions of what scientific theories do when it comes to understanding (physical /...","categories": ["blog"],
+        "tags": ["science","philosophy","ml","learning","theory","classification","prediction"],
+        "url": "http://localhost:4000/blog/reflections-theories-dl/",
         "teaser": null
       }]
